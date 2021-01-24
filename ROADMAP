@@ -1,0 +1,122 @@
+
+2021-01-23 13:46:49
+
+Priorities...
+
+* Support one or more HQ spawn points
+  - Altis: baseline default is one, lower deck U.S.S. Liberty
+  - goal: add ability to treat that as an array set of them
+  - impact: for things like within or without distances, ranges, to/from HQ, etc
+  - informed by: considering the legacy code base, pending refactor review
+  - there are a half dozen uses of the "KPLIB_eden_startbase" variable
+  - also of a static "KPLIB_eden_startbase_marker", which we think should be dynamically created, besides...
+  - informed by variables placed on the "startbase" proxy
+  - and which requires a functional API of its own, perhaps "06 Start base"
+
+* Logistics is evidently, clearly, massively undone
+  - captured a factory, no notification whatsoever (separate issue)
+  - no crates spawning or parachuting in upon building FOB
+  - no crates appearing, evidently, when factory sector spawns in
+  - unable to build storage at a factory, pending refactor review
+  - log dialog will require some consideration, as will a log persistence element
+  - whole lot of things have to happen there, starting with establishing factory tuples, dialog cfg, FSMs, etc
+
+* Minor points
+  - Recycle not working on "free" assets (?)
+    . Does recycle ability require the GC structure? probably, would make some sense...
+
+Sat, 23 Jan 2021 12:35:33 AM
+
+# https://community.bistudio.com/wiki/Missions
+
+# https://www.marines.mil/Ranks
+
+https://community.bistudio.com/wiki/Category:Arma_3:_Scripting_Commands
+https://community.bistudio.com/wiki/nearEntities
+https://github.com/diwako/diwako_dui
+
+
+Sat, 23 Jan 2021 12:35:02 AM
+
+# https://github.com/KillahPotatoes/KP-Liberation/tree/Rewrite-icebox/Missionframework/modules
+# https://github.com/KillahPotatoes/KP-Liberation/issues?q=is%3Aissue+project%3AKillahPotatoes%2FKP-Liberation%2F19+is%3Aclosed
+
+# ?!?! Resource production pt1 / https://github.com/KillahPotatoes/KP-Liberation/issues/648
+# not sure how that can be considered "done", with done being a legit claim
+
+# ?!?! Enemy Commander pt3 / # https://github.com/KillahPotatoes/KP-Liberation/issues/647
+# same here, marked "done", but nothing apparently done about it
+
+
+Fri, 22 Jan 2021 09:47:58 PM
+
+# Let's start by saying, the framework is in its infancy
+# It is playable, to a point, but it is as I suspected
+# There are a handful, perhaps half a dozen or a dozen semi-non-trivial aspects standing between where it is now and being "ready up" for prime time
+# Below is a list of observations...
+
+# evaluating the rewrite ...
+
+* starting HQ is the LIBERTY
+ - which is fine...
+ - but should also support potentially multiple HQ spawn points...
+ - LIBERTY upper and lower decks, for instance
+ - as well as ostensibly including the FREEDOM
+
+* the mission sitrep overlay is not there yet (?)
+ - just not there whatsoever from what I can tell
+ - not sure if that is an oversight or it requires further attention...
+
+* do not like the build placement...
+ - was formerly a ghost shell, you could rotate it in hand, adjust, etc
+ - advantage, you could align it with your compass
+ - in the new mode, not sure how that aligns (or not) with any compass indicators
+ - or at least being able to observe the bits as they rotate...
+ - can they be raised, lowered, etc...
+ - entering into a "build mode" is interesting however...
+ - at least the FOB area reload seems to be intact, not bouncing items around
+   . i.e. meaning that more than likely item re-creation is happening with the correct opts
+
+* no crates spawning to start with
+ - though to their credit, storage can be built
+ - looks like menu actions are there at least in name for "expected" lib log
+ - could add the improvement, "consolidate crates" ...
+
+* spawn range seems excessive, >1km, to start
+ - adjust to taste
+ - also, "cool down" seems rather quick as well; soon as you leave the area, the units are recycled
+   . which is a good thing, but is it a "cool down" conf (?)
+
+* entering Zeus is possible
+ - however is EXTREMELY LIMITED
+ - cannot pan back in the camera but maybe 100m in any axis
+ - cannot set camera to a spot on the map, presumably for the same reasons
+   . probably a Zeus setting, need to review those...
+
+* build cost tables of course need to be established
+
+* notifications when sectors are captured?
+
+* how to "opt in" to optional modules, i.e. "prod", "log" (?)
+ - "22 prod" is absent... not there
+  - no opt to build storage at captured factory
+  - nor are there any indications re: prod capabilities
+    . seems like a huge gap in the game play aspect
+  - this whole aspect just seems undone, unfinished, if it was ever started
+
+* recycle not connected to menus yet
+ - some of the functions appear to be there
+ - but no menu actions yet
+ - possibly other "standard" liberation menu actions
+
+* will also want to get familiar with side mission scaffolding
+ - it could be an improvement over the previous static compile time
+ - will need to review it however
+
+* what is a "25 Friendly Commander Managing Dialog" (?)
+
+* maps starting with Altis
+ - would need to introduce other maps
+ - assuming game play is "ready up"
+
+# before even considering anything else
