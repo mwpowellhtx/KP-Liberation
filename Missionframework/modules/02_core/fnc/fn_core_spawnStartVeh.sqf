@@ -46,11 +46,6 @@ private _specs = [
     , ["KPLIB_eden_boat_", KPLIB_preset_addBoatF, true]
 ];
 
-// B_SAM_System_01_F / Mk49 Spartan
-// B_AAA_System_01_F / Praetorian 1C
-// B_Ship_MRLS_01_F / Mk41 VLS
-// B_Ship_Gun_01_F Mk45 Hammer
-
 {
     _x params [
         "_prefix"
@@ -75,15 +70,6 @@ private _specs = [
         if (_addVicToProxyCargo) then {_proxyObj setVehicleCargo _vic};
     };
 } forEach _specs;
-
-// UH-80 Ghost Hawk / B_Heli_Transport_01_F
-// UH-80 Ghost Hawk (Sand) / B_CTRG_Heli_Transport_01_sand_F (requires Apex)
-// UH-80 Ghost Hawk (Tropic) / B_CTRG_Heli_Transport_01_tropic_F (requires Apex)
-// AH-99 Blackfoot / B_Heli_Attack_01_dynamicLoadout
-
-// Prowler / B_LSV_01_unarmed_F (requires Apex)
-// Prowler (HMG) / B_LSV_01_armed_F (requires Apex)
-// Hunter / B_MRAP_01_F
 
 //// TODO: TBD: no need either of these for this one when we can script a loop for a suite of specs...
 //// Go through the available markers for the little bird spawn. Adapts to the amount of placed markers.
