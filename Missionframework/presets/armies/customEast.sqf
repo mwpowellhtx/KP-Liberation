@@ -110,7 +110,7 @@ KPLIB_PRST_SETVAR("addRotaryArmed", "O_Heli_Attack_02_dynamicLoadout_F");
 // Qilin (Unarmed) light ground asset spawning in the Operation Base, requires Apex.
 KPLIB_PRST_SETVAR("addGroundLight", "O_LSV_02_unarmed_F");
 // Qilin (Minigun) armed ground asset spawning in the Operation Base, requires Apex.
-KPLIB_PRST_SETVAR("addGroundArmed", "O_LSV_02_minigun_F");
+KPLIB_PRST_SETVAR("addGroundArmed", "O_LSV_02_armed_F");
 // Ifrit (MRAP) armored ground asset spawning in the Operation Base.
 KPLIB_PRST_SETVAR("addGroundArmored", "O_MRAP_02_F");
 // These are the trucks which are used in the logistic convoy system.
