@@ -121,14 +121,41 @@ KPLIB_PRST_SETVAR("addGroundArmored", "B_Heli_Light_01_F");
 KPLIB_PRST_SETVAR("logiTruck", "B_Truck_01_transport_F");
 // Static Mortar Classname
 KPLIB_PRST_SETVAR("mortar", "B_Mortar_01_F");
-// Static AA Classname
+// Static Anti-Air Classname
 KPLIB_PRST_SETVAR("staticAntiAir", "B_static_AA_F");
-// Static Big AA Classname
+// Static Big Anti-Air Classname
 KPLIB_PRST_SETVAR("staticAntiAirBig", "B_SAM_System_03_F");
-// Static Big AA Radar Classname
+// Static Big Anti-Air Radar Classname
 KPLIB_PRST_SETVAR("staticAntiAirBigRadar", "B_Radar_System_01_F");
-// Static AT Classname
-KPLIB_PRST_SETVAR("staticAt", "B_static_AT_F");
+// Static Anti-Tank Classname
+KPLIB_PRST_SETVAR("staticAntiTank", "B_static_AT_F");
+// Mk49 Spartan short range SAM turret for use within the Operation Base.
+// https://armedassault.fandom.com/wiki/Mk49_Spartan
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("turretShortRangeSam", "B_SAM_System_01_F");
+// Mk21 Centurion medium range SAM turret for use within the Operation Base.
+// https://armedassault.fandom.com/wiki/Mk21_Centurion
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("turretMediumRangeSam", "B_SAM_System_02_F");
+// Praetorian 1C 20 mm phalanx anti-air minigun turret for use within the Operation Base.
+// https://armedassault.fandom.com/wiki/Praetorian_1C
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("turretPhalanxMinigun", "B_AAA_System_01_F");
+// Mk45 Hammer shipborne 5 inch artillery piece for use within the Operation Base, requires Jets DLC.
+// https://armedassault.fandom.com/wiki/USS_Liberty#MK45_Hammer
+// https://military.com/equipment/mk-45-5-inch-gun
+KPLIB_PRST_SETVAR("turretGun", "B_Ship_Gun_01_F");
+// Mk41 VLS shipborne missile canister for use within the Operation Base, requires Jets DLC.
+// https://armedassault.fandom.com/wiki/USS_Liberty#MK41_VLS
+// https://military.wikia.org/wiki/Mark_41_Vertical_Launching_System
+KPLIB_PRST_SETVAR("turretVls", "B_Ship_MRLS_01_F");
+// MIM-145 Defender long range SAM for use within the Operation Base, requires Jets DLC.
+// https://armedassault.fandom.com/wiki/MIM-145_Defender
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("longRangeSam", "B_SAM_System_03_F");
+// Long range AN/MPQ-105 Radar for use within the Operation Base, requires Jets DLC.
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("longRangeRadar", "B_Radar_System_01_F");
 
 
 /*------------------------------------------------------------

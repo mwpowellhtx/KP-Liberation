@@ -123,14 +123,21 @@ KPLIB_PRST_SETVAR("addGroundArmored", "O_MRAP_02_F");
 KPLIB_PRST_SETVAR("logiTruck", "O_Truck_03_transport_F");
 // Static Mortar Classname
 KPLIB_PRST_SETVAR("mortar", "O_Mortar_01_F");
-// Static AA Classname
+// Static Anti-Air Classname
 KPLIB_PRST_SETVAR("staticAntiAir", "O_static_AA_F");
-// Static Big AA Classname
+// Static Big Anti-Air Classname
 KPLIB_PRST_SETVAR("staticAntiAirBig", "O_SAM_System_04_F");
-// Static Big AA Radar Classname
+// Static Big Anti-Air Radar Classname
 KPLIB_PRST_SETVAR("staticAntiAirBigRadar", "O_Radar_System_02_F");
-// Static AT Classname
-KPLIB_PRST_SETVAR("staticAt", "O_static_AT_F");
+// Static Anti-Tank Classname
+KPLIB_PRST_SETVAR("staticAntiTank", "O_static_AT_F");
+// S-750 Rhea long range SAM for use within the Operation Base, requires Jets DLC.
+// https://armedassault.fandom.com/wiki/S-750_Rhea
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("longRangeSam", "O_SAM_System_04_F");
+// Long range R-750 Chronus Radar for use within the Operation Base, requires Jets DLC.
+// https://armedassault.fandom.com/wiki/Category:Anti-aircraft_systems_(ArmA_3)
+KPLIB_PRST_SETVAR("longRangeRadar", "O_Radar_System_02_F");
 
 
 /*------------------------------------------------------------
