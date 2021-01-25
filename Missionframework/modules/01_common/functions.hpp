@@ -75,4 +75,7 @@ class common {
     class common_preInit {
         preInit = 1;
     };
+
+    // Identifies the minimum element from a given array
+    class common_min {};
 };
