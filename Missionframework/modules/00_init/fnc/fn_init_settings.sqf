@@ -88,16 +88,43 @@
 ] call CBA_Settings_fnc_init;
 
 // KPLIB_param_fobRange
+// Minimum range at which FOB may be build from the nearest Startbase.
+// Default: 500 meters
+[
+    "KPLIB_param_opsRange"
+    , "SLIDER"
+    , [localize "STR_KPLIB_SETTINGS_GENERAL_OPSRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT"]
+    , localize "STR_KPLIB_SETTINGS_GENERAL"
+    , [100, 1000, 500, 0]
+    , 1
+    , {}
+] call CBA_Settings_fnc_init;
+
+// KPLIB_param_fobRange
 // Build radius in meters around the FOB area center position.
 // Default: 125 meters
 [
-    "KPLIB_param_fobRange",
-    "SLIDER",
-    [localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE_TT"],
-    localize "STR_KPLIB_SETTINGS_GENERAL",
-    [100, 250, 125, 0],
-    1,
-    {}
+    "KPLIB_param_fobRange"
+    , "SLIDER"
+    , [localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE_TT"]
+    , localize "STR_KPLIB_SETTINGS_GENERAL"
+    , [100, 250, 125, 0]
+    , 1
+    , {}
+] call CBA_Settings_fnc_init;
+
+// KPLIB_param_rotaryMoveRange
+// Maximum range at which it is possible to deploy helicopters to the designated startbase heli flight deck.
+// See '_flightDeckProxy' variable on startbase proxy for purposes of aligning assets.
+// Default: 20 meters
+[
+    "KPLIB_param_rotaryMoveRange"
+    , "SLIDER"
+    , [localize "STR_KPLIB_SETTINGS_GENERAL_ROTARYMOVERANGE", localize "STR_KPLIB_SETTINGS_GENERAL_ROTARYMOVERANGE_TT"]
+    , localize "STR_KPLIB_SETTINGS_GENERAL"
+    , [10, 100, 20, 0]
+    , 1
+    , {}
 ] call CBA_Settings_fnc_init;
 
 // KPLIB_param_timeMulti

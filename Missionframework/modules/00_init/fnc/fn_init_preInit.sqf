@@ -88,6 +88,12 @@ KPLIB_sectors_spawn = [];
 KPLIB_sectors_tower = [];
 // Zero position shortcut
 KPLIB_zeroPos = [0,0,0];
+/*
+ The startbase markerType is the mil_start icon.
+ 23. Start / "mil_start"
+ https://community.bistudio.com/wiki/CfgMarkers#Arma_3
+*/
+KPLIB_startbase_markerType = "mil_start";
 
 
 /*

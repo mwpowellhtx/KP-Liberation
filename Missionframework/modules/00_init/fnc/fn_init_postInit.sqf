@@ -3,8 +3,9 @@
 
     File: fn_init_postInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-08-31
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-08-31
+    Last Update: 2021-01-24 22:31:27
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,6 +19,12 @@
     Returns:
         Module postInit finished [BOOL]
 */
+
+// TODO: TBD: during post-init? or can/should we do it sooner?
+private _startbases = [] call KPLIB_fnc_init_enumStartbases;
+KPLIB_init_startbases = [_startbases] call KPLIB_fnc_init_startbaseMarkers;
+
+[format ["Initialized startbases: %1", str KPLIB_init_startbases], "POST] [INIT", true] call KPLIB_fnc_common_log;
 
 if (!isServer) then {
     // Called in the scheduled postInit environment allows the small wait in the function

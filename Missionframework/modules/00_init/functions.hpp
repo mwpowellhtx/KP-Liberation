@@ -77,4 +77,13 @@ class init {
 
     // Completely wipes all data from the current campaign
     class init_wipe {};
+
+    // TODO: TBD: the timing for these is off...
+    // TODO: TBD: `class init {}` is too early, the mission variable have not seen their `Init` cycle yet.
+    // TODO: TBD: https://github.com/mwpowellhtx/KP-Liberation/issues/5
+    // Enumerates the known startbases
+    class init_enumStartbases {};
+
+    // Create the map markers for the startbases
+    class init_startbaseMarkers {};
 };
