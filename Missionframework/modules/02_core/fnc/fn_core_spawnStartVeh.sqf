@@ -43,31 +43,50 @@ private _specs = [
     , ["KPLIB_eden_ground_armed_", KPLIB_preset_addGroundArmedF]
     , ["KPLIB_eden_ground_armored_", KPLIB_preset_addGroundArmoredF]
     // TODO: TBD: which assumes that they are loading in boat actual racks...
-    , ["KPLIB_eden_boat_", KPLIB_preset_addBoatF, true]
+    , ["KPLIB_eden_boat_", KPLIB_preset_addBoatF, nil, nil, true]
+    , ["KPLIB_eden_turret_gun_", KPLIB_preset_turretGunF]
+    , ["KPLIB_eden_turret_phalanx_", KPLIB_preset_turretPhalanxMinigunF]
+    , ["KPLIB_eden_turret_sam_short_", KPLIB_preset_turretShortRangeSamF]
+    , ["KPLIB_eden_turret_sam_medium_", KPLIB_preset_turretMediumRangeSamF]
+    , ["KPLIB_eden_turret_vls_", KPLIB_preset_turretVlsF]
 ];
 
+// TODO: TBD: instead of "just doing" this algo, we may need/want to wait for the proxies to have been initialized...
+// TODO: TBD: as based on observations below, does not seem to be the case...
 {
     _x params [
         "_prefix"
         , "_classname"
-        , ["_addVicToProxyCargo", false]
+        , ["_justSpawn", true]
+        , ["_withCrew", false]
+        , ["_addVicToCargo", false]
     ];
 
     for [{_i = 0}, {!isNil (_prefix + str _i)}, {_i = _i + 1}] do {
 
+        // TODO: TBD: cannot wait for the individual object init to occur (?), does not seem to align properly...
         // Get the spawn point grasscutter
         _proxyObj = missionNamespace getVariable (_prefix + str _i);
 
+        private _proxyObj_addVicToCargo = _proxyObj getVariable ["KPLIB_eden_addVicToCargo", false];
+        private _proxyObj_withCrew = _proxyObj getVariable ["KPLIB_eden_withCrew", false];
+
+        [format ["Creating vic %1 at proxy %2: {""withCrew"": %3, ""addVicToCargo"": %4}"
+            , _classname, _prefix + str _i, str _proxyObj_addVicToCargo, str _proxyObj_withCrew]
+            , "SPAWN START VIC", true] call KPLIB_fnc_common_log;
+
         // Current position for the proxy object
-        _proxyPos = if (_addVicToProxyCargo) then {KPLIB_zeroPos} else {
+        _proxyPos = if (_addVicToCargo) then {KPLIB_zeroPos} else {
             private _pos = getPosATL _proxyObj;
-            [_pos select 0, _pos select 1, (_pos select 2) + 0.1]
+            [_pos select 0, _pos select 1, (_pos select 2) + 0.1];
         };
 
         // Spawn the vehicle at the spawn position with a slight height offset.
-        _vic = [_classname, _proxyPos, getDir _proxyObj, true] call KPLIB_fnc_common_createVehicle;
+        _vic = [_classname, _proxyPos, getDir _proxyObj, _justSpawn, _withCrew] call KPLIB_fnc_common_createVehicle;
 
-        if (_addVicToProxyCargo) then {_proxyObj setVehicleCargo _vic};
+        [format ["Vic created %1 at proxy %2", _classname, _prefix + str _i], "SPAWN START VIC", true] call KPLIB_fnc_common_log;
+
+        if (_addVicToCargo) then {_proxyObj setVehicleCargo _vic};
     };
 } forEach _specs;
 
