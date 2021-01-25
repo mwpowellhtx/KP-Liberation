@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.97.0 (in Development)
+## 0.98.0 (Development, thawed)
+* **Thawing out from the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
+* Tweaked Eden starting asset algorithm allowing for specification flexibility.
+* Tweaked a few naming conventions, _Anti-Air_ for _Aa_, _Anti-Tank_ for _At_, and so forth.
+* Added or clarified static and turrent assets among the armies.
+* Fine tuned the asset spawning algorithms. The timing is still off between that and when mission object `Init` phase actually occurs. We think that somehow the algo is occurring before mission object `Init` for whatever reason, in which case we need to investigate that further and determine a better timing for it, i.e. _after_ mission objects have initialzied.
+
+## 0.97.0 (Frozen, forked, baseline)
 * **Fully rewritten the mission code from scratch.** (Details in the [Dev-Blogs](https://github.com/KillahPotatoes/KP-Liberation/issues?q=label%3Adev-blog))
 * Added: Functions library via CfgFunctions.
 * Added: Admin dialog with various functionalities for server admins.
