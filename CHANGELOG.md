@@ -1,11 +1,24 @@
 # Changelog
 
-## 0.98.0 (Development, thawed)
-* **Thawing out from the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
-* Tweaked Eden starting asset algorithm allowing for specification flexibility.
-* Tweaked a few naming conventions, _Anti-Air_ for _Aa_, _Anti-Tank_ for _At_, and so forth.
-* Added or clarified static and turrent assets among the armies.
-* Fine tuned the asset spawning algorithms. The timing is still off between that and when mission object `Init` phase actually occurs. We think that somehow the algo is occurring before mission object `Init` for whatever reason, in which case we need to investigate that further and determine a better timing for it, i.e. _after_ mission objects have initialzied.
+## 0.98.0 (Thawed, under development)
+* Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
+* Added: `KPLIB_fnc_common_min` function, which yields the _minimum element_ from a _vector of elements_ of _potentially any shape_.
+* Added: Or clarified _static_ and _turret_ assets among the armies.
+* Added: `KPLIB_param_opsRange` which captures _start base_ range boundaries for _minimum_ or _maximum_ inquiries, i.e. _within_ or _without_, etc.
+* Added: `KPLIB_param_rotaryMoveRange` CBA setting as a way of tuning the behavior.
+* Added: `KPLIB_fnc_init_enumStartbases` which enumerates the _start bases_ according to known naming convention; defaults to `KPLIB_eden_startbase` or an open range of `KPLIB_eden_startbase_%1` where `%1` is a _zero based index_. Any break in the index short circuits the enumeration algorithm.
+* Added: `KPLIB_fnc_init_startbaseMarkers` which elaborates on the _enumerated start bases_, in particular _adding map markers_; _start base proxies_ may specify a `_markerText` variable, which serves as the map marker text.
+* Added: `KPLIB_fnc_core_findStartbases` as the basis to inquire anything about matching _start base proxies_.
+* Added: `KPLIB_fnc_core_findStartbasesWithFlightDeck` which enhanced that inquiry relative to a target, usually `_rotary`, object.
+* Updated: player actions also respond taking spawn point `_flightDeckProxy` under consideration.
+* Refactored: _start base_ accounting for potentially one or more such proxies.
+* Refactored: `heli` instead to `rotary` especially vis-a-vis moving assets to _flight deck_.
+* Refactored: renamed `KPLIB_fnc_core_heliToDeck` instead to `KPLIB_fnc_core_rotaryToFlightDeck`, which we think better describes. There is more we think we may do around that approach, but we will take the win that this is for the time being.
+* Refactored: _potato spawn_ vis-a-vis moving rotary assets, instead as designated by _start base_ `_flightDeckProxy` variable.
+* Refactored: `_flightDeckProxy` can be anything, does not need to be _just the potato spawn point_.
+* Refactored: **_Any_** _start base_ can potentially support **_any_** _flight deck_, although typically this is a _cluttercutter proxy object_, specifically the _potato spawn point_.
+* Tweaked: Eden starting asset algorithm allowing for specification flexibility.
+* Tweaked: A few naming conventions, _Anti-Air_ for _Aa_, _Anti-Tank_ for _At_, and so forth.
 
 ## 0.97.0 (Frozen, forked, baseline)
 * **Fully rewritten the mission code from scratch.** (Details in the [Dev-Blogs](https://github.com/KillahPotatoes/KP-Liberation/issues?q=label%3Adev-blog))

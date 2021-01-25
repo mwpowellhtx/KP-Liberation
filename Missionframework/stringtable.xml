@@ -259,9 +259,10 @@
             <English>-- GARRISON MANAGEMENT --</English>
             <German>-- GARNISONSVERWALTUNG --</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_HELIMOVE">
-            <English>Move to aft deck</English>
-            <German>Zum Achterdeck bewegen</German>
+        <Key ID="STR_KPLIB_ACTION_ROTARYMOVE">
+            <English>Move to flight deck</English>
+            <Chinese>移動到飛行甲板</Chinese>
+            <German>Bewegen Sie sich zum Flugdeck</German>
         </Key>
         <Key ID="STR_KPLIB_ACTION_INTERROGATE">
             <English>Interrogate %1</English>
@@ -1218,8 +1219,19 @@
             <German>Der ausgewählte Laderaum hat keinen ausreichenden Platz.</German>
             <Polish>Wybrany kontener nie ma dość wolnego miejsca.</Polish>
         </Key>
-        <Key ID="STR_KPLIB_HINT_HELIMOVEBLOCKED">
-            <English>Clear the aft deck and the helicopter first.</English>
+        <Key ID="STR_KPLIB_HINT_STARTBASENOTFOUND">
+            <English>Eligible start base not found.</English>
+            <Chinese>未找到符合條件的啟動基.</Chinese>
+            <German>Berechtigte start base nicht gefunden.</German>
+        </Key>
+        <Key ID="STR_KPLIB_HINT_FLIGHTDECKNOTFOUND">
+            <English>Designated flight deck not found.</English>
+            <Chinese>找不到指定飛行甲板.</Chinese>
+            <German>Bezeichnetes Flugdeck nicht gefunden.</German>
+        </Key>
+        <Key ID="STR_KPLIB_HINT_ROTARYMOVEBLOCKED">
+            <English>Clear the flight deck and the rotary asset first.</English>
+            <Chinese>先清除飛行甲板和旋轉資產.</Chinese>
             <German>Räume zuerst das Achterdeck und den Helikopter.</German>
         </Key>
         <Key ID="STR_KPLIB_HINT_MISSIONCONDITION">
@@ -1444,6 +1456,16 @@
             <Chinese>啟用/關閉擴展的Liberation除錯訊息輸出到伺服器紀錄</Chinese>
             <German>Aktiviert/Deaktiviert erweiterte Liberation Debugausgaben im Serverlog.</German>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE">
+            <English>Operations Range</English>
+            <Chinese>操作範圍</Chinese>
+            <German>Operations Bereich</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT">
+            <English>Minimum distance in Meters from Operations to build FOB.</English>
+            <Chinese>產生 FOB 的最小距離（以米為單位）.</Chinese>
+            <German>Mindestabstand in Metern von Operations zum Erstellen von FOB.</German>
+        </Key>
         <Key ID="STR_KPLIB_SETTINGS_GENERAL_FOBRANGE">
             <English>FOB Area</English>
             <Chinese>前線基地範圍</Chinese>
@@ -1453,6 +1475,16 @@
             <English>Radius in meters of the FOB area.</English>
             <Chinese>前線基地半徑公尺內</Chinese>
             <German>Radius in Metern des FOB Bereichs.</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_ROTARYMOVERANGE">
+            <English>Rotary Move Range</English>
+            <Chinese>直升機移動範圍</Chinese>
+            <German>Rotary Move Range</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_ROTARYMOVERANGE_TT">
+            <English>Maximum range at which rotary assets may be deployed to the startbase flight deck.</English>
+            <Chinese>旋轉資產可部署到起點飛行甲板的最大範圍.</Chinese>
+            <German>Maximale Reichweite, in der Drehanlagen auf dem Startbase-Flugdeck eingesetzt werden können.</German>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_GENERAL_SAVEDEBUG">
             <English>Enable Save Debug</English>

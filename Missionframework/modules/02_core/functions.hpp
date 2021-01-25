@@ -47,8 +47,8 @@ class core {
     // Handle vehicle spawn event
     class core_handleVehicleSpawn {};
 
-    // Moves helicopter from hangar to aft deck
-    class core_heliToDeck {};
+    // Moves rotary asset from its current location to Startbases designated '_flightDeckProxy'.
+    class core_rotaryToFlightDeck {};
 
     // Module post initialization
     class core_postInit {
@@ -86,4 +86,9 @@ class core {
 
     // Updates the sector marker colors
     class core_updateSectorMarkers {};
+
+    class core_findStartbases {};
+
+    // Finds the Startbases with '_flightDeckProxy' designation.
+    class core_findStartbasesWithFlightDeck {};
 };

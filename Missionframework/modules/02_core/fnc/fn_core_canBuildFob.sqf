@@ -27,7 +27,16 @@ params [
 // Built FOB range should not overlap over sector range
 private _minSectorDist = KPLIB_param_fobRange + KPLIB_param_sectorCapRange;
 
-(alive _box
-&& _box distance2D KPLIB_eden_startbase > 1000
-&& ([_minSectorDist, getPos _box, KPLIB_sectors_all + KPLIB_sectors_fobs] call KPLIB_fnc_core_getNearestMarker isEqualTo ""))
+// TODO: TBD: we think we should refactor this to its own function...
+// TODO: TBD: perhaps at the same time establish a callbacks include (?) if there is such a thing...
+private _onSelectStartbases = {
+    params ["_target", "_startbase"];
+    (_startbase select 4) <= KPLIB_param_opsRange;
+};
+
+(
+    alive _box
+    && count ([_box, _onSelectStartbases] call KPLIB_fnc_core_findStartbases) == 0
+    && ([_minSectorDist, getPos _box, KPLIB_sectors_all + KPLIB_sectors_fobs] call KPLIB_fnc_core_getNearestMarker isEqualTo "")
+)
 

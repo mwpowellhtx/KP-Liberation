@@ -49,20 +49,19 @@ switch (typeOf _vehicle) do {
     };
 
     case KPLIB_preset_addRotaryLightF: {
-        // TODO: TBD: Allow for one or more start base proxies / https://github.com/mwpowellhtx/KP-Liberation/issues/2
-        // TODO: TBD: identify places where startbase is being used...
-        // TOPO: TBD: and we need to run that same exercise rendering to an array of discovered elements...
-        // TODO: TBD: we could do with a module dealing with all that actually...
-        // TODO: TBD: 2021-01-24 02:11:05 at this time estimating perhaps a dozen or so places need to be checked
-        if ((_vehicle distance KPLIB_eden_startbase) < 20) then {
-            // Add moving action for start helicopters
-            [
-                _vehicle,
-                "STR_KPLIB_ACTION_HELIMOVE",
-                [{[_this select 0] call KPLIB_fnc_core_heliToDeck;}, nil, 10, true, true, "", "(_target distance KPLIB_eden_startbase) < 20", 4],
-                "#FF8000"
-            ] remoteExecCall ["KPLIB_fnc_common_addAction", 0, _vehicle];
-        };
+
+        // TODO: TBD: startbases / https://github.com/mwpowellhtx/KP-Liberation/issues/2
+        // TODO: TBD: rotary flight decks / https://github.com/mwpowellhtx/KP-Liberation/issues/6
+
+        // TODO: TBD: we think there are still considerations concerning whether flight deck actually clear as part of the conditions...
+
+        // Adds moving action for start rotary assets.
+        [
+            _vehicle
+            , "STR_KPLIB_ACTION_ROTARYMOVE"
+            , [{[_this select 0] call KPLIB_fnc_core_rotaryToFlightDeck;}, nil, 10, true, true, "", "count ([_target] call KPLIB_fnc_core_findStartbasesWithFlightDeck) > 0", 4]
+            , "#FF8000" // TODO: TBD: colors could be defined as first class config variables
+        ] remoteExecCall ["KPLIB_fnc_common_addAction", 0, _vehicle];
     };
 };
 

@@ -3,7 +3,8 @@
 
     File: fn_core_spawnPotato.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-05-01
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-05-01
     Last Update: 2019-04-22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
@@ -11,13 +12,22 @@
     Description:
         Spawning of the Potato 01 helicopter.
 
-    Parameter(s):
+    Parameters:
         NONE
 
     Returns:
         Function reached the end [BOOL]
 */
 
+/*
+ * Was in while we troubleshot the rotary asset move startbase enhancements.
+ * Leaving commented bit in for the time being.
+ * https://github.com/mwpowellhtx/KP-Liberation/issues/6
+ * //if (true) exitWith {};
+*/
+
+// TODO: TBD: "KPLIB_core_potato01" (?) we think there is an opportunity there allowing for potentially several such "managed" assets...
+// TODO: TBD: possibly in state machines of their own...
 // Check if there wasn't a Potato 01 already spawned or if the spawned one is destroyed.
 // !NOTE! As the loading will happen before this function is called, it won't interfere with a loaded Potato 01.
 if(!isServer || alive KPLIB_core_potato01) exitWith {};

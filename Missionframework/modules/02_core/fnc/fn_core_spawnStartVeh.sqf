@@ -84,6 +84,9 @@ private _specs = [
         // Spawn the vehicle at the spawn position with a slight height offset.
         _vic = [_classname, _proxyPos, getDir _proxyObj, _justSpawn, _withCrew] call KPLIB_fnc_common_createVehicle;
 
+        // TODO: TBD: see, anticipating: https://github.com/mwpowellhtx/KP-Liberation/issues/8
+        _vic setVariable ["KPLIB_asset_accounting", false, true];
+
         [format ["Vic created %1 at proxy %2", _classname, _prefix + str _i], "SPAWN START VIC", true] call KPLIB_fnc_common_log;
 
         if (_addVicToCargo) then {_proxyObj setVehicleCargo _vic};
