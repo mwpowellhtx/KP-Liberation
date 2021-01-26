@@ -20,11 +20,13 @@
 
 // Actions avalible LOCALLY to player
 if (hasInterface) then {
-    // Build action
+
+    // TODO: TBD: so... we'll cross this bridge with this one, "KPLIB_eden_startbase_marker"?
+    // Build actions
     private _buildCondition = '
-        (_target == _originalTarget) &&
-        !(_originalTarget getVariable ["KPLIB_fob", ""] in ["", "KPLIB_eden_startbase_marker"]) &&
-        (["Build"] call KPLIB_fnc_permission_checkPermission)
+        (_target == _originalTarget)
+        && !(_originalTarget getVariable ["KPLIB_fob", ""] in ["", "KPLIB_eden_startbase_marker"])
+        && (["Build"] call KPLIB_fnc_permission_checkPermission)
     ';
     private _buildAction = {
         private _pos = getMarkerPos (player getVariable "KPLIB_fob");

@@ -1,7 +1,13 @@
 # Changelog
 
 ## 0.98.0 (Thawed, under development)
+
+
+
+
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
+* Added: _LINQ_ style aggregate and zip functions for use especially as we get further into things.
+* Added: _UUID_ creation functions for purposes of uniquely identifying objects in hand. We will use this for sure to help differentiate between _FOB_ and _start base_ locations vis-a-vis _player_ geolocation.
 * Added: `KPLIB_fnc_common_min` function, which yields the _minimum element_ from a _vector of elements_ of _potentially any shape_.
 * Added: Or clarified _static_ and _turret_ assets among the armies.
 * Added: `KPLIB_param_opsRange` which captures _start base_ range boundaries for _minimum_ or _maximum_ inquiries, i.e. _within_ or _without_, etc.
@@ -14,6 +20,7 @@
 * Updated: player actions also respond taking spawn point `_flightDeckProxy` under consideration.
 * Updated: The event loop for use with the refactored _start bases_.
 * Updated: `KPLIB_fnc_respawn_getRespawns` with comprehension of refactored _start bases_ and use of the _military alphabet_ conversion. Changed the formatting to better suit our preferences; i.e. we like a _grid reference_ first, followed by a _text summary_. We could easily see these formats being user specified, but for now it is what it is.
+* Updated: The event loop to better comprehend _player_ geolocation, especially discerning between _FOB_ and _start base_ locations.
 * Refactored: _start base_ accounting for potentially one or more such proxies.
 * Refactored: `heli` instead to `rotary` especially vis-a-vis moving assets to _flight deck_.
 * Refactored: renamed `KPLIB_fnc_core_heliToDeck` instead to `KPLIB_fnc_core_rotaryToFlightDeck`, which we think better describes. There is more we think we may do around that approach, but we will take the win that this is for the time being.
