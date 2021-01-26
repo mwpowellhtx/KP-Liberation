@@ -14,6 +14,8 @@
 * Added: `KPLIB_fnc_core_findStartbasesWithFlightDeck` which enhanced that inquiry relative to a target, usually `_rotary`, object.
 * Added: `KPLIB_fnc_math_convertDecimalToBaseRadix` which does what it says, mainly for use with the military alphabet conversion.
 * Added: Using `KPLIB_deployType` instead of simply `KPLIB_respawn`. It adds clarity, and we can identify whether a _start base_ or an _FOB_ is the focus of deployment as well.
+* Added: Ability to verify _UUID_ validity.
+* Added: _LINQ_ style _first_ and _last_ functions for use in various aspects. Behaves like a hybrid of the baseline _First_ or _Last_ extension method, with _OrDefault_ comprehension, as well as ability to include the _index_ of the _predicated element_.
 * Updated: player actions also respond taking spawn point `_flightDeckProxy` under consideration.
 * Updated: The event loop for use with the refactored _start bases_.
 * Updated: `KPLIB_fnc_respawn_getRespawns` with comprehension of refactored _start bases_ and use of the _military alphabet_ conversion. Changed the formatting to better suit our preferences; i.e. we like a _grid reference_ first, followed by a _text summary_. We could easily see these formats being user specified, but for now it is what it is.
