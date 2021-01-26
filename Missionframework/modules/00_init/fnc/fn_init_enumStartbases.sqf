@@ -52,6 +52,11 @@ private _onAppendStart = {
 
     if (!isNil "_startbase") then {
         if (!(isNull _startbase)) then {
+
+            // TODO: TBD: could be an event callback here...
+            _startbase setVariable ["KPLIB_uuid", [] call KPLIB_fnc_uuid_create_string, true];
+            _startbase setVariable ["KPLIB_deployType", KPLIB_deployType_ops, true];
+
             _retval pushBack [_x, _startbase];
             _appended = true;
         };

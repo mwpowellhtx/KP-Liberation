@@ -72,6 +72,9 @@ respawnButton = 1;
 // Templates are pre-defined scripts called when player dies and respawns. They are defined in an array and can be combined together.
 // List of pre-defined variants: https://community.bistudio.com/wiki/Arma_3_Respawn#Official_Templates
 respawnTemplates[] = {"KPLIB_respawn"};
+/*                     ^^^^^^^^^^^^^
+ * The misdirection here is not especially clear.
+ * See `class CfgRespawnTemplates {...}` for more details. */
 
 // Additionally, you can define side specific templates. When a side has no unique templates, it will use general respawnTemplates instead.
 // respawnTemplatesWest[] = {"MenuInventory"};
@@ -90,7 +93,7 @@ respawnTemplates[] = {"KPLIB_respawn"};
 respawn = 3;
 
 // Set respawn delay in seconds.
-respawndelay = 5;
+respawnDelay = 5;
 
 // Show the scoreboard and respawn countdown timer for a player if he is killed with respawn type BASE.
 respawnDialog = 0;
@@ -221,6 +224,7 @@ class CfgFunctions {
 
 class CfgRespawnTemplates
 {
+    // TODO: TBD: this is the "respawnTemplate" rub, where rubber meets road...
     class KPLIB_respawn
     {
         onPlayerKilled = "KPLIB_fnc_respawn_onKilled";

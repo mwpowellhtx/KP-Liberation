@@ -26,6 +26,7 @@ params [
 // TODO: TBD: better yet, class-based initializers...
 // TODO: TBD: possibly also requiring managers/FSMs for new join players, proxmity objects, i.e. add actions on the fly...
 switch (typeOf _vehicle) do {
+    // TODO: TBD: supports "F" side only at this time...
     case KPLIB_preset_fobBoxF;
     case KPLIB_preset_fobTruckF: {
         // Add FOB build action globaly and for JIP
@@ -38,8 +39,16 @@ switch (typeOf _vehicle) do {
 
     case KPLIB_preset_respawnTruckF;
     case KPLIB_preset_potatoF: {
-        // Set vehicle as mobile respawn
-        _vehicle setVariable ["KPLIB_respawn", true, true];
+
+        ////// TODO: TBD: "KPLIB_respawn" is already "in use" in a manner of speaking...
+        ////// TODO: TBD: we think it is a bad idea to confuse terminology, usage, when it should be a "class CfgRespawnTemplates {...}" member.
+        //// Set vehicle as mobile respawn
+        //_vehicle setVariable ["KPLIB_respawn", true, true];
+
+        // Handle some additional MR bookkeeping.
+        _vehicle setVariable ["KPLIB_uuid", [] call KPLIB_fnc_uuid_create_string, true];
+        _vehicle setVariable ["KPLIB_deployType", KPLIB_deployType_mob, true];
+
         // Add redeploy action globaly and for JIP
         [
             _vehicle,

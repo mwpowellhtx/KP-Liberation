@@ -95,6 +95,17 @@ KPLIB_zeroPos = [0,0,0];
 */
 KPLIB_startbase_markerType = "mil_start";
 
+/* DeployType enumerated:
+ * -1: Deploy type unknown, 'nil'
+ * 0: Operations start base
+ * 1: FOB
+ * 2: Mobile
+ */
+KPLIB_deployType_nil = -1;
+KPLIB_deployType_ops = 0;
+KPLIB_deployType_fob = 1;
+KPLIB_deployType_mob = 2;
+
 
 /*
     ----- Module Initialization -----

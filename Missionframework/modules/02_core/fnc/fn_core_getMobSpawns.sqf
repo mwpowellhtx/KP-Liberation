@@ -29,9 +29,12 @@ private _onSelectStartbases = {
 vehicles select {
     private _pos = getPos _x;
 
-    (alive _x
-    && _x getVariable ["KPLIB_respawn", false])
-    && count ([_x, _onSelectStartbases] call KPLIB_fnc_core_findStartbases) == 0
+    private _deployType = _x getVariable ["KPLIB_deployType", KPLIB_deployType_nil];
+    private _startbases = [_x, _onSelectStartbases] call KPLIB_fnc_core_findStartbases;
+
+    alive _x
+    && _deployType == KPLIB_deployType_mob
+    && count _startbases == 0
     && (
         (surfaceIsWater _pos && _x isKindOf "Ship")
         || !(surfaceIsWater _pos || _x isKindOf "Ship")
