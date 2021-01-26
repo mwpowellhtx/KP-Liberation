@@ -1,10 +1,6 @@
 # Changelog
 
-## 0.98.0 (Thawed, under development)
-
-
-
-
+## 0.98.0 (S1) (Thawed, under development)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
 * Added: _LINQ_ style aggregate and zip functions for use especially as we get further into things.
 * Added: _UUID_ creation functions for purposes of uniquely identifying objects in hand. We will use this for sure to help differentiate between _FOB_ and _start base_ locations vis-a-vis _player_ geolocation.
@@ -17,11 +13,13 @@
 * Added: `KPLIB_fnc_core_findStartbases` as the basis to inquire anything about matching _start base proxies_.
 * Added: `KPLIB_fnc_core_findStartbasesWithFlightDeck` which enhanced that inquiry relative to a target, usually `_rotary`, object.
 * Added: `KPLIB_fnc_math_convertDecimalToBaseRadix` which does what it says, mainly for use with the military alphabet conversion.
+* Added: Using `KPLIB_deployType` instead of simply `KPLIB_respawn`. It adds clarity, and we can identify whether a _start base_ or an _FOB_ is the focus of deployment as well.
 * Updated: player actions also respond taking spawn point `_flightDeckProxy` under consideration.
 * Updated: The event loop for use with the refactored _start bases_.
 * Updated: `KPLIB_fnc_respawn_getRespawns` with comprehension of refactored _start bases_ and use of the _military alphabet_ conversion. Changed the formatting to better suit our preferences; i.e. we like a _grid reference_ first, followed by a _text summary_. We could easily see these formats being user specified, but for now it is what it is.
 * Updated: The event loop to better comprehend _player_ geolocation, especially discerning between _FOB_ and _start base_ locations.
-* Refactored: _start base_ accounting for potentially one or more such proxies.
+* Updated: Applying _UUID_ to _start bases_, _FOBs_, and to _mobile respawn_ assets. We will leverage that in order to uniquely identify where _player_ when facilitating things like _menu actions_.
+* Refactored: _Start base_ accounting for potentially one or more such proxies.
 * Refactored: `heli` instead to `rotary` especially vis-a-vis moving assets to _flight deck_.
 * Refactored: renamed `KPLIB_fnc_core_heliToDeck` instead to `KPLIB_fnc_core_rotaryToFlightDeck`, which we think better describes. There is more we think we may do around that approach, but we will take the win that this is for the time being.
 * Refactored: _potato spawn_ vis-a-vis moving rotary assets, instead as designated by _start base_ `_flightDeckProxy` variable.
@@ -30,6 +28,8 @@
 * Refactored: `KPLIB_fnc_common_getFobAlphabetName` instead to `KPLIB_fnc_common_indexToMilitaryAlpha`, which has a broader application we will need approaching _logistics_, etc.
 * Tweaked: Eden starting asset algorithm allowing for specification flexibility.
 * Tweaked: A few naming conventions, _Anti-Air_ for _Aa_, _Anti-Tank_ for _At_, and so forth.
+* Tweaked: Dropping the `KPLIB_respawn` vehicle variable for mobile respawns. This just adds confusion to the `class CfgRespawnTemplate {...}` template. Instead we leverage a `KPLIB_deployType` variable.
+* Tweaked: Mission object variable naming conventions in keeping with `KPLIB_eden_*` convention.
 
 ## 0.97.0 (Frozen, forked, baseline)
 * **Fully rewritten the mission code from scratch.** (Details in the [Dev-Blogs](https://github.com/KillahPotatoes/KP-Liberation/issues?q=label%3Adev-blog))
@@ -138,30 +138,30 @@
 
 ## 0.96 (12th October 2017)
 * Added: BI Support System functionality. (Currently deactivated, as there are still issues in MP)
-	* Added: Parameter for access to the Support System -> Disabled, Commander, Whitelist, Everyone.
-	* Added: BI Artillery support for artillery vehicles and mortars (if built manned or AI ordered to get in as crew).
-	* Added: Players can request artillery support from players (generates task).
+  * Added: Parameter for access to the Support System -> Disabled, Commander, Whitelist, Everyone.
+  * Added: BI Artillery support for artillery vehicles and mortars (if built manned or AI ordered to get in as crew).
+  * Added: Players can request artillery support from players (generates task).
 * Added: Civil Reputation.
-	* Added: Config variables in `kp_liberation_config.sqf`.
-	* Added: Reputation penalty for killing civilians.
-	* Added: Reputation penalty for killing allied resistance fighters.
-	* Added: Reputation penalty for seizing civil vehicles.
-	* Added: Reputation penalty for destroyed/damaged civil buildings. (evaluated only on capture a sector event)
-	* Added: Mission parameter to choose building penalty for damaged or only destroyed buildings.
-	* Added: Reputation gain for liberated sectors.
-	* Added: After capturing a sector you might find wounded civilians. You can also gain reputation for offering medical support.
+  * Added: Config variables in `kp_liberation_config.sqf`.
+  * Added: Reputation penalty for killing civilians.
+  * Added: Reputation penalty for killing allied resistance fighters.
+  * Added: Reputation penalty for seizing civil vehicles.
+  * Added: Reputation penalty for destroyed/damaged civil buildings. (evaluated only on capture a sector event)
+  * Added: Mission parameter to choose building penalty for damaged or only destroyed buildings.
+  * Added: Reputation gain for liberated sectors.
+  * Added: After capturing a sector you might find wounded civilians. You can also gain reputation for offering medical support.
 * Added: Civil informant.
-	* Added: If you've a good reputation, a civil informant can rarely spawn at blufor sectors.
-	* Added: Intel increase, if you capture the informant and bring him back to a FOB.
-	* Added: There is a chance that an informant will reveal a time critical task to kill a HVT.
+  * Added: If you've a good reputation, a civil informant can rarely spawn at blufor sectors.
+  * Added: Intel increase, if you capture the informant and bring him back to a FOB.
+  * Added: There is a chance that an informant will reveal a time critical task to kill a HVT.
 * Added: Asymmetric Threats.
-	* Added: Possibility of IEDs in blufor sectors, if you have a bad civil reputation.
-	* Added: Own logistic convoys can be ambushed by guerilla forces.
-	* Added: Value for guerilla strength which will be affected by the events connected to guerilla forces.
-	* Added: Guerilla forces presets.
-	* Added: Dynamic guerilla forces equipment depending on their strength value.
-	* Added: Chance that guerilla forces will join the fight at a sector as friend or foe. (depends on reputation)
-	* Added: Possibility of a guerilla ambush in blufor sectors (additional to IEDs).
+  * Added: Possibility of IEDs in blufor sectors, if you have a bad civil reputation.
+  * Added: Own logistic convoys can be ambushed by guerilla forces.
+  * Added: Value for guerilla strength which will be affected by the events connected to guerilla forces.
+  * Added: Guerilla forces presets.
+  * Added: Dynamic guerilla forces equipment depending on their strength value.
+  * Added: Chance that guerilla forces will join the fight at a sector as friend or foe. (depends on reputation)
+  * Added: Possibility of a guerilla ambush in blufor sectors (additional to IEDs).
 * Added: Chinese Simplified localization. Thanks to [nercon](https://github.com/nercon)
 * Added: Automatic server restart script for dedicated servers. Thanks to [k4s0](https://github.com/k4s0)
 * Added: Settings in the mission parameters for particular debug messages.
@@ -355,20 +355,20 @@
 * Added: Custom made Chimera Base for X-Cam-Taunus. Thanks to [jus61](https://github.com/jus61) for building it
 * Added: Custom made Chimera Base for Chernarus. Thanks to [Enigma](http://steamcommunity.com/profiles/76561198052767508) for building it
 * Added: Arsenal whitelist preset system (change via `kp_liberation_config.sqf`)
-	* Use blacklist from unit preset (default)
-	* custom whitelist file
-	* KP Community Selection
-	* RHS USAF
-	* RHS USAF with ACE3
-	* RHS USAF with ACE3 and ACRE2
+  * Use blacklist from unit preset (default)
+  * custom whitelist file
+  * KP Community Selection
+  * RHS USAF
+  * RHS USAF with ACE3
+  * RHS USAF with ACE3 and ACRE2
 * Removed: Dependencies on Takistan missionfile
 * Removed: Apex dependencies on Chernarus missionfile (custom chimera base had two apex rocks)
 * Removed: Apex dependencies on Taunus missionfile
 * Replaced: Old hostile markers (exclamation marks) with a unit count sensitive area marking system
 * Tweaked: Presets
-	* custom.sqf is now default (vanilla is a kind of legacy now)
-	* Vehicle ammo prices are raised to make them more valuable
-	* Provided custom.sqf now adapt automaticly to installed mods
+  * custom.sqf is now default (vanilla is a kind of legacy now)
+  * Vehicle ammo prices are raised to make them more valuable
+  * Provided custom.sqf now adapt automaticly to installed mods
 * Fixed: Falling Little Birds on LHD
 * Fixed: Custom flag texture not applied after savegame load
 * Fixed: Mapmarker disable won't work
