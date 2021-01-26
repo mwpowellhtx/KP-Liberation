@@ -2,13 +2,13 @@ version=53;
 class EditorData
 {
 	moveGridStep=1;
-	angleGridStep=0.2617994;
+	angleGridStep=0.08726646;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=513;
+	toggles=545;
 	class ItemIDProvider
 	{
-		nextID=6442;
+		nextID=6459;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=1663;
+		nextID=1861;
 	};
 	class Camera
 	{
-		pos[]={27349.959,12.751208,5490.6816};
-		dir[]={0.01663249,-0.15409485,0.98792595};
-		up[]={0.0025940374,0.98805588,0.15407744};
-		aside[]={0.99986899,3.7177415e-008,-0.016833657};
+		pos[]={27367.07,33.735958,5526.3784};
+		dir[]={-0.59294045,-0.80255711,-0.066828355};
+		up[]={-0.79757589,0.59648472,-0.089894079};
+		aside[]={-0.11200841,3.9221777e-007,0.99377632};
 	};
 };
 binarizationWanted=0;
@@ -54,17 +54,13 @@ addons[]=
 	"A3_Structures_F_System",
 	"A3_Boat_F_Destroyer_Destroyer_01",
 	"A3_Static_F_Destroyer_Boat_Rack_01",
-	"A3_Static_F_Destroyer_Ship_MRLS_01",
-	"A3_Static_F_Destroyer_Ship_Gun_01",
-	"A3_Static_F_Jets_AAA_System_01",
-	"A3_Static_F_Jets_SAM_System_01",
 	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=11;
+		items=10;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -130,16 +126,9 @@ class AddonsMetaData
 		};
 		class Item9
 		{
-			className="A3_Static_F_Jets";
-			name="Arma 3 Jets - Turrets";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
-		class Item10
-		{
 			className="cba_main";
-			name="Community Base Addons - Hauptkomponente";
-			author="CBA-Team";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
 			url="https://www.github.com/CBATeam/CBA_A3";
 		};
 	};
@@ -298,7 +287,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=512;
+		items=511;
 		class Item0
 		{
 			dataType="Marker";
@@ -2636,6 +2625,7 @@ class Mission
 					};
 					id=1803;
 					type="CamoNet_OPFOR_open_F";
+					atlOffset=-0.045168877;
 				};
 				class Item3
 				{
@@ -2739,6 +2729,7 @@ class Mission
 					};
 					id=1809;
 					type="CamoNet_OPFOR_open_F";
+					atlOffset=-0.045168877;
 				};
 				class Item9
 				{
@@ -2757,6 +2748,7 @@ class Mission
 					};
 					id=1810;
 					type="CamoNet_OPFOR_open_F";
+					atlOffset=-0.045168877;
 				};
 				class Item10
 				{
@@ -3491,6 +3483,7 @@ class Mission
 					};
 					id=1869;
 					type="CamoNet_OPFOR_open_F";
+					atlOffset=-0.045168877;
 				};
 				class Item53
 				{
@@ -4942,6 +4935,7 @@ class Mission
 					};
 					id=2022;
 					type="CamoNet_OPFOR_open_F";
+					atlOffset=-0.045168877;
 				};
 				class Item138
 				{
@@ -10129,16 +10123,18 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={27353.395,8.8006763,5562.4253};
+				position[]={27353.395,8.8009949,5562.4248};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
+				init="call{this setVariable ['KPLIB_eden_markerText', 'U.S.S. Liberty (Flight Deck)'];" \n "this setVariable ['KPLIB_eden_flightDeckProxy', 'KPLIB_eden_potatospawn'];}";
 				name="KPLIB_eden_startbase";
 			};
 			id=5818;
 			type="Land_ClutterCutter_small_F";
+			atlOffset=0.00031852722;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -10175,7 +10171,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="KPLIB_eden_littlebird_0";
+				name="KPLIB_eden_rotary_light_0";
 			};
 			id=5821;
 			type="Land_ClutterCutter_small_F";
@@ -10255,7 +10251,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				name="KPLIB_eden_littlebird_1";
+				name="KPLIB_eden_rotary_light_1";
 			};
 			id=5829;
 			type="Land_ClutterCutter_small_F";
@@ -10325,37 +10321,26 @@ class Mission
 		};
 		class Item497
 		{
-			dataType="Marker";
-			position[]={27350.303,0,5634.2764};
-			name="KPLIB_eden_startbase_marker";
-			text="Operation Base";
-			type="mil_start";
-			colorName="ColorWEST";
-			id=5832;
-			atlOffset=185.97;
-		};
-		class Item498
-		{
 			dataType="Layer";
 			name="Cache Ammo [BLU]";
 			id=6002;
 			atlOffset=185.97;
 		};
-		class Item499
+		class Item498
 		{
 			dataType="Layer";
 			name="Storage (Lamp) [BLU]";
 			id=6017;
 			atlOffset=185.97;
 		};
-		class Item500
+		class Item499
 		{
 			dataType="Layer";
 			name="Storage [BLU] #1";
 			id=6409;
 			atlOffset=185.97;
 		};
-		class Item501
+		class Item500
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10371,7 +10356,7 @@ class Mission
 			id=6417;
 			type="Land_Medevac_house_V1_F";
 		};
-		class Item502
+		class Item501
 		{
 			dataType="Marker";
 			position[]={16747.148,202.38486,13648.493};
@@ -10382,7 +10367,7 @@ class Mission
 			id=6418;
 			atlOffset=192.86084;
 		};
-		class Item503
+		class Item502
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10516,7 +10501,7 @@ class Mission
 				nAttributes=6;
 			};
 		};
-		class Item504
+		class Item503
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10526,13 +10511,37 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
+				init="call{_this setVariable [""KPLIB_eden_addVicToCargo"", true];}";
 				name="KPLIB_eden_boat_1";
 			};
 			id=6427;
 			type="Land_Destroyer_01_Boat_Rack_01_F";
 			atlOffset=193.239;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
-		class Item505
+		class Item504
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10542,117 +10551,37 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
+				init="call{_this setVariable [""KPLIB_eden_addVicToCargo"", true];}";
 				name="KPLIB_eden_boat_0";
 			};
 			id=6428;
 			type="Land_Destroyer_01_Boat_Rack_01_F";
 			atlOffset=193.239;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
-		class Item506
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={27350,11.897507,5662.4878};
-				angles[]={6.2761512,0,0};
-			};
-			side="Empty";
-			class Attributes
-			{
-				ammo=0;
-				name="KPLIB_eden_destroyer_w1";
-				receiveRemoteTargets=1;
-			};
-			id=6435;
-			type="B_Ship_MRLS_01_F";
-			atlOffset=196.494;
-		};
-		class Item507
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={27350,14.828903,5678.9556};
-				angles[]={6.2571101,0,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				ammo=0;
-				name="KPLIB_eden_destroyer_w0";
-				receiveRemoteTargets=1;
-			};
-			id=6436;
-			type="B_Ship_Gun_01_F";
-			atlOffset=0.00099182129;
-		};
-		class Item508
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={27350,17.593277,5647.896};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="KPLIB_eden_destroyer_w2";
-				reportRemoteTargets=1;
-				receiveRemoteTargets=1;
-				reportOwnPosition=1;
-				aiRadarUsage=1;
-			};
-			id=6437;
-			type="B_AAA_System_01_F";
-			atlOffset=0.13908291;
-		};
-		class Item509
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={27350,21.72261,5564.3423};
-				angles[]={0,3.1415927,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="KPLIB_eden_destroyer_w3";
-				reportRemoteTargets=1;
-				receiveRemoteTargets=1;
-				reportOwnPosition=1;
-				aiRadarUsage=1;
-			};
-			id=6438;
-			type="B_AAA_System_01_F";
-			atlOffset=0.072252274;
-		};
-		class Item510
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={27350,17.541412,5549.4067};
-				angles[]={0,3.1415927,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="KPLIB_eden_destroyer_w4";
-				reportRemoteTargets=1;
-				receiveRemoteTargets=1;
-				reportOwnPosition=1;
-				aiRadarUsage=1;
-			};
-			id=6439;
-			type="B_SAM_System_01_F";
-			atlOffset=0.2450161;
-		};
-		class Item511
+		class Item505
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10662,6 +10591,213 @@ class Mission
 			id=6441;
 			type="CBA_main_require";
 			atlOffset=0.00060844421;
+		};
+		class Item506
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27350,15.785004,5549.6128};
+				angles[]={0,3.1415927,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				name="KPLIB_eden_turret_sam_short_0";
+			};
+			id=6451;
+			type="Land_ClutterCutter_small_F";
+			atlOffset=2.0980835e-005;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item507
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27350,15.087997,5647.1382};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				name="KPLIB_eden_turret_phalanx_1";
+			};
+			id=6452;
+			type="Land_ClutterCutter_small_F";
+			atlOffset=7.4386597e-005;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item508
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27350,19.216995,5564.167};
+				angles[]={0,3.1415927,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				name="KPLIB_eden_turret_phalanx_0";
+			};
+			id=6453;
+			type="Land_ClutterCutter_small_F";
+			atlOffset=0.00024604797;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item509
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27350,12.084991,5678.522};
+				angles[]={6.2571101,0,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				name="KPLIB_eden_turret_gun_0";
+			};
+			id=6454;
+			type="Land_ClutterCutter_small_F";
+			atlOffset=0.007311821;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item510
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27350,11.167999,5662.9868};
+			};
+			side="Empty";
+			class Attributes
+			{
+				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				name="KPLIB_eden_turret_vls_0";
+			};
+			id=6455;
+			type="Land_ClutterCutter_small_F";
+			atlOffset=0.64034271;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 	};
 };

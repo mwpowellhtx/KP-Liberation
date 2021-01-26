@@ -71,8 +71,8 @@ private _specs = [
         private _proxyObj_addVicToCargo = _proxyObj getVariable ["KPLIB_eden_addVicToCargo", false];
         private _proxyObj_withCrew = _proxyObj getVariable ["KPLIB_eden_withCrew", false];
 
-        [format ["Creating vic %1 at proxy %2: {""withCrew"": %3, ""addVicToCargo"": %4}"
-            , _classname, _prefix + str _i, str _proxyObj_addVicToCargo, str _proxyObj_withCrew]
+        [format ["Creating vic %1 at proxy %2: [withCrew, addVicToCargo]: %3"
+            , _classname, _prefix + str _i, str [_proxyObj_withCrew, _proxyObj_addVicToCargo]]
             , "SPAWN START VIC", true] call KPLIB_fnc_common_log;
 
         // Current position for the proxy object

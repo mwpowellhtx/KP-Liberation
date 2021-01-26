@@ -48,7 +48,7 @@ if (isNil "_startbase") exitWith {
 };
 
 // Get the designated proxy object given the startbase.
-private _flightDeckProxy = [_startbase select 1 getVariable ["_flightDeckProxy", ""]] call {
+private _flightDeckProxy = [_startbase select 1 getVariable ["KPLIB_eden_flightDeckProxy", ""]] call {
     params ["_variable"];
     if (_variable == "") then {objNull} else {
         missionNamespace getVariable [_variable, objNull];

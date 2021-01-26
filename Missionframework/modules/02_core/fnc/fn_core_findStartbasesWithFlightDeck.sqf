@@ -31,7 +31,7 @@ params [
 private _onWithFlightDeck = {
     params ["_target", "_startbase"];
     (_startbase select 4) <= _range
-    && ((_startbase select 1) getVariable ["_flightDeckProxy", ""] != "")
+    && ((_startbase select 1) getVariable ["KPLIB_eden_flightDeckProxy", ""] != "")
 };
 
 // Identify the start bases that are near the asset and which support flight deck proxies.

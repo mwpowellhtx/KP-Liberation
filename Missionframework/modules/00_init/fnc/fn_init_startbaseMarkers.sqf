@@ -47,8 +47,10 @@ _startbasesWithMarkers = _startbasesWithMarkers apply {
 private _onSetTypeTextAndColor = {
     _x params ["_0", "_proxy", "_markerName"];
     _markerName setMarkerType KPLIB_startbase_markerType;
-    // TODO: TBD: and another thing that suggests we probably need to adjust some timing elements...
-    _markername setMarkerText (_proxy getVariable ["_markerText", localize "STR_KPLIB_MAINBASE"]);
+    /* The 'timing' is fine... It was the syntax that was the issue.
+     * 'this' is the keyword, and use tick marks ("'") instead of quotes ('"'). */
+    private _proxyMarkerText = _proxy getVariable ["KPLIB_eden_markerText", localize "STR_KPLIB_MAINBASE"];
+    _markername setMarkerText _proxyMarkerText;
     _markerName setMarkerColor KPLIB_preset_colorF;
 };
 
