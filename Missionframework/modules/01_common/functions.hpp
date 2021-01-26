@@ -95,6 +95,12 @@ class common {
     class uuid_verify_string {};
 
     // Provides a LINQ style zip function
+    class linq_first {};
+
+    // Provides a LINQ style zip function
+    class linq_last {};
+
+    // Provides a LINQ style zip function
     class linq_zip {};
 
     // Provides a LINQ style aggregate function
