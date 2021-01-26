@@ -20,12 +20,8 @@ private _initFunction = {
     _players = [] call CBA_fnc_players;
     _tick = 0;
     _playersCount = count _players;
-    // Get fobs as positions
-    // TODO: TBD: except if I read the usage correctly, it is not "as positions" but rather as "marker name"...
-    // TODO: TBD: also depending on when in the lifecycle we see this relative to the init module...
-    private _startbases = if (isNil "KPLIB_init_startbases") then {[]} else {KPLIB_init_startbases};
-    _fobs = _startbases apply {_x select 2};
-    _fobs append KPLIB_sectors_fobs;
+    // FOBs are not gotten as positions, but rather we want the marker names.
+    _fobs = +KPLIB_sectors_fobs;
 };
 
 // Create PFH for fob event
@@ -38,15 +34,39 @@ private _initFunction = {
         private _emptyFob = "";
         private _playerFob = _emptyFob;
 
-        {
-            // Check if player is in any of the FOBs, or not, i.e. empty.
-            if (_currentPlayer inArea [getMarkerPos _x, KPLIB_param_fobRange, KPLIB_param_fobRange, 0, false]) exitWith {
-                _playerFob = _x;
-            };
-        } forEach _fobs;
+        private _fobIndex = -1;
+
+        // TODO: TBD: For now we just want whether the current player within range of a start base area.
+        // TODO: TBD: if we need/want anything more specific than that, then we may need to consider options such as creating uuids, etc...
+        private _opsIndex = if (isNil "KPLIB_init_startbases") then {-1} else {
+            /*
+             * Follow what's going on here:
+             * 1. Add distance between player and each of the start bases.
+             * 2. Work with only those start bases within range of the player.
+             * 3. Identify the nearest of those start bases to the player.
+             * 4. Identify the appropriate index based on the original array.
+             */
+             // TODO: TBD: there are probably better ways of going about this and using other A3 primitives...
+            private _startbases = KPLIB_init_startbases apply {_x + [(_x select 1) distance2D _currentPlayer]};
+            _startbases = _startbases select {(_x select (count _x - 1)) <= KPLIB_param_opsRange};
+            private _nearest = [_startbases, {_x select (count _x - 1)}] call KPLIB_fnc_common_min;
+            if (isNil "_nearest") then {-1} else {KPLIB_init_startbases find (_nearest select [0, count _nearest - 1])};
+        };
+
+	// TODO: TBD: index works to a point, but we think there is logic downstream dealing with player actions...
+	// TODO: TBD: might be better if we add some UUID to the mix and uniquely identify where player actually is...
+        _currentPlayer setVariable ["KPLIB_opsIndex", _opsIndex, true];
+        ["KPLIB_player_ops", [_currentPlayer, _opsIndex]] call CBA_fnc_globalEvent;
+
+        // Rinse and repeat the ops question, more or less.
+        // TODO: TBD: we do not care "at which" FOB the player is, only whether he/she is.
+        // TODO: TBD: if that changes later, then we can be concerned about that, install uuids, whatever...
+        _currentPlayer setVariable ["KPLIB_fob", {
+            _currentPlayer distance2D (getMarkerPos _x) <= KPLIB_param_fobRange;
+        } count _fobs > 0, true];
 
         // Set fob variable on player if it has changed
-         if (!((_currentPlayer getVariable ["KPLIB_fob", _emptyFob]) isEqualTo _playerFob)) then {
+        if (!((_currentPlayer getVariable ["KPLIB_fob", _emptyFob]) isEqualTo _playerFob)) then {
             _currentPlayer setVariable ["KPLIB_fob", _playerFob, true];
             // Emit event
             // TODO: TBD: https://ace3mod.com/wiki/framework/events-framework.html#324-global-event

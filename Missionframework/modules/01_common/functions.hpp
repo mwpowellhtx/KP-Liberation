@@ -81,4 +81,16 @@ class common {
 
     // Converts from a decimal value to base radix
     class math_convertDecimalToBaseRadix {};
+
+    // Creates a UUID array.
+    class uuid_create {};
+
+    // Creates a UUID string.
+    class uuid_create_string {};
+
+    // Provides a LINQ style zip function
+    class linq_zip {};
+
+    // Provides a LINQ style aggregate function
+    class linq_aggregate {};
 };
