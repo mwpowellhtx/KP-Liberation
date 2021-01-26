@@ -10,13 +10,17 @@
 * Added: `KPLIB_fnc_init_startbaseMarkers` which elaborates on the _enumerated start bases_, in particular _adding map markers_; _start base proxies_ may specify a `_markerText` variable, which serves as the map marker text.
 * Added: `KPLIB_fnc_core_findStartbases` as the basis to inquire anything about matching _start base proxies_.
 * Added: `KPLIB_fnc_core_findStartbasesWithFlightDeck` which enhanced that inquiry relative to a target, usually `_rotary`, object.
+* Added: `KPLIB_fnc_math_convertDecimalToBaseRadix` which does what it says, mainly for use with the military alphabet conversion.
 * Updated: player actions also respond taking spawn point `_flightDeckProxy` under consideration.
+* Updated: The event loop for use with the refactored _start bases_.
+* Updated: `KPLIB_fnc_respawn_getRespawns` with comprehension of refactored _start bases_ and use of the _military alphabet_ conversion. Changed the formatting to better suit our preferences; i.e. we like a _grid reference_ first, followed by a _text summary_. We could easily see these formats being user specified, but for now it is what it is.
 * Refactored: _start base_ accounting for potentially one or more such proxies.
 * Refactored: `heli` instead to `rotary` especially vis-a-vis moving assets to _flight deck_.
 * Refactored: renamed `KPLIB_fnc_core_heliToDeck` instead to `KPLIB_fnc_core_rotaryToFlightDeck`, which we think better describes. There is more we think we may do around that approach, but we will take the win that this is for the time being.
 * Refactored: _potato spawn_ vis-a-vis moving rotary assets, instead as designated by _start base_ `_flightDeckProxy` variable.
 * Refactored: `_flightDeckProxy` can be anything, does not need to be _just the potato spawn point_.
 * Refactored: **_Any_** _start base_ can potentially support **_any_** _flight deck_, although typically this is a _cluttercutter proxy object_, specifically the _potato spawn point_.
+* Refactored: `KPLIB_fnc_common_getFobAlphabetName` instead to `KPLIB_fnc_common_indexToMilitaryAlpha`, which has a broader application we will need approaching _logistics_, etc.
 * Tweaked: Eden starting asset algorithm allowing for specification flexibility.
 * Tweaked: A few naming conventions, _Anti-Air_ for _Aa_, _Anti-Tank_ for _At_, and so forth.
 

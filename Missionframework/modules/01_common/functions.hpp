@@ -44,8 +44,8 @@ class common {
     // Generate positions in circle
     class common_getCirclePositions {};
 
-    // Gets fob alphabet name
-    class common_getFobAlphabetName {};
+    // Converts the index to that sequence of military alphabet names.
+    class common_indexToMilitaryAlpha {};
 
     // Gets path for className icon
     class common_getIcon {};
@@ -78,4 +78,7 @@ class common {
 
     // Identifies the minimum element from a given array
     class common_min {};
+
+    // Converts from a decimal value to base radix
+    class math_convertDecimalToBaseRadix {};
 };

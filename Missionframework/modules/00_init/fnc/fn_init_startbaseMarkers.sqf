@@ -48,7 +48,7 @@ private _onSetTypeTextAndColor = {
     _x params ["_0", "_proxy", "_markerName"];
     _markerName setMarkerType KPLIB_startbase_markerType;
     // TODO: TBD: and another thing that suggests we probably need to adjust some timing elements...
-    _markername setMarkerText (_proxy getVariable ["_markerText", "Operation Base"]);
+    _markername setMarkerText (_proxy getVariable ["_markerText", localize "STR_KPLIB_MAINBASE"]);
     _markerName setMarkerColor KPLIB_preset_colorF;
 };
 

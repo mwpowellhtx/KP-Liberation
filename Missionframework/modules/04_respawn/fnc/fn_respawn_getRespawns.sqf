@@ -3,42 +3,53 @@
 
     File: fn_respawn_getRespawns.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-09-12
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-09-12
+    Last Update: 2021-01-25 18:35:03
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Get list of currenty available respawns
+        Returns an array of currenty available spawn points.
 
-    Parameter(s):
+    Parameters:
         NONE
 
     Returns:
-        Array of arrays with available respawns [ARRAY]
+        Array of spawn point tuples [ARRAY]
+            - spawn point tuple shape: [_fullName, _target]
 */
 
+private _spawns = KPLIB_init_startbases apply {
+    _x params ["_0", "_proxy", "_markerName"];
+    
+    [
+        format ["%1 - %2", mapGridPosition getPos _proxy, markerText _markerName]
+        , _proxy
+    ];
+};
 
-private _spawns = [[localize "STR_KPLIB_MAINBASE", KPLIB_eden_startbase]];
-
-// Add the FOBs to the spawn list
 {
     _spawns pushBack [
-        format ["FOB %1 - %2", (KPLIB_preset_alphabetF select _forEachIndex), mapGridPosition getMarkerPos _x],
-        _x
+        // TODO: TBD: if there is not a function that gets an arbitrary index or count in "KPLIB_preset_alphabetF" terms, there needs to be...
+        // TODO: TBD: while we would never expect a FOB like Alpha Bravo, for instance, we should at least expect more of an alphabet functional interface...
+        // TODO: TBD: especially for later when we start enumerating logistics lines, for instance; that **IS** entirely plausible...
+        format ["%1 - FOB %2", mapGridPosition getMarkerPos _x, [_forEachIndex] call KPLIB_fnc_common_indexToMilitaryAlpha]
+        , _x
     ];
 } forEach KPLIB_sectors_fobs;
 
-// Add mobile respawns to the spawn list if parameter isn't disabled
+// Add mobile respawns to the spawn list if parameter is not disabled
 if (KPLIB_param_mobileRespawn) then {
     {
-        private _displayName = getText (configFile >>  "CfgVehicles" >> (typeOf _x) >> "displayName");
-        // Add item to list
+        // Get the display name from the vehicle configs and append.
+        private _cfgDisplayName = getText (configFile >>  "CfgVehicles" >> (typeOf _x) >> "displayName");
+
         _spawns pushBack [
-            format ["%1 - %2", _displayName, mapGridPosition getPos _x],
-            _x
+            format ["%1 - %2", mapGridPosition getPos _x, _cfgDisplayName]
+            , _x
         ];
-    } forEach ([] call KPLIB_fnc_core_getMobSpawns)
+    } forEach ([] call KPLIB_fnc_core_getMobSpawns);
 };
 
 _spawns
