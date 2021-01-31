@@ -30,9 +30,9 @@ So this is the core gameplay where all other modules are inject their functional
 
   *Check if win conditions are met.*
 
-* KPLIB_fnc_core_createFobMarker
+* KPLIB_fnc_core_createFob
 
-  *Creates FOB marker.*
+  *Creates the Forward Operating Base (FOB) meta data tuple.*
 
 * KPLIB_fnc_core_getMobSpawns
 

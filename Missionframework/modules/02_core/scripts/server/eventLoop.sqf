@@ -12,16 +12,35 @@
     Does periodic checks on players and emits events when necessary
 */
 
-waitUntil {!isNil "KPLIB_campaignRunning"};
+//private _dep = [
+//    "KPLIB_campaignRunning"
+//    , "KPLIB_sectorType_nil"
+//   , "KPLIB_param_edenRange"
+//   , "KPLIB_param_fobRange"
+//    , "KPLIB_sectors_fobs"
+//    , "KPLIB_sectors_edens"
+//];
+
+//waitUntil {
+//    _dep = _dep select {isNil _x};
+//    _dep isEqualTo [];
+//};
 
 // Init function for event loop, executed every time whole list of player was iterated
-private _initFunction = {
-    // Get all current FOBs
-    _players = [] call CBA_fnc_players;
+private _onEventLoopStart = {
     _tick = 0;
-    _playersCount = count _players;
-    // FOBs are not gotten as positions, but rather we want the marker names.
-    _fobs = +KPLIB_sectors_fobs;
+    _players = [] call CBA_fnc_players;
+    _playerCount = count _players;
+    // TODO: TBD: we are doing this in at least 3x places... so we really should consider a proper helper for it...
+    private _onTransformPfh = {[
+        _x select 3 select 0 // Marker -> Marker name
+        , _x select 1 select 0 // Bookkeeping -> UUID
+        , _x select 2 select 0 // Sector -> Sector type
+    ]};
+    _edens = KPLIB_sectors_edens apply _onTransformPfh;
+    _fobs = KPLIB_sectors_fobs apply _onTransformPfh;
+    _edenRange = KPLIB_param_edenRange;
+    _fobRange = KPLIB_param_fobRange;
 };
 
 // Create PFH for fob event
@@ -31,59 +50,80 @@ private _initFunction = {
         // Increment the counter
         _tick = _tick + 1;
 
-        private _emptyFob = "";
-        private _playerFob = _emptyFob;
+        private _defaultG = ["", "", KPLIB_sectorType_nil];
+        private _defaultArgs = [0, "", "", KPLIB_sectorType_nil];
 
-        private _fobIndex = -1;
-
-        // TODO: TBD: For now we just want whether the current player within range of a start base area.
-        // TODO: TBD: if we need/want anything more specific than that, then we may need to consider options such as creating uuids, etc...
-        private _opsIndex = if (isNil "KPLIB_init_startbases") then {-1} else {
-            /*
-             * Follow what's going on here:
-             * 1. Add distance between player and each of the start bases.
-             * 2. Work with only those start bases within range of the player.
-             * 3. Identify the nearest of those start bases to the player.
-             * 4. Identify the appropriate index based on the original array.
-             */
-             // TODO: TBD: there are probably better ways of going about this and using other A3 primitives...
-            private _startbases = KPLIB_init_startbases apply {_x + [(_x select 1) distance2D _currentPlayer]};
-            _startbases = _startbases select {(_x select (count _x - 1)) <= KPLIB_param_opsRange};
-            private _nearest = [_startbases, {_x select (count _x - 1)}] call KPLIB_fnc_common_min;
-            if (isNil "_nearest") then {-1} else {KPLIB_init_startbases find (_nearest select [0, count _nearest - 1])};
+        private _onAggregateMarkerName = {
+            params [
+                ["_g", _defaultG, [[]], 3]
+                , ["_args", _defaultArgs, [[]], 4]
+            ];
+            // TODO: TBD: which, if we are transforming here as well, we really might use a to/from transformation util functions...
+            _args params [
+                ["_range", 0, [0]]
+                , ["_markerName", "", [""]]
+                , ["_uuid", "", [""]]
+                , ["_sectorType", KPLIB_sectorType_nil, [0]]
+            ];
+            // TODO: TBD: could perhaps have some "min" functionality built in as well...
+            if (_g isEqualTo _defaultG && _currentPlayer inArea [getMarkerPos _markerName, _range, _range, 0, false]) then {
+                _g = [_markerName, _uuid, _sectorType];
+            };
+            _g
         };
 
-	// TODO: TBD: index works to a point, but we think there is logic downstream dealing with player actions...
-	// TODO: TBD: might be better if we add some UUID to the mix and uniquely identify where player actually is...
-        _currentPlayer setVariable ["KPLIB_opsIndex", _opsIndex, true];
-        ["KPLIB_player_ops", [_currentPlayer, _opsIndex]] call CBA_fnc_globalEvent;
+        /* From the tuples above:
+         * 0: Marker -> Marker name
+         * 1: Bookkeeping -> UUID
+         * 2: Sector -> Sector type
+         * Then we sprinkle in FOB or Ops ranges depending on the base array.
+         */
+        private _actualG = [_defaultG
+            , (_fobs apply {[_fobRange] + _x})
+                + (_edens apply {[_edenRange] + _x})
+            , _onAggregateMarkerName] call KPLIB_fnc_linq_aggregate;
 
-        // Rinse and repeat the ops question, more or less.
-        // TODO: TBD: we do not care "at which" FOB the player is, only whether he/she is.
-        // TODO: TBD: if that changes later, then we can be concerned about that, install uuids, whatever...
-        _currentPlayer setVariable ["KPLIB_fob", {
-            _currentPlayer distance2D (getMarkerPos _x) <= KPLIB_param_fobRange;
-        } count _fobs > 0, true];
+        private _currentG = [_currentPlayer, nil, _defaultG] call KPLIB_fnc_common_getSectorInfo;
 
-        // Set fob variable on player if it has changed
-        if (!((_currentPlayer getVariable ["KPLIB_fob", _emptyFob]) isEqualTo _playerFob)) then {
-            _currentPlayer setVariable ["KPLIB_fob", _playerFob, true];
-            // Emit event
+        // Only update and notify when there has been an actual noteworthy change.
+        if (!(_actualG isEqualTo _currentG)) then {
+
+            // Shape of the '_sectorInfo' tuple: [_markerName, _sectorUuid, _sectorType]
+            _currentPlayer setVariable ["KPLIB_sector_info", _actualG];
+
             // TODO: TBD: https://ace3mod.com/wiki/framework/events-framework.html#324-global-event
-            ["KPLIB_player_fob", [_currentPlayer, _playerFob]] call CBA_fnc_globalEvent;
+            switch (true) do {
+                // TODO: TBD: 'KPLIB_player_fob' should we be raising this event also? ditto 'KPLIB_player_ops'.
+                // TODO: TBD: also events throughout this machinary pretty much deal in terms of marker names.
+                case (!((_edens select {(_x select 0) isEqualTo (_actualG select 0)}) isEqualTo [])): {
+                    ["KPLIB_player_ops", [_currentPlayer, _actualG#0]] call CBA_fnc_globalEvent;
+                };
+                case (!((_fobs select {(_x select 0) isEqualTo (_actualG select 0)}) isEqualTo [])): {
+                    ["KPLIB_player_fob", [_currentPlayer, _actualG#0]] call CBA_fnc_globalEvent;
+                };
+            };
         };
 
         // If we checked whole list, reinitialize the list
-        if(_tick >= _playersCount) then {
+        if (_tick >= _playerCount) then {
             [] call (_this getVariable "start");
         };
-    }               // Handler
-    , 0             // Delay
-    , []            // Args
-    , _initFunction // Start func
-    , {}            // End func
-    , {KPLIB_campaignRunning}   // Run condition
-    , {}            // End condition
-    , ["_players", "_tick", "_playersCount", "_fobs"]   // Privates to serialize between calls
+    }                               // Handler
+    , 0                             // Delay
+    , []                            // Args
+    , _onEventLoopStart             // Start func
+    , {}                            // End func
+    , {KPLIB_campaignRunning}       // Run condition
+    // TODO: TBD: we need an end condition? ...
+    , {}                            // End condition
+    , [ // Privates to serialize between calls
+        "_tick"
+        , "_players"
+        , "_playerCount"
+        , "_edens"
+        , "_edenRange"
+        , "_fobs"
+        , "_fobRange"
+    ]   
 ] call CBA_fnc_createPerFrameHandlerObject;
 // TODO: TBD: see: https://cbateam.github.io/CBA_A3/docs/files/common/fnc_createPerFrameHandlerObject-sqf.html#CBA_fnc_createPerFrameHandlerObject

@@ -31,9 +31,20 @@ switch (typeOf _vehicle) do {
     case KPLIB_preset_fobTruckF: {
         // Add FOB build action globaly and for JIP
         [
-            _vehicle,
-            "STR_KPLIB_ACTION_DEPLOY",
-            [{["KPLIB_fob_build_requested", _this select 0] call CBA_fnc_localEvent}, true, -800, false, true, "", "[_target, _this] call KPLIB_fnc_core_canBuildFob", 10]
+            _vehicle
+            , "STR_KPLIB_ACTION_DEPLOY"
+            , [
+                {["KPLIB_fob_build_requested", _this select 0] call CBA_fnc_localEvent}
+                , true
+                , -800
+                , false
+                , true
+                , ""
+                , '
+                    [_target, _this] call KPLIB_fnc_core_canBuildFob
+                '
+                , 10
+            ]
         ] remoteExecCall ["KPLIB_fnc_common_addAction", 0, _vehicle];
     };
 
@@ -46,14 +57,34 @@ switch (typeOf _vehicle) do {
         //_vehicle setVariable ["KPLIB_respawn", true, true];
 
         // Handle some additional MR bookkeeping.
-        _vehicle setVariable ["KPLIB_uuid", [] call KPLIB_fnc_uuid_create_string, true];
-        _vehicle setVariable ["KPLIB_deployType", KPLIB_deployType_mob, true];
+        //// TODO: TBD: don't think we care about setting a UUID on the object itself any longer...
+        //_vehicle setVariable ["KPLIB_uuid", [] call KPLIB_fnc_uuid_create_string, true];
+        _vehicle setVariable ["KPLIB_sectorType", KPLIB_sectorType_mob, true];
 
         // Add redeploy action globaly and for JIP
         [
-            _vehicle,
-            "STR_KPLIB_ACTION_REDEPLOY",
-            [{["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent}, nil, -801, false, true, "", "_this == vehicle _this", 10]
+            // TODO: TBD: was: "_this == vehicle _this"
+            // TODO: TBD: the action condition is very similar to actually "querying" for available mobile respawns we think...
+            // TODO: TBD: max speed 5, setup a parameter (?)
+            // TODO: TBD: max alt, setup a parameter (?)
+            _vehicle
+            , "STR_KPLIB_ACTION_REDEPLOY"
+            , [
+                {["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent}
+                , nil
+                , -801
+                , false
+                , true
+                , ""
+                , '
+                    _this == vehicle _this
+                    && ([_target, KPLIB_fnc_eden_callback_onWithinRange] call KPLIB_fnc_eden_select) isEqualTo []
+                    && ([_target, KPLIB_fnc_core_fob_callback_onWithinRange] call KPLIB_fnc_core_selectFobs) isEqualTo []
+                    && abs (speed _target) < 5
+                    && (getPos _target)#2 < 5
+                '
+                , 10
+            ]
         ] remoteExecCall ["KPLIB_fnc_common_addAction", 0, _vehicle];
     };
 
@@ -67,8 +98,19 @@ switch (typeOf _vehicle) do {
         // Adds moving action for start rotary assets.
         [
             _vehicle
-            , "STR_KPLIB_ACTION_ROTARYMOVE"
-            , [{[_this select 0] call KPLIB_fnc_core_rotaryToFlightDeck;}, nil, 10, true, true, "", "count ([_target] call KPLIB_fnc_core_findStartbasesWithFlightDeck) > 0", 4]
+            , "STR_KPLIB_ACTION_ASSETMOVE"
+            , [
+                {[_this select 0] call KPLIB_fnc_core_rotaryToFlightDeck;}
+                , nil
+                , 10
+                , true
+                , true
+                , ""
+                , '
+                    !(([_target] call KPLIB_fnc_eden_selectWithFlightDeck) isEqualTo [])
+                '
+                , 4
+            ]
             , "#FF8000" // TODO: TBD: colors could be defined as first class config variables
         ] remoteExecCall ["KPLIB_fnc_common_addAction", 0, _vehicle];
     };
