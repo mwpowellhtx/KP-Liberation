@@ -3,8 +3,9 @@
 
     File: fn_enemy_settings.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-02-02
-    Last Update: 2019-06-15
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-02-02
+    Last Update: 2021-01-29 11:41:53
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,17 +23,27 @@
     ----- ENEMY COMMANDER SETTINGS -----
 */
 
-// KPLIB_param_enemyDebug
-// Enables/Disables debug mode for this module.
-// Default: true
-[
-    "KPLIB_param_enemyDebug",
-    "CHECKBOX",
-    [localize "STR_KPLIB_SETTINGS_ENEMY_DEBUG", localize "STR_KPLIB_SETTINGS_ENEMY_DEBUG_TT"],
-    localize "STR_KPLIB_SETTINGS_ENEMY",
-    true,
-    1,
-    {}
-] call CBA_Settings_fnc_init;
+// TODO: TBD: will pick up this effort later... objective: reposition debug flags to central "debug" settings area
+private _enemy = [
+    [
+        // Enables/Disables debug mode for this module [default: true]
+        "KPLIB_param_enemyDebug"
+        , {
+            [
+                _this
+                , "CHECKBOX"
+                , [localize "STR_KPLIB_SETTINGS_DEBUG_ENEMY", localize "STR_KPLIB_SETTINGS_DEBUG_ENEMY_TT"]
+                , localize "STR_KPLIB_SETTINGS_DEBUG"
+                , true
+                , 1
+                , {}
+            ];
+        }
+    ]
+];
+
+{
+    [_x, _forEachIndex] call KPLIB_fnc_config_onRegisterSettings;
+} forEach [_enemy];
 
 true
