@@ -3,8 +3,9 @@
 
     File: fn_common_log.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-04-15
-    Last Update: 2019-04-17
+    Last Update: 2021-01-28 12:57:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -23,17 +24,17 @@
 */
 
 params [
-    ["_text", "", [""]],
-    ["_module", "", [""]],
-    ["_tickTime", false, [false]]
+    ["_text", "", [""]]
+    , ["_module", "", [""]]
+    , ["_tickTime", false, [false]]
 ];
 
 // Compose log entry
 private _entry = [
-    "[KP LIBERATION] ",
-    (["", format ["[%1] ", diag_tickTime]] select _tickTime),
-    (["", format ["[%1] ", _module]] select !(_module isEqualTo "")),
-    _text
+    "[KP LIBERATION] "
+    , (["", format ["[%1] ", diag_tickTime]] select _tickTime)
+    , (["", format ["[%1] ", _module]] select !(_module isEqualTo ""))
+    , _text
 ] joinString "";
 
 // Write log entry
