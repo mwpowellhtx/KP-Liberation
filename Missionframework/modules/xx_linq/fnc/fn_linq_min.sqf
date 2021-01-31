@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_common_min
+    KPLIB_fnc_linq_min
 
-    File: fn_common_min.sqf
+    File: fn_linq_min.sqf
     Author: Michael W. Powell
     Created: 2021-01-25 10:46:59
     Last Update: 2021-01-25 10:47:02
@@ -29,29 +29,26 @@ params [
 ];
 
 // Zero element vectors are to return nothing: i.e. nil.
-private _vectorCount = count _vector;
+private _count = count _vector;
 
 // Vectors of one element are easy, only one minimum element.
-if (_vectorCount == 1) exitWith {
+if (_count == 1) exitWith {
     _vector select 0;
 };
 
 // Gets a bit more complex when there is more than one element.
-if (_vectorCount > 0) exitWith {
+if (_count > 0) exitWith {
 
     private ["_i", "_elem"];
 
-    for [{_i = 0}, {_i < _vectorCount}, {_i = _i + 1}] do {
+    for [{_i = 0}, {_i < _count}, {_i = _i + 1}] do {
 
         private _next = _vector select _i;
 
         if (_i == 0) then {
             _elem = _next;
         } else {
-            if (
-                _i > 0
-                && ([_next] call _selector) < ([_elem] call _selector)
-            ) then {
+            if (_i > 0 && ([_next, _i] call _selector) < ([_elem, _i] call _selector)) then {
                 _elem = _next;
             };
         };
