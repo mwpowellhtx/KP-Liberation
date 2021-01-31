@@ -50,7 +50,18 @@ class common {
     // Gets path for className icon
     class common_getIcon {};
 
-    // Returns the FOB of the given player
+    // Returns the full [_sectorInfo] tuple from the _target object, if possible [default: ["", "", KPLIB_sectorType_nil]]
+    //                                                                         _markerType: ^^
+    //                                                                               _uuid:     ^^
+    //                                                                         _sectorType:         ^^^^^^^^^^^^^^^^^^^^
+   class common_getSectorInfo {};
+
+    // TODO: TBD: note, that we try to maintain some consistency, for now...
+    // TODO: TBD: the machinery, best term for it, facilitating the whole build procedure really is massive
+    // TODO: TBD: so trying to keep consistency there, for now, before mucking around too much with it
+
+    /* A more specific version, wrapper to 'common_getSectorInfo', does the same thing,
+     * filters for the '_markerType', in keeping with the refactor baseline. */
     class common_getPlayerFob {};
 
     // getPos wrapper for ATL positions
@@ -68,41 +79,8 @@ class common {
     // Checks if player occupies a slot
     class common_isSlot {};
 
-    // Logs given text to server rpt
-    class common_log {};
-
     // Initialize common module
     class common_preInit {
         preInit = 1;
     };
-
-    // Identifies the minimum element from a given array
-    class common_min {};
-
-    // Converts from a decimal value to base radix
-    class math_convertDecimalToBaseRadix {};
-
-    // Creates a UUID array
-    class uuid_create {};
-
-    // Creates a UUID string
-    class uuid_create_string {};
-
-    // Verifies whether an array can be considered a valid UUID
-    class uuid_verify {};
-
-    // Verifies whether a string can be considered a valid UUID
-    class uuid_verify_string {};
-
-    // Provides a LINQ style zip function
-    class linq_first {};
-
-    // Provides a LINQ style zip function
-    class linq_last {};
-
-    // Provides a LINQ style zip function
-    class linq_zip {};
-
-    // Provides a LINQ style aggregate function
-    class linq_aggregate {};
 };

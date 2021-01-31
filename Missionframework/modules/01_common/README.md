@@ -45,9 +45,13 @@ This module uses no data or functions from other modules.
 
   *Gets path for className icon.*
 
+* KPLIB_fnc_common_getSectorInfo
+
+  *Returns the* `KPLIB_sector_info` *variable value from the target object if possible; empty string otherwise. Defaults to* `["", "", KPLIB_sectorType_nil]`*.*
+
 * KPLIB_fnc_common_getPlayerFob
 
-  *Returns the FOB of the given player.*
+  *Returns the _markerName of the FOB nearest to the player, if possible.*
 
 * KPLIB_fnc_common_getPos
 
