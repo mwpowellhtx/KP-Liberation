@@ -32,7 +32,6 @@ if !(_buildItem isEqualTypeParams ["", 0, 0, 0]) exitWith {
     [format ["Incorrect build item passed to build_start_single '%1'!", _buildItem], "BUILD"] call KPLIB_fnc_common_log
 };
 
-
 private _openEhId = ["KPLIB_build_display_open", {
     params ["_display"];
 

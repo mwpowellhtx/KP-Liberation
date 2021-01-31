@@ -1,19 +1,21 @@
+#include "script_components.hpp"
 /*
     KPLIB_fnc_build_start
 
     File: fn_build_start.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-09-09
-    Last Update: 2019-04-23
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-09-09
+    Last Update: 2021-01-27 23:00:15
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
         Starts KP Liberation building mode
 
-    Parameter(s):
-        _center - Center of building area [POSITION, defaults to position player]
-        _radius - Allowed building radius [NUMBER, defaults to KPLIB_param_fobRange]
+    Parameters:
+        _center - Center of building area [POSITION, default: position player]
+        _radius - Allowed building radius [NUMBER, default: KPLIB_param_fobRange]
 
     Returns:
         Building logic object [LOCATION]
@@ -25,7 +27,7 @@ params [
 ];
 
 // Animate player
-player playactionnow "gear";
+player playActionNow "gear";
 
 private _logic = [] call CBA_fnc_createNamespace;
 KPLIB_buildLogic = _logic;
@@ -67,6 +69,7 @@ KPLIB_buildLogic = _logic;
 // Draw icons for objects in queue
 [] call KPLIB_fnc_build_drawIconsPFH;
 
+// TODO: TBD: loathe hard coded resource ids ... without at least declaring the variable ...
 (findDisplay 46) createDisplay "KPLIB_build";
 
 ["KPLIB_build_start", [_logic, _center, _radius]] call CBA_fnc_localEvent;

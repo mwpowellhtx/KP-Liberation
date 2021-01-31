@@ -3,30 +3,40 @@
 
     File: fn_build_preInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-10-18
-    Last Update: 2019-05-01
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-10-18
+    Last Update: 2021-01-27 22:27:18
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
         The preInit function defines global variables, adds event handlers and set some vital settings which are used in this module.
 
-    Parameter(s):
+    Parameters:
         NONE
 
     Returns:
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [BUILD", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
+};
 
 /*
     ----- Module Globals -----
 */
 
+KPLIB_build_buildMode_move = 0;
+KPLIB_build_buildMode_build = 1;
+
 // Build camera
 KPLIB_build_camera = objNull;
 
+// TODO: TBD: what's going on with the whole build event handling subsystem...
+// TODO: TBD: especially vis-a-vis player, deploy, uuid, etc...
+// TODO: TBD: let's put build on the shelf for the time being, except possibly whether we see a menu item.
+// TODO: TBD: and focus on that much, menu items, conditions, etc...
 KPLIB_buildLogic = locationNull;
 
 // Build camera PFH ticker id
@@ -40,8 +50,8 @@ KPLIB_build_categoryItems = [];
 
 if (isServer) then {
 
-    // Register FOB var for persistence
-    ["KPLIB_fob", true] call KPLIB_fnc_persistence_addPersistentVar;
+    // Register sector info var for persistence
+    ["KPLIB_sector_info", true] call KPLIB_fnc_persistence_addPersistentVar;
 
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_build_loadData}] call CBA_fnc_addEventHandler;
@@ -50,15 +60,30 @@ if (isServer) then {
     ["KPLIB_doSave", {[] call KPLIB_fnc_build_saveData}] call CBA_fnc_addEventHandler;
 
     ["KPLIB_build_item_built", {
-        params ["_object", "_fob"];
-        if (_fob isEqualTo "") exitWith {};
+        // _markerName of the FOB at which the object was built
+        params [
+            ["_object", objNull, [objNull]]
+            , ["_markerName", "", [""]]
+        ];
 
-        // Skip storage areas
-        if !((typeOf _object) in KPLIB_resources_storageClasses) then {
-            _object setVariable ["KPLIB_fob", _fob, true];
-            _object call KPLIB_fnc_persistence_makePersistent;
+        if (KPLIB_param_builddebug) then {
+            [format ["[KPLIB_build_item_built::callback] [_object, _markerName]: %1"
+                , str [_object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
         };
 
+        // Skip storage areas
+        if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
+            private _fobs = KPLIB_sectors_fobs select {(_x select 3 select 0) isEqualTo _markerName};
+            // TODO: TBD: if we're here we can be confident we're here?
+            // TODO: TBD: see pattern: fn_build_preInit, fn_build_loadData
+            private _fob = _fobs select 0;
+            _object setVariable ["KPLIB_sector_info", [
+                _fob select 3 select 0
+                , _fob select 1 select 0
+                , _fob select 2 select 0
+            ], true];
+            _object call KPLIB_fnc_persistence_makePersistent;
+        };
     }] call CBA_fnc_addEventHandler;
 };
 
@@ -68,14 +93,20 @@ if (hasInterface) then {
 
     // Register Build module as FOB building provider
     ["KPLIB_fob_build_requested", {
-        params ["_object", ["_pos", KPLIB_zeroPos]];
-        KPLIB_build_fobBuildObject = _object;
-        if (_pos isEqualTo KPLIB_zeroPos) then{
-            _pos = getPos _object;
+        params [
+            ["_object", objNull, [objNull]]
+            , ["_pos", KPLIB_zeroPos, [[]], 3]
+        ];
+        if (KPLIB_param_debug || KPLIB_param_builddebug) then {
+            [format ["[KPLIB_fob_build_requested::callback] [_object, getPos _object]: %1"
+                , str [_object, getPos _object]], "BUILD", true] call KPLIB_fnc_common_log;
         };
-        [format ["KPLIB_fob_build_requested with _object: %1 (%2) - global: %3 (%4)", _object, getPos _object, KPLIB_build_fobBuildObject, getPos KPLIB_build_fobBuildObject], "BUILD", true] call KPLIB_fnc_common_log;
+        KPLIB_build_fobBuildObject = _object;
+        if (_pos isEqualTo KPLIB_zeroPos) then {
+            _pos = getPos KPLIB_build_fobBuildObject;
+        };
         // Start single item build for fob building
-        [_pos, nil, [KPLIB_preset_fobBuildingF, 0,0,0], {
+        [_pos, nil, [KPLIB_preset_fobBuildingF, 0, 0, 0], {
             // On confirm callback, create FOB on server
             [_this select 0, KPLIB_build_fobBuildObject] remoteExec ["KPLIB_fnc_build_handleFobBuildConfirm", 2];
          }] call KPLIB_fnc_build_start_single;
@@ -88,11 +119,7 @@ if (hasInterface) then {
         params ["_classname"];
         // TODO common func with caching
         private _name = getText (configFile >> "CfgVehicles" >> _className >> "displayName");
-
-        [
-            format[localize "STR_KPLIB_HINT_BUILD_NO_RESOURCES", _name]
-        ] call CBA_fnc_notify;
-
+        [format [localize "STR_KPLIB_HINT_BUILD_NO_RESOURCES", _name]] call CBA_fnc_notify;
     }] call CBA_fnc_addEventHandler;
 
     // Add default buildables from preset
@@ -133,9 +160,10 @@ if (hasInterface) then {
         // Decoration
         ["STR_KPLIB_CAT_DECO", "deco"]
     ];
-
 };
 
-if (isServer) then {["Module initialized", "PRE] [BUILD", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
+};
 
 true
