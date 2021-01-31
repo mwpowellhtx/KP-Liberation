@@ -3,8 +3,9 @@
 
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-10-16
-    Last Update: 2018-12-15
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-10-16
+    Last Update: 2021-01-27 12:32:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -77,13 +78,4 @@ class init {
 
     // Completely wipes all data from the current campaign
     class init_wipe {};
-
-    // TODO: TBD: the timing for these is off...
-    // TODO: TBD: `class init {}` is too early, the mission variable have not seen their `Init` cycle yet.
-    // TODO: TBD: https://github.com/mwpowellhtx/KP-Liberation/issues/5
-    // Enumerates the known startbases
-    class init_enumStartbases {};
-
-    // Create the map markers for the startbases
-    class init_startbaseMarkers {};
 };

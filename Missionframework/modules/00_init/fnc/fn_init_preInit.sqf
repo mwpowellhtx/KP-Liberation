@@ -3,8 +3,9 @@
 
     File: fn_init_preInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2019-04-22
+    Last Update: 2021-01-28 15:11:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,44 +19,21 @@
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [INIT", true] call KPLIB_fnc_common_log;};
+// TODO: TBD: "init" and its pre- and post-init handlers is probably the correct timing in all of this...
+// TODO: TBD: which potentially beggards the question re: better module factoring for some of the other foundational functions...
+
+if (isServer) then {
+    ["Module initializing...", "PRE] [INIT", true] call KPLIB_fnc_common_log;
+};
 
 /*
     ----- Module Globals -----
 */
 
 // Name of the save key inside of the [ServerProfileName].vars.Arma3Profile file.
-KPLIB_save_key = "KP_LIBERATION_" + (toUpper worldName) + "_SAVEGAME_REWRITE";
+KPLIB_save_key = format [localize "STR_SAVE_KEY", toUpper worldName];
 // Variable for ending the campaign
 KPLIB_campaignRunning = true;
-// Respawn position shortcut
-KPLIB_eden_respawnPos = getMarkerPos "respawn";
-// All preset variable names as collection for processing
-KPLIB_preset_allVariables = [];
-// Civilian side color
-KPLIB_preset_colorC = "ColorCIV";
-// Civilian side color (active)
-KPLIB_preset_colorActC = "ColorPink";
-// Enemy side color
-KPLIB_preset_colorE = "ColorEAST";
-// Enemy side color (active)
-KPLIB_preset_colorActE = "ColorRed";
-// Friendly side color
-KPLIB_preset_colorF = "ColorWEST";
-// Friendly side color (active)
-KPLIB_preset_colorActF = "ColorBlue";
-// Resistance side color
-KPLIB_preset_colorR = "ColorGUER";
-// Resistance side color (active)
-KPLIB_preset_colorActR = "ColorGreen";
-// Civilian side
-KPLIB_preset_sideC = civilian;
-// Enemy side
-KPLIB_preset_sideE = east;
-// Player side
-KPLIB_preset_sideF = west;
-// Resistance side
-KPLIB_preset_sideR = resistance;
 // Reset position shortcut
 KPLIB_resetPos = [99999,99999,0];
 // Indicator if the saved data is fully loaded
@@ -78,7 +56,7 @@ KPLIB_sectors_fobs = [];
 KPLIB_sectors_lockedVeh = [];
 // Markers for the locked vehicles
 KPLIB_sectors_lockedVehMarkers = [];
-// All metropolis (capital) sectors
+// All metropolis (capitol) sectors
 KPLIB_sectors_metropolis = [];
 // All military sectors
 KPLIB_sectors_military = [];
@@ -88,23 +66,6 @@ KPLIB_sectors_spawn = [];
 KPLIB_sectors_tower = [];
 // Zero position shortcut
 KPLIB_zeroPos = [0,0,0];
-/*
- The startbase markerType is the mil_start icon.
- 23. Start / "mil_start"
- https://community.bistudio.com/wiki/CfgMarkers#Arma_3
-*/
-KPLIB_startbase_markerType = "mil_start";
-
-/* DeployType enumerated:
- * -1: Deploy type unknown, 'nil'
- * 0: Operations start base
- * 1: FOB
- * 2: Mobile
- */
-KPLIB_deployType_nil = -1;
-KPLIB_deployType_ops = 0;
-KPLIB_deployType_fob = 1;
-KPLIB_deployType_mob = 2;
 
 
 /*
@@ -141,6 +102,8 @@ if (isServer) then {
     [] call KPLIB_fnc_init_loadPresets;
 };
 
-if (isServer) then {["Module initialized", "PRE] [INIT", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "PRE] [INIT", true] call KPLIB_fnc_common_log;
+};
 
 true

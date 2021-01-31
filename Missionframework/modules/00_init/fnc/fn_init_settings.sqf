@@ -3,8 +3,9 @@
 
     File: fn_init_settings.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-11-09
-    Last Update: 2019-06-15
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-11-09
+    Last Update: 2021-01-31 17:05:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,31 +23,8 @@
     ----- GENERAL SETTINGS -----
 */
 
-// KPLIB_param_debug
-// Enables/Disables extended Liberation debug output for the server log.
-// Default: true
-[
-    "KPLIB_param_debug",
-    "CHECKBOX",
-    [localize "STR_KPLIB_SETTINGS_GENERAL_DEBUG", localize "STR_KPLIB_SETTINGS_GENERAL_DEBUG_TT"],
-    localize "STR_KPLIB_SETTINGS_GENERAL",
-    true,
-    1,
-    {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_savedebug
-// Enables/Disables detailed rpt logging of each saving process.
-// Default: false
-[
-    "KPLIB_param_savedebug",
-    "CHECKBOX",
-    [localize "STR_KPLIB_SETTINGS_GENERAL_SAVEDEBUG", localize "STR_KPLIB_SETTINGS_GENERAL_SAVEDEBUG_TT"],
-    localize "STR_KPLIB_SETTINGS_GENERAL",
-    false,
-    1,
-    {}
-] call CBA_Settings_fnc_init;
+// TODO: TBD: also did some refactoring to establish usage of the config helper functions...
+// TODO: TBD: key is refactoring the individual 'CBA_Settings_fnc_init' calls in a ubiquitous array...
 
 // KPLIB_param_saveInterval
 // Interval of periodic saves in seconds.
@@ -113,14 +91,14 @@
     , {}
 ] call CBA_Settings_fnc_init;
 
-// KPLIB_param_rotaryMoveRange
+// KPLIB_param_assetMoveRange
 // Maximum range at which it is possible to deploy helicopters to the designated startbase heli flight deck.
 // See '_flightDeckProxy' variable on startbase proxy for purposes of aligning assets.
 // Default: 20 meters
 [
-    "KPLIB_param_rotaryMoveRange"
+    "KPLIB_param_assetMoveRange"
     , "SLIDER"
-    , [localize "STR_KPLIB_SETTINGS_GENERAL_ROTARYMOVERANGE", localize "STR_KPLIB_SETTINGS_GENERAL_ROTARYMOVERANGE_TT"]
+    , [localize "STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE", localize "STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE_TT"]
     , localize "STR_KPLIB_SETTINGS_GENERAL"
     , [10, 100, 20, 0]
     , 1
@@ -145,6 +123,9 @@
     ----- PRESET SETTINGS -----
 */
 
+//// TODO: TBD: we did some work to abstract and simplify the side settings...
+//// TODO: TBD: somehow that got lost in an inadvertent deletion or something...
+//// TODO: TBD: pick that up again in a future issue and reconsider that...
 // KPLIB_param_presetF
 // Selection for the units, vehicles, etc. for the player side.
 // Default: Custom West Army

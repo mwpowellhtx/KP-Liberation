@@ -20,12 +20,6 @@
         Module postInit finished [BOOL]
 */
 
-// TODO: TBD: during post-init? or can/should we do it sooner?
-private _startbases = [] call KPLIB_fnc_init_enumStartbases;
-KPLIB_init_startbases = [_startbases] call KPLIB_fnc_init_startbaseMarkers;
-
-[format ["Initialized startbases: %1", str KPLIB_init_startbases], "POST] [INIT", true] call KPLIB_fnc_common_log;
-
 if (!isServer) then {
     // Called in the scheduled postInit environment allows the small wait in the function
     [] call KPLIB_fnc_init_receiveInit;
