@@ -4,8 +4,9 @@
 
     File: fn_respawn_displayUpdateRespawns.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-09-12
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-09-12
+    Last Update: 2021-01-27 14:00:05
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,7 +14,7 @@
         Update respawn positions listbox with available respawns
 
     Parameter(s):
-        _display - Respawn display [DISPLAY, defaults to nil]
+        _display - Respawn display [DISPLAY, default: nil]
 
     Returns:
         Function reached the end [BOOL]
@@ -35,13 +36,14 @@ private _selection = 0;
 
 // Clear the list
 lbClear _spawnListCtrl;
-// Add entries to the list
 {
+    // Add entries to the list
     _x params ["_label", "_pos"];
 
     // Add label to list
     _spawnListCtrl lbAdd (_label);
 
+    // TODO: TBD: may be some selection/indexing issues here from between 'instances' ...
     // Update current selection if old selected item found
     if (_pos isEqualTo _oldPos) then {
         _selection = _forEachIndex;

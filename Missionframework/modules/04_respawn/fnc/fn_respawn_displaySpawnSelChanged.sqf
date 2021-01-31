@@ -39,12 +39,11 @@ _display setVariable ["KPLIB_selRespawn", _currentItem];
 // Update map
 [_display] call KPLIB_fnc_respawn_displayFocusMap;
 
-
 // Update camera position
 private _camFocus = (_currentItem select 1);
 private _camFocusPos = [_camFocus] call KPLIB_fnc_common_getPos;
 // If focus position is not an object focus camera on static position
-if !(_camFocus isEqualType objNull) then {
+if (!(_camFocus isEqualType objNull)) then {
     _camFocus = _camFocusPos;
 };
 
