@@ -11,9 +11,38 @@
         Fetches all functions from the modules.
 */
 
+//class MATH {
+//};
+
+//class LINQ {
+//};
+
+//class UUID {
+//};
+
 class KPLIB {
     // Include functions from each module accordingly to the load order
+
+    // TODO: TBD: the aim here is to slide the appropriate modules in at the appropriate moments during KPLIB warming up
+    // TODO: TBD: we will renumber the bits in stages and during a subsequent sprint...
+    // TODO: TBD: ...after having settled on a few basic foundational elements, tuples, Edens, some actions, conditions, etc
+    #include "modules\xx_config\functions.hpp"
+    #include "modules\xx_logger\functions.hpp"
+
+    // TODO: TBD: will want to establish a new ordering and numbering eventually...
+    // TODO: TBD: for now we're just trying to get a handle on some odd evaluations...
+    #include "modules\xx_math\functions.hpp"
+    #include "modules\xx_linq\functions.hpp"
+    // TODO: TBD: for now UUID depends upon LINQ and MATH...
+    #include "modules\xx_uuid\functions.hpp"
+
+    #include "modules\xx_timers\functions.hpp"
+
     #include "modules\00_init\functions.hpp"
+
+    // TODO: TBD: more refactoring candidates...
+    #include "modules\xx_eden\functions.hpp"
+
     #include "modules\01_common\functions.hpp"
     #include "modules\02_core\functions.hpp"
     #include "modules\03_persistence\functions.hpp"
