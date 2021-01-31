@@ -40,7 +40,8 @@ private _type = typeOf _vehicle;
 // Variables
 private _cfgVeh = configFile >> "CfgVehicles";
 private _cfgMag = configFile >> "CfgMagazines";
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerPos = getMarkerPos _markerName;
 private _cargo = ctrlText _ctrlCargoStateValue;
 private _cargoCheck = "";
 private _ammoMax = 0;
@@ -87,7 +88,7 @@ if !(KPLIB_param_aceResupply) then {
 
 if (
     !(_cargo isEqualTo _cargoCheck) ||
-    (((getMarkerPos _nearFOB) distance2D _vehicle) > KPLIB_param_fobRange)
+    ((_markerPos distance2D _vehicle) > KPLIB_param_fobRange)
 ) exitWith {
     _resupplyButton ctrlEnable false;
     [
@@ -110,7 +111,7 @@ if !(KPLIB_param_aceResupply) then {
                 _newAmmoState = 1;
             };
             _vehicle setVehicleAmmo _newAmmoState;
-            [_nearFOB, 0, _costs, 0] call KPLIB_fnc_resources_pay;
+            [_markerName, 0, _costs, 0] call KPLIB_fnc_resources_pay;
         };
         case "FUEL": {
             private _fuelMax = getNumber (_cfgVeh >> _type >> "fuelCapacity");
@@ -120,7 +121,7 @@ if !(KPLIB_param_aceResupply) then {
                 _newFuelState = 1;
             };
             _vehicle setFuel _newFuelState;
-            [_nearFOB, 0, 0, _costs] call KPLIB_fnc_resources_pay;
+            [_markerName, 0, 0, _costs] call KPLIB_fnc_resources_pay;
         };
     };
 } else {
@@ -133,7 +134,7 @@ if !(KPLIB_param_aceResupply) then {
             } else {
                 _vehicle setVariable ["ace_rearm_currentSupply", _ammoState + _addValue];
             };
-            [_nearFOB, 0, _costs, 0] call KPLIB_fnc_resources_pay;
+            [_markerName, 0, _costs, 0] call KPLIB_fnc_resources_pay;
         };
         case "FUEL": {
             private _fuelMax = getNumber (_cfgVeh >> _type >> "ace_refuel_fuelCargo");
@@ -143,7 +144,7 @@ if !(KPLIB_param_aceResupply) then {
             } else {
                 _vehicle setVariable ["ace_refuel_currentFuelCargo", _fuelState + _addValue];
             };
-            [_nearFOB, 0, 0, _costs] call KPLIB_fnc_resources_pay;
+            [_markerName, 0, 0, _costs] call KPLIB_fnc_resources_pay;
         };
     };
 };

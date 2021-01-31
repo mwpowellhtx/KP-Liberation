@@ -4,8 +4,9 @@
 
     File: fn_logistic_calcCosts.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-02-23
-    Last Update: 2019-05-04
+            Michael W. Powell [22nd MEU SOD]
+    Created: 2019-02-23
+    Last Update: 2021-01-27 15:39:00
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,8 +34,8 @@ private _costs = parseNumber (ctrlText _ctrlCosts);
 private _count = round (sliderPosition _ctrlSlider);
 
 // Variables
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
-private _res = [_nearFOB] call KPLIB_fnc_resources_getResTotal;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
+private _res = [_markerName] call KPLIB_fnc_resources_getResTotal;
 private _check = false;
 
 // Fill the controls

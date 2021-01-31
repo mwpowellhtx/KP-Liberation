@@ -27,7 +27,7 @@ private _ctrlStorage = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_COMBOCARGO;
 lbClear _ctrlStorage;
 
 // Variables
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 private _type = objNull;
 private _config = "";
 private _number = 0;
@@ -45,7 +45,7 @@ private _blacklist = [
     "WeaponHolderSimulated",
     ""
 ];
-private _objects = (getMarkerPos _nearFOB) nearObjects KPLIB_param_fobRange;
+private _objects = (getMarkerPos _markerName) nearObjects KPLIB_param_fobRange;
 
 // Get near objects and check for storage capacity
 {

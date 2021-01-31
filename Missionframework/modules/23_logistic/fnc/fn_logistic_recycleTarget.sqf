@@ -69,7 +69,7 @@ if (KPLIB_param_fuelInfluence) then {
 private _supplyValueCheck = 0;
 private _ammoValueCheck = 0;
 private _fuelValueCheck = 0;
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 
 if !(_vehicleIndex isEqualTo -1) then {
     private _vehicleArray = _vehicles select _vehicleIndex;
@@ -86,7 +86,7 @@ if (
     !(_supplyValue isEqualTo _supplyValueCheck) ||
     !(_ammoValue isEqualTo _ammoValueCheck) ||
     !(_fuelValue isEqualTo _fuelValueCheck) ||
-    (((getMarkerPos _nearFOB) distance2D _vehicle) > KPLIB_param_fobRange)
+    (((getMarkerPos _markerName) distance2D _vehicle) > KPLIB_param_fobRange)
 ) exitWith {
     _recycleButton ctrlEnable false;
     [
@@ -98,9 +98,9 @@ if (
 // Pay the refund
 private _storage = objNull;
 private _crate = objNull;
-private _storages = [getMarkerPos _nearFOB, KPLIB_param_fobRange] call KPLIB_fnc_resources_getStorages;
+private _storages = [getMarkerPos _markerName, KPLIB_param_fobRange] call KPLIB_fnc_resources_getStorages;
 
-[_nearFOB, _supplyValue, _ammoValue, _fuelValue] remoteExecCall ["KPLIB_fnc_resources_refund", 2];
+[_markerName, _supplyValue, _ammoValue, _fuelValue] remoteExecCall ["KPLIB_fnc_resources_refund", 2];
 
 // Delete the vehicle
 deleteVehicle _vehicle;

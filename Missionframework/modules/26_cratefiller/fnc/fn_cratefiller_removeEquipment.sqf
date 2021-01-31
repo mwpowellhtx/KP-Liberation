@@ -33,7 +33,8 @@ private _indexActive = lbCurSel _ctrlActive;
 
 // Get the storage object
 private _storage = [] call KPLIB_fnc_cratefiller_getStorage;
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerPos = getMarkerPos _markerName;
 
 // Get the storage inventory
 private _inventory = [] call KPLIB_fnc_cratefiller_getInventory;
@@ -48,7 +49,7 @@ if (_indexActive isEqualTo -1 || ((lnbSize _ctrlActive) select 0) isEqualTo 0) e
 };
 
 // Check if the storage is in range
-if ((_storage distance2D (getMarkerPos _nearFOB)) > KPLIB_param_fobRange) exitWith {
+if ((_storage distance2D _markerPos) > KPLIB_param_fobRange) exitWith {
     [localize "STR_KPLIB_HINT_RANGE"] call CBA_fnc_notify;
     [] remoteExecCall ["KPLIB_fnc_cratefiller_getNearStorages", (allPlayers - entities "HeadlessClient_F")];
 };

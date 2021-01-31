@@ -40,7 +40,7 @@ _cost params [
     "_costFuel",
     "_costIntel"
 ];
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 private _resourceCheck = true;
 private _timeCheck = true;
 
@@ -61,7 +61,7 @@ if (_index != -1) then {
 
 // Check if the mission is a buyable mission and check if there are enough resources available
 if !(_missionData select 0) then {
-    ([_nearFOB] call KPLIB_fnc_resources_getResTotal) params [
+    ([_markerName] call KPLIB_fnc_resources_getResTotal) params [
         "_resSupply",
         "_resAmmo",
         "_resFuel"
@@ -83,7 +83,7 @@ if !(_resourceCheck && {_timeCheck && {[] call _conditionCheckFnc}}) exitWith {
 
 // Pay the resources if the mission costs anything
 if !(_cost isEqualTo [0, 0, 0, 0]) then {
-    [_nearFOB, _costSupply, _costAmmo, _costFuel] call KPLIB_fnc_resources_pay;
+    [_markerName, _costSupply, _costAmmo, _costFuel] call KPLIB_fnc_resources_pay;
     [-_costIntel] call KPLIB_fnc_resources_addIntel;
 };
 
@@ -91,7 +91,7 @@ if !(_cost isEqualTo [0, 0, 0, 0]) then {
 ["KPLIB_missionExec", [_missionData select 1]] call CBA_fnc_serverEvent;
 
 // Prepare the namespace data
-_runningMissions pushback [_mission, _nearFOB];
+_runningMissions pushBack [_mission, _markerName];
 private _startTime = diag_tickTime + (_missionData select 10) + (round (random (_missionData select 11)));
 _timeData pushBack [_mission, _startTime];
 

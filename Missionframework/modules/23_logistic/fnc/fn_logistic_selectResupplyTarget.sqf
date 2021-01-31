@@ -55,8 +55,8 @@ _index = lbCurSel _ctrlCargo;
 // Variables
 private _cfgVeh = configFile >> "CfgVehicles";
 private _cfgMag = configFile >> "CfgMagazines";
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
-private _res = [_nearFOB] call KPLIB_fnc_resources_getResTotal;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
+private _res = [_markerName] call KPLIB_fnc_resources_getResTotal;
 private _ammoMax = 0;
 private _ammoState = 0;
 private _fuelMax = 0;

@@ -32,7 +32,8 @@ private _ctrlVehicleList = _dialog displayCtrl _ctrlId;
 lbClear _ctrlVehicleList;
 
 // Variables
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerPos = getMarkerPos _markerName;
 private _cfgVeh = configFile >> "CfgVehicles";
 private _type = "";
 private _name = "";
@@ -59,7 +60,7 @@ _ctrlVehicleList lbSetData [_index, "placeholder"];
 // Detect the dialog type and select all objects dependent on the settings
 if (_dialogId isEqualTo KPLIB_IDC_LOGISTIC_RECYCLE_DIALOG) then {
     // If recycle dialog is open
-    _objects = ((getMarkerPos _nearFOB) nearObjects KPLIB_param_fobRange) select {
+    _objects = (_markerPos nearObjects KPLIB_param_fobRange) select {
         !(typeOf _x in _blacklist) &&
         !((typeOf _x select [0,1]) isEqualTo "#") &&
         !(_x isKindOf "Building") &&
@@ -75,9 +76,9 @@ if (_dialogId isEqualTo KPLIB_IDC_LOGISTIC_RECYCLE_DIALOG) then {
             if (_ammoMax != 0 || _fuelMax != 0) then {
                 _objects pushBack _x;
             };
-        } forEach ((getMarkerPos _nearFOB) nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobRange]);
+        } forEach (_markerPos nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobRange]);
     } else {
-        _objects = (getMarkerPos _nearFOB) nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobRange];
+        _objects = _markerPos nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobRange];
     };
 };
 

@@ -43,7 +43,7 @@ _cost params [
     "_costFuel",
     "_costIntel"
 ];
-private _nearFOB = [] call KPLIB_fnc_common_getPlayerFob;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 private _resourceCheck = true;
 private _timeCheck = true;
 
@@ -64,7 +64,7 @@ if (_index != -1) then {
 
 // Check if the mission is a buyable mission and check if there are enough resources available
 if !(_missionData select 0) then {
-    ([_nearFOB] call KPLIB_fnc_resources_getResTotal) params [
+    ([_markerName] call KPLIB_fnc_resources_getResTotal) params [
         "_resSupply",
         "_resAmmo",
         "_resFuel"
