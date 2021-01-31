@@ -10129,7 +10129,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="call{this setVariable ['KPLIB_eden_markerText', 'U.S.S. Liberty (Flight Deck)'];" \n "this setVariable ['KPLIB_eden_flightDeckProxy', 'KPLIB_eden_potatospawn'];}";
+				init="call{this setVariable ['KPLIB_eden_markerText', 'U.S.S. Liberty (Flight Deck)', true];" \n "this setVariable ['KPLIB_eden_flightDeckProxy', 'KPLIB_eden_potatospawn', true];}";
 				name="KPLIB_eden_startbase";
 			};
 			id=5818;
