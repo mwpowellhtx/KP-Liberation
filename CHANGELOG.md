@@ -5,16 +5,16 @@
 * **_Caveat_**: We are adding some bits that we think deserve a dedicated module unto their own, i.e. _UUID_, _LINQ_, and so on. However, that is going to require that we renumber the modules. This is no small effort, so for now we are placing them as we are in the `01_common` module, however, with _prefixes_ that are unique to their module. Eventually we will renumber them but for now we are holding off on that level of effort.
 * Added: _LINQ_ style aggregate and zip functions for use especially as we get further into things.
 * Added: _UUID_ creation functions for purposes of uniquely identifying objects in hand. We will use this for sure to help differentiate between _FOB_ and _start base_ locations vis-a-vis _player_ geolocation.
-* Added: `KPLIB_fnc_common_min` function, which yields the _minimum element_ from a _vector of elements_ of _potentially any shape_.
+* Added: `KPLIB_fnc_linq_min` function, which yields the _minimum element_ from a _vector of elements_ of _potentially any shape_.
 * Added: Or clarified _static_ and _turret_ assets among the armies.
-* Added: `KPLIB_param_opsRange` which captures _start base_ range boundaries for _minimum_ or _maximum_ inquiries, i.e. _within_ or _without_, etc.
-* Added: `KPLIB_param_rotaryMoveRange` CBA setting as a way of tuning the behavior.
-* Added: `KPLIB_fnc_init_enumStartbases` which enumerates the _start bases_ according to known naming convention; defaults to `KPLIB_eden_startbase` or an open range of `KPLIB_eden_startbase_%1` where `%1` is a _zero based index_. Any break in the index short circuits the enumeration algorithm.
-* Added: `KPLIB_fnc_init_startbaseMarkers` which elaborates on the _enumerated start bases_, in particular _adding map markers_; _start base proxies_ may specify a `_markerText` variable, which serves as the map marker text.
-* Added: `KPLIB_fnc_core_findStartbases` as the basis to inquire anything about matching _start base proxies_.
-* Added: `KPLIB_fnc_core_findStartbasesWithFlightDeck` which enhanced that inquiry relative to a target, usually `_rotary`, object.
+* Added: `KPLIB_param_edenRange` which captures _start base_ range boundaries for _minimum_ or _maximum_ inquiries, i.e. _within_ or _without_, etc.
+* Added: `KPLIB_param_assetMoveRange` CBA setting as a way of tuning the behavior.
+* Added: `KPLIB_fnc_eden_enumerate` which enumerates the _start bases_ according to known naming convention; defaults to `KPLIB_eden_startbase` or an open range of `KPLIB_eden_startbase_%1` where `%1` is a _zero based index_. Any break in the index short circuits the enumeration algorithm.
+* Added: `KPLIB_fnc_eden_createOrUpdateMarker` which does as it says for an Eden tuple; proxies may specify a `KPLIB_eden_markerText` variable, which serves as the map marker text.
+* Added: `KPLIB_fnc_eden_select` as the basis to inquire anything about matching _start base proxies_.
+* Added: `KPLIB_fnc_eden_selectWithFlightDeck` which enhanced that inquiry relative to a target, usually `_rotary`, object.
 * Added: `KPLIB_fnc_math_convertDecimalToBaseRadix` which does what it says, mainly for use with the military alphabet conversion.
-* Added: Using `KPLIB_deployType` instead of simply `KPLIB_respawn`. It adds clarity, and we can identify whether a _start base_ or an _FOB_ is the focus of deployment as well.
+* Added: Using `KPLIB_sectorType` instead of simply `KPLIB_respawn`. It adds clarity, and we can identify whether a _start base_ or an _FOB_ is the focus of deployment as well.
 * Added: Ability to verify _UUID_ validity.
 * Added: _LINQ_ style _first_ and _last_ functions for use in various aspects. Behaves like a hybrid of the baseline _First_ or _Last_ extension method, with _OrDefault_ comprehension, as well as ability to include the _index_ of the _predicated element_.
 * Updated: player actions also respond taking spawn point `_flightDeckProxy` under consideration.
@@ -24,14 +24,14 @@
 * Updated: Applying _UUID_ to _start bases_, _FOBs_, and to _mobile respawn_ assets. We will leverage that in order to uniquely identify where _player_ when facilitating things like _menu actions_.
 * Refactored: _Start base_ accounting for potentially one or more such proxies.
 * Refactored: `heli` instead to `rotary` especially vis-a-vis moving assets to _flight deck_.
-* Refactored: renamed `KPLIB_fnc_core_heliToDeck` instead to `KPLIB_fnc_core_rotaryToFlightDeck`, which we think better describes. There is more we think we may do around that approach, but we will take the win that this is for the time being.
+* Refactored: renamed `KPLIB_fnc_core_heliToDeck` instead to `KPLIB_fnc_eden_assetToFlightDeck`, which we think better describes. There is more we think we may do around that approach, but we will take the win that this is for the time being.
 * Refactored: _potato spawn_ vis-a-vis moving rotary assets, instead as designated by _start base_ `_flightDeckProxy` variable.
 * Refactored: `_flightDeckProxy` can be anything, does not need to be _just the potato spawn point_.
 * Refactored: **_Any_** _start base_ can potentially support **_any_** _flight deck_, although typically this is a _cluttercutter proxy object_, specifically the _potato spawn point_.
 * Refactored: `KPLIB_fnc_common_getFobAlphabetName` instead to `KPLIB_fnc_common_indexToMilitaryAlpha`, which has a broader application we will need approaching _logistics_, etc.
 * Tweaked: Eden starting asset algorithm allowing for specification flexibility.
 * Tweaked: A few naming conventions, _Anti-Air_ for _Aa_, _Anti-Tank_ for _At_, and so forth.
-* Tweaked: Dropping the `KPLIB_respawn` vehicle variable for mobile respawns. This just adds confusion to the `class CfgRespawnTemplate {...}` template. Instead we leverage a `KPLIB_deployType` variable.
+* Tweaked: Dropping the `KPLIB_respawn` vehicle variable for mobile respawns. This just adds confusion to the `class CfgRespawnTemplate {...}` template. Instead we leverage a `KPLIB_sectorType` variable.
 * Tweaked: Mission object variable naming conventions in keeping with `KPLIB_eden_*` convention.
 
 ## 0.97.0 (Frozen, forked, baseline)
