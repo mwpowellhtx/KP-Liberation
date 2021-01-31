@@ -19,6 +19,9 @@
         All found storage objects [ARRAY]
 */
 
+// TODO: TBD: not going to touch this one just yet...
+// TODO: TBD: "storage" yes, but we need to think in terms of "container"...
+// TODO: TBD: can mean a spill bund, but can also mean a transport...
 params [
     ["_center", KPLIB_zeroPos, [[]], 3],
     ["_radius", 100, [0]]
