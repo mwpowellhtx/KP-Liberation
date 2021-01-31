@@ -36,9 +36,6 @@ class eden {
     // Moves asset from its current location to Eden designated 'KPLIB_eden_flightDeckProxy'
     class eden_assetToFlightDeck {};
 
-    // Verifies the 'KPLIB_sectorType_xyz' variable given the _target object
-    class eden_verifySectorType {};
-
     // Initialize eden module
     class eden_preInit {
         preInit = 1;
