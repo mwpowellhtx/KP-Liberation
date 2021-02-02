@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.98.0 (S2) (Under development)
+* Refactored: Reshaped the _sectors tuples_, see _docs_: `kp-sectors-tuple-matrix.ods`. Informs both the _Edens_ as well as _FOBs_, for starters. Will soon also be useful for _production_, and in the future informing _logistics_.
+  * Was mostly straightforward following the trail of breadcrumbs from KPLIB_sectors_edens and KPLIB_sectors_fobs.
+    * Except in a couple of instances such as `KPLIB_fnc_eden_createOrUpdateMarkers` in which we gave element oriented functions defined.
+    * Which is to underscore we just need to be careful with this sort of functional shift.
+  * On the whole, however, we like this refinement much better than the initial draft.
+* Bug: Corrected verbiage concerning the `systemTime` formatting function.
+
 ## 0.98.0 (S1) (Thawed, under development)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
 * **_Caveat_**: We are adding some bits that we think deserve a dedicated module unto their own, i.e. _UUID_, _LINQ_, and so on. However, that is going to require that we renumber the modules. This is no small effort, so for now we are placing them as we are in the `01_common` module, however, with _prefixes_ that are unique to their module. Eventually we will renumber them but for now we are holding off on that level of effort.
