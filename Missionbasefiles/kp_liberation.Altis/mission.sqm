@@ -8,7 +8,7 @@ class EditorData
 	toggles=545;
 	class ItemIDProvider
 	{
-		nextID=6459;
+		nextID=6463;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=1861;
+		nextID=1897;
 	};
 	class Camera
 	{
-		pos[]={27367.07,33.735958,5526.3784};
-		dir[]={-0.59294045,-0.80255711,-0.066828355};
-		up[]={-0.79757589,0.59648472,-0.089894079};
-		aside[]={-0.11200841,3.9221777e-007,0.99377632};
+		pos[]={27350.682,80.643524,5558.9927};
+		dir[]={0.02981481,-0.91257828,0.40806022};
+		up[]={0.066503204,0.40884504,0.91017693};
+		aside[]={0.99744028,4.7381036e-008,-0.072877012};
 	};
 };
 binarizationWanted=0;
@@ -287,7 +287,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=511;
+		items=512;
 		class Item0
 		{
 			dataType="Marker";
@@ -10511,7 +10511,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_addVicToCargo"", true];}";
+				init="call{this setVariable [""KPLIB_eden_addVicToCargo"", true];}";
 				name="KPLIB_eden_boat_1";
 			};
 			id=6427;
@@ -10551,7 +10551,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_addVicToCargo"", true];}";
+				init="call{this setVariable [""KPLIB_eden_addVicToCargo"", true];}";
 				name="KPLIB_eden_boat_0";
 			};
 			id=6428;
@@ -10604,7 +10604,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				init="call{this setVariable [""KPLIB_eden_withCrew"", false];}";
 				name="KPLIB_eden_turret_sam_short_0";
 			};
 			id=6451;
@@ -10645,7 +10645,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				init="call{this setVariable [""KPLIB_eden_withCrew"", false];}";
 				name="KPLIB_eden_turret_phalanx_1";
 			};
 			id=6452;
@@ -10687,7 +10687,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				init="call{this setVariable [""KPLIB_eden_withCrew"", false];}";
 				name="KPLIB_eden_turret_phalanx_0";
 			};
 			id=6453;
@@ -10729,7 +10729,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				init="call{this setVariable [""KPLIB_eden_withCrew"", false];}";
 				name="KPLIB_eden_turret_gun_0";
 			};
 			id=6454;
@@ -10769,12 +10769,52 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="call{_this setVariable [""KPLIB_eden_withCrew"", false];}";
+				init="call{this setVariable [""KPLIB_eden_withCrew"", false];}";
 				name="KPLIB_eden_turret_vls_0";
 			};
 			id=6455;
 			type="Land_ClutterCutter_small_F";
 			atlOffset=0.64034271;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item511
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27341.225,15.65405,5567.7939};
+			};
+			side="Empty";
+			class Attributes
+			{
+				init="call{this setVariable ['KPLIB_eden_markerText', 'U.S.S. Liberty (Upper Deck)', true];}";
+				name="KPLIB_eden_startbase_0";
+			};
+			id=6462;
+			type="Land_ClutterCutter_small_F";
+			atlOffset=0.42028809;
 			class CustomAttributes
 			{
 				class Attribute0
