@@ -42,8 +42,7 @@ private _specs = [
     , ["KPLIB_eden_ground_light_", KPLIB_preset_addGroundLightF]
     , ["KPLIB_eden_ground_armed_", KPLIB_preset_addGroundArmedF]
     , ["KPLIB_eden_ground_armored_", KPLIB_preset_addGroundArmoredF]
-    // TODO: TBD: which assumes that they are loading in boat actual racks...
-    , ["KPLIB_eden_boat_", KPLIB_preset_addBoatF, nil, nil, true]
+    , ["KPLIB_eden_boat_", KPLIB_preset_addBoatF]
     , ["KPLIB_eden_turret_gun_", KPLIB_preset_turretGunF]
     , ["KPLIB_eden_turret_phalanx_", KPLIB_preset_turretPhalanxMinigunF]
     , ["KPLIB_eden_turret_sam_short_", KPLIB_preset_turretShortRangeSamF]
@@ -55,11 +54,9 @@ private _specs = [
 // TODO: TBD: as based on observations below, does not seem to be the case...
 {
     _x params [
-        "_prefix"
-        , "_classname"
-        , ["_justSpawn", true]
-        , ["_withCrew", false]
-        , ["_addVicToCargo", false]
+        ["_prefix", "", [""]]
+        , ["_classname", "", [""]]
+        , ["_justSpawn", true, [true]]
     ];
 
     for [{_i = 0}, {!isNil (_prefix + str _i)}, {_i = _i + 1}] do {
@@ -68,11 +65,11 @@ private _specs = [
         // Get the spawn point grasscutter
         _proxyObj = missionNamespace getVariable (_prefix + str _i);
 
-        private _proxyObj_addVicToCargo = _proxyObj getVariable ["KPLIB_eden_addVicToCargo", false];
-        private _proxyObj_withCrew = _proxyObj getVariable ["KPLIB_eden_withCrew", false];
+        private _withCrew = _proxyObj getVariable ["KPLIB_eden_withCrew", false];
+        private _addVicToCargo = _proxyObj getVariable ["KPLIB_eden_addVicToCargo", false];
 
         [format ["Creating vic %1 at proxy %2: [withCrew, addVicToCargo]: %3"
-            , _classname, _prefix + str _i, str [_proxyObj_withCrew, _proxyObj_addVicToCargo]]
+            , _classname, _prefix + str _i, str [_withCrew, _addVicToCargo]]
             , "SPAWN START VIC", true] call KPLIB_fnc_common_log;
 
         // Current position for the proxy object
