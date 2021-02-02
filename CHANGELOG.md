@@ -7,6 +7,7 @@
     * Which is to underscore we just need to be careful with this sort of functional shift.
   * On the whole, however, we like this refinement much better than the initial draft.
 * Bug: Corrected verbiage concerning the `systemTime` formatting function.
+* Bug: Handle the use case where serialization occurs for assets beyond the range of known _FOB_ sites. Should never be serialized in the first place, we think, but this is the next best manner in which to respond. Can verify in both `KPLIB_persistence_objects` and `KPLIB_persistence_units` arrays.
 
 ## 0.98.0 (S1) (Thawed, under development)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
