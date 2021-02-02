@@ -33,6 +33,7 @@ if (isServer) then {
     ["KPLIB_player_giveZeus", {
         params ["_unit", "_mode"];
 
+        // TODO: TBD: under review, should establish zeus mode enum vars...
         switch _mode do {
             // NONE mode
             case 0: {
@@ -47,7 +48,10 @@ if (isServer) then {
 
     // Handle built items
     ["KPLIB_build_item_built", {
-        params ["_object"];
+        params [
+            ["_object", objNull, [objNull]]
+            , ["_markerName", "", [""]]
+        ];
         // Add built item to all curators
         {
             _x addCuratorEditableObjects [[_object], true];
@@ -56,7 +60,7 @@ if (isServer) then {
 };
 
 if (hasInterface) then {
-    // Change zeus watermark to KP Logo ;-)
+    // TODO: TBD: Change zeus watermark to KP Logo...
     ["KPLIB_curatorOpen", {
         [{
             private _watermarkCtrl = (findDisplay 312) displayCtrl 15717;
@@ -68,7 +72,9 @@ if (hasInterface) then {
     ["KPLIB_curatorOpen", {
         private _curator = getAssignedCuratorLogic player;
 
+        // TODO: TBD: "mode" in general? or re: "curator", "zeus" (?)
         switch (_curator getVariable ["KPLIB_mode", 0]) do {
+            // TODO: TBD: ditto "modes" ...
             // Limited mode
             case 1: {
                 [_curator, getPosATL player] call KPLIB_fnc_virtual_curatorAreaLimit;

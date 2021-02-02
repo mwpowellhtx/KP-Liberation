@@ -14,11 +14,11 @@
 
     Parameter(s):
         _player - the _player from which to obtain the 'KPLIB_sector_info#0' or '_markerName' [OBJECT, default: player]
-            - tuples in the shape of, ['_markerName', '_uuid', '_sectorType'], from which we shall select '_this#0' or '_markerName' by default.
-        _selector - OPTIONAL, may select bits of the info tuple as needed [CODE, default: {_this}]
+            - tuples in the shape of, ['_markerName', '_sectorType', '_uuid'], from which we shall select '_this#0' or '_markerName' by default.
+        _selector - OPTIONAL, may select bits of the info tuple as needed [CODE, default: {_this#0}]
 
     Returns:
-        '_this#0' or '_markerName' from the '_target' 'KPLIB_sector_info' variable.
+        '_this#0' or '_markerName' from the '_target' 'KPLIB_sector_info' variable, as specified by the '_selector' parameter.
 */
 
 params [

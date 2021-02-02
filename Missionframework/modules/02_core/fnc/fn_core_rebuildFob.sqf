@@ -19,47 +19,30 @@
             - Note that _markerText is blank at this moment since we cannot know precise index
 */
 
-// TODO: TBD: refactor to init, pre-init, etc...
-private _fobEmpty = +[
-    ""
-    , [KPLIB_uuid_zero, systemTime]
-    , [KPLIB_sectorType_nil, KPLIB_zeroPos, KPLIB_preset_sideF]
-    , ["", ""]
-];
-
 params [
-    ["_fob", _fobEmpty, [[]], 4]
+    ["_fob", KPLIB_fob_empty, [[]], 2]
 ];
 
 // TODO: TBD: do some logging...
-
 if (_fob isEqualTo []) exitWith {false};
 
-[
-    _fob select 2 select 1
-    , _fob select 1 select 0
-    , _fob select 1 select 1
-] params ["_pos", "_uuid", "_est"];
+[_fob#0#3, _fob#1#2, _fob#1#3] params ["_pos", "_est", "_uuid"];
+
+if (!([_uuid] call KPLIB_fnc_uuid_verify_string)) exitWith {false};
 
 if (_pos isEqualTo KPLIB_zeroPos) exitWith {false};
 
-// Rebuild the FOB from the serialized position.
-private _rebuilt = [_pos, _est, _uuid] call KPLIB_fnc_core_buildFob;
+private _i = KPLIB_sectors_fobs findIf {(_x#1#3) isEqualTo _uuid};
+//                           1. _uuid:   ^^^^^^
 
-{
-    _rebuilt set [_x, +(_fob select _x)];
-} forEach [
-    1 // bookkeeping
-    , 2 // sector, although we were given a position, still replace it
-    , 3 // marker
-];
+if (_i < 0) exitWith {false};
 
-// An swap in the loaded FOB tuple.
-KPLIB_sectors_fobs set [count KPLIB_sectors_fobs - 1, _rebuilt];
+// FOB was rebuilt, replace the tuple in the parent collection.
+private _new = [_pos, _est, _uuid] call KPLIB_fnc_core_buildFob;
+
+KPLIB_sectors_fobs set [_i, _new];
 
 ["KPLIB_fob_built", _rebuilt] call CBA_fnc_globalEvent;
 
-// TODO: TBD: the UUID check probably ought to run prior to any of it...
-// Returns with a simple check that the bits were restored correctly
-[_uuid] call KPLIB_fnc_uuid_verify_string
-&& !((_rebuilt select 0) isEqualTo (_fob select 0))
+// Returns with a simple check that the bits were restored correctly.
+_new isEqualTo _fob

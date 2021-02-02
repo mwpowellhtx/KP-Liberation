@@ -1,8 +1,8 @@
 #include "..\ui\defines.hpp"
 /*
-    KPLIB_fnc_respawn_doSpawn
+    KPLIB_fnc_respawn_spawnPlayer
 
-    File: fn_respawn_doSpawn.sqf
+    File: fn_respawn_spawnPlayer.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
     Date: 2018-09-12
     Last Update: 2019-04-22

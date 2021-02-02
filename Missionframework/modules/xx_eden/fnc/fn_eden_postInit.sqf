@@ -11,6 +11,7 @@
     Description:
 
     Parameter(s):
+        NONE
 
     Returns:
 */
@@ -19,21 +20,15 @@
 
 if (isServer) then {
 
-    // TODO: TBD: we may also pursue more of a "losing" end game scenario in which it is possible for Edens to be lost
-    // TODO: TBD: or specify just what those end game conditions must be in lieu of that
-    // TODO: TBD: which also implies that, at some level, we are serializing Edens as well and reconciling with those we discovered in the mission
-    // TODO: TBD: HOWEVER, HOWEVER, ... NOT, NOT, NOT during this sprint (v0.98 S1) / 2021-01-28 13:18:00
-    private _edens = [];
+    KPLIB_sectors_edens = [] call KPLIB_fnc_eden_enumerate;
 
-    // TODO: TBD: we think that we possibly also need to serialize some aspect of these...
-    // TODO: TBD: then also merge in key bits with the thing, i.e. for "side", things of this nature...
-    _edens = [] call KPLIB_fnc_eden_enumerate;
+    {
+        private _tuple = [_forEachIndex] + _x;
+        [format ["Initialized Edens: [_i]+_eden: %1", str _tuple], "POST] [EDEN", true] call KPLIB_fnc_common_log;
+    } forEach KPLIB_sectors_edens;
 
-    KPLIB_sectors_edens = _edens;
-
+    // TODO: TBD: we may need to put some timers on any of these things to continually refresh clients with public vars...
     publicVariable "KPLIB_sectors_edens";
-
-    [format ["Initialized Edens: %1", str KPLIB_sectors_edens], "POST] [EDEN", true] call KPLIB_fnc_common_log;
 };
 
 ["Module initialized", "POST] [EDEN", true] call KPLIB_fnc_common_log;

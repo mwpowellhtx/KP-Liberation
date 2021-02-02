@@ -18,28 +18,43 @@
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [CORE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "PRE] [CORE", true] call KPLIB_fnc_common_log;
+};
 
 // Process CBA Settings
 [] call KPLIB_fnc_core_settings;
 
 if (isServer) then {
-    ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_core_handleVehicleSpawn}] call CBA_fnc_addEventHandler;
+    [
+        "KPLIB_vehicle_spawned"
+        , {[_this select 0] call KPLIB_fnc_core_handleVehicleSpawn}
+    ] call CBA_fnc_addEventHandler;
 
-    if(KPLIB_param_clearVehicleCargo) then {
-        ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_common_clearVehicleCargo}] call CBA_fnc_addEventHandler;
+    if (KPLIB_param_clearVehicleCargo) then {
+        [
+            "KPLIB_vehicle_spawned"
+            , {[_this select 0] call KPLIB_fnc_common_clearVehicleCargo}
+        ] call CBA_fnc_addEventHandler;
     };
 };
 
 /*
     ----- Module Globals -----
 */
+KPLIB_fob_empty = +[
+    ["", "", "", KPLIB_zeroPos]
+    , [KPLIB_sectorType_nil, KPLIB_preset_sideF, systemTime apply {0}, KPLIB_uuid_zero]
+];
 
+// TODO: TBD: just "one" reference?
 // Potato 01 vehicle reference
 KPLIB_core_potato01 = objNull;
 // Deploy button trigger for redeploy dialog
 KPLIB_dialog_deploy = 0;
 
-if (isServer) then {["Module initialized", "PRE] [CORE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "PRE] [CORE", true] call KPLIB_fnc_common_log;
+};
 
 true

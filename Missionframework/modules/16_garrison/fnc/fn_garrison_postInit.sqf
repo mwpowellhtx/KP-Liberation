@@ -46,7 +46,7 @@ if (hasInterface) then {
     // TODO: TBD: ditto helper functions...
     private _garrisonCondition = '
         _target isEqualTo _originalTarget
-        && ([_originalTarget, {_this#2}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_fob]
+        && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_fob]
         && !(KPLIB_sectors_blufor isEqualTo [])
         && ["GarrisonDialogAccess"] call KPLIB_fnc_permission_checkPermission
     ';

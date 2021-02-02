@@ -40,25 +40,24 @@ if (isNull _proxy) then {
 // And if proxy is STILL null, then return empty.
 if (isNull _proxy) exitWith {[]};
 
-private _bookkeeping = +[
-    call KPLIB_fnc_uuid_create_string
-    , systemTime
-];
+/* The goal here is to not only keep the intermediate variables during tuple
+ * deconstruction to a minimum, but also to tighten up the point of interest
+ * construct altogether. Especially as we approach downstream bits such as
+ * production, logistics, etc. We want to keep the tuple breadth to a minimum
+ * and tight. */
 
-private _sector = [
-    KPLIB_sectorType_eden
-    , getPosATL _proxy
-    , KPLIB_preset_sideF
-];
-
-private _marker = [
+private _ident = [
     [_varName, "_marker"] joinString ""
     , _proxy getVariable ["KPLIB_eden_markerText", localize "STR_KPLIB_MAINBASE"]
+    , _varName
+    , getPosATL _proxy
 ];
 
-+[
-    _varName
-    , _bookkeeping
-    , _sector
-    , _marker
-]
+private _info = [
+    KPLIB_sectorType_eden
+    , KPLIB_preset_sideF
+    , systemTime
+    , call KPLIB_fnc_uuid_create_string
+];
+
++[_ident, _info]

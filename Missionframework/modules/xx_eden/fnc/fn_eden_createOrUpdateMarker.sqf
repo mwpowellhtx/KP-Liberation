@@ -9,15 +9,13 @@
     Public: No
 
     Description:
-        Creates or updates the markers associated with the given Operations Base tuple.
+        Creates or updates the markers associated with the given Eden sector tuple.
 
     Parameters:
-        _eden - an Operations Base tuple
+        _eden - an Eden sector tuple
             [
-                _varName
-                , [_uuid, _sysTime]
-                , [_sectorType, _pos, _side]
-                , [_markerName, _markerText]
+                ["_markerName", "_markerText", "_varName", "_pos"]
+                , ["_sectorType", "_side", "_est", "_uuid"]
             ]
 
     Reference:
@@ -27,43 +25,28 @@
         https://community.bistudio.com/wiki/Arma_3:_CfgMarkerColors
 */
 
-//private _dep = [
-//    "KPLIB_eden_markerType"
-//    , "KPLIB_preset_colorF"
-//];
-
-//waitUntil {
-//    _dep = _dep select {isNil _x};
-//    _dep isEqualTo [];
-//};
-
 // TODO: TBD: could also be a refresh... given "sector tuple" ...
 // TODO: TBD: with transformation function...
 // TODO: TBD: would need to also provide a default set of tangential options, i.e. marker type, color, etc...
 // TODO: TBD: hold that thought, we may come back to it...
+
+// There is no direct reference to 'KPLIB_sectors_edens' here, but there should be/
 params [
-    ["_eden", [], [[]], 4]
+    ["_eden", [], [[]], 2]
 ];
 
-/* We should have everything we need by this point. ALl that remains is to follow through with by establishing and/or refreshing the map marker itself. */
 _eden params [
-    ["_varName", "", [""]]
-    , ["_bookkeeping", [], [[]], 2]
-    , ["_sector", [], [[]], 3]
-    , ["_marker", [], [[]], 2]
+    ["_ident", [], [[]], 4]
+    , ["_info", [], [[]], 4]
 ];
 
-_sector params [
-    ["_sectorType", KPLIB_sectorType_nil, [0]]
-    , ["_pos", KPLIB_zeroPos, [[]], 3]
-];
-
-_marker params [
+// This is a key use case motivating a more sensible restructuring of the sectors tuple shape.
+_ident params [
     ["_markerName", "", [""]]
     , ["_markerText", "", [""]]
+    , ["_varName", "", [""]]
+    , ["_pos", KPLIB_zeroPos, [[]], 3]
 ];
-
-// TODO: TBD: we could put some obvious checks in for bits like marker name, etc...
 
 // Can only create a marker one time.
 if ({_x isEqualTo _markerName} count allMapMarkers == 0) then {
@@ -71,12 +54,11 @@ if ({_x isEqualTo _markerName} count allMapMarkers == 0) then {
 };
 
 {
-    _x params ["_current", "_verify", "_callback"];
+    _x params ["_onCurrent", "_onVerify", "_onCallback"];
 
-    if (!((_markerName call _current) call _verify)) then {
-        _markerName call _callback;
+    if (!((_markerName call _onCurrent) call _onVerify)) then {
+        _markerName call _onCallback;
     };
-
 } forEach [
     [
         {markerPos _this}

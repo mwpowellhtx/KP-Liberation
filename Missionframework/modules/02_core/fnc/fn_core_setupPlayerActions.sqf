@@ -36,7 +36,7 @@ if (hasInterface) then {
     // TODO: TBD: also needing helper functions to filter on the fields...
     private _fobRedeployCondition = '
         _target isEqualTo _originalTarget
-        && ([_originalTarget, {_this#2}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_eden, KPLIB_sectorType_fob]
+        && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_eden, KPLIB_sectorType_fob]
     ';
 
     // FOB redeploy action

@@ -34,7 +34,8 @@ params [
 
 private _applied = KPLIB_sectors_edens apply {
     private _dist2d = if (isNull _target) then {-1} else {
-        _target distance2D (_x select 2 select 1);
+                    (_x#0#3) distance2D _target;
+        // 1. _pos:  ^^^^^^
     };
     [_target, _dist2d, _x]
 };

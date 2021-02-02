@@ -30,7 +30,7 @@ vehicles select {
 
     alive _x
     && (_x getVariable ["KPLIB_sectorType", KPLIB_sectorType_nil]) in [KPLIB_sectorType_mob]
-    && ([_x, {_this#2}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_nil]
+    && ([_x, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_nil]
     && (
         (surfaceIsWater _pos && _x isKindOf "Ship")
         || !(surfaceIsWater _pos || _x isKindOf "Ship")

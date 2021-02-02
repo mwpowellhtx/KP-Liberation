@@ -31,7 +31,7 @@ if (hasInterface) then {
     // We can know more specifically the _sectorType, so just do it.
     private _buildCondition = '
         _target == _originalTarget
-        && ([_originalTarget, {_this#2}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_fob]
+        && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_fob]
         && ["Build"] call KPLIB_fnc_permission_checkPermission
     ';
 

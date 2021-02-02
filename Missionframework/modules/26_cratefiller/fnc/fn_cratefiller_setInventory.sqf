@@ -23,7 +23,7 @@ params [
 ];
 // Get the storage object
 private _storage = [] call KPLIB_fnc_cratefiller_getStorage;
-private _markerName = [nil, {_this#0}] call KPLIB_fnc_common_getSectorInfo;
+private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 private _markerPos = getMarkerPos _markerName;
 
 // Check if the storage is in range

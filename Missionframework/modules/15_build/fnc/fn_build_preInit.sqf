@@ -71,17 +71,19 @@ if (isServer) then {
                 , str [_object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
         };
 
+        // TODO: TBD: "skip storage areas" (?) will need to review this one...
         // Skip storage areas
         if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
-            private _fobs = KPLIB_sectors_fobs select {(_x select 3 select 0) isEqualTo _markerName};
+            private _selectedFobs = KPLIB_sectors_fobs select {(_x#0#0) isEqualTo _markerName};
+            //                                1. _markerName:   ^^^^^^
             // TODO: TBD: if we're here we can be confident we're here?
             // TODO: TBD: see pattern: fn_build_preInit, fn_build_loadData
-            private _fob = _fobs select 0;
-            _object setVariable ["KPLIB_sector_info", [
-                _fob select 3 select 0
-                , _fob select 1 select 0
-                , _fob select 2 select 0
-            ], true];
+            private _fob = _selectedFobs select 0;
+            // TODO: TBD: should factor in a helper "transform/selector function" ... (?)
+            _object setVariable ["KPLIB_sector_info", [_fob#0#0, _fob#1#3, _fob#1#0], true];
+            //                         1. _markerName: ^^^^^^^^
+            //                         2. _sectorType:           ^^^^^^^^
+            //                         3.       _uuid:                     ^^^^^^^^
             _object call KPLIB_fnc_persistence_makePersistent;
         };
     }] call CBA_fnc_addEventHandler;

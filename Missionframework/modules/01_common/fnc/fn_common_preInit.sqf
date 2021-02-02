@@ -26,6 +26,9 @@ if (isServer) then {
 // Cache for getIcon function
 KPLIB_common_iconCache = [] call CBA_fnc_createNamespace;
 
+// Useful when evaluating player proximity to points of interest sectors.
+KPLIB_sectorInfo_default = ["", KPLIB_sectorType_nil, ""];
+
 if (isServer) then {
     ["Module initialized", "PRE] [COMMON", true] call KPLIB_fnc_common_log;
 };

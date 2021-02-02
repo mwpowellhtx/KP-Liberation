@@ -26,7 +26,7 @@
 // TODO: TBD: might also make some sense for ARSENAL to be available from mobile respawn, or at least optionally
 private _arsenalCondition = '
     _target isEqualTo _originalTarget
-    && ([_originalTarget, {_this#2}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_eden, KPLIB_sectorType_fob]
+    && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_eden, KPLIB_sectorType_fob]
 ';
 
 // Arsenal action

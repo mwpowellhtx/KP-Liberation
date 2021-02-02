@@ -66,8 +66,9 @@ if !(_moduleData isEqualTo []) then {
             // TODO: TBD: also, we are doing this pattern in a couple of places...
             // TODO: TBD: so, we think we may have a candidate for a function... callback, transform, whatever...
             // TODO: TBD: see: fn_build_preInit, fn_build_loadData
-            private _fobs = KPLIB_sectors_fobs select {(_x select 3 select 0) isEqualTo _markerName};
-            private _fob = _fobs select 0;
+            private _selectedFobs = KPLIB_sectors_fobs select {(_x#0#0) isEqualTo _markerName};
+            //                                1. _markerName:   ^^^^^^
+            private _fob = _selectedFobs select 0;
             _object setVariable ["KPLIB_sector_info", [_fob#3#0, _fob#1#0, _fob#2#0], true];
             _object call KPLIB_fnc_persistence_makePersistent
 

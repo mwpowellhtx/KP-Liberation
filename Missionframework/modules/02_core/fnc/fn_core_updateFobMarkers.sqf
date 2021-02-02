@@ -21,12 +21,15 @@
 
 {
     // Updates the _markerText for the FOB tuple
-    _x select 3 set [1, format [
+                    (_x#0) set [1, format [
+    // 1. _ident:    ^^^^
         "FOB %1"
         , [_forEachIndex] call KPLIB_fnc_common_indexToMilitaryAlpha
     ]];
 
-    (_x select 3) params ["_markerName", "_markerText"];
+    // It is precisely cases like this which motivated us to streamline the sector tuple shape.
+                    (_x#0) params ["_markerName", "_markerText"];
+    // 1. _ident:    ^^^^
 
     _markerName setMarkerText _markerText;
 

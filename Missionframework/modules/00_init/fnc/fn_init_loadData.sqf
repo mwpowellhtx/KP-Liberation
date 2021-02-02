@@ -96,7 +96,38 @@ if (_moduleData isEqualTo []) then {
     KPLIB_sectors_blufor = _moduleData select 2;
     publicVariable "KPLIB_sectors_blufor";
 
-    private _loadedFobs = _moduleData select 3;
+    // TODO: TBD: should formalize health check tuple transforms...
+    // TODO: TBD: this one could be formalized to a first class CfgFunction function...
+    private _onUpdateSectorTuple = {
+
+        private ["_ident", "_info"];
+
+        // We allow properly transformed (default, i.e. current) cases to pass through.
+        private _retval = _this;
+
+        // Refer to the committed docs and 'kp-sectors-tuple-matrix.ods' for notes on the tuple shapes.
+        if (typeName _this == "ARRAY") then {
+            if (count _this == 4) then {
+                _ident = [
+                    _this#3#0      // Marker name
+                    , _this#3#1    // Marker text
+                    , _this#0      // Var name
+                    , _this#2#1    // AGL pos
+                ];
+                _info = [
+                    _this#2#0      // Sector type
+                    , _this#2#2    // Side
+                    , _this#1#1    // Est system time
+                    , _this#1#0    // Uuid
+                ];
+                _retval = +[_ident, _info];
+            };
+        };
+
+        _retval
+    };
+
+    private _loadedFobs = (_moduleData#3) apply {_x call _onUpdateSectorTuple};
 
     // TODO: TBD: the difficult part of "rebuilding" FOB from scratch is that we lose comprehension on any other tuple bits we might have had...
     // TODO: TBD: let's reconsider that primitive operation... or setup a wrapper operation that handls that detail for us...
@@ -108,9 +139,11 @@ if (_moduleData isEqualTo []) then {
         // TODO: TBD: should perchance be incorporated here, if the notes are accurate... (?)
     } forEach _loadedFobs;
 
+    // Update the FOB markers prior to publishing.
+    [] call KPLIB_fnc_core_updateFobMarkers;
+
     // Publish FOB positions
     publicVariable "KPLIB_sectors_fobs";
-    [] call KPLIB_fnc_core_updateFobMarkers;
 };
 
 true

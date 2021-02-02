@@ -21,29 +21,31 @@
 */
 
 private _spawns = KPLIB_sectors_edens apply {
-    [_x select 2 select 1, _x select 3 select 1] params ["_pos", "_markerText"];
+    private _pos = (_x#0#3);
     [
-        format ["%1 - %2", mapGridPosition _pos, _markerText]
+        format ["%1 - %2", mapGridPosition _pos, (_x#0#1)]
+        //                 1. _markerText:        ^^^^^^
         , _pos
     ];
 };
 
-{
+_spawns append (KPLIB_sectors_fobs apply {
     // TODO: TBD: see: i.e. [_forEachIndex] call KPLIB_fnc_common_indexToMilitaryAlpha
     // Assumes that the FOB markers have already been refreshed; see docs for the tuple specs.
-    [_x select 2 select 1, _x select 3 select 1] params ["_pos", "_markerText"];
-
-    _spawns pushBack [
+    private _pos = (_x#0#3);
+    [
         // TODO: TBD: allowing the bits to all identify themselves in position and marker text...
         // TODO: TBD: which gets us much closder to a repeatable, deterministic pattern...
-        format ["%1 - %2", mapGridPosition _pos, _markerText]
+        format ["%1 - %2", mapGridPosition _pos, (_x#0#1)]
+        //                 1. _markerText:        ^^^^^^
         , _pos
     ];
-} forEach KPLIB_sectors_fobs;
+});
 
 // Add mobile respawns to the spawn list if parameter is not disabled
 if (KPLIB_param_mobileRespawn) then {
-    {
+
+    _spawns append (([] call KPLIB_fnc_core_getMobSpawns) apply {
         [
             // Get the display name from the vehicle configs and append.
             getText (configFile >>  "CfgVehicles" >> (typeOf _x) >> "displayName")
@@ -53,11 +55,11 @@ if (KPLIB_param_mobileRespawn) then {
             , "_pos"
         ];
 
-        _spawns pushBack [
+        [
             format ["%1 - %2", mapGridPosition _pos, _displayName]
             , _pos
         ];
-    } forEach ([] call KPLIB_fnc_core_getMobSpawns);
+    });
 };
 
 _spawns
