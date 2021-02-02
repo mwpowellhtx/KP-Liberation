@@ -15,7 +15,7 @@ class timers {
     file = "modules\xx_timers\fnc";
 
     // Formats the systemTime with appropriate padding
-    class timers_formatSystemTime {};
+    class time_formatSystemTime {};
 
     // Initialize time module
     class timers_preInit {
