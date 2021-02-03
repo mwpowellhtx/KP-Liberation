@@ -75,6 +75,5 @@ private _builtEhId = ["KPLIB_build_item_built_local", {
 
 }, [_openEhId, _builtEhId]] call CBA_fnc_addEventHandlerArgs;
 
-
 // Start build mode
 [_center, _radius] call KPLIB_fnc_build_start

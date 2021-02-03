@@ -107,6 +107,8 @@ if (hasInterface) then {
         if (_pos isEqualTo KPLIB_zeroPos) then {
             _pos = getPos KPLIB_build_fobBuildObject;
         };
+        // TODO: TBD: somewhere between "here" and starting the single for the FOB building...
+        // TODO: TBD: something is being forgotten, dots are not connecting, especially re: dir/up vectors...
         // Start single item build for fob building
         [_pos, nil, [KPLIB_preset_fobBuildingF, 0, 0, 0], {
             // On confirm callback, create FOB on server
