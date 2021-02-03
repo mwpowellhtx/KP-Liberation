@@ -42,7 +42,7 @@ if !(_className isEqualTo "") exitWith {
     LGVAR(buildQueue) pushBack _obj;
 
     // Clear current item upon placement
-    if !LGVAR(ctrlKey) then {
+    if (!LGVAR(ctrlKey)) then {
         LSVAR("buildItem", []);
     };
 
