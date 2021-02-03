@@ -12,7 +12,7 @@
 */
 
 class garrison {
-    file = "modules\16_garrison\fnc";
+    file = "modules\0330_garrison\fnc";
 
     // Add infantry to sector garrison
     class garrison_addInfantry {};
