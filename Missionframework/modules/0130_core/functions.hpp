@@ -12,7 +12,7 @@
 */
 
 class core {
-    file = "modules\02_core\fnc";
+    file = "modules\0130_core\fnc";
 
     // Check if units are near a position
     class core_areUnitsNear {};
