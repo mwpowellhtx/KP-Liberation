@@ -12,6 +12,8 @@
         Fetches all functions from the modules.
 */
 
+//// TODO: TBD: these markers are in...
+//// TODO: TBD: eventually, we may slot these includes in a more appropriate spot.
 //class MATH {
 //};
 
@@ -23,44 +25,38 @@
 
 class KPLIB {
     // Include functions from each module accordingly to the load order
-
     #include "modules\0000_logger\functions.hpp"
 
-    // TODO: TBD: the aim here is to slide the appropriate modules in at the appropriate moments during KPLIB warming up
-    // TODO: TBD: we will renumber the bits in stages and during a subsequent sprint...
-    // TODO: TBD: ...after having settled on a few basic foundational elements, tuples, Edens, some actions, conditions, etc
     #include "modules\0005_config\functions.hpp"
 
-    // TODO: TBD: will want to establish a new ordering and numbering eventually...
-    // TODO: TBD: for now we're just trying to get a handle on some odd evaluations...
     #include "modules\0010_math\functions.hpp"
     #include "modules\0015_linq\functions.hpp"
-    // TODO: TBD: for now UUID depends upon LINQ and MATH...
     #include "modules\0020_uuid\functions.hpp"
+    #include "modules\0025_timers\functions.hpp"
 
-    #include "modules\xx_timers\functions.hpp"
+    #include "modules\0100_init\functions.hpp"
+    #include "modules\0110_eden\functions.hpp"
+    #include "modules\0120_common\functions.hpp"
+    #include "modules\0130_core\functions.hpp"
+    #include "modules\0140_persistence\functions.hpp"
+    #include "modules\0150_respawn\functions.hpp"
 
-    #include "modules\00_init\functions.hpp"
+    #include "modules\0200_admin\functions.hpp"
+    #include "modules\0210_resources\functions.hpp"
+    #include "modules\0220_permission\functions.hpp"
+    #include "modules\0230_arsenal\functions.hpp"
 
-    // TODO: TBD: more refactoring candidates...
-    #include "modules\xx_eden\functions.hpp"
+    #include "modules\0300_plm\functions.hpp"
+    #include "modules\0310_virtual\functions.hpp"
+    #include "modules\0320_build\functions.hpp"
+    #include "modules\0330_garrison\functions.hpp"
 
-    #include "modules\01_common\functions.hpp"
-    #include "modules\02_core\functions.hpp"
-    #include "modules\03_persistence\functions.hpp"
-    #include "modules\04_respawn\functions.hpp"
-    #include "modules\05_admin\functions.hpp"
-    #include "modules\10_resources\functions.hpp"
-    #include "modules\11_permission\functions.hpp"
-    #include "modules\12_arsenal\functions.hpp"
-    #include "modules\13_plm\functions.hpp"
-    #include "modules\14_virtual\functions.hpp"
-    #include "modules\15_build\functions.hpp"
-    #include "modules\16_garrison\functions.hpp"
-    #include "modules\23_logistic\functions.hpp"
-    #include "modules\24_enemy\functions.hpp"
-    #include "modules\26_cratefiller\functions.hpp"
-    #include "modules\27_mission\functions.hpp"
-    #include "modules\28_captive\functions.hpp"
-    #include "modules\90_missions\functions.hpp"
+    #include "modules\0400_logistic\functions.hpp"
+    #include "modules\0420_enemy\functions.hpp"
+    #include "modules\0430_cratefiller\functions.hpp"
+    
+    #include "modules\0800_mission\functions.hpp"
+    #include "modules\0810_captive\functions.hpp"
+
+    #include "modules\0900_missions\functions.hpp"
 };
