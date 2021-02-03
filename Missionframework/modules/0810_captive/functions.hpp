@@ -13,7 +13,7 @@
 */
 
 class captive {
-    file = "modules\28_captive\fnc";
+    file = "modules\0810_captive\fnc";
 
     // Adds all needed actions to a surrendered unit
     class captive_addCaptiveActions {};
