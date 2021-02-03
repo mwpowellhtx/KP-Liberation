@@ -12,7 +12,7 @@
 */
 
 class respawn {
-    file = "modules\04_respawn\fnc";
+    file = "modules\0150_respawn\fnc";
 
     // Handle respawn confirmation
     class respawn_displayConfirm {};
