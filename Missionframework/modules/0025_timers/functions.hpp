@@ -12,7 +12,7 @@
 */
 
 class timers {
-    file = "modules\xx_timers\fnc";
+    file = "modules\0025_timers\fnc";
 
     // Formats the systemTime with appropriate padding
     class time_formatSystemTime {};
