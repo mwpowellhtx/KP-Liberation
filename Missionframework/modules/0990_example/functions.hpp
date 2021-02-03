@@ -12,7 +12,7 @@
 */
 
 class example {
-    file = "modules\99_example\fnc";
+    file = "modules\0990_example\fnc";
 
     // Loads module specific data from the save
     class example_loadData {};
