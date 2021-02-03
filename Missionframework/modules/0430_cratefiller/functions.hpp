@@ -12,7 +12,7 @@
 */
 
 class cratefiller {
-    file = "modules\26_cratefiller\fnc";
+    file = "modules\0430_cratefiller\fnc";
 
     // Adds the given amount of the selected item to the inventory
     class cratefiller_addEquipment {};
