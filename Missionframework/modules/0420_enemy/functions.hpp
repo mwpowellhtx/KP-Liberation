@@ -12,7 +12,7 @@
 */
 
 class enemy {
-    file = "modules\24_enemy\fnc";
+    file = "modules\0420_enemy\fnc";
 
     // Add/Remove awareness amount
     class enemy_addAwareness {};
