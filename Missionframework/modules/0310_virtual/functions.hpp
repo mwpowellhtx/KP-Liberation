@@ -12,7 +12,7 @@
 */
 
 class virtual {
-    file = "modules\14_virtual\fnc";
+    file = "modules\0310_virtual\fnc";
 
     // Adds curator to player
     class virtual_addCurator {};
