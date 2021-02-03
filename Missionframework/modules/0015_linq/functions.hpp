@@ -12,7 +12,7 @@
 */
 
 class linq {
-    file = "modules\xx_linq\fnc";
+    file = "modules\0015_linq\fnc";
 
     // Identifies the minimum element from a given array
     class linq_min {};
