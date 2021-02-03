@@ -12,7 +12,7 @@
 */
 
 class logger {
-    file = "modules\xx_logger\fnc";
+    file = "modules\0000_logger\fnc";
 
     // TODO: TBD: leaving this named common_log for now... else we would need to touch literally EVERY EFFING THING...
     // TODO: TBD: that is quite a bit more than we want to do for an initial spring...
