@@ -6,7 +6,7 @@ It not only takes care of vehicles itself but also keeps track of their fuel, am
 
 ### Dependencies
 * 0100_init
-* 01_common
+* 0120_common
 
 ### Scripts
 No scripts will be started by this module
