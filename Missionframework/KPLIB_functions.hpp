@@ -3,7 +3,8 @@
 
     File: KPLIB_functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-10-16
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-10-16
     Last Update: 2019-09-10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -23,11 +24,12 @@
 class KPLIB {
     // Include functions from each module accordingly to the load order
 
+    #include "modules\0000_logger\functions.hpp"
+
     // TODO: TBD: the aim here is to slide the appropriate modules in at the appropriate moments during KPLIB warming up
     // TODO: TBD: we will renumber the bits in stages and during a subsequent sprint...
     // TODO: TBD: ...after having settled on a few basic foundational elements, tuples, Edens, some actions, conditions, etc
     #include "modules\xx_config\functions.hpp"
-    #include "modules\xx_logger\functions.hpp"
 
     // TODO: TBD: will want to establish a new ordering and numbering eventually...
     // TODO: TBD: for now we're just trying to get a handle on some odd evaluations...
