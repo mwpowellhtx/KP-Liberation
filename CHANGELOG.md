@@ -6,12 +6,13 @@
     * Except in a couple of instances such as `KPLIB_fnc_eden_createOrUpdateMarkers` in which we gave element oriented functions defined.
     * Which is to underscore we just need to be careful with this sort of functional shift.
   * On the whole, however, we like this refinement much better than the initial draft.
+* Refactored: Renumbered the modules with the introduction of the new ones from previous sprint. Should offer us plenty of room for growth, infilled bits, etc. See _docs_: `a3-kplib-refactor-modules.ods` for more details as to the ordering.
 * Bug: Corrected verbiage concerning the `systemTime` formatting function.
 * Bug: Handle the use case where serialization occurs for assets beyond the range of known _FOB_ sites. Should never be serialized in the first place, we think, but this is the next best manner in which to respond. Can verify in both `KPLIB_persistence_objects` and `KPLIB_persistence_units` arrays.
 
 ## 0.98.0 (S1) (Thawed, under development)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
-* **_Caveat_**: We are adding some bits that we think deserve a dedicated module unto their own, i.e. _UUID_, _LINQ_, and so on. However, that is going to require that we renumber the modules. This is no small effort, so for now we are placing them as we are in the `01_common` module, however, with _prefixes_ that are unique to their module. Eventually we will renumber them but for now we are holding off on that level of effort.
+* **_Caveat_**: We are adding some bits that we think deserve a dedicated module unto their own, i.e. _UUID_, _LINQ_, and so on. However, that is going to require that we renumber the modules. This is no small effort, so for now we are placing them as we are in the `0120_common` module, however, with _prefixes_ that are unique to their module. Eventually we will renumber them but for now we are holding off on that level of effort.
 * Added: _LINQ_ style aggregate and zip functions for use especially as we get further into things.
 * Added: _UUID_ creation functions for purposes of uniquely identifying objects in hand. We will use this for sure to help differentiate between _FOB_ and _start base_ locations vis-a-vis _player_ geolocation.
 * Added: `KPLIB_fnc_linq_min` function, which yields the _minimum element_ from a _vector of elements_ of _potentially any shape_.
