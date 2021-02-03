@@ -12,7 +12,7 @@
 */
 
 class uuid {
-    file = "modules\xx_uuid\fnc";
+    file = "modules\0020_uuid\fnc";
 
     // Creates a UUID array
     class uuid_create {};
