@@ -12,7 +12,7 @@
 */
 
 class res {
-    file = "modules\10_resources\fnc";
+    file = "modules\0210_resources\fnc";
 
     // Adds actions to spawned crates
     class resources_addActions {};
