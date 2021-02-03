@@ -23,6 +23,7 @@ if (isServer) then {
 
     ["Module initializing...", "POST] [MISSIONS", true] call KPLIB_fnc_common_log;
 
+// TODO: TBD: this is what? an 'example' mission?
     [
         "Example",
         {true},
@@ -30,8 +31,8 @@ if (isServer) then {
         [10, 0, 0, 0],
         10,
         10,
-        "modules\90_missions\example\start.sqf",
-        "modules\90_missions\example\abort.sqf"
+        "modules\0900_missions\example\start.sqf",
+        "modules\0900_missions\example\abort.sqf"
     ] call KPLIB_fnc_mission_registerMission;
 
 };

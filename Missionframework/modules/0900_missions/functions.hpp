@@ -12,7 +12,7 @@
 */
 
 class missions {
-    file = "modules\90_missions\fnc";
+    file = "modules\0900_missions\fnc";
 
     // Module post initialization
     class missions_postInit {
