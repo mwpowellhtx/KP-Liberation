@@ -12,7 +12,7 @@
 */
 
 class logistic {
-    file = "modules\23_logistic\fnc";
+    file = "modules\0400_logistic\fnc";
 
     // Adds the logistic actions
     class logistic_addActions {};
