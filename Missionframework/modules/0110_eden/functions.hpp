@@ -13,7 +13,7 @@
 
 // Eden is code for Operations Base
 class eden {
-    file = "modules\xx_eden\fnc";
+    file = "modules\0110_eden\fnc";
 
     // Returns a formatted name corresponding to a given base name and optional index
     class eden_getNameAtIndex {};
