@@ -12,7 +12,7 @@
 */
 
 class config {
-    file = "modules\xx_config\fnc";
+    file = "modules\0005_config\fnc";
 
     // Returns the preset settings informing a CBA combo box
     class config_getPresetSettingValue {};
