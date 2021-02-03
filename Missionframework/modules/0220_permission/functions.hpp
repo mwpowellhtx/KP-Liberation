@@ -12,7 +12,7 @@
 */
 
 class permission {
-    file = "modules\11_permission\fnc";
+    file = "modules\0220_permission\fnc";
 
     // Adds a new permission to the permission system
     class permission_addPermissionHandler {};
