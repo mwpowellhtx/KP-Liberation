@@ -12,7 +12,7 @@
 */
 
 class mission {
-    file = "modules\27_mission\fnc";
+    file = "modules\0800_mission\fnc";
 
     // Aborts the given mission
     class mission_abortMission {};
