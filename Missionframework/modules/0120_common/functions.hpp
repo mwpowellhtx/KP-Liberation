@@ -12,7 +12,7 @@
 */
 
 class common {
-    file = "modules\01_common\fnc";
+    file = "modules\0120_common\fnc";
 
     // Adds action to object with correct localized title
     class common_addAction {};
