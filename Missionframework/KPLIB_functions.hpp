@@ -36,7 +36,7 @@ class KPLIB {
     #include "modules\0010_math\functions.hpp"
     #include "modules\0015_linq\functions.hpp"
     // TODO: TBD: for now UUID depends upon LINQ and MATH...
-    #include "modules\xx_uuid\functions.hpp"
+    #include "modules\0020_uuid\functions.hpp"
 
     #include "modules\xx_timers\functions.hpp"
 
