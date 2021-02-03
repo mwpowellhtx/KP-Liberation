@@ -12,7 +12,7 @@
 */
 
 class math {
-    file = "modules\xx_math\fnc";
+    file = "modules\0010_math\fnc";
 
     // Converts from a decimal value to base radix
     class math_convertDecimalToBaseRadix {};
