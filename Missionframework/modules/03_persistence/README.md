@@ -5,7 +5,7 @@ Persistence module takes care of objects save and load functions. It makes sure 
 It not only takes care of vehicles itself but also keeps track of their fuel, ammo, damage and cargo state.
 
 ### Dependencies
-* 00_init
+* 0100_init
 * 01_common
 
 ### Scripts

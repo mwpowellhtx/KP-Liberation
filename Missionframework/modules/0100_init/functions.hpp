@@ -13,7 +13,7 @@
 */
 
 class init {
-    file = "modules\00_init\fnc";
+    file = "modules\0100_init\fnc";
 
     // Checks if given classname is inside CfgVehicles
     class init_checkClass {};
