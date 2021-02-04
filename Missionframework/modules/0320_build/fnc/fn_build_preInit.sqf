@@ -80,10 +80,10 @@ if (isServer) then {
             // TODO: TBD: see pattern: fn_build_preInit, fn_build_loadData
             private _fob = _selectedFobs select 0;
             // TODO: TBD: should factor in a helper "transform/selector function" ... (?)
-            _object setVariable ["KPLIB_sector_info", [_fob#0#0, _fob#1#3, _fob#1#0], true];
-            //                         1. _markerName: ^^^^^^^^
-            //                         2. _sectorType:           ^^^^^^^^
-            //                         3.       _uuid:                     ^^^^^^^^
+            _object setVariable ["KPLIB_sector_info", [(_fob#0#0), (_fob#1#3), (_fob#1#0)], true];
+            //                         1. _markerName:  ^^^^^^^^
+            //                         2. _sectorType:              ^^^^^^^^
+            //                         3.       _uuid:                          ^^^^^^^^
             _object call KPLIB_fnc_persistence_makePersistent;
         };
     }] call CBA_fnc_addEventHandler;
@@ -93,6 +93,7 @@ if (hasInterface) then {
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;
 
+    // TODO: TBD: could this be where we are missing direction, up, and any other orientation bits?
     // Register Build module as FOB building provider
     ["KPLIB_fob_build_requested", {
         params [
@@ -110,6 +111,7 @@ if (hasInterface) then {
         // TODO: TBD: somewhere between "here" and starting the single for the FOB building...
         // TODO: TBD: something is being forgotten, dots are not connecting, especially re: dir/up vectors...
         // Start single item build for fob building
+        // TODO: TBD: additionally instead of the nakedly public variable, should consider whether we need a variable at all...
         [_pos, nil, [KPLIB_preset_fobBuildingF, 0, 0, 0], {
             // On confirm callback, create FOB on server
             [_this select 0, KPLIB_build_fobBuildObject] remoteExec ["KPLIB_fnc_build_handleFobBuildConfirm", 2];

@@ -56,6 +56,8 @@ if !(KPLIB_ace_enabled) then {
 
 };
 
+// TODO: TBD: along which lines ought we to be using a static public variable, or the FOB location, for purposes of "captive" interrogation?
+// TODO: TBD: i.e. it should be simple enough to identify the building near the pos of the FOB and return that functionally instead...
 // Add interrogate action near FOB
 [
     _unit,

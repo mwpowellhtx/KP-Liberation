@@ -3,8 +3,9 @@
 
     File: fn_resources_preInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-12-13
-    Last Update: 2019-06-08
+            Michael W. Powell
+    Created: 2018-12-13
+    Last Update: 2021-02-03 21:40:20
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,7 +19,9 @@
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
+};
 
 /*
     ----- Module Globals -----
@@ -27,6 +30,8 @@ if (isServer) then {["Module initializing...", "PRE] [RESOURCES", true] call KPL
 // Intel currency resource amount
 KPLIB_resources_intel = 0;
 
+// TODO: TBD: there's got to be a better way to align these than a hard-coded table...
+// TODO: TBD: i.e. never heard of a matrix for loop?
 // Large storage area placement position offsets.
 KPLIB_resources_storageOffsetsLarge = [
     [ -5.59961,        3.60938,     0.6],
@@ -173,23 +178,39 @@ if (isServer) then {
     // Adding actions to spawned crates and storages
     ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_resources_addActions}] call CBA_fnc_addEventHandler;
 
+    /* We will require these when we begin coordinating with proper transactional
+     * based accounting. Especially to align indices with their types. */
+    KPLIB_resources_crateClassesF = [
+        KPLIB_preset_crateSupplyF
+        , KPLIB_preset_crateAmmoF
+        , KPLIB_preset_crateFuelF
+    ];
+
+    KPLIB_resources_storageClassesF = [
+        KPLIB_preset_storageSmallF
+        , KPLIB_preset_storageLargeF
+    ];
+
+    publicVariable "KPLIB_resources_crateClassesF";
+    publicVariable "KPLIB_resources_storageClassesF";
+
     // Some globals defined here on the server as the used preset variables aren't present on the clients yet but needed in initial loading
     // All valid crate classnames
     KPLIB_resources_crateClasses = [
-        KPLIB_preset_crateSupplyF,
-        KPLIB_preset_crateAmmoF,
-        KPLIB_preset_crateFuelF,
-        KPLIB_preset_crateSupplyE,
-        KPLIB_preset_crateAmmoE,
-        KPLIB_preset_crateFuelE
+        KPLIB_preset_crateSupplyF
+        , KPLIB_preset_crateAmmoF
+        , KPLIB_preset_crateFuelF
+        , KPLIB_preset_crateSupplyE
+        , KPLIB_preset_crateAmmoE
+        , KPLIB_preset_crateFuelE
     ];
 
     // All valid storage classnames
     KPLIB_resources_storageClasses = [
-        KPLIB_preset_storageSmallE,
-        KPLIB_preset_storageSmallF,
-        KPLIB_preset_storageLargeE,
-        KPLIB_preset_storageLargeF
+        KPLIB_preset_storageSmallE
+        , KPLIB_preset_storageSmallF
+        , KPLIB_preset_storageLargeE
+        , KPLIB_preset_storageLargeF
     ];
 
     // Publish variables to clients
@@ -203,16 +224,16 @@ if (isServer) then {
     KPLIB_resources_allStorages = [];
 };
 
-// HC section
 if (!hasInterface && !isDedicated) then {
-
+    // HC section
 };
 
-// Player section
 if (hasInterface) then {
-
+    // Player section
 };
 
-if (isServer) then {["Module initialized", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
+};
 
 true

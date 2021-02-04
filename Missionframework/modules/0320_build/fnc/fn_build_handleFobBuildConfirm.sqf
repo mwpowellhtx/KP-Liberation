@@ -25,6 +25,8 @@ params [
     ["_fobBoxObject", objNull, [objNull]]
 ];
 
+// TODO: TBD: this needs to be generalized a bit...
+// TODO: TBD: can apply not only for FOB, but also for factory storage, for instance...
 if (KPLIB_param_builddebug) then {
     [format ["[fn_build_handleFobBuildConfirm] Entering: [isNull _fobBuilding, isNull _fobBoxObject]: %1"
         , str [isNull _fobBuilding, isNull _fobBoxObject]], "BUILD"] call KPLIB_fnc_common_log;
@@ -33,6 +35,9 @@ if (KPLIB_param_builddebug) then {
 if (isNull _fobBuilding) exitWith {
     ["[fn_build_handleFobBuildConfirm] Unable to create FOB", "BUILD"] call KPLIB_fnc_common_log;
 };
+
+// TODO: TBD: with the idea we string together some events here, we think...
+// TODO: TBD: that we can either respond to, or not...
 
 // Create a FOB on the position of the building, yields the FOB tuple itself
 private _fob = [getPos _fobBuilding] call KPLIB_fnc_core_buildFob;
