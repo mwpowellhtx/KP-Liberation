@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_common_setupPlayerActions
 
@@ -44,12 +45,12 @@ if (hasInterface) then {
         localize "STR_KPLIB_ACTION_REDEPLOY"
         , {["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent}
         , nil
-        , -801
+        , KPLIB_ACTION_PRIORITY_REDEPLOY
         , false
         , true
         , ""
         , _fobRedeployCondition
-        , 10
+        , -1
     ];
 
     [_actionArray] call CBA_fnc_addPlayerAction;

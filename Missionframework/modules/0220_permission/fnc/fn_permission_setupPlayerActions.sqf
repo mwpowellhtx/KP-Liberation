@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_permission_setupPlayerActions
 
@@ -28,7 +29,19 @@ private _permissionCondition = '
         (KPLIB_param_permissionSubCommander && (str player) isEqualTo "KPLIB_eden_subCommander")
     )
 ';
-private _actionArray = [localize "STR_KPLIB_ACTION_PERMISSION", {[] call KPLIB_fnc_permission_openDialog}, nil, -801, false, true, "", _permissionCondition, 10];
+
+private _actionArray = [
+    localize "STR_KPLIB_ACTION_PERMISSIONS"
+    , {[] call KPLIB_fnc_permission_openDialog}
+    , nil
+    , KPLIB_ACTION_PRIORITY_PERMISSIONS
+    , false
+    , true
+    , ""
+    , _permissionCondition
+    , -1
+];
+
 [_actionArray] call CBA_fnc_addPlayerAction;
 
 true

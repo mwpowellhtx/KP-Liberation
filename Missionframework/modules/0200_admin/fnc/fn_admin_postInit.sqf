@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_admin_postInit
 
@@ -25,14 +26,18 @@
 if (hasInterface) then {
     // Action to open the dialog
     private _actionArray = [
-        "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_ADMIN_MENU" + "</t>",
-        {[] call KPLIB_fnc_admin_openDialog;},
-        nil,
-        -804,
-        false,
-        true,
-        "",
-        '_target isEqualTo _originalTarget && serverCommandAvailable "#kick"'
+        "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_ADMIN" + "</t>"
+        , {[] call KPLIB_fnc_admin_openDialog}
+        , nil
+        , KPLIB_ACTION_PRIORITY_ADMIN
+        , false
+        , true
+        , ""
+        , '
+            _target isEqualTo _originalTarget
+            && serverCommandAvailable "#kick"
+        '
+        , -1
     ];
     [_actionArray] call CBA_fnc_addPlayerAction;
 };

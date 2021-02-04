@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_build_setupPlayerActions
 
@@ -47,12 +48,12 @@ if (hasInterface) then {
         localize "STR_KPLIB_ACTION_BUILD"
         , _onPlayerBuild
         , nil
-        , -802
+        , KPLIB_ACTION_PRIORITY_BUILD
         , false
         , true
         , ""
         , _buildCondition
-        , 10
+        , -1
     ];
 
     [_actionArray] call CBA_fnc_addPlayerAction;

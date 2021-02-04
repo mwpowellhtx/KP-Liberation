@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_arsenal_setupPlayerActions
 
@@ -34,12 +35,12 @@ private _actionArray = [
     localize "STR_KPLIB_ACTION_ARSENAL"
     , {[] call KPLIB_fnc_arsenal_openDialog}
     , nil
-    , -801
+    , KPLIB_ACTION_PRIORITY_ARSENAL
     , false
     , true
     , ""
     , _arsenalCondition
-    , 10
+    , -1
 ];
 
 [_actionArray] call CBA_fnc_addPlayerAction;
