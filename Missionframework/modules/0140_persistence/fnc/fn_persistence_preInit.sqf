@@ -18,7 +18,10 @@
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [PERSISTENCE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "PRE] [PERSISTENCE", true] call KPLIB_fnc_common_log;
+};
+
 
 /*
     ----- Module Globals -----
@@ -29,6 +32,7 @@ KPLIB_persistence_units = [];
 
 // List of variables that will be persisted
 KPLIB_persistenceSavedVars = [];
+
 
 /*
     ----- Module Initialization -----
@@ -43,16 +47,17 @@ if (isServer) then {
     ["KPLIB_doSave", {[] call KPLIB_fnc_persistence_saveData;}] call CBA_fnc_addEventHandler;
 
     // Add default persistent variables
-    {
-        _x params ["_var", "_global"];
-        [_var, _global] call KPLIB_fnc_persistence_addPersistentVar;
-    } forEach [
-        ["ace_rearm_magazineSupply", true],
-        ["ace_rearm_currentSupply", true],
-        ["ace_refuel_currentFuelCargo", true]
+    private _persistenceVars = [
+        ["ace_rearm_magazineSupply"]
+        , ["ace_rearm_currentSupply"]
+        , ["ace_refuel_currentFuelCargo"]
     ];
+
+    [_persistenceVars] call KPLIB_fnc_persistence_addPersistentVars;
 };
 
-if (isServer) then {["Module initialized", "PRE] [PERSISTENCE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "PRE] [PERSISTENCE", true] call KPLIB_fnc_common_log;
+};
 
 true

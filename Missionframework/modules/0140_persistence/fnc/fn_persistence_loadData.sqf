@@ -47,7 +47,11 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
     private _object = _serialized call KPLIB_fnc_persistence_deserializeObject;
     // Apply saved variables
     {
-        _x params [["_var", nil], ["_val", nil], ["_global", false]];
+        _x params [
+            ["_var", "", [""]]
+            , ["_val"]
+            , ["_global", false, [false]]
+        ];
         if (!isNil "_var") then {
             _object setVariable [_var, _val, _global];
             // Add var to persistence so even if module that added it originaly is not preset the data won't be lost

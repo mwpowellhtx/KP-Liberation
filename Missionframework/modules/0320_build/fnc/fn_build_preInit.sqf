@@ -51,7 +51,11 @@ KPLIB_build_categoryItems = [];
 if (isServer) then {
 
     // Register sector info var for persistence
-    ["KPLIB_sector_info", true] call KPLIB_fnc_persistence_addPersistentVar;
+    private _persistenceVars = [
+        ["KPLIB_sector_info"]
+    ];
+
+    [_persistenceVars] call KPLIB_fnc_persistence_addPersistentVars;
 
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_build_loadData}] call CBA_fnc_addEventHandler;
