@@ -17,13 +17,13 @@ class timers {
     // Formats the systemTime with appropriate padding
     class time_formatSystemTime {};
 
-    // Initialize time module
-    class timers_preInit {
+    // Initialize time module pre initialization phase
+    class timers_onPreInit {
         preInit = 1;
     };
 
-    // Initialize time module
-    class timers_postInit {
+    // Initialize time module post initialization phase
+    class timers_onPostInit {
         postInit = 1;
     };
 
