@@ -22,17 +22,14 @@
     ----- EXAMPLE SETTINGS -----
 */
 
-// KPLIB_param_example
-// This is an example setting.
-// Default: true
 [
-    "KPLIB_param_example",
-    "CHECKBOX",
-    ["Example Setting Name", "Example Setting Tooltip"],
-    "Example Setting Category",
-    true,
-    1,
-    {}
+    "KPLIB_param_example"
+    , "CHECKBOX"
+    , ["Example Setting Name", "Example Setting Tooltip"]
+    , "Example Setting Category"
+    , true // default
+    , 1
+    , {}
 ] call CBA_Settings_fnc_init;
 
 true

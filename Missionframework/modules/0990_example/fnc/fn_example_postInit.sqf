@@ -19,23 +19,24 @@
         Module postInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "POST] [EXAMPLE", true] call KPLIB_fnc_common_log;};
-
-// Server section (dedicated and player hosted)
 if (isServer) then {
-
+    ["Module initializing...", "POST] [EXAMPLE", true] call KPLIB_fnc_common_log;
 };
 
-// HC section
-if (!hasInterface && !isDedicated) then {
-
+if (isServer) then {
+    // Server section (dedicated and player hosted)
 };
 
-// Player section
+if (!(hasInterface || isDedicated)) then {
+    // HC section
+};
+
 if (hasInterface) then {
-
+    // Player section
 };
 
-if (isServer) then {["Module initialized", "POST] [EXAMPLE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "POST] [EXAMPLE", true] call KPLIB_fnc_common_log;
+};
 
 true

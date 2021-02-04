@@ -18,7 +18,9 @@
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [EXAMPLE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "PRE] [EXAMPLE", true] call KPLIB_fnc_common_log;
+};
 
 /*
     ----- Module Globals -----
@@ -32,8 +34,9 @@ if (isServer) then {["Module initializing...", "PRE] [EXAMPLE", true] call KPLIB
 // Process CBA Settings
 [] call KPLIB_fnc_example_settings;
 
-// Server section (dedicated and player hosted)
 if (isServer) then {
+    // Server section (dedicated and player hosted)
+
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_example_loadData;}] call CBA_fnc_addEventHandler;
 
@@ -41,16 +44,16 @@ if (isServer) then {
     ["KPLIB_doSave", {[] call KPLIB_fnc_example_saveData;}] call CBA_fnc_addEventHandler;
 };
 
-// HC section
-if (!hasInterface && !isDedicated) then {
-
+if (!(hasInterface || isDedicated)) then {
+    // HC section
 };
 
-// Player section
 if (hasInterface) then {
-
+    // Player section
 };
 
-if (isServer) then {["Module initialized", "PRE] [EXAMPLE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "PRE] [EXAMPLE", true] call KPLIB_fnc_common_log;
+};
 
 true

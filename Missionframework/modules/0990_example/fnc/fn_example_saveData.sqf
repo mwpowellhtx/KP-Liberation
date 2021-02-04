@@ -18,7 +18,9 @@
         Function reached the end [BOOL]
 */
 
-if (KPLIB_param_savedebug) then {["Example module saving...", "SAVE"] call KPLIB_fnc_common_log;};
+if (KPLIB_param_savedebug) then {
+    ["Example module saving...", "SAVE"] call KPLIB_fnc_common_log;
+};
 
 // Set module data to save and send it to the global save data array
 ["example",
