@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_plm_postInit
 
@@ -41,15 +42,19 @@ if (hasInterface) then {
 
     // Action to open the dialog
     private _actionArray = [
-        "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_PLAYER_MENU" + "</t>",
-        {[] call KPLIB_fnc_plm_openDialog;},
-        nil,
-        -803,
-        false,
-        true,
-        "",
-        '_target isEqualTo _originalTarget'
+        "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_PLAYER_MANAGEMENT" + "</t>"
+        , {[] call KPLIB_fnc_plm_openDialog;}
+        , nil
+        , KPLIB_ACTION_PRIORITY_PLAYER_MANAGEMENT
+        , false
+        , true
+        , ""
+        , '
+            _target isEqualTo _originalTarget
+        '
+        , -1
     ];
+
     [_actionArray] call CBA_fnc_addPlayerAction;
 
     // Apply default/loaded values

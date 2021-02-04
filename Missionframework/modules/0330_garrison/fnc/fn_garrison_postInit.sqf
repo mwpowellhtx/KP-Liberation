@@ -1,3 +1,4 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_garrison_postInit
 
@@ -51,16 +52,18 @@ if (hasInterface) then {
         && ["GarrisonDialogAccess"] call KPLIB_fnc_permission_checkPermission
     ';
 
+    // TODO: TBD: should really go in a proper "setup player actions" file...
     // Action to open the dialog
     private _actionArray = [
-        localize "STR_KPLIB_ACTION_GARRISON_MENU"
-        , {[] call KPLIB_fnc_garrison_openDialog;}
+        localize "STR_KPLIB_ACTION_GARRISON_MANAGEMENT"
+        , {[] call KPLIB_fnc_garrison_openDialog}
         , nil
-        , -800
+        , KPLIB_ACTION_PRIORITY_GARRISON_MANAGEMENT
         , false
         , true
         , ""
         , _garrisonCondition
+        , -1
     ];
     [_actionArray] call CBA_fnc_addPlayerAction;
 };
