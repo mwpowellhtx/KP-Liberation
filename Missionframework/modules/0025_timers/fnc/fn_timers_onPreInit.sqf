@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_timers_preInit
+    KPLIB_fnc_timers_onPreInit
 
-    File: fn_timers_preInit.sqf
+    File: fn_timers_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-03 15:36:44
     Last Update: 2021-02-03 15:36:47
@@ -19,7 +19,7 @@
 
 if (!isServer) exitWith {true};
 
-[format ["[fn_timers_preInit] Initializing..."], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
+[format ["[fn_timers_onPreInit] Initializing..."], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
 
 // Probably dangerous to wait in such a tight loop
 while {serverTime <= 0} do {};
@@ -40,6 +40,6 @@ private _default = [] call {
 
 KPLIB_timers_default = _default;
 
-[format ["[fn_timers_preInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
+[format ["[fn_timers_onPreInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
 
 true
