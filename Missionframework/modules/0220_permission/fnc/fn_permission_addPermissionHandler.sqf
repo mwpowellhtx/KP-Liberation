@@ -17,7 +17,7 @@
         _condition      - Code which is executed on permission check    [CODE, defaults to {false}]
         _default        - Default permission                            [BOOL, defaults to false]
         _group          - Permission group name                         [STRING, defaults to "GROUPMISC"]
-        _vehCheck       - Vehicle clasnames for the check               [ARRAY, defaults to []]
+        _vicCheck       - Vehicle classnames for the check              [ARRAY, defaults to []]
 
     Returns:
         Function reached the end [BOOL]
@@ -26,11 +26,11 @@
 if (!isServer) exitWith {};
 
 params [
-    ["_permission", "", [""]],
-    ["_code", {false}, [{}]],
-    ["_default", false, [false]],
-    ["_group", "GROUPMISC", [""]],
-    ["_vehCheck", [], [[]]]
+    ["_permission", "", [""]]
+    , ["_condition", {false}, [{}]]
+    , ["_default", false, [false]]
+    , ["_group", "GROUPMISC", [""]]
+    , ["_vicCheck", [], [[]]]
 ];
 
 // Variables
@@ -62,7 +62,7 @@ if (_index isEqualTo -1) then {
 };
 
 // Read the Variable
-private _data = [[_code], _string, _vehCheck];
+private _data = [[_condition], _string, _vicCheck];
 (_data select 0) append (PGVAR(_permission, []) select 0);
 
 if !(_string isEqualTo "") then {
