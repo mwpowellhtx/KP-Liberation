@@ -3,36 +3,29 @@
 
     File: fn_init_getSaveData.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-10-07
-    Last Update: 2019-03-30
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-10-07
+    Last Update: 2021-02-03 11:44:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Retrieves the module data from the global save data array. The tag is needed to specify which data should be provided.
-        Returns the plain data as array or an empty array, if the tag wasn't found in the global save data array.
+        Retrieves the datum associated by the _tag associative key. Returns the data
+        as-is, or an empty array when the associate _tag could not be found.
 
     Parameter(s):
-        _tag - Tag of the save data which should be returned from the global save data array [STRING, defaults to ""]
+        _tag - Associative key corresponding to the global saved datum element [STRING, default: ""]
 
     Returns:
-        Save data which matched to the tag [ARRAY]
+        Save datum element corresponding to the _tag associative key [ANY, default: ARRAY]
 */
 
 params [
     ["_tag", "", [""]]
 ];
 
-// Default an empty array as return value
-private _return = [];
+private _i = KPLIB_save_data findIf {(_x#0) isEqualTo _tag};
 
-// Return an empty array, if there is no save data
-if (isNil "KPLIB_save_data") exitWith {_return};
+if (_i isEqualTo -1) exitWith {[]};
 
-private _index = (KPLIB_save_data findIf {(_x select 0) == _tag});
-
-if (_index isEqualTo -1) then {
-    _return
-} else {
-    (KPLIB_save_data select _index) select 1
-};
+(KPLIB_save_data select _i) select 1;
