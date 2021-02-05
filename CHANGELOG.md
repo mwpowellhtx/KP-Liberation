@@ -1,6 +1,9 @@
 # Changelog
 
 ## 0.98.0 (S2) (Under development)
+* Added: Timers support, which will be necessary to support _production_, as well as _logistics_, features.
+* Added: Established `production` support, starting with sector discovery and production reconciliation with the same. _Reconciliation_ means, allowing for deleted sectors, as well as for additional sectors. The data should remain healhy in the face of those sorts of changes. The key point is that we track in terms of `_markerName` and maintain a base `_baseMarkerText`. The actual `_markerText` that is applied is always calculated based on these two components, plus taking into consideration the sector `_capability` matrix.
+* Bug: Corrected an oversight in the whole _Eden tuple reshaping_, specifically in the `KPLIB_fnc_eden_assetToFlightDeck` chain of custody.
 * Refactored: Reshaped the _sectors tuples_, see _docs_: `kp-sectors-tuple-matrix.ods`. Informs both the _Edens_ as well as _FOBs_, for starters. Will soon also be useful for _production_, and in the future informing _logistics_.
   * Was mostly straightforward following the trail of breadcrumbs from KPLIB_sectors_edens and KPLIB_sectors_fobs.
     * Except in a couple of instances such as `KPLIB_fnc_eden_createOrUpdateMarkers` in which we gave element oriented functions defined.
@@ -9,6 +12,7 @@
 * Refactored: Renumbered the modules with the introduction of the new ones from previous sprint. Should offer us plenty of room for growth, infilled bits, etc. See _docs_: `a3-kplib-refactor-modules.ods` for more details as to the ordering.
 * Bug: Corrected verbiage concerning the `systemTime` formatting function.
 * Bug: Handle the use case where serialization occurs for assets beyond the range of known _FOB_ sites. Should never be serialized in the first place, we think, but this is the next best manner in which to respond. Can verify in both `KPLIB_persistence_objects` and `KPLIB_persistence_units` arrays.
+* Review: Reviewed bits of the code with regard to building the _FOB building_. We may have a clue as to why bits like _direction_ and _up vectors_ are not being conveyed quite correctly between build confirmation and the building being replaced. But moreover, we think there may be a more general use case for the same sort of functionality, especially as applied to _factory_ and possibly also _township sectors_, _building storage_, and so forth. Not a bridge we will necessarily be crossing today, but could come downstream from here in the next sprint; we want to try to stay focused on just introducing the basics in term of _timers_, introducing the _production_ features, etc.
 
 ## 0.98.0 (S1) (Thawed, under development)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
