@@ -38,6 +38,10 @@ private _default = [] call {
     [_duration, _startTime, _elapsedTime, _timeRemaining];
 };
 
+// TODO: TBD: we may only need/want timers on the server end of things...
+// TODO: TBD: which informs things such as production, logistics timers...
+// TODO: TBD: little to none of which we think has anything to do with client side anything...
+// TODO: TBD: except perhaps rendering timer bits to dialogs, etc... so... consider carefully.
 KPLIB_timers_default = _default;
 
 [format ["[fn_timers_onPreInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
