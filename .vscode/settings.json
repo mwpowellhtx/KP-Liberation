@@ -1,4 +1,12 @@
 {
+    "[sqf]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+    "[hpp]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
     "sqf.enableCBA": true,
     "sqf.enableACE3": true,
     "files.associations": {
