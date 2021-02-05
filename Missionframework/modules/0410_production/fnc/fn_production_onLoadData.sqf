@@ -43,9 +43,13 @@ if (_moduleData isEqualTo []) then {
         ["[fn_production_onLoadData] Loading data...", "PRODUCTION"] call KPLIB_fnc_common_log;
     };
 
+    // TODO: TBD: might be worth introducing mini-wipes for easily corrupted areas such as these...
+    // This is the most important bit, but we can also easily reset when we need to...
+    _production = (_moduleData#0);
+
     // TODO: TBD: may need a more robust error detection, but for now let this one be
     // Do a health check on the data we load getting started in order to prevent snafus
-    _production = (_moduleData#0) select {
+    _production = _production select {
         if (isNil "_x") then {false} else {
             (typeName _x) isEqualTo "ARRAY";
         };
