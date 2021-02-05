@@ -30,7 +30,7 @@ params [
 
 private _onWithFlightDeck = {
     params ["_target", "_dist2d", "_eden"];
-    private _proxy = missionNamespace getVariable (_eden#0);
+    private _proxy = missionNamespace getVariable (_eden#0#2);
     _dist2d <= _range
     && (_proxy getVariable ["KPLIB_eden_flightDeckProxy", ""] != "")
 };

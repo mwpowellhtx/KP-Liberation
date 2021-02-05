@@ -100,7 +100,7 @@ switch (typeOf _vehicle) do {
             _vehicle
             , "STR_KPLIB_ACTION_ASSETMOVE"
             , [
-                {[_this select 0] call KPLIB_fnc_core_rotaryToFlightDeck;}
+                {[_this select 0] call KPLIB_fnc_eden_assetToFlightDeck;}
                 , nil
                 , 10
                 , true
