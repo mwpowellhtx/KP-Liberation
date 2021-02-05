@@ -29,7 +29,7 @@ private _productionElem = _this;
 
 _productionElem params [
     ["_ident", [], [[]]]
-    , ["_timer", KPLIB_timers_default, [[]]]
+    , ["_timer", KPLIB_timers_default, [[]], 4]
     , ["_info", [], [[]]]
 ];
 
