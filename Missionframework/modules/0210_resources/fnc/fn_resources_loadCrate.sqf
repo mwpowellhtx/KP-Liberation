@@ -30,8 +30,7 @@ private _nearTransport = _crate nearEntities [KPLIB_resources_transportVehicles,
 
 // Exit if no transport vehicles near
 if (_nearTransport isEqualTo []) exitWith {
-    hint localize "STR_KPLIB_HINT_NOTRANSPORTNEAR";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_NOTRANSPORTNEAR"] call KPLIB_fnc_notification_hint;
     false
 };
 
@@ -46,8 +45,7 @@ private _usedSlots = _nearTransport getVariable ["KPLIB_resources_usedSlots", 0]
 
 // Exit if the nearest storage has no more space
 if (_usedSlots >= (count _attachPosition)) exitWith {
-    hint localize "STR_KPLIB_HINT_NOSTORAGESPACE";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_NOSTORAGESPACE"] call KPLIB_fnc_notification_hint;
     false
 };
 

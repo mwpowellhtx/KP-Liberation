@@ -80,8 +80,7 @@ if (_button isEqualTo _ctrlInfButton) exitWith {
         true
     } else {
         // Notify player that there are not enough infantry units at the sector
-        hint localize "STR_KPLIB_HINT_NOTATGARRISON";
-        [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+        [localize "STR_KPLIB_HINT_NOTATGARRISON"] call KPLIB_fnc_notification_hint;
         _ctrlInfButton ctrlEnable true;
         false
     };

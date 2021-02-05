@@ -29,8 +29,7 @@ if !((typeOf _box) isEqualTo KPLIB_preset_fobBoxF) exitWith {false};
 private _spawnMarker = [KPLIB_sectors_spawn, 500] call KPLIB_fnc_common_getRandomSpawnMarker;
 
 if (_spawnMarker isEqualTo "") exitWith {
-    hint localize "STR_KPLIB_HINT_RANDOMFOBERROR";
-    [{hintSilent "";}, [], 5] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_RANDOMFOBERROR"] call KPLIB_fnc_notification_hint;
     false
 };
 

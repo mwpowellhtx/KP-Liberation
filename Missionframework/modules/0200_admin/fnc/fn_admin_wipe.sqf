@@ -30,7 +30,7 @@
             [] remoteExecCall ["KPLIB_fnc_init_wipe", 2];
         };
 
-        hint localize "STR_KPLIB_DIALOG_ADMIN_WIPE_NOTE";
+        [localize "STR_KPLIB_DIALOG_ADMIN_WIPE_NOTE"] call KPLIB_fnc_notification_hint;
     },
     [],
     4

@@ -44,8 +44,7 @@ private _eden = [] call {
 // We should never land here so long as the conditions informing the action menu item are met.
 // TODO: TBD: we may notify here after all, but we think the conditions informing the actions should preclude that scenario.
 if (isNil "_eden") exitWith {
-    hint localize "STR_KPLIB_HINT_EDENNOTFOUND";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_EDENNOTFOUND"] call KPLIB_fnc_notification_hint;
     false
 };
 
@@ -59,8 +58,7 @@ private _flightDeckProxy = [(missionNamespace getVariable [_eden select 0, objNu
 
 // Take precautions versus typos and such between the mission file and the script assumptions.
 if (isNull _flightDeckProxy) then {
-    hint localize "STR_KPLIB_HINT_FLIGHTDECKNOTFOUND";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_FLIGHTDECKNOTFOUND"] call KPLIB_fnc_notification_hint;
     false
 };
 
@@ -80,8 +78,7 @@ private _nearEntities = ([_flightDeckPos select 0, _flightDeckPos select 1] near
 
 // Exit, if the flight deck is blocked or somebody is inside the rotary asset.
 if !((crew _asset) isEqualTo [] && _nearEntities isEqualTo []) exitWith {
-    hint localize "STR_KPLIB_HINT_ASSETMOVEBLOCKED";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_ASSETMOVEBLOCKED"] call KPLIB_fnc_notification_hint;
     false
 };
 

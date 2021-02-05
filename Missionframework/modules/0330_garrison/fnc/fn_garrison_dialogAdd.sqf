@@ -95,8 +95,7 @@ if (_button isEqualTo _ctrlGroupButton) then {
         };
     } else {
         // Hint about invalid unit
-        hint localize "STR_KPLIB_DIALOG_GARRISON_INVALID_NOTE";
-        [{hintSilent "";}, [], 2] call CBA_fnc_waitAndExecute;
+        [localize "STR_KPLIB_DIALOG_GARRISON_INVALID_NOTE"] call KPLIB_fnc_notification_hint;
     };
 } else {
     private _classname = typeOf KPLIB_garrison_dialogSelUnit;
@@ -123,8 +122,7 @@ if (_button isEqualTo _ctrlGroupButton) then {
         };
     } else {
         // Hint about invalid unit
-        hint localize "STR_KPLIB_DIALOG_GARRISON_INVALID_NOTE";
-        [{hintSilent "";}, [], 2] call CBA_fnc_waitAndExecute;
+        [localize "STR_KPLIB_DIALOG_GARRISON_INVALID_NOTE"] call KPLIB_fnc_notification_hint;
     };
 };
 

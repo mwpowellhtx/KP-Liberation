@@ -42,8 +42,7 @@ reverse _attachedCrates;
 private _index = _attachedCrates findIf {(typeOf _x) in _validCrates};
 
 if (_index isEqualTo -1) exitWith {
-    hint localize "STR_KPLIB_HINT_NOCRATEFOUND";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_NOCRATEFOUND"] call KPLIB_fnc_notification_hint;
     objNull
 };
 

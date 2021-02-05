@@ -30,8 +30,7 @@ private _nearStorage = nearestObjects [_crate, KPLIB_resources_storageClasses, 2
 
 // Exit if no storages near
 if (_nearStorage isEqualTo []) exitWith {
-    hint localize "STR_KPLIB_HINT_NOSTORAGENEAR";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_NOSTORAGENEAR"] call KPLIB_fnc_notification_hint;
     false
 };
 
@@ -46,8 +45,7 @@ private _attachedCrates = count (attachedObjects _nearStorage);
 
 // Exit if the nearest storage has no more space
 if (_attachedCrates >= (count _attachPosition)) exitWith {
-    hint localize "STR_KPLIB_HINT_NOSTORAGESPACE";
-    [{hintSilent "";}, [], 3] call CBA_fnc_waitAndExecute;
+    [localize "STR_KPLIB_HINT_NOSTORAGESPACE"] call KPLIB_fnc_notification_hint;
     false
 };
 
