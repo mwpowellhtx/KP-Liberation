@@ -22,14 +22,9 @@ params [
     ["_additional", [], [[]]]
 ];
 
-// TODO: TBD: establish an actual CBA parameter for this one...
-// TODO: TBD: however, for now, to keep things sane...
-if (isNil "KPLIB_param_production_debug") then {
-    KPLIB_param_production_debug = true;
-};
-
+// Which requires for settings to have been initialized prior to landing here
 private _conditions = [
-    KPLIB_param_production_debug
+    missionNamespace getVariable ["KPLIB_param_production_debug", false]
 ];
 
 _conditions append _additional;

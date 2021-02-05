@@ -2009,32 +2009,43 @@
 
         <!-- PRODUCTION CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_PROD">
-            <English>Production</English>
-            <German>Production</German>
+            <English>KPLIB - Production</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_PROD_FACILITYCOST">
-            <English>Facility Cost</English>
-            <German>Facility Cost</German>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_LEADTIME">
+            <English>Lead Time</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_PROD_FACILITYCOST_TT">
-            <English>Establishes the cost to build a new production facility at the factory. [default: 50]</English>
-            <German>Establishes the cost to build a new production facility at the factory. [default: 50]</German>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_LEADTIME_TT">
+            <English>The lead time in seconds between resources being produced. [default: 50]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_YIELD">
+            <English>Yield</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_YIELD_TT">
+            <English>How much of the scheduled resource is produced at each window. [default: 100]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_TARGETCOST">
+            <English>Target Cost</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_TARGETCOST_TT">
+            <English>Establishes the cost to build the target production capability at the factory. [default: 50]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_DEFAULTCOST">
+            <English>Default Cost</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_DEFAULTCOST_TT">
+            <English>Establishes the default cost to build a target production capability at the factory. [default: 100]</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB">
             <English>Credit FOB</English>
-            <German>Credit FOB</German>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB_TT">
-            <English>Credits the nearest FOB for the cost of building the production facility. [default: false]</English>
-            <German>Credits the nearest FOB for the cost of building the production facility. [default: false]</German>
+            <English>Credit the nearest FOB for the cost of building the production facility. Default means billing against the storage on site. [default: false]</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_DEBUG">
             <English>Debug Production</English>
-            <German>Debug Production</German>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_DEBUG_TT">
             <English>Allows for debugging of client and server side production features. [default: false]</English>
-            <German>Allows for debugging of client and server side production features. [default: false]</German>
         </Key>
     </Package>
 
