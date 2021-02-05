@@ -58,4 +58,13 @@ class example {
 
     // Setup the player action menu
     class production_setupPlayerMenu {};
+
+    // Returns whether a target object is within range of the nearest factory sector, plus optional predicate
+    class production_isNearCapturedFactory {};
+
+    // Returns whether there are no factory storage containers near the given marker
+    class production_callback_onWithoutStorageContainers {};
+
+    // Returns whether there is not already target production capability at the given marker
+    class production_callback_onWithoutCapability {};
 };

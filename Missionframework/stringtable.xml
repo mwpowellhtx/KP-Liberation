@@ -329,6 +329,15 @@
             <German>-- BUILD-SPEICHER --</German>
             <Chinese>-- 構建存儲 --</Chinese>
         </Key>
+        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY_SUPPLY">
+            <English>-- ADD SUPPLY CAPABILITY --</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY_AMMO">
+            <English>-- ADD AMMO CAPABILITY --</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY_FUEL">
+            <English>-- ADD FUEL CAPABILITY --</English>
+        </Key>
         <Key ID="STR_KPLIB_ACTION_STACKNSORT">
             <English>- STACK AND SORT -</English>
             <Chinese>- 排列並分類 -</Chinese>
