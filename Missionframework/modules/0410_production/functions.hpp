@@ -67,4 +67,13 @@ class example {
 
     // Returns whether there is not already target production capability at the given marker
     class production_callback_onWithoutCapability {};
+
+    // Event handler responds when building storage containers within a factory sector
+    class production_onBuildStorage {};
+
+    // Event handler responds when adding production capability to a factory sector
+    class production_onAddCapability {};
+
+    // Handles the debit phase of adding capability to the sector
+    class production_onDebitCapability {};
 };
