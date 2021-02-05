@@ -329,14 +329,8 @@
             <German>-- BUILD-SPEICHER --</German>
             <Chinese>-- 構建存儲 --</Chinese>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY_SUPPLY">
-            <English>-- ADD SUPPLY CAPABILITY --</English>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY_AMMO">
-            <English>-- ADD AMMO CAPABILITY --</English>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY_FUEL">
-            <English>-- ADD FUEL CAPABILITY --</English>
+        <Key ID="STR_KPLIB_ACTION_ADD_CAPABILITY">
+            <English>-- ADD %1 CAPABILITY --</English>
         </Key>
         <Key ID="STR_KPLIB_ACTION_STACKNSORT">
             <English>- STACK AND SORT -</English>
@@ -2338,5 +2332,31 @@
             <German>Diese Box beschreibt die Strafe bei nicht erfolgreichem Missionsabschluss.</German>
         </Key>
 
+    </Package>
+
+    <!-- PRODUCTION -->
+
+    <Package name="Production">
+        <Key ID="STR_KPLIB_PRODUCTION_CANNOT_ADD_CAPABILITY">
+            <English>Cannot add %1 capability to unknown factory sector.\nCost: [%3S, %4A, %5F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTION_INSUFFICIENT_RES">
+            <English>Insufficient resources to add %1 capability to factory sector '%2'.\nCost: [%3S, %4A, %5F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTION_ADDED_CAPABILITY">
+            <English>Added %1 capability to factory sector '%2'.\nCost: [%3S, %4A, %5F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY">
+            <English>supply</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTION_CAPABILITY_AMMO">
+            <English>ammo</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTION_CAPABILITY_FUEL">
+            <English>fuel</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTION_CAPABILITY_NA">
+            <English>#n/a</English>
+        </Key>
     </Package>
 </Project>
