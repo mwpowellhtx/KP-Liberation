@@ -136,9 +136,16 @@ if (isServer) then {
     // TODO: TBD: we think we will need to have some sort of push/pull capability between client/server...
     KPLIB_production = [];
 
+    // TODO: TBD: may not want to make the array public after all...
     publicVariable "KPLIB_production";
 
     KPLIB_production_moduleData_key = "production";
+
+    // Arrange the enumerated add sector capability status codes
+    KPLIB_production_addCap_clear = 0;
+    KPLIB_production_addCap_elementNotFound = -1;
+    KPLIB_production_addCap_insufficientSumFob = -2;
+    KPLIB_production_addCap_insufficientSumSector = -3;
 };
 
 if (!(hasInterface || isDedicated)) then {
