@@ -25,6 +25,9 @@ if (_debug) then {
     ["[fn_production_onLoadData] Loading...", "PRODUCTION"] call KPLIB_fnc_common_log;
 };
 
+/* Moment of truth, starting afresh every time works. Now we should also
+ * allow for loading the saved data. The key with this one is that we are
+ * not expecting _production _baseMarkerText to have been impacted. */
 private _moduleData = +([KPLIB_production_moduleData_key] call KPLIB_fnc_init_getSaveData);
 private _production = [];
 
@@ -42,7 +45,7 @@ if (_moduleData isEqualTo []) then {
 
     // TODO: TBD: may need a more robust error detection, but for now let this one be
     // Do a health check on the data we load getting started in order to prevent snafus
-    _production = /*(_moduleData#0)*/ [] select { // Starting from ground zero for now while we test it out...
+    _production = (_moduleData#0) select {
         if (isNil "_x") then {false} else {
             (typeName _x) isEqualTo "ARRAY";
         };
