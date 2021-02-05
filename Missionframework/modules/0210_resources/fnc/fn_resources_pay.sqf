@@ -3,8 +3,9 @@
 
     File: fn_resources_pay.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-12-16
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-12-16
+    Last Update: 2021-02-05 12:43:41
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -12,20 +13,27 @@
         Removes given amount of resources from the provided location.
 
     Parameter(s):
-        _location   - Sector or FOB marker from where to pay the resources from [STRING, defaults to ""]
-        _supplies   - Amount of supplies to pay                                 [NUMBER, defaults to 0]
-        _ammo       - Amount of ammo to pay                                     [NUMBER, defaults to 0]
-        _fuel       - Amount of fuel to pay                                     [NUMBER, defaults to 0]
+        _location   - Sector or FOB marker from where to pay the resources from [STRING, default: ""]
+        _supplies   - Amount of supplies to pay                                 [NUMBER, default: 0]
+        _ammo       - Amount of ammo to pay                                     [NUMBER, default: 0]
+        _fuel       - Amount of fuel to pay                                     [NUMBER, default: 0]
+        _range      - Range about which to consider storage containers          [NUMBER, default: KPLIB_param_fobRange]
 
     Returns:
         Payment successful  [BOOL]
 */
 
+// TODO: TBD: this is a lot of code, switches, and so forth...
+// TODO: TBD: we think we can do better if we assume a couple of things about a transaction, shape of:
+// TODO: TBD: [_resourceIndex, _amount], where (_resourceIndex in [0, 1, 2]) ...
+// TODO: TBD: ... and _amount is the _amount, or amount of change, whether debit or credit
+// TODO: TBD: HOWEVER... not, not, NOT this sprint... maybe a future sprint do we look to simplify that whole thing...
 params [
-    ["_location", "", [""]],
-    ["_supplies", 0, [0]],
-    ["_ammo", 0, [0]],
-    ["_fuel", 0, [0]]
+    ["_location", "", [""]]
+    , ["_supplies", 0, [0]]
+    , ["_ammo", 0, [0]]
+    , ["_fuel", 0, [0]]
+    , ["_range", KPLIB_param_fobRange, [0]]
 ];
 
 // Can always pay if there is no price
