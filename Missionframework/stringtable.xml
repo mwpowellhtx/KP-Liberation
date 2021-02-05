@@ -201,7 +201,7 @@
     <!-- ACTIONS -->
 
     <Package name="Actions">
-        <Key ID="STR_KPLIB_ACTION_ADMIN_MENU">
+        <Key ID="STR_KPLIB_ACTION_ADMIN">
             <English>-- Admin Menu --</English>
             <Chinese>-- 管理員選單 --</Chinese>
             <German>-- Admin Menü --</German>
@@ -258,7 +258,7 @@
             <English>Escort %1</English>
             <German>%1 eskortieren</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_GARRISON_MENU">
+        <Key ID="STR_KPLIB_ACTION_GARRISON_MANAGEMENT">
             <English>-- GARRISON MANAGEMENT --</English>
             <German>-- GARNISONSVERWALTUNG --</German>
         </Key>
@@ -290,15 +290,15 @@
             <English>-- LOGISTIC --</English>
             <German>-- LOGISTIK --</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_MISSION">
+        <Key ID="STR_KPLIB_ACTION_MISSIONS">
             <English>-- MISSIONS --</English>
             <German>-- MISSIONEN --</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_PERMISSION">
+        <Key ID="STR_KPLIB_ACTION_PERMISSIONS">
             <English>-- PERMISSIONS --</English>
             <German>-- RECHTE --</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_PLAYER_MENU">
+        <Key ID="STR_KPLIB_ACTION_PLAYER_MANAGEMENT">
             <English>-- Player Menu --</English>
             <Chinese>-- 玩家選單 --</Chinese>
             <German>-- Spielermenü --</German>
@@ -323,6 +323,11 @@
             <Russian>-- ПЕРЕМЕСТИТЬСЯ --</Russian>
             <Spanish>-- REDESPLEGAR --</Spanish>
             <Turkish>-- YENİDEN SEÇ --</Turkish>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_BUILD_STORAGE">
+            <English>-- BUILD STORAGE --</English>
+            <German>-- BUILD-SPEICHER --</German>
+            <Chinese>-- 構建存儲 --</Chinese>
         </Key>
         <Key ID="STR_KPLIB_ACTION_STACKNSORT">
             <English>- STACK AND SORT -</English>
@@ -2001,6 +2006,36 @@
             <English>Randomization range for intel gain through interrogation. E.g. a value of 5 will grant you 5 - 15 intel for a base value of 10.</English>
             <German>Zufallsbereich für den Informationszuwachs bei einem Verhör. Mit einem Wert von 5 liegt der effektive Zuwachs, bei einem Ausgangswert von 10, zwischen 5 und 15.</German>
         </Key>
+
+        <!-- PRODUCTION CATEGORY -->
+        <Key ID="STR_KPLIB_SETTINGS_PROD">
+            <English>Production</English>
+            <German>Production</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_FACILITYCOST">
+            <English>Facility Cost</English>
+            <German>Facility Cost</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_FACILITYCOST_TT">
+            <English>Establishes the cost to build a new production facility at the factory. [default: 50]</English>
+            <German>Establishes the cost to build a new production facility at the factory. [default: 50]</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB">
+            <English>Credit FOB</English>
+            <German>Credit FOB</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB_TT">
+            <English>Credits the nearest FOB for the cost of building the production facility. [default: false]</English>
+            <German>Credits the nearest FOB for the cost of building the production facility. [default: false]</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_DEBUG">
+            <English>Debug Production</English>
+            <German>Debug Production</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_DEBUG_TT">
+            <English>Allows for debugging of client and server side production features. [default: false]</English>
+            <German>Allows for debugging of client and server side production features. [default: false]</German>
+        </Key>
     </Package>
 
 
@@ -2162,9 +2197,21 @@
             <English>Build</English>
             <German>Bauen</German>
         </Key>
+        <Key ID="STR_KPLIB_PERMISSION_BUILD_STORAGE">
+            <English>Build Storage</English>
+            <German>Build speicher</German>
+        </Key>
+        <Key ID="STR_KPLIB_PERMISSION_BUILD_FACILITY">
+            <English>Build Facility</English>
+            <German>Baueinrichtung</German>
+        </Key>
         <Key ID="STR_KPLIB_PERMISSION_COMMANDER">
             <English>Commander</English>
             <German>Commander</German>
+        </Key>
+        <Key ID="STR_KPLIB_PERMISSION_LOGISTICIAN">
+            <English>Logistician</English>
+            <German>Logistician</German>
         </Key>
         <Key ID="STR_KPLIB_PERMISSION_CRATEFILLER">
             <English>Cratefiller</English>
