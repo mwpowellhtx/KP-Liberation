@@ -49,7 +49,7 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
     {
         _x params [
             ["_var", "", [""]]
-            , ["_val"]
+            , ["_val", nil]
             , ["_global", false, [false]]
         ];
         if (!isNil "_var") then {
