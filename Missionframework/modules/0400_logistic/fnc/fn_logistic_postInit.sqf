@@ -23,7 +23,15 @@
 if (isServer) then {
     ["Module initializing...", "POST] [LOGISTIC", true] call KPLIB_fnc_common_log;
 
-    // Logistic station permissions
+    //// Logistic station permissions
+    //// TODO: TBD: a lot of boilerplate here that could potentially be factored better
+    //[
+    //    "Logistician"
+    //    , {}
+    //    , false
+    //    , "GroupLogistics"
+    //] call KPLIB_fnc_permission_addPermissionHandler;
+
     // Recycle
     [
         "Recycle",
@@ -94,6 +102,8 @@ if (isServer) then {
     LSVAR("Vehicles", _vehicles);
 };
 
-if (isServer) then {["Module initialized", "POST] [LOGISTIC", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "POST] [LOGISTIC", true] call KPLIB_fnc_common_log;
+};
 
 true
