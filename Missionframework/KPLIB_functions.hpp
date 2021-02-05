@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2019-09-10
+    Last Update: 2021-02-04 13:53:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -26,7 +26,7 @@
 class KPLIB {
     // Include functions from each module accordingly to the load order
     #include "modules\0000_logger\functions.hpp"
-
+    #include "modules\0003_debug\functions.hpp"
     #include "modules\0005_config\functions.hpp"
 
     #include "modules\0010_math\functions.hpp"
@@ -52,6 +52,7 @@ class KPLIB {
     #include "modules\0330_garrison\functions.hpp"
 
     #include "modules\0400_logistic\functions.hpp"
+    #include "modules\0410_production\functions.hpp"
     #include "modules\0420_enemy\functions.hpp"
     #include "modules\0430_cratefiller\functions.hpp"
     
