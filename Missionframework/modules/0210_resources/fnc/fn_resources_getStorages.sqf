@@ -3,8 +3,9 @@
 
     File: fn_resources_getStorages.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-02-16
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-02-16
+    Last Update: 2021-02-05 00:37:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -12,19 +13,20 @@
         Returns all storages inside given radius of a given position.
 
     Parameter(s):
-        _center - Position AGL from where to look for storages  [POSITION AGL, defaults to KPLIB_zeroPos]
-        _radius - Radius from the center                        [NUMBER, defaults to 100]
+        _center - Position AGL from where to look for storages [POSITION AGL, default: KPLIB_zeroPos]
+        _radius - Radius from the center [NUMBER, default: 100]
+        _types - the types to include in the nearest objects query, which allows for smaller
+            sets of types, and even transports, rather than static spull bunds, for instance
+            [ARRAY, default: KPLIB_resources_storageClasses]
 
     Returns:
         All found storage objects [ARRAY]
 */
 
-// TODO: TBD: not going to touch this one just yet...
-// TODO: TBD: "storage" yes, but we need to think in terms of "container"...
-// TODO: TBD: can mean a spill bund, but can also mean a transport...
 params [
-    ["_center", KPLIB_zeroPos, [[]], 3],
-    ["_radius", 100, [0]]
+    ["_center", KPLIB_zeroPos, [[]], 3]
+    , ["_radius", 100, [0]]
+    , ["_types", KPLIB_resources_storageClasses, [[]]]
 ];
 
-nearestObjects [_center, KPLIB_resources_storageClasses, _radius]
+nearestObjects [_center, _types, _radius]
