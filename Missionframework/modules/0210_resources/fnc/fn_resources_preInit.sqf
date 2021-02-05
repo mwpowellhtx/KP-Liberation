@@ -213,6 +213,12 @@ if (isServer) then {
         , KPLIB_preset_storageLargeF
     ];
 
+    // Storage classnames concerning factory sectors
+    KPLIB_resources_factoryStorageClasses = [
+        KPLIB_preset_storageSmallE
+        , KPLIB_preset_storageSmallF
+    ];
+
     // Publish variables to clients
     publicVariable "KPLIB_resources_crateClasses";
     publicVariable "KPLIB_resources_storageClasses";
