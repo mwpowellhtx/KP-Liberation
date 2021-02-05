@@ -26,6 +26,7 @@
 class KPLIB {
     // Include functions from each module accordingly to the load order
     #include "modules\0000_logger\functions.hpp"
+    #include "modules\0001_notification\functions.hpp"
     #include "modules\0003_debug\functions.hpp"
     #include "modules\0005_config\functions.hpp"
 
