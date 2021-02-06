@@ -3,8 +3,9 @@
 
     File: KPLIB_admin.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-07-27
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-07-27
+    Last Update: 2021-02-06 10:46:49
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -12,13 +13,11 @@
         Can be easily expanded, as it's basically just a button list.
 */
 
-
 class KPLIB_admin {
-    idd = 75802;
+    idd = KPLIB_IDD_ADMIN;
     movingEnable = 0;
 
     class controlsBackground {
-
     };
 
     class controls {
@@ -35,7 +34,7 @@ class KPLIB_admin {
         };
 
         class KPLIB_ImportButton: KPGUI_PRE_DialogButtonC {
-            idc = 758021;
+            idc = KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON;
             text = "$STR_KPLIB_DIALOG_ADMIN_IMP";
             y = safeZoneY + safeZoneH * (KP_Y_VAL_C + KP_HEIGTH_TITLE + KP_HEIGTH_BUTTON + 2 * KP_SPACING_Y);
             tooltip = "$STR_KPLIB_DIALOG_ADMIN_IMP_TT";
@@ -43,7 +42,7 @@ class KPLIB_admin {
         };
 
         class KPLIB_DeleteButton: KPGUI_PRE_DialogButtonC {
-            idc = 758022;
+            idc = KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON;
             text = "$STR_KPLIB_DIALOG_ADMIN_DEL";
             y = safeZoneY + safeZoneH * (KP_Y_VAL_C + KP_HEIGTH_TITLE + 2 * KP_HEIGTH_BUTTON + 3 * KP_SPACING_Y);
             tooltip = "$STR_KPLIB_DIALOG_ADMIN_DEL_TT";
