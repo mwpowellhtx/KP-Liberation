@@ -20,7 +20,7 @@
         Function reached the end [BOOL]
 */
 
-// Actions avalible LOCALLY to player
+// Actions available LOCALLY to player
 
 // TODO: TBD: ditto helper functions...
 // TODO: TBD: condition was: _target isEqualTo _originalTarget && !(_originalTarget getVariable ["KPLIB_fob", ""] isEqualTo "")

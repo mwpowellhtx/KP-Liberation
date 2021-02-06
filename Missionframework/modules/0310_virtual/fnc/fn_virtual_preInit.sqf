@@ -63,6 +63,7 @@ if (hasInterface) then {
     // TODO: TBD: Change zeus watermark to KP Logo...
     ["KPLIB_curatorOpen", {
         [{
+            // TODO: TBD: this looks like an oversight (?) IDD 312 (?) IDC 15717 (?)
             private _watermarkCtrl = (findDisplay 312) displayCtrl 15717;
             _watermarkCtrl ctrlSetText "KPGUI\res\kp512_ca.paa";
         }] call CBA_fnc_execNextFrame;

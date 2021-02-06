@@ -22,7 +22,7 @@
         https://www.w3schools.com/colors/colors_picker.asp
 */
 
-// Actions avalible LOCALLY to player
+// Actions available LOCALLY to player
 if (hasInterface) then {
 
     //// TODO: TBD: baseline was this:

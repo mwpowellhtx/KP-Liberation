@@ -30,7 +30,7 @@
 //    _dep isEqualTo [];
 //};
 
-// Actions avalible LOCALLY to player
+// Actions available LOCALLY to player
 if (hasInterface) then {
 
     // TODO: TBD: condition was: _target isEqualTo _originalTarget && !(_originalTarget getVariable ["KPLIB_fob", ""] isEqualTo "")

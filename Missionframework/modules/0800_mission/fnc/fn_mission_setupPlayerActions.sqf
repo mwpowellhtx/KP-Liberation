@@ -19,7 +19,7 @@
         Function reached the end [BOOL]
 */
 
-// Actions avalible LOCALLY to player
+// Actions available LOCALLY to player
 // Permission action
 private _missionCondition = '
     _target isEqualTo _originalTarget &&
