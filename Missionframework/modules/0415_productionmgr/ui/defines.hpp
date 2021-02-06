@@ -13,3 +13,5 @@
 
 #define KPLIB_IDD_PRODUCTIONMGR                                 411000
 
+#define KPLIB_IDC_PRODUCTIONMGR_CTRL_LBFACTORYSECTORS           411100
+

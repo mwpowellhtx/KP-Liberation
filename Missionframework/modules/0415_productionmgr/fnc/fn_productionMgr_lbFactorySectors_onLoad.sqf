@@ -1,0 +1,41 @@
+#include "..\ui\defines.hpp"
+/*
+    KPLIB_fnc_productionMgr_lbFactorySectors_onLoad
+
+    File: fn_productionMgr_lbFactorySectors_onLoad.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-02-06 12:56:43
+    Last Update: 2021-02-06 12:56:45
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: Yes
+
+    Description:
+        Module lbFactorySectors onLoad event handler.
+
+    Parameter(s):
+        _lbFactorySectors - the list box control [CONTROL]
+
+    Returns:
+        Module postInit finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
+*/
+
+params [
+    ["_lbFactorySectors", controlNull, [controlNull]]
+];
+
+private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
+
+// TODO: TBD: perchance to notification_system ...
+systemChat "fn_productionMgr_lbFactorySectors_onLoad";
+//["fn_productionMgr_lbFactorySectors_onLoad"] call KPLIB_fnc_notification_hit;
+
+private _someData = ["123456", "Sector Name"];
+private _count = 100;
+while {(lbSize _lbFactorySectors) < 100} do {
+    _lbFactorySectors lnbAddRow _someData;
+};
+
+// TODO: TBD: ...

@@ -29,4 +29,13 @@ class productionMgr {
 
     // Setup the player action menu
     class productionMgr_setupPlayerMenu {};
+
+    // Module display onLoad event handler
+    class productionMgr_onLoad {};
+
+    // Factory sectors list box onLoad event handler
+    class productionMgr_lbFactorySectors_onLoad {};
+
+    // Factory sectors list box onLBSelChanged event handler
+    class productionMgr_lbFactorySectors_onLBSelChanged {};
 };

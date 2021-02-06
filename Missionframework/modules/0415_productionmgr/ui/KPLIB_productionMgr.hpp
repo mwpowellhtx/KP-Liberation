@@ -15,6 +15,8 @@ class KPLIB_productionMgr {
     idd = KPLIB_IDD_PRODUCTIONMGR;
     movingEnable = 0;
 
+    onLoad = "_this call KPLIB_fnc_productionMgr_onLoad";
+
     class controlsBackground {
 
         class KPLIB_DialogTitle : KPGUI_PRE_DialogTitleS {
@@ -91,6 +93,20 @@ class KPLIB_productionMgr {
     class controls {
 
         class KPLIB_DialogCross: KPGUI_PRE_DialogCrossS {
+        };
+
+        // https://community.bistudio.com/wiki/CT_LISTNBOX
+        // https://community.bistudio.com/wiki/CT_LISTNBOX#columns
+        class KPLIB_factorySectors : KPGUI_PRE_ListNBox {
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBFACTORYSECTORS;
+            x = KP_GETCX(KP_X_VAL_S,KP_WIDTH_VAL_S,1,27);
+            y = KP_GETCY(KP_Y_VAL_S,KP_HEIGHT_VAL_S,1,31);
+            w = KP_GETW(KP_WIDTH_VAL_S,2.75);
+            h = KP_GETH(KP_HEIGHT_VAL_S,(48/42));
+            columns[] = {-0.01, 0.2};
+            
+            onLoad = "_this call KPLIB_fnc_productionMgr_lbFactorySectors_onLoad";
+            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbFactorySectors_onLBSelChanged";
         };
 
         // class KPLIB_ButtonTools: KPGUI_PRE_DialogCrossS {
