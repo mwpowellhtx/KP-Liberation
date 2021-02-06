@@ -21,3 +21,7 @@
 #ifndef KPLIB_IDC_UNDEFINED
 #define KPLIB_IDC_UNDEFINED     -1
 #endif // KPLIB_IDC_UNDEFINED
+
+// TODO: TBD: what is IDD 46 find throughout? assume that was either a built-in one, or a legacy one, left over from a copy/paste...
+// TODO: TBD: ditto, IDD 312
+// TODO: TBD: search/review pattern "finddisplay \d" for more such opportunities
