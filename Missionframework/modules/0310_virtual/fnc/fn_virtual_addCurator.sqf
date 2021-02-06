@@ -88,6 +88,7 @@ unassignCurator _oldCurator;
 
     [_curator ,{
         // Close the zeus display to prevent issues when recreating already open zeus
+        // TODO: TBD: this looks like an oversight (?) IDD 312
         (findDisplay 312) closeDisplay 0;
 
         // Add 3D fob icons if enabled

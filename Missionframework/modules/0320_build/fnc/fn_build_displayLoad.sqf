@@ -62,7 +62,7 @@ _categoriesList ctrlAddEventHandler ["LBSelChanged", {
 } forEach LGVAR(buildables);
 
 // Hide vignette, show hud
-private _vignette = _display displayCtrl 1202;
+private _vignette = _display displayCtrl KPLIB_IDC_MISSION_VIGNETTE_MARKER; // TODO: TBD: vignette (?)
 _vignette ctrlShow false;
 showHUD true;
 

@@ -17,19 +17,27 @@
 // IDCs
 #define KPLIB_IDC_MOUSEHANDLER              101
 
-#define KPLIB_IDD_BUILD_DIALOG              70000
-#define KPLIB_IDC_BUILD_CATEGORY_LIST       70100
+#define KPLIB_IDD_BUILD_DIALOG              700000
+#define KPLIB_IDC_BUILD_CATEGORY_LIST       700100
 
-#define KPLIB_IDC_BUILD_SEARCH              70101
-#define KPLIB_IDC_BUILD_SEARCH_BUTTON       70102
+#define KPLIB_IDC_BUILD_SEARCH              700101
+#define KPLIB_IDC_BUILD_SEARCH_BUTTON       700102
 
-#define KPLIB_IDC_BUILD_TOOLBOX_MOVEITEMS   70111
+#define KPLIB_IDC_BUILD_TOOLBOX_MOVEITEMS   700111
 
-#define KPLIB_IDC_BUILD_ITEM_LIST           70202
+#define KPLIB_IDC_BUILD_ITEM_LIST           700202
 
-#define KPLIB_IDC_BUILD_CONFIRM             70301
+#define KPLIB_IDC_BUILD_CONFIRM             700301
 
-#define KPLIB_IDC_BUILD_DIALOG_AREA         70401
+#define KPLIB_IDC_BUILD_DIALOG_AREA         700401
 
 // All tabs IDCs
 #define KPLIB_BUILD_TABS_IDCS_ARRAY         [70100,70101,70102,70103,70104,70105,70106,70107]
+
+// TODO: TBD: this one is a mission artifact
+// TODO: TBD: should probably be factored into the overall KPGUI "defines.hpp"
+// TODO: TBD: but for now, this is the only known usage...
+#define KPLIB_IDC_MISSION_VIGNETTE_MARKER   1202
+// TODO: TBD: however, not sure what this marker is all about...
+// TODO: TBD: i.e. it happens to refer to a 'KPLIB_eden_airspawn_10', which we think is happy coincidence, possibly mistaken identity
+// TODO: TBD: in other words, vignette marker of what? not an airspawn, most likely...
