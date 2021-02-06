@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_plm_openDialog
 
@@ -23,23 +24,23 @@ createDialog "KP_playerMenu";
 disableSerialization;
 
 // Dialog controls
-private _dialog = findDisplay 75803;
-private _ctrlLabelRank = _dialog displayCtrl 758031;
-private _ctrlRank = _dialog displayCtrl 758032;
-private _ctrlLabelScore = _dialog displayCtrl 758033;
-private _ctrlScore = _dialog displayCtrl 758034;
-private _ctrlLabelPlaytime = _dialog displayCtrl 758035;
-private _ctrlPlaytime = _dialog displayCtrl 758036;
-private _ctrlNoRanks = _dialog displayCtrl 758037;
-private _ctrlGroupList = _dialog displayCtrl 758038;
-private _ctrlViewFoot = _dialog displayCtrl 7580310;
-private _ctrlViewVeh = _dialog displayCtrl 7580311;
-private _ctrlViewAir = _dialog displayCtrl 7580312;
-private _ctrlTerrain = _dialog displayCtrl 7580313;
-private _ctrlTpv = _dialog displayCtrl 7580314;
-private _ctrlRadio = _dialog displayCtrl 7580315;
-private _ctrlValueSound = _dialog displayCtrl 7580316;
-private _ctrlSliderSound = _dialog displayCtrl 7580317;
+private _dialog = findDisplay KPLIB_IDD_PLAYERMENU;
+private _ctrlLabelRank = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRLBG_TEXTRANK;
+private _ctrlRank = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_PLAYERRANK;
+private _ctrlLabelScore = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRLBG_TEXTSCORE;
+private _ctrlScore = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_PLAYERSCORE;
+private _ctrlLabelPlaytime = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRLBG_PLAYTIME;
+private _ctrlPlaytime = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_PLAYERTIME;
+private _ctrlNoRanks = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRLBG_NORANKS;
+private _ctrlGroupList = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_GROUPLIST;
+private _ctrlViewFoot = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWFOOT;
+private _ctrlViewVic = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWVIC;
+private _ctrlViewAir = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWAIR;
+private _ctrlTerrain = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_COMBOTERRAIN;
+private _ctrlTpv = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_COMBOTPV;
+private _ctrlRadio = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_COMBORADIO;
+private _ctrlValueSound = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_TEXTSOUNDVAL;
+private _ctrlSliderSound = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_SLIDERSOUND;
 
 // Display KP Ranks data or hide the player menu entries for the data
 if (KPLIB_kpr_enabled) then {
@@ -62,7 +63,7 @@ if (KPLIB_kpr_enabled) then {
 
 // Set initial values for view distances
 _ctrlViewFoot ctrlSetText str KPLIB_plm_viewFoot;
-_ctrlViewVeh ctrlSetText str KPLIB_plm_viewVeh;
+_ctrlViewVic ctrlSetText str KPLIB_plm_viewVeh;
 _ctrlViewAir ctrlSetText str KPLIB_plm_viewAir;
 
 // Fill density, auto tpv and radio dropdowns. Also preselect the saved values

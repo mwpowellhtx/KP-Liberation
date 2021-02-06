@@ -1,10 +1,12 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_plm_join
 
     File: fn_plm_join.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-08-05
-    Last Update: 2019-04-23
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-08-05
+    Last Update: 2021-02-06 13:11:27
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -19,8 +21,8 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay 75803;
-private _ctrlGroupList = _dialog displayCtrl 758038;
+private _dialog = findDisplay KPLIB_IDD_PLAYERMENU;
+private _ctrlGroupList = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_GROUPLIST;
 
 private _grp = KPLIB_plm_groups select (lbCurSel _ctrlGroupList);
 [player] join _grp;

@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_plm_save
 
@@ -19,19 +20,19 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay 75803;
-private _ctrlViewFoot = _dialog displayCtrl 7580310;
-private _ctrlViewVeh = _dialog displayCtrl 7580311;
-private _ctrlViewAir = _dialog displayCtrl 7580312;
-private _ctrlTerrain = _dialog displayCtrl 7580313;
-private _ctrlTpv = _dialog displayCtrl 7580314;
-private _ctrlRadio = _dialog displayCtrl 7580315;
-private _ctrlSliderSound = _dialog displayCtrl 7580317;
+private _dialog = findDisplay KPLIB_IDD_PLAYERMENU;
+private _ctrlViewFoot = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWFOOT;
+private _ctrlViewVic = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWVIC;
+private _ctrlViewAir = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWAIR;
+private _ctrlTerrain = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_COMBOTERRAIN;
+private _ctrlTpv = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_COMBOTPV;
+private _ctrlRadio = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_COMBORADIO;
+private _ctrlSliderSound = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_SLIDERSOUND;
 
 // Fetch all selected values
 KPLIB_plm_viewFoot = round (parseNumber (ctrlText _ctrlViewFoot));
 if (KPLIB_plm_viewFoot == 0) then {KPLIB_plm_viewFoot = 1600;};
-KPLIB_plm_viewVeh = round (parseNumber (ctrlText _ctrlViewVeh));
+KPLIB_plm_viewVeh = round (parseNumber (ctrlText _ctrlViewVic));
 if (KPLIB_plm_viewVeh == 0) then {KPLIB_plm_viewVeh = 1600;};
 KPLIB_plm_viewAir = round (parseNumber (ctrlText _ctrlViewAir));
 if (KPLIB_plm_viewAir == 0) then {KPLIB_plm_viewAir = 1600;};

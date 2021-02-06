@@ -194,7 +194,7 @@ class KP_playerMenu {
         };
 
         class KP_BoxViewVehicle: KP_BoxViewFoot {
-            idc = KPLIB_IDC_PLAYERMENU_CTRL__BOXVIEWVIC;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWVIC;
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,29,48);
         };
 

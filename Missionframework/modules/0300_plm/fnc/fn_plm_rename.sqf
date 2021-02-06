@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_plm_rename
 
@@ -19,9 +20,9 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay 75803;
-private _ctrlGroupList = _dialog displayCtrl 758038;
-private _ctrlEditName = _dialog displayCtrl 758039;
+private _dialog = findDisplay KPLIB_IDD_PLAYERMENU;
+private _ctrlGroupList = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_GROUPLIST;
+private _ctrlEditName = _dialog displayCtrl KPLIB_IDC_PLAYERMENU_CTRL_RENAMEEDIT;
 private _grp = KPLIB_plm_groups select (lbCurSel _ctrlGroupList);
 
 // Only allow change, when player is leader
