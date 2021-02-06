@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.98.0 (S3) (Under development)
+* Added:
+* Tweaked:
+* Refactored:
+* Bug:
+* Review:
+
 ## 0.98.0 (S2) (Under development, now closed)
 * Added: _LINQ_ style support for `.Select(...)`, i.e. `KPLIB_fnc_linq_select`, analog to the `['_element', '_index']` version.
 * Added: Timers support, which will be necessary to support _production_, as well as _logistics_, features.
