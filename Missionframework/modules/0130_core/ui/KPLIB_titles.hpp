@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KP Liberation rsc titles defines
 
