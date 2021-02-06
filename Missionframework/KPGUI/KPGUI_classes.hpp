@@ -58,7 +58,7 @@ class KPGUI_PRE_Title {
     deletable = 0;
     fade = 0;
     type = 0;
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     colorBackground[] = KP_COLOR_PLAYERDEFINE;
     colorText[] = {1, 1, 1, 1};
     text = "DIALOG TITLE";
@@ -99,7 +99,7 @@ class KPGUI_PRE_CloseCross {
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
     tooltip = "$STR_DISP_CLOSE";
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     x = 0;
     y = 0;
     w = safeZoneW * 0.014;
@@ -123,7 +123,7 @@ class KPGUI_PRE_Background {
     deletable = 0;
     fade = 0;
     type = 0;
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     colorBackground[] = KP_COLOR_BACKGROUND;
     colorText[] = {1, 1, 1, 1};
     text = "";
@@ -148,7 +148,7 @@ class KPGUI_PRE_Text {
     deletable = 0;
     fade = 0;
     type = 0;
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     colorBackground[] = {0, 0, 0, 0};
     colorText[] = {1, 1, 1, 1};
     text = "";
@@ -192,7 +192,7 @@ class KPGUI_PRE_ActiveText {
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     x = 0;
     y = 0;
     w = 0;
@@ -243,7 +243,7 @@ class KPGUI_PRE_Button {
     soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush", 0.09, 1};
     soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick", 0.09, 1};
     soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape", 0.09, 1};
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     style = 2;
     x = 0;
     y = 0;
@@ -284,7 +284,7 @@ class KPGUI_PRE_ControlsGroup {
     };
     class Controls {};
     type = 15;
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     x = 0;
     y = 0;
     w = 0;
@@ -369,7 +369,7 @@ class KPGUI_PRE_CheckBox {
     soundPush[] = {"", 0.1, 1};
     soundClick[] = {"", 0.1, 1};
     soundEscape[] = {"", 0.1, 1};
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     type = 77;
     deletable = 0;
     style = 2;
@@ -485,7 +485,7 @@ class KPGUI_PRE_ListNBox {
 class KPGUI_PRE_XListBox {
     deletable = 0;
     fade = 0;
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
     type = 42;
     x = 0.1;
     y = 0.1;
@@ -586,7 +586,7 @@ class KPGUI_PRE_MapControl {
     deletable = 0;
     fade = 0;
     type = 101;
-    idc = 51;
+    idc = KPGUI_IDC_MAPCTRL;
     style = 16 + 32;
     colorBackground[] = {0.969, 0.957, 0.949,1};
     colorOutside[] = {0, 0, 0, 1};
