@@ -16,7 +16,7 @@
         0210_resources
 */
 
-class example {
+class production {
     file = "modules\0410_production\fnc";
 
     // Module pre initialization
