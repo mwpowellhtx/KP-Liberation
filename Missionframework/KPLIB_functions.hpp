@@ -54,8 +54,7 @@ class KPLIB {
 
     #include "modules\0400_logistic\functions.hpp"
     #include "modules\0410_production\functions.hpp"
-	//// TODO: TBD: ditto the UI parts... not there yet, but SOON...
-    //#include "modules\0415_productionmgr\functions.hpp"
+	#include "modules\0415_productionMgr\functions.hpp"
     #include "modules\0420_enemy\functions.hpp"
     #include "modules\0430_cratefiller\functions.hpp"
     

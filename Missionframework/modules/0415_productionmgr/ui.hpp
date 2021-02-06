@@ -18,6 +18,5 @@
 //// TODO: TBD: back on track, which involves establishing the module, tuple shapes, etc...
 //#include "ui\KPLIB_productionMain.hpp"
 
-
 #include "ui\defines.hpp"
-#include "ui\KPLIB_productionmgr.hpp"
+#include "ui\KPLIB_productionMgr.hpp"

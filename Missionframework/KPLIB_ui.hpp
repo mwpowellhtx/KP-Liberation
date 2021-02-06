@@ -26,8 +26,6 @@
 #include "modules\0320_build\ui.hpp"
 #include "modules\0330_garrison\ui.hpp"
 #include "modules\0400_logistic\ui.hpp"
-//// TODO: TBD: we'll get there, but first, getting a handle on the IDD and IDC definitions...
-//// TODO: TBD ...which ranges might be available to us, do we need to renumber anything, etc...
-//#include "modules\0415_productionmgr\ui.hpp"
+#include "modules\0415_productionMgr\ui.hpp"
 #include "modules\0430_cratefiller\ui.hpp"
 #include "modules\0800_mission\ui.hpp"

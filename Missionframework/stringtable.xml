@@ -408,6 +408,13 @@
             <Spanish>- DESCARGA CAJA DE SUMINISTRO -</Spanish>
             <Turkish>- İKMAL KUTUSUNU ÇIKAR -</Turkish>
         </Key>
+        <Key ID="STR_KPLIB_ACTION_MANAGE_PRODUCTION">
+            <English>== MANAGE PRODUCTION ==</English>
+        </Key>
+        <!-- TODO: TBD: eventually, also log, for future use... -->
+        <Key ID="STR_KPLIB_ACTION_MANAGE_LOGISTICS">
+            <English>== MANAGE LOGISTICS ==</English>
+        </Key>
     </Package>
 
 
