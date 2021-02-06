@@ -1,9 +1,13 @@
 # Changelog
 
-## 0.98.0 (S2) (Under development)
+## 0.98.0 (S2) (Under development, now closed)
+* Added: _LINQ_ style support for `.Select(...)`, i.e. `KPLIB_fnc_linq_select`, analog to the `['_element', '_index']` version.
 * Added: Timers support, which will be necessary to support _production_, as well as _logistics_, features.
 * Added: Established `production` support, starting with sector discovery and production reconciliation with the same. _Reconciliation_ means, allowing for deleted sectors, as well as for additional sectors. The data should remain healhy in the face of those sorts of changes. The key point is that we track in terms of `_markerName` and maintain a base `_baseMarkerText`. The actual `_markerText` that is applied is always calculated based on these two components, plus taking into consideration the sector `_capability` matrix.
+* Added: Ability to add _factory sector production capability_. May also be configured by a handful of settings, whether to _debit the nearest FOB_, and _default_ and _target costs_ of the _production capability_ being added.
+* Tweaked: Refined the manner in which bits are passed to `KPLIB_fnc_resources_pay`. Similarly, also, for `KPLIB_fnc_resources_getStorages`.
 * Bug: Corrected an oversight in the whole _Eden tuple reshaping_, specifically in the `KPLIB_fnc_eden_assetToFlightDeck` chain of custody.
+* Refactored: Support for `KPLIB_fnc_notification_hint`. Allows for _client side_ usage, and, just as important, _server side remote_ invocation.
 * Refactored: Reshaped the _sectors tuples_, see _docs_: `kp-sectors-tuple-matrix.ods`. Informs both the _Edens_ as well as _FOBs_, for starters. Will soon also be useful for _production_, and in the future informing _logistics_.
   * Was mostly straightforward following the trail of breadcrumbs from KPLIB_sectors_edens and KPLIB_sectors_fobs.
     * Except in a couple of instances such as `KPLIB_fnc_eden_createOrUpdateMarkers` in which we gave element oriented functions defined.
@@ -14,7 +18,7 @@
 * Bug: Handle the use case where serialization occurs for assets beyond the range of known _FOB_ sites. Should never be serialized in the first place, we think, but this is the next best manner in which to respond. Can verify in both `KPLIB_persistence_objects` and `KPLIB_persistence_units` arrays.
 * Review: Reviewed bits of the code with regard to building the _FOB building_. We may have a clue as to why bits like _direction_ and _up vectors_ are not being conveyed quite correctly between build confirmation and the building being replaced. But moreover, we think there may be a more general use case for the same sort of functionality, especially as applied to _factory_ and possibly also _township sectors_, _building storage_, and so forth. Not a bridge we will necessarily be crossing today, but could come downstream from here in the next sprint; we want to try to stay focused on just introducing the basics in term of _timers_, introducing the _production_ features, etc.
 
-## 0.98.0 (S1) (Thawed, under development)
+## 0.98.0 (S1) (Thawed, under development, now closed)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
 * **_Caveat_**: We are adding some bits that we think deserve a dedicated module unto their own, i.e. _UUID_, _LINQ_, and so on. However, that is going to require that we renumber the modules. This is no small effort, so for now we are placing them as we are in the `0120_common` module, however, with _prefixes_ that are unique to their module. Eventually we will renumber them but for now we are holding off on that level of effort.
 * Added: _LINQ_ style aggregate and zip functions for use especially as we get further into things.
