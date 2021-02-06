@@ -1,3 +1,4 @@
+#inclde "..\ui\defines.hpp"
 /*
     KPLIB_fnc_admin_exportSave
 
@@ -42,7 +43,7 @@ if (isServer) then {
 };
 
 // Enable the import and delete button in the admin dialog
-findDisplay 75802 displayCtrl 758021 ctrlEnable true;
-findDisplay 75802 displayCtrl 758022 ctrlEnable true;
+findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON ctrlEnable true;
+findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON ctrlEnable true;
 
 true

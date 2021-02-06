@@ -1,3 +1,4 @@
+#inclde "..\ui\defines.hpp"
 /*
     KPLIB_fnc_admin_deleteExport
 
@@ -23,8 +24,8 @@ profileNamespace setVariable [KPLIB_save_key + "_export", nil];
 saveProfileNamespace;
 
 // Disable the import and delete button in the admin dialog
-findDisplay 75802 displayCtrl 758021 ctrlEnable false;
-findDisplay 75802 displayCtrl 758022 ctrlEnable false;
+findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON ctrlEnable false;
+findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON ctrlEnable false;
 
 // Hint output
 [localize "STR_KPLIB_DIALOG_ADMIN_DEL_NOTE"] call KPLIB_fnc_notification_hint;

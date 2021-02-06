@@ -1,3 +1,4 @@
+#inclde "..\ui\defines.hpp"
 /*
     KPLIB_fnc_admin_openDialog
 
@@ -24,8 +25,8 @@ createDialog "KPLIB_admin";
 
 // Disable the import and delete button in the admin dialog, when there is no exported data in the players profileNamespace
 if (profileNamespace getVariable [KPLIB_save_key + "_export", []] isEqualTo []) then {
-    findDisplay 75802 displayCtrl 758021 ctrlEnable false;
-    findDisplay 75802 displayCtrl 758022 ctrlEnable false;
+    findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON ctrlEnable false;
+    findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON ctrlEnable false;
 };
 
 true

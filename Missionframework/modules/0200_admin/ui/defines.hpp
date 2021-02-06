@@ -11,7 +11,7 @@
         Module dialog and control identifier definitions.
 */
 
-#define KPLIB_IDD_ADMIN                     758020
+#define KPLIB_IDD_ADMIN                     768020
 
-#define KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON   758021
-#define KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON   758022
+#define KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON   768021
+#define KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON   768022
