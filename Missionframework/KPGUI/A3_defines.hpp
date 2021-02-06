@@ -106,6 +106,10 @@
 #define GRID_W                  (pixelW * pixelGrid * pixelScale)
 #define GRID_H                  (pixelH * pixelGrid * pixelScale)
 
+// Define some control identifiers
+#define A3_IDC_CTRL_RSCMAPCTRL      51
+#define A3_CTRL_RSCBUTTONMENUOK     1
+#define A3_CTRL_RSCBTNMENUCANCEL    2
 
 class ScrollBar
 {
@@ -1098,7 +1102,7 @@ class RscButtonMenuOK: RscButtonMenu
         0.09,
         1
     };
-    idc = 1;
+    idc = A3_CTRL_RSCBUTTONMENUOK;
     default = 1;
     text = "OK";
 };
@@ -1108,7 +1112,7 @@ class RscButtonMenuCancel: RscButtonMenu
     {
         "0x00050000 + 1"
     };
-    idc = 2;
+    idc = A3_CTRL_RSCBTNMENUCANCEL;
     text = "Abbrechen";
 };
 class RscButtonMenuSteam: RscButtonMenu
@@ -1136,7 +1140,7 @@ class RscMapControl
     fade = 0;
     access = 0;
     type = CT_MAP_MAIN;
-    idc = 51;
+    idc = A3_IDC_CTRL_RSCMAPCTRL;
     style = ST_MULTI + ST_TITLE_BAR;
     colorBackground[] = {0.969,0.957,0.949,1};
     colorOutside[] = {0,0,0,1};
