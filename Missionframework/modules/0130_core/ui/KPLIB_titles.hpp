@@ -28,7 +28,7 @@ class RscTitles
     {
         name = "blank";
         duration = 999999;
-        idd = 6666;
+        idd = KPLIB_IDD_CORE_RSCTITLE_BLANK;
         movingEnable = true;
         onLoad = "";
         controls[]={};
@@ -38,7 +38,7 @@ class RscTitles
     {
         name = "fasttravel";
         duration = 4;
-        idd = -1;
+        idd = KPLIB_IDD_UNDEFINED;
         movingEnable = true;
 
         controls[]=
@@ -46,7 +46,7 @@ class RscTitles
             OuterBackground,GenericLabel111
         };
         class OuterBackground {
-            idc = -1;
+            idc = KPLIB_IDC_UNDEFINED;
             type =  0;
             style = 0;
             colorText[] = COLOR_BLACK;
@@ -58,7 +58,7 @@ class RscTitles
             text = "";
         };
         class GenericLabel111 {
-            idc = -1;
+            idc = KPLIB_IDC_UNDEFINED;
             type =  0;
             style = 2;
             colorText[] = COLOR_WHITE;
@@ -71,13 +71,13 @@ class RscTitles
         };
     };
 
-// !TODO! Rework and implementation of the Status Overlay
+// TODO: TBD: Rework and implementation of the Status Overlay
 /*
     class statusoverlay
     {
         name = "statusoverlay";
         duration = 999999;
-        idd = 6666;
+        idd = KPLIB_IDD_CORE_RSCTITLES_STATUSOVERLAY;
         movingEnable = true;
         onLoad = "uiNamespace setVariable ['GUI_OVERLAY', _this select 0];";
         controls[]= {
@@ -121,7 +121,7 @@ class RscTitles
         };
 
         class GenericLabel69 {
-            idc = -1;
+            idc = KPLIB_IDC_UNDEFINED;
             type =  CT_STATIC;
             style = ST_RIGHT;
             colorBackground[] = COLOR_NOALPHA;
@@ -152,7 +152,7 @@ class RscTitles
         };
 
         class GenericPicture69 {
-            idc = -1;
+            idc = KPLIB_IDC_UNDEFINED;
             type =  CT_STATIC;
             style = ST_PICTURE;
             colorText[] = {0.9,0.9,0.9,1};
@@ -346,7 +346,7 @@ class RscTitles
         };
 
         class CaptureFrameStandard {
-            idc = -1;
+            idc = KPLIB_IDC_UNDEFINED;
             type =  CT_STATIC;
             font = "puristaMedium";
             sizeEx = 0.023;
