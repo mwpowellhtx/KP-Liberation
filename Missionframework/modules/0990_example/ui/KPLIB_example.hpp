@@ -11,7 +11,18 @@
         Just a placeholder file for the example module.
 */
 
-
 class KPLIB_example {
-    idd = 758099;
+    idd = KPLIB_IDD_EXAMPLE;
+
+    class controlsBackground {
+        class KP_example_ctrlbg_title {
+            idc = KPLIB_IDC_EXAMPLE_CTRLBG_TITLE;
+        };
+    };
+
+    class controls {
+        class KP_example_ctrl_text {
+            idc = KPLIB_IDC_EXAMPLE_CTRL_TEXT;
+        };
+    };
 };
