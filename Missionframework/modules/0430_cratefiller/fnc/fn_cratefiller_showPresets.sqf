@@ -20,7 +20,7 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay KPLIB_IDC_CRATEFILLER_DIALOG;
+private _dialog = findDisplay KPLIB_IDD_CRATEFILLER;
 private _ctrlImport = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_IMPORTNAME;
 
 // Reset variables

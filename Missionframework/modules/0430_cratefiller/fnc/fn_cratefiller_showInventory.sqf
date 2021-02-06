@@ -20,7 +20,7 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay KPLIB_IDC_CRATEFILLER_DIALOG;
+private _dialog = findDisplay KPLIB_IDD_CRATEFILLER;
 private _ctrlInventory = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_INVENTORYLIST;
 private _ctlrProgress = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_PROGRESSBAR;
 

@@ -20,7 +20,7 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay KPLIB_IDC_CRATEFILLER_DIALOG;
+private _dialog = findDisplay KPLIB_IDD_CRATEFILLER;
 
 // Get the storage object
 private _storage = [] call KPLIB_fnc_cratefiller_getStorage;

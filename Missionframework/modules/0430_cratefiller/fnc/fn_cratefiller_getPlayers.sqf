@@ -21,7 +21,7 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay KPLIB_IDC_CRATEFILLER_DIALOG;
+private _dialog = findDisplay KPLIB_IDD_CRATEFILLER;
 private _ctrlGroups = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_COMBOGROUPS;
 private _ctrlPlayers = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_COMBOPLAYERS;
 

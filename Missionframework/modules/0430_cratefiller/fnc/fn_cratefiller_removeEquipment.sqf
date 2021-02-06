@@ -25,7 +25,7 @@ params [
 ];
 
 // Dialog controls
-private _dialog = findDisplay KPLIB_IDC_CRATEFILLER_DIALOG;
+private _dialog = findDisplay KPLIB_IDD_CRATEFILLER;
 private _ctrlActive = _dialog displayCtrl _controlId;
 
 // Read controls

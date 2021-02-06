@@ -20,7 +20,7 @@
 */
 
 // Dialog controls
-private _dialog = findDisplay KPLIB_IDC_CRATEFILLER_DIALOG;
+private _dialog = findDisplay KPLIB_IDD_CRATEFILLER;
 private _ctrlStorage = _dialog displayCtrl KPLIB_IDC_CRATEFILLER_COMBOCARGO;
 
 // Read controls

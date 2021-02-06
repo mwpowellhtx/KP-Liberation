@@ -13,7 +13,7 @@
 
 
 class KPLIB_cratefiller {
-    idd = KPLIB_IDC_CRATEFILLER_DIALOG;
+    idd = KPLIB_IDD_CRATEFILLER;
     movingEnable = 0;
 
     class controlsBackground {
