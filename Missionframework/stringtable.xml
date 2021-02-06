@@ -1206,6 +1206,12 @@
             <German>Verfügbare Missionen</German>
         </Key>
 
+        <!-- PRODUCTION MANAGER -->
+
+        <Key ID="STR_KPLIB_DIALOG_PRODUCTIONMGR_TITLE">
+            <English>KP Production Manager</English>
+        </Key>
+
     </Package>
 
 

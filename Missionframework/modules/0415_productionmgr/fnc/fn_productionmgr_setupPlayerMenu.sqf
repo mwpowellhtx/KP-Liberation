@@ -41,12 +41,19 @@ if (hasInterface) then {
         _target == _originalTarget
     ';
 
+    // TODO: TBD: dialog opens, but then closes, when navigation by keyboard, i.e. Enter, Space, etc...
+    // TODO: TBD: middle mouse button click, opens, stays open...
+    // TODO: TBD: question pending, is there a return, ack, etc, we need to provide otherwise (?)
+    private _onOpenDialog = {
+        _this call KPLIB_fnc_productionMgr_openDialog;
+    };
+
     // TODO: TBD: visit the string table with required bits...
     // Build storage actions
     private _manageProductionActionArgs = [
         // TODO: TBD: verify colors, etc...
         format ["<t color='#ff8000'>%1</t>", localize "STR_KPLIB_ACTION_MANAGE_PRODUCTION"]
-        , KPLIB_fnc_productionMgr_openDialog
+        , _onOpenDialog
         , nil
         // TODO: TBD: visit the priority definitions...
         , KPLIB_ACTION_PRIORITY_MANAGE_PRODUCTION

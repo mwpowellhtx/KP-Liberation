@@ -90,6 +90,9 @@ class KPLIB_productionMgr {
 
     class controls {
 
+        class KPLIB_DialogCross: KPGUI_PRE_DialogCrossS {
+        };
+
         // class KPLIB_ButtonTools: KPGUI_PRE_DialogCrossS {
         //     idc = KPLIB_IDC_CRATEFILLER_BUTTONOVERVIEW;
         //     text = "KPGUI\res\icon_tools.paa";
@@ -272,7 +275,5 @@ class KPLIB_productionMgr {
         //     h = KP_GETH(KP_HEIGHT_VAL_S,24);
         //     tooltip = "$STR_KPLIB_DIALOG_CRATEFILLER_FILLLEVEL_TT";
         // };
-
-        // class KPLIB_DialogCross: KPGUI_PRE_DialogCrossS {};
     };
 };
