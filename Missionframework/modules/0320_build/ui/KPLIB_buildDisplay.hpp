@@ -13,7 +13,7 @@
 
 // Build display
 class KPLIB_build {
-    idd = -1;
+    idd = KPLIB_IDD_BUILD_DIALOG;
     movingEnable = 0;
 
     onLoad = "call KPLIB_fnc_build_displayLoad";

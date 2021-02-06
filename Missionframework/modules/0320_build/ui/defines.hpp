@@ -17,6 +17,7 @@
 // IDCs
 #define KPLIB_IDC_MOUSEHANDLER              101
 
+#define KPLIB_IDD_BUILD_DIALOG              70000
 #define KPLIB_IDC_BUILD_CATEGORY_LIST       70100
 
 #define KPLIB_IDC_BUILD_SEARCH              70101

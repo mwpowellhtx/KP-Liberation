@@ -4,6 +4,6 @@ class KPLIB_QueueTitle: KPGUI_PRE_DialogTitle_RightPanel {
 };
 
 class KP_QueueArea: KPGUI_PRE_DialogBackground_RightPanel {
-    idc = -1;
+    idc = KPLIB_IDC_UNDEFINED;
 };
 */
