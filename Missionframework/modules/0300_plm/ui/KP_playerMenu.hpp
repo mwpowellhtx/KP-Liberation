@@ -12,7 +12,7 @@
 */
 
 class KP_playerMenu {
-    idd = 75803;
+    idd = KPLIB_IDD_PLAYERMENU;
     movingEnable = 0;
     // Fetch all player groups when opened and free the variable when closed
     onLoad = "KPLIB_plm_groups = allGroups select {isPlayer (leader _x)}";
@@ -35,7 +35,7 @@ class KP_playerMenu {
         };
 
         class KP_TextRank: KPGUI_PRE_Text {
-            idc = 758031;
+            idc = KPLIB_IDC_PLAYERMENU_CTRLBG_TEXTRANK;
             text = "$STR_KPLIB_DIALOG_PLAYER_RANK";
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,0,1);
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,1,16);
@@ -44,19 +44,19 @@ class KP_playerMenu {
         };
 
         class KP_TextScore: KP_TextRank {
-            idc = 758033;
+            idc = KPLIB_IDC_PLAYERMENU_CTRLBG_TEXTSCORE;
             text = "$STR_KPLIB_DIALOG_PLAYER_SCORE";
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,5,48);
         };
 
         class KP_TextPlaytime: KP_TextRank {
-            idc = 758035;
+            idc = KPLIB_IDC_PLAYERMENU_CTRLBG_PLAYTIME;
             text = "$STR_KPLIB_DIALOG_PLAYER_PLAYTIME";
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,7,48);
         };
 
         class KP_NoRanks: KP_LabelPlayer {
-            idc = 758037;
+            idc = KPLIB_IDC_PLAYERMENU_CTRLBG_NORANKS;
             style = 2;
             colorText[] = {0.8, 0, 0, 0.75};
             text = "$STR_KPLIB_DIALOG_PLAYER_NORANKS";
@@ -124,7 +124,7 @@ class KP_playerMenu {
     class controls {
 
         class KP_PlayerRank: KPGUI_PRE_Text {
-            idc = 758032;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_PLAYERRANK;
             style = 2;
             text = "";
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,1,2);
@@ -134,19 +134,19 @@ class KP_playerMenu {
         };
 
         class KP_PlayerScore: KP_PlayerRank {
-            idc = 758034;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_PLAYERSCORE;
             text = "";
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,5,48);
         };
 
         class KP_PlayerTime: KP_PlayerRank {
-            idc = 758036;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_PLAYERTIME;
             text = "";
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,7,48);
         };
 
         class KP_GroupList: KPGUI_PRE_ListBox {
-            idc = 758038;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_GROUPLIST;
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,0,1);
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,4,16);
             w = KP_GETW(KP_WIDTH_VAL_C,(4/3));
@@ -170,7 +170,7 @@ class KP_playerMenu {
         };
 
         class KP_RenameEdit: KPGUI_PRE_EditBox {
-            idc = 758039;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_RENAMEEDIT;
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,0,1);
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,11,24);
             w = KP_GETW(KP_WIDTH_VAL_C,(4/3));
@@ -185,7 +185,7 @@ class KP_playerMenu {
         };
 
         class KP_BoxViewFoot: KPGUI_PRE_EditBox {
-            idc = 7580310;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWFOOT;
             style = 65;
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,1,4);
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,9,16);
@@ -194,17 +194,17 @@ class KP_playerMenu {
         };
 
         class KP_BoxViewVehicle: KP_BoxViewFoot {
-            idc = 7580311;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL__BOXVIEWVIC;
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,29,48);
         };
 
         class KP_BoxViewAir: KP_BoxViewFoot {
-            idc = 7580312;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_BOXVIEWAIR;
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,31,48);
         };
 
         class KP_ComboTerrain: KPGUI_PRE_Combo {
-            idc = 7580313;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_COMBOTERRAIN;
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,1,2);
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,12,16);
             w = KP_GETW(KP_WIDTH_VAL_C,2);
@@ -212,22 +212,22 @@ class KP_playerMenu {
         };
 
         class KP_ComboTPV: KP_ComboTerrain {
-            idc = 7580314;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_COMBOTPV;
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,19,24);
         };
 
         class KP_ComboRadio: KP_ComboTerrain {
-            idc = 7580315;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_COMBORADIO;
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,10,12);
         };
 
         class KP_TextSoundValue: KP_PlayerRank {
-            idc = 7580316;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_TEXTSOUNDVAL;
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,22,24);
         };
 
         class KP_SliderSound: KPGUI_PRE_Slider {
-            idc = 7580317;
+            idc = KPLIB_IDC_PLAYERMENU_CTRL_SLIDERSOUND;
             x = KP_GETCX(KP_X_VAL_C,KP_WIDTH_VAL_C,0,1);
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,23,24);
             w = KP_GETW(KP_WIDTH_VAL_C,1);
