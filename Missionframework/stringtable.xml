@@ -1,3 +1,6 @@
+<!-- TODO: TBD: see below: not sure what these bits are all about... move the keys out to another package? -->
+<!-- 13:55:12 @STR_KPLIB_TITLE: string @STR_KPLIB_TITLE cannot be localized client-side - move to global stringtable -->
+<!-- 13:55:12 CTI 34 KP Liberation v0.98d.dev-s1: string @STR_KPLIB_DESCRIPTION cannot be localized client-side - move to global stringtable -->
 <?xml version="1.0" encoding="UTF-8"?>
 <Project name="KP-Liberation">
     <!--
@@ -65,11 +68,12 @@
     <!-- GENERAL -->
 
     <Package name="General">
-        <Key ID="STR_SAVE_KEY">
-            <English>KP_LIBERATION_%1_SAVEGAME_REWRITE_DEV</English>
-        </Key>
+        <!-- TODO: TBD: they need to be moved out of the General package (?) -->
         <Key ID="STR_KPLIB_TITLE">
             <English>CTI 34 KP Liberation v0.98d.dev-s1</English>
+        </Key>
+        <Key ID="STR_SAVE_KEY">
+            <English>KP_LIBERATION_%1_SAVEGAME_REWRITE_DEV</English>
         </Key>
         <Key ID="STR_KPLIB_VERSION">
             <English>v0.98.dev-s1</English>
