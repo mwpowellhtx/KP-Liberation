@@ -29,7 +29,11 @@
 #define KP_SPACING_X                    0.002
 #define KP_SPACING_Y                    0.004
 #define KP_HEIGTH_TITLE                 0.035
+// TODO: TBD: Phase out KP_HEIGTH_TITLE...
+#define KP_HEIGHT_TITLE                 0.035
+// TODO: TBD: ditto HEIGTH ...
 #define KP_HEIGTH_BUTTON                0.025
+#define KP_HEIGHT_BUTTON                0.025
 
 // Colors
 #define KP_COLOR_PLAYERDEFINE           {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.13])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.54])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.21])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"}
@@ -58,7 +62,9 @@
     GETX is for a coordinate in relation to the whole dialog width
     GETCX is for a coordinate in relation to the content area (which has an equal spacing to all sides)
 */
-
+// TODO: TBD: in the same way we align XY coordinates by "grid" blocks...
+// TODO: TBD: it would be nice to have a similar mechanism to gauge the WH components of the same.
+// TODO: TBD: chiefly because guessing what that is by "how many would fit" is ridiculous...
 #define KP_GETX(XVAL,WVAL,POS,GRID)     safeZoneX + safeZoneW * (XVAL + POS * (WVAL + KP_SPACING_X) / GRID)
 #define KP_GETCX(XVAL,WVAL,POS,GRID)    safeZoneX + safeZoneW * (XVAL + (POS * WVAL + (GRID - POS) * KP_SPACING_X) / GRID)
 #define KP_GETX_CROSS(XVAL)             safeZoneX + safeZoneW * (1 - XVAL - 0.02)
@@ -74,10 +80,10 @@
     GETY_AREA is for the Y coordinate of the beginning of the background (which frames the content area)
     GETY_BELOW is for the Y coordinate of the buttons below the background
 */
-#define KP_GETCY(YVAL,HVAL,POS,GRID)    safeZoneY + safeZoneH * ((YVAL + KP_HEIGTH_TITLE + KP_SPACING_Y) + (POS * HVAL + (GRID - POS) * KP_SPACING_Y) / GRID)
+#define KP_GETCY(YVAL,HVAL,POS,GRID)    safeZoneY + safeZoneH * ((YVAL + KP_HEIGHT_TITLE + KP_SPACING_Y) + (POS * HVAL + (GRID - POS) * KP_SPACING_Y) / GRID)
 #define KP_GETY_CROSS(YVAL)             safeZoneY + safeZoneH * (YVAL + 0.005)
-#define KP_GETY_AREA(YVAL)              safeZoneY + safeZoneH * (YVAL + KP_HEIGTH_TITLE + KP_SPACING_Y)
-#define KP_GETY_BELOW(YVAL,HVAL)        safeZoneY + safeZoneH * (YVAL + KP_HEIGTH_TITLE + 2 * KP_SPACING_Y + HVAL)
+#define KP_GETY_AREA(YVAL)              safeZoneY + safeZoneH * (YVAL + KP_HEIGHT_TITLE + KP_SPACING_Y)
+#define KP_GETY_BELOW(YVAL,HVAL)        safeZoneY + safeZoneH * (YVAL + KP_HEIGHT_TITLE + 2 * KP_SPACING_Y + HVAL)
 
 /*
     Get width for an element
@@ -99,6 +105,8 @@
 */
 #define KP_GETH(HVAL,GRID)             safeZoneH * ((HVAL - (GRID + 1) * KP_SPACING_Y) / GRID)
 
+#define KP_GETCH(YVAL,HVAL,POS,GRID)    safeZoneY + safeZoneH * ((YVAL + KP_HEIGHT_TITLE + KP_SPACING_Y) + (POS * HVAL + (GRID - POS) * KP_SPACING_Y) / GRID)
+
 /*
     --- Standard sized dialog components ---
     (X from 0.25 - 0.75, Y from 0.2 - 0.8)
@@ -108,7 +116,7 @@
 #define KP_Y_VAL                        0.2
 
 #define KP_WIDTH_VAL                    (1 - 2 * KP_X_VAL)
-#define KP_HEIGHT_VAL                   (1 - 2 * KP_Y_VAL - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL                   (1 - 2 * KP_Y_VAL - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)
 
 /*
     --- Large sized dialog components ---
@@ -119,7 +127,7 @@
 #define KP_Y_VAL_L                      0.15
 
 #define KP_WIDTH_VAL_L                  (1 - 2 * KP_X_VAL_L)
-#define KP_HEIGHT_VAL_L                 (1 - 2 * KP_Y_VAL_L - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL_L                 (1 - 2 * KP_Y_VAL_L - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)
 
 /*
     --- Corner dialog components ---
@@ -130,7 +138,7 @@
 #define KP_Y_VAL_C                      0.05
 
 #define KP_WIDTH_VAL_C                  0.2
-#define KP_HEIGHT_VAL_C                 (0.75 - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL_C                 (0.75 - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)
 
 /*
     --- Left panel dialog components ---
@@ -141,7 +149,7 @@
 #define KP_Y_VAL_LP                     0.0025
 
 #define KP_WIDTH_VAL_LP                 0.2
-#define KP_HEIGHT_VAL_LP                (1 - 2 * KP_Y_VAL_LP - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL_LP                (1 - 2 * KP_Y_VAL_LP - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)
 
 /*
     --- Right panel dialog components ---
@@ -152,7 +160,7 @@
 #define KP_Y_VAL_RP                     0.0025
 
 #define KP_WIDTH_VAL_RP                 0.2
-#define KP_HEIGHT_VAL_RP                (1 - 2 * KP_Y_VAL_RP - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL_RP                (1 - 2 * KP_Y_VAL_RP - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)
 
 /*
     --- Small dialog components ---
@@ -163,7 +171,7 @@
 #define KP_Y_VAL_S                      0.15
 
 #define KP_WIDTH_VAL_S                  0.4
-#define KP_HEIGHT_VAL_S                 (0.7 - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL_S                 (0.7 - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)
 
 /*
     --- Small right dialog components ---
@@ -174,4 +182,4 @@
 #define KP_Y_VAL_SR                      0.15
 
 #define KP_WIDTH_VAL_SR                  0.15
-#define KP_HEIGHT_VAL_SR                 (0.7 - KP_HEIGTH_TITLE - KP_HEIGTH_BUTTON - 2 * KP_SPACING_Y)
+#define KP_HEIGHT_VAL_SR                 (0.7 - KP_HEIGHT_TITLE - KP_HEIGHT_BUTTON - 2 * KP_SPACING_Y)

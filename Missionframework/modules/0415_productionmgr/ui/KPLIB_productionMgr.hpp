@@ -19,11 +19,16 @@ class KPLIB_productionMgr {
 
     class controlsBackground {
 
-        class KPLIB_DialogTitle : KPGUI_PRE_DialogTitleS {
+        //// TODO: TBD: starting slowing to prove this thing out...
+        //class KPLIB_DialogTitle : KPGUI_PRE_DialogTitleS {
+        class KPLIB_DialogTitle : XGUI_PRE_DialogTitleC {
             text = "$STR_KPLIB_DIALOG_PRODUCTIONMGR_TITLE";
+            onLoad = "_this call KPLIB_fnc_productionMgr_ctrlBg_title_onLoad";
         };
 
-        class KPLIB_DialogArea : KPGUI_PRE_DialogBackgroundS {};
+        //class KPLIB_DialogArea : KPGUI_PRE_DialogBackgroundS {
+        class KPLIB_DialogArea : XGUI_PRE_DialogBackgroundC {
+        };
 
         // Tools controlsGroup
 
@@ -92,21 +97,34 @@ class KPLIB_productionMgr {
 
     class controls {
 
-        class KPLIB_DialogCross: KPGUI_PRE_DialogCrossS {
-        };
-
         // https://community.bistudio.com/wiki/CT_LISTNBOX
         // https://community.bistudio.com/wiki/CT_LISTNBOX#columns
-        class KPLIB_factorySectors : KPGUI_PRE_ListNBox {
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBFACTORYSECTORS;
+        class KPLIB_ctrl_lbSectors : KPGUI_PRE_ListNBox {
+            default = 0;
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBSECTORS;
             x = KP_GETCX(KP_X_VAL_S,KP_WIDTH_VAL_S,1,27);
             y = KP_GETCY(KP_Y_VAL_S,KP_HEIGHT_VAL_S,1,31);
             w = KP_GETW(KP_WIDTH_VAL_S,2.75);
             h = KP_GETH(KP_HEIGHT_VAL_S,(48/42));
-            columns[] = {-0.01, 0.2};
-            
-            onLoad = "_this call KPLIB_fnc_productionMgr_lbFactorySectors_onLoad";
-            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbFactorySectors_onLBSelChanged";
+            //          {_grid, _markerText}
+            columns[] = {-0.01,         0.2};
+
+            onLoad = "_this call KPLIB_fnc_productionMgr_lbSectors_onLoad";
+            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbSectors_onLBSelChanged";
+        };
+
+        class KPLIB_ctrl_lbStatus : KPGUI_PRE_ListNBox {
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBSTATUS;
+            x = KP_GETCX(KP_X_VAL_S,KP_WIDTH_VAL_S,11,27);
+            y = KP_GETCY(KP_Y_VAL_S,KP_HEIGHT_VAL_S,1,31);
+            w = KP_GETW(KP_WIDTH_VAL_S,2.25);
+            h = KP_GETH(KP_HEIGHT_VAL_S,(48/42));
+            //          { _img, _label, _cap, _prod, _totals, crates}
+            columns[] = {    0,    0.1,  0.35,  0.45,     0.6,    0.8};
+
+            onLoad = "_this call KPLIB_fnc_productionMgr_lbStatus_onLoad";
+            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbStatus_onLBSelChanged";
+            onLBDblClick = "_this call KPLIB_fnc_productionMgr_lbStatus_onLBDblClick";
         };
 
         // class KPLIB_ButtonTools: KPGUI_PRE_DialogCrossS {
@@ -291,5 +309,10 @@ class KPLIB_productionMgr {
         //     h = KP_GETH(KP_HEIGHT_VAL_S,24);
         //     tooltip = "$STR_KPLIB_DIALOG_CRATEFILLER_FILLLEVEL_TT";
         // };
+
+        //class KPLIB_DialogCross : KPGUI_PRE_DialogCrossS {
+        //};
+        class KPLIB_DialogCross : XGUI_PRE_DialogCrossC {
+        };
     };
 };

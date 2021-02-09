@@ -1,8 +1,8 @@
 #include "..\ui\defines.hpp"
 /*
-    KPLIB_fnc_productionMgr_lbFactorySectors_onLBSelChanged
+    KPLIB_fnc_productionMgr_lbSectors_onLBSelChanged
 
-    File: fn_productionMgr_lbFactorySectors_onLBSelChanged.sqf
+    File: fn_productionMgr_lbSectors_onLBSelChanged.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:56:43
     Last Update: 2021-02-06 12:56:45
@@ -10,10 +10,10 @@
     Public: Yes
 
     Description:
-        Module lbFactorySectors onLBSelChanged event handler.
+        Module lbSectors onLBSelChanged event handler.
 
     Parameter(s):
-        _lbFactorySectors - the list box control [CONTROL]
+        _lbSectors - the list box control [CONTROL]
         _selectedIndex - the selected index [SCALAR, default: -1]
 
     Returns:
@@ -24,12 +24,13 @@
 */
 
 params [
-    ["_lbFactorySectors", controlNull, [controlNull]]
+    ["_lbSectors", controlNull, [controlNull]]
     , ["_selectedIndex", -1, [0]]
 ];
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-["we are here"] call KPLIB_fnc_notification_hit;
+// TODO: TBD: perchance to notification_system ...
+systemChat format ["fn_productionMgr_lbSectors_onLBSelChanged: %1", _selectedIndex];
 
 // TODO: TBD: which refreshes the entire display...

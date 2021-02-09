@@ -1,8 +1,8 @@
 #include "..\ui\defines.hpp"
 /*
-    KPLIB_fnc_productionMgr_lbFactorySectors_onLoad
+    KPLIB_fnc_productionMgr_lbSectors_onLoad
 
-    File: fn_productionMgr_lbFactorySectors_onLoad.sqf
+    File: fn_productionMgr_lbSectors_onLoad.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:56:43
     Last Update: 2021-02-06 12:56:45
@@ -10,10 +10,10 @@
     Public: Yes
 
     Description:
-        Module lbFactorySectors onLoad event handler.
+        Module lbSectors onLoad event handler.
 
     Parameter(s):
-        _lbFactorySectors - the list box control [CONTROL]
+        _lbSectors - the list box control [CONTROL]
 
     Returns:
         Module postInit finished [BOOL]
@@ -23,19 +23,18 @@
 */
 
 params [
-    ["_lbFactorySectors", controlNull, [controlNull]]
+    ["_lbSectors", controlNull, [controlNull]]
 ];
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
 // TODO: TBD: perchance to notification_system ...
-systemChat "fn_productionMgr_lbFactorySectors_onLoad";
-//["fn_productionMgr_lbFactorySectors_onLoad"] call KPLIB_fnc_notification_hit;
+systemChat "fn_productionMgr_lbSectors_onLoad";
 
 private _someData = ["123456", "Sector Name"];
 private _count = 100;
-while {(lbSize _lbFactorySectors) < 100} do {
-    _lbFactorySectors lnbAddRow _someData;
+while {(lbSize _lbSectors) < 100} do {
+    _lbSectors lnbAddRow _someData;
 };
 
 // TODO: TBD: ...
