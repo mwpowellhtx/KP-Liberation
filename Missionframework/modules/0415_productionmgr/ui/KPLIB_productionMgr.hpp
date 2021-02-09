@@ -11,6 +11,14 @@
         Opens the module dialog.
 */
 
+#define KPLIB_PRODUCTIONMGR_LBSECTORS_W         KPX_GETW_VWGS(KPX_DEFAULT_DIALOG_WC,8,25,KPX_SPACING_W)
+#define KPLIB_PRODUCTIONMGR_LBSECTORS_H         (KPX_DEFAULT_DIALOG_HC - (3 * (KPX_BUTTON_M_H + KPX_SPACING_H)))
+
+//#define KPLIB_PRODUCTIONMGR_BUTTON_GETDELTAY(BY)    ((BY * KPX_BUTTON_M_H) + ((BY + 1) * KPX_SPACING_H))
+
+// Math from the bottom of the dialog up...
+#define KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(BY)   (KPX_DEFAULT_DIALOG_HC - ((BY + 1) * KPX_BUTTON_M_H) - (BY * KPX_SPACING_H))
+
 class KPLIB_productionMgr {
     idd = KPLIB_IDD_PRODUCTIONMGR;
     movingEnable = 0;
@@ -99,13 +107,20 @@ class KPLIB_productionMgr {
 
         // https://community.bistudio.com/wiki/CT_LISTNBOX
         // https://community.bistudio.com/wiki/CT_LISTNBOX#columns
-        class KPLIB_ctrl_lbSectors : KPGUI_PRE_ListNBox {
+        class KPLIB_ctrl_lbSectors : XGUI_PRE_ListNBox {
             default = 0;
             idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBSECTORS;
-            x = KP_GETCX(KP_X_VAL_S,KP_WIDTH_VAL_S,1,27);
-            y = KP_GETCY(KP_Y_VAL_S,KP_HEIGHT_VAL_S,1,31);
-            w = KP_GETW(KP_WIDTH_VAL_S,2.75);
-            h = KP_GETH(KP_HEIGHT_VAL_S,(48/42));
+
+            //x = KPX_GETXL_VXW(KPX_DEFAULT_CTRLAREA_XC,0);
+            //y = KPX_GETYT_VYH(KPX_DEFAULT_CTRLAREA_YC,0);
+            x = KPX_DEFAULT_CTRLAREA_XC;
+            y = KPX_DEFAULT_CTRLAREA_YC;
+            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+            h = KPLIB_PRODUCTIONMGR_LBSECTORS_H;
+
+            sizeEx = KPX_TEXT_S;
+            rowHeight = KPX_TITLE_S_H;
+
             //          {_grid, _markerText}
             columns[] = {-0.01,         0.2};
 
@@ -113,14 +128,18 @@ class KPLIB_productionMgr {
             onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbSectors_onLBSelChanged";
         };
 
-        class KPLIB_ctrl_lbStatus : KPGUI_PRE_ListNBox {
+        class KPLIB_ctrl_lbStatus : XGUI_PRE_ListNBox {
             idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBSTATUS;
             x = KP_GETCX(KP_X_VAL_S,KP_WIDTH_VAL_S,11,27);
             y = KP_GETCY(KP_Y_VAL_S,KP_HEIGHT_VAL_S,1,31);
             w = KP_GETW(KP_WIDTH_VAL_S,2.25);
             h = KP_GETH(KP_HEIGHT_VAL_S,(48/42));
+
+            sizeEx = KPX_TEXT_S;
+            rowHeight = KPX_TITLE_S_H;
+
             //          { _img, _label, _cap, _prod, _totals, crates}
-            columns[] = {    0,    0.1,  0.35,  0.45,     0.6,    0.8};
+            columns[] = {-0.01,    0.1,  0.35, 0.45,     0.6,    0.8};
 
             onLoad = "_this call KPLIB_fnc_productionMgr_lbStatus_onLoad";
             onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbStatus_onLBSelChanged";
@@ -312,6 +331,40 @@ class KPLIB_productionMgr {
 
         //class KPLIB_DialogCross : KPGUI_PRE_DialogCrossS {
         //};
+
+        class KPLIB_ctrl_btnRefresh : XGUI_PRE_Button {
+            x = KPX_DEFAULT_CTRLAREA_XC;
+            y = KPX_GETYT_VYH(KPX_DEFAULT_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(2));
+            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+
+            // TODO: TBD: refactor to string table...
+            text = "Refresh";
+
+            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+        };
+
+        class KPLIB_ctrl_btnApply : XGUI_PRE_Button {
+            x = KPX_DEFAULT_CTRLAREA_XC;
+            y = KPX_GETYT_VYH(KPX_DEFAULT_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(1));
+            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+
+            // TODO: TBD: refactor to string table...
+            text = "Apply";
+
+            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+        };
+
+        class KPLIB_ctrl_btnClose : XGUI_PRE_Button {
+            x = KPX_DEFAULT_CTRLAREA_XC;
+            y = KPX_GETYT_VYH(KPX_DEFAULT_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(0));
+            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+
+            // TODO: TBD: refactor to string table...
+            text = "Close";
+
+            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+        };
+
         class KPLIB_DialogCross : XGUI_PRE_DialogCrossC {
         };
     };

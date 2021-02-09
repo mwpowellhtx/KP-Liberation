@@ -50,4 +50,7 @@ class productionMgr {
 
     // ...
     class productionMgr_ctrlBg_title_onLoad {};
+
+    // ...
+    class productionMgr_onLoad_debug {};
 };
