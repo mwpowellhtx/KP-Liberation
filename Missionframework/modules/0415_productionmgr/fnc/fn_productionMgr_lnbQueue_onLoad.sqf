@@ -1,8 +1,8 @@
 #include "..\ui\defines.hpp"
 /*
-    KPLIB_fnc_productionMgr_lbStatus_onLoad
+    KPLIB_fnc_productionMgr_lnbStatus_onLoad
 
-    File: fn_productionMgr_lbStatus_onLoad.sqf
+    File: fn_productionMgr_lnbStatus_onLoad.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:56:43
     Last Update: 2021-02-06 12:56:45
@@ -13,7 +13,7 @@
         Module lbStatus onLoad event handler.
 
     Parameter(s):
-        _lbStatus - the list box control [CONTROL]
+        _lnbStatus - the list box control [CONTROL]
 
     Returns:
         Module postInit finished [BOOL]
@@ -23,13 +23,13 @@
 */
 
 params [
-    ["_lbStatus", controlNull, [controlNull]]
+    ["_lnbStatus", controlNull, [controlNull]]
 ];
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
 // TODO: TBD: perchance to notification_system ...
-systemChat "fn_productionMgr_lbStatus_onLoad";
+systemChat "fn_productionMgr_lnbStatus_onLoad";
 
 private _dim = 16;
 
@@ -53,17 +53,30 @@ private _onRenderColumn = { toUpper (_x splitString "" select [1, count _x - 1] 
 //// TODO: TBD: may be specialized depending on the resource...
 //private _tooltip = _squareBrackets joinString (_columns apply _onRenderColumn apply _onJoiningTicks joinString ", ");
 
-_lbStatus lnbAddRow ([""] + (_columns apply _onRenderColumn));
+_lnbStatus lnbAddRow ([""] + (_columns apply _onRenderColumn));
 
 // TODO: TBD: from compiled summary...
 // https://community.bistudio.com/wiki/lnbAddRow
 {
-    private _rowIndex = _lbStatus lnbAddRow (_x#0);
-    _lbStatus lnbSetPicture [[_rowIndex, 0], (_x#1)];
+    private _rowIndex = _lnbStatus lnbAddRow (_x#0);
+    _lnbStatus lnbSetPicture [[_rowIndex, 0], (_x#1)];
+
+    //// TODO: TBD: 'lnbSetTextRight' does not seem to work, and does not seem to be that well documented or cross referenced...
+    //// Right align a couple of the columns
+    //[4, 5] params [
+    //    ["_totalsColumnIndex", 0, [0]]
+    //    , ["_cratesColumnIndex", 0, [0]]
+    //];
+
+    //{
+    //    private _columnIndex = _forEachIndex;
+    //    private _lnbPos = [_rowIndex, _columnIndex];
+    //    _lnbStatus lnbSetTextRight [_lnbPos, (_lnbStatus lnbText _lnbPos)];
+    //} forEach [_totalsColumnIndex, _cratesColumnIndex];
 
     // https://community.bistudio.com/wiki/lnbSetTooltip
 
     //// TODO: TBD: tooltips indicating which resource it is
-    //_lbStatus lnbSetTooltip [[_rowIndex, 0], _tooltip];
+    //_lnbStatus lnbSetTooltip [[_rowIndex, 0], _tooltip];
 
 } forEach _someData;

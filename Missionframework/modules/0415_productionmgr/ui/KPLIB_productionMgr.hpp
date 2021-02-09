@@ -22,12 +22,12 @@
 #define KPLIB_PRODUCTIONMGR_CTRLAREA_XC         KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_DIALOG_XC,KPX_SPACING_W)
 #define KPLIB_PRODUCTIONMGR_CTRLAREA_YC         KPX_DEFAULT_CTRLAREA_YC
 
-#define KPLIB_PRODUCTIONMGR_LBSECTORS_H         (KPX_DEFAULT_DIALOG_HC - (3 * (KPX_BUTTON_M_H + KPX_SPACING_H)))
-#define KPLIB_PRODUCTIONMGR_LBSECTORS_W         KPX_GETW_VWGS(KPLIB_PRODUCTIONMGR_DIALOG_WC,8,25,KPX_SPACING_W)
+#define KPLIB_PRODUCTIONMGR_LNBSECTORS_H         (KPX_DEFAULT_DIALOG_HC - (3 * (KPX_BUTTON_M_H + KPX_SPACING_H)))
+#define KPLIB_PRODUCTIONMGR_LNBSECTORS_W         KPX_GETW_VWGS(KPLIB_PRODUCTIONMGR_DIALOG_WC,8,25,KPX_SPACING_W)
 
 // Four rows, three status rows plus one 'header' row
-#define KPLIB_PRODUCTIONMGR_LBSTATUS_H          (5 * KPX_TEXT_M)
-#define KPLIB_PRODUCTIONMGR_LBSTATUS_W          (KPLIB_PRODUCTIONMGR_DIALOG_WC - KPLIB_PRODUCTIONMGR_LBSECTORS_W + KPX_SPACING_W)
+#define KPLIB_PRODUCTIONMGR_LNBSTATUS_H          (5 * KPX_TEXT_M)
+#define KPLIB_PRODUCTIONMGR_LNBSTATUS_W          (KPLIB_PRODUCTIONMGR_DIALOG_WC - KPLIB_PRODUCTIONMGR_LNBSECTORS_W + KPX_SPACING_W)
 
 // Math from the bottom of the dialog up, which simplifies the substitution throughout as well.
 #define KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(BY)   (KPX_DEFAULT_DIALOG_HC - ((BY + 1) * KPX_BUTTON_M_H) - (BY * KPX_SPACING_H))
@@ -124,14 +124,14 @@ class KPLIB_productionMgr {
 
         // https://community.bistudio.com/wiki/CT_LISTNBOX
         // https://community.bistudio.com/wiki/CT_LISTNBOX#columns
-        class KPLIB_ctrl_lbSectors : XGUI_PRE_ListNBox {
+        class KPLIB_ctrl_lnbSectors : XGUI_PRE_ListNBox {
             default = 0;
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBSECTORS;
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBSECTORS;
 
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPLIB_PRODUCTIONMGR_CTRLAREA_YC;
-            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
-            h = KPLIB_PRODUCTIONMGR_LBSECTORS_H;
+            w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
+            h = KPLIB_PRODUCTIONMGR_LNBSECTORS_H;
 
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
@@ -139,16 +139,16 @@ class KPLIB_productionMgr {
             //          {_grid, _markerText}
             columns[] = {-0.01,         0.2};
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_lbSectors_onLoad";
-            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbSectors_onLBSelChanged";
+            onLoad = "_this call KPLIB_fnc_productionMgr_lnbSectors_onLoad";
+            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lnbSectors_onLBSelChanged";
         };
 
-        class KPLIB_ctrl_lbStatus : XGUI_PRE_ListNBox {
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBSTATUS;
-            x = KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_CTRLAREA_XC,(KPLIB_PRODUCTIONMGR_LBSECTORS_W + KPX_SPACING_W));
+        class KPLIB_ctrl_lnbStatus : XGUI_PRE_ListNBox {
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBSTATUS;
+            x = KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_CTRLAREA_XC,(KPLIB_PRODUCTIONMGR_LNBSECTORS_W + KPX_SPACING_W));
             y = KPLIB_PRODUCTIONMGR_CTRLAREA_YC;
-            w = KPLIB_PRODUCTIONMGR_LBSTATUS_W;
-            h = KPLIB_PRODUCTIONMGR_LBSTATUS_H;
+            w = KPLIB_PRODUCTIONMGR_LNBSTATUS_W;
+            h = KPLIB_PRODUCTIONMGR_LNBSTATUS_H;
 
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
@@ -156,9 +156,9 @@ class KPLIB_productionMgr {
             //          { _img, _label, _cap, _prod, _totals, crates}
             columns[] = {-0.01,  0.075,  0.2,  0.35,     0.5,    0.6};
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_lbStatus_onLoad";
-            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbStatus_onLBSelChanged";
-            onLBDblClick = "_this call KPLIB_fnc_productionMgr_lbStatus_onLBDblClick";
+            onLoad = "_this call KPLIB_fnc_productionMgr_lnbStatus_onLoad";
+            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lnbStatus_onLBSelChanged";
+            onLBDblClick = "_this call KPLIB_fnc_productionMgr_lnbStatus_onLBDblClick";
         };
 
         // class KPLIB_ButtonTools: KPGUI_PRE_DialogCrossS {
@@ -350,7 +350,7 @@ class KPLIB_productionMgr {
         class KPLIB_ctrl_btnRefresh : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(2));
-            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+            w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
             // TODO: TBD: refactor to string table...
             text = "Refresh";
@@ -361,7 +361,7 @@ class KPLIB_productionMgr {
         class KPLIB_ctrl_btnApply : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(1));
-            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+            w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
             // TODO: TBD: refactor to string table...
             text = "Apply";
@@ -372,7 +372,7 @@ class KPLIB_productionMgr {
         class KPLIB_ctrl_btnClose : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(0));
-            w = KPLIB_PRODUCTIONMGR_LBSECTORS_W;
+            w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
             // TODO: TBD: refactor to string table...
             text = "Close";

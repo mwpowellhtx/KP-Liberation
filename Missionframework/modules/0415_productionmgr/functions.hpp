@@ -34,19 +34,19 @@ class productionMgr {
     class productionMgr_onLoad {};
 
     // Sectors list box onLoad event handler
-    class productionMgr_lbSectors_onLoad {};
+    class productionMgr_lnbSectors_onLoad {};
 
     // Sectors list box onLBSelChanged event handler
-    class productionMgr_lbSectors_onLBSelChanged {};
+    class productionMgr_lnbSectors_onLBSelChanged {};
 
     // Status list box onLoad event handler
-    class productionMgr_lbStatus_onLoad {};
+    class productionMgr_lnbStatus_onLoad {};
 
     // Status list box onLBSelChanged event handler
-    class productionMgr_lbStatus_onLBSelChanged {};
+    class productionMgr_lnbStatus_onLBSelChanged {};
 
     // Status list box onLBDblClick event handler
-    class productionMgr_lbStatus_onLBDblClick {};
+    class productionMgr_lnbStatus_onLBDblClick {};
 
     // ...
     class productionMgr_ctrlBg_title_onLoad {};

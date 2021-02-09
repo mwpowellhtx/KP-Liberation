@@ -1,8 +1,8 @@
 #include "..\ui\defines.hpp"
 /*
-    KPLIB_fnc_productionMgr_lbStatus_onLBDblClick
+    KPLIB_fnc_productionMgr_lnbSectors_onLBSelChanged
 
-    File: fn_productionMgr_lbStatus_onLBDblClick.sqf
+    File: fn_productionMgr_lnbSectors_onLBSelChanged.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:56:43
     Last Update: 2021-02-06 12:56:45
@@ -10,28 +10,27 @@
     Public: Yes
 
     Description:
-        Module lbStatus onLBDblClick event handler.
+        Module lbSectors onLBSelChanged event handler.
 
     Parameter(s):
-        _lbStatus - the list box control [CONTROL]
+        _lnbSectors - the list box control [CONTROL]
         _selectedIndex - the selected index [SCALAR, default: -1]
 
     Returns:
         Module postInit finished [BOOL]
 
     References:
-        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLBDblClick
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLBSelChanged
 */
 
 params [
-    ["_lbStatus", controlNull, [controlNull]]
+    ["_lnbSectors", controlNull, [controlNull]]
     , ["_selectedIndex", -1, [0]]
 ];
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
 // TODO: TBD: perchance to notification_system ...
-systemChat format ["fn_productionMgr_lbStatus_onLBDblClick: %1", _selectedIndex];
+systemChat format ["fn_productionMgr_lnbSectors_onLBSelChanged: %1", _selectedIndex];
 
-// TODO: TBD: double clicking queues a change order to the selected capability, if possible
-// TODO: TBD: note that doing so resets the production timer
+// TODO: TBD: which refreshes the entire display...
