@@ -1,8 +1,11 @@
 # Changelog
 
 ## 0.98.0 (S3) (Under development)
+* Added: Added `production manager` UI assets. These build on the core `production` module by adding the corresponding _client side_ UI, along with accompanying _client_ or _server side_ remote callbacks, and other hooks, as necessary.
+* Added: Added foundation UI _definitions_, _classes_, etc. These will serve as the basis for all further UI work in the mod.
 * Added:
 * Tweaked:
+* Refactored: Fairly non-trivial adjustments in how we define IDD and IDC values for usage throughout. Also upon review, discovered several undocumented mystery identifiers, not sure what these are about. Possibly artifacts carrying over from the legacy code base, but we are not certain. There is also what appears to be at least one mission marker artifact, identified as _vignette_, which is not that but rather an _airspawn_, so that one is equally a mystery. That being said, we are fairly confident of at least value and syntax consistency, as the mission loads. If any of that is out of sync, the entire mission fails to load, sometimes with a glorious exception. All of which, of course, pending some verification, play testing, etc.
 * Refactored:
 * Bug:
 * Review:
