@@ -20,6 +20,7 @@
 
     References:
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
+        https://community.bistudio.com/wiki/lnbSetValue
 */
 
 params [
@@ -37,9 +38,9 @@ private _dim = 16;
 // TODO: TBD: will need to adjust the row height to have a measured effect on the set pictures...
 // https://community.bistudio.com/wiki/lnbSetPicture
 private _someData = [
-    [["", toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY", "yes", "yes", str 1000, str 10], "res\ui_supplies.paa"]
-    , [["", toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO", "yes", "yes", str 500, str 5], "res\ui_ammo.paa"]
-    , [["", toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL", "yes", "yes", str 100, str 1], "res\ui_fuel.paa"]
+    [["", toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY", "yes", "yes", str 1000, str 10], 0]
+    , [["", toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO", "yes", "yes", str 500, str 5], 1]
+    , [["", toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL", "yes", "yes", str 100, str 1], 2]
 ];
 
 // TODO: TBD: should be refactored on load of the overall dialog... and tucked away as a variable...
@@ -53,30 +54,19 @@ private _onRenderColumn = { toUpper (_x splitString "" select [1, count _x - 1] 
 //// TODO: TBD: may be specialized depending on the resource...
 //private _tooltip = _squareBrackets joinString (_columns apply _onRenderColumn apply _onJoiningTicks joinString ", ");
 
-_lnbStatus lnbAddRow ([""] + (_columns apply _onRenderColumn));
+private _headerIndex = _lnbStatus lnbAddRow ([""] + (_columns apply _onRenderColumn));
+
+_lnbStatus lnbSetValue [[_headerIndex, 0], -1];
 
 // TODO: TBD: from compiled summary...
 // https://community.bistudio.com/wiki/lnbAddRow
 {
     private _rowIndex = _lnbStatus lnbAddRow (_x#0);
-    _lnbStatus lnbSetPicture [[_rowIndex, 0], (_x#1)];
+    private _resourceIndex = (_x#1);
 
-    //// TODO: TBD: 'lnbSetTextRight' does not seem to work, and does not seem to be that well documented or cross referenced...
-    //// Right align a couple of the columns
-    //[4, 5] params [
-    //    ["_totalsColumnIndex", 0, [0]]
-    //    , ["_cratesColumnIndex", 0, [0]]
-    //];
+    _lnbStatus lnbSetPicture [[_rowIndex, 0], KPLIB_productionMgr_resourceImages select _resourceIndex];
 
-    //{
-    //    private _columnIndex = _forEachIndex;
-    //    private _lnbPos = [_rowIndex, _columnIndex];
-    //    _lnbStatus lnbSetTextRight [_lnbPos, (_lnbStatus lnbText _lnbPos)];
-    //} forEach [_totalsColumnIndex, _cratesColumnIndex];
-
-    // https://community.bistudio.com/wiki/lnbSetTooltip
-
-    //// TODO: TBD: tooltips indicating which resource it is
-    //_lnbStatus lnbSetTooltip [[_rowIndex, 0], _tooltip];
+    // For use when coordinating production resource management
+    _lnbStatus lnbSetValue [[_rowIndex, 0], _resourceIndex];
 
 } forEach _someData;

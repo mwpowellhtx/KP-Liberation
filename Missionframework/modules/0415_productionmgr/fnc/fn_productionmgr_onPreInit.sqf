@@ -24,6 +24,12 @@ if (isServer) then {
 
 // TODO: TBD: lays any ground work, client or server, required to support the module
 
+KPLIB_productionMgr_resourceImages = [
+    "res\ui_supplies.paa"
+    , "res\ui_ammo.paa"
+    , "res\ui_fuel.paa"
+];
+
 if (isServer) then {
     ["[fn_productionMgr_onPreInit] Initialized", "PRE] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
