@@ -10,7 +10,7 @@
     Public: Yes
 
     Description:
-        Module lbSectors onLBSelChanged event handler.
+        Module sectors list box onLBSelChanged event handler.
 
     Parameter(s):
         _lnbSectors - the list box control [CONTROL]

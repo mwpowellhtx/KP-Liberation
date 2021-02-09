@@ -10,7 +10,7 @@
     Public: Yes
 
     Description:
-        Module lbStatus onLBDblClick event handler.
+        Module status list box onLBDblClick event handler.
 
     Parameter(s):
         _lnbStatus - the list box control [CONTROL]

@@ -10,7 +10,7 @@
     Public: Yes
 
     Description:
-        Module lbSectors onLoad event handler.
+        Module sectors list box onLoad event handler.
 
     Parameter(s):
         _lnbSectors - the list box control [CONTROL]
