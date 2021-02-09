@@ -154,7 +154,7 @@ class KPLIB_productionMgr {
             rowHeight = KPX_TITLE_S_H;
 
             //          { _img, _label, _cap, _prod, _totals, crates}
-            columns[] = {-0.01,    0.1,  0.35, 0.45,     0.6,    0.8};
+            columns[] = {-0.01,  0.075,  0.2,  0.35,     0.5,    0.6};
 
             onLoad = "_this call KPLIB_fnc_productionMgr_lbStatus_onLoad";
             onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lbStatus_onLBSelChanged";
