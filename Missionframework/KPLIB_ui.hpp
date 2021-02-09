@@ -14,6 +14,9 @@
 
 #include "CBA\defineCommonGrids.hpp"
 
+// TODO: TBD: so... question is, do we want to include the "A3_defines.hpp" here?
+// TODO: TBD: we would gain comprehension of definitions such as "CT_LISTNBOX", but there is a lot else defined that we would need to investigate...
+
 #include "KPGUI\defines.hpp"
 #include "KPGUI\KPGUI_defines.hpp"
 #include "KPGUI\KPGUI_classes.hpp"
