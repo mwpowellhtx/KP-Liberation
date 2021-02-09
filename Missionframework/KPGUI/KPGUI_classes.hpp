@@ -12,6 +12,54 @@
 */
 
 /*
+    Description:
+        Arma 3 definitions. In lieu of the "A3_defines.hpp".
+ */
+
+#ifndef A3_CT_TYPES
+#define A3_CT_TYPES
+
+// Control types
+#define CT_STATIC               0
+#define CT_BUTTON               1
+#define CT_EDIT                 2
+#define CT_SLIDER               3
+#define CT_COMBO                4
+#define CT_LISTBOX              5
+#define CT_TOOLBOX              6
+#define CT_CHECKBOXES           7
+#define CT_PROGRESS             8
+#define CT_HTML                 9
+#define CT_STATIC_SKEW          10
+#define CT_ACTIVETEXT           11
+#define CT_TREE                 12
+#define CT_STRUCTURED_TEXT      13
+#define CT_CONTEXT_MENU         14
+#define CT_CONTROLS_GROUP       15
+#define CT_SHORTCUTBUTTON       16
+#define CT_HITZONES             17
+#define CT_XKEYDESC             40
+#define CT_XBUTTON              41
+#define CT_XLISTBOX             42
+#define CT_XSLIDER              43
+#define CT_XCOMBO               44
+#define CT_ANIMATED_TEXTURE     45
+#define CT_OBJECT               80
+#define CT_OBJECT_ZOOM          81
+#define CT_OBJECT_CONTAINER     82
+#define CT_OBJECT_CONT_ANIM     83
+#define CT_LINEBREAK            98
+#define CT_USER                 99
+#define CT_MAP                  100
+#define CT_MAP_MAIN             101
+#define CT_LISTNBOX             102
+#define CT_ITEMSLOT             103
+#define CT_CHECKBOX             77
+
+#endif // A3_CT_TYPES
+
+
+/*
     --- Default grid ---
     From the CBA stuff. Commented out because we will build on the CBA stuff.
 */
@@ -59,7 +107,7 @@ class KPGUI_PRE_ScrollBar {
 class KPGUI_PRE_Title {
     deletable = 0;
     fade = 0;
-    type = 0;
+    type = CT_STATIC;
     idc = KPLIB_IDC_UNDEFINED;
     colorBackground[] = KP_COLOR_PLAYERDEFINE;
     colorText[] = {1, 1, 1, 1};
@@ -84,7 +132,7 @@ class KPGUI_PRE_Title {
 class KPGUI_PRE_CloseCross {
     deletable = 0;
     fade = 0;
-    type = 11;
+    type = CT_ACTIVETEXT;
     style = 48 + 2048;
     color[] = {1, 1, 1, 0.75};
     colorBackground[] = {0, 0, 0, 0};
@@ -124,7 +172,7 @@ class KPGUI_PRE_VersionIcon: KPGUI_PRE_CloseCross {
 class KPGUI_PRE_Background {
     deletable = 0;
     fade = 0;
-    type = 0;
+    type = CT_STATIC;
     idc = KPLIB_IDC_UNDEFINED;
     colorBackground[] = KP_COLOR_BACKGROUND;
     colorText[] = {1, 1, 1, 1};
@@ -149,7 +197,7 @@ class KPGUI_PRE_Background {
 class KPGUI_PRE_Text {
     deletable = 0;
     fade = 0;
-    type = 0;
+    type = CT_STATIC;
     idc = KPLIB_IDC_UNDEFINED;
     colorBackground[] = {0, 0, 0, 0};
     colorText[] = {1, 1, 1, 1};
@@ -180,7 +228,7 @@ class KPGUI_PRE_InlineTitle: KPGUI_PRE_Text {
 class KPGUI_PRE_ActiveText {
     deletable = 0;
     fade = 0;
-    type = 11;
+    type = CT_ACTIVETEXT;
     style = 2;
     color[] = {0, 0, 0, 1};
     colorActive[] = {0.3, 0.4, 0, 1};
@@ -231,7 +279,7 @@ class KPGUI_PRE_PictureRatio: KPGUI_PRE_Picture {
 class KPGUI_PRE_Button {
     deletable = 0;
     fade = 0;
-    type = 1;
+    type = CT_BUTTON;
     text = "";
     colorText[] = {1, 1, 1, 1};
     colorDisabled[] = {1, 1, 1, 0.25};
@@ -441,11 +489,20 @@ class KPGUI_PRE_ListBox {
     maxHistoryDelay = 1;
 };
 
-// ListNBox
+/*
+    Description:
+        LISTNBOX
+
+    References:
+        https://community.bistudio.com/wiki/Category:Control_Types
+        https://community.bistudio.com/wiki/DialogControls-ListBoxes
+        https://community.bistudio.com/wiki/CT_LISTBOX
+        https://community.bistudio.com/wiki/CT_LISTNBOX
+ */
 class KPGUI_PRE_ListNBox {
     deletable = 0;
     fade = 0;
-    type = 102;
+    type = CT_LISTNBOX;
     rowHeight = 0;
     colorText[] = {1, 1, 1, 1};
     colorScrollbar[] = {0.95, 0.95, 0.95, 1};
