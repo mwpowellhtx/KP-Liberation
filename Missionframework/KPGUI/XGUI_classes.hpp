@@ -15,6 +15,11 @@
     --- Small sized classes ---
 */
 
+class XGUI_PRE_Label : KPGUI_PRE_Label {
+    h = KPX_BUTTON_M_H;
+    sizeEx = KPX_TEXT_M;
+};
+
 class XGUI_PRE_Button : KPGUI_PRE_Button {
     h = KPX_BUTTON_M_H;
     sizeEx = KPX_TEXT_M;

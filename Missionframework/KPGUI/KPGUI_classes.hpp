@@ -218,6 +218,10 @@ class KPGUI_PRE_Text {
     linespacing = 1;
 };
 
+// Label
+class KPGUI_PRE_Label : KPGUI_PRE_Text {
+};
+
 // Inline Title
 class KPGUI_PRE_InlineTitle: KPGUI_PRE_Text {
     style = 2;

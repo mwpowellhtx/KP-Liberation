@@ -14,6 +14,7 @@
 #define KPLIB_PRODUCTIONMGR_DIALOG_WC           (0.8 * KPX_DEFAULT_DIALOG_WC)
 #define KPLIB_PRODUCTIONMGR_DIALOG_HC           KPX_DEFAULT_DIALOG_HC
 #define KPLIB_PRODUCTIONMGR_DIALOG_XC           KPX_GETXC_W(KPLIB_PRODUCTIONMGR_DIALOG_WC)
+#define KPLIB_PRODUCTIONMGR_CTRLAREA_WC         (KPLIB_PRODUCTIONMGR_DIALOG_WC - (2 * KPX_SPACING_W))
 
 #define KPLIB_PRODUCTIONMGR_TITLE_WC            KPLIB_PRODUCTIONMGR_DIALOG_WC
 #define KPLIB_PRODUCTIONMGR_TITLE_XC            KPLIB_PRODUCTIONMGR_DIALOG_XC
@@ -52,12 +53,18 @@
         44444 55555 66666
  */
 
-// Align the queue buttons with respect to the queue list box
+// Align the queue buttons with respect to the queue list box from the bottom up
 #define KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL     KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_LNBQUEUE_XC,(KPLIB_PRODUCTIONMGR_LNBQUEUE_W + KPX_SPACING_W))
 #define KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XM     KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL,(KPX_SPACING_W + KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W))
 #define KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XR     KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XM,(KPX_SPACING_W + KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W))
 
 #define KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(BY)  (KPLIB_PRODUCTIONMGR_LNBQUEUE_H - ((BY + 1) * KPLIB_PRODUCTIONMGR_BTN_H) - (BY * KPX_SPACING_H))
+
+#define KPLIB_PRODUCTIONMGR_LBLTIMEREM_X        KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL
+#define KPLIB_PRODUCTIONMGR_LBLTIMEREM_W        (KPLIB_PRODUCTIONMGR_CTRLAREA_WC - KPLIB_PRODUCTIONMGR_LBLTIMEREM_X)
+
+// Aligning time remaining elements with the queue list box from the top down
+#define KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(BY)    ((BY * KPLIB_PRODUCTIONMGR_BTN_H) + (BY * KPX_SPACING_H))
 
 // Math from the bottom of the dialog up, which simplifies the substitution throughout as well.
 #define KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(BY)   (KPX_DEFAULT_DIALOG_HC - ((BY + 1) * KPLIB_PRODUCTIONMGR_BTN_H) - (BY * KPX_SPACING_H))
@@ -143,6 +150,22 @@ class KPLIB_productionMgr {
             onLoad = "_this call KPLIB_fnc_productionMgr_lnbQueue_onLoad";
             onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lnbQueue_onLBSelChanged";
             onLBDblClick = "_this call KPLIB_fnc_productionMgr_lnbQueue_onLBDblClick";
+        };
+
+        class KPLIB_ctrl_lblTimeRemaining : XGUI_PRE_Label {
+            x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
+            y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(0));
+            w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
+            text = "TIME REMAINING:";
+        };
+
+        class KPLIB_ctrl_lblTimeRemainingFormatted : XGUI_PRE_Label {
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBLTIMEREMAININGFORMATTED;
+            x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
+            y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(1));
+            w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
+            text = "#.##:##:##";
+            //      d.HH:mm:ss
         };
 
         class KPLIB_ctrl_btnRemove : XGUI_PRE_Button {
