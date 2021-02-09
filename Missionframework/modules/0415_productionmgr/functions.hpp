@@ -48,6 +48,15 @@ class productionMgr {
     // Status list box onLBDblClick event handler
     class productionMgr_lnbStatus_onLBDblClick {};
 
+    // Queue list box onLoad event handler
+    class productionMgr_lnbQueue_onLoad {};
+
+    // Queue list box onLBSelChanged event handler
+    class productionMgr_lnbQueue_onLBSelChanged {};
+
+    // Queue list box onLBDblClick event handler
+    class productionMgr_lnbQueue_onLBDblClick {};
+
     // ...
     class productionMgr_ctrlBg_title_onLoad {};
 

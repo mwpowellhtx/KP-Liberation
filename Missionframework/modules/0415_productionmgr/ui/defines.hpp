@@ -1,10 +1,10 @@
 /*
-    KP LIBERATION CRATEFILLER UI DEFINES
+    KP LIBERATION PRODUCTIONMGR UI DEFINES
 
     File: defines.hpp
-    Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-05-02
-    Last Update: 2019-05-04
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-02-09 16:28:50
+    Last Update: 2021-02-09 16:28:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -15,3 +15,4 @@
 
 #define KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBSECTORS                 411100
 #define KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBSTATUS                  411200
+#define KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBQUEUE                   411300
