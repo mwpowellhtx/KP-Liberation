@@ -15,6 +15,11 @@
     --- Small sized classes ---
 */
 
+class XGUI_PRE_Button : KPGUI_PRE_Button {
+    h = KPX_BUTTON_M_H;
+    sizeEx = KPX_TEXT_M;
+};
+
 // Title bar
 class XGUI_PRE_DialogTitleC : KPGUI_PRE_Title {
     x = KPX_DEFAULT_TITLE_XC;
@@ -38,4 +43,8 @@ class XGUI_PRE_DialogBackgroundC : KPGUI_PRE_Background {
     y = KPX_DEFAULT_DIALOG_YC;
     w = KPX_DEFAULT_DIALOG_WC;
     h = KPX_DEFAULT_DIALOG_HC;
+};
+
+class XGUI_PRE_ListNBox : KPGUI_PRE_ListNBox {
+    disableOverflow = 1;
 };

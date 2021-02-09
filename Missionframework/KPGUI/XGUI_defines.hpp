@@ -87,7 +87,7 @@
 /* Text sizes - we spent a little time reverse engineering the ratios etc,
  * especially as a function of the "medium" or normative text size. */
 // safeZoneH * 0.02
-#define KPX_TEXT_M                      (safeZoneH * 0.0185)
+#define KPX_TEXT_M                      (safeZoneH * 0.02)
 
 // (safeZoneH * 0.016)
 #define KPX_TEXT_XS                     (KPX_TEXT_M * 0.7)
@@ -102,21 +102,26 @@
 // TODO: TBD: we think that perhaps these might flow better being derived from GUI_GRID bits...
 // Constant values for calculation
 // 0.001875 or factor of 640 (was: 0.002)
-//#define KPX_SPACING_W                   (0.002)
-#define KPX_SPACING_W                   (GUI_GRID_W / 16)
-//#define KPX_SPACING_H                   (0.004)
+#define KPX_SPACING_W                   (0.0002)
 #define KPX_SPACING_H                   (KPX_SPACING_W * 2)
-//#define KPX_TITLE_H                     (0.035)
-#define KPX_TITLE_H                     (KPX_SPACING_W * 17.5)
-//#define KPX_BUTTON_H                    (0.025)
-#define KPX_BUTTON_H                    (KPX_SPACING_H * 6.25)
+////#define KPX_TITLE_H                     (0.035)
+//#define KPX_TITLE_H                     (KPX_SPACING_W * 17.5)
+////#define KPX_BUTTON_H                    (0.025)
+//#define KPX_BUTTON_H                    (KPX_SPACING_H * 6.25)
 
 // Define title as a function of the text sizes
-#define KPB_TITLE_XS_H                  (1.1 * KPX_TEXT_XS)
-#define KPB_TITLE_S_H                   (1.1 * KPX_TEXT_S)
-#define KPB_TITLE_M_H                   (1.1 * KPX_TEXT_M)
-#define KPB_TITLE_L_H                   (1.1 * KPX_TEXT_L)
-#define KPB_TITLE_XL_H                  (1.1 * KPX_TEXT_XL)
+#define KPX_TITLE_XS_H                  (1.2 * KPX_TEXT_XS)
+#define KPX_TITLE_S_H                   (1.2 * KPX_TEXT_S)
+#define KPX_TITLE_M_H                   (1.2 * KPX_TEXT_M)
+#define KPX_TITLE_L_H                   (1.2 * KPX_TEXT_L)
+#define KPX_TITLE_XL_H                  (1.2 * KPX_TEXT_XL)
+
+// Define button as a function also of the text sizes
+#define KPX_BUTTON_XS_H                 (1.2 * KPX_TEXT_XS)
+#define KPX_BUTTON_S_H                  (1.2 * KPX_TEXT_S)
+#define KPX_BUTTON_M_H                  (1.2 * KPX_TEXT_M)
+#define KPX_BUTTON_L_H                  (1.2 * KPX_TEXT_L)
+#define KPX_BUTTON_XL_H                 (1.2 * KPX_TEXT_XL)
 
 // Same as for text, by halves, quarters, eighths
 #define KPX_SPACING_W2                  (0.5   * KPX_SPACING_W)
@@ -197,8 +202,6 @@
         C - the C concern (i.e. center)
  */
 
-
-
 //#define KP_GETX(XVAL,WVAL,POS,GRID)     safeZoneX + safeZoneW * (XVAL + POS * (WVAL + KP_SPACING_X) / GRID)
 //#define KP_GETCX(XVAL,WVAL,POS,GRID)    safeZoneX + safeZoneW * (XVAL + (POS * WVAL + (GRID - POS) * KP_SPACING_X) / GRID)
 //#define KP_GETX_CROSS(XVAL)             safeZoneX + safeZoneW * (1 - XVAL - 0.02)
@@ -209,7 +212,9 @@
 
 
 
-#define KPX_GETXL_VX(VX,X)          (VX + X)
+#define KPX_GETXL_VXW(VX,W)         (VX + W)
+#define KPX_GETYT_VYH(VY,H)          KPX_GETXL_VXW(VY,H)
+
 #define KPX_GETXR_VXW(VX,VW,W)      (VX + (VW - W))
 //#define KPX_GETXC_VXW(VX,VW,W)      (VX + (0.5 * (VW - W)))
 #define KPX_GETXC_CXW(CX,W)         (CX - (W/2))
@@ -217,11 +222,12 @@
 
 // TODO: TBD: working out the kinks in centered scenarios...
 // TODO: TBD: rinse and repeat for left and right aligned...
-#define KPX_GETXL(X)                KPX_GETXL_VX(GUI_GRID_X,X)
-#define KPX_GETXR(W)                KPX_GETXR_VXW(GUI_GRID_X,GUI_GRID_WAbs,W)
+
+#define KPX_GETXL_W(W)              KPX_GETXL_VXW(safeZoneX,W)
+#define KPX_GETXR_W(W)              KPX_GETXR_VXW(GUI_GRID_X,GUI_GRID_WAbs,W)
 #define KPX_GETXC_W(W)              KPX_GETXC_CXW((safeZoneX + (safeZoneW/2)),W)
 
-#define KPX_GETYT(Y)                KPX_GETXL_VX(GUI_GRID_Y,Y)
+#define KPX_GETYT_H(H)              KPX_GETYT_VYH(safeZoneY,H)
 #define KPX_GETYB(H)                KPX_GETXR_VXW(GUI_GRID_Y,GUI_GRID_HAbs,H)
 #define KPX_GETYC_H(H)              KPX_GETYC_CYW((safeZoneY + (safeZoneH/2)),H)
 
@@ -272,10 +278,10 @@
  */
 
 #define KPX_DEFAULT_TITLE_WC        KPX_DEFAULT_DIALOG_WC
-#define KPX_DEFAULT_TITLE_HC        KPB_TITLE_M_H
+#define KPX_DEFAULT_TITLE_HC        KPX_TITLE_M_H
 
 #define KPX_DEFAULT_TITLE_XC        KPX_DEFAULT_DIALOG_XC
-#define KPX_DEFAULT_TITLE_YC        (KPX_DEFAULT_DIALOG_YC - KPX_SPACING_H - KPB_TITLE_M_H)
+#define KPX_DEFAULT_TITLE_YC        (KPX_DEFAULT_DIALOG_YC - KPX_SPACING_H - KPX_TITLE_M_H)
 
 #define KPX_DEFAULT_CROSS_WC        GUI_GRID_W
 #define KPX_DEFAULT_CROSS_HC        KPX_DEFAULT_TITLE_HC
@@ -318,9 +324,8 @@
         =>  [GS|GS|GS|GS|GS|G]
  */
 
-#define KPX_GETW_WXGS(W,X,G,S)      ((X * ((W + S) / G)) - S)
-
-#define KPX_GETH_HYGS(H,Y,G,S)      KPX_GETW_WXGS(H,Y,G,S)
+#define KPX_GETW_VWGS(VW,W,G,S)     ((W * ((VW + S) / G)) - S)
+#define KPX_GETH_VHGS(VH,H,G,S)     KPX_GETW_VWGS(H,Y,G,S)
 
 //#define KPX_GETW_WXG(W,X,G)         KPX_GETW_WXGS(W,X,G,KPX_SPACING_W)
 //#define KPX_GETH_HYG(H,Y,G)         KPX_GETH_HYGS(H,Y,G,KPX_SPACING_H)
@@ -415,14 +420,14 @@
 // TODO: TBD: might need/want to include default or zero titles...
 // TODO: TBD: i.e. min/max comprehension around it to factor it in/out automatically.
 // TODO: TBD: ditto width, same for height...
-//#define XKP_GETH_DY(DY) ((KPX_SPACING_H + KPX_TITLE_H) + (XKP_GETSZ_DS(GUI_GRID_H,DY,KPX_SPACING_H)))
+//#define XKP_GETH_DY(DY) ((KPX_SPACING_H + KPX_TITLE_M_H) + (XKP_GETSZ_DS(GUI_GRID_H,DY,KPX_SPACING_H)))
 // 1.                                                                                 ^^ Y dimension (DY), i.e. number of Y coord
 // 2.                                                                  ^^^^^^^^^^^^^^ Default height
 // 3.                                     ^^^^^^^^^^^ Title height
 // 4.                     ^^^^^^^^^^^^^                                                  ^^^^^^^^^^^^^ Default spacing
 
 // Allowing for spacing.
-//#define XKP_GETH_HDYS(H,DY,S) ((S + KPX_TITLE_H) + (XKP_GETSZ_DS(H,DY,S)))
+//#define XKP_GETH_HDYS(H,DY,S) ((S + KPX_TITLE_M_H) + (XKP_GETSZ_DS(H,DY,S)))
 // 1.                                                              ^^ Y dimension (DY), i.e. number of Y coord
 // 2.                                                            ^ Height (H)
 // 3.                               ^^^^^^^^^^^ Title height
@@ -545,7 +550,7 @@
 // 2.                                      ^^ Title height (TH)
 // 3.                                  ^                              ^ Spacing (S)
 
-//#define XKP_GETY_CTRL_RY(RY) (XKP_GETY_CTRL_RYTHS(RY,KPX_TITLE_H,KPX_SPACING_H))
+//#define XKP_GETY_CTRL_RY(RY) (XKP_GETY_CTRL_RYTHS(RY,KPX_TITLE_M_H,KPX_SPACING_H))
 // 1.                                                            ^^^^^^^^^^^^^ Default vertical spacing
 // 2.                                                ^^^^^^^^^^^ Default title height
 // 3.                                             ^^ Requires prior reference Y coord (RY)
@@ -637,7 +642,7 @@
 //#define XKP_DIALOG_WIDTH_S_WAbs         (0.9 * XKP_GUI_GRID_DIALOG_WAbs_M)
 //#define XKP_DIALOG_WIDTH_L_WAbs         (1.1 * XKP_GUI_GRID_DIALOG_WAbs_M)
 
-// TODO: TBD: and not KPX_TITLE_H (?) ...
+// TODO: TBD: and not KPX_TITLE_M_H (?) ...
 //#define XKP_DIALOG_HEIGHT_S_HAbs        (0.9 * XKP_DIALOG_HEIGHT_M_HAbs)
 //#define XKP_DIALOG_HEIGHT_L_HAbs        (1.1 * XKP_DIALOG_HEIGHT_M_HAbs)
 
