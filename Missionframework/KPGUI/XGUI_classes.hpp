@@ -51,6 +51,11 @@ class XGUI_PRE_DialogBackgroundC : KPGUI_PRE_Background {
 };
 
 class XGUI_PRE_ListNBox : KPGUI_PRE_ListNBox {
+    // TODO: TBD: we need to know which colors are doing what...
+    // TODO: TBD: goal being, we have several such LBs in play...
+    // TODO: TBD: and we want for there to be some contrast between the LB and surrounding area...
+    //colorBackground[] = KPX_COLOR_LBBACKGROUND;
+    //colorFocused[] = KPX_COLOR_BACKGROUND;
     disableOverflow = 1;
 };
 

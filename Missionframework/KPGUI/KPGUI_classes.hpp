@@ -58,6 +58,60 @@
 
 #endif // A3_CT_TYPES
 
+#ifndef A3_ST_STYLES
+#define A3_ST_STYLES
+
+// Static styles
+#define ST_POS                  0x0F
+#define ST_HPOS                 0x03
+#define ST_VPOS                 0x0C
+#define ST_LEFT                 0x00
+#define ST_RIGHT                0x01
+#define ST_CENTER               0x02
+#define ST_DOWN                 0x04
+#define ST_UP                   0x08
+#define ST_VCENTER              0x0C
+
+#define ST_TYPE                 0xF0
+#define ST_SINGLE               0x00
+#define ST_MULTI                0x10
+#define ST_TITLE_BAR            0x20
+#define ST_PICTURE              0x30
+#define ST_FRAME                0x40
+#define ST_BACKGROUND           0x50
+#define ST_GROUP_BOX            0x60
+#define ST_GROUP_BOX2           0x70
+#define ST_HUD_BACKGROUND       0x80
+#define ST_TILE_PICTURE         0x90
+#define ST_WITH_RECT            0xA0
+#define ST_LINE                 0xB0
+#define ST_UPPERCASE            0xC0
+#define ST_LOWERCASE            0xD0
+
+#define ST_SHADOW               0x100
+#define ST_NO_RECT              0x200
+#define ST_KEEP_ASPECT_RATIO    0x800
+
+// Slider styles
+#define SL_DIR                  0x400
+#define SL_VERT                 0
+#define SL_HORZ                 0x400
+#define SL_TEXTURES             0x10
+
+// Progress bar styles
+#define ST_VERTICAL             0x01
+#define ST_HORIZONTAL           0
+
+// Listbox styles
+#define LB_TEXTURES             0x10
+#define LB_MULTI                0x20
+
+// Tree styles
+#define TR_SHOWROOT             1
+#define TR_AUTOCOLLAPSE         2
+
+#endif // A3_ST_STYLES
+
 
 /*
     --- Default grid ---
@@ -121,7 +175,7 @@ class KPGUI_PRE_Title {
     y = 0;
     w = 0;
     h = safeZoneH * KP_HEIGTH_TITLE;
-    style = 0;
+    style = ST_LEFT;
     shadow = 1;
     font = "RobotoCondensed";
     sizeEx = KP_TEXT_XL;
@@ -133,7 +187,7 @@ class KPGUI_PRE_CloseCross {
     deletable = 0;
     fade = 0;
     type = CT_ACTIVETEXT;
-    style = 48 + 2048;
+    style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
     color[] = {1, 1, 1, 0.75};
     colorBackground[] = {0, 0, 0, 0};
     colorText[] = {1, 1, 1, 0.75};
@@ -186,7 +240,7 @@ class KPGUI_PRE_Background {
     y = 0;
     w = 0;
     h = 0;
-    style = 0;
+    style = ST_LEFT;
     shadow = 1;
     font = "RobotoCondensed";
     SizeEx = KP_TEXT_M;
@@ -211,7 +265,7 @@ class KPGUI_PRE_Text {
     y = 0;
     w = 0;
     h = 0;
-    style = 0;
+    style = ST_LEFT;
     shadow = 1;
     font = "RobotoCondensed";
     SizeEx = KP_TEXT_M;
@@ -224,7 +278,7 @@ class KPGUI_PRE_Label : KPGUI_PRE_Text {
 
 // Inline Title
 class KPGUI_PRE_InlineTitle: KPGUI_PRE_Text {
-    style = 2;
+    style = ST_CENTER;
     sizeEx = KP_TEXT_L;
 };
 
@@ -233,7 +287,7 @@ class KPGUI_PRE_ActiveText {
     deletable = 0;
     fade = 0;
     type = CT_ACTIVETEXT;
-    style = 2;
+    style = CT_EDIT;
     color[] = {0, 0, 0, 1};
     colorActive[] = {0.3, 0.4, 0, 1};
     colorDisabled[] = {1, 1, 1, 0.25};
@@ -259,24 +313,24 @@ class KPGUI_PRE_ActiveText {
 
 // Picture
 class KPGUI_PRE_Picture: KPGUI_PRE_Text {
-    style = 48;
+    style = ST_PICTURE;
 };
 
 // Active Picture
 class KPGUI_PRE_ActivePicture: KPGUI_PRE_ActiveText {
     color[] = {1, 1, 1, 0.5};
     colorActive[] = {1, 1, 1, 1};
-    style = 48;
+    style = ST_PICTURE;
 };
 
 // Active Picture which keeps aspect ratio
 class KPGUI_PRE_ActivePictureRatio: KPGUI_PRE_ActivePicture {
-    style = 48 + 2048;
+    style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
 };
 
 // Picture which keeps aspect ratio
 class KPGUI_PRE_PictureRatio: KPGUI_PRE_Picture {
-    style = 48 + 2048;
+    style = ST_PICTURE + ST_KEEP_ASPECT_RATIO;
 };
 
 // Button
@@ -298,7 +352,7 @@ class KPGUI_PRE_Button {
     soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick", 0.09, 1};
     soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape", 0.09, 1};
     idc = KPLIB_IDC_UNDEFINED;
-    style = 2;
+    style = ST_CENTER;
     x = 0;
     y = 0;
     w = 0;
@@ -344,7 +398,7 @@ class KPGUI_PRE_ControlsGroup {
     w = 0;
     h = 0;
     shadow = 0;
-    style = 16;
+    style = ST_MULTI;
 };
 
 // Controls group no scrollbars
@@ -391,7 +445,7 @@ class KPGUI_PRE_Combo {
     };
     colorSelectBackground[] = {1, 1, 1, 0.7};
     colorActive[] = {1, 0, 0, 1};
-    style = 16 + 512;
+    style = ST_MULTI + ST_NO_RECT;
     font = "RobotoCondensed";
     sizeEx = KP_TEXT_M;
     shadow = 0;
@@ -426,7 +480,7 @@ class KPGUI_PRE_CheckBox {
     idc = KPLIB_IDC_UNDEFINED;
     type = 77;
     deletable = 0;
-    style = 2;
+    style = ST_EDIT;
     checked = 0;
     x = 0;
     y = 0;
@@ -485,7 +539,7 @@ class KPGUI_PRE_ListBox {
     y = 0;
     w = 0;
     h = 0;
-    style = 16;
+    style = LB_TEXTURES;
     font = "RobotoCondensed";
     sizeEx = KP_TEXT_M;
     shadow = 0;
@@ -533,7 +587,7 @@ class KPGUI_PRE_ListNBox {
     colorPictureSelected[] = {1, 1, 1, 1};
     colorPictureDisabled[] = {1, 1, 1, 1};
     class ScrollBar: KPGUI_PRE_ScrollBar {};
-    style = 16;
+    style = LB_TEXTURES;
     shadow = 0;
     font = "RobotoCondensed";
     sizeEx = KP_TEXT_M;
@@ -568,7 +622,7 @@ class KPGUI_PRE_XListBox {
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    style = 2 + 16 + 1024;
+    style = ST_EDIT + LB_TEXTURES + 1024;
     shadow = 2;
     arrowEmpty = "\A3\ui_f\data\gui\cfg\slider\arrowEmpty_ca.paa";
     arrowFull = "\A3\ui_f\data\gui\cfg\slider\arrowFull_ca.paa";
@@ -591,7 +645,7 @@ class KPGUI_PRE_Slider {
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    style = 16 + 1024;
+    style = SL_TEXTURES + SL_HORZ;
     shadow = 0;
     x = 0;
     y = 0;
@@ -627,7 +681,7 @@ class KPGUI_PRE_EditBox {
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    style = 64;
+    style = ST_FRAME;
     font = "RobotoCondensed";
     shadow = 2;
     sizeEx = KP_TEXT_M;
@@ -638,7 +692,7 @@ class KPGUI_PRE_EditBox {
 class KPGUI_PRE_ProgressBar
 {
     type = 8;
-    style = 0;
+    style = ST_HORIZONTAL;
     colorFrame[] = {1,1,1,1};
     colorBar[] = KP_COLOR_PLAYERDEFINE;
     texture = "";

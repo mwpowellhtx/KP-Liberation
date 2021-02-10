@@ -28,7 +28,10 @@
 */
 
 // Prefix for this use case to avoid issues with duplicated definitions
-#define XGUI_PRE                       KPLIB
+#define XGUI_PRE                        KPLIB
+
+#define KPX_COLOR_LBBACKGROUND          {0, 0, 0, 0.95}
+#define KPX_COLOR_LBFOCUSED             {0, 0, 0, 0.9}
 
 /*
     --- CBA assumptions ---

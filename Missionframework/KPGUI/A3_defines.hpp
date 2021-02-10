@@ -46,6 +46,9 @@
 
 #endif // A3_CT_TYPES
 
+#ifndef A3_ST_STYLES
+#define A3_ST_STYLES
+
 // Static styles
 #define ST_POS                  0x0F
 #define ST_HPOS                 0x03
@@ -95,6 +98,8 @@
 // Tree styles
 #define TR_SHOWROOT             1
 #define TR_AUTOCOLLAPSE         2
+
+#endif // A3_ST_STYLES
 
 // Default grid
 #define GUI_GRID_WAbs           ((safezoneW / safezoneH) min 1.2)
