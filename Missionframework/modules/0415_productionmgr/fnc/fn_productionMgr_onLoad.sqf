@@ -31,3 +31,6 @@ systemChat "fn_productionMgr_onLoad";
 //["fn_productionMgr_onLoad"] call KPLIB_fnc_notification_hit;
 
 // TODO: TBD: ...
+
+// Used to identify the actual storage location
+createMarkerLocal ["_productionMgrStorage", KPLIB_zeroPos];

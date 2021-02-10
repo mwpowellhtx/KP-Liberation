@@ -74,6 +74,7 @@ class KPLIB_productionMgr {
     movingEnable = 0;
 
     onLoad = "_this call KPLIB_fnc_productionMgr_onLoad";
+    onUnload = "_this call KPLIB_fnc_productionMgr_onUnload";
 
     class controlsBackground {
 

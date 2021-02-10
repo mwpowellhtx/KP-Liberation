@@ -33,6 +33,9 @@ class productionMgr {
     // Module display onLoad event handler
     class productionMgr_onLoad {};
 
+    // Module display onUnload event handler
+    class productionMgr_onUnload {};
+
     // Sectors list box onLoad event handler
     class productionMgr_lnbSectors_onLoad {};
 
