@@ -102,7 +102,7 @@
 // TODO: TBD: we think that perhaps these might flow better being derived from GUI_GRID bits...
 // Constant values for calculation
 // 0.001875 or factor of 640 (was: 0.002)
-#define KPX_SPACING_W                   (0.0002)
+#define KPX_SPACING_W                   (0.002)
 #define KPX_SPACING_H                   (KPX_SPACING_W * 2)
 ////#define KPX_TITLE_H                     (0.035)
 //#define KPX_TITLE_H                     (KPX_SPACING_W * 17.5)

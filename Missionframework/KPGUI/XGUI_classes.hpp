@@ -53,3 +53,6 @@ class XGUI_PRE_DialogBackgroundC : KPGUI_PRE_Background {
 class XGUI_PRE_ListNBox : KPGUI_PRE_ListNBox {
     disableOverflow = 1;
 };
+
+class XGUI_PRE_MapControl : KPGUI_PRE_MapControl {
+};
