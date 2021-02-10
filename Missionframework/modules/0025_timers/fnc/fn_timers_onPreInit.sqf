@@ -45,8 +45,7 @@ private _default = [] call {
 KPLIB_timers_default = _default;
 
 if (hasInterface) then {
-    // TODO: TBD: should actually refactor this to the string tables...
-    KPLIB_timers_renderedNotRunning = "-.--:--:--";
+    KPLIB_timers_renderedNotRunning = localize "STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_IDLE";
 };
 
 [format ["[fn_timers_onPreInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;

@@ -176,9 +176,7 @@ class KPLIB_productionMgr {
 
             style = ST_RIGHT;
 
-            // TODO: TBD: may actually refator this to string table...
-            text = "#.##:##:##";
-            //      d.HH:mm:ss
+            text = "$STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_NIL";
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_lblTimeRemainingFormatted_onLoad";
         };

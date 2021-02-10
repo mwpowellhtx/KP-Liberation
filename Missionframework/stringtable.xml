@@ -2376,4 +2376,17 @@
             <English>#n/a</English>
         </Key>
     </Package>
+
+    <!-- PRODUCTIONMGR -->
+
+    <Package name="ProductionMgr">
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_NIL">
+            <English>#.##:##:##</English>
+            <!--     d.HH:mm:ss -->
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_IDLE">
+            <English>-.--:--:--</English>
+            <!--     d.HH:mm:ss -->
+        </Key>
+    </Package>
 </Project>
