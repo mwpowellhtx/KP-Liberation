@@ -1,6 +1,9 @@
 # Changelog
 
 ## 0.98.0 (S4) (Under development)
+* Added: Client server callback sequence requesting production data when production manager dialog is opened or refreshed. Client _owner_ raises `KPLIB_productionMgr_onRequestProduction` event with _server_, server raises `KPLIB_productionMgr_onProductionResponse` _owner event_ in response with production that is currently under _blufor_ control. Client then refreshes the _production manager sectors_ list box. Client also sets a `_production` variable on the _production manager display_ which can be used for further reference.
+* Added: Additional _production manager_ glue connecting _sector list box selection_ with the rest of the controls on the dialog.
+* Added: Added _timers_ support rendering _time remaining_ to `#.##:##:##` string representation. That is, _days_, _hours_, _minutes_, _seconds_, in an extreme case. Minimum possibly format is `##:##`, or _minutes_ and _seconds_.
 * Added:
 * Tweaked:
 * Refactored:
