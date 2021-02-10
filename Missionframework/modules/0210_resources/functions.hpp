@@ -17,6 +17,9 @@ class res {
     // Adds actions to spawned crates
     class resources_addActions {};
 
+    // Estimates the number of crates necessary to support the volume
+    class resources_estimateCrates {};
+
     // Adds value to intel resource
     class resources_addIntel {};
 
