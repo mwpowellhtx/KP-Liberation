@@ -67,7 +67,7 @@ class productionMgr {
     class productionMgr_lnbQueue_onLBDblClick {};
 
     // Loads the time remaining formatted text
-    class productionMgr_lbTimeRemainingFormatted_onLoad {};
+    class productionMgr_lblTimeRemainingFormatted_onLoad {};
 
     // ...
     class productionMgr_ctrlBg_title_onLoad {};
@@ -86,4 +86,22 @@ class productionMgr {
 
     // Allows for introspection of the production manager currently selected production tuple
     class productionMgr_getProductionElement {};
+
+    // ...
+    class productionMgr_setAdditionalDataOrValue {};
+
+    // ...
+    class productionMgr_getAdditionalDataOrValue {};
+
+    // Arranges the production element view
+    class productionMgr_productionElemViews_onSector {};
+
+    // Arranges the production element view
+    class productionMgr_productionElemViews_onStatus {};
+
+    // Arranges the production element view
+    class productionMgr_productionElemViews_onQueue {};
+
+    // Arranges the production element view
+    class productionMgr_productionElemViews_onTimeRemaining {};
 };

@@ -61,8 +61,9 @@
 
 #define KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(BY)  (KPLIB_PRODUCTIONMGR_LNBQUEUE_H - ((BY + 1) * KPLIB_PRODUCTIONMGR_BTN_H) - (BY * KPX_SPACING_H))
 
+// Aligned with the buttons...
 #define KPLIB_PRODUCTIONMGR_LBLTIMEREM_X        KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL
-#define KPLIB_PRODUCTIONMGR_LBLTIMEREM_W        (KPLIB_PRODUCTIONMGR_CTRLAREA_WC - KPLIB_PRODUCTIONMGR_LBLTIMEREM_X)
+#define KPLIB_PRODUCTIONMGR_LBLTIMEREM_W        ((KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XR + KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W) - KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL)
 
 // Aligning time remaining elements with the queue list box from the top down
 #define KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(BY)    ((BY * KPLIB_PRODUCTIONMGR_BTN_H) + (BY * KPX_SPACING_H))
@@ -172,8 +173,14 @@ class KPLIB_productionMgr {
             x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
+
+            style = ST_RIGHT;
+
+            // TODO: TBD: may actually refator this to string table...
             text = "#.##:##:##";
             //      d.HH:mm:ss
+
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_lblTimeRemainingFormatted_onLoad";
         };
 
         class KPLIB_ctrl_btnRemove : XGUI_PRE_Button {

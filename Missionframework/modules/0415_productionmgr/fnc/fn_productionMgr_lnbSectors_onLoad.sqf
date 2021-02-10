@@ -43,24 +43,27 @@ if (_debug) then {
 
 lnbClear _lnbSectors;
 
-// TODO: TBD: which, to some degree, we may half expect events to more or less work themselves out
-private _productionView = _production apply {
-    private _pos = markerPos (_x#0#0);
-    [(_x#0#0), [mapGridPosition _pos, (_x#0#1)]];
+private _view = _production apply {
+    _x call KPLIB_fnc_productionMgr_productionElemViews_onSector;
 };
 
-{
-    _x params [
-        ["_markerName", "", [""]]
-        , ["_view", [], [[]]]
-    ];
-    private _rowIndex = _lnbSectors lnbAddRow _view;
-    _lnbSectors lnbSetData [[_rowIndex, 0], _markerName];
-} forEach _productionView;
+if (!(_view isEqualTo [])) then {
+    {
+        _x params [
+            ["_viewData", [], [[]], 2]
+            , ["_markerName", "", [""]]
+        ];
+
+        private _rowIndex = _lnbSectors lnbAddRow _viewData;
+
+        [_lnbSectors, _rowIndex, _markerName] call KPLIB_fnc_productionMgr_setAdditionalDataOrValue;
+
+    } forEach _view;
+};
 
 if (_debug) then {
     [format ["[fn_productionMgr_lnbSectors_onLoad] Finished: [count _productionView]: %1"
-        , str [count _productionView]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+        , str [count _view]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;

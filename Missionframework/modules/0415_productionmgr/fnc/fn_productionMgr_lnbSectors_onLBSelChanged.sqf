@@ -28,21 +28,64 @@ params [
     , ["_selectedIndex", -1, [0]]
 ];
 
-// While we could use the index, etc, this also affords us an opportunity to verify introspection
-private _markerName = [_lnbSectors] call KPLIB_fnc_productionMgr_getSelectedMarkerName;
-
+// TODO: TBD: may need some error handling around display... production... markername... etc...
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-private _productionElem = [_display, _markerName] call KPLIB_fnc_productionMgr_getProductionElement;
+private _production = _display getVariable ["_production", []];
 
-// Set the production element variable then spawn some UI refresh event handlers
-_display setVariable ["_productionElem", _productionElem];
+if (_selectedIndex < 0 || _production isEqualTo []) exitWith {
+    false;
+};
+
+private _markerName = [_lnbSectors, _selectedIndex, ""] call KPLIB_fnc_productionMgr_getAdditionalDataOrValue;
+
+if (_markerName isEqualTo "") exitWith {
+    false;
+};
+
+// TODO: TBD: may need to put debugging here...
+private _selected = _production select { ((_x#0#0) isEqualTo _markerName); };
+
+private _productionElem = (_selected#0);
+
+[(_production select _selectedIndex)] call {
+    params [
+        ["_productionElem", +KPLIB_productionMgr_productionElem_default, [[]], 3]
+    ];
+    [
+        _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onStatus
+        , _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onQueue
+        , _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onTimeRemaining
+    ];
+} params [
+    "_statusView"
+    , "_queueView"
+    , "_timeRemainingView"
+];
 
 {
-    [_display displayCtrl (_x#0)] spawn (_x#1);
-[_display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS] spawn KPLIB_fnc_productionMgr_lnbStatus_onLoad;
+    _x params [
+        ["_idc", 0, [0]]
+        , "_view"
+        , ["_onLoad", {}, [{}]]
+    ];
+    private _ctrl = _display displayCtrl _idc;
+    _ctrl setVariable ["_view", _view];
+    [_ctrl] spawn _onLoad;
 } forEach [
-    [KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS, KPLIB_fnc_productionMgr_lnbStatus_onLoad]
-    , [KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE, KPLIB_fnc_productionMgr_lnbQueue_onLoad]
-    , [KPLIB_IDC_PRODUCTIONMGR_LBLTIMEREMAININGFORMATTED, KPLIB_fnc_productionMgr_lbTimeRemainingFormatted_onLoad]
+    [
+        KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS
+        , _statusView
+        , KPLIB_fnc_productionMgr_lnbStatus_onLoad
+    ]
+    , [
+        KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE
+        , _queueView
+        , KPLIB_fnc_productionMgr_lnbQueue_onLoad
+    ]
+    , [
+        KPLIB_IDC_PRODUCTIONMGR_LBLTIMEREMAININGFORMATTED
+        , _timeRemainingView
+        , KPLIB_fnc_productionMgr_lblTimeRemainingFormatted_onLoad
+    ]
 ];
