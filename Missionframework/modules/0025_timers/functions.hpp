@@ -59,4 +59,7 @@ class timers {
 
     // Returns whether the timer instance has tripped
     class timers_hasTripped {};
+
+    // Returns the rendered timer to string format, "#.##:##:##"
+    class timers_renderTimeRemainingString {};
 };
