@@ -39,6 +39,16 @@ params [
 
 private ["_i"];
 
+// Return with a "not running" representation
+if (_duration <= 0) exitWith {
+    "-.--:--:--";
+};
+
+/* Handles cases where the timer has run over for whatever reason,
+ * and render timer overages as 'positive' time. */
+private _signage = if (_timeRemaining <= 0) then { "+"; } else { ""; };
+_timeRemaining = abs _timeRemaining;
+
 private _parts = [];
 
 private _factors = [60, 60, 24];
@@ -75,4 +85,4 @@ if (_rendered select [0, 1] isEqualTo "0") then {
 };
 
 // Otherwise return with what we have in rendered parts
-_rendered;
+_signage + _rendered;
