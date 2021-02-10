@@ -41,4 +41,7 @@ class adm {
 
     // Export current campaign to admins profile and requests server to wipe the saved campaign
     class admin_wipe {};
+
+    // An admin shorthand while vetting, debugging, etc
+    class admin_onLiberateSectors {};
 };
