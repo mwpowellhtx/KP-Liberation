@@ -28,5 +28,17 @@ params [
     , ["_exitCode", -1, [0]]
 ];
 
+{
+    // Unhook the event handlers from the client
+    private _eid = _display getVariable [_x, -1];
+
+    if (_eid >= 0) then {
+        [_x, _eid] call CBA_fnc_removeEventHandler;
+    };
+
+} forEach [
+    "KPLIB_productionMgr_onProductionResponse"
+];
+
 // Remove the marker when the dialog has completed
 deleteMarkerLocal "_productionMgrStorage";

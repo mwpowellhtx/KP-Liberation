@@ -80,8 +80,8 @@ class KPLIB_productionMgr {
     idd = KPLIB_IDD_PRODUCTIONMGR;
     movingEnable = 0;
 
-    onLoad = "_this call KPLIB_fnc_productionMgr_onLoad";
-    onUnload = "_this call KPLIB_fnc_productionMgr_onUnload";
+    onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad";
+    onUnload = "_this spawn KPLIB_fnc_productionMgr_onUnload";
 
     class controlsBackground {
 
@@ -91,7 +91,7 @@ class KPLIB_productionMgr {
             x = KPLIB_PRODUCTIONMGR_TITLE_XC;
             w = KPLIB_PRODUCTIONMGR_TITLE_WC;
             text = "$STR_KPLIB_DIALOG_PRODUCTIONMGR_TITLE";
-            onLoad = "_this call KPLIB_fnc_productionMgr_ctrlBg_title_onLoad";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_ctrlBg_title_onLoad";
         };
 
         //class KPLIB_DialogArea : KPGUI_PRE_DialogBackgroundS {
@@ -105,9 +105,9 @@ class KPLIB_productionMgr {
 
         // https://community.bistudio.com/wiki/CT_LISTNBOX
         // https://community.bistudio.com/wiki/CT_LISTNBOX#columns
-        class KPLIB_ctrl_lnbSectors : XGUI_PRE_ListNBox {
+        class KPLIB_productionMgr_lnbSectors : XGUI_PRE_ListNBox {
             default = 0;
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBSECTORS;
+            idc = KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS;
 
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPLIB_PRODUCTIONMGR_CTRLAREA_YC;
@@ -120,8 +120,7 @@ class KPLIB_productionMgr {
             //          {_grid, _markerText}
             columns[] = {-0.01,         0.2};
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_lnbSectors_onLoad";
-            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lnbSectors_onLBSelChanged";
+            onLBSelChanged = "_this spawn KPLIB_fnc_productionMgr_lnbSectors_onLBSelChanged";
         };
 
         class KPLIB_ctrl_lnbStatus : XGUI_PRE_ListNBox {
@@ -137,9 +136,9 @@ class KPLIB_productionMgr {
             //          { _img, _label, _cap, _prod, _totals, crates}
             columns[] = {-0.01,  0.075,  0.2,  0.35,     0.5,    0.6};
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_lnbStatus_onLoad";
-            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lnbStatus_onLBSelChanged";
-            onLBDblClick = "_this call KPLIB_fnc_productionMgr_lnbStatus_onLBDblClick";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_lnbStatus_onLoad";
+            onLBSelChanged = "_this spawn KPLIB_fnc_productionMgr_lnbStatus_onLBSelChanged";
+            onLBDblClick = "_this spawn KPLIB_fnc_productionMgr_lnbStatus_onLBDblClick";
         };
 
         class KPLIB_ctrl_lnbQueue : XGUI_PRE_ListNBox {
@@ -155,9 +154,9 @@ class KPLIB_productionMgr {
             //          { _img, _label}
             columns[] = {-0.01,    0.3};
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_lnbQueue_onLoad";
-            onLBSelChanged = "_this call KPLIB_fnc_productionMgr_lnbQueue_onLBSelChanged";
-            onLBDblClick = "_this call KPLIB_fnc_productionMgr_lnbQueue_onLBDblClick";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_lnbQueue_onLoad";
+            onLBSelChanged = "_this spawn KPLIB_fnc_productionMgr_lnbQueue_onLBSelChanged";
+            onLBDblClick = "_this spawn KPLIB_fnc_productionMgr_lnbQueue_onLBDblClick";
         };
 
         class KPLIB_ctrl_lblTimeRemaining : XGUI_PRE_Label {
@@ -185,7 +184,7 @@ class KPLIB_productionMgr {
             text = ">";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
         class KPLIB_ctrl_btnIncreasePriority : XGUI_PRE_Button {
@@ -221,7 +220,7 @@ class KPLIB_productionMgr {
             text = "< SUPPLY";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
         class KPLIB_ctrl_btnEnqueueAmmo : XGUI_PRE_Button {
@@ -233,7 +232,7 @@ class KPLIB_productionMgr {
             text = "< AMMO";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
         class KPLIB_ctrl_btnEnqueueFuel : XGUI_PRE_Button {
@@ -245,7 +244,7 @@ class KPLIB_productionMgr {
             text = "< FUEL";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
         class KPLIB_ctrl_map : XGUI_PRE_MapControl {
@@ -256,6 +255,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_ctrl_btnRefresh : XGUI_PRE_Button {
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_BTNREFRESH;
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(2));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
@@ -263,7 +263,7 @@ class KPLIB_productionMgr {
             // TODO: TBD: refactor to string table...
             text = "Refresh";
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnRefresh_onButtonClick";
         };
 
         class KPLIB_ctrl_btnApply : XGUI_PRE_Button {
@@ -274,7 +274,7 @@ class KPLIB_productionMgr {
             // TODO: TBD: refactor to string table...
             text = "Apply";
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
         class KPLIB_ctrl_btnClose : XGUI_PRE_Button {
@@ -285,7 +285,7 @@ class KPLIB_productionMgr {
             // TODO: TBD: refactor to string table...
             text = "Close";
 
-            onLoad = "_this call KPLIB_fnc_productionMgr_onLoad_debug";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
         class KPLIB_DialogCross : XGUI_PRE_DialogCrossC {

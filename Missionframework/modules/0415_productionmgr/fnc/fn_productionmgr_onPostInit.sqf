@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_productionMgr_onPostInit
 
@@ -18,13 +19,52 @@
         Module postInit finished [BOOL]
 */
 
-["[fn_productionMgr_onPostInit] Initializing...", "POST] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+private _debug = [] call KPLIB_fnc_productionMgr_debug;
+
+if (_debug) then {
+    ["[fn_productionMgr_onPostInit] Initializing...", "POST] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
+if (isServer) then {
+    ["KPLIB_productionMgr_onRequestProduction", {
+
+        private _debug = [] call KPLIB_fnc_productionMgr_debug;
+
+        if (_debug) then {
+            ["[KPLIB_productionMgr_onRequestProduction::callback] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+        };
+
+        params [
+            ["_cid", -1, [0]]
+        ];
+
+        if (_cid <= 0) exitWith {
+
+            if (_debug) then {
+                ["[KPLIB_productionMgr_onRequestProduction::callback] Exiting", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+            };
+
+            [];
+        };
+
+        private _production = KPLIB_production select {(_x#0#0) in KPLIB_sectors_blufor};
+
+        ["KPLIB_productionMgr_onProductionResponse", [_production], _cid] call CBA_fnc_ownerEvent;
+
+        if (_debug) then {
+            [format ["[KPLIB_productionMgr_onRequestProduction::callback] Finished: [_cid]: %1", str [_cid]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+        };
+
+    }] call CBA_fnc_addEventHandler;
+};
 
 if (hasInterface) then {
     // Player section
     [] call KPLIB_fnc_productionMgr_setupPlayerMenu;
 };
 
-["[fn_productionMgr_onPostInit] Initialized", "POST] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+if (_debug) then {
+    ["[fn_productionMgr_onPostInit] Initialized", "POST] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
 
 true

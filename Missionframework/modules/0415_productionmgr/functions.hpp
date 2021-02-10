@@ -14,6 +14,8 @@
 class productionMgr {
     file = "modules\0415_productionMgr\fnc";
 
+    class productionMgr_debug {};
+
     // Module pre initialization
     class productionMgr_onPreInit {
         preInit = 1;
@@ -36,8 +38,9 @@ class productionMgr {
     // Module display onUnload event handler
     class productionMgr_onUnload {};
 
-    // Sectors list box onLoad event handler
-    class productionMgr_lnbSectors_onLoad {};
+    //// TODO: TBD: refactoring these bits to proper client/server callbacks...
+    //// Sectors list box onLoad event handler
+    //class productionMgr_lnbSectors_onLoad {};
 
     // Sectors list box onLBSelChanged event handler
     class productionMgr_lnbSectors_onLBSelChanged {};
@@ -65,4 +68,10 @@ class productionMgr {
 
     // ...
     class productionMgr_onLoad_debug {};
+
+    // Refresh button onButtonClick event handler
+    class productionMgr_btnRefresh_onButtonClick {};
+
+    // ProductionResponse event handler for client server engagement
+    class productionMgr_onProductionResponse {};
 };
