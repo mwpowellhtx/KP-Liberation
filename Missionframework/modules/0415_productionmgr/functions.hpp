@@ -63,6 +63,9 @@ class productionMgr {
     // Queue list box onLBDblClick event handler
     class productionMgr_lnbQueue_onLBDblClick {};
 
+    // Loads the time remaining formatted text
+    class productionMgr_lbTimeRemainingFormatted_onLoad {};
+
     // ...
     class productionMgr_ctrlBg_title_onLoad {};
 
@@ -74,4 +77,10 @@ class productionMgr {
 
     // ProductionResponse event handler for client server engagement
     class productionMgr_onProductionResponse {};
+
+    // Allows for instrospection of the currently selected production marker name
+    class productionMgr_getSelectedMarkerName {};
+
+    // Allows for introspection of the production manager currently selected production tuple
+    class productionMgr_getProductionElement {};
 };

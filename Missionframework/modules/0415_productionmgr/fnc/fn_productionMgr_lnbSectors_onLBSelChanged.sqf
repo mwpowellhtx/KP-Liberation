@@ -28,11 +28,21 @@ params [
     , ["_selectedIndex", -1, [0]]
 ];
 
+// While we could use the index, etc, this also affords us an opportunity to verify introspection
+private _markerName = [_lnbSectors] call KPLIB_fnc_productionMgr_getSelectedMarkerName;
+
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-private _markerName = _lnbSectors lnbData [_selectedIndex, 0];
+private _productionElem = [_display, _markerName] call KPLIB_fnc_productionMgr_getProductionElement;
 
-// TODO: TBD: perchance to notification_system ...
-systemChat format ["[fn_productionMgr_lnbSectors_onLBSelChanged] [_selectedIndex, _markerName]: %1", str [_selectedIndex, _markerName]];
+// Set the production element variable then spawn some UI refresh event handlers
+_display setVariable ["_productionElem", _productionElem];
 
-// TODO: TBD: which refreshes the entire display...
+{
+    [_display displayCtrl (_x#0)] spawn (_x#1);
+[_display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS] spawn KPLIB_fnc_productionMgr_lnbStatus_onLoad;
+} forEach [
+    [KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS, KPLIB_fnc_productionMgr_lnbStatus_onLoad]
+    , [KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE, KPLIB_fnc_productionMgr_lnbQueue_onLoad]
+    , [KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE, KPLIB_fnc_productionMgr_lnbQueue_onLoad]
+];

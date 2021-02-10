@@ -124,7 +124,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_ctrl_lnbStatus : XGUI_PRE_ListNBox {
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBSTATUS;
+            idc = KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS;
             x = KPLIB_PRODUCTIONMGR_LNBSTATUS_XC;
             y = KPLIB_PRODUCTIONMGR_LNBSTATUS_YC;
             w = KPLIB_PRODUCTIONMGR_LNBSTATUS_W;
@@ -142,7 +142,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_ctrl_lnbQueue : XGUI_PRE_ListNBox {
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LNBQUEUE;
+            idc = KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_XC;
             y = KPLIB_PRODUCTIONMGR_LNBQUEUE_YC;
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_W;
@@ -167,7 +167,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_ctrl_lblTimeRemainingFormatted : XGUI_PRE_Label {
-            idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_LBLTIMEREMAININGFORMATTED;
+            idc = KPLIB_IDC_PRODUCTIONMGR_LBLTIMEREMAININGFORMATTED;
             x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
