@@ -47,5 +47,5 @@ private _productionView = _production apply {
         , ["_view", [], [[]]]
     ];
     private _rowIndex = _lnbSectors lnbAddRow _view;
-    _lnbSectors lnbSetValue [[_rowIndex, 0], _markerName];
+    _lnbSectors lnbSetData [[_rowIndex, 0], _markerName];
 } forEach _productionView;

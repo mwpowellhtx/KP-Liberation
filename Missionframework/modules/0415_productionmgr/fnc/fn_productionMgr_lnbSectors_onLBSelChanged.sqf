@@ -30,7 +30,9 @@ params [
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
+private _markerName = _lnbSectors lnbData [_selectedIndex, 0];
+
 // TODO: TBD: perchance to notification_system ...
-systemChat format ["fn_productionMgr_lnbSectors_onLBSelChanged: %1", _selectedIndex];
+systemChat format ["[fn_productionMgr_lnbSectors_onLBSelChanged] [_selectedIndex, _markerName]: %1", str [_selectedIndex, _markerName]];
 
 // TODO: TBD: which refreshes the entire display...
