@@ -60,7 +60,7 @@ private _onRenderColumn = { toUpper (_x splitString "" select [1, count _x - 1] 
 
 private _headerIndex = _lnbQueue lnbAddRow ([""] + (_columns apply _onRenderColumn));
 
-_lnbStatus lnbSetValue [[_headerIndex, 0], -1];
+_lnbQueue lnbSetValue [[_headerIndex, 0], -1];
 
 // TODO: TBD: from compiled summary...
 // https://community.bistudio.com/wiki/lnbAddRow
@@ -71,6 +71,6 @@ _lnbStatus lnbSetValue [[_headerIndex, 0], -1];
     _lnbQueue lnbSetPicture [[_rowIndex, 0], KPLIB_productionMgr_resourceImages select _resourceIndex];
 
     // For use when coordinating production resource management
-    _lnbStatus lnbSetValue [[_rowIndex, 0], _resourceIndex];
+    _lnbQueue lnbSetValue [[_rowIndex, 0], _resourceIndex];
 
 } forEach _someData;
