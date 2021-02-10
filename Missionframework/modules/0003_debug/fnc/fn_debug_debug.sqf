@@ -31,8 +31,9 @@ if (KPLIB_param_debug) exitWith {true};
 // Evaluates each of the conditions over and above the default
 private _evaluated = _conditions apply {
     switch (typeName _x) do {
-        case "CODE": {[] call _x};
-        default {_x};
+        case "CODE": { [] call _x; };
+        case "STRING": { missionNamespace getVariable [_x, false]; };
+        default { _x; };
     };
 };
 
