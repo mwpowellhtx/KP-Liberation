@@ -1,16 +1,18 @@
 # Changelog
 
-## 0.98.0 (S3) (Under development)
-* Added: Added `production manager` UI assets. These build on the core `production` module by adding the corresponding _client side_ UI, along with accompanying _client_ or _server side_ remote callbacks, and other hooks, as necessary.
-* Added: Added foundation UI _definitions_, _classes_, etc. These will serve as the basis for all further UI work in the mod.
+## 0.98.0 (S4) (Under development)
 * Added:
 * Tweaked:
-* Refactored: Fairly non-trivial adjustments in how we define IDD and IDC values for usage throughout. Also upon review, discovered several undocumented mystery identifiers, not sure what these are about. Possibly artifacts carrying over from the legacy code base, but we are not certain. There is also what appears to be at least one mission marker artifact, identified as _vignette_, which is not that but rather an _airspawn_, so that one is equally a mystery. That being said, we are fairly confident of at least value and syntax consistency, as the mission loads. If any of that is out of sync, the entire mission fails to load, sometimes with a glorious exception. All of which, of course, pending some verification, play testing, etc.
 * Refactored:
 * Bug:
 * Review:
 
-## 0.98.0 (S2) (Under development, now closed)
+## 0.98.0 (S3) (2021-02-09 20:14:57)
+* Added: Added `production manager` UI assets. These build on the core `production` module by adding the corresponding _client side_ UI, along with accompanying _client_ or _server side_ remote callbacks, and other hooks, as necessary. In closing for this sprint, laying out the stubs for the UI was plenty of activity for one sprint. We will save some for the next sprint in terms of engaging with client server callbacks, let alone potential for finite state machine (FSM) considerations.
+* Added: Added foundation UI _definitions_, _classes_, etc. These will serve as the basis for all further UI work in the mod. The foundational elements are a work in progress, and very definitely in draft form. They could be reviewed and cleaned up, documentation reviewed, etc. We should probably at least do that before moving too far beyond them.
+* Refactored: Fairly non-trivial adjustments in how we define IDD and IDC values for usage throughout. Also upon review, discovered several undocumented mystery identifiers, not sure what these are about. Possibly artifacts carrying over from the legacy code base, but we are not certain. There is also what appears to be at least one mission marker artifact, identified as _vignette_, which is not that but rather an _airspawn_, so that one is equally a mystery. That being said, we are fairly confident of at least value and syntax consistency, as the mission loads. If any of that is out of sync, the entire mission fails to load, sometimes with a glorious exception. All of which, of course, pending some verification, play testing, etc.
+
+## 0.98.0 (S2) (2021-02-05 16:41:04)
 * Added: _LINQ_ style support for `.Select(...)`, i.e. `KPLIB_fnc_linq_select`, analog to the `['_element', '_index']` version.
 * Added: Timers support, which will be necessary to support _production_, as well as _logistics_, features.
 * Added: Established `production` support, starting with sector discovery and production reconciliation with the same. _Reconciliation_ means, allowing for deleted sectors, as well as for additional sectors. The data should remain healhy in the face of those sorts of changes. The key point is that we track in terms of `_markerName` and maintain a base `_baseMarkerText`. The actual `_markerText` that is applied is always calculated based on these two components, plus taking into consideration the sector `_capability` matrix.
@@ -28,7 +30,7 @@
 * Bug: Handle the use case where serialization occurs for assets beyond the range of known _FOB_ sites. Should never be serialized in the first place, we think, but this is the next best manner in which to respond. Can verify in both `KPLIB_persistence_objects` and `KPLIB_persistence_units` arrays.
 * Review: Reviewed bits of the code with regard to building the _FOB building_. We may have a clue as to why bits like _direction_ and _up vectors_ are not being conveyed quite correctly between build confirmation and the building being replaced. But moreover, we think there may be a more general use case for the same sort of functionality, especially as applied to _factory_ and possibly also _township sectors_, _building storage_, and so forth. Not a bridge we will necessarily be crossing today, but could come downstream from here in the next sprint; we want to try to stay focused on just introducing the basics in term of _timers_, introducing the _production_ features, etc.
 
-## 0.98.0 (S1) (Thawed, under development, now closed)
+## 0.98.0 (S1) (2021-02-01 10:35:43)
 * Thawed: **From the previous ice age.** (Details in the [Rekindling discussion](https://github.com/mwpowellhtx/KP-Liberation/discussions/1))
 * **_Caveat_**: We are adding some bits that we think deserve a dedicated module unto their own, i.e. _UUID_, _LINQ_, and so on. However, that is going to require that we renumber the modules. This is no small effort, so for now we are placing them as we are in the `0120_common` module, however, with _prefixes_ that are unique to their module. Eventually we will renumber them but for now we are holding off on that level of effort.
 * Added: _LINQ_ style aggregate and zip functions for use especially as we get further into things.
