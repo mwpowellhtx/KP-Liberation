@@ -22,11 +22,4 @@
 // Create the dialog
 createDialog "KPLIB_productionMgr";
 
-////// TODO: TBD: obviously we do not want to hard code idds or idcs, for instance...
-//// Disable the import and delete button in the admin dialog, when there is no exported data in the players profileNamespace
-//if (profileNamespace getVariable [KPLIB_save_key + "_export", []] isEqualTo []) then {
-//    findDisplay 75802 displayCtrl 758021 ctrlEnable false;
-//    findDisplay 75802 displayCtrl 758022 ctrlEnable false;
-//};
-
 true
