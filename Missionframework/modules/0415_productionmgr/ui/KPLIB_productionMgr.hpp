@@ -120,6 +120,7 @@ class KPLIB_productionMgr {
             //          {_grid, _markerText}
             columns[] = {-0.01,         0.2};
 
+            onLoad = "_this spawn kplib_fnc_productionmgr_lnbsectors_onload";
             onLBSelChanged = "_this spawn KPLIB_fnc_productionMgr_lnbSectors_onLBSelChanged";
         };
 
@@ -181,7 +182,7 @@ class KPLIB_productionMgr {
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = ">";
+            text = "> DEQ";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
@@ -193,7 +194,7 @@ class KPLIB_productionMgr {
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "+";
+            text = "+ PRI";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "(_this + [[1]]) call KPLIB_fnc_productionMgr_onLoad_debug";
@@ -205,7 +206,7 @@ class KPLIB_productionMgr {
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "-";
+            text = "- PRI";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "(_this + [[-1]]) call KPLIB_fnc_productionMgr_onLoad_debug";
@@ -217,7 +218,7 @@ class KPLIB_productionMgr {
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "< SUPPLY";
+            text = "< SUP";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
@@ -229,7 +230,7 @@ class KPLIB_productionMgr {
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "< AMMO";
+            text = "< AMM";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
@@ -241,7 +242,7 @@ class KPLIB_productionMgr {
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "< FUEL";
+            text = "< FUE";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";

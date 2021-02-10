@@ -16,14 +16,51 @@
         _lnbSectors - the list box control [CONTROL]
 
     Returns:
-        Module postInit finished [BOOL]
+        Module event handler finished [BOOL]
 
     References:
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
 */
 
+private _debug = [] call KPLIB_fnc_productionMgr_debug;
+
+if (_debug) then {
+    ["[fn_productionMgr_lnbSectors_onLoad] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
 params [
     ["_lnbSectors", controlNull, [controlNull]]
 ];
 
-// TODO: TBD: no op... refactored to client/server event handling...
+private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
+
+private _production = _display getVariable ["_production", []];
+
+if (_debug) then {
+    [format ["[fn_productionMgr_lnbSectors_onLoad] [count _production]: %1"
+        , str [count _production]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
+lnbClear _lnbSectors;
+
+// TODO: TBD: which, to some degree, we may half expect events to more or less work themselves out
+private _productionView = _production apply {
+    private _pos = markerPos (_x#0#0);
+    [(_x#0#0), [mapGridPosition _pos, (_x#0#1)]];
+};
+
+{
+    _x params [
+        ["_markerName", "", [""]]
+        , ["_view", [], [[]]]
+    ];
+    private _rowIndex = _lnbSectors lnbAddRow _view;
+    _lnbSectors lnbSetData [[_rowIndex, 0], _markerName];
+} forEach _productionView;
+
+if (_debug) then {
+    [format ["[fn_productionMgr_lnbSectors_onLoad] Finished: [count _productionView]: %1"
+        , str [count _productionView]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
+true;

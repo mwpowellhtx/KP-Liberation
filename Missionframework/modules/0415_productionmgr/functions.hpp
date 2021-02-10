@@ -42,6 +42,9 @@ class productionMgr {
     //// Sectors list box onLoad event handler
     //class productionMgr_lnbSectors_onLoad {};
 
+    // Sectors list box onLoad event handler
+    class productionMgr_lnbSectors_onLoad {};
+
     // Sectors list box onLBSelChanged event handler
     class productionMgr_lnbSectors_onLBSelChanged {};
 

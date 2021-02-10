@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_productionMgr_getProductionElement
 
@@ -21,28 +22,66 @@
         The '_productionElem' tuple associated with the currently selected '_markerName' [ARRAY, default: []]
 */
 
+private _debug = [] call KPLIB_fnc_productionMgr_debug;
+
 params [
     "_displayOrCtrl"
     , ["_markerName", "", [""]]
 ];
 
-private _productionElem = [];
+if (_debug) then {
+    [format ["[fn_productionMgr_getProductionElement] Entering: [_markerName]: %1"
+        , str [_markerName]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
+private _default = +KPLIB_productionMgr_productionElem_default;
 
 if (isNil "_displayOrCtrl") exitWith {
-    _productionElem;
+
+    if (_debug) then {
+        [format ["[fn_productionMgr_getProductionElement] Finished: [_markerName, isNil 'displayOrCtrl']: %1"
+            , str [_markerName, isNil "_displayOrCtrl"]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    };
+
+    _default;
 };
 
 // Because we want the display parent from the list box control
 _displayOrCtrl = switch (typeName _displayOrCtrl) do {
     case "CONTROL": { findDisplay KPLIB_IDD_PRODUCTIONMGR; };
     case "DISPLAY": { _displayOrCtrl; };
-    default: { displayNull; }
+    default { displayNull; };
 };
 
 if (_displayOrCtrl isEqualTo displayNull) exitWith {
-    _productionElem;
+
+    if (_debug) then {
+        [format ["[fn_productionMgr_getProductionElement] Finished: [_markerName, _displayOrCtrl isEqualTo displayNull]: %1"
+            , str [_markerName, _displayOrCtrl isEqualTo displayNull]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    };
+
+    _default;
 };
 
-_productionElem = _displayOrCtrl getVariable ["_productionElem", []];
+private _production = _displayOrCtrl getVariable ["_production", []];
+
+private _selected = _production select { (_x#0#0) isEqualTo _markerName; };
+
+if (_selected isEqualTo []) exitWith {
+
+    if (_debug) then {
+        [format ["[fn_productionMgr_getProductionElement] Finished: [_markerName, _default, count _production]: %1"
+            , str [_markerName, _default, count _production]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    };
+
+    _default;
+};
+
+private _productionElem = (_selected#0);
+
+if (_debug) then {
+    [format ["[fn_productionMgr_getProductionElement] Finished: [_markerName, _productionElem]: %1"
+        , str [_markerName, _productionElem]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
 
 _productionElem;

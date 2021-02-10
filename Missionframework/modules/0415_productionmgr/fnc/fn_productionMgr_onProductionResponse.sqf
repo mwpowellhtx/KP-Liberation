@@ -17,8 +17,14 @@
         _args - [_production]
 
     Returns:
-        onProductionResponse finished [BOOL]
+        Module event handler finished [BOOL]
 */
+
+private _debug = [] call KPLIB_fnc_productionMgr_debug;
+
+if (_debug) then {
+    ["[fn_productionMgr_onProductionResponse] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
 
 params [
     ["_display", displayNull, [displayNull]]
@@ -29,23 +35,13 @@ _args params [
     ["_production", [], [[]]]
 ];
 
-private _lnbSectors = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS;
+if (_debug) then {
+    [format ["[fn_productionMgr_onProductionResponse] [count _production]: %1"
+        , str [count _production]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
 
 _display setVariable ["_production", _production];
 
-lnbClear _lnbSectors;
+[_display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS] spawn KPLIB_fnc_productionMgr_lnbSectors_onLoad;
 
-// TODO: TBD: which, to some degree, we may half expect events to more or less work themselves out
-private _productionView = _production apply {
-    private _pos = markerPos (_x#0#0);
-    [(_x#0#0), [mapGridPosition _pos, (_x#0#1)]];
-};
-
-{
-    _x params [
-        ["_markerName", "", [""]]
-        , ["_view", [], [[]]]
-    ];
-    private _rowIndex = _lnbSectors lnbAddRow _view;
-    _lnbSectors lnbSetData [[_rowIndex, 0], _markerName];
-} forEach _productionView;
+true;

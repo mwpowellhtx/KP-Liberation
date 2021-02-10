@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_productionMgr_getSelectedMarkerName
 
@@ -12,41 +13,24 @@
         Returns the currently selected production manager marker name, if possible.
 
     Parameter(s):
-        _displayOrCtrl - the display or control used to diagnose the currently selected marker
+        NONE
 
     Returns:
         The currently selected marker name, if possible [STRING, default: ""]
 */
 
-params [
-    "_displayOrCtrl"
-];
-
 private _markerName = "";
 
-if (isNil "_displayOrCtrl") then {
-    _displayOrCtrl = findDisplay KPLIB_IDD_PRODUCTIONMGR;
-    if (_display isEqualTo displayNull) exitWith {
-        _markerName;
-    };
-};
+private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-_displayOrCtrl = switch (typeName _displayOrCtrl) do {
-    case "DISPLAY": { _displayOrCtrl displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS; };
-    case "CONTROL": { _displayOrCtrl; };
-    default { controlNull; };
-};
+private _lnbSectors = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS;
 
-if (_displayOrCtrl isEqualTo controlNull) exitWith {
-    _markerName;
-};
-
-private _i = lnbCurSelRow _ctrl;
+private _i = lnbCurSelRow _lnbSectors;
 
 if (_i < 0) exitWith {
     _markerName;
 };
 
-_markerName = _ctrl lnbData [_i, 0];
+_markerName = _lnbSectors lnbData [_i, 0];
 
 _markerName;

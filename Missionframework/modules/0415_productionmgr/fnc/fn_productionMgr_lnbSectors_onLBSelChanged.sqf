@@ -44,5 +44,5 @@ _display setVariable ["_productionElem", _productionElem];
 } forEach [
     [KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS, KPLIB_fnc_productionMgr_lnbStatus_onLoad]
     , [KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE, KPLIB_fnc_productionMgr_lnbQueue_onLoad]
-    , [KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE, KPLIB_fnc_productionMgr_lnbQueue_onLoad]
+    , [KPLIB_IDC_PRODUCTIONMGR_LBLTIMEREMAININGFORMATTED, KPLIB_fnc_productionMgr_lbTimeRemainingFormatted_onLoad]
 ];

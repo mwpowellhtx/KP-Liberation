@@ -23,12 +23,33 @@ if (isServer) then {
 };
 
 // TODO: TBD: lays any ground work, client or server, required to support the module
+if (hasInterface) then {
+    KPLIB_productionMgr_resourceIndexes = [0, 1, 2];
 
-KPLIB_productionMgr_resourceImages = [
-    "res\ui_supplies.paa"
-    , "res\ui_ammo.paa"
-    , "res\ui_fuel.paa"
-];
+    KPLIB_productionMgr_resourceImages = [
+        "res\ui_supplies.paa"
+        , "res\ui_ammo.paa"
+        , "res\ui_fuel.paa"
+    ];
+
+    KPLIB_productionMgr_capabilityKeys = [
+        "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY"
+        , "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO"
+        , "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"
+    ];
+
+    KPLIB_productionMgr_boolMap = [
+        [true, "yes"]
+        , [false, "no"]
+    ];
+
+    // Not quite 'empty' but it is a known default state
+    KPLIB_productionMgr_productionElem_default = +[
+        ["", ""]
+        , KPLIB_timers_default
+        , [[false, false, false], [0, 0, 0], []]
+    ];
+};
 
 if (isServer) then {
     ["[fn_productionMgr_onPreInit] Initialized", "PRE] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
