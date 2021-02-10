@@ -41,7 +41,7 @@ private ["_i"];
 
 // Return with a "not running" representation
 if (_duration <= 0) exitWith {
-    "-.--:--:--";
+    KPLIB_timers_renderedNotRunning;
 };
 
 /* Handles cases where the timer has run over for whatever reason,

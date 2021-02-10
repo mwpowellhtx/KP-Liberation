@@ -44,6 +44,11 @@ private _default = [] call {
 // TODO: TBD: except perhaps rendering timer bits to dialogs, etc... so... consider carefully.
 KPLIB_timers_default = _default;
 
+if (hasInterface) then {
+    // TODO: TBD: should actually refactor this to the string tables...
+    KPLIB_timers_renderedNotRunning = "-.--:--:--";
+};
+
 [format ["[fn_timers_onPreInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
 
 true
