@@ -73,6 +73,16 @@
 ] call CBA_Settings_fnc_init;
 
 [
+    "KPLIB_param_production_maxQueueDepth"
+    , "SLIDER"
+    , [localize "STR_KPLIB_SETTINGS_PROD_MAXQUEUEDEPTH", localize "STR_KPLIB_SETTINGS_PROD_MAXQUEUEDEPTH_TT"]
+    , localize "STR_KPLIB_SETTINGS_PROD"
+    , [1, 8, 4, 0] // default: 4, range: [1, 7]
+    , 2
+    , {}
+] call CBA_Settings_fnc_init;
+
+[
     "KPLIB_param_production_debug"
     , "CHECKBOX"
     , [localize "STR_KPLIB_SETTINGS_PROD_DEBUG", localize "STR_KPLIB_SETTINGS_PROD_DEBUG_TT"]

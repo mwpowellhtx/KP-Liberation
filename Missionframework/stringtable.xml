@@ -2061,6 +2061,12 @@
         <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB_TT">
             <English>Credit the nearest FOB for the cost of building the production facility. Default means billing against the storage on site. [default: false]</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_MAXQUEUEDEPTH">
+            <English>Maximum Queue Depth</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_MAXQUEUEDEPTH_TT">
+            <English>Maximum number of resources which may be enqueued at any given time. [default: 4]</English>
+        </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_DEBUG">
             <English>Debug Production</English>
         </Key>
