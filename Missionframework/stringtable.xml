@@ -2424,5 +2424,14 @@
         <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNENQFUE_TEXT">
             <English>&lt; FUE</English>
         </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_SECTORNOTFOUND">
+            <English>&apos;%1&apos; factory sector production could not be found.</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_QUEUEDEPTH">
+            <English>Cannot exceed production queue depth (%1).</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_INSUFFICIENTCAP">
+            <English>&apos;%1&apos; insufficient production capability to support request.</English>
+        </Key>
     </Package>
 </Project>
