@@ -66,7 +66,7 @@ private _queue = [] call KPLIB_fnc_productionMgr_getSelectedQueue;
 private _candidateQueue = _queue + [_resourceIndex];
 
 if (_debug) then {
-    [format ["[fn_productionMgr_btnEnqueue_onButtonClick] Server event: [_event, _markerName, _queue, _candidateQueue, _cid]: %1"
+    [format ["[fn_productionMgr_btnEnqueue_onButtonClick] Server event: [_eventName, _markerName, _queue, _candidateQueue, _cid]: %1"
         , str [_eventName, _markerName, _queue, _candidateQueue, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
