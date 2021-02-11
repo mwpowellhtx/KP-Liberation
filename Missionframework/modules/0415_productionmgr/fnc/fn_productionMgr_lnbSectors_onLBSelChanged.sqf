@@ -21,6 +21,8 @@
 
     References:
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLBSelChanged
+        https://community.bistudio.com/wiki/ctrlMapAnimAdd
+        https://community.bistudio.com/wiki/ctrlMapAnimCommit
 */
 
 params [
