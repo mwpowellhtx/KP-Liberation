@@ -2400,9 +2400,6 @@
         <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNREFRESH_TEXT">
             <English>Refresh</English>
         </Key>
-        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNAPPLY_TEXT">
-            <English>Apply</English>
-        </Key>
         <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNCLOSE_TEXT">
             <English>Close</English>
         </Key>

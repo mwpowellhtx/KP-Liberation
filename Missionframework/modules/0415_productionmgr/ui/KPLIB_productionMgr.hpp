@@ -26,7 +26,8 @@
 #define KPLIB_PRODUCTIONMGR_CTRLAREA_XC         KPX_GETXL_VXW(KPLIB_PRODUCTIONMGR_DIALOG_XC,KPX_SPACING_W)
 #define KPLIB_PRODUCTIONMGR_CTRLAREA_YC         KPX_DEFAULT_CTRLAREA_YC
 
-#define KPLIB_PRODUCTIONMGR_LNBSECTORS_H        (KPLIB_PRODUCTIONMGR_CTRLAREA_HC - (3 * KPLIB_PRODUCTIONMGR_BTN_H) - (5 * KPX_SPACING_H))
+// Sectors list box height including buffer for two buttons below it
+#define KPLIB_PRODUCTIONMGR_LNBSECTORS_H        (KPLIB_PRODUCTIONMGR_CTRLAREA_HC - (2 * (KPLIB_PRODUCTIONMGR_BTN_H + KPX_SPACING_H)))
 #define KPLIB_PRODUCTIONMGR_LNBSECTORS_W        KPX_GETW_VWGS(KPLIB_PRODUCTIONMGR_DIALOG_WC,8,25,KPX_SPACING_W)
 
 // Four rows, three status rows plus one 'header' row
@@ -263,22 +264,12 @@ class KPLIB_productionMgr {
         class KPLIB_productionMgr_btnRefresh : XGUI_PRE_Button {
             idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_BTNREFRESH;
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
-            y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(2));
+            y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNREFRESH_TEXT";
 
             onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnRefresh_onButtonClick";
-        };
-
-        class KPLIB_productionMgr_btnApply : XGUI_PRE_Button {
-            x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
-            y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(1));
-            w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
-
-            text = "$STR_KPLIB_PRODUCTIONMGR_BTNAPPLY_TEXT";
-
-            onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnApply_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnClose : XGUI_PRE_Button {

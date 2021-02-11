@@ -81,9 +81,6 @@ class productionMgr {
     // Refresh button onButtonClick event handler
     class productionMgr_btnRefresh_onButtonClick {};
 
-    // Apply button onButtonClick event handler
-    class productionMgr_btnApply_onButtonClick {};
-
     // Close button onButtonClick event handler
     class productionMgr_btnClose_onButtonClick {};
 
