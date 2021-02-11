@@ -5,7 +5,7 @@
     File: fn_productionMgr_lnbStatus_onLBSelChanged.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:56:43
-    Last Update: 2021-02-06 12:56:45
+    Last Update: 2021-02-11 17:32:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -28,16 +28,7 @@ params [
     , ["_selectedIndex", -1, [0]]
 ];
 
-private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
+/* No-op for the time being.
+ * However, we will leave the event handler in place for now. */
 
-// TODO: TBD: perchance to notification_system ...
-systemChat format ["fn_productionMgr_lnbStatus_onLBSelChanged: %1", _selectedIndex];
-
-// Leaving room for a header row, which we do not want to engage.
-if (_selectedIndex < 0) exitWith {};
-
-if (_selectedIndex == 0) exitWith {
-    _lnbStatus lnbSetCurSelRow -1;
-};
-
-// TODO: TBD: which refreshes the entire display...
+true;

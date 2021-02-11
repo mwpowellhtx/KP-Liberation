@@ -20,4 +20,8 @@
 #define KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE                        411300
 #define KPLIB_IDC_PRODUCTIONMGR_TXTTIMEREM                      411400
 
+#define KPLIB_IDC_PRODUCTIONMGR_BTNENQSUP                       411310
+#define KPLIB_IDC_PRODUCTIONMGR_BTNENQAMM                       411320
+#define KPLIB_IDC_PRODUCTIONMGR_BTNENQFUE                       411330
+
 #define KPLIB_IDC_PRODUCTIONMGR_CTRLMAP                         411500

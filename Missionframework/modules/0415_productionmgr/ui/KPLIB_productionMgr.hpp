@@ -214,6 +214,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_btnEnqueueSupply : XGUI_PRE_Button {
+            idc = KPLIB_IDC_PRODUCTIONMGR_BTNENQSUP;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
@@ -225,6 +226,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_btnEnqueueAmmo : XGUI_PRE_Button {
+            idc = KPLIB_IDC_PRODUCTIONMGR_BTNENQAMM;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XM;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
@@ -236,6 +238,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_btnEnqueueFuel : XGUI_PRE_Button {
+            idc = KPLIB_IDC_PRODUCTIONMGR_BTNENQFUE;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XR;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;

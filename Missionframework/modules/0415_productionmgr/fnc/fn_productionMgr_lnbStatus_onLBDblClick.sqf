@@ -5,12 +5,12 @@
     File: fn_productionMgr_lnbStatus_onLBDblClick.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:56:43
-    Last Update: 2021-02-06 12:56:45
+    Last Update: 2021-02-11 17:32:40
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Module status list box onLBDblClick event handler.
+        The status list box 'onLBDblClick' event relays to the handler for the button 'onButtonClick' event.
 
     Parameter(s):
         _lnbStatus - the list box control [CONTROL]
@@ -21,6 +21,7 @@
 
     References:
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLBDblClick
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onButtonClick
 */
 
 params [
@@ -28,10 +29,25 @@ params [
     , ["_selectedIndex", -1, [0]]
 ];
 
+if (_selectedIndex <= 0) exitWith {
+    true;
+};
+
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-// TODO: TBD: perchance to notification_system ...
-systemChat format ["fn_productionMgr_lnbStatus_onLBDblClick: %1", _selectedIndex];
+private _btnEnqueueIdcs = [
+    KPLIB_IDC_PRODUCTIONMGR_BTNENQSUP
+    , KPLIB_IDC_PRODUCTIONMGR_BTNENQAMM
+    , KPLIB_IDC_PRODUCTIONMGR_BTNENQFUE
+];
 
-// TODO: TBD: double clicking queues a change order to the selected capability, if possible
-// TODO: TBD: note that doing so resets the production timer
+private _resourceIndex = _selectedIndex - 1;
+
+private _btnEnqueue = _display displayCtrl (_btnEnqueueIdcs#_resourceIndex);
+
+// Spawn the callback in this instance do not call it
+[_btnEnqueue,       [_resourceIndex]] spawn KPLIB_fnc_productionMgr_btnEnqueue_onButtonClick;
+// _resourceIndex:   ^^^^^^^^^^^^^^ (careful of the nested arrays here)
+//     _args:       ^^^^^^^^^^^^^^^^ (revisit KPLIB_productionMgr.hpp for those examples)
+
+true;
