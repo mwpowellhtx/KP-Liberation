@@ -2,9 +2,12 @@
 
 ## 0.98.0 (S4) (Under development)
 * Added: Client server callback sequence requesting production data when production manager dialog is opened or refreshed. Client _owner_ raises `KPLIB_productionMgr_onRequestProduction` event with _server_, server raises `KPLIB_productionMgr_onProductionResponse` _owner event_ in response with production that is currently under _blufor_ control. Client then refreshes the _production manager sectors_ list box. Client also sets a `_production` variable on the _production manager display_ which can be used for further reference.
+* Added: Connected _enqueue resource production buttons_ via _CBA client server events_ being raised. Client raises `KPLIB_productionMgr_onRequestQueueChange`, server responds with `KPLIB_productionMgr_onProductionElemResponse` on success. Otherwise, _notifies clients_ with the result of the requested transaction. Includes respect for `KPLIB_param_production_maxQueueDepth` as well as _factory sector capability_. If a sector does not currently have support for a given _capability_, then those transation requests will be rejected.
+* Added: Connected _change production priority buttons_ as well. Everything upstream from the server, then server responses, is in place, pretty much, we think. Always notwithstanding opportunity for tweak, typo or bug correction, of course.
 * Added: Additional _production manager_ glue connecting _sector list box selection_ with the rest of the controls on the dialog.
 * Added: Added _timers_ support rendering _time remaining_ to `#.##:##:##` string representation. That is, _days_, _hours_, _minutes_, _seconds_, in an extreme case. Minimum possibly format is `##:##`, or _minutes_ and _seconds_.
 * Added:
+* Tweaked: Adding _production capability_ to _factory sectors_ now also provides _production element response_ for purposes of refreshing _production manager_ UI.
 * Tweaked:
 * Refactored:
 * Bug:
