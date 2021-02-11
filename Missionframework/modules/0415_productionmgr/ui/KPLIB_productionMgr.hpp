@@ -199,7 +199,7 @@ class KPLIB_productionMgr {
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNINCREASEPRI_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onButtonClick = "(_this + [[1]]) call KPLIB_fnc_productionMgr_btnChangePriority_onButtonClick";
+            onButtonClick = "(_this + [[1]]) spawn KPLIB_fnc_productionMgr_btnChangePriority_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnDecreasePriority : XGUI_PRE_Button {
@@ -210,7 +210,7 @@ class KPLIB_productionMgr {
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNDECREASEPRI_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onButtonClick = "(_this + [[-1]]) call KPLIB_fnc_productionMgr_btnChangePriority_onButtonClick";
+            onButtonClick = "(_this + [[-1]]) spawn KPLIB_fnc_productionMgr_btnChangePriority_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnEnqueueSupply : XGUI_PRE_Button {
