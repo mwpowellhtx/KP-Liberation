@@ -123,6 +123,9 @@ class productionMgr {
     // Client server acknowledgment that the dialog session has closed
     class productionMgr_server_onDialogClosed {};
 
+    // Server client report of the _productionElem to registered client owners
+    class productionMgr_server_onOwnerProductionElem {};
+
     // Client server production response event handler
     class productionMgr_client_onProductionResponse {};
 

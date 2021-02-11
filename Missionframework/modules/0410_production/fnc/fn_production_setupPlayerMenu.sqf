@@ -93,7 +93,7 @@ if (hasInterface) then {
     // TODO: TBD: fill in the blanks here, requires that we cross the build fob generalization Rubicon ...
     // https://en.wikipedia.org/wiki/Crossing_the_Rubicon
     private _onAddCap = {
-
+        // Prepares for a server side CBA event being raised and get out of the way ASAP
         params [
             ["_target", objNull, [objNull]]
             , ["_caller", objNull, [objNull]]
@@ -112,7 +112,8 @@ if (hasInterface) then {
         // TODO: TBD: so conditions would need to be: nearest factory sector to player within sector cap range NOT having aligned storage...
         private _markerName = [KPLIB_param_sectorCapRange, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
 
-        [_markerName, _cap, clientOwner] remoteExec ["KPLIB_fnc_production_onAddCapability", 2];
+        // Raise the event server side adding factory sector production capability
+        ["KPLIB_production_onAddCapability", [_markerName, _cap, clientOwner]] call CBA_fnc_serverEvent;
     };
 
     {

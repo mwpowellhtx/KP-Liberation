@@ -12,7 +12,7 @@
         The intention with this function is to assess the cost, assert the debit, if
         possible, and respond with an appropriate result tuple. It is not our intention
         to engage anything else here, users in the form of remote invocations, etc. That
-        is the role of the caller, 'KPLIB_fnc_production_onAddCapability', for example.
+        is the role of the caller, 'KPLIB_fnc_production_server_onAddCapability', for example.
 
     Parameter(s):
         _cap - the capability being added to the factory sector [SCALAR, default: 0]

@@ -99,13 +99,7 @@ if (!(_candidateQueue#0 isEqualTo _currentQueue#0)) then {
 
 [] call KPLIB_fnc_init_save;
 
-/* Respond to the server request with this specific element only... Also noteworthy,
- * update all currently known clients with the change in production element. */
-
-{
-    ["KPLIB_productionMgr_onProductionElemResponse", _productionElem, _x] call CBA_fnc_ownerEvent;
-    //                                                                ^^ each known ownerClient
-} forEach KPLIB_productionMgr_clientOwners;
+_productionElem call KPLIB_fnc_productionMgr_server_onOwnerProductionElem;
 
 if (_debug) then {
     [format ["[fn_productionMgr_server_onRequestQueueChange] Finished: [_markerName, _cid]: %1"

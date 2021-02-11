@@ -23,7 +23,7 @@ if (isServer) then {
 };
 
 if (isServer) then {
-    // Server section (dedicated and player hosted)
+    ["KPLIB_production_onAddCapability", KPLIB_fnc_production_server_onAddCapability] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

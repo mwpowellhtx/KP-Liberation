@@ -71,9 +71,9 @@ class production {
     // Event handler responds when building storage containers within a factory sector
     class production_onBuildStorage {};
 
-    // Event handler responds when adding production capability to a factory sector
-    class production_onAddCapability {};
-
     // Handles the debit phase of adding capability to the sector
     class production_onDebitCapability {};
+
+    // Client server CBA event handler responding to 'KPLIB_production_onAddCapability'
+    class production_server_onAddCapability {};
 };

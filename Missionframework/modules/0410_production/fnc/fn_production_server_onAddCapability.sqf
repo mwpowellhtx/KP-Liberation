@@ -1,14 +1,15 @@
 /*
-    KPLIB_fnc_production_onAddCapability
+    KPLIB_fnc_production_server_onAddCapability
 
-    File: fn_production_onAddCapability.sqf
+    File: fn_production_server_onAddCapability.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 11:32:55
-    Last Update: 2021-02-05 11:32:57
+    Last Update: 2021-02-11 13:39:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
+        Server side CBA event handler responding to the "KPLIB_production_onAddCapability" event.
 
     Parameter(s):
         _markerName - the factory sector affected by the request
@@ -68,13 +69,16 @@ private _key = switch (_status) do {
 
         // Let the other capabilities pass through as-is, while raising the desired _cap
         (_productionElem#2) set [0, [(_productionElem#2#0)
-            , { (_this#1 == _cap) || (_this#0) }] call KPLIB_fnc_linq_select];
+            , { (_this#1 isEqualTo _cap) || (_this#0) }] call KPLIB_fnc_linq_select];
+
+        // And trigger that a save should occur with the now-updated production bits
+        [] call KPLIB_fnc_init_save;
 
         // And re-render the production sector marker text
         _productionElem call KPLIB_fnc_production_onRenderMarkerText;
 
-        // And trigger that a save should occur with the now-updated production bits
-        [] call KPLIB_fnc_init_save;
+        // When cap has been added then also potentially notify production managers
+        _productionElem call KPLIB_fnc_productionMgr_server_onOwnerProductionElem;
 
         "STR_KPLIB_PRODUCTION_ADDED_CAPABILITY";
     };
@@ -87,7 +91,7 @@ if (_key isEqualTo "") exitWith {
     _retval;
 };
 
-// Decon the cost tuple just prior to rendering the notification
+// Deconstruct the cost tuple just prior to rendering the notification
 _cost params [
     ["_s", 0, [0]]
     , ["_a", 0, [0]]
