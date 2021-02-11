@@ -8,6 +8,7 @@
 * Added: Added _timers_ support rendering _time remaining_ to `#.##:##:##` string representation. That is, _days_, _hours_, _minutes_, _seconds_, in an extreme case. Minimum possibly format is `##:##`, or _minutes_ and _seconds_.
 * Added: _Production manager map_ now responds to _sectors list box_ navigation accordingly.
 * Added:
+* Removed: Determined that a _production manager apply button_ is unnecessary after all, especially considering we engage _client server sequences_ interactively.
 * Tweaked: Adding _production capability_ to _factory sectors_ now also provides _production element response_ for purposes of refreshing _production manager_ UI.
 * Tweaked: Updated some _production manager_ UI event handlers a little bit. Tweaked _double click_ behavior for the _status_ and _queue list boxes_, which now _enqueue_ or _dequeue_ pending resources in an intuitive manner.
 * Tweaked:
