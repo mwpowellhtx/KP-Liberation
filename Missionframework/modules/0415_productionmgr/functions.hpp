@@ -90,6 +90,9 @@ class productionMgr {
     // Allows for instrospection of the currently selected production marker name
     class productionMgr_getSelectedMarkerName {};
 
+    // Allows for introspection of the currently presented production queue
+    class productionMgr_getSelectedQueue {};
+
     // Allows for introspection of the production manager currently selected production tuple
     class productionMgr_getProductionElement {};
 
@@ -120,6 +123,6 @@ class productionMgr {
     // Client server production response event handler
     class productionMgr_client_onProductionResponse {};
 
-    // Client server queue change request event handler
-    class productionMgr_client_onQueueChangeResponse {};
+    // Client server production element updated request event handler
+    class productionMgr_client_onProductionElemResponse {};
 };
