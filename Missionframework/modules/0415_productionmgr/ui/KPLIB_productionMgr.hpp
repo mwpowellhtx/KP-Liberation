@@ -181,6 +181,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_btnRemove : XGUI_PRE_Button {
+            idc = KPLIB_IDD_PRODUCTIONMGR_BTNDEQ;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
@@ -192,6 +193,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_btnIncreasePriority : XGUI_PRE_Button {
+            idc = KPLIB_IDD_PRODUCTIONMGR_BTNINCPRI;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XM;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
@@ -203,6 +205,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_btnDecreasePriority : XGUI_PRE_Button {
+            idc = KPLIB_IDD_PRODUCTIONMGR_BTNDECPRI;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XR;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;

@@ -20,8 +20,12 @@
 #define KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE                        411300
 #define KPLIB_IDC_PRODUCTIONMGR_TXTTIMEREM                      411400
 
-#define KPLIB_IDC_PRODUCTIONMGR_BTNENQSUP                       411310
-#define KPLIB_IDC_PRODUCTIONMGR_BTNENQAMM                       411320
-#define KPLIB_IDC_PRODUCTIONMGR_BTNENQFUE                       411330
+#define KPLIB_IDD_PRODUCTIONMGR_BTNDEQ                          411310
+#define KPLIB_IDD_PRODUCTIONMGR_BTNINCPRI                       411320
+#define KPLIB_IDD_PRODUCTIONMGR_BTNDECPRI                       411330
+
+#define KPLIB_IDC_PRODUCTIONMGR_BTNENQSUP                       411340
+#define KPLIB_IDC_PRODUCTIONMGR_BTNENQAMM                       411350
+#define KPLIB_IDC_PRODUCTIONMGR_BTNENQFUE                       411360
 
 #define KPLIB_IDC_PRODUCTIONMGR_CTRLMAP                         411500

@@ -5,7 +5,7 @@
     File: fn_productionMgr_lnbQueue_onLBDblClick.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-09 16:48:20
-    Last Update: 2021-02-09 16:48:23
+    Last Update: 2021-02-11 17:54:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -28,10 +28,15 @@ params [
     , ["_selectedIndex", -1, [0]]
 ];
 
+if (_selectedIndex <= 0) exitWith {
+    true;
+};
+
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-// TODO: TBD: perchance to notification_system ...
-systemChat format ["fn_productionMgr_lnbQueue_onLBDblClick: %1", _selectedIndex];
+private _btnDequeue = _display displayCtrl KPLIB_IDD_PRODUCTIONMGR_BTNDEQ;
 
-// TODO: TBD: double clicking queues a change order to the selected capability, if possible
-// TODO: TBD: note that doing so resets the production timer
+// Also, as with other control alias event handlers, spawn, not call
+[_btnDequeue] spawn KPLIB_fnc_productionMgr_btnDequeue_onButtonClick;
+
+true;
