@@ -22,6 +22,14 @@ if (isServer) then {
     ["[fn_productionMgr_onPreInit] Initializing...", "PRE] [PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
+if (isServer) then {
+
+    /* Keep track of the known client owners with open production manager dialogs
+     * We will use this in order to post updates to their respective client UI. */
+
+    KPLIB_productionMgr_clientOwners = [];
+};
+
 // TODO: TBD: lays any ground work, client or server, required to support the module
 if (hasInterface) then {
     KPLIB_productionMgr_resourceIndexes = [0, 1, 2];

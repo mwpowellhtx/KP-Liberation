@@ -36,6 +36,8 @@ params [
 // Used to identify the actual storage location
 createMarkerLocal ["_productionMgrStorage", KPLIB_zeroPos];
 
+private _eids = [];
+
 {
     _x params [
         ["_eventName", "", [""]]
@@ -43,6 +45,7 @@ createMarkerLocal ["_productionMgrStorage", KPLIB_zeroPos];
     ];
     // Client is "here" because production manager dialog is open
     private _eid = [_eventName, _callback] call CBA_fnc_addEventHandler;
+    _eids pushBack _eid;
     _display setVariable [_eventName, _eid];
 } forEach [
     ["KPLIB_productionMgr_onProductionResponse", KPLIB_fnc_productionMgr_client_onProductionResponse]
@@ -56,7 +59,7 @@ private _btnRefresh = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_BTNREFRESH;
 // Use spawn because we are invoking such within the scope of an event handler.
 
 if (_debug) then {
-    [format ["[fn_productionMgr_onLoad] Finished: [_eid]: %1", str [_eid]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionMgr_onLoad] Finished: [_eids]: %1", str [_eids]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;

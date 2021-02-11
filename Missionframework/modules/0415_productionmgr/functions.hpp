@@ -120,6 +120,9 @@ class productionMgr {
     // Client server queue change request event handler
     class productionMgr_server_onRequestQueueChange {};
 
+    // Client server acknowledgment that the dialog session has closed
+    class productionMgr_server_onDialogClosed {};
+
     // Client server production response event handler
     class productionMgr_client_onProductionResponse {};
 

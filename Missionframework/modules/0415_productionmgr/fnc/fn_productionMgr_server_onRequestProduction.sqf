@@ -37,10 +37,18 @@ if (_cid <= 0) exitWith {
     };
 };
 
+/* Which we will use downstream from here to post updates
+ * to all currently known production manager clients. */
+
+if (!(_cid in KPLIB_productionMgr_clientOwners)) then {
+    KPLIB_productionMgr_clientOwners pushBack _cid;
+};
+
 private _production = KPLIB_production select {(_x#0#0) in KPLIB_sectors_blufor};
 
 ["KPLIB_productionMgr_onProductionResponse", [_production], _cid] call CBA_fnc_ownerEvent;
 
 if (_debug) then {
-    [format ["[fn_productionMgr_server_onRequestProduction] Finished: [_cid]: %1", str [_cid]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionMgr_server_onRequestProduction] Finished: [_cid]: %1"
+        , str [_cid]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
