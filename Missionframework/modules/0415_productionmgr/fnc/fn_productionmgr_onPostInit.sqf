@@ -26,36 +26,8 @@ if (_debug) then {
 };
 
 if (isServer) then {
-    ["KPLIB_productionMgr_onRequestProduction", {
-
-        private _debug = [] call KPLIB_fnc_productionMgr_debug;
-
-        if (_debug) then {
-            ["[KPLIB_productionMgr_onRequestProduction::callback] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
-        };
-
-        params [
-            ["_cid", -1, [0]]
-        ];
-
-        if (_cid <= 0) exitWith {
-
-            if (_debug) then {
-                ["[KPLIB_productionMgr_onRequestProduction::callback] Exiting", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
-            };
-
-            [];
-        };
-
-        private _production = KPLIB_production select {(_x#0#0) in KPLIB_sectors_blufor};
-
-        ["KPLIB_productionMgr_onProductionResponse", [_production], _cid] call CBA_fnc_ownerEvent;
-
-        if (_debug) then {
-            [format ["[KPLIB_productionMgr_onRequestProduction::callback] Finished: [_cid]: %1", str [_cid]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
-        };
-
-    }] call CBA_fnc_addEventHandler;
+    ["KPLIB_productionMgr_onRequestProduction", KPLIB_fnc_productionMgr_server_onRequestProduction] call CBA_fnc_addEventHandler;
+    ["KPLIB_productionMgr_onRequestQueueChange", KPLIB_fnc_productionMgr_server_onRequestQueueChange] call CBA_fnc_addEventHandler;
 };
 
 if (hasInterface) then {

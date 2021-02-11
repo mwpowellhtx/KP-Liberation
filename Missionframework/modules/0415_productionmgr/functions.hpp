@@ -87,9 +87,6 @@ class productionMgr {
     // Close button onButtonClick event handler
     class productionMgr_btnClose_onButtonClick {};
 
-    // ProductionResponse event handler for client server engagement
-    class productionMgr_onProductionResponse {};
-
     // Allows for instrospection of the currently selected production marker name
     class productionMgr_getSelectedMarkerName {};
 
@@ -113,4 +110,16 @@ class productionMgr {
 
     // Arranges the production element view
     class productionMgr_productionElemViews_onTimeRem {};
+
+    // Client server request production event handler
+    class productionMgr_server_onRequestProduction {};
+
+    // Client server queue change request event handler
+    class productionMgr_server_onRequestQueueChange {};
+
+    // Client server production response event handler
+    class productionMgr_client_onProductionResponse {};
+
+    // Client server queue change request event handler
+    class productionMgr_client_onQueueChangeResponse {};
 };

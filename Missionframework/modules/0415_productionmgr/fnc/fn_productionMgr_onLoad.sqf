@@ -37,26 +37,7 @@ params [
 createMarkerLocal ["_productionMgrStorage", KPLIB_zeroPos];
 
 // Client is "here" because production manager dialog is open.
-private _eid = ["KPLIB_productionMgr_onProductionResponse", {
-
-    private _debug = [] call KPLIB_fnc_productionMgr_debug;
-
-    if (_debug) then {
-        ["[KPLIB_productionMgr_onProductionResponse::callback] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
-    };
-
-    private _args = _this;
-    private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
-
-    if (!(_display isEqualTo displayNull)) then {
-        [_display, _args] call KPLIB_fnc_productionMgr_onProductionResponse;
-    };
-
-    if (_debug) then {
-        ["[KPLIB_productionMgr_onProductionResponse::callback] Finished", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
-    };
-
-}] call CBA_fnc_addEventHandler;
+private _eid = ["KPLIB_productionMgr_onProductionResponse", KPLIB_fnc_productionMgr_client_onProductionResponse] call CBA_fnc_addEventHandler;
 
 _display setVariable ["KPLIB_productionMgr_onProductionResponse", _eid];
 
