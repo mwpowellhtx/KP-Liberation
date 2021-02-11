@@ -20,6 +20,10 @@
 
 private _productionElem = _this;
 
+(_productionElem#1) params [
+    ["_duration", KPLIB_timers_disabled, [0]]
+];
+
 (_productionElem#2) params [
     ["_cap", [], [[]], 3]
     , ["_totals", [], [[]], 3]
@@ -41,7 +45,12 @@ private _view = KPLIB_productionMgr_resourceIndexes apply {
     private _producing = if (_queue isEqualTo []) then {
         false;
     } else {
-        (_queue#0) isEqualTo _resourceIndex;
+        /* Both of which:
+         * 1. Queue has depth
+         * 2. Timer is running
+         */
+        ((_queue#0) isEqualTo _resourceIndex)
+        && (_duration > 0);
     };
 
     /*
