@@ -2380,13 +2380,34 @@
     <!-- PRODUCTIONMGR -->
 
     <Package name="ProductionMgr">
-        <Key ID="STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_NIL">
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_NIL">
             <English>#.##:##:##</English>
             <!--     d.HH:mm:ss -->
         </Key>
-        <Key ID="STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_IDLE">
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_IDLE">
             <English>-.--:--:--</English>
             <!--     d.HH:mm:ss -->
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_TEXT">
+            <English>TIME REMAINING:</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNREMOVE_TEXT">
+            <English>&gt; DEQ</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNINCREASEPRI_TEXT">
+            <English>+ PRI</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNDECREASEPRI_TEXT">
+            <English>- PRI</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNENQSUP_TEXT">
+            <English>&lt; SUP</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNENQAMM_TEXT">
+            <English>&lt; AMM</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNENQFUE_TEXT">
+            <English>&lt; FUE</English>
         </Key>
     </Package>
 </Project>

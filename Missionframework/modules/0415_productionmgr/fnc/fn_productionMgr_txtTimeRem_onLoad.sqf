@@ -1,8 +1,8 @@
 #include "..\ui\defines.hpp"
 /*
-    KPLIB_fnc_productionMgr_lblTimeRemainingFormatted_onLoad
+    KPLIB_fnc_productionMgr_txtTimeRem_onLoad
 
-    File: fn_productionMgr_lblTimeRemainingFormatted_onLoad.sqf
+    File: fn_productionMgr_txtTimeRem_onLoad.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-10 00:59:57
     Last Update: 2021-02-10 01:00:01
@@ -25,7 +25,7 @@
 private _debug = [] call KPLIB_fnc_productionMgr_debug;
 
 if (_debug) then {
-    ["[fn_productionMgr_lblTimeRemainingFormatted_onLoad] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    ["[fn_productionMgr_txtTimeRem_onLoad] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 params [
@@ -39,7 +39,7 @@ private _view = _lblTimeRemainingFormatted getVariable ["_view", _defaultView];
 _lblTimeRemainingFormatted ctrlSetText (_view#0);
 
 if (_debug) then {
-    [format ["[fn_productionMgr_lblTimeRemainingFormatted_onLoad] Finished: [_view]: %1"
+    [format ["[fn_productionMgr_txtTimeRem_onLoad] Finished: [_view]: %1"
         , str [_view]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 

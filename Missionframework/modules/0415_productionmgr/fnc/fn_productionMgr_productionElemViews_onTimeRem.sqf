@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_productionMgr_productionElemViews_onTimeRemaining
+    KPLIB_fnc_productionMgr_productionElemViews_onTimeRem
 
-    File: fn_productionMgr_productionElemViews_onTimeRemaining.sqf
+    File: fn_productionMgr_productionElemViews_onTimeRem.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-10 14:52:53
     Last Update: 2021-02-10 14:52:56

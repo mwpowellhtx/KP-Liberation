@@ -84,8 +84,8 @@ private _productionElem = (_selected#0);
         , KPLIB_fnc_productionMgr_lnbQueue_onLoad
     ]
     , [
-        KPLIB_IDC_PRODUCTIONMGR_LBLTIMEREMAININGFORMATTED
+        KPLIB_IDC_PRODUCTIONMGR_TXTTIMEREM
         , _timeRemainingView
-        , KPLIB_fnc_productionMgr_lblTimeRemainingFormatted_onLoad
+        , KPLIB_fnc_productionMgr_txtTimeRem_onLoad
     ]
 ];

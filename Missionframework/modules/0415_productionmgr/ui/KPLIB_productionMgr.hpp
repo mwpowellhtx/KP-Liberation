@@ -88,7 +88,7 @@ class KPLIB_productionMgr {
 
         //// TODO: TBD: starting slowing to prove this thing out...
         //class KPLIB_DialogTitle : KPGUI_PRE_DialogTitleS {
-        class KPLIB_DialogTitle : XGUI_PRE_DialogTitleC {
+        class KPLIB_productionMgr_lblTitle : XGUI_PRE_DialogTitleC {
             x = KPLIB_PRODUCTIONMGR_TITLE_XC;
             w = KPLIB_PRODUCTIONMGR_TITLE_WC;
             text = "$STR_KPLIB_DIALOG_PRODUCTIONMGR_TITLE";
@@ -96,7 +96,7 @@ class KPLIB_productionMgr {
         };
 
         //class KPLIB_DialogArea : KPGUI_PRE_DialogBackgroundS {
-        class KPLIB_DialogArea : XGUI_PRE_DialogBackgroundC {
+        class KPLIB_productionMgr_dialogArea : XGUI_PRE_DialogBackgroundC {
             x = KPLIB_PRODUCTIONMGR_DIALOG_XC;
             w = KPLIB_PRODUCTIONMGR_DIALOG_WC;
         };
@@ -125,7 +125,7 @@ class KPLIB_productionMgr {
             onLBSelChanged = "_this spawn KPLIB_fnc_productionMgr_lnbSectors_onLBSelChanged";
         };
 
-        class KPLIB_ctrl_lnbStatus : XGUI_PRE_ListNBox {
+        class KPLIB_productionMgr_lnbStatus : XGUI_PRE_ListNBox {
             idc = KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS;
             x = KPLIB_PRODUCTIONMGR_LNBSTATUS_XC;
             y = KPLIB_PRODUCTIONMGR_LNBSTATUS_YC;
@@ -143,7 +143,7 @@ class KPLIB_productionMgr {
             onLBDblClick = "_this spawn KPLIB_fnc_productionMgr_lnbStatus_onLBDblClick";
         };
 
-        class KPLIB_ctrl_lnbQueue : XGUI_PRE_ListNBox {
+        class KPLIB_productionMgr_lnbQueue : XGUI_PRE_ListNBox {
             idc = KPLIB_IDC_PRODUCTIONMGR_LNBQUEUE;
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_XC;
             y = KPLIB_PRODUCTIONMGR_LNBQUEUE_YC;
@@ -161,106 +161,106 @@ class KPLIB_productionMgr {
             onLBDblClick = "_this spawn KPLIB_fnc_productionMgr_lnbQueue_onLBDblClick";
         };
 
-        class KPLIB_ctrl_lblTimeRemaining : XGUI_PRE_Label {
+        class KPLIB_productionMgr_lblTimeRem : XGUI_PRE_Label {
             x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
-            text = "TIME REMAINING:";
+            text = "$STR_KPLIB_PRODUCTIONMGR_LBLTIMREM_TEXT";
         };
 
-        class KPLIB_ctrl_lblTimeRemainingFormatted : XGUI_PRE_Label {
-            idc = KPLIB_IDC_PRODUCTIONMGR_LBLTIMEREMAININGFORMATTED;
+        class KPLIB_productionMgr_txtTimeRem : XGUI_PRE_Label {
+            idc = KPLIB_IDC_PRODUCTIONMGR_TXTTIMEREM;
             x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
 
             style = ST_RIGHT;
 
-            text = "$STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_NIL";
+            text = "$STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_NIL";
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_lblTimeRemainingFormatted_onLoad";
+            onLoad = "_this spawn KPLIB_fnc_productionMgr_txtTimeRem_onLoad";
         };
 
-        class KPLIB_ctrl_btnRemove : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnRemove : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "> DEQ";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNREMOVE_TEXT";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_btnIncreasePriority : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnIncreasePriority : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XM;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "+ PRI";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNINCREASEPRI_TEXT";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "(_this + [[1]]) call KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_btnDecreasePriority : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnDecreasePriority : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XR;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "- PRI";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNDECREASEPRI_TEXT";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "(_this + [[-1]]) call KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_btnEnqueueSupply : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnEnqueueSupply : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XL;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "< SUP";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNENQSUP_TEXT";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_btnEnqueueAmmo : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnEnqueueAmmo : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XM;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "< AMM";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNENQAMM_TEXT";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_btnEnqueueFuel : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnEnqueueFuel : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_XR;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
             // TODO: TBD: refactor to string table... can unicode be supported (?)
-            text = "< FUE";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNENQFUE_TEXT";
             sizeEx = KPX_TEXT_S;
 
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_map : XGUI_PRE_MapControl {
+        class KPLIB_productionMgr_map : XGUI_PRE_MapControl {
             x = KPLIB_PRODUCTIONMGR_MAPCTRL_XC;
             y = KPLIB_PRODUCTIONMGR_MAPCTRL_YC;
             w = KPLIB_PRODUCTIONMGR_MAPCTRL_W;
             h = KPLIB_PRODUCTIONMGR_MAPCTRL_H;
         };
 
-        class KPLIB_ctrl_btnRefresh : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnRefresh : XGUI_PRE_Button {
             idc = KPLIB_IDC_PRODUCTIONMGR_CTRL_BTNREFRESH;
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(2));
@@ -272,7 +272,7 @@ class KPLIB_productionMgr {
             onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnRefresh_onButtonClick";
         };
 
-        class KPLIB_ctrl_btnApply : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnApply : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
@@ -283,7 +283,7 @@ class KPLIB_productionMgr {
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_ctrl_btnClose : XGUI_PRE_Button {
+        class KPLIB_productionMgr_btnClose : XGUI_PRE_Button {
             x = KPLIB_PRODUCTIONMGR_CTRLAREA_XC;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
@@ -294,7 +294,7 @@ class KPLIB_productionMgr {
             onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
         };
 
-        class KPLIB_DialogCross : XGUI_PRE_DialogCrossC {
+        class KPLIB_productionMgr_ctrlCross : XGUI_PRE_DialogCrossC {
             x = KPLIB_PRODUCTIONMGR_CROSS_XC;
         };
     };

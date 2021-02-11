@@ -66,8 +66,8 @@ class productionMgr {
     // Queue list box onLBDblClick event handler
     class productionMgr_lnbQueue_onLBDblClick {};
 
-    // Loads the time remaining formatted text
-    class productionMgr_lblTimeRemainingFormatted_onLoad {};
+    // Loads the time remaining text
+    class productionMgr_txtTimeRem_onLoad {};
 
     // ...
     class productionMgr_ctrlBg_title_onLoad {};
@@ -103,5 +103,5 @@ class productionMgr {
     class productionMgr_productionElemViews_onQueue {};
 
     // Arranges the production element view
-    class productionMgr_productionElemViews_onTimeRemaining {};
+    class productionMgr_productionElemViews_onTimeRem {};
 };
