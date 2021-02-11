@@ -247,6 +247,7 @@ class KPLIB_productionMgr {
         };
 
         class KPLIB_productionMgr_map : XGUI_PRE_MapControl {
+            idc = KPLIB_IDC_PRODUCTIONMGR_CTRLMAP;
             x = KPLIB_PRODUCTIONMGR_MAPCTRL_XC;
             y = KPLIB_PRODUCTIONMGR_MAPCTRL_YC;
             w = KPLIB_PRODUCTIONMGR_MAPCTRL_W;

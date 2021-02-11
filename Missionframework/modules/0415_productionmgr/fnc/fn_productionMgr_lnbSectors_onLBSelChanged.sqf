@@ -89,3 +89,21 @@ private _productionElem = (_selected#0);
         , KPLIB_fnc_productionMgr_txtTimeRem_onLoad
     ]
 ];
+
+// Done, fini; we could get fancier with it, I suppose, but this meets the objective for now.
+[markerPos _markerName] call {
+    params [
+        ["_sectorPos", KPLIB_zeroPos, [[]], 3]
+    ];
+
+    // TODO: TBD: discover nearby storage containers and present them as well...
+    // TODO: TBD: because remember we want to sort out the whole building thing...
+    // TODO: TBD: we should start with a dedicated storage build sequence first...
+    // TODO: TBD: then examine both for consistencies, differences, patterns, etc...
+    // TODO: TBD: however, that's not for this sprint...
+
+    private _ctrlMap = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_CTRLMAP;
+
+    _ctrlMap ctrlMapAnimAdd [0, 0.1, _sectorPos];
+    ctrlMapAnimCommit _ctrlMap;
+};
