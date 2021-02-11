@@ -92,7 +92,6 @@ class KPLIB_productionMgr {
             x = KPLIB_PRODUCTIONMGR_TITLE_XC;
             w = KPLIB_PRODUCTIONMGR_TITLE_WC;
             text = "$STR_KPLIB_DIALOG_PRODUCTIONMGR_TITLE";
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_ctrlBg_title_onLoad";
         };
 
         //class KPLIB_DialogArea : KPGUI_PRE_DialogBackgroundS {
@@ -165,7 +164,7 @@ class KPLIB_productionMgr {
             x = KPLIB_PRODUCTIONMGR_LBLTIMEREM_X;
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LBLTIMEREM_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LBLTIMEREM_W;
-            text = "$STR_KPLIB_PRODUCTIONMGR_LBLTIMREM_TEXT";
+            text = "$STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_TEXT";
         };
 
         class KPLIB_productionMgr_txtTimeRem : XGUI_PRE_Label {
@@ -186,11 +185,10 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
-            // TODO: TBD: refactor to string table... can unicode be supported (?)
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNREMOVE_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnDequeue_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnIncreasePriority : XGUI_PRE_Button {
@@ -198,11 +196,10 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
-            // TODO: TBD: refactor to string table... can unicode be supported (?)
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNINCREASEPRI_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "(_this + [[1]]) call KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "(_this + [[1]]) call KPLIB_fnc_productionMgr_btnChangePriority_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnDecreasePriority : XGUI_PRE_Button {
@@ -210,11 +207,10 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
-            // TODO: TBD: refactor to string table... can unicode be supported (?)
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNDECREASEPRI_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "(_this + [[-1]]) call KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "(_this + [[-1]]) call KPLIB_fnc_productionMgr_btnChangePriority_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnEnqueueSupply : XGUI_PRE_Button {
@@ -222,11 +218,10 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
-            // TODO: TBD: refactor to string table... can unicode be supported (?)
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNENQSUP_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "(_this + [[0]]) spawn KPLIB_fnc_productionMgr_btnEnqueue_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnEnqueueAmmo : XGUI_PRE_Button {
@@ -234,11 +229,10 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
-            // TODO: TBD: refactor to string table... can unicode be supported (?)
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNENQAMM_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "(_this + [[1]]) spawn KPLIB_fnc_productionMgr_btnEnqueue_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnEnqueueFuel : XGUI_PRE_Button {
@@ -246,11 +240,10 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_LNBQUEUE_YC,KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBQUEUE_BTN_W;
 
-            // TODO: TBD: refactor to string table... can unicode be supported (?)
             text = "$STR_KPLIB_PRODUCTIONMGR_BTNENQFUE_TEXT";
             sizeEx = KPX_TEXT_S;
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "(_this + [[2]]) spawn KPLIB_fnc_productionMgr_btnEnqueue_onButtonClick";
         };
 
         class KPLIB_productionMgr_map : XGUI_PRE_MapControl {
@@ -266,8 +259,7 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(2));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
-            // TODO: TBD: refactor to string table...
-            text = "Refresh";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNREFRESH_TEXT";
 
             onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnRefresh_onButtonClick";
         };
@@ -277,10 +269,9 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(1));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
-            // TODO: TBD: refactor to string table...
-            text = "Apply";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNAPPLY_TEXT";
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnApply_onButtonClick";
         };
 
         class KPLIB_productionMgr_btnClose : XGUI_PRE_Button {
@@ -288,10 +279,9 @@ class KPLIB_productionMgr {
             y = KPX_GETYT_VYH(KPLIB_PRODUCTIONMGR_CTRLAREA_YC,KPLIB_PRODUCTIONMGR_BTN_GETDELTAH(0));
             w = KPLIB_PRODUCTIONMGR_LNBSECTORS_W;
 
-            // TODO: TBD: refactor to string table...
-            text = "Close";
+            text = "$STR_KPLIB_PRODUCTIONMGR_BTNCLOSE_TEXT";
 
-            onLoad = "_this spawn KPLIB_fnc_productionMgr_onLoad_debug";
+            onButtonClick = "_this spawn KPLIB_fnc_productionMgr_btnClose_onButtonClick";
         };
 
         class KPLIB_productionMgr_ctrlCross : XGUI_PRE_DialogCrossC {

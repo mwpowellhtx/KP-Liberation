@@ -55,12 +55,12 @@ private _productionElem = (_selected#0);
     [
         _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onStatus
         , _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onQueue
-        , _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onTimeRemaining
+        , _productionElem call KPLIB_fnc_productionMgr_productionElemViews_onTimeRem
     ];
 } params [
     "_statusView"
     , "_queueView"
-    , "_timeRemainingView"
+    , "_timeRemView"
 ];
 
 {
@@ -85,7 +85,7 @@ private _productionElem = (_selected#0);
     ]
     , [
         KPLIB_IDC_PRODUCTIONMGR_TXTTIMEREM
-        , _timeRemainingView
+        , _timeRemView
         , KPLIB_fnc_productionMgr_txtTimeRem_onLoad
     ]
 ];

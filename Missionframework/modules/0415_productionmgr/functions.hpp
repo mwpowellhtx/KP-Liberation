@@ -69,14 +69,23 @@ class productionMgr {
     // Loads the time remaining text
     class productionMgr_txtTimeRem_onLoad {};
 
-    // ...
-    class productionMgr_ctrlBg_title_onLoad {};
+    // Enqueue resource onButtonClick event handler
+    class productionMgr_btnEnqueue_onButtonClick {};
 
-    // ...
-    class productionMgr_onLoad_debug {};
+    // Dequeue resource onButtonClick event handler
+    class productionMgr_btnDequeue_onButtonClick {};
+
+    // Change queue priority onButtonClick event handler
+    class productionMgr_btnChangePriority_onButtonClick {};
 
     // Refresh button onButtonClick event handler
     class productionMgr_btnRefresh_onButtonClick {};
+
+    // Apply button onButtonClick event handler
+    class productionMgr_btnApply_onButtonClick {};
+
+    // Close button onButtonClick event handler
+    class productionMgr_btnClose_onButtonClick {};
 
     // ProductionResponse event handler for client server engagement
     class productionMgr_onProductionResponse {};
@@ -87,10 +96,10 @@ class productionMgr {
     // Allows for introspection of the production manager currently selected production tuple
     class productionMgr_getProductionElement {};
 
-    // ...
+    // Sets additional data or value for the specified CT_LISTNBOX and '_rowIndex'
     class productionMgr_setAdditionalDataOrValue {};
 
-    // ...
+    // Gets additional data or value for the specified CT_LISTNBOX and '_rowIndex'
     class productionMgr_getAdditionalDataOrValue {};
 
     // Arranges the production element view
