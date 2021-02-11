@@ -41,6 +41,9 @@ if (_debug) then {
         , str [count _production]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
+// Which allows for cases when we are refreshing the list, leave the selection intact
+private _previousIndex = lnbCurSelRow _lnbSectors;
+
 lnbClear _lnbSectors;
 
 private _view = _production apply {
@@ -59,6 +62,12 @@ if (!(_view isEqualTo [])) then {
         [_lnbSectors, _rowIndex, _markerName] call KPLIB_fnc_productionMgr_setAdditionalDataOrValue;
 
     } forEach _view;
+};
+
+// Allow the index to be re-selected when necessary, i.e. receiving updates from the server
+if (_previousIndex >= 0) then {
+    // Taking into account any overages in the new view
+    _lnbSectors lnbSetCurSelRow (_previousIndex min (count _view));
 };
 
 if (_debug) then {
