@@ -6,8 +6,10 @@
 * Added: Connected _change production priority buttons_ as well. Everything upstream from the server, then server responses, is in place, pretty much, we think. Always notwithstanding opportunity for tweak, typo or bug correction, of course.
 * Added: Additional _production manager_ glue connecting _sector list box selection_ with the rest of the controls on the dialog.
 * Added: Added _timers_ support rendering _time remaining_ to `#.##:##:##` string representation. That is, _days_, _hours_, _minutes_, _seconds_, in an extreme case. Minimum possibly format is `##:##`, or _minutes_ and _seconds_.
+* Added: _Production manager map_ now responds to _sectors list box_ navigation accordingly.
 * Added:
 * Tweaked: Adding _production capability_ to _factory sectors_ now also provides _production element response_ for purposes of refreshing _production manager_ UI.
+* Tweaked: Updated some _production manager_ UI event handlers a little bit. Tweaked _double click_ behavior for the _status_ and _queue list boxes_, which now _enqueue_ or _dequeue_ pending resources in an intuitive manner.
 * Tweaked:
 * Refactored:
 * Bug:
