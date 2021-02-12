@@ -101,14 +101,14 @@ if (hasInterface) then {
     // Register Build module as FOB building provider
     ["KPLIB_fob_build_requested", {
         params [
-            ["_object", objNull, [objNull]]
+            ["_boxOrTruck", objNull, [objNull]]
             , ["_pos", KPLIB_zeroPos, [[]], 3]
         ];
         if (KPLIB_param_debug || KPLIB_param_builddebug) then {
-            [format ["[KPLIB_fob_build_requested::callback] [_object, getPos _object]: %1"
-                , str [_object, getPos _object]], "BUILD", true] call KPLIB_fnc_common_log;
+            [format ["[KPLIB_fob_build_requested::callback] [_boxOrTruck, getPos _boxOrTruck]: %1"
+                , str [_boxOrTruck, getPos _boxOrTruck]], "BUILD", true] call KPLIB_fnc_common_log;
         };
-        KPLIB_build_fobBuildObject = _object;
+        KPLIB_build_fobBuildObject = _boxOrTruck;
         if (_pos isEqualTo KPLIB_zeroPos) then {
             _pos = getPos KPLIB_build_fobBuildObject;
         };
