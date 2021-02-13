@@ -66,4 +66,4 @@ KPLIB_sectorType_mob     = 99;
 
 ["Module initialized", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
 
-true
+true;

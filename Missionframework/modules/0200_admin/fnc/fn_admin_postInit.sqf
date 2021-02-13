@@ -40,6 +40,113 @@ if (hasInterface) then {
         , -1
     ];
     [_actionArray] call CBA_fnc_addPlayerAction;
+
+    // TODO: TBD: these are a really shorthand, short term helper
+    KPLIB_fnc_admin_respawnOnFobBox = {
+        _obj = vehicles select {typeOf _x isEqualTo KPLIB_preset_fobBoxF} select 0;
+        _pos = getPos _obj;
+        player setPos [(_pos#0), (_pos#1) + 10, 0.1];
+    };
+
+    KPLIB_fnc_admin_deleteFobBuildings = {
+        {
+            deleteVehicle _x;
+        } forEach (nearestObjects [player, [], 100] select {
+            _x isKindOf "Building";
+        });
+    };
+
+    KPLIB_fnc_admin_resetFobs = {
+        {
+            deleteVehicle _x;
+        } forEach KPLIB_persistence_objects;
+        KPLIB_persistence_objects = [];
+        {
+            deleteMarker (_x#0#0);
+        } forEach KPLIB_sectors_fobs;
+        KPLIB_sectors_fobs = [];
+        [] spawn KPLIB_fnc_init_save;
+    };
+
+    KPLIB_fnc_admin_onMoveFobBoxToMap = {
+        params ["_pos", "_alt", "_shift"];
+        systemChat format ["[fn_admin_postInit] Map clicked: [_pos]: %1", str [_pos]];
+        private _obj = vehicles select {typeOf _x isEqualTo KPLIB_preset_fobBoxF} select 0;
+        _obj setPos [(_pos#0), (_pos#1), 0.1];
+        [] spawn {
+            openMap false;
+        };
+        true;
+    };
+
+    KPLIB_fnc_admin_onTeleportPlayer = {
+        params ["_pos", "_alt", "_shift"];
+        systemChat format ["[fn_admin_postInit] Map clicked: [_pos]: %1", str [_pos]];
+        player setPos [(_pos#0), (_pos#1), 0.1];
+        [] spawn {
+            openMap false;
+        };
+        true;
+    };
+
+    addMissionEventHandler ["MapSingleClick", {
+        params ["_units", "_pos", "_alt", "_shift"];
+        if (isNil "KPLIB_fnc_map_onMapSingleClick") exitWith {
+            true;
+        };
+        private _callback = KPLIB_fnc_map_onMapSingleClick;
+        KPLIB_fnc_map_onMapSingleClick = nil;
+        private _retval = [_pos, _alt, _shift] call _callback;
+        if (_alt) then {
+            [] call KPLIB_fnc_admin_respawnOnFobBox;
+        };
+        _retval;
+    }];
+
+    // TODO: TBD: potentially with its own blend of an FSM... i.e. watches the callback, when not nil, opens the map...
+    private _moveFobBoxActionArray = [
+        "== MOVE FOB BOX TO MAP =="
+        , {
+            KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onMoveFobBoxToMap;
+            [] spawn {
+                openMap true;
+            };
+        }
+        , nil
+        , KPLIB_ACTION_PRIORITY_FOBBOXMOVE
+        , false
+        , true
+        , ""
+        , '
+            _target isEqualTo _originalTarget
+            && serverCommandAvailable "#kick"
+        '
+        , -1
+    ];
+
+    [_moveFobBoxActionArray] call CBA_fnc_addPlayerAction;
+
+    private _teleportActionArray = [
+        "== TELEPORT =="
+        , {
+            KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onTeleportPlayer;
+            [] spawn {
+                openMap true;
+            };
+        }
+        , nil
+        , KPLIB_ACTION_PRIORITY_TELEPORT
+        , false
+        , true
+        , ""
+        , '
+            _target isEqualTo _originalTarget
+            && serverCommandAvailable "#kick"
+        '
+        , -1
+    ];
+
+    [_teleportActionArray] call CBA_fnc_addPlayerAction;
 };
 
 ["Module initialized", "POST] [ADMIN", true] call KPLIB_fnc_common_log;

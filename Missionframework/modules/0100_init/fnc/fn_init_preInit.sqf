@@ -50,8 +50,6 @@ KPLIB_sectors_blufor = [];
 KPLIB_sectors_city = [];
 // All factory sectors
 KPLIB_sectors_factory = [];
-// Positions of all FOBs
-KPLIB_sectors_fobs = [];
 // Locked vehicles <-> military bases connection array
 KPLIB_sectors_lockedVeh = [];
 // Markers for the locked vehicles

@@ -26,6 +26,7 @@ if (isServer) then {
 [] call KPLIB_fnc_core_settings;
 
 if (isServer) then {
+
     [
         "KPLIB_vehicle_spawned"
         , {[_this select 0] call KPLIB_fnc_core_handleVehicleSpawn}
@@ -57,4 +58,4 @@ if (isServer) then {
     ["Module initialized", "PRE] [CORE", true] call KPLIB_fnc_common_log;
 };
 
-true
+true;

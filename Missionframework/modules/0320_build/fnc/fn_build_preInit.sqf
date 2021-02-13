@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-01-27 22:27:18
+    Last Update: 2021-02-12 08:23:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -48,6 +48,20 @@ KPLIB_build_fobBuildObject = objNull;
 // Categorized buildable items
 KPLIB_build_categoryItems = [];
 
+/*
+ * Let this serve as documentation for the shape of the builtItem tuple:
+ *  _className - the class name of the object being built
+ *  _costSupply - the cost in terms of [S]upply
+ *  _costAmmo - the cost in terms of [A]mmo
+ *  _costFuel - the cost in terms of [F]uel
+ */
+KPLIB_build_buildItemTemplate = [
+    ""
+    , 0
+    , 0
+    , 0
+];
+
 if (isServer) then {
 
     // Register sector info var for persistence
@@ -63,15 +77,17 @@ if (isServer) then {
     // Register save event handler
     ["KPLIB_doSave", {[] call KPLIB_fnc_build_saveData}] call CBA_fnc_addEventHandler;
 
-    ["KPLIB_build_item_built", {
+    private _onServerBuildItemBuilt = {
+        private _debug = [] call KPLIB_fnc_build_debug;
+
         // _markerName of the FOB at which the object was built
         params [
             ["_object", objNull, [objNull]]
             , ["_markerName", "", [""]]
         ];
 
-        if (KPLIB_param_builddebug) then {
-            [format ["[KPLIB_build_item_built::callback] [_object, _markerName]: %1"
+        if (_debug) then {
+            [format ["[fn_build_preInit::_onServerBuildItemBuilt] [_object, _markerName]: %1"
                 , str [_object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
         };
 
@@ -88,39 +104,23 @@ if (isServer) then {
             //                         1. _markerName:  ^^^^^^^^
             //                         2. _sectorType:              ^^^^^^^^
             //                         3.       _uuid:                          ^^^^^^^^
-            _object call KPLIB_fnc_persistence_makePersistent;
         };
-    }] call CBA_fnc_addEventHandler;
+
+        _object call KPLIB_fnc_persistence_makePersistent;
+
+        // Must also save the mission when reaching this moment
+        [] spawn KPLIB_fnc_init_save;
+    };
+
+    ["KPLIB_build_item_built", _onServerBuildItemBuilt] call CBA_fnc_addEventHandler;
 };
 
 if (hasInterface) then {
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;
 
-    // TODO: TBD: could this be where we are missing direction, up, and any other orientation bits?
     // Register Build module as FOB building provider
-    ["KPLIB_fob_build_requested", {
-        params [
-            ["_boxOrTruck", objNull, [objNull]]
-            , ["_pos", KPLIB_zeroPos, [[]], 3]
-        ];
-        if (KPLIB_param_debug || KPLIB_param_builddebug) then {
-            [format ["[KPLIB_fob_build_requested::callback] [_boxOrTruck, getPos _boxOrTruck]: %1"
-                , str [_boxOrTruck, getPos _boxOrTruck]], "BUILD", true] call KPLIB_fnc_common_log;
-        };
-        KPLIB_build_fobBuildObject = _boxOrTruck;
-        if (_pos isEqualTo KPLIB_zeroPos) then {
-            _pos = getPos KPLIB_build_fobBuildObject;
-        };
-        // TODO: TBD: somewhere between "here" and starting the single for the FOB building...
-        // TODO: TBD: something is being forgotten, dots are not connecting, especially re: dir/up vectors...
-        // Start single item build for fob building
-        // TODO: TBD: additionally instead of the nakedly public variable, should consider whether we need a variable at all...
-        [_pos, nil, [KPLIB_preset_fobBuildingF, 0, 0, 0], {
-            // On confirm callback, create FOB on server
-            [_this select 0, KPLIB_build_fobBuildObject] remoteExec ["KPLIB_fnc_build_handleFobBuildConfirm", 2];
-         }] call KPLIB_fnc_build_start_single;
-    }] call CBA_fnc_addEventHandler;
+    ["KPLIB_fob_build_requested", KPLIB_fnc_build_onFobBuildRequested] call CBA_fnc_addEventHandler;
 
     player addEventHandler ["Killed", KPLIB_fnc_build_stop];
 
