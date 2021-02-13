@@ -31,7 +31,7 @@
 
 params [
     ["_values", [], [[]]]
-    , ["_selector", { (_this#0) }, [{}]]
+    , ["_selector", { (_this#0); }, [{}]]
     , ["_includeIndex", true, [true]]
 ];
 
