@@ -47,7 +47,7 @@ private _onSelectEdenTuple = {
     private _selected = _edens select {
         private _proxy = missionNamespace getVariable [(_x#2), objNull];
         //                               1. _varName:   ^^^^
-        "KPLIB_eden_flightDeckProxy" in allVariables _proxy;
+        toLower "KPLIB_eden_flightDeckProxy" in allVariables _proxy;
     };
 
     // Get the target marker that in range of the asset being moved
@@ -71,7 +71,7 @@ if (isNil "_eden") exitWith {
 };
 
 // Get the designated proxy object given the startbase.
-private _flightDeckProxy = [(missionNamespace getVariable [(_eden#2), objNull]) getVariable ["KPLIB_eden_flightDeckProxy", ""]] call {
+private _flightDeckProxy = [(missionNamespace getVariable [(_eden#2), objNull]) getVariable [toLower "KPLIB_eden_flightDeckProxy", ""]] call {
     params ["_variable"];
     if (_variable == "") then { objNull; } else {
         missionNamespace getVariable [_variable, objNull];
