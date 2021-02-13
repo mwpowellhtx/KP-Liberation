@@ -66,7 +66,7 @@ if (isServer) then {
 
     // Register sector info var for persistence
     private _persistenceVars = [
-        ["KPLIB_sector_info"]
+        ["KPLIB_nearestMarker"]
     ];
 
     [_persistenceVars] call KPLIB_fnc_persistence_addPersistentVars;
@@ -94,16 +94,18 @@ if (isServer) then {
         // TODO: TBD: "skip storage areas" (?) will need to review this one...
         // Skip storage areas
         if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
-            private _selectedFobs = KPLIB_sectors_fobs select {(_x#0#0) isEqualTo _markerName};
-            //                                1. _markerName:   ^^^^^^
+            private _selectedFobs = KPLIB_sectors_fobs select {(_x#0) isEqualTo _markerName};
             // TODO: TBD: if we're here we can be confident we're here?
             // TODO: TBD: see pattern: fn_build_preInit, fn_build_loadData
-            private _fob = _selectedFobs select 0;
+            //private _fob = _selectedFobs select 0;
             // TODO: TBD: should factor in a helper "transform/selector function" ... (?)
-            _object setVariable ["KPLIB_sector_info", [(_fob#0#0), (_fob#1#3), (_fob#1#0)], true];
+            //_object setVariable ["KPLIB_nearestMarker", [(_fob#0#0), (_fob#1#3), (_fob#1#0)], true];
             //                         1. _markerName:  ^^^^^^^^
             //                         2. _sectorType:              ^^^^^^^^
             //                         3.       _uuid:                          ^^^^^^^^
+            //// TODO: TBD: again with the setting of variables...
+            //// TODO: TBD: yes, we will want to gather the objects and assign them UUID etc
+            //// TODO: TBD: for static or immovable objects, should be no big deal then, they always remain as such
         };
 
         _object call KPLIB_fnc_persistence_makePersistent;

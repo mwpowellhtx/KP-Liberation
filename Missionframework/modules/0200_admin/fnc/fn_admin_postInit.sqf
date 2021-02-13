@@ -62,7 +62,7 @@ if (hasInterface) then {
         } forEach KPLIB_persistence_objects;
         KPLIB_persistence_objects = [];
         {
-            deleteMarker (_x#0#0);
+            deleteMarker (_x#0);
         } forEach KPLIB_sectors_fobs;
         KPLIB_sectors_fobs = [];
         private _h = [] spawn KPLIB_fnc_init_save;

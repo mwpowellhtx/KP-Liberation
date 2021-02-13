@@ -9,12 +9,11 @@
     Public: No
 
     Description:
-        Creates an Eden tuple corresponding to the input parameters.
+        Returns one element in the 'KPLIB_sectors_edens' array.
 
     Parameter(s):
         _varName - the 'missionNamespace' variable name [STRING, default: ""]
         _proxy - the 'missionNamespace' object corresponding _varName [OBJECT, default: ""]
-        _side - the side, in game terms, of the tuple [SIDE, default: KPLIB_preset_sideF]
 
     Returns:
         [] - when _proxy was objNull
@@ -37,27 +36,23 @@ if (isNull _proxy) then {
     _proxy = missionNamespace getVariable [_varName, objNull];
 };
 
-// And if proxy is STILL null, then return empty.
-if (isNull _proxy) exitWith {[]};
+// Return only when we have a non-null proxy in hand
+if (!isNull _proxy) exitWith {
 
-/* The goal here is to not only keep the intermediate variables during tuple
- * deconstruction to a minimum, but also to tighten up the point of interest
- * construct altogether. Especially as we approach downstream bits such as
- * production, logistics, etc. We want to keep the tuple breadth to a minimum
- * and tight. */
+    /* The goal here is to not only keep the intermediate variables during tuple
+    * deconstruction to a minimum, but also to tighten up the point of interest
+    * construct altogether. Especially as we approach downstream bits such as
+    * production, logistics, etc. We want to keep the tuple breadth to a minimum
+    * and tight. */
 
-private _ident = [
-    [_varName, "_marker"] joinString ""
-    , _proxy getVariable ["KPLIB_eden_markerText", localize "STR_KPLIB_MAINBASE"]
-    , _varName
-    , getPosATL _proxy
-];
+    private _retval = +[
+        [_varName, "_marker"] joinString ""
+        , _proxy getVariable ["KPLIB_eden_markerText", localize "STR_KPLIB_MAINBASE"]
+        , _varName
+        , [] call KPLIB_fnc_uuid_create_string
+        , getPosATL _proxy
+        , systemTime
+    ];
 
-private _info = [
-    KPLIB_sectorType_eden
-    , KPLIB_preset_sideF
-    , systemTime
-    , call KPLIB_fnc_uuid_create_string
-];
-
-+[_ident, _info]
+    _retval;
+};

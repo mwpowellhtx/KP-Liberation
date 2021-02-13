@@ -33,11 +33,9 @@ params [
 ];
 
 private _applied = KPLIB_sectors_fobs apply {
-    private _dist2d = if (isNull _target) then {-1} else {
-                    (_x#0#3) distance2D _target;
-        // 1. _pos:  ^^^^^^
-    };
-    [_target, _dist2d, _x]
+    private _dist2d = if (isNull _target) then {-1} else { (_x#4) distance2D _target; };
+                            // 1. KPLIB_sectors_fobs: _pos: ^^^^
+    [_target, _dist2d, _x];
 };
 
 _applied select {_x call _predicate};

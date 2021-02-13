@@ -36,20 +36,12 @@ if (isServer) then {
 // Player section
 if (hasInterface) then {
 
-    //// TODO: TBD: was this...
-    //private _garrisonCondition = '
-    //    _target isEqualTo _originalTarget &&
-    //    !(_originalTarget getVariable ["KPLIB_fob", ""] isEqualTo "") &&
-    //    !(KPLIB_sectors_blufor isEqualTo []) &&
-    //    ["GarrisonDialogAccess"] call KPLIB_fnc_permission_checkPermission
-    //';
-
     // TODO: TBD: ditto helper functions...
     private _garrisonCondition = '
         _target isEqualTo _originalTarget
-        && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_fob]
-        && !(KPLIB_sectors_blufor isEqualTo [])
-        && ["GarrisonDialogAccess"] call KPLIB_fnc_permission_checkPermission
+          && !(KPLIB_sectors_blufor isEqualTo [])
+          && ["GarrisonDialogAccess"] call KPLIB_fnc_permission_checkPermission
+          && [_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
     ';
 
     // TODO: TBD: should really go in a proper "setup player actions" file...

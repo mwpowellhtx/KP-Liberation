@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-05-28
-    Last Update: 2021-01-26 12:01:54
+    Last Update: 2021-02-13 07:12:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,24 +20,13 @@
         Function reached the end [BOOL]
 */
 
-//private _dep = [
-//    "KPLIB_sectorType_eden"
-//    , "KPLIB_sectorType_fob"
-//];
-
-//waitUntil {
-//    _dep = _dep select {isNil _x};
-//    _dep isEqualTo [];
-//};
-
 // Actions available LOCALLY to player
 if (hasInterface) then {
 
-    // TODO: TBD: condition was: _target isEqualTo _originalTarget && !(_originalTarget getVariable ["KPLIB_fob", ""] isEqualTo "")
-    // TODO: TBD: also needing helper functions to filter on the fields...
     private _fobRedeployCondition = '
         _target isEqualTo _originalTarget
-        && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_eden, KPLIB_sectorType_fob]
+          && ([_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
+            || [_target, KPLIB_param_edenRange, KPLIB_sectors_edens] call KPLIB_fnc_common_getTargetMarkerInRange)
     ';
 
     // FOB redeploy action
@@ -56,4 +45,4 @@ if (hasInterface) then {
     [_actionArray] call CBA_fnc_addPlayerAction;
 };
 
-true
+true;

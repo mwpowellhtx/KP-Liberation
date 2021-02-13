@@ -23,17 +23,12 @@
 // Actions available LOCALLY to player
 if (hasInterface) then {
 
-    //// TODO: TBD: baseline was this:
-    // (_target == _originalTarget)
-    // && !(_originalTarget getVariable ["KPLIB_fob", ""] in ["", "KPLIB_eden_startbase_marker"])
-    // && (["Build"] call KPLIB_fnc_permission_checkPermission)
-
     // TODO: TBD: ditto helper functions...
     // We can know more specifically the _sectorType, so just do it.
     private _buildCondition = '
         _target == _originalTarget
-        && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_fob]
-        && ["Build"] call KPLIB_fnc_permission_checkPermission
+          && ["Build"] call KPLIB_fnc_permission_checkPermission
+          && [_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
     ';
 
     private _onPlayerBuild = {
@@ -59,4 +54,4 @@ if (hasInterface) then {
     [_actionArray] call CBA_fnc_addPlayerAction;
 };
 
-true
+true;

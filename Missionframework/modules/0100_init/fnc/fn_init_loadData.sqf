@@ -105,14 +105,11 @@ if (_moduleData isEqualTo []) then {
     KPLIB_sectors_blufor = +_blufor;
     publicVariable "KPLIB_sectors_blufor";
 
+    // TODO: TBD: considering, however, whether such data could be affixed as a persistent object variable...
     /* Assuming the FOB building itself lands correctly in the persistence
      * objects, then we also have the data corresponding to that FOB building. */
 
     KPLIB_sectors_fobs = +_fobs;
-
-    // TODO: TBD: should consider an update markers event handler...
-    // Update the FOB markers prior to publishing
-    [] call KPLIB_fnc_core_updateFobMarkers;
 
     // Publish FOB positions
     publicVariable "KPLIB_sectors_fobs";

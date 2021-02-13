@@ -38,6 +38,10 @@ if (isServer) then {
             , {[_this select 0] call KPLIB_fnc_common_clearVehicleCargo}
         ] call CBA_fnc_addEventHandler;
     };
+
+    KPLIB_core_fobMarkerType = "b_hq";
+    KPLIB_core_fobMarkerSize = [1.5, 1.5];
+    KPLIB_core_fobMarkerColor = "ColorYellow";
 };
 
 /*
@@ -53,6 +57,14 @@ KPLIB_fob_empty = +[
 KPLIB_core_potato01 = objNull;
 // Deploy button trigger for redeploy dialog
 KPLIB_dialog_deploy = 0;
+
+if (isServer) then {
+    //// TODO: TBD: not sure quite what the thought process was that included factory markers... these are simple 'sectors'
+    //["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_updateFactoryMarkers;}] call CBA_fnc_addEventHandler;
+
+    // TODO: TBD: additionally, 'sector markers' should probably be defined...
+    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_updateSectorMarkers;}] call CBA_fnc_addEventHandler;
+};
 
 if (isServer) then {
     ["Module initialized", "PRE] [CORE", true] call KPLIB_fnc_common_log;

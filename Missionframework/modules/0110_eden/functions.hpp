@@ -21,8 +21,8 @@ class eden {
     // Creates a new Eden tuple given basic information
     class eden_create {};
 
-    // Creates or updates the marker associated with the Eden tuple
-    class eden_createOrUpdateMarker {};
+    // Creates or updates the marker associated with the known Eden tuples
+    class eden_onUpdateMarkers {};
 
     // Enumerates the Eden instances discovered via the missionNamespace variables
     class eden_enumerate {};

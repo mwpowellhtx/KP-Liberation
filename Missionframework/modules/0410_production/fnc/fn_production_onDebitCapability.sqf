@@ -66,6 +66,7 @@ private _status = KPLIB_production_addCap_clear;
     ["_markerName", "", [""]]
     , ["_baseMarkerText", "", [""]]
 ];
+// Marker name of the designated resource from which to debit the cost
 private _resourceName = _markerName;
 private _range = KPLIB_param_sectorCapRange;
 
@@ -79,8 +80,10 @@ if (KPLIB_param_production_creditFob) then {
         _status = KPLIB_production_addCap_insufficientSumFob;
     } else {
         private _markerPos = markerPos _markerName;
-        private _fob = [KPLIB_sectors_fobs, { ((_x#0#0) distance2D _markerPos); }] call KPLIB_fnc_linq_min;
-        _resourceName = (_fob#0#0);
+        // Minding the Ps and Qs, first for Min, then for 'KPLIB_sectors_fobs'
+        private _fob = [KPLIB_sectors_fobs, { (_this#0#4) distance2D _markerPos; }] call KPLIB_fnc_linq_min;
+        //                                     ^^^^^^^^^
+        _resourceName = (_fob#0);
         _range = KPLIB_param_fobRange;
     };
 };

@@ -21,11 +21,10 @@
 */
 
 params [
-    ["_range", 0, [0]],
-    ["_centerPos", getPos player, [[]], 3],
-    ["_markers", KPLIB_sectors_all, [[]]]
+    ["_range", 0, [0]]
+    , ["_centerPos", getPos player, [[]], 3]
+    , ["_markers", KPLIB_sectors_all, [[]]]
 ];
-
 
 private _markersWithinRange =  _markers select {((markerPos _x) distance2D _centerPos) < _range};
 private _markersAscByRange = [_markersWithinRange, [_centerPos], {(markerPos _x) distance2D _input0}, "ASCEND"] call BIS_fnc_sortBy;

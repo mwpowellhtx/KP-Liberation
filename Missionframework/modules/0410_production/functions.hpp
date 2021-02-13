@@ -76,4 +76,7 @@ class production {
 
     // Client server CBA event handler responding to 'KPLIB_production_onAddCapability'
     class production_server_onAddCapability {};
+
+    // Updates the factory markers
+    class production_updateFactoryMarkers {};
 };

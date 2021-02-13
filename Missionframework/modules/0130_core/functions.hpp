@@ -84,12 +84,6 @@ class core {
     // Spawning of the start vehicles
     class core_spawnStartVeh {};
 
-    // Updates the fob markers labels
-    class core_updateFobMarkers {};
-
     // Updates the sector marker colors
     class core_updateSectorMarkers {};
-
-    // Rebuilds the FOB from saved state upon load
-    class core_rebuildFob {};
 };

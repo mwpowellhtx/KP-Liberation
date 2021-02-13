@@ -96,6 +96,10 @@ if (isServer) then {
     // Register save event handler
     ["KPLIB_doSave", {[] call KPLIB_fnc_init_saveData;}] call CBA_fnc_addEventHandler;
 
+    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_init_updateEdenMarkers;}] call CBA_fnc_addEventHandler;
+
+    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_init_updateFobMarkers;}] call CBA_fnc_addEventHandler;
+
     // Load preset files
     [] call KPLIB_fnc_init_loadPresets;
 };

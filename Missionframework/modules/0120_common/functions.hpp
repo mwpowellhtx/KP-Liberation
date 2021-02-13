@@ -50,11 +50,17 @@ class common {
     // Gets path for className icon
     class common_getIcon {};
 
-    // Returns the full [_sectorInfo] tuple from the _target object, if possible [default: ["", "", KPLIB_sectorType_nil]]
-    //                                                                         _markerType: ^^
-    //                                                                               _uuid:     ^^
-    //                                                                         _sectorType:         ^^^^^^^^^^^^^^^^^^^^
-   class common_getSectorInfo {};
+    /* Returns the nearest marker to the target, defaults to include all sectors, start bases and fobs
+     * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
+   class common_getNearestMarker {};
+
+    /* Returns whether the target is within range of the specified sectors.
+     * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
+    class common_getTargetMarkerInRange {};
+
+    /* Returns the nearest marker to the target within range of the specified sectors.
+     * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
+    class common_getTargetMarkerIfInRange {};
 
     // TODO: TBD: note, that we try to maintain some consistency, for now...
     // TODO: TBD: the machinery, best term for it, facilitating the whole build procedure really is massive

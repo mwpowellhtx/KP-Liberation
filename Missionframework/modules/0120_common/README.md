@@ -45,9 +45,9 @@ This module uses no data or functions from other modules.
 
   *Gets path for className icon.*
 
-* KPLIB_fnc_common_getSectorInfo
+* KPLIB_fnc_common_getNearestMarker
 
-  *Returns the* `KPLIB_sector_info` *variable value from the target object if possible; empty string otherwise. Defaults to* `["", "", KPLIB_sectorType_nil]`*.*
+  *Returns the nearest sector marker to the &apos;_target&apos;; &apos;_sectors&apos; defaults to ALL, literally, all sectors, including Eden start bases and FOB zones. Additionally, the function is no longer concerned with ranges and simply returns the nearest marker, leaving it to the caller to make such decisions.*
 
 * KPLIB_fnc_common_getPlayerFob
 

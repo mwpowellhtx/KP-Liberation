@@ -12,10 +12,16 @@
 */
 scriptName "KPLIB_sectorMonitor";
 
-if(isServer) then {
+if (isServer) then {
 
     // Update sector markers every time sector state was changed
-    {[_x, {[] call KPLIB_fnc_core_updateSectorMarkers}] call CBA_fnc_addEventHandler;} forEach ["KPLIB_sector_activated", "KPLIB_sector_deactivated"];
+    {
+        private _eventName = _x;
+        [_eventName, {[] call KPLIB_fnc_core_updateSectorMarkers;}] call CBA_fnc_addEventHandler;
+    } forEach [
+        "KPLIB_sector_activated"
+        , "KPLIB_sector_deactivated"
+    ];
 
     // Init function, executed every time whole list of sectors was iterated
     private _initFunction = {
@@ -47,5 +53,4 @@ if(isServer) then {
         {},     // End condition
         ["_sectors"]      // Privates to serialize between calls
     ] call CBA_fnc_createPerFrameHandlerObject;
-
 };

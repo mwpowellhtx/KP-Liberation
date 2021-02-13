@@ -4,7 +4,7 @@
     File: fn_production_isNearCapturedFactory.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 00:00:10
-    Last Update: 2021-02-05 00:00:16
+    Last Update: 2021-02-13 09:22:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -27,16 +27,17 @@
 params [
     ["_target", player, [objNull]]
     , ["_range", 0, [0]]
-    , ["_predicate", {true}, [{}]]
+    , ["_predicate", { true; }, [{}]]
     , ["_predicateArgs", [], [[]]]
 ];
 
-private _markerName = [_range, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
+// Start with the '_markerName' itself because we need to verify side...
+// TODO: TBD: might actually have some confusion between core and common...
+// TODO: TBD: actually, might make better sense to move these to core, and update how the "getnearestmarker" works in the first place...
+private _markerName = [_target, KPLIB_sectors_factory] call KPLIB_fnc_common_getNearestMarker;
 
-// TODO: TBD: for now returning BOOL, we think that will be sufficient
-// TODO: TBD: really we want to respond with the nearest sector '_markerName' ...
-// TODO: TBD: so that we can follow up and do further operations involving that marker if possible
-// TODO: TBD: i.e. identify _production, build a storage container, so on and so forth...
-
-(_markerName in KPLIB_sectors_blufor)
-&& ([_target, _range, _markerName, _predicateArgs] call _predicate);
+// Then we may also focus the actual range check, predicate, etc...
+_markerName in KPLIB_sectors_blufor
+    && [_target, _range, [_markerName]] call KPLIB_fnc_core_getTargetMarkerInRange
+    && [_target, _range, _markerName, _predicateArgs] call _predicate
+    ;

@@ -36,7 +36,7 @@ if((_boxWreck distance2D KPLIB_eden_boxspawn) < 10 && !alive _boxWreck) exitWith
 private _spawnPos = getPosATL KPLIB_eden_boxspawn;
 
 // Create FOB box at the spawn position with a slight height offset.
-private _fobBox = [KPLIB_preset_fobBoxF, [_spawnPos select 0, _spawnPos select 1, (_spawnPos select 2) + 0.1], getDir KPLIB_eden_boxspawn, true] call KPLIB_fnc_common_createVehicle;
+private _fobBox = [KPLIB_preset_fobBoxF, [(_spawnPos#0), (_spawnPos#1), (_spawnPos#2) + 0.1], getDir KPLIB_eden_boxspawn, true] call KPLIB_fnc_common_createVehicle;
 
 // TODO: TBD: should account for when a FOB box is still around, i.e. tearing down the FOB for relocation elsewhere...
 // Add random FOB placement action for start FOB box

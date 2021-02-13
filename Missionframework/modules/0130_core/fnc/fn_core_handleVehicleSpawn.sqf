@@ -61,7 +61,9 @@ switch (typeOf _vehicle) do {
         // Handle some additional MR bookkeeping.
         //// TODO: TBD: don't think we care about setting a UUID on the object itself any longer...
         //_vehicle setVariable ["KPLIB_uuid", [] call KPLIB_fnc_uuid_create_string, true];
-        _vehicle setVariable ["KPLIB_sectorType", KPLIB_sectorType_mob, true];
+
+        //// TODO: TBD: because we are walking away from the notion of "sector type" ...
+        //_vehicle setVariable ["KPLIB_sectorType", KPLIB_sectorType_mob, true];
 
         // Add redeploy action globaly and for JIP
         [
@@ -102,7 +104,7 @@ switch (typeOf _vehicle) do {
             _vehicle
             , "STR_KPLIB_ACTION_ASSETMOVE"
             , [
-                {[_this select 0] call KPLIB_fnc_eden_assetToFlightDeck;}
+                {[(_this#0)] call KPLIB_fnc_eden_assetToFlightDeck;}
                 , nil
                 , KPLIB_ACTION_PRIORITY_ASSETMOVE
                 , true

@@ -54,14 +54,16 @@ if (_debug) then {
 private _fob = [getPos _fobBuilding] call KPLIB_fnc_core_buildFob;
 
 if (isNull _fobBuilding) exitWith {
-    [_fob#0#3, _fob#1#2, _fob#1#3] params ["_pos", "_est", "_uuid"];
+    // Minding our 'KPLIB_sectors_fobs' tuples...
+    [_fob#3, _fob#4, _fob#5] params ["_uuid", "_pos", "_est"];
     [[_est] call KPLIB_fnc_time_formatSystemTime, mapGridPosition _pos] params ["_timestamp", "_gref"];
     [format ['FOB "%1" established %2 at grid ref %3', _uuid, _timestamp, _gref], "BUILD"] call KPLIB_fnc_common_log;
     false;
 };
 
 // Emit the built event with FOB and object to assign the object to freshly built FOB
-["KPLIB_build_item_built", [_fobBuilding, (_fob#0#0)]] call CBA_fnc_globalEvent;
+["KPLIB_build_item_built", [_fobBuilding, (_fob#0)]] call CBA_fnc_globalEvent;
+//                        1. _markerName:  ^^^^^^
 
 // Remove FOB box from which FOB build originated
 deleteVehicle _fobBoxObject;

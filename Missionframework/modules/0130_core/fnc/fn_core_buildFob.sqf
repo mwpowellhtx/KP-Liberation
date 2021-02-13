@@ -26,20 +26,20 @@ params [
     , ["_uuid", "", [""]]
 ];
 
-private _fob = [_buildPos, _est, _uuid] call KPLIB_fnc_core_createFob;
+private _fob = [_buildPos] call KPLIB_fnc_core_createFob;
 
 // TODO: TBD: assumes that the FOB POI does not yet exist...
 KPLIB_sectors_fobs pushBack _fob;
+
+// TODO: TBD: should probably connect this via CBA client/server event as well...
+publicVariable "KPLIB_sectors_fobs";
 
 // TODO: TBD: circle back on the event, must now handle the FOB shape...
 // TODO: TBD: posting the event could/should effectively public the var, also update the markers...
 ["KPLIB_fob_built", _fob] call CBA_fnc_globalEvent;
 
-// TODO: TBD: we might actually refactor "updating markers" to a separate CBA based event handler...
-// TODO: TBD: i.e. update FOB markers, update factory markers, so on and so forth...
-// Update the markers prior to publishing.
-[] call KPLIB_fnc_core_updateFobMarkers;
+// TODO: TBD: will need to sprinkle this in several places most likely...
+// TODO: TBD: investigate usages of the update functions and replace with this...
+["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
 
-publicVariable "KPLIB_sectors_fobs";
-
-_fob
+_fob;

@@ -30,11 +30,10 @@ _curator call KPLIB_fnc_virtual_curatorRemoveFobIcons;
 
 // Add FOB icons to curator
 private _fobIcons = KPLIB_sectors_fobs apply {
+    [(_x#1), (_x#4)] params ["_markerText", "_pos"];
     [
         _curator
-        , ["#(argb,8,8,3)color(0,0,0,0)", [1, 1, 1, 1], (_x#0#3), 0, 0, 0, (_x#0#1), 2, 0.05]
-        //                              1.        _pos:  ^^^^^^
-        //                              2. _markerText:                     ^^^^^^
+        , ["#(argb,8,8,3)color(0,0,0,0)", [1, 1, 1, 1], _pos, 0, 0, 0, _markerText, 2, 0.05]
         , false
         , true
     ] call BIS_fnc_addCuratorIcon

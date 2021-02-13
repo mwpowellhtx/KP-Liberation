@@ -4,12 +4,13 @@
     File: fn_eden_selectWithFlightDeck.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 11:42:32
-    Last Update: 2021-01-28 11:42:34
+    Last Update: 2021-02-13 10:14:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Selects the Eden bits within range of the asset with `KPLIB_eden_flightDeckProxy` designation.
+        Queries aspects of the KPLIB_sectors_edens with regard to being within range
+        of the asset with `KPLIB_eden_flightDeckProxy` designation.
 
     Parameters:
         _asset - The asset informing the startbase selection algorithm [OBJECT, default: objNull]
@@ -21,7 +22,7 @@
     Remarks:
         At this level we do not care whether there actually is a 'KPLIB_eden_flightDeckProxy' object.
         We just want the Eden bits selected that are within range and eligibility.
-*/
+ */
 
 params [
     ["_asset", objNull, [objNull]]
@@ -30,9 +31,9 @@ params [
 
 private _onWithFlightDeck = {
     params ["_target", "_dist2d", "_eden"];
-    private _proxy = missionNamespace getVariable (_eden#0#2);
+    private _proxy = missionNamespace getVariable (_eden#2);
     _dist2d <= _range
-    && (_proxy getVariable ["KPLIB_eden_flightDeckProxy", ""] != "")
+        && (_proxy getVariable ["KPLIB_eden_flightDeckProxy", ""] != "");
 };
 
 // Identify the Eden bits near the asset, and which support flight deck proxies

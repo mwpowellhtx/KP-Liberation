@@ -38,6 +38,7 @@ switch (LGVAR_D(buildMode, KPLIB_build_buildMode_move)) do {
         _buildList ctrlEnable false;
 
         private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
+        // TODO: TBD: yes, so we need another event loop that watches persistence objects relative to FOBs...
         private _movableItems = (KPLIB_persistence_objects select {([_x] call KPLIB_fnc_common_getPlayerFob) isEqualTo _markerName}) select {!isNull _x};
         LSVAR("buildQueue_buy", _currentItems);
         LSVAR("buildQueue", _movableItems);

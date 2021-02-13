@@ -18,7 +18,7 @@
         Function reached the end [BOOL]
 */
 
-if(KPLIB_ace_medical || (KPLIB_param_reviveMode isEqualTo 0)) exitWith {
+if (KPLIB_ace_medical || (KPLIB_param_reviveMode isEqualTo 0)) exitWith {
     ["Skipping BIS revive initialization!", "CORE"] call KPLIB_fnc_common_log;
 };
 
@@ -38,6 +38,6 @@ KPLIB_param_reviveBleedOutDuration call BIS_fnc_paramReviveBleedOutDuration;
 KPLIB_param_reviveForceRespawnDuration call BIS_fnc_paramReviveForceRespawnDuration;
 
 // Initialize BIS revive
-call BIS_fnc_reviveInit;
+[] call BIS_fnc_reviveInit;
 
 true

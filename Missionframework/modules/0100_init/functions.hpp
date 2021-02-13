@@ -78,4 +78,10 @@ class init {
 
     // Completely wipes all data from the current campaign
     class init_wipe {};
+
+    // Updates the Eden markers
+    class init_updateEdenMarkers {};
+
+    // Updates the FOB markers
+    class init_updateFobMarkers {};
 };

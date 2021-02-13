@@ -21,10 +21,9 @@
 */
 
 private _spawns = KPLIB_sectors_edens apply {
-    private _pos = (_x#0#3);
+    [(_x#1), (_x#4)] params ["_markerText", "_pos"];
     [
-        format ["%1 - %2", mapGridPosition _pos, (_x#0#1)]
-        //                 1. _markerText:        ^^^^^^
+        format ["%1 - %2", mapGridPosition _pos, _markerText]
         , _pos
     ];
 };
@@ -32,12 +31,9 @@ private _spawns = KPLIB_sectors_edens apply {
 _spawns append (KPLIB_sectors_fobs apply {
     // TODO: TBD: see: i.e. [_forEachIndex] call KPLIB_fnc_common_indexToMilitaryAlpha
     // Assumes that the FOB markers have already been refreshed; see docs for the tuple specs.
-    private _pos = (_x#0#3);
+    [(_x#1), (_x#4)] params ["_markerText", "_pos"];
     [
-        // TODO: TBD: allowing the bits to all identify themselves in position and marker text...
-        // TODO: TBD: which gets us much closder to a repeatable, deterministic pattern...
-        format ["%1 - %2", mapGridPosition _pos, (_x#0#1)]
-        //                 1. _markerText:        ^^^^^^
+        format ["%1 - %2", mapGridPosition _pos, _markerText]
         , _pos
     ];
 });

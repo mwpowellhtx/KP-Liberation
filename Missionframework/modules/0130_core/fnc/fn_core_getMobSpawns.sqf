@@ -17,7 +17,7 @@
 
     Returns:
         Mobile spawn objects [ARRAY]
-*/
+ */
 
 vehicles select {
 
@@ -28,13 +28,14 @@ vehicles select {
     // TODO: TBD: could potentially configure these...
     [5, 5] params ["_maxZ", "_maxMom"];
 
+    // TODO: TBD: may validate the UUID ...
+    // TODO: TBD: we'll likely want another per frame updater... for assets transit in and out of zones, Eden, FOB, etc...
     alive _x
-    && (_x getVariable ["KPLIB_sectorType", KPLIB_sectorType_nil]) in [KPLIB_sectorType_mob]
-    && ([_x, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_nil]
-    && (
-        (surfaceIsWater _pos && _x isKindOf "Ship")
-        || !(surfaceIsWater _pos || _x isKindOf "Ship")
-    )
-    && (_pos#2) < _maxZ
-    && _currentMom < _maxMom
+        && !((_x getVariable ["KPLIB_nearestMarker", ""]) isEqualTo "")
+        && (
+            (surfaceIsWater _pos && _x isKindOf "Ship")
+                || !(surfaceIsWater _pos || _x isKindOf "Ship")
+        )
+        && (_pos#2) < _maxZ
+        && _currentMom < _maxMom;
 }

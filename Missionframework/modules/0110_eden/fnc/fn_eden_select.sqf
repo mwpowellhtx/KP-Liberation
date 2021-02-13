@@ -29,15 +29,13 @@
 
 params [
     ["_target", objNull, [objNull]]
-    , ["_predicate", {false}, [{}]]
+    , ["_predicate", { false; }, [{}]]
 ];
 
 private _applied = KPLIB_sectors_edens apply {
-    private _dist2d = if (isNull _target) then {-1} else {
-                    (_x#0#3) distance2D _target;
-        // 1. _pos:  ^^^^^^
-    };
-    [_target, _dist2d, _x]
+    private _dist2d = if (isNull _target) then {-1} else { (_x#4) distance2D _target; };
+    //                                            1. _pos:  ^^^^
+    [_target, _dist2d, _x];
 };
 
 _applied select {_x call _predicate};

@@ -17,7 +17,11 @@
     Reference:
 */
 
-["Module initializing...", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
+private _debug = [] call KPLIB_fnc_debug_debug;
+
+if (_debug) then {
+    ["Module initializing...", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
+};
 
 //// TODO: TBD: assumes only one such marker...
 //// TODO: TBD: what happens when there are several mobile respawn assets in play?
@@ -33,37 +37,48 @@ KPLIB_eden_respawnPos = getMarkerPos "respawn";
 */
 KPLIB_eden_markerType = "mil_start";
 
-/* DeployType enumerated:
- *
- * -1: Deploy type unknown, 'nil'
- * 10: Operations start base
- * 11: Forward operating base
- * 20: Radio tower
- * 30: Township
- * 31: Metropolis
- * 40: Factory
- * 50: Enemy military base
- * 99: Mobile respawn
- *
- * Note, we do not expect that all of the possible sector types will be relayed for
- * player, but that disposition could change depending how requirements mature.
- *
- * Additionally, although we do not expect the set of sector types to grow, we will
- * leave room just the same.
- *
- * Ordinarily bits such as these should go in the 'init' module, but we need them
- * during Eden initialization.
- */
-KPLIB_sectorType_nil     = -1;
-KPLIB_sectorType_eden    = 10;
-KPLIB_sectorType_fob     = 11;
-KPLIB_sectorType_tower   = 20;
-KPLIB_sectorType_town    = 30;
-KPLIB_sectorType_metro   = 31;
-KPLIB_sectorType_factory = 40;
-KPLIB_sectorType_mil     = 50;
-KPLIB_sectorType_mob     = 99;
+//// TODO: TBD: we think this is unnecessary after all...
+//// TODO: TBD: our aim then is to make a best, good faith effort to utilize the markers with maximum effect...
+// /* DeployType enumerated:
+//  *
+//  * -1: Deploy type unknown, 'nil'
+//  * 10: Operations start base
+//  * 11: Forward operating base
+//  * 20: Radio tower
+//  * 30: Township
+//  * 31: Metropolis
+//  * 40: Factory
+//  * 50: Enemy military base
+//  * 99: Mobile respawn
+//  *
+//  * Note, we do not expect that all of the possible sector types will be relayed for
+//  * player, but that disposition could change depending how requirements mature.
+//  *
+//  * Additionally, although we do not expect the set of sector types to grow, we will
+//  * leave room just the same.
+//  *
+//  * Ordinarily bits such as these should go in the 'init' module, but we need them
+//  * during Eden initialization.
+//  */
+// KPLIB_sectorType_nil     = -1;
+// KPLIB_sectorType_eden    = 10;
+// KPLIB_sectorType_fob     = 11;
+// KPLIB_sectorType_tower   = 20;
+// KPLIB_sectorType_town    = 30;
+// KPLIB_sectorType_metro   = 31;
+// KPLIB_sectorType_factory = 40;
+// KPLIB_sectorType_mil     = 50;
+// KPLIB_sectorType_mob     = 99;
+//// TODO: TBD: excepting possibly for mobile respawn identification...
+//// TODO: TBD: and then I think we simply identify a UUID variable on these assets indicating it is "respawn" and get the ID...
 
-["Module initialized", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
+if (isServer) then {
+    // Server side init
+    ["KPLIB_updateMarkers", KPLIB_fnc_eden_onUpdateMarkers] call CBA_fnc_addEventHandler;
+};
+
+if (_debug) then {
+    ["Module initialized", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
+};
 
 true;

@@ -19,7 +19,9 @@
         Module postInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "POST] [CORE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "POST] [CORE", true] call KPLIB_fnc_common_log;
+};
 
 // Initialize BIS Revive
 [] call KPLIB_fnc_core_reviveInit;
@@ -32,21 +34,22 @@ if (isServer) then {
     [] call KPLIB_fnc_core_spawnStartFobBox;
     [] call KPLIB_fnc_core_spawnStartVeh;
     [] call KPLIB_fnc_core_spawnPotato;
-    [] call KPLIB_fnc_core_updateSectorMarkers;
+    //// TODO: TBD: refactored to 'KPLIB_updateMarkers' event handler
+    //[] call KPLIB_fnc_core_updateSectorMarkers;
     execVM "modules\0130_core\scripts\server\sectorMonitor.sqf";
     execVM "modules\0130_core\scripts\server\eventLoop.sqf";
 };
 
-// HC section
 if (!hasInterface && !isDedicated) then {
-
+    // HC section
 };
 
-// Player section
 if (hasInterface) then {
-
+    // Player section
 };
 
-if (isServer) then {["Module initialized", "POST] [CORE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "POST] [CORE", true] call KPLIB_fnc_common_log;
+};
 
-true
+true;

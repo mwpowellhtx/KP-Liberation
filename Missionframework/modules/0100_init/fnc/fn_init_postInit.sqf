@@ -32,6 +32,7 @@ if (!isServer) then {
     // Load current save
     [] call KPLIB_fnc_init_load;
 
+    // TODO: TBD: per event handlers are potentially severe enough, should be its own module...
     // Add saveTimer per frame handler
     [{
         params ["_args", "_handle"];
@@ -51,6 +52,8 @@ if (!isServer) then {
 
     // Place down Antennas at Radio Tower sectors
     [] call KPLIB_fnc_init_placeTowers;
+
+    ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
 
     ["Module initialized", "POST] [INIT", true] call KPLIB_fnc_common_log;
 };

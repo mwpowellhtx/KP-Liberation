@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-11-14
-    Last Update: 2021-01-27 10:51:08
+    Last Update: 2021-02-13 07:14:02
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -21,13 +21,10 @@
 */
 
 // Actions available LOCALLY to player
-
-// TODO: TBD: ditto helper functions...
-// TODO: TBD: condition was: _target isEqualTo _originalTarget && !(_originalTarget getVariable ["KPLIB_fob", ""] isEqualTo "")
-// TODO: TBD: might also make some sense for ARSENAL to be available from mobile respawn, or at least optionally
 private _arsenalCondition = '
     _target isEqualTo _originalTarget
-    && ([_originalTarget, {_this#1}] call KPLIB_fnc_common_getSectorInfo) in [KPLIB_sectorType_eden, KPLIB_sectorType_fob]
+      && ([_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
+        || [_target, KPLIB_param_edenRange, KPLIB_sectors_edens] call KPLIB_fnc_common_getTargetMarkerInRange)
 ';
 
 // Arsenal action
@@ -45,4 +42,4 @@ private _actionArray = [
 
 [_actionArray] call CBA_fnc_addPlayerAction;
 
-true
+true;

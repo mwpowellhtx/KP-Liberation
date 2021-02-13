@@ -3,8 +3,9 @@
 
     File: fn_core_updateSectorMarkers.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-10-27
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-10-27
+    Last Update: 2021-02-12 20:23:11
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -19,9 +20,16 @@
 */
 
 // Color change for the main sector markers.
-{_x setMarkerColor KPLIB_preset_colorE;} forEach (KPLIB_sectors_all - KPLIB_sectors_blufor - KPLIB_sectors_active);
-{_x setMarkerColor KPLIB_preset_colorActE;} forEach KPLIB_sectors_active;
-{_x setMarkerColor KPLIB_preset_colorF;} forEach KPLIB_sectors_blufor;
+{
+    _x setMarkerColor KPLIB_preset_colorE;
+} forEach (KPLIB_sectors_all - KPLIB_sectors_blufor - KPLIB_sectors_active);
+{
+    _x setMarkerColor KPLIB_preset_colorActE;
+} forEach KPLIB_sectors_active;
+
+{
+    _x setMarkerColor KPLIB_preset_colorF;
+} forEach KPLIB_sectors_blufor;
 
 // Color change for the locked vehicle markers.
 {
@@ -36,4 +44,4 @@
     };
 } forEach KPLIB_sectors_lockedVehMarkers;
 
-true
+true;

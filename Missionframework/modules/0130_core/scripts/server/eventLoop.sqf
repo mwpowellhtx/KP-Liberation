@@ -9,7 +9,7 @@
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-    Does periodic checks on players and emits events when necessary
+        Does periodic checks on players and emits events when necessary
 */
 
 // Init function for event loop, executed every time whole list of player was iterated
@@ -17,15 +17,8 @@ private _onEventLoopStart = {
     _tick = 0;
     _players = [] call CBA_fnc_players;
     _playerCount = count _players;
-    // TODO: TBD: we are doing this in at least 3x places... so we really should consider a proper helper for it...
-    private _onTransformPfh = {
-                            [(_x#0#0), (_x#1#0), (_x#1#3)];
-        // 1. _markerText:    ^^^^^^
-        // 2. _sectorType:              ^^^^^^
-        // 3.       _uuid:                        ^^^^^^
-    };
-    _edens = KPLIB_sectors_edens apply _onTransformPfh;
-    _fobs = KPLIB_sectors_fobs apply _onTransformPfh;
+    _edens = +KPLIB_sectors_edens;
+    _fobs = +KPLIB_sectors_fobs;
     _edenRange = KPLIB_param_edenRange;
     _fobRange = KPLIB_param_fobRange;
 };
@@ -34,60 +27,25 @@ private _onEventLoopStart = {
 [
     {
         private _currentPlayer = _players select _tick;
+
         // Increment the counter
         _tick = _tick + 1;
 
-        private _defaultG = ["", KPLIB_sectorType_nil, ""];
-        private _defaultArgs = +([0] + _defaultG);
+        private _default = "";
 
-        // TODO: TBD: I know what they were trying for with the 'inArea' approach...
-        // TODO: TBD: however, I think we need to account for potentially overlapping Eden points, from a top down 2D perspective...
-        // TODO: TBD: and not use 'inArea' or even 'distance2D', but potentially actual 'distance'.
-        private _onAggregateMarkerName = {
-            params [
-                ["_g", _defaultG, [[]], 3]
-                , ["_args", _defaultArgs, [[]], 4]
-            ];
-            // TODO: TBD: which, if we are transforming here as well, we really might use a to/from transformation util functions...
-            _args params [
-                ["_range", 0, [0]]
-                , ["_markerName", "", [""]]
-                , ["_sectorType", KPLIB_sectorType_nil, [0]]
-                , ["_uuid", "", [""]]
-            ];
-            // TODO: TBD: could perhaps have some "min" functionality built in as well...
-            if (_g isEqualTo _defaultG && _currentPlayer inArea [getMarkerPos _markerName, _range, _range, 0, false]) then {
-                _g = [_markerName, _sectorType, _uuid];
-            };
-            _g
+        private _candidateMarkers = [
+            [_currentPlayer, _fobRange, _fobs, _default] call KPLIB_fnc_common_getTargetMarkerIfInRange
+            , [_currentPlayer, _edenRange, _edens, _default] call KPLIB_fnc_common_getTargetMarkerIfInRange
+        ];
+
+        private _selectedMarkers = _candidateMarkers select { !(_x isEqualTo _default); };
+
+        private _nearestMarker = if (_selectedMarkers isEqualTo []) then { _default; } else {
+        // And if in range is still not the case then clear the variable   ^^^^^^^^^
+            (_selectedMarkers#0);
         };
 
-        private _actualG = [_defaultG
-            , (_fobs apply {[_fobRange] + _x})
-                + (_edens apply {[_edenRange] + _x})
-            , _onAggregateMarkerName] call KPLIB_fnc_linq_aggregate;
-
-        private _currentG = [_currentPlayer, nil, _defaultG] call KPLIB_fnc_common_getSectorInfo;
-
-        // Only update and notify when there has been an actual noteworthy change.
-        if (!(_actualG isEqualTo _currentG)) then {
-
-            // Shape of the '_sectorInfo' tuple: [_markerName, _sectorType, _uuid]
-            _currentPlayer setVariable ["KPLIB_sector_info", _actualG];
-
-            // TODO: TBD: https://ace3mod.com/wiki/framework/events-framework.html#324-global-event
-            switch (true) do {
-                // TODO: TBD: 'KPLIB_player_fob' should we be raising this event also? ditto 'KPLIB_player_ops'.
-                // TODO: TBD: also events throughout this machinary pretty much deal in terms of marker names.
-                // TODO: TBD: should we simply consolidate to a "KPLIB_player_sector" event (?)
-                case (!((_edens select {(_x#0) isEqualTo (_actualG#0)}) isEqualTo [])): {
-                    ["KPLIB_player_ops", [_currentPlayer, _actualG#0]] call CBA_fnc_globalEvent;
-                };
-                case (!((_fobs select {(_x#0) isEqualTo (_actualG#0)}) isEqualTo [])): {
-                    ["KPLIB_player_fob", [_currentPlayer, _actualG#0]] call CBA_fnc_globalEvent;
-                };
-            };
-        };
+        _currentPlayer setVariable ["KPLIB_nearestMarker", _nearestMarker];
 
         // If we checked whole list, reinitialize the list
         if (_tick >= _playerCount) then {
@@ -106,8 +64,8 @@ private _onEventLoopStart = {
         , "_players"
         , "_playerCount"
         , "_edens"
-        , "_edenRange"
         , "_fobs"
+        , "_edenRange"
         , "_fobRange"
     ]   
 ] call CBA_fnc_createPerFrameHandlerObject;
