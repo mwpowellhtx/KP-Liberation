@@ -70,13 +70,13 @@
     <Package name="General">
         <!-- TODO: TBD: they need to be moved out of the General package (?) -->
         <Key ID="STR_KPLIB_TITLE">
-            <English>CTI 34 KP Liberation v0.98d.dev-s3</English>
+            <English>CTI 34 KP Liberation v0.98d.dev-s5</English>
         </Key>
         <Key ID="STR_SAVE_KEY">
             <English>KP_LIBERATION_%1_SAVEGAME_REWRITE_DEV</English>
         </Key>
         <Key ID="STR_KPLIB_VERSION">
-            <English>v0.98.dev-s3</English>
+            <English>v0.98.dev-s5</English>
         </Key>
         <Key ID="STR_KPLIB_DESCRIPTION">
             <English>Liberate the region from the enemy oppression! Strategy will be key! Good luck soldiers.</English>
