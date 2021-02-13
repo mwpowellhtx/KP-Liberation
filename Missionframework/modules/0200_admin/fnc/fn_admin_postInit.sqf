@@ -65,7 +65,7 @@ if (hasInterface) then {
             deleteMarker (_x#0#0);
         } forEach KPLIB_sectors_fobs;
         KPLIB_sectors_fobs = [];
-        [] spawn KPLIB_fnc_init_save;
+        private _h = [] spawn KPLIB_fnc_init_save;
     };
 
     KPLIB_fnc_admin_onMoveFobBoxToMap = {
