@@ -22,17 +22,9 @@ if (isServer) then {
     ["Module initializing...", "PRE] [PERSISTENCE", true] call KPLIB_fnc_common_log;
 };
 
-
 /*
     ----- Module Globals -----
 */
-
-KPLIB_persistence_objects = [];
-KPLIB_persistence_units = [];
-
-// List of variables that will be persisted
-KPLIB_persistenceSavedVars = [];
-
 
 /*
     ----- Module Initialization -----
@@ -40,6 +32,14 @@ KPLIB_persistenceSavedVars = [];
 
 // Server section (dedicated and player hosted)
 if (isServer) then {
+
+    // TODO: TBD: should be server side only (?)
+    KPLIB_persistence_objects = [];
+    KPLIB_persistence_units = [];
+
+    // List of variables that will be persisted
+    KPLIB_persistenceSavedVars = [];
+
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_persistence_loadData;}] call CBA_fnc_addEventHandler;
 

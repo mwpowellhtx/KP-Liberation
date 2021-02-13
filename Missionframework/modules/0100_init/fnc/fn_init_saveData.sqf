@@ -26,7 +26,7 @@ if (KPLIB_param_savedebug) then {
 // TODO: TBD: so... "all" sectors land in "blufor" sectors?
 // Set module data to save and send it to the global save data array
 ["init",
-    [
+    +[
         date // Current date and time
         , KPLIB_sectors_lockedVeh // Locked Vehicles array
         , KPLIB_sectors_blufor // Blufor sectors

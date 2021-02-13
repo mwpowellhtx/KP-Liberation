@@ -20,16 +20,31 @@
 */
 
 if (KPLIB_param_savedebug) then {
-    ["Persistence module saving...", "SAVE"] call KPLIB_fnc_common_log;
+    ["[fn_persistence_saveData] Module saving...", "SAVE"] call KPLIB_fnc_common_log;
 };
 
 KPLIB_persistence_objects = KPLIB_persistence_objects - [objNull];
 KPLIB_persistence_units = KPLIB_persistence_units select {alive _x};
 
+if (KPLIB_param_debug || KPLIB_param_savedebug) then {
+    [format ["[fn_persistence_saveData] Persistence objects: %1"
+        , KPLIB_persistence_objects apply { typeOf _x; }], "SAVE"] call KPLIB_fnc_common_log;
+};
+
 // Set module data to save and send it to the global save data array
 ["persistence", [
-    KPLIB_persistence_objects apply {[_x call KPLIB_fnc_persistence_serializeObject, _x call KPLIB_fnc_persistence_serializeVars]}
-    , KPLIB_persistence_units apply {[_x call KPLIB_fnc_persistence_serializeUnit, _x call KPLIB_fnc_persistence_serializeVars]}
+    KPLIB_persistence_objects apply {
+        [
+            _x call KPLIB_fnc_persistence_serializeObject
+            , _x call KPLIB_fnc_persistence_serializeVars
+        ]
+    }
+    , KPLIB_persistence_units apply {
+        [
+            _x call KPLIB_fnc_persistence_serializeUnit
+            , _x call KPLIB_fnc_persistence_serializeVars
+        ]
+    }
 ]] call KPLIB_fnc_init_setSaveData;
 
 true

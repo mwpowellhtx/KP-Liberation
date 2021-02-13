@@ -45,6 +45,7 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
     ];
 
     private _object = _serialized call KPLIB_fnc_persistence_deserializeObject;
+
     // Apply saved variables
     {
         _x params [
@@ -59,9 +60,15 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
         };
     } forEach _variables;
 
-    [_object] call KPLIB_fnc_persistence_callback_onFobFilter;
+    // Reserving further filtering of the objects for post init phase
+    _object;
 
 } select {!isNull _x};
+
+if (KPLIB_param_debug || KPLIB_param_savedebug) then {
+    [format ["[fn_persistence_loadData] Persistence objects: %1"
+        , KPLIB_persistence_objects apply { typeOf _x; }], "SAVE"] call KPLIB_fnc_common_log;
+};
 
 // Load units
 KPLIB_persistence_units = (_moduleData#1) apply {
@@ -70,6 +77,7 @@ KPLIB_persistence_units = (_moduleData#1) apply {
     ];
 
     private _unit = _serialized call KPLIB_fnc_persistence_deserializeUnit;
+
     // Apply saved variables
     {
         _x params [["_var", nil], ["_val", nil], ["_global", false]];
@@ -80,8 +88,8 @@ KPLIB_persistence_units = (_moduleData#1) apply {
         };
     } forEach _variables;
 
-    [_unit] call KPLIB_fnc_persistence_callback_onFobFilter;
+    _unit;
 
 } select {!isNull _x};
 
-true
+true;

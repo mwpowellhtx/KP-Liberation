@@ -48,6 +48,15 @@ if (_moduleData isEqualTo []) then {
     };
     publicVariable "KPLIB_sectors_lockedVeh";
 } else {
+
+    // TODO: TBD: introduce more error handling...
+    _moduleData params [
+        ["_date", [], [[]]]
+        , ["_lockedVics", [], [[]]]
+        , ["_blufor", [], [[]]]
+        , ["_fobs", [], [[]]]
+    ];
+
     // Otherwise start applying the saved data
     if (KPLIB_param_debug) then {
         ["Init module data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
@@ -55,15 +64,15 @@ if (_moduleData isEqualTo []) then {
 
     // Set saved date and time
     setDate [
-        (_moduleData select 0) select 0,
-        (_moduleData select 0) select 1,
-        (_moduleData select 0) select 2,
-        (_moduleData select 0) select 3,
-        (_moduleData select 0) select 4
+        _date#0
+        , _date#1
+        , _date#2
+        , _date#3
+        , _date#4
     ];
 
     // Check for deleted military sectors or deleted classnames in the locked vehicles array
-    KPLIB_sectors_lockedVeh = _moduleData select 1;
+    KPLIB_sectors_lockedVeh = +_lockedVics;
     KPLIB_sectors_lockedVeh = KPLIB_sectors_lockedVeh select {(_x select 0) in KPLIB_preset_lockedVehPlF};
     KPLIB_sectors_lockedVeh = KPLIB_sectors_lockedVeh select {(_x select 1) in KPLIB_sectors_military};
 
@@ -93,57 +102,20 @@ if (_moduleData isEqualTo []) then {
 
     // TODO: TBD: which we will likely need to run through a similar round of wipe/transformations for sectors/factories as well...
     // Publish blufor sectors
-    KPLIB_sectors_blufor = _moduleData select 2;
+    KPLIB_sectors_blufor = +_blufor;
     publicVariable "KPLIB_sectors_blufor";
 
-    // TODO: TBD: should formalize health check tuple transforms...
-    // TODO: TBD: this one could be formalized to a first class CfgFunction function...
-    private _onUpdateSectorTuple = {
+    /* Assuming the FOB building itself lands correctly in the persistence
+     * objects, then we also have the data corresponding to that FOB building. */
 
-        private ["_ident", "_info"];
+    KPLIB_sectors_fobs = +_fobs;
 
-        // We allow properly transformed (default, i.e. current) cases to pass through.
-        private _retval = _this;
-
-        // Refer to the committed docs and 'kp-sectors-tuple-matrix.ods' for notes on the tuple shapes.
-        if (typeName _this == "ARRAY") then {
-            if (count _this == 4) then {
-                _ident = [
-                    _this#3#0      // Marker name
-                    , _this#3#1    // Marker text
-                    , _this#0      // Var name
-                    , _this#2#1    // AGL pos
-                ];
-                _info = [
-                    _this#2#0      // Sector type
-                    , _this#2#2    // Side
-                    , _this#1#1    // Est system time
-                    , _this#1#0    // Uuid
-                ];
-                _retval = +[_ident, _info];
-            };
-        };
-
-        _retval
-    };
-
-    private _loadedFobs = (_moduleData#3) apply {_x call _onUpdateSectorTuple};
-
-    // TODO: TBD: the difficult part of "rebuilding" FOB from scratch is that we lose comprehension on any other tuple bits we might have had...
-    // TODO: TBD: let's reconsider that primitive operation... or setup a wrapper operation that handls that detail for us...
-    {
-        // Rebuild each of the FOBs given the loaded data
-        [_x] call KPLIB_fnc_core_rebuildFob;
-        // TODO: TBD: what happens with persistent assets?
-        // TODO: TBD: these are obviously being re-loaded, we think... but where?
-        // TODO: TBD: should perchance be incorporated here, if the notes are accurate... (?)
-    } forEach _loadedFobs;
-
-    // Update the FOB markers prior to publishing.
+    // TODO: TBD: should consider an update markers event handler...
+    // Update the FOB markers prior to publishing
     [] call KPLIB_fnc_core_updateFobMarkers;
 
     // Publish FOB positions
     publicVariable "KPLIB_sectors_fobs";
 };
 
-true
+true;
