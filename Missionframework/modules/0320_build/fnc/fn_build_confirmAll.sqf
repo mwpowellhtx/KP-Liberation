@@ -4,8 +4,9 @@
 
     File: fn_build_confirmAll.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-11-28
-    Last Update: 2019-05-04
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-11-28
+    Last Update: 2021-02-12 10:41:18
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -19,20 +20,33 @@
         Items were built [BOOL]
 */
 
-private _validItems = LGVAR(buildQueue) select {_x getVariable ["KPLIB_validPos", true]};
-LSVAR("buildQueue", LGVAR(buildQueue) - _validItems);
+private _validItems = LGVAR(buildQueue) select {
+    _x getVariable ["KPLIB_validPos", true];
+};
+
+private _queue = LGVAR(buildQueue) - _validItems;
+
+LSVAR("buildQueue",_queue);
 
 {
-    private _dirAndUp = [vectorDir _x, vectorUp _x];
-    private _pos = getPosATL _x;
-    private _class = typeOf _x;
+    [
+        _x
+        , typeOf _x
+        , getPosATL _x
+        , [vectorDir _x, vectorUp _x]
+        , _x getVariable "KPLIB_build_price"
+    ] params [
+        "_obj"
+        , "_className"
+        , "_pos"
+        , "_dirAndUp"
+        , "_price"
+    ];
 
-    private _price = _x getVariable "KPLIB_build_price";
+    deleteVehicle _obj;
 
-    deleteVehicle _x;
-
-    [[_class, _pos, 0, true], _dirAndUp, _price, player] remoteExecCall ["KPLIB_fnc_build_confirmSingle", 2];
+    [[_className, _pos, 0, true], _dirAndUp, _price, player] remoteExecCall ["KPLIB_fnc_build_confirmSingle", 2];
 
 } forEach _validItems;
 
-true
+true;

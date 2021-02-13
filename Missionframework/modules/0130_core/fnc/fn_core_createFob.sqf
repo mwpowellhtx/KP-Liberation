@@ -33,26 +33,33 @@
             [_pos] call KPLIB_fnc_core_createFob
 */
 
+private _debug = [] call KPLIB_fnc_debug_debug;
+private _defaultUuid = [] call KPLIB_fnc_uuid_create_string;
+
 params [
     ["_pos", KPLIB_zeroPos, [[]], 3]
     , ["_est", systemTime, [[]], 7]
-    , ["_uuid", [] call KPLIB_fnc_uuid_create_string, [""]]
+    , ["_uuid", _defaultUuid, [""]]
 ];
 
-if (KPLIB_param_debug) then {
+if (_debug) then {
     [format ["[fn_core_createFob] Entering: [_pos, _est, _uuid]: %1", str [_pos, _est, _uuid]], "CORE", true] call KPLIB_fnc_common_log;
 };
 
 if (_pos isEqualTo KPLIB_zeroPos) exitWith {
-    if (KPLIB_param_debug) then {
+    if (_debug) then {
         ["[fn_core_createFob] Unable to establish FOB at zero pos", "CORE", true] call KPLIB_fnc_common_log;
     };
     [];
 };
 
 private _markerName = format ["KPLIB_fob_%1", _uuid];
+
 // TODO: TBD: upon refactor, i.e. with things such as "calculate marker text" being functionally injected...
-private _markerText = "";
+["", ""] params [
+    "_markerText"
+    , "_varName"
+];
 
 // TODO: TBD: more candidates for potentially preset variables... possibly even CBA parameters...
 private _markerType = "b_hq";
@@ -70,18 +77,24 @@ _markerName setMarkerType _markerType;
 _markerName setMarkerSize _markerSize;
 _markerName setMarkerColor _markerColor;
 
-// There is no 'name' for FOB tuples per se.
-private _varName = "";
-
 // Returns with the FOB version of the Sectors tuple.
-private _fob = +[
-    _varName
-    , [_uuid, _est]
-    , [KPLIB_sectorType_fob, _pos, KPLIB_preset_sideF]
-    , [_markerName, _markerText]
+private _ident = [
+    _markerName
+    , _markerText
+    , _varName
+    , _pos
 ];
 
-if (KPLIB_param_debug) then {
+private _info = [
+    KPLIB_sectorType_fob
+    , KPLIB_preset_sideF
+    , _est
+    , _uuid
+];
+
+private _fob = +[_ident, _info];
+
+if (_debug) then {
     [format ["[fn_core_createFob] Fini: _fob: %1", str _fob], "CORE", true] call KPLIB_fnc_common_log;
 };
 

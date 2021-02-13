@@ -5,35 +5,42 @@
 
     File: fn_build_start_single.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-09-09
-    Last Update: 2019-04-23
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-09-09
+    Last Update: 2021-02-12 09:00:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Starts KP Liberation building mode
+        Starts the building mode
 
     Parameter(s):
-        _center - Center of building area [POSITION, defaults to position player]
-        _radius - Allowed building radius [NUMBER, defaults to KPLIB_param_fobRange]
+        _center - Center of building area [POSITION, default: position player]
+        _radius - Allowed building radius [NUMBER, default: KPLIB_param_fobRange]
 
     Returns:
         Building logic object [LOCATION]
+
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/events/fnc_addEventHandlerArgs-sqf.html
 */
 
 params [
     ["_center", position player, [[]], 3],
-    ["_radius", (35 max KPLIB_param_fobRange/2), [0]],
+    // TODO: TBD: define sensible defaults in the CBA settings...
+    ["_radius", 50, [0]],
     ["_buildItem", [], [[]], 4],
     ["_onConfirm", {}, [{}]]
 ];
 
-if !(_buildItem isEqualTypeParams ["", 0, 0, 0]) exitWith {
-    [format ["Incorrect build item passed to build_start_single '%1'!", _buildItem], "BUILD"] call KPLIB_fnc_common_log
+if (!(_buildItem isEqualTypeParams KPLIB_build_buildItemTemplate)) exitWith {
+    [format ["[fn_build_start_single] Incorrect build item: '%1'!", str _buildItem], "BUILD"] call KPLIB_fnc_common_log
 };
 
-private _openEhId = ["KPLIB_build_display_open", {
-    params ["_display"];
+private _onOpenBuildDisplay = {
+    params [
+        ["_display", displayNull, [displayNull]]
+    ];
 
     private _confirmCtrl = (_display displayCtrl KPLIB_IDC_BUILD_CONFIRM);
 
@@ -52,20 +59,16 @@ private _openEhId = ["KPLIB_build_display_open", {
         (_display displayCtrl _x) ctrlShow false;
     } forEach KPLIB_BUILD_TABS_IDCS_ARRAY + [KPLIB_IDC_BUILD_ITEM_LIST, KPLIB_IDC_BUILD_DIALOG_AREA, KPLIB_IDC_BUILD_TOOLBOX_MOVEITEMS];
 
+    // "_thisArgs" not to be confused with the params above
     LSVAR("buildItem", _thisArgs);
+};
 
-}, _buildItem] call CBA_fnc_addEventHandlerArgs;
-
-
-// Handle item placement
-private _builtEhId = ["KPLIB_build_item_built_local", {
+private _onLocalBuildItemBuilt = {
     _this call _thisArgs;
     [] call KPLIB_fnc_build_stop;
-}, _onConfirm] call CBA_fnc_addEventHandlerArgs;
+};
 
-
-// Stop all single build event handlers
-["KPLIB_build_stop", {
+private _onStopBuild = {
     [_thisType, _thisId] call CBA_fnc_removeEventHandler;
 
     _thisArgs params ["_openEhId", "_builtEhId"];
@@ -73,7 +76,14 @@ private _builtEhId = ["KPLIB_build_item_built_local", {
     ["KPLIB_build_display_open", _openEhId] call CBA_fnc_removeEventHandler;
     ["KPLIB_build_item_built_local", _builtEhId] call CBA_fnc_removeEventHandler;
 
-}, [_openEhId, _builtEhId]] call CBA_fnc_addEventHandlerArgs;
+};
+
+// Handle item placement
+private _openEhId = ["KPLIB_build_display_open", _onOpenBuildDisplay, _buildItem] call CBA_fnc_addEventHandlerArgs;
+private _builtEhId = ["KPLIB_build_item_built_local", _onLocalBuildItemBuilt, _onConfirm] call CBA_fnc_addEventHandlerArgs;
+
+// Stop all single build event handlers, handles event handler tear down
+["KPLIB_build_stop", _onStopBuild, [_openEhId, _builtEhId]] call CBA_fnc_addEventHandlerArgs;
 
 // Start build mode
-[_center, _radius] call KPLIB_fnc_build_start
+[_center, _radius] call KPLIB_fnc_build_start;

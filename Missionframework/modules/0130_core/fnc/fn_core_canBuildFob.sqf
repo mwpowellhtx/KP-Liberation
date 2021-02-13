@@ -20,6 +20,8 @@
         True if box is spawned [BOOL]
 */
 
+private _debug = false && ([] call KPLIB_fnc_build_debug);
+
 params [
     ["_box", objNull, [objNull]]
     , ["_player", objNull, [objNull]]
@@ -28,16 +30,9 @@ params [
 // Built FOB range should not overlap over sector range
 private _minSectorDist = KPLIB_param_fobRange + KPLIB_param_sectorCapRange;
 
-if (false && (KPLIB_param_debug || KPLIB_param_builddebug)) then {
-    [format [["[fn_core_canBuildFob] Entering: ["
-        , ["isNull _box", "typeOf _box", "typeOf _player", "isNil 'KPLIB_fnc_eden_callback_onWithinRange'", "KPLIB_param_fobRange", "KPLIB_param_sectorCapRange"] joinString ", "
-        , "]: %1"] joinString "", str [
-            isNull _box
-            , typeOf _box
-            , typeOf _player
-            , isNil "KPLIB_fnc_eden_callback_onWithinRange"
-            , KPLIB_param_fobRange
-            , KPLIB_param_sectorCapRange]], "BUILD", true] call KPLIB_fnc_common_log;
+if (_debug) then {
+    [format ["[fn_core_canBuildFob] Entering: [isNull _box, typeOf _box, typeOf _player, isNil 'KPLIB_fnc_eden_callback_onWithinRange', KPLIB_param_fobRange, KPLIB_param_sectorCapRange]: %1"
+        , str [isNull _box, typeOf _box, typeOf _player, isNil 'KPLIB_fnc_eden_callback_onWithinRange', KPLIB_param_fobRange, KPLIB_param_sectorCapRange]], "BUILD", true] call KPLIB_fnc_common_log;
 };
 
 (

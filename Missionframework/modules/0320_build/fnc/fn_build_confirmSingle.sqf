@@ -13,18 +13,21 @@
         Confirms single item from build queue.
 
     Parameters:
-        _createParams   - Parameters for common_createVehicle           [ARRAY, defaults to nil]
-        _vectorDirAndUp - Vector dir and up for created object          [ARRAY, defaults to nil]
-        _price          - Supplies price                                [ARRAY, defaults to nil]
-        _player         - Player that initiated the building of object  [OBJECT, defaults to objNull]
+        _createParams   - Parameters for common_createVehicle           [ARRAY, default: nil]
+        _vectorDirAndUp - Vector dir and up for created object          [ARRAY, default: nil]
+        _price          - Supplies price                                [ARRAY, default: nil]
+        _player         - Player that initiated the building of object  [OBJECT, default: objNull]
 
     Returns:
         Function reached the end [BOOL]
-*/
+ */
+
+private _debug = [] call KPLIB_fnc_build_debug;
+
 params [
     ["_createParams", nil, [[]]],
     ["_vectorDirAndUp", nil, [[]], 2],
-    ["_price", nil, [[]], 3],
+    ["_price", [0, 0, 0], [[]], 3],
     ["_player", objNull, [objNull]]
 ];
 _createParams params ["_className", "_pos", "_dir", "_justBuild"];
@@ -38,24 +41,51 @@ if !(([_markerName] + _price) call KPLIB_fnc_resources_pay) exitWith {
 
 private ["_obj"];
 
+/* The core issue here was observed when building a FOB building. During the build
+ * process, could move the object about, rotate, reposition, etc, and it would adhere
+ * to terrain accordingly. Upon acknowledgment and completion of that process, would
+ * suddenly forget about that terrain adherence. After much troubleshooting and chasing
+ * after the up and direction vectors, determined the issue was most likely one of timing,
+ * and possibly object availability. Spawning here is key to ensuring that the bits are set
+ * correctly when the object is subsequently available for them to be set. */
+
 switch (true) do {
     case (_className isKindOf "Man"): {
         _obj = [createGroup KPLIB_preset_sideF, _className] call KPLIB_fnc_common_createUnit;
-        _obj setPosATL _pos;
-        _obj setVectorDirAndUp _vectorDirAndUp;
 
-        // Set watching direction
-        if (_obj isEqualTo formLeader _obj) then {
-            _obj setFormDir getDir _obj;
+        [_obj, _pos, _vectorDirAndUp] spawn {
+        //                            ^^^^^
+            params ["_obj", "_pos", "_vectorDirAndUp"];
+
+            _obj setPosATL _pos;
+            _obj setVectorDirAndUp _vectorDirAndUp;
+
+            // Set watching direction
+            if (_obj isEqualTo formLeader _obj) then {
+                _obj setFormDir getDir _obj;
+            };
         };
     };
 
     default {
-        _obj = _createParams call KPLIB_fnc_common_createVehicle;
-        _obj setVectorDirAndUp _vectorDirAndUp;
 
-        if (unitIsUAV _obj) then {
-            [_obj, KPLIB_preset_sideF] call KPLIB_fnc_common_createCrew;
+        if (_debug) then {
+            [format ["[fn_build_confirmSingle] [_className, _pos, _vectorDirAndUp]: %1"
+                , str [_className, _pos, _vectorDirAndUp]], "BUILD"] call KPLIB_fnc_common_log;
+        };
+
+        _obj = _createParams call KPLIB_fnc_common_createVehicle;
+
+        // Spawning appears to be the right approach for the subsequent bits being correct.
+        [_obj, _vectorDirAndUp] spawn {
+        //                      ^^^^^
+            params ["_obj", "_vectorDirAndUp"];
+
+            _obj setVectorDirAndUp _vectorDirAndUp;
+
+            if (unitIsUAV _obj) then {
+                [_obj, KPLIB_preset_sideF] call KPLIB_fnc_common_createCrew;
+            };
         };
     };
 };

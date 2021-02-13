@@ -21,7 +21,7 @@
 
 params [
     ["_buildPos", KPLIB_zeroPos, [[]], 3]
-    , ["_est", [], [[]], 7]
+    , ["_est", systemTime, [[]], 7]
     // TODO: TBD: may inject a created UUID at this moment...
     , ["_uuid", "", [""]]
 ];

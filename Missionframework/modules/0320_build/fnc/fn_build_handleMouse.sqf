@@ -37,7 +37,7 @@ switch toLower _mode do {
 
         if (_button isEqualTo 0) then {
             // If item is selected try to place it, handle selection/dragging otherwise
-            if !(LGVAR(buildItem) call KPLIB_fnc_build_displayPlaceObject) then {
+            if (!(LGVAR(buildItem) call KPLIB_fnc_build_displayPlaceObject)) then {
                 // Delay selection a bit to allow for mouse dragging
                 [{
                     if (!LGVAR(isDragging) && !LGVAR(isRotating)) then {

@@ -1,10 +1,12 @@
+#include "..\..\KPLIB_actionMenu.hpp"
 /*
     KPLIB_fnc_core_handleVehicleSpawn
 
     File: fn_core_handleVehicleSpawn.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-09-10
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-09-10
+    Last Update: 2021-02-12 08:24:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -34,9 +36,9 @@ switch (typeOf _vehicle) do {
             _vehicle
             , "STR_KPLIB_ACTION_DEPLOY"
             , [
-                {["KPLIB_fob_build_requested", _this select 0] call CBA_fnc_localEvent}
+                {["KPLIB_fob_build_requested", [_this select 0]] call CBA_fnc_localEvent}
                 , true
-                , -800
+                , KPLIB_ACTION_PRIORITY_DEPLOYFOB
                 , false
                 , true
                 , ""
@@ -72,7 +74,7 @@ switch (typeOf _vehicle) do {
             , [
                 {["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent}
                 , nil
-                , -801
+                , KPLIB_ACTION_PRIORITY_REDEPLOY
                 , false
                 , true
                 , ""
@@ -102,7 +104,7 @@ switch (typeOf _vehicle) do {
             , [
                 {[_this select 0] call KPLIB_fnc_eden_assetToFlightDeck;}
                 , nil
-                , 10
+                , KPLIB_ACTION_PRIORITY_ASSETMOVE
                 , true
                 , true
                 , ""

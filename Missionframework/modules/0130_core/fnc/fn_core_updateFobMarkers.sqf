@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-05-13
-    Last Update: 2021-01-26 17:48:52
+    Last Update: 2021-02-12 11:48:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -19,6 +19,7 @@
         Function reached the end [BOOL]
 */
 
+// TODO: TBD: instead of a function, could call this an event handler, i.e. "KPLIB_updateMarkers" ...
 {
     // Updates the _markerText for the FOB tuple
                     (_x#0) set [1, format [
@@ -35,4 +36,4 @@
 
 } forEach KPLIB_sectors_fobs;
 
-true
+true;
