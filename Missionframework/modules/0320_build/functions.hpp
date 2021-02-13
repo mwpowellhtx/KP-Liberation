@@ -14,6 +14,9 @@
 class build {
     file = "modules\0320_build\fnc";
 
+    // Returns whether module debug is suggested
+    class build_debug {};
+
     // Adds buildable items
     class build_addBuildables {};
 
@@ -59,9 +62,6 @@ class build {
     // Handle object dragging/positon changing
     class build_handleDrag {};
 
-    // Handles FOB build confirmation
-    class build_handleFobBuildConfirm {};
-
     // Handle display keypresses
     class build_handleKeys {};
 
@@ -70,6 +70,9 @@ class build {
 
     // Handle object dragging/rotation
     class build_handleRotation {};
+
+    // FOB build sequence confirmation callback
+    class build_onConfirmBuildFob {};
 
     // Handle persistent data loading
     class build_loadData {};
@@ -104,6 +107,9 @@ class build {
 
     // Add player actions
     class build_setupPlayerActions {};
+
+    // FOB build requested local CBA event handler
+    class build_onFobBuildRequested {};
 
     // Start building logic
     class build_start {};

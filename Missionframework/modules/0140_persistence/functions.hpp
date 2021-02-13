@@ -39,9 +39,14 @@ class persistence {
     // Add object/unit to persistence system
     class persistence_makePersistent {};
 
-    // Persistence pre initialization
+    // Module pre initialization event handler
     class persistence_preInit {
         preInit = 1;
+    };
+
+    // Module post initialization event handler
+    class persistence_postInit {
+        postInit = 1;
     };
 
     // Remove object/unit from persistence system
