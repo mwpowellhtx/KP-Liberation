@@ -37,17 +37,6 @@ if (isServer) then {
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
-    // KPLIB_sector_markerName - so that we can align storage containers with their captured sectors
-
-    // TODO: TBD: for when we close the gap on building storage at factory sector...
-    // TODO: TBD: remember to add the sector variable to said built object
-    // Add default persistent variables
-    private _persistenceVars = [
-        ["KPLIB_sector_markerName"]
-    ];
-
-    [_persistenceVars] call KPLIB_fnc_persistence_addPersistentVars;
-
     // Register load and save event callbacks
     ["KPLIB_doLoad", {[] call KPLIB_fnc_production_onLoadData;}] call CBA_fnc_addEventHandler;
     ["KPLIB_doSave", {[] call KPLIB_fnc_production_onSaveData;}] call CBA_fnc_addEventHandler;
