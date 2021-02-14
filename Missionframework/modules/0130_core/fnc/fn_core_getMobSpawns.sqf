@@ -31,7 +31,7 @@ vehicles select {
     // TODO: TBD: may validate the UUID ...
     // TODO: TBD: we'll likely want another per frame updater... for assets transit in and out of zones, Eden, FOB, etc...
     alive _x
-        && !((_x getVariable ["KPLIB_nearestMarker", ""]) isEqualTo "")
+        && !((_x getVariable ["KPLIB_sector_markerName", ""]) isEqualTo "")
         && (
             (surfaceIsWater _pos && _x isKindOf "Ship")
                 || !(surfaceIsWater _pos || _x isKindOf "Ship")

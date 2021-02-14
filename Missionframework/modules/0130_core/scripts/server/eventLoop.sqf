@@ -45,7 +45,7 @@ private _onEventLoopStart = {
             (_selectedMarkers#0);
         };
 
-        _currentPlayer setVariable ["KPLIB_nearestMarker", _nearestMarker];
+        _currentPlayer setVariable ["KPLIB_sector_markerName", _nearestMarker];
 
         // If we checked whole list, reinitialize the list
         if (_tick >= _playerCount) then {

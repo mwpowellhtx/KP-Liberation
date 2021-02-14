@@ -53,6 +53,8 @@ switch (typeOf _vehicle) do {
     case KPLIB_preset_respawnTruckF;
     case KPLIB_preset_potatoF: {
 
+        _vehicle setVariable ["KPLIB_asset_isMobileRespawn", true, true];
+
         ////// TODO: TBD: "KPLIB_respawn" is already "in use" in a manner of speaking...
         ////// TODO: TBD: we think it is a bad idea to confuse terminology, usage, when it should be a "class CfgRespawnTemplates {...}" member.
         //// Set vehicle as mobile respawn

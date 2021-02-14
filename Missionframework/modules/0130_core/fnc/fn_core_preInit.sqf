@@ -52,18 +52,31 @@ KPLIB_fob_empty = +[
     , [KPLIB_sectorType_nil, KPLIB_preset_sideF, systemTime apply {0}, KPLIB_uuid_zero]
 ];
 
+// TODO: TBD: instead of tracking an object, might consider a variable on the vehicle...
 // TODO: TBD: just "one" reference?
 // Potato 01 vehicle reference
 KPLIB_core_potato01 = objNull;
 // Deploy button trigger for redeploy dialog
 KPLIB_dialog_deploy = 0;
 
+// TODO: TBD: Refactor to first class config function...
+KPLIB_fnc_core_onUpdateMobileRespawnMarkers = {};
+
 if (isServer) then {
+
+    /*
+     * KPLIB_asset_isMobileRespawn, indicates whether an asset is considered to be a mobile respawn.
+     *
+     */
+    [["KPLIB_asset_isMobileRespawn"], true] call KPLIB_fnc_persistence_addPersistentVars;
+
     //// TODO: TBD: not sure quite what the thought process was that included factory markers... these are simple 'sectors'
     //["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_updateFactoryMarkers;}] call CBA_fnc_addEventHandler;
 
     // TODO: TBD: additionally, 'sector markers' should probably be defined...
     ["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_updateSectorMarkers;}] call CBA_fnc_addEventHandler;
+
+    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_onUpdateMobileRespawnMarkers;}] call CBA_fnc_addEventHandler;
 };
 
 if (isServer) then {
