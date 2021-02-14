@@ -25,6 +25,7 @@ params [
 
 private _inBuildArea = _this inArea [LGVAR(center), LGVAR(radius), LGVAR(radius), 0, false];
 
-_object setVariable ["KPLIB_validPos", _inBuildArea];
+// TODO: TBD: only 'that' (?) is in area (?)
+_object setVariable ["KPLIB_build_isInArea", _inBuildArea];
 
-_inBuildArea
+_inBuildArea;

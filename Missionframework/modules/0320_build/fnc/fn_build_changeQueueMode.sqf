@@ -15,46 +15,47 @@
         Changes build system queue mode.
 
     Parameter(s):
-        _control - Clicked control [CONTROL, defaults to controlNull]
+        _ctrl - Clicked control [CONTROL, default: controlNull]
 
     Returns:
         Queue mode was changed [BOOL]
-*/
+ */
 params [
-    ["_control", controlNull, [controlNull]]
+    ["_ctrl", controlNull, [controlNull]]
 ];
 
-private _display = ctrlParent _control;
+private _display = ctrlParent _ctrl;
 private _confirmBtnControl = _display displayCtrl KPLIB_IDC_BUILD_CONFIRM;
 private _buildList = _display displayCtrl KPLIB_IDC_BUILD_ITEM_LIST;
 
 // TODO: TBD: preserve and restore current build queue
-switch (LGVAR_D(buildMode, KPLIB_build_buildMode_move)) do {
+switch (LGVAR_D(buildMode,KPLIB_build_buildMode_move)) do {
+
     case KPLIB_build_buildMode_move: {
-        _control ctrlSetText localize "STR_KPLIB_DIALOG_BUILD_MODE_MOVE";
-        LSVAR("buildMode", KPLIB_build_buildMode_build);
-        LSVAR("buildItem", []);
+        _ctrl ctrlSetText localize "STR_KPLIB_DIALOG_BUILD_MODE_MOVE";
+        LSVAR("buildMode",KPLIB_build_buildMode_build);
+        LSVAR("buildItem",[]);
         _confirmBtnControl ctrlEnable false;
         _buildList ctrlEnable false;
 
         private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
-        // TODO: TBD: yes, so we need another event loop that watches persistence objects relative to FOBs...
-        private _movableItems = (KPLIB_persistence_objects select {([_x] call KPLIB_fnc_common_getPlayerFob) isEqualTo _markerName}) select {!isNull _x};
-        LSVAR("buildQueue_buy", _currentItems);
-        LSVAR("buildQueue", _movableItems);
+        private _movableObjects = [_markerName] call KPLIB_fnc_build_getMovableObjects;
+
+        LSVAR("buildQueue_buy",_currentItems);
+        LSVAR("buildQueue",_movableObjects);
     };
 
     case KPLIB_build_buildMode_build: {
-        _control ctrlSetText localize "STR_KPLIB_DIALOG_BUILD_MODE_BUILD";
-        LSVAR("buildMode", KPLIB_build_buildMode_move);
+        _ctrl ctrlSetText localize "STR_KPLIB_DIALOG_BUILD_MODE_BUILD";
+        LSVAR("buildMode",KPLIB_build_buildMode_move);
         _confirmBtnControl ctrlEnable true;
         _buildList ctrlEnable true;
 
         private _buyableItems = LGVAR(buildQueue_buy);
-        LSVAR("buildQueue_buy", nil);
+        LSVAR("buildQueue_buy",nil);
 
-        LSVAR("buildQueue", _buyableItems);
+        LSVAR("buildQueue",_buyableItems);
     };
 };
 
-true
+true;

@@ -64,12 +64,40 @@ KPLIB_build_buildItemTemplate = [
 
 if (isServer) then {
 
-    // Register sector info var for persistence
-    private _persistenceVars = [
-        ["KPLIB_nearestMarker"]
-    ];
+    // TODO: TBD: for when we close the gap on building storage at factory sector...
+    // TODO: TBD: remember to add the sector variable to said built object
 
-    [_persistenceVars] call KPLIB_fnc_persistence_addPersistentVars;
+    /* TODO: TBD: caveat, we may be able to conditionally support storage container
+     * movement, provided they are not currently hosting any resources attachments. */
+
+    /*
+     * KPLIB_asset_isMovable, indicates whether an asset is considered to be movable. Most
+     *      objects are; storage containers are a rare exception. See caveat above.
+     *
+     * KPLIB_fob_originalUuid, indicates the UUID of the FOB where the asset was originally
+     *      built. The current set of FOBs can change during the course of a campaign, and
+     *      UUIDs can come and go. But we need to maintain some record that assets were
+     *      actually built, and could therefore be managed consequent to their existence.
+     *      In addition, we can use this to differentiate between enemy and civilian assets,
+     *      apart from friendly ones.
+     *
+     * KPLIB_sector_markerName, the current sector of the asset. Storage containers build
+     *      supporting a factory sector receive this marker forever and ever more, while the
+     *      sector remains "blue". Whereas, assets in transit into or away from FOB zones may
+     *      see this variable populate or clear, according to their proximity within the FOB
+     *      zone. Both are helpful when determining which assets to stage for serialization,
+     *      saving, and loading. Players also receive this variable for the same sorts of
+     *      reasons, determing whether actions may be performed associated with FOB zones,
+     *      factory sectors, and so on.
+     *
+     * KPLIB_storageContainer_sum, keeps track of a storage container resource summary in
+     *      the typical shape, i.e. [0, 0, 0], literally, [[S]upply, [A]ammo, [F]uel].
+     */
+    [[
+        "KPLIB_asset_isMovable"
+        , "KPLIB_fob_originalUuid"
+        , "KPLIB_sector_markerName"
+        , "KPLIB_storageContainer_sum"], true] call KPLIB_fnc_persistence_addPersistentVars;
 
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_build_loadData}] call CBA_fnc_addEventHandler;
@@ -91,23 +119,33 @@ if (isServer) then {
                 , str [_object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
         };
 
-        // TODO: TBD: "skip storage areas" (?) will need to review this one...
-        // Skip storage areas
+        // TODO: TBD: we think that possibly we could support moving storage containers...
+        // TODO: TBD: conditioned on whether the asset has attached resources
+        // Storage classes are the one possible exception to movable classes
         if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
-            private _selectedFobs = KPLIB_sectors_fobs select {(_x#0) isEqualTo _markerName};
-            // TODO: TBD: if we're here we can be confident we're here?
-            // TODO: TBD: see pattern: fn_build_preInit, fn_build_loadData
-            //private _fob = _selectedFobs select 0;
-            // TODO: TBD: should factor in a helper "transform/selector function" ... (?)
-            //_object setVariable ["KPLIB_nearestMarker", [(_fob#0#0), (_fob#1#3), (_fob#1#0)], true];
-            //                         1. _markerName:  ^^^^^^^^
-            //                         2. _sectorType:              ^^^^^^^^
-            //                         3.       _uuid:                          ^^^^^^^^
-            //// TODO: TBD: again with the setting of variables...
-            //// TODO: TBD: yes, we will want to gather the objects and assign them UUID etc
-            //// TODO: TBD: for static or immovable objects, should be no big deal then, they always remain as such
+            _object setVariable ["KPLIB_asset_isMovable", true, true];
         };
 
+        [_object] call {
+            params [
+                ["_obj", objNull, [objNull]]
+                , ["_default", "", [""]]
+            ];
+            // TODO: TBD: which it "may" be near a FOB if it was just built...
+            // TODO: TBD: but then again, it may not, depending on the context of the build...
+            // TODO: TBD: i.e. for scenarios involving enemy or civilian assets...
+            private _nearestMarkerAndUuid = [_obj, _default] call KPLIB_fnc_common_getNearestMarkerAndUuid;
+
+            if (!(_nearestMarkerAndUuid isEqualTo [_default, _default])) then {
+                // TODO: TBD: may make an event out of this part... or at least a first class function that we can invoke...
+                _obj setVariable ["KPLIB_sector_markerName", (_nearestMarkerAndUuid#0), true];
+                // TODO: TBD: as long as we note a UUID, then we can probably defer the marker name until an FPS event handler picks up the asset...
+                _obj setVariable ["KPLIB_fob_originalUuid", (_nearestMarkerAndUuid#1), true];
+            };
+        };
+
+        // TODO: TBD: "make persistent" should wait until an event loop picks it up...
+        // TODO: TBD: and then, let it fall through the usual conditions, alive, crew, momentum, proximity, etc...
         _object call KPLIB_fnc_persistence_makePersistent;
 
         // Must also save the mission when reaching this moment

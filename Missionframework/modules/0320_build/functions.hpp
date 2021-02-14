@@ -125,4 +125,7 @@ class build {
 
     // Checks if object position is valid for building
     class build_validatePosition {};
+
+    // Gets the movable objects currently within range of the FOB zone, and some other key criteria
+    class build_getMovableObjects {};
 };

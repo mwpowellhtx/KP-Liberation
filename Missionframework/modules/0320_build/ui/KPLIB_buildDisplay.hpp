@@ -16,8 +16,9 @@ class KPLIB_build {
     idd = KPLIB_IDD_BUILD_DIALOG;
     movingEnable = 0;
 
-    onLoad = "call KPLIB_fnc_build_displayLoad";
-    onUnload = "call KPLIB_fnc_build_displayUnload";
+    // TODO: TBD: may need to 'spawn' instead of 'call' in many places...
+    onLoad = "_this call KPLIB_fnc_build_displayLoad";
+    onUnload = "_this call KPLIB_fnc_build_displayUnload";
     onKeyDown = "['onKeyDown', _this] call KPLIB_fnc_build_handleKeys";
     onKeyUp = "['onKeyUp', _this] call KPLIB_fnc_build_handleKeys";
 

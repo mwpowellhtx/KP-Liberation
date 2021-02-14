@@ -1,4 +1,5 @@
 
+// TODO: TBD: whether to call? or to spawn? depends on the UI, but typically I have observed "spawn" is better...
 class KPLIB_BuildCategoryList: KPGUI_PRE_Combo {
     idc = KPLIB_IDC_BUILD_CATEGORY_LIST;
 
