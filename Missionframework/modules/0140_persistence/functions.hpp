@@ -18,14 +18,17 @@ class persistence {
      * by filter we mean actively deletes those units or vehicles... */
     class persistence_callback_onFobFilter {};
 
-    // Add given variable name to persistence system
-    class persistence_addPersistentVar {};
+    // Adds one or more given variable names to persistence system
+    class persistence_addPersistentVars {};
 
     // Create object from seralized data
     class persistence_deserializeObject {};
 
     // Create unit from serialized data
     class persistence_deserializeUnit {};
+
+    // Deserialize object variables that were loaded from saved data
+    class persistence_deserializeVars {};
 
     // Get serialized cargo data from object
     class persistence_getCargo {};
@@ -69,4 +72,7 @@ class persistence {
 
     // Set vehicle turret magazines from serialized data
     class persistence_setTurretMagazines {};
+
+    // Updates which objects should or should not be persisted within range of each FOB zone
+    class persistence_onUpdatePersistent {};
 };

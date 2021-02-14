@@ -4,8 +4,8 @@
     File: fn_persistence_loadData.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
-    Date: 2019-02-02
-    Last Update: 2021-02-02 18:39:07
+    Created: 2019-02-02
+    Last Update: 2021-02-14 12:07:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -17,79 +17,101 @@
 
     Returns:
         Function reached the end [BOOL]
-*/
+ */
 
-if (KPLIB_param_debug) then {
-    ["Persistence module loading...", "SAVE"] call KPLIB_fnc_common_log;
+private _debug = KPLIB_param_debug || KPLIB_param_savedebug;
+
+if (_debug) then {
+    ["[fn_persistence_loadData] Loading...", "SAVE"] call KPLIB_fnc_common_log;
 };
 
 private _moduleData = ["persistence"] call KPLIB_fnc_init_getSaveData;
 
 // Check if there is a new campaign
 if (_moduleData isEqualTo []) exitWith {
-    if (KPLIB_param_debug) then {
-        ["Persistence module data empty, creating new data...", "SAVE"] call KPLIB_fnc_common_log;
+    if (_debug) then {
+        ["[fn_persistence_loadData] Data empty, creating new data...", "SAVE"] call KPLIB_fnc_common_log;
     };
     true;
 };
 
 // Otherwise start applying the saved data
-if (KPLIB_param_debug) then {
-    ["Persistence module data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
+if (_debug) then {
+    ["[fn_persistence_loadData] Data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
 };
+
+// // Leaving this in for the time being; it was a BEAR if anything broke during serialization to reset things.
+// KPLIB_persistence_objects = [];
 
 // Load objects
 KPLIB_persistence_objects = (_moduleData#0) apply {
-    _x params [
-        "_serialized", ["_variables", []]
+    private _objectDatum = _x;
+
+    _objectDatum params [
+        "_serialized"
+        , ["_varData", [], [[]]]
     ];
 
     private _object = _serialized call KPLIB_fnc_persistence_deserializeObject;
 
-    // Apply saved variables
+    if (_debug) then {
+        [format ["[fn_persistence_loadData::object] Persistence vars: [count _varData, _varData]: %1"
+            , str [count _varData, _varData]], "SAVE"] call KPLIB_fnc_common_log;
+    };
+
     {
-        _x params [
-            ["_var", "", [""]]
-            , ["_val", nil]
-            , ["_global", false, [false]]
-        ];
-        if (!isNil "_var") then {
-            _object setVariable [_var, _val, _global];
-            // Add var to persistence so even if module that added it originaly is not preset the data won't be lost
-            _var call KPLIB_fnc_persistence_addPersistentVar;
+        private _varDatum = _x;
+
+        if (_debug) then {
+            [format ["[fn_persistence_loadData::object::deserializeVars] Persistence vars: [_varDatum]: %1"
+                , str [_varDatum]], "SAVE"] call KPLIB_fnc_common_log;
         };
-    } forEach _variables;
+
+        [_object, _varDatum] call KPLIB_fnc_persistence_deserializeVars;
+    } forEach _varData;
 
     // Reserving further filtering of the objects for post init phase
     _object;
 
-} select {!isNull _x};
+} select {
+    !isNull _x;
+};
 
-if (KPLIB_param_debug || KPLIB_param_savedebug) then {
-    [format ["[fn_persistence_loadData] Persistence objects: %1"
-        , KPLIB_persistence_objects apply { typeOf _x; }], "SAVE"] call KPLIB_fnc_common_log;
+if (_debug) then {
+    [format ["[fn_persistence_loadData] Persistence objects: [count _objects, typeOfs]: %1"
+        , str [count KPLIB_persistence_objects, KPLIB_persistence_objects apply { typeOf _x; }]], "SAVE"] call KPLIB_fnc_common_log;
 };
 
 // Load units
 KPLIB_persistence_units = (_moduleData#1) apply {
     _x params [
-        "_serialized", ["_variables", []]
+        "_serialized"
+        , ["_varData", [], [[]]]
     ];
 
     private _unit = _serialized call KPLIB_fnc_persistence_deserializeUnit;
 
-    // Apply saved variables
+    if (_debug) then {
+        [format ["[fn_persistence_loadData::unit] Persistence vars: [count _varData, _varData]: %1"
+            , str [count _varData, _varData]], "SAVE"] call KPLIB_fnc_common_log;
+    };
+
     {
-        _x params [["_var", nil], ["_val", nil], ["_global", false]];
-        if (!isNil "_var") then {
-            _unit setVariable [_var, _val, _global];
-            // Add var to persistence so even if module that added it originaly is not preset the data won't be lost
-            _var call KPLIB_fnc_persistence_addPersistentVar;
+        private _varDatum = _x;
+
+        if (_debug) then {
+            [format ["[fn_persistence_loadData::unit::deserializeVars] Persistence vars: [_varDatum]: %1"
+                , str [_varDatum]], "SAVE"] call KPLIB_fnc_common_log;
         };
-    } forEach _variables;
+
+        [_unit, _varDatum] call KPLIB_fnc_persistence_deserializeVars;
+    } forEach _varData;
 
     _unit;
 
-} select {!isNull _x};
+} select {
+    !isNull _x;
+};
+
 
 true;
