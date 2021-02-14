@@ -54,6 +54,9 @@ class common {
      * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
    class common_getNearestMarker {};
 
+    // Returns the nearest FOB marker and UUID to the target. See: KPLIB_sectors_fobs
+    class common_getNearestMarkerAndUuid {};
+
     /* Returns whether the target is within range of the specified sectors.
      * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
     class common_getTargetMarkerInRange {};
