@@ -22,17 +22,17 @@
 // Actions available LOCALLY to player
 // Permission action
 private _permissionCondition = '
-    _target isEqualTo _originalTarget &&
-    (
-        serverCommandAvailable "#kick" ||
-        (KPLIB_param_permissionCommander && (str player) isEqualTo "KPLIB_eden_commander") ||
-        (KPLIB_param_permissionSubCommander && (str player) isEqualTo "KPLIB_eden_subCommander")
-    )
+    _target isEqualTo _originalTarget
+        && (
+            serverCommandAvailable "#kick"
+                || (KPLIB_param_permissionCommander && (str player) isEqualTo "KPLIB_eden_commander")
+                || (KPLIB_param_permissionSubCommander && (str player) isEqualTo "KPLIB_eden_subCommander")
+        )
 ';
 
 private _actionArray = [
     localize "STR_KPLIB_ACTION_PERMISSIONS"
-    , {[] call KPLIB_fnc_permission_openDialog}
+    , {[] call KPLIB_fnc_permission_openDialog;}
     , nil
     , KPLIB_ACTION_PRIORITY_PERMISSIONS
     , false
@@ -44,4 +44,4 @@ private _actionArray = [
 
 [_actionArray] call CBA_fnc_addPlayerAction;
 
-true
+true;
