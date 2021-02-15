@@ -18,7 +18,7 @@
 
     Returns:
        Object that is currently under the cursor [OBJECT]
-*/
+ */
 
 // Guard debugging with a latch so as not to clobber the log
 if (isNil "KPLIB_build_objectUnderCursor_debug") then {
@@ -36,6 +36,7 @@ if (_queue isEqualTo []) exitWith {
         KPLIB_build_objectUnderCursor_debug = true;
         ["[fn_build_objectUnderCursor] Queue items required", "BUILD", true] call KPLIB_fnc_common_log;
     };
+    [] spawn KPLIB_fnc_build_onBuildItemDirectionSnapped;
     // See return below
     vehicle _target;
 };
@@ -80,5 +81,7 @@ if (isNull _target) then {
 
 /* Which still may be null, vehicle of null is null, which is fine. But to not intersect
  * anything because we had no queue, that is incorrect in the first place. */
+
+[nil, getDir vehicle _target] spawn KPLIB_fnc_build_onBuildItemDirectionSnapped;
 
 vehicle _target

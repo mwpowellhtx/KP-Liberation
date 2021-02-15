@@ -45,7 +45,7 @@ private _onOpenBuildDisplay = {
     private _confirmCtrl = (_display displayCtrl KPLIB_IDC_BUILD_CONFIRM);
 
     // Get pos of build mode selector
-    private _confirmCtrlNewPos = (ctrlPosition ctrlParentControlsGroup (_display displayCtrl KPLIB_IDC_BUILD_TOOLBOX_MOVEITEMS));
+    private _confirmCtrlNewPos = (ctrlPosition ctrlParentControlsGroup (_display displayCtrl KPLIB_IDC_BUILD_TOOLBOX_MODE));
     // Save only X, Y
     _confirmCtrlNewPos resize 2;
     // Get original W, H
@@ -57,7 +57,7 @@ private _onOpenBuildDisplay = {
     // Hide tabs, build list and background
     {
         (_display displayCtrl _x) ctrlShow false;
-    } forEach KPLIB_BUILD_TABS_IDCS_ARRAY + [KPLIB_IDC_BUILD_ITEM_LIST, KPLIB_IDC_BUILD_DIALOG_AREA, KPLIB_IDC_BUILD_TOOLBOX_MOVEITEMS];
+    } forEach KPLIB_BUILD_TABS_IDCS_ARRAY + [KPLIB_IDC_BUILD_ITEM_LIST, KPLIB_IDC_BUILD_DIALOG_AREA, KPLIB_IDC_BUILD_TOOLBOX_MODE];
 
     // "_thisArgs" not to be confused with the params above
     LSVAR("buildItem", _thisArgs);

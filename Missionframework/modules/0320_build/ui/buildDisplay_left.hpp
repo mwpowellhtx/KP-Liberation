@@ -63,11 +63,12 @@ class KPLIB_ToolboxContainer: KPGUI_PRE_ControlsGroup {
 
     // Toolbox Controls
     class Controls {
-        // !TODO! move toolbox items creation to script
-        class KPLIB_Toolbox_MoveItems: KPGUI_PRE_ActiveText {
+        // TODO: TBD: move toolbox items creation to script... not sure what that means...
+        // TODO: TBD: perhaps we present them as a list box, for instance (?)
+        class KPLIB_Toolbox_MoveItems : KPGUI_PRE_ActiveText {
             text = "$STR_KPLIB_DIALOG_BUILD_MODE_BUILD";
             tooltip = "$STR_KPLIB_DIALOG_BUILD_MODE_TT";
-            idc = KPLIB_IDC_BUILD_TOOLBOX_MOVEITEMS;
+            idc = KPLIB_IDC_BUILD_TOOLBOX_MODE;
 
             colorActive[] = {1, 1, 1, 1};
             colorText[] = {1, 1, 1, 0.75};
@@ -80,6 +81,27 @@ class KPLIB_ToolboxContainer: KPGUI_PRE_ControlsGroup {
             h = KP_GETH(KP_HEIGHT_VAL_LP,20) - 0.02;
 
             onButtonClick = "_this call KPLIB_fnc_build_changeQueueMode";
+        };
+
+        class KPLIB_Toolbox_Heading : KPGUI_PRE_Label {
+            // TODO: TBD: may get more detailed than that, include cardinals for instance...
+            // TODO: TBD: or possibly allow for snap to degrees...
+            // TODO: TBD: in fact let's cook that one up right now in proto form...
+            text = "---.--°";
+            tooltip = "$STR_KPLIB_DIALOG_BUILD_HEADING_TT";
+            idc = KPLIB_IDC_BUILD_TOOLBOX_HEADING;
+
+            colorActive[] = {1, 1, 1, 1};
+            colorText[] = {1, 1, 1, 0.75};
+            colorDisabled[] = {1, 1, 1, 0.25};
+            color[] = {1, 1, 1, 0.55};
+
+            // TODO: TBD: eventually we want to replace these with the saner approach...
+            // TODO: TBD: but for now, it is what it is...
+            x = (KP_GETW(KP_WIDTH_VAL_LP,4) + KP_SPACING_X);
+            y = 0;
+            w = KP_GETW(KP_WIDTH_VAL_LP,4);
+            h = (KP_GETH(KP_HEIGHT_VAL_LP,20) - 0.02);
         };
     };
 };

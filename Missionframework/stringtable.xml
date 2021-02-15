@@ -636,6 +636,15 @@
             <English>Click to toggle between building new items and moving existing items modes.</English>
             <German>Wechsle zwischen dem Baumodus und dem Bearbeitungsmodus.</German>
         </Key>
+        <Key ID="STR_KPLIB_DIALOG_BUILD_HEADING_TT">
+            <English>Heading of the item under construction.</English>
+        </Key>
+        <Key ID="STR_KPLIB_DIALOG_BUILD_HEADING_FORMAT_NIL">
+            <English>---.--</English>
+        </Key>
+        <Key ID="STR_KPLIB_DIALOG_BUILD_HEADING_FORMAT">
+            <English>%1°</English>
+        </Key>
         <Key ID="STR_KPLIB_DIALOG_BUILD_QUEUE_TITLE">
             <English>BUILD QUEUE</English>
             <German>BAULISTE</German>

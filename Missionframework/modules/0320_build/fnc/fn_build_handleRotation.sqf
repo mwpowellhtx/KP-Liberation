@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 #include "script_components.hpp"
 /*
     KPLIB_fnc_build_handleRotation
@@ -73,8 +74,13 @@ if (isNull _anchorObject) then {
         private _posASL = getPosASL _x;
         private _dir = _posASL getDir _mouseWorldPos;
 
-        _x setVariable ["KPLIB_rotationDir", _dir];
+        private _snappedDir = [_dir] call KPLIB_fnc_build_getSnappedDirection;
 
+        _x setVariable ["KPLIB_rotationDir", _snappedDir];
+
+        // TODO: TBD: should reflect snap in the drawn line as well...
+        // TODO: TBD: need distance of the original line
+        // TODO: TBD: then calculate new point from the origin that distance and heading
         private _lineStartPos = _x modelToWorldVisual [0,0,0];
         private _lineEndPos = (ASLtoAGL _mouseWorldPos);
         _lineEndPos set [2, (_lineStartPos select 2)];
@@ -84,6 +90,8 @@ if (isNull _anchorObject) then {
             _lineEndPos,
             [1,1,0,1] // Yellow
         ];
+
+        [nil, _snappedDir] spawn KPLIB_fnc_build_onBuildItemDirectionSnapped;
 
     } forEach LGVAR(selection);
 };

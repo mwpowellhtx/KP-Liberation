@@ -155,7 +155,12 @@ if (isServer) then {
     ["KPLIB_build_item_built", _onServerBuildItemBuilt] call CBA_fnc_addEventHandler;
 };
 
+// TODO: TBD: strong candidates to add to CBA settings at some point...
+KPLIB_param_build_snapDegrees = 5;
+KPLIB_param_build_degreePlaces = 2;
+
 if (hasInterface) then {
+
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;
 

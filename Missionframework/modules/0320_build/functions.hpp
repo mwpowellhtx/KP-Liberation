@@ -128,4 +128,10 @@ class build {
 
     // Gets the movable objects currently within range of the FOB zone, and some other key criteria
     class build_getMovableObjects {};
+
+    // Calculates the snapped and truncated degrees given nominal inputs
+    class build_getSnappedDirection {};
+
+    // Renders the heading onto the heading control during the build and move modes
+    class build_onBuildItemDirectionSnapped {};
 };
