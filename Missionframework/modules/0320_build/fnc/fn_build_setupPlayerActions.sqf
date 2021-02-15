@@ -34,8 +34,7 @@ if (hasInterface) then {
     private _onFobBuildCallback = {
         // Learn to love working with the marker names...
         private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
-        private _markerPos = getMarkerPos _markerName;
-        [_markerPos, KPLIB_param_fobRange] call KPLIB_fnc_build_start;
+        [(getMarkerPos _markerName), KPLIB_param_fobRange] call KPLIB_fnc_build_start;
     };
 
     // Build actions
@@ -53,31 +52,9 @@ if (hasInterface) then {
 
     [_fobBuildAction] call CBA_fnc_addPlayerAction;
 
-    private _onBuildStorage = {
-        params [
-            ["_player", objNull, [objNull]]
-        ];
-
-        [
-            KPLIB_param_sectorCapRange
-            , KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; }
-        ] params [
-            "_range"
-            , "_candidateSectors"
-        ];
-
-        // Do not need to re-ask the condition question, we are "there" now...
-        private _factoryMarker = [_player, _range, _candidateSectors] call KPLIB_fnc_common_getTargetMarkerIfInRange;
-
-        systemChat (format ["Building '%1' storage...", _factoryMarker]);
-
-        //// TODO: TBD: remember to unset this one...
-        //_player setVariable ["KPLIB_build_storageFactoryMarker", _factoryMarker, true];
-    };
-
     private _buildStorageArgs = [
         localize "STR_KPLIB_ACTION_BUILD_STORAGE"
-        , _onBuildStorage
+        , {[(_this#0)] call KPLIB_fnc_buildClient_onBuildStorageClicked;}
         , nil
         , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
         , false

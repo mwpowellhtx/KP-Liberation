@@ -137,4 +137,13 @@ class build {
 
     // Returns whether player can build storage at factory sector
     class build_canBuildStorage {};
+
+    // Client side build storage action menu clicked event handler
+    class buildClient_onBuildStorageClicked {};
+
+    // Client side build storage container requested callback
+    class buildClient_onBuildStorageRequested {};
+
+    // Server side confirm build storage container callback
+    class buildServer_onConfirmBuildStorage {};
 };
