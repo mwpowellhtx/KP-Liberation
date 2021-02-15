@@ -27,8 +27,8 @@ params [
     , ["_player", objNull, [objNull]]
 ];
 
-// Built FOB range should not overlap over sector range
-private _minSectorDist = KPLIB_param_fobRange + KPLIB_param_sectorCapRange;
+// Take the maximum of either of these two values in order that either does not overlap
+private _minSectorDist = KPLIB_param_fobRange max KPLIB_param_sectorCapRange;
 
 if (_debug) then {
     [format ["[fn_core_canBuildFob] Entering: [isNull _boxOrTruck, typeOf _boxOrTruck, typeOf _player, KPLIB_param_fobRange, KPLIB_param_sectorCapRange]: %1"
