@@ -134,4 +134,7 @@ class build {
 
     // Renders the heading onto the heading control during the build and move modes
     class build_onBuildItemDirectionSnapped {};
+
+    // Returns whether player can build storage at factory sector
+    class build_canBuildStorage {};
 };
