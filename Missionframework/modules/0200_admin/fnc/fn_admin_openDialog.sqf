@@ -1,4 +1,4 @@
-#inclde "..\ui\defines.hpp"
+#include "..\ui\defines.hpp"
 /*
     KPLIB_fnc_admin_openDialog
 
@@ -21,12 +21,13 @@
 */
 
 // Create admin dialog
-createDialog "KPLIB_admin";
+private _ok = createDialog "KPLIB_admin";
 
+// TODO: TBD: should go in an on-load... for the display, for the controls...
 // Disable the import and delete button in the admin dialog, when there is no exported data in the players profileNamespace
 if (profileNamespace getVariable [KPLIB_save_key + "_export", []] isEqualTo []) then {
     findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_IMPORTBUTTON ctrlEnable false;
     findDisplay KPLIB_IDD_ADMIN displayCtrl KPLIB_IDC_ADMIN_CTRL_DELETEBUTTON ctrlEnable false;
 };
 
-true
+true;

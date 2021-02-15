@@ -27,7 +27,7 @@ if (hasInterface) then {
     // Action to open the dialog
     private _actionArray = [
         "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_ADMIN" + "</t>"
-        , {[] call KPLIB_fnc_admin_openDialog}
+        , {[] call KPLIB_fnc_admin_openDialog;}
         , nil
         , KPLIB_ACTION_PRIORITY_ADMIN
         , false
