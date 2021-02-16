@@ -16,7 +16,6 @@
 private _onEventLoopStart = {
     _tick = 0;
     _players = [] call CBA_fnc_players;
-    _playerCount = count _players;
     _edens = +KPLIB_sectors_edens;
     _fobs = +KPLIB_sectors_fobs;
     _edenRange = KPLIB_param_edenRange;
@@ -26,10 +25,9 @@ private _onEventLoopStart = {
 // Create PFH for fob event
 [
     {
-        private _currentPlayer = _players select _tick;
-
-        // Increment the counter
-        _tick = _tick + 1;
+        // Allowing for breaks in the set of players...
+        private _currentPlayer = _players select (_tick mod (count _players));
+        //                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         private _default = "";
 
@@ -47,8 +45,10 @@ private _onEventLoopStart = {
 
         _currentPlayer setVariable ["KPLIB_sector_markerName", _nearestMarker];
 
-        // If we checked whole list, reinitialize the list
-        if (_tick >= _playerCount) then {
+        _tick = _tick + 1;
+
+        // When the tick counter rolls over, reset the variables
+        if (_tick >= count _players) then {
             [] call (_this getVariable "start");
         };
     }                               // Handler
@@ -62,7 +62,6 @@ private _onEventLoopStart = {
     , [ // Privates to serialize between calls
         "_tick"
         , "_players"
-        , "_playerCount"
         , "_edens"
         , "_fobs"
         , "_edenRange"
