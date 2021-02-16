@@ -18,26 +18,24 @@
         Function reached the end [BOOL]
 */
 
-if (KPLIB_param_savedebug) then {["Resources module saving...", "SAVE"] call KPLIB_fnc_common_log;};
+private _debug = KPLIB_param_savedebug;
 
-private _storageSave = [];
+if (_debug) then {
+    ["Resources module saving...", "SAVE"] call KPLIB_fnc_common_log;
+};
 
-private ["_class", "_pos", "_vector", "_resources"];
-{
-    // General data of the storage
-    _class = typeOf _x;
-    _pos = getPosWorld _x;
-    _vector = [vectorDir _x, vectorUp _x];
-    _resources = [_x] call KPLIB_fnc_resources_getStorageValue;
+/* Effectively from this point forward we ignore this bit... Instead we will depend on serialized
+ * variables to relay the summary for each object. This much as been entirely refactored in terms
+ * of persistent objects (i.e. storage containers), and 'KPLIB_resources_storageValue' persistent
+ * variables. */
 
-    // Add to the save array
-    _storageSave pushBack [_class, _pos, _vector, _resources select 0, _resources select 1, _resources select 2];
-} forEach KPLIB_resources_allStorages;
+// TODO: TBD: may eventually just drop this, but for now will leave it in for 'compatibility' reasons with on going dev testing...
+private _storageContainerStorageValueState = [];
 
 // Set module data to save and send it to the global save data array
 ["resources",
     [
-        _storageSave,
+        _storageContainerStorageValueState,
         KPLIB_resources_intel
     ]
 ] call KPLIB_fnc_init_setSaveData;

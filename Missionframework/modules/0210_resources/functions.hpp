@@ -92,4 +92,22 @@ class res {
 
     // Unstores given kind of resource crate
     class resources_unstoreCrate {};
+
+    // Returns the storage containers in proximity of the specified factory sector
+    class resources_getFactoryStorages {};
+
+    // Returns the storage containers in proximity to the specified FOB
+    class resources_getFobStorages {};
+
+    // Creates a CBA frame event loop callback to refresh storage
+    class resources_createRefreshFactoryStorageValues {};
+
+    // Creates a CBA frame event loop callback to refresh storage
+    class resources_createRefreshFobStorageValues {};
+
+    // Refreshes the storage containers 'KPLIB_resources_storageValue' attribute
+    class resources_onRefreshStorageValues {};
+
+    // Populates the storage container assuming apportioned crate volume and storage value global variable
+    class resources_onPopulateStorage {};
 };

@@ -167,8 +167,55 @@ if (isServer) then {
 // Process CBA Settings
 [] call KPLIB_fnc_resources_settings;
 
+// TODO: TBD: may capture in terms of CBA settings...
+KPLIB_param_resources_loadRange = 20;
+
+KPLIB_resources_indexes = [0, 1, 2];
+KPLIB_resources_storageValueDefault = KPLIB_resources_indexes apply {0};
+
+/* We will require these when we begin coordinating with proper transactional
+    * based accounting. Especially to align indices with their types. */
+KPLIB_resources_crateClassesF = [
+    KPLIB_preset_crateSupplyF
+    , KPLIB_preset_crateAmmoF
+    , KPLIB_preset_crateFuelF
+];
+
+KPLIB_resources_storageClassesF = [
+    KPLIB_preset_storageSmallF
+    , KPLIB_preset_storageLargeF
+];
+
+// Some globals defined here on the server as the used preset variables aren't present on the clients yet but needed in initial loading
+// All valid crate classnames
+KPLIB_resources_crateClasses = [
+    KPLIB_preset_crateSupplyF
+    , KPLIB_preset_crateAmmoF
+    , KPLIB_preset_crateFuelF
+    , KPLIB_preset_crateSupplyE
+    , KPLIB_preset_crateAmmoE
+    , KPLIB_preset_crateFuelE
+];
+
+// All valid storage classnames
+KPLIB_resources_storageClasses = [
+    KPLIB_preset_storageSmallE
+    , KPLIB_preset_storageSmallF
+    , KPLIB_preset_storageLargeE
+    , KPLIB_preset_storageLargeF
+];
+
+// Storage classnames concerning factory sectors
+KPLIB_resources_factoryStorageClasses = [
+    KPLIB_preset_storageSmallE
+    , KPLIB_preset_storageSmallF
+];
+
 // Server section (dedicated and player hosted)
 if (isServer) then {
+
+    KPLIB_param_resources_refreshStorageValuePeriodSeconds = 5;
+
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_resources_loadData;}] call CBA_fnc_addEventHandler;
 
@@ -178,46 +225,8 @@ if (isServer) then {
     // Adding actions to spawned crates and storages
     ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_resources_addActions}] call CBA_fnc_addEventHandler;
 
-    /* We will require these when we begin coordinating with proper transactional
-     * based accounting. Especially to align indices with their types. */
-    KPLIB_resources_crateClassesF = [
-        KPLIB_preset_crateSupplyF
-        , KPLIB_preset_crateAmmoF
-        , KPLIB_preset_crateFuelF
-    ];
-
-    KPLIB_resources_storageClassesF = [
-        KPLIB_preset_storageSmallF
-        , KPLIB_preset_storageLargeF
-    ];
-
     publicVariable "KPLIB_resources_crateClassesF";
     publicVariable "KPLIB_resources_storageClassesF";
-
-    // Some globals defined here on the server as the used preset variables aren't present on the clients yet but needed in initial loading
-    // All valid crate classnames
-    KPLIB_resources_crateClasses = [
-        KPLIB_preset_crateSupplyF
-        , KPLIB_preset_crateAmmoF
-        , KPLIB_preset_crateFuelF
-        , KPLIB_preset_crateSupplyE
-        , KPLIB_preset_crateAmmoE
-        , KPLIB_preset_crateFuelE
-    ];
-
-    // All valid storage classnames
-    KPLIB_resources_storageClasses = [
-        KPLIB_preset_storageSmallE
-        , KPLIB_preset_storageSmallF
-        , KPLIB_preset_storageLargeE
-        , KPLIB_preset_storageLargeF
-    ];
-
-    // Storage classnames concerning factory sectors
-    KPLIB_resources_factoryStorageClasses = [
-        KPLIB_preset_storageSmallE
-        , KPLIB_preset_storageSmallF
-    ];
 
     // Publish variables to clients
     publicVariable "KPLIB_resources_crateClasses";
@@ -240,6 +249,21 @@ if (hasInterface) then {
 
 if (isServer) then {
     ["Module initialized", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
+};
+
+KPLIB_resources_capabilityKeys = [
+    "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY"
+    , "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO"
+    , "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"
+];
+
+is (hasInterface) then {
+
+    KPLIB_resources_imagePaths = [
+        "res\ui_supplies.paa"
+        , "res\ui_ammo.paa"
+        , "res\ui_fuel.paa"
+    ];
 };
 
 true

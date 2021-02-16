@@ -19,23 +19,26 @@
         Module postInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "POST] [RESOURCES", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initializing...", "POST] [RESOURCES", true] call KPLIB_fnc_common_log;
+};
 
 // Server section (dedicated and player hosted)
 if (isServer) then {
-
+    [] call KPLIB_fnc_resources_createRefreshFactoryStorageValues;
+    [] call KPLIB_fnc_resources_createRefreshFobStorageValues;
 };
 
-// HC section
-if (!hasInterface && !isDedicated) then {
-
+if (!(hasInterface || isDedicated)) then {
+    // HC section
 };
 
-// Player section
 if (hasInterface) then {
-
+    // Player section
 };
 
-if (isServer) then {["Module initialized", "POST] [RESOURCES", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["Module initialized", "POST] [RESOURCES", true] call KPLIB_fnc_common_log;
+};
 
-true
+true;
