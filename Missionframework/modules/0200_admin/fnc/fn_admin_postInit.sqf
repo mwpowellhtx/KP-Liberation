@@ -89,6 +89,57 @@ if (hasInterface) then {
         true;
     };
 
+    KPLIB_fnc_admin_setFactoryStorageMarker = {
+        params [
+            ["_target", player, [objNull]]
+            , ["_range", KPLIB_param_sectorCapRange, [0]]
+        ];
+        private _sectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
+        private _targetMarker = [_target, _range, _sectors] call KPLIB_fnc_common_getTargetMarkerIfInRange;
+        // TODO: TBD: once we get the build marker name issue sorted out we will need to consider that case here...
+        if (!(_targetMarker isEqualTo "")) then {
+            private _objects = nearestObjects [markerPos _targetMarker, [KPLIB_preset_storageSmallF], _range];
+            {
+                _x setVariable ["KPLIB_sector_markerName", _targetMarker, true];
+            } forEach _objects;
+        };
+    };
+
+    KPLIB_fnc_admin_summarizeStorageContainers = {
+        params [
+            ["_target", player, [objNull]]
+            , ["_range", 50000, [0]]
+        ];
+        private _storageContainers = nearestObjects [_target, KPLIB_resources_storageClassesF, _range];
+        private _sum = _storageContainers apply {[
+            typeOf _x
+            , _x getVariable ["KPLIB_asset_isMovable", false]
+            , _x getVariable ["KPLIB_sector_markerName", ""]
+            , _x getVariable ["KPLIB_fob_originalUuid", ""]
+            , [_x, KPLIB_param_sectorCapRange, KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; }] call KPLIB_fnc_common_getTargetMarkerIfInRange
+        ]};
+        [count _sum, _sum];
+    };
+
+    KPLIB_fnc_admin_deleteStorageContainers = {
+        params [
+            ["_target", player, [objNull]]
+            , ["_range", KPLIB_param_fobRange, [0]]
+            , ["_sectors", KPLIB_sectors_fobs apply { (_x#0); }, [[]]]
+            , ["_classNames", KPLIB_resources_storageClassesF, [[]]]
+        ];
+        private _targetMarker = [_target, _range, _sectors] call KPLIB_fnc_common_getTargetMarkerIfInRange;
+        // TODO: TBD: once we get the build marker name issue sorted out we will need to consider that case here...
+        if (!(_targetMarker isEqualTo "")) then {
+            private _objects = nearestObjects [_target, _classNames, _range];
+            {
+                KPLIB_persistence_objects = KPLIB_persistence_objects - [_x];
+                // TODO: TBD: and any attachments...
+                deleteVehicle _x;
+            } forEach _objects;
+        };
+    };
+
     addMissionEventHandler ["MapSingleClick", {
         params ["_units", "_pos", "_alt", "_shift"];
         if (isNil "KPLIB_fnc_map_onMapSingleClick") exitWith {
