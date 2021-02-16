@@ -26,11 +26,11 @@
 */
 
 params [
-    ["_center", position player, [[]], 3],
+    ["_center", position player, [[]], 3]
     // TODO: TBD: define sensible defaults in the CBA settings...
-    ["_radius", 50, [0]],
-    ["_buildItem", [], [[]], 4],
-    ["_onConfirm", {}, [{}]]
+    , ["_radius", 50, [0]]
+    , ["_buildItem", [], [[]], 4]
+    , ["_onConfirm", {}, [{}]]
 ];
 
 if (!(_buildItem isEqualTypeParams KPLIB_build_buildItemTemplate)) exitWith {

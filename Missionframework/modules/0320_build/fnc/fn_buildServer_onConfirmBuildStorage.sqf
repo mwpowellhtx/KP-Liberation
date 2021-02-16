@@ -27,6 +27,7 @@ private _debug = [] call KPLIB_fnc_build_debug;
 params [
     ["_storageContainer", objNull, [objNull]]
     , ["_markerName", "", [""]]
+    , ["_cid", -1, [0]]
 ];
 
 if (_debug) then {

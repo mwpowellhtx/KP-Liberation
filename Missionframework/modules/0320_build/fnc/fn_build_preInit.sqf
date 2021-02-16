@@ -90,14 +90,20 @@ if (isServer) then {
      *      reasons, determing whether actions may be performed associated with FOB zones,
      *      factory sectors, and so on.
      *
-     * KPLIB_storageContainer_sum, keeps track of a storage container resource summary in
+     * KPLIB_resources_storageValue, keeps track of a storage container resource summary in
      *      the typical shape, i.e. [0, 0, 0], literally, [[S]upply, [A]ammo, [F]uel].
+     *
+     * KPLIB_storageTransport_sum, keeps track of the sum of resources being transported
+     *      by a given vehicle resource transport, in the same shape as 'KPLIB_resources_storageValue'.
+     *      The only difference is, this attribute will not be persistent. Meaning, any resources
+     *      caught out of an actual storage container at the time when a server session is restarted
+     *      will effectively be lost.
      */
     [[
         "KPLIB_asset_isMovable"
         , "KPLIB_fob_originalUuid"
         , "KPLIB_sector_markerName"
-        , "KPLIB_storageContainer_sum"], true] call KPLIB_fnc_persistence_addPersistentVars;
+        , "KPLIB_resources_storageValue"], true] call KPLIB_fnc_persistence_addPersistentVars;
 
     // Register load event handler
     ["KPLIB_doLoad", {[] call KPLIB_fnc_build_loadData}] call CBA_fnc_addEventHandler;
@@ -119,12 +125,25 @@ if (isServer) then {
                 , str [_object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
         };
 
-        // TODO: TBD: we think that possibly we could support moving storage containers...
-        // TODO: TBD: conditioned on whether the asset has attached resources
-        // Storage classes are the one possible exception to movable classes
-        if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
-            _object setVariable ["KPLIB_asset_isMovable", true, true];
-        };
+        //// TODO: TBD: we think that possibly we could support moving storage containers...
+        //// TODO: TBD: conditioned on whether the asset has attached resources
+        //// Storage classes are the one possible exception to movable classes
+        //if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
+        //};
+
+        // TODO: TBD: at this moment in dev, we are not producing any resources yet, so it is a good time to get a grip on this issue
+        // TODO: TBD: will need to figure out the appropriate time to handle the storage container use cases later on...
+
+        /* We must allow players to select, move, rotate even storage container classes. Why
+         * is that, because when "building" for the first time, it is unrealisting, even improbable,
+         * that the position, alignment, etc, will be correct straight out of the gate. Therefore,
+         * we must be able to position, reposition, and align them, just like any other class of
+         * object. And, if it means there are stored resources on a particular storage container,
+         * so be it, then we must relay that issue as an event on any of the attached objects,
+         * set their simulation so they do not cause catastrophic failures, explosions, etc,
+         * and re-attach. So be it. */
+
+        _object setVariable ["KPLIB_asset_isMovable", true, true];
 
         [_object] call {
             params [
@@ -137,10 +156,27 @@ if (isServer) then {
             private _nearestMarkerAndUuid = [_obj, _default] call KPLIB_fnc_common_getNearestMarkerAndUuid;
 
             if (!(_nearestMarkerAndUuid isEqualTo [_default, _default])) then {
+
+                if (_debug) then {
+                    [format ["[fn_build_preInit::_onServerBuildItemBuilt::call] [str _obj, typeOf _obj, _nearestMarkerAndUuid]: %1"
+                        , str [str _obj, typeOf _obj, _nearestMarkerAndUuid]], "BUILD", true] call KPLIB_fnc_common_log;
+                };
+
                 // TODO: TBD: may make an event out of this part... or at least a first class function that we can invoke...
                 _obj setVariable ["KPLIB_sector_markerName", (_nearestMarkerAndUuid#0), true];
                 // TODO: TBD: as long as we note a UUID, then we can probably defer the marker name until an FPS event handler picks up the asset...
                 _obj setVariable ["KPLIB_fob_originalUuid", (_nearestMarkerAndUuid#1), true];
+            };
+        };
+
+        // TODO: TBD: this placement is a pretty distant in terms of client/server hops, events handled, etc, from the point of origin, may not be the best placement...
+        [_object] call {
+            params [
+                ["_obj", objNull, [objNull]]
+            ];
+            private _sectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
+            if (_markerName in _sectors) then {
+                _obj setVariable ["KPLIB_sector_markerName", _markerName, true];
             };
         };
 
