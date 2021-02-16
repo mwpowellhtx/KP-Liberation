@@ -107,7 +107,7 @@ class KPLIB_ToolboxContainer: KPGUI_PRE_ControlsGroup {
 };
 
 class KP_ApplyButton: KPGUI_PRE_DialogButton_LeftPanel {
-    idc = KPLIB_IDC_BUILD_CONFIRM;
+    idc = KPLIB_IDC_BUILD_BTNBUILD;
     text = "$STR_KPLIB_DIALOG_BUTTON_BUILD";
 
     w = KP_GETWPLAIN(KP_WIDTH_VAL_LP,1);

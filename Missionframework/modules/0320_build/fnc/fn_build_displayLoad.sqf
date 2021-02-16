@@ -40,9 +40,8 @@ _itemsList ctrlAddEventHandler ["LBSelChanged", {
     LSVAR("buildItem", _selectedItem);
 
     // Unfocus the listbox to prevent camera controls from changing the selection
-    ctrlSetFocus ((ctrlParent _control) displayCtrl KPLIB_IDC_BUILD_CONFIRM);
+    ctrlSetFocus ((ctrlParent _control) displayCtrl KPLIB_IDC_BUILD_BTNBUILD);
 }];
-
 
 private _categoriesList = _display displayCtrl KPLIB_IDC_BUILD_CATEGORY_LIST;
 _categoriesList ctrlAddEventHandler ["LBSelChanged", {
@@ -52,7 +51,7 @@ _categoriesList ctrlAddEventHandler ["LBSelChanged", {
     [] call KPLIB_fnc_build_searchClear;
 
     // Unfocus the listbox to prevent camera controls from changing the selection
-    ctrlSetFocus ((ctrlParent _control) displayCtrl KPLIB_IDC_BUILD_CONFIRM);
+    ctrlSetFocus ((ctrlParent _control) displayCtrl KPLIB_IDC_BUILD_BTNBUILD);
 }];
 
 // Fill the list of categories

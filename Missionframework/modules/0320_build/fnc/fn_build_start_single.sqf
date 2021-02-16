@@ -42,22 +42,29 @@ private _onOpenBuildDisplay = {
         ["_display", displayNull, [displayNull]]
     ];
 
-    private _confirmCtrl = (_display displayCtrl KPLIB_IDC_BUILD_CONFIRM);
+    private _onReposBuildButtonControl = {
+        _this apply { _display displayCtrl _x; } params [
+            ["_ctrl", controlNull, [controlNull]]
+            , ["_referenceCtrl", controlNull, [controlNull]]
+        ];
+        // Obtain the coordinates of the reference control...
+        private _newCtrlPos = (ctrlPosition _referenceCtrl);
+        // Save only X, Y
+        _newCtrlPos resize 2;
+        // Get original W, H
+        _newCtrlPos append ((ctrlPosition _ctrl) select [2, 2]);
+        // Set the position with original W, H
+        _ctrl ctrlSetPosition _newCtrlPos;
+        _ctrl ctrlCommit 0;
+    };
 
-    // Get pos of build mode selector
-    private _confirmCtrlNewPos = (ctrlPosition ctrlParentControlsGroup (_display displayCtrl KPLIB_IDC_BUILD_TOOLBOX_MODE));
-    // Save only X, Y
-    _confirmCtrlNewPos resize 2;
-    // Get original W, H
-    _confirmCtrlNewPos append ((ctrlPosition _confirmCtrl) select [2, 2]);
-    // Set the position with original W, H
-    _confirmCtrl ctrlSetPosition _confirmCtrlNewPos;
-    _confirmCtrl ctrlCommit 0;
+    // Yes we still want to reposition the button, but we want to align it with the search controls instead...
+    [KPLIB_IDC_BUILD_BTNBUILD, KPLIB_IDC_BUILD_CATEGORY_LIST] call _onReposBuildButtonControl;
 
     // Hide tabs, build list and background
     {
         (_display displayCtrl _x) ctrlShow false;
-    } forEach KPLIB_BUILD_TABS_IDCS_ARRAY + [KPLIB_IDC_BUILD_ITEM_LIST, KPLIB_IDC_BUILD_DIALOG_AREA, KPLIB_IDC_BUILD_TOOLBOX_MODE];
+    } forEach KPLIB_BUILD_TABS_IDCS_ARRAY;
 
     // "_thisArgs" not to be confused with the params above
     LSVAR("buildItem", _thisArgs);

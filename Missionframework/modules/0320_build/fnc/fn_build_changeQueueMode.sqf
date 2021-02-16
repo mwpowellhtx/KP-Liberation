@@ -25,7 +25,7 @@ params [
 ];
 
 private _display = ctrlParent _ctrl;
-private _confirmBtnControl = _display displayCtrl KPLIB_IDC_BUILD_CONFIRM;
+private _confirmBtnControl = _display displayCtrl KPLIB_IDC_BUILD_BTNBUILD;
 private _buildList = _display displayCtrl KPLIB_IDC_BUILD_ITEM_LIST;
 
 // TODO: TBD: preserve and restore current build queue
