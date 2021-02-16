@@ -19,16 +19,26 @@
         Function reached the end [BOOL]
 */
 
-if (KPLIB_param_savedebug) then {
+// TODO: TBD: refactor to proper 'KPLIB_fnc_persistence_debug' module function...
+private _debug = KPLIB_param_debug || KPLIB_param_savedebug;
+
+if (_debug) then {
     ["[fn_persistence_saveData] Module saving...", "SAVE"] call KPLIB_fnc_common_log;
 };
 
 KPLIB_persistence_objects = KPLIB_persistence_objects - [objNull];
-KPLIB_persistence_units = KPLIB_persistence_units select {alive _x};
 
-if (KPLIB_param_debug || KPLIB_param_savedebug) then {
-    [format ["[fn_persistence_saveData] Persistence objects: %1"
-        , KPLIB_persistence_objects apply { typeOf _x; }], "SAVE"] call KPLIB_fnc_common_log;
+KPLIB_persistence_objects = KPLIB_persistence_objects select {
+    alive _x;
+};
+
+KPLIB_persistence_units = KPLIB_persistence_units select {
+    alive _x;
+};
+
+if (_debug) then {
+    [format ["[fn_persistence_saveData] Persistence objects: [count _objects, typeOfs]: %1"
+        , str [count KPLIB_persistence_objects, KPLIB_persistence_objects apply { typeOf _x; }]], "SAVE"] call KPLIB_fnc_common_log;
 };
 
 // Set module data to save and send it to the global save data array
@@ -47,4 +57,4 @@ if (KPLIB_param_debug || KPLIB_param_savedebug) then {
     }
 ]] call KPLIB_fnc_init_setSaveData;
 
-true
+true;

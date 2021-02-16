@@ -30,6 +30,9 @@ if (isServer) then {
     ----- Module Initialization -----
 */
 
+// TODO: TBD: eventually refactor in terms of CBA setting...
+KPLIB_param_persistence_refreshStoragePeriodSeconds = 3;
+
 // Server section (dedicated and player hosted)
 if (isServer) then {
 

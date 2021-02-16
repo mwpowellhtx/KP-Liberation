@@ -113,5 +113,4 @@ KPLIB_persistence_units = (_moduleData#1) apply {
     !isNull _x;
 };
 
-
 true;

@@ -35,13 +35,23 @@ params [
 ];
 
 if (_debug) then {
-    [format ["[fn_persistence_deserializeVars] Given: [typeOf _target, _varDatum]: %1"
-        , str [typeOf _target, _varDatum]], "SAVE"] call KPLIB_fnc_common_log;
+    [format ["[fn_persistence_deserializeVars] Given: [str _target, typeOf _target, _varDatum]: %1"
+        , str [str _target, typeOf _target, _varDatum]], "SAVE"] call KPLIB_fnc_common_log;
 };
 
-_varDatum params ["_var", "_val", "_global"];
+_varDatum params [
+    ["_var", "", [""]]
+    , "_val"
+    , ["_global", true, [false]]
+];
 
-if (_var isEqualTo "") exitWith {
+if (_var isEqualTo "" || isNil "_val") exitWith {
+
+    if (_debug) then {
+        [format ["[fn_persistence_deserializeVars] Variable or value error: [str _target, _var, isNil '_var']: %1"
+            , str [str _target, _var, isNil '_var']], "SAVE"] call KPLIB_fnc_common_log;
+    };
+
     false;
 };
 

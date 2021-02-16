@@ -22,9 +22,15 @@ params [
 ];
 
 if (_object isKindOf "CAManBase") exitWith {
-    KPLIB_persistence_units pushBackUnique _object;
+    KPLIB_persistence_units = KPLIB_persistence_units - [_object];
+    if (alive _object) then {
+        KPLIB_persistence_units pushBackUnique _object;
+    };
 };
 
-KPLIB_persistence_objects pushBackUnique _object;
+KPLIB_persistence_objects = KPLIB_persistence_objects - [_object];
+if (alive _object) then {
+    KPLIB_persistence_objects pushBackUnique _object;
+};
 
-true
+true;

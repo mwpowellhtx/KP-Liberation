@@ -16,7 +16,7 @@
 
     Returns:
         Event handler finished [BOOL]
-*/
+ */
 
 if (isServer) then {
     ["[fn_persistence_postInit] Initializing...", "POST] [PERSISTENCE", true] call KPLIB_fnc_common_log;
@@ -39,7 +39,11 @@ if (isServer) then {
         [format ["[fn_persistence_postInit] [count KPLIB_sectors_fobs, count KPLIB_persistence_objects]: %1"
             , str [count KPLIB_sectors_fobs, count KPLIB_persistence_objects]], "POST] [PERSISTENCE"] call KPLIB_fnc_common_log;
     };
+};
 
+if (isServer) then {
+    [] call KPLIB_fnc_persistence_createRefreshFobStoragePersistence;
+    [] call KPLIB_fnc_persistence_createRefreshFactoryStoragePersistence;
 };
 
 if (isServer) then {

@@ -75,4 +75,13 @@ class persistence {
 
     // Updates which objects should or should not be persisted within range of each FOB zone
     class persistence_onUpdatePersistent {};
+
+    // Refreshes factory sector storage persistence periodically
+    class persistence_createRefreshFactoryStoragePersistence {};
+
+    // Refreshes FOB zone storage persistence periodically
+    class persistence_createRefreshFobStoragePersistence {};
+
+    // Reconciles the objects with the known 'KPLIB_persistence_objects'
+    class persistence_onReconcilePersistenceObjects {};
 };
