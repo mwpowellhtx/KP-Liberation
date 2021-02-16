@@ -18,19 +18,33 @@
         Function reached the end [BOOL]
 */
 
-if (KPLIB_param_debug) then {["----- Load function started -----", "SAVE", true] call KPLIB_fnc_common_log;};
+private _debug = KPLIB_param_debug;
+
+if (_debug) then {
+    ["----- Load function started -----", "SAVE", true] call KPLIB_fnc_common_log;
+};
 
 // Load whole save data
 KPLIB_save_data = profileNamespace getVariable [KPLIB_save_key, nil];
 
 // Fire load event
-if (KPLIB_param_debug) then {["Firing load event...", "SAVE"] call KPLIB_fnc_common_log;};
+if (_debug) then {
+    ["Firing load event...", "SAVE"] call KPLIB_fnc_common_log;
+};
+
 ["KPLIB_doLoad"] call CBA_fnc_localEvent;
 
 // Publish save loaded state
 KPLIB_save_loaded = true;
 publicVariable "KPLIB_save_loaded";
 
-if (KPLIB_param_debug) then {["----- Load function finished -----", "SAVE", true] call KPLIB_fnc_common_log;};
+if (_debug) then {
+    [format ["[fn_init_load] Persistence objects: [count KPLIB_persistence_objects, KPLIB_persistence_objects apply {[typeOf _x, netId _x]}]: %1"
+        , str [count KPLIB_persistence_objects, KPLIB_persistence_objects apply {[typeOf _x, netId _x]}]], "SAVE"] call KPLIB_fnc_common_log;
+};
 
-true
+if (_debug) then {
+    ["----- Load function finished -----", "SAVE", true] call KPLIB_fnc_common_log;
+};
+
+true;
