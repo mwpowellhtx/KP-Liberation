@@ -14,6 +14,12 @@
 class persistence {
     file = "modules\0140_persistence\fnc";
 
+    // Returns whether the module debug mode is enabled
+    class persistence_debug {};
+
+    // Configures the persistence settings registered through the CBA dependency
+    class persistence_settings {};
+
     /* Callback which filters objects serializing beyond the range of known FOB sites;
      * by filter we mean actively deletes those units or vehicles... */
     class persistence_callback_onFobFilter {};

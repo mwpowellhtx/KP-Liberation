@@ -19,7 +19,7 @@
         Function reached the end [BOOL]
  */
 
-private _debug = KPLIB_param_debug || KPLIB_param_savedebug;
+private _debug = [] call KPLIB_fnc_persistence_debug;
 
 if (_debug) then {
     ["[fn_persistence_loadData] Loading...", "SAVE"] call KPLIB_fnc_common_log;

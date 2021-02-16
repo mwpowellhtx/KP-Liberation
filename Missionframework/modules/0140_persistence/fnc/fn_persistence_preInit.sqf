@@ -30,6 +30,8 @@ if (isServer) then {
     ----- Module Initialization -----
 */
 
+[] call KPLIB_fnc_persistence_settings;
+
 // TODO: TBD: eventually refactor in terms of CBA setting...
 KPLIB_param_persistence_refreshStoragePeriodSeconds = 3;
 

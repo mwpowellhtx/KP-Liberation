@@ -2036,6 +2036,14 @@
             <German>Zufallsbereich für den Informationszuwachs bei einem Verhör. Mit einem Wert von 5 liegt der effektive Zuwachs, bei einem Ausgangswert von 10, zwischen 5 und 15.</German>
         </Key>
 
+        <!-- PERSISTENCE CATEGORY -->
+        <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE_DEBUG">
+            <English>Enable Persistence Module Debug Mode</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE_DEBUG_TT">
+            <English>Enables/disables Liberation persistence module server log debug output.</English>
+        </Key>
+
         <!-- PRODUCTION CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_PROD">
             <English>KPLIB - Production</English>

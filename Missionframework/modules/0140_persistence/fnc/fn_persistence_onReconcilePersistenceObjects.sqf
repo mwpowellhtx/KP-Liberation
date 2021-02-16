@@ -20,7 +20,7 @@
         The callback completed [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_debug_debug;
+private _debug = [] call KPLIB_fnc_persistence_debug;
 
 params [
     ["_callbackType", "", [""]]

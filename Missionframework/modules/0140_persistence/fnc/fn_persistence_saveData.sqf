@@ -17,10 +17,9 @@
 
     Returns:
         Function reached the end [BOOL]
-*/
+ */
 
-// TODO: TBD: refactor to proper 'KPLIB_fnc_persistence_debug' module function...
-private _debug = KPLIB_param_debug || KPLIB_param_savedebug;
+private _debug = [] call KPLIB_fnc_persistence_debug;
 
 if (_debug) then {
     ["[fn_persistence_saveData] Module saving...", "SAVE"] call KPLIB_fnc_common_log;

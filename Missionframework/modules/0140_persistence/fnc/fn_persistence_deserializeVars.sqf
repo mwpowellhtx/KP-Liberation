@@ -20,8 +20,7 @@
         Function reached the end [BOOL]
  */
 
-// TODO: TBD: should be refactored to fist class config function...
-private _debug = KPLIB_param_debug || KPLIB_param_savedebug;
+private _debug = [] call KPLIB_fnc_persistence_debug;
 
 //params [
 //    ["_target", objNull, [objNull]]

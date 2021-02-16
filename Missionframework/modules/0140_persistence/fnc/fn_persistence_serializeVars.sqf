@@ -26,7 +26,7 @@
         https://community.bistudio.com/wiki/allVariables
  */
 
-private _debug = KPLIB_param_debug || KPLIB_param_savedebug;
+private _debug = [] call KPLIB_fnc_persistence_debug;
 
 params [
     ["_object", objNull, [objNull]]

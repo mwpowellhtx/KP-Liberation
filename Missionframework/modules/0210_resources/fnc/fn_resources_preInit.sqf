@@ -239,12 +239,18 @@ if (isServer) then {
     KPLIB_resources_allStorages = [];
 };
 
-if (!hasInterface && !isDedicated) then {
+if (!(hasInterface || isDedicated)) then {
     // HC section
 };
 
 if (hasInterface) then {
     // Player section
+
+    KPLIB_resources_imagePaths = [
+        "res\ui_supplies.paa"
+        , "res\ui_ammo.paa"
+        , "res\ui_fuel.paa"
+    ];
 };
 
 if (isServer) then {
@@ -257,13 +263,4 @@ KPLIB_resources_capabilityKeys = [
     , "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"
 ];
 
-is (hasInterface) then {
-
-    KPLIB_resources_imagePaths = [
-        "res\ui_supplies.paa"
-        , "res\ui_ammo.paa"
-        , "res\ui_fuel.paa"
-    ];
-};
-
-true
+true;

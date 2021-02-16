@@ -18,9 +18,9 @@
 
     Returns:
         Variables were added to persistence system [BOOL]
-*/
+ */
 
-private _debug = [["KPLIB_param_savedebug"]] call KPLIB_fnc_debug_debug;
+private _debug = [] call KPLIB_fnc_persistence_debug;
 
 params [
     "_variableNameOrNames"
@@ -33,7 +33,7 @@ if (isNil "_variableNameOrNames") exitWith {
 
 private _onEach = {
     private _variableName = _this;
-    private _debug = [["KPLIB_param_savedebug"]] call KPLIB_fnc_debug_debug;
+    private _debug = [] call KPLIB_fnc_persistence_debug;
 
     if (_variableName isEqualTo "") exitWith {
         false;
