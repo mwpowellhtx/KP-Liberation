@@ -33,9 +33,6 @@ params [
     ["_display", displayNull, [displayNull]]
 ];
 
-// Used to identify the actual storage location
-createMarkerLocal ["_productionMgrStorage", KPLIB_zeroPos];
-
 private _eids = [];
 
 {

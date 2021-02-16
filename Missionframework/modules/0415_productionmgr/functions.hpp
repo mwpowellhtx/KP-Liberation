@@ -128,4 +128,10 @@ class productionMgr {
 
     // Client server production element updated request event handler
     class productionMgr_client_onProductionElemResponse {};
+
+    // Map control onLoad event handler
+    class productionMgr_ctrlMap_onLoad {};
+
+    // Map control onUnload event handler
+    class productionMgr_ctrlMap_onUnload {};
 };

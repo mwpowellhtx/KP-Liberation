@@ -41,8 +41,7 @@ params [
     , "KPLIB_productionMgr_onProductionElemResponse"
 ];
 
+[nil, _exitCode] call KPLIB_fnc_productionMgr_ctrlMap_onUnload;
+
 // Disconnect the event handlers and inform the server that this dialog session is closed
 ["KPLIB_productionMgr_onDialogClosed", [clientOwner]] spawn CBA_fnc_serverEvent;
-
-// Remove the marker when the dialog has completed
-deleteMarkerLocal "_productionMgrStorage";

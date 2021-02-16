@@ -32,7 +32,7 @@ private _view = _queue apply {
     private _resourceIndex = _x;
     private _viewData = [
         "" // Leaving room for the image
-        , toUpper localize (KPLIB_productionMgr_capabilityKeys select _resourceIndex)
+        , toUpper localize (KPLIB_resources_capabilityKeys select _resourceIndex)
     ];
     [_viewData, _resourceIndex];
     //          ^^^^^^^^^^^^^^ which is the true value of the data behind the row

@@ -93,10 +93,13 @@ private _productionElem = (_selected#0);
 ];
 
 // Done, fini; we could get fancier with it, I suppose, but this meets the objective for now.
-[markerPos _markerName] call {
+[_display, _markerName] spawn {
     params [
-        ["_sectorPos", KPLIB_zeroPos, [[]], 3]
+        ["_display", displayNull, [displayNull]]
+        , ["_markerName", "", [""]]
     ];
+
+    private _sectorPos = markerPos _markerName;
 
     // TODO: TBD: discover nearby storage containers and present them as well...
     // TODO: TBD: because remember we want to sort out the whole building thing...
@@ -107,5 +110,10 @@ private _productionElem = (_selected#0);
     private _ctrlMap = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_CTRLMAP;
 
     _ctrlMap ctrlMapAnimAdd [0, 0.1, _sectorPos];
+
+    _ctrlMap setVariable ["KPLIB_sector_markerName", _markerName];
+
+    [_ctrlMap] spawn KPLIB_fnc_productionMgr_ctrlMap_onLoad;
+
     ctrlMapAnimCommit _ctrlMap;
 };

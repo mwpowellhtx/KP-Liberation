@@ -39,7 +39,7 @@ private _onRenderBool = {
 
 // TODO: TBD: these are enough of functions that they could even potentially be pre-compiled, ready and waiting...
 // TODO: TBD: i.e. on render bool, on apply, etc...
-private _view = KPLIB_productionMgr_resourceIndexes apply {
+private _view = KPLIB_resources_indexes apply {
     private _resourceIndex = _x;
 
     private _producing = if (_queue isEqualTo []) then {
@@ -70,7 +70,7 @@ private _view = KPLIB_productionMgr_resourceIndexes apply {
     private _total = _totals select _resourceIndex;
     private _viewData = [
         "" // Leaving room for the resource image
-        , toUpper localize (KPLIB_productionMgr_capabilityKeys select _resourceIndex)
+        , toUpper localize (KPLIB_resources_capabilityKeys select _resourceIndex)
         , (_cap select _resourceIndex) call _onRenderBool
         , _producing call _onRenderBool
         , str _total

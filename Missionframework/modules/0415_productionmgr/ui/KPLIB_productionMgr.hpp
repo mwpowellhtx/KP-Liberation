@@ -259,6 +259,7 @@ class KPLIB_productionMgr {
             y = KPLIB_PRODUCTIONMGR_MAPCTRL_YC;
             w = KPLIB_PRODUCTIONMGR_MAPCTRL_W;
             h = KPLIB_PRODUCTIONMGR_MAPCTRL_H;
+            // Does not actually support an 'onUnload' per se, but we have an event handler defined for use throughout anyway
         };
 
         class KPLIB_productionMgr_btnRefresh : XGUI_PRE_Button {

@@ -16,6 +16,11 @@
 
     Returns:
         Module preInit finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/CfgMarkers
+        https://www.w3schools.com/colors/colors_picker.asp
+        https://community.bistudio.com/wiki/Arma_3:_CfgMarkerColors
 */
 
 if (isServer) then {
@@ -32,19 +37,9 @@ if (isServer) then {
 
 // TODO: TBD: lays any ground work, client or server, required to support the module
 if (hasInterface) then {
-    KPLIB_productionMgr_resourceIndexes = [0, 1, 2];
 
-    KPLIB_productionMgr_resourceImages = [
-        "res\ui_supplies.paa"
-        , "res\ui_ammo.paa"
-        , "res\ui_fuel.paa"
-    ];
-
-    KPLIB_productionMgr_capabilityKeys = [
-        "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY"
-        , "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO"
-        , "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"
-    ];
+    KPLIB_productionMgr_storageMarkerType = "hd_pickup";
+    KPLIB_productionMgr_storageMarkerColor = KPLIB_preset_colorF;
 
     KPLIB_productionMgr_boolMap = [
         [true, "yes"]
@@ -55,7 +50,13 @@ if (hasInterface) then {
     KPLIB_productionMgr_productionElem_default = +[
         ["", ""]
         , KPLIB_timers_default
-        , [[false, false, false], [0, 0, 0], []]
+        /* TODO: TBD: may eliminate this bit, but will need to review the production tuple, again...
+         * Why is that... Now that storage receives a "KPLIB_resources_storageValue" variable, there
+         * is no need to carry anything here. Worst case, we add a production function that summarizes
+         * the sector in a zero (0) storage containers scenario, for instance. Everything else can be
+         * aligned on the fly relatively easily. */
+        , [KPLIB_resources_indexes apply {false}, KPLIB_resources_storageValueDefault, []]
+        //                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ];
 };
 

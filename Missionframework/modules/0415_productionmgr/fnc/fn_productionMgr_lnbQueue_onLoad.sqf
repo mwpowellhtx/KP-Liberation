@@ -54,7 +54,7 @@ if (!(_view isEqualTo [])) then {
 
         private _rowIndex = _lnbQueue lnbAddRow _viewData;
 
-        _lnbQueue lnbSetPicture [[_rowIndex, 0], (KPLIB_productionMgr_resourceImages select _resourceIndex)];
+        _lnbQueue lnbSetPicture [[_rowIndex, 0], (KPLIB_resources_imagePaths select _resourceIndex)];
 
         // For use when coordinating production resource management
         [_lnbQueue, _rowIndex, _resourceIndex] call KPLIB_fnc_productionMgr_setAdditionalDataOrValue;

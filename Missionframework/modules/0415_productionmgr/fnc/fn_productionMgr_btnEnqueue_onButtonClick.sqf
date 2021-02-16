@@ -49,7 +49,7 @@ private _markerName = [] call KPLIB_fnc_productionMgr_getSelectedMarkerName;
 /* Bypass when either nothing selected of desired candidate queue would be invalid.
  * Resource index "should" be in range, but if for any reason it is not, then simply bypass. */
 
-if (_markerName isEqualTo "" || !(_resourceIndex in KPLIB_productionMgr_resourceIndexes)) exitWith {
+if (_markerName isEqualTo "" || !(_resourceIndex in KPLIB_resources_indexes)) exitWith {
 
     if (_debug) then {
         [format ["[fn_productionMgr_btnEnqueue_onButtonClick] Bypassed: [_markerName, _resourceIndex]: %1"
