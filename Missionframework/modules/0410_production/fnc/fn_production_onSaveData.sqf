@@ -18,7 +18,7 @@
         Function reached the end [BOOL]
 */
 
-private _debug = [[KPLIB_param_savedebug]] call KPLIB_fnc_production_debug;
+private _debug = [] call KPLIB_fnc_production_debug;
 
 if (_debug) then {
     ["[fn_production_onSaveData] Setting save data...", "PRODUCTION"] call KPLIB_fnc_common_log;
@@ -28,8 +28,9 @@ if (_debug) then {
 [
     // TODO: TBD: we may probe the FSMs that may be running, so on and so forth...
     KPLIB_production_moduleData_key
-    , +[
-        KPLIB_production
+    , [
+        // Because we need to convert the CBA production namespaces to a form that can be serialized
+        KPLIB_production apply { _x call KPLIB_fnc_production_namespaceToArray; }
     ]
 ] call KPLIB_fnc_init_setSaveData;
 

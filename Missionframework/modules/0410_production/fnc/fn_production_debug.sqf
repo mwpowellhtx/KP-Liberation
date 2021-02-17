@@ -18,16 +18,11 @@
         Function reached the end [BOOL]
 */
 
-// TODO: TBD: can probably simplify these ... TBD later...
-params [
-    ["_additional", [], [[]]]
-];
+//// TODO: TBD: momentarily...
+//KPLIB_param_production_debug = true;
 
-// Which requires for settings to have been initialized prior to landing here
-private _conditions = [
-    missionNamespace getVariable ["KPLIB_param_production_debug", false]
-];
-
-_conditions append _additional;
-
-[_conditions] call KPLIB_fnc_debug_debug;
+[
+    [
+        "KPLIB_param_production_debug"
+    ]
+] call KPLIB_fnc_debug_debug;

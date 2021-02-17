@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_productionMgr_server_onOwnerProductionElem
+    KPLIB_fnc_productionServer_onOwnerProductionElem
 
-    File: fn_productionMgr_server_onOwnerProductionElem.sqf
+    File: fn_productionServer_onOwnerProductionElem.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-10 20:59:47
     Last Update: 2021-02-10 20:59:49
@@ -22,21 +22,21 @@
             4. changes to the pending element requires a reset in the timer
 
     Parameter(s):
-        _markerName - the factory sector '_markerName' receiving the change request [STRING, default: ""]
-        _candidateQueue - the '_productionElem' '_candidateQueue' encompassing the desired change [ARRAY, default: []]
-        _cid - the clientOwner, A.K.A. '_clientIdentifier', A.K.A. '_cid' for short [SCALAR, default: -1]
+        _namespace - the CBA production namespace being posted to each of the listeners [LOCATION]
 
     Returns:
         NONE
 */
 
-private _productionElem = _this;
-
 private _debug = [] call KPLIB_fnc_productionMgr_debug;
 
+private _namespace = _this;
+
+private _productionElem = _namespace call KPLIB_fnc_production_namespaceToArray;
+
 if (_debug) then {
-    [format ["[fn_productionMgr_server_onOwnerProductionElem] Entering: [_markerName]: %1"
-        , str [_productionElem#0#0]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionServer_onOwnerProductionElem] Entering: [_markerName]: %1"
+        , str [(_namespace getVariable ["_markerName", KPLIB_production_markerNameDefault])]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 /* Respond to the server request with this specific element only... Also noteworthy,
@@ -48,5 +48,5 @@ if (_debug) then {
 } forEach KPLIB_productionMgr_clientOwners;
 
 if (_debug) then {
-    ["[fn_productionMgr_server_onOwnerProductionElem] Finished.", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    ["[fn_productionServer_onOwnerProductionElem] Finished.", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };

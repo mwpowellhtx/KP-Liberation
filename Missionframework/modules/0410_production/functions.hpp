@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-04 12:34:49
-    Last Update: 2021-02-04 12:34:53
+    Last Update: 2021-02-17 12:23:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -36,7 +36,7 @@ class production {
     class production_getDefaultCapability {};
 
     // Returns whether the tuple can be considered aligned with the originating '_markerName'
-    class production_exists {};
+    class production_markerExists {};
 
     // Returns whether the module should be debugged
     class production_debug {};
@@ -68,15 +68,33 @@ class production {
     // Returns whether there is not already target production capability at the given marker
     class production_callback_onWithoutCapability {};
 
-    // Event handler responds when building storage containers within a factory sector
-    class production_onBuildStorage {};
-
     // Handles the debit phase of adding capability to the sector
     class production_onDebitCapability {};
 
-    // Client server CBA event handler responding to 'KPLIB_production_onAddCapability'
-    class production_server_onAddCapability {};
+    // CBA 'KPLIB_production_onAddCapability' server event handler
+    class productionServer_onAddCapability {};
 
-    // Updates the factory markers
-    class production_updateFactoryMarkers {};
+    // Verifies that '_this' is in the shape of a production array
+    class production_verifyArray {};
+
+    // Verifies that '_this' is in the shape of a CBA production namespace
+    class production_verifyNamespace {};
+
+    // Converts the given '_this' production array to a CBA production namespace
+    class production_arrayToNamespace {};
+
+    // Converts the given '_this' production namespace to a production array
+    class production_namespaceToArray {};
+
+    // Creates the production CBA statemachine
+    class production_onCreateStatemachine {};
+
+    // CBA 'KPLIB_productionServer_onRequestProduction' server event handler
+    class productionServer_onRequestProduction {};
+
+    // Server client report of the '_productionElem' to registered client owners
+    class productionServer_onOwnerProductionElem {};
+
+    // CBA 'KPLIB_productionServer_onRequestQueueChange' server event handler
+    class productionServer_onRequestQueueChange {};
 };

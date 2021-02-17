@@ -60,10 +60,23 @@ if (_moduleData isEqualTo []) then {
     };
 };
 
-KPLIB_production = [_production] call KPLIB_fnc_production_onReconcile;
+// TODO: TBD: let's make sure we are loading the data we think we are loading...
+if (_debug) then {
+    [format ["[fn_production_onLoadData] [count _production, _production]"
+        , str [count _production, _production]], "PRODUCTION"] call KPLIB_fnc_common_log;
+};
+
+// Convert the serialized production arrays to CBA production namespaces...
+private _namespaces = _production apply { _x call KPLIB_fnc_production_arrayToNamespace; };
+
+// TODO: TBD: added this for the time being for troubleshooting purposes..
+KPLIB_production_loadedData = _production;
+
+// TODO: TBD: convert the reconciled production tuples to namespaces...
+KPLIB_production = _namespaces call KPLIB_fnc_production_onReconcile;
 
 if (_debug) then {
     ["[fn_production_onLoadData] Loaded", "PRODUCTION"] call KPLIB_fnc_common_log;
 };
 
-true
+true;

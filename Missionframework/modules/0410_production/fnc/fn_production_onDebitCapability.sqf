@@ -4,7 +4,7 @@
     File: fn_production_onDebitCapability.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 11:32:55
-    Last Update: 2021-02-05 11:32:57
+    Last Update: 2021-02-17 11:35:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -12,11 +12,11 @@
         The intention with this function is to assess the cost, assert the debit, if
         possible, and respond with an appropriate result tuple. It is not our intention
         to engage anything else here, users in the form of remote invocations, etc. That
-        is the role of the caller, 'KPLIB_fnc_production_server_onAddCapability', for example.
+        is the role of the caller, 'KPLIB_fnc_productionServer_onAddCapability', for example.
 
     Parameter(s):
-        _cap - the capability being added to the factory sector [SCALAR, default: 0]
-        _productionElem - the production element, if one could be found [ARRAY, default: []]
+        _targetCap - the capability being added to the factory sector [SCALAR, default: 0]
+        _namespace = the CBA production namespace, if one cound be found [LOCATION, default: objNull]
 
     Returns:
         A tuple corresponding with the result:
@@ -33,8 +33,8 @@
 */
 
 params [
-    ["_cap", 0, [0]]
-    , ["_productionElem", [], [[]]]
+    ["_targetCap", 0, [0]]
+    , ["_namespace", objNull]
 ];
 
 // TODO: TBD: for now assuming cost, pay, etc, are all positive, and applied accordingly...
@@ -48,10 +48,10 @@ private _cost = [
 ];
 
 // Then apply the target cost
-_cost set [_cap, KPLIB_param_production_targetCost];
+_cost set [_targetCap, KPLIB_param_production_targetCost];
 
-// No production element no added capability
-if (_productionElem isEqualTo []) exitWith {
+// Namespace is not considered a CBA production namespace...
+if (!(_namespace call KPLIB_fnc_production_verifyNamespace)) exitWith {
     [KPLIB_production_addCap_elementNotFound, _cost, ""];
     //                           1. _baseMarkerText: ^^
 };
@@ -62,12 +62,11 @@ private _status = KPLIB_production_addCap_clear;
  * https://en.wikipedia.org/wiki/Accreditation
  * https://www.dictionary.com/browse/accreditation
 */
-(_productionElem#0) params [
-    ["_markerName", "", [""]]
-    , ["_baseMarkerText", "", [""]]
-];
-// Marker name of the designated resource from which to debit the cost
-private _resourceName = _markerName;
+private _markerName = _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault];
+private _baseMarkerText = _namespace getVariable ["_baseMarkerText", ""];
+
+// Marker name of the designated source from which to debit the cost
+private _sourceName = _markerName;
 private _range = KPLIB_param_sectorCapRange;
 
 if (_cost isEqualTo (_cost apply {0})) exitWith {
@@ -83,16 +82,16 @@ if (KPLIB_param_production_creditFob) then {
         // Minding the Ps and Qs, first for Min, then for 'KPLIB_sectors_fobs'
         private _fob = [KPLIB_sectors_fobs, { (_this#0#4) distance2D _markerPos; }] call KPLIB_fnc_linq_min;
         //                                     ^^^^^^^^^
-        _resourceName = (_fob#0);
+        _sourceName = (_fob#0);
         _range = KPLIB_param_fobRange;
     };
 };
 
 // Clear to attempt the debit...
 if (_status == KPLIB_production_addCap_clear) then {
-    private _debitArgs = [_resourceName] + _cost + [_range];
+    private _debitArgs = [_sourceName] + _cost + [_range];
     if (!(_debitArgs call KPLIB_fnc_resources_pay)) then {
-        _status = if (_resourceName in KPLIB_sectors_factory) then {
+        _status = if (_sourceName in KPLIB_sectors_factory) then {
             KPLIB_production_addCap_insufficientSumSector;
         } else {
             KPLIB_production_addCap_insufficientSumFob;

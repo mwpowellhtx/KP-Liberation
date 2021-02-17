@@ -41,6 +41,8 @@ if (isServer) then {
     ["KPLIB_doLoad", {[] call KPLIB_fnc_production_onLoadData;}] call CBA_fnc_addEventHandler;
     ["KPLIB_doSave", {[] call KPLIB_fnc_production_onSaveData;}] call CBA_fnc_addEventHandler;
 
+    KPLIB_production_markerNameDefault = "";
+
     // TODO: TBD: verify and/or establish events when sectors are won (or lost) ...
     // TODO: TBD: identify when those sectors are considered factories...
     // TODO: TBD: and respond accordingly here by informing the production FSMs...
@@ -84,14 +86,6 @@ if (isServer) then {
      */
     KPLIB_production_cap_default = KPLIB_resources_crateClassesF apply {false};
     KPLIB_production_sum_default = KPLIB_resources_crateClassesF apply {0};
-
-    [] call {
-        private _i = -1;
-        KPLIB_production_res_indexes = KPLIB_resources_crateClassesF apply {
-            _i = _i + 1;
-            _i;
-        };
-    };
 
     /*
         Indexes into the crate classes is used to inform production, which is also

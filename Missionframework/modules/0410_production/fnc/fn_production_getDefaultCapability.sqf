@@ -30,7 +30,7 @@ params [
 
 if (isNil "_cap") then {
 
-    private _count = count KPLIB_production_res_indexes;
+    private _count = count KPLIB_resources_indexes;
 
     if (isNil "_min") then {_min = 0;};
     if (isNil "_max") then {_max = 1000000;};
@@ -56,6 +56,6 @@ if (isNil "_cap") then {
 };
 
 // Returns with the capability aligning to the expected default capability.
-private _retval = KPLIB_production_res_indexes apply {_x isEqualTo _cap};
+private _retval = KPLIB_resources_indexes apply {_x isEqualTo _cap};
 
 _retval;

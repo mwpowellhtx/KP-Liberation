@@ -16,29 +16,34 @@
             of this function [OBJECT, default: player]
         _range - the range about which to consider near the '_markerName', unused for purposes
             of this callback function [SCALAR, default: 0]
-        _markerName - the marker name at which to consider [STRING, default: ""]
+        _targetMarkerName - the '_target' marker name at which to consider [STRING, default: ""]
         _args - arguments specifying the target production capability [ARRAY, default: [0]]
 
     Returns:
         Whether there is not already target production capability at the '_markerName' site [BOOL]
 */
 
-if (isNil "KPLIB_production") exitWith {false};
+if (isNil "KPLIB_production") exitWith {
+    false;
+};
 
 params [
     ["_target", player, [objNull]]
     , ["_range", 0, [0]]
-    , ["_markerName", "", [""]]
+    , ["_targetMarkerName", "", [""]]
     , ["_args", [0], [[]], 1]
 ];
 
 _args params [
-    ["_cap", 0, [0]]
+    ["_targetCap", 0, [0]]
 ];
 
-private _matched = KPLIB_production select { ((_x#0#0) isEqualTo _markerName) && ((_x#2#0) select _cap); };
-//                           1. _markerName:   ^^^^^^
-//                           2.        _cap:                                      ^^^^^^^^^^^^^^^^^^^^
+// Expecting these to be CBA namespaces...
+private _matched = KPLIB_production select {
+    private _markerName = _x getVariable ["_markerName", KPLIB_production_markerNameDefault];
+    private _capability = +(_x getVariable ["_capability", KPLIB_resources_capDefault]);
+    (_markerName isEqualTo _targetMarkerName) && (_capability#_targetCap);
+};
 
-// Not build already will not match any of the tuples.
+// Not build already will not match any of the tuples
 _matched isEqualTo [];

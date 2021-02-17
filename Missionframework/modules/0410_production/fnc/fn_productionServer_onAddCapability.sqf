@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_production_server_onAddCapability
+    KPLIB_fnc_productionServer_onAddCapability
 
-    File: fn_production_server_onAddCapability.sqf
+    File: fn_productionServer_onAddCapability.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 11:32:55
     Last Update: 2021-02-11 13:39:30
@@ -9,11 +9,11 @@
     Public: No
 
     Description:
-        Server side CBA event handler responding to the "KPLIB_production_onAddCapability" event.
+        Server side CBA event handler responding to the "KPLIB_productionServer_onAddCapability" event.
 
     Parameter(s):
-        _markerName - the factory sector affected by the request
-        _cap - the capability being added to the sector
+        _targetName - the target factory sector affected by the request
+        _targetCap - the target capability being added to the sector
         _cid - the client identifier used to invoke client side callbacks
 
     Returns:
@@ -22,32 +22,34 @@
 private _debug = [] call KPLIB_fnc_production_debug;
 
 params [
-    ["_markerName", "", [""]]
-    , ["_cap", -1, [0]]
+    ["_targetName", "", [""]]
+    , ["_targetCap", -1, [0]]
     , ["_cid", -1, [0]]
 ];
 
 private _retval = false;
 
-if (_markerName isEqualTo "" || _cap < 0 || _cid < 0) exitWith {
+if (_targetName isEqualTo "" || !(_targetCap in KPLIB_resources_indexes) || _cid < 0) exitWith {
     _retval;
 };
 
-private _resourceName = localize (switch (_cap) do {
+private _resourceName = localize (switch (_targetCap) do {
     case 0: {"STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY"};
     case 1: {"STR_KPLIB_PRODUCTION_CAPABILITY_AMMO"};
     case 2: {"STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"};
     default {"STR_KPLIB_PRODUCTION_CAPABILITY_NA"};
 });
 
-private _matched = KPLIB_production select { ((_x#0#0) isEqualTo _markerName) && !((_x#2#0) select _cap); };
-//                           1. _markerName:   ^^^^^^
-//                           2.        _cap:                                       ^^^^^^^^^^^^^^^^^^^^
+private _namespaces = KPLIB_production select {
+    private _markerName = _x getVariable ["_markerName", KPLIB_production_markerNameDefault];
+    private _capability = +(_x getVariable ["_capability", KPLIB_resources_capDefault]);
+    (_markerName isEqualTo _targetName) && (_capability#_targetCap);
+};
 
-// May or may not have a match, evaluate whether request CAN be processed further.
-private _productionElem = if (_matched isEqualTo []) then {[]} else {(_matched#0)};
+// May or may not have a match, evaluate whether request CAN be processed further
+private _namespace = if (_namespaces isEqualTo []) then { objNull; } else { (_namespaces#0); };
 
-private _debitResult = [_cap, _productionElem] call KPLIB_fnc_production_onDebitCapability;
+private _debitResult = [_targetCap, _namespace] call KPLIB_fnc_production_onDebitCapability;
 
 _debitResult params [
     ["_status", 0, [0]]
@@ -68,17 +70,20 @@ private _key = switch (_status) do {
     case KPLIB_production_addCap_clear: {
 
         // Let the other capabilities pass through as-is, while raising the desired _cap
-        (_productionElem#2) set [0, [(_productionElem#2#0)
-            , { (_this#1 isEqualTo _cap) || (_this#0) }] call KPLIB_fnc_linq_select];
+        private _capability = [(_namespace getVariable ["_capability", KPLIB_resources_capDefault]), {
+            (_this#0) || ((_this#1) isEqualTo _targetCap)
+        }] call KPLIB_fnc_linq_select;
+
+        _namespace setVariable ["_capability", _capability];
 
         // And trigger that a save should occur with the now-updated production bits
         [] call KPLIB_fnc_init_save;
 
         // And re-render the production sector marker text
-        _productionElem call KPLIB_fnc_production_onRenderMarkerText;
+        _namespace call KPLIB_fnc_production_onRenderMarkerText;
 
         // When cap has been added then also potentially notify production managers
-        _productionElem call KPLIB_fnc_productionMgr_server_onOwnerProductionElem;
+        _namespace call KPLIB_fnc_productionServer_onOwnerProductionElem;
 
         "STR_KPLIB_PRODUCTION_ADDED_CAPABILITY";
     };
