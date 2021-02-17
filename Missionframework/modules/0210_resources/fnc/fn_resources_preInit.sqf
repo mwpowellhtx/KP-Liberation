@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-02-03 21:40:20
+    Last Update: 2021-02-17 12:22:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -171,6 +171,7 @@ if (isServer) then {
 KPLIB_param_resources_loadRange = 20;
 
 KPLIB_resources_indexes = [0, 1, 2];
+KPLIB_resources_capDefault = KPLIB_resources_indexes apply {false};
 KPLIB_resources_storageValueDefault = KPLIB_resources_indexes apply {0};
 
 /* We will require these when we begin coordinating with proper transactional
