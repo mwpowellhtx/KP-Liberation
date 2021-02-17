@@ -37,7 +37,7 @@ params [
     };
 
 } forEach [
-    "KPLIB_productionMgr_onProductionResponse"
+    "KPLIB_productionClient_onProductionResponse"
     , "KPLIB_productionMgr_onProductionElemResponse"
 ];
 

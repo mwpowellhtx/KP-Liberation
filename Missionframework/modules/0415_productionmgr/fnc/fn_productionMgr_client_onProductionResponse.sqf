@@ -14,7 +14,7 @@
         'KPLIB_productionMgr_onProductionResponse' CBA owner event.
 
     Parameter(s):
-        _production - an array of the controlled factory sector '_production' assets [ARRAY, default: []]
+        _this - an array of production tuples of the controlled factory sectors [ARRAY]
 
     Returns:
         NONE
@@ -26,14 +26,14 @@ if (_debug) then {
     ["[fn_productionMgr_client_onProductionResponse] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
-private _args = _this;
+private _production = _this;
+
+// TODO: TBD: we might verify that production is production...
+// TODO: TBD: i.e. (_production select { _x call KPLIB_fnc_production_verifyArray; })
+
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
 if (!(_display isEqualTo displayNull)) then {
-
-    _args params [
-        ["_production", [], [[]]]
-    ];
 
     if (_debug) then {
         [format ["[fn_productionMgr_client_onProductionResponse] [count _production]: %1"

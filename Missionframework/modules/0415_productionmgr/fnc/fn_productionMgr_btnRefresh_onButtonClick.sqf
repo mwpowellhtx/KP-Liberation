@@ -32,7 +32,7 @@ params [
 ];
 
 // That is all just kick off the client server sequence
-["KPLIB_productionMgr_onRequestProduction", [clientOwner]] call CBA_fnc_serverEvent;
+["KPLIB_productionServer_onRequestProduction", [clientOwner]] call CBA_fnc_serverEvent;
 
 if (_debug) then {
     ["[fn_productionMgr_btnRefresh_onButtonClick] Finished", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;

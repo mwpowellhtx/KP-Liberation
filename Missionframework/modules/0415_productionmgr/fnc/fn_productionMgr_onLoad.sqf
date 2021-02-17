@@ -45,7 +45,8 @@ private _eids = [];
     _eids pushBack _eid;
     _display setVariable [_eventName, _eid];
 } forEach [
-    ["KPLIB_productionMgr_onProductionResponse", KPLIB_fnc_productionMgr_client_onProductionResponse]
+    // TODO: TBD: also rename 'KPLIB_fnc_productionMgr_client_onProductionResponse' to '...productionClient...'
+    ["KPLIB_productionClient_onProductionResponse", KPLIB_fnc_productionMgr_client_onProductionResponse]
     , ["KPLIB_productionMgr_onProductionElemResponse", KPLIB_fnc_productionMgr_client_onProductionElemResponse]
 ];
 

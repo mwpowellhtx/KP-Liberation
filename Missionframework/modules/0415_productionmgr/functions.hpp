@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 09:57:57
-    Last Update: 2021-02-06 09:58:00
+    Last Update: 2021-02-17 12:26:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -111,17 +111,8 @@ class productionMgr {
     // Arranges the production element view
     class productionMgr_productionElemViews_onTimeRem {};
 
-    // Client server request production event handler
-    class productionMgr_server_onRequestProduction {};
-
-    // Client server queue change request event handler
-    class productionMgr_server_onRequestQueueChange {};
-
     // Client server acknowledgment that the dialog session has closed
     class productionMgr_server_onDialogClosed {};
-
-    // Server client report of the _productionElem to registered client owners
-    class productionMgr_server_onOwnerProductionElem {};
 
     // Client server production response event handler
     class productionMgr_client_onProductionResponse {};

@@ -55,8 +55,8 @@ if (hasInterface) then {
          * is no need to carry anything here. Worst case, we add a production function that summarizes
          * the sector in a zero (0) storage containers scenario, for instance. Everything else can be
          * aligned on the fly relatively easily. */
-        , [KPLIB_resources_indexes apply {false}, KPLIB_resources_storageValueDefault, []]
-        //                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        , [KPLIB_resources_capDefault, KPLIB_resources_storageValueDefault, []]
+        //                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ];
 };
 
