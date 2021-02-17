@@ -29,13 +29,15 @@
 
         private _fobs = KPLIB_sectors_fobs;
 
-        // Mod, in the event FOB is lost, repackaged, etc, in the meanwhile...
-        private _fob = _fobs select (_tick mod (count _fobs));
-        //                           ^^^^^^^^^^^^^^^^^^^^^^^
+        if (count _fobs > 0) then {
+            // Mod, in the event FOB is lost, repackaged, etc, in the meanwhile...
+            private _fob = _fobs select (_tick mod (count _fobs));
+            //                           ^^^^^^^^^^^^^^^^^^^^^^^
 
-        private _storageContainers = [_fob] call KPLIB_fnc_resources_getFobStorages;
+            private _storageContainers = [_fob] call KPLIB_fnc_resources_getFobStorages;
 
-        ["_fobStorages", _storageContainers] call KPLIB_fnc_resources_onRefreshStorageValues;
+            ["_fobStorages", _storageContainers] call KPLIB_fnc_resources_onRefreshStorageValues;
+        };
 
         _tick = _tick + 1;
 
