@@ -75,14 +75,6 @@ if (!(_moduleData isEqualTo [])) then {
                 };
             };
 
-            //private _selectedFobs = KPLIB_sectors_fobs select {(_x#0#0) isEqualTo _markerName};
-            ////                                1. _markerName:   ^^^^^^
-            //private _fob = _selectedFobs select 0;
-            //_object setVariable ["KPLIB_markerName", [_fob#3#0, _fob#1#0, _fob#2#0], true];
-
-            // TODO: TBD: this exercise, affixing FOB related vars on the object, really belongs in a possible per frame handler on all vehicles within a FOB... at rest, or not, moving in and out of persistence, for example
-            _object call KPLIB_fnc_persistence_makePersistent
-
         } forEach _items;
 
     } forEach _moduleData;

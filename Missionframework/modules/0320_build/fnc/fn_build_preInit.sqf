@@ -180,10 +180,6 @@ if (isServer) then {
             };
         };
 
-        // TODO: TBD: "make persistent" should wait until an event loop picks it up...
-        // TODO: TBD: and then, let it fall through the usual conditions, alive, crew, momentum, proximity, etc...
-        _object call KPLIB_fnc_persistence_makePersistent;
-
         // Must also save the mission when reaching this moment
         [] spawn KPLIB_fnc_init_save;
     };

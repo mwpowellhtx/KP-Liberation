@@ -37,10 +37,6 @@ if (_debug) then {
     ["----- Save function started -----", "SAVE", true] call KPLIB_fnc_common_log;
 };
 
-//// TODO: TBD: fill in this gap...
-//// TODO: TBD: instead of calling approaching save, should refactor to event loop so that "persistence" is just always presentable...
-//["KPLIB_updatePersistent"] call CBA_fnc_localEvent;
-
 // Reset the current save data array
 KPLIB_save_data = [];
 

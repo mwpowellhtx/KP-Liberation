@@ -79,15 +79,12 @@ class persistence {
     // Set vehicle turret magazines from serialized data
     class persistence_setTurretMagazines {};
 
-    // Updates which objects should or should not be persisted within range of each FOB zone
-    class persistence_onUpdatePersistent {};
+    // Installs a CBA per frame request handler object refreshing asset persistence
+    class persistence_createRefreshAssetPersistence {};
 
-    // Refreshes factory sector storage persistence periodically
-    class persistence_createRefreshFactoryStoragePersistence {};
+    // Qualifies a given '_object' within proximity of the specified FOBs, and other criteria
+    class persistence_whereAssetShouldBeFobPersistent {};
 
-    // Refreshes FOB zone storage persistence periodically
-    class persistence_createRefreshFobStoragePersistence {};
-
-    // Reconciles the objects with the known 'KPLIB_persistence_objects'
-    class persistence_onReconcilePersistenceObjects {};
+    // Performs a lighter weight screening of the same qualification criteria
+    class persistence_whereAssetMayBeFobPersistent {};
 };

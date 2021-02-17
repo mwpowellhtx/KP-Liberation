@@ -35,6 +35,9 @@ if (isServer) then {
 // TODO: TBD: eventually refactor in terms of CBA setting...
 KPLIB_param_persistence_refreshStoragePeriodSeconds = 3;
 
+// We recommend no more often than every ~30s for performance reasons
+KPLIB_param_persistence_refreshFobAssetPersistencePeriodSeconds = 3;
+
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
@@ -72,9 +75,6 @@ if (isServer) then {
 
     // Register save event handler
     ["KPLIB_doSave", {[] call KPLIB_fnc_persistence_saveData;}] call CBA_fnc_addEventHandler;
-
-    // Register update persistent event handler
-    ["KPLIB_updatePersistent", {[] call KPLIB_fnc_persistence_onUpdatePersistent;}] call CBA_fnc_addEventHandler;
 
     // Add ACE persistent variables
     [[

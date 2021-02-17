@@ -45,8 +45,8 @@ if (isServer) then {
 };
 
 if (isServer) then {
-    [] call KPLIB_fnc_persistence_createRefreshFobStoragePersistence;
-    [] call KPLIB_fnc_persistence_createRefreshFactoryStoragePersistence;
+    // Using just one per frame handler object to refresh all persistent assets
+    [] call KPLIB_fnc_persistence_createRefreshAssetPersistence;
 };
 
 if (isServer) then {

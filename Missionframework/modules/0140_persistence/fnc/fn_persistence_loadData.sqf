@@ -70,6 +70,8 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
         [_object, _varDatum] call KPLIB_fnc_persistence_deserializeVars;
     } forEach _varData;
 
+    [_object] call KPLIB_fnc_persistence_makePersistent;
+
     // Reserving further filtering of the objects for post init phase
     _object;
 
@@ -106,6 +108,8 @@ KPLIB_persistence_units = (_moduleData#1) apply {
 
         [_unit, _varDatum] call KPLIB_fnc_persistence_deserializeVars;
     } forEach _varData;
+
+    [_unit] call KPLIB_fnc_persistence_makePersistent;
 
     _unit;
 
