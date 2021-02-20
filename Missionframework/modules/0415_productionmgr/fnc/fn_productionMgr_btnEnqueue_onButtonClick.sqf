@@ -59,7 +59,7 @@ if (_markerName isEqualTo "" || !(_resourceIndex in KPLIB_resources_indexes)) ex
     true;
 };
 
-private _eventName = "KPLIB_productionServer_onRequestQueueChange";
+private _eventName = "KPLIB_productionsm_onRequestQueueChange";
 private _queue = [] call KPLIB_fnc_productionMgr_getSelectedQueue;
 
 // Always append enqueued resource requests to the tail of the queue

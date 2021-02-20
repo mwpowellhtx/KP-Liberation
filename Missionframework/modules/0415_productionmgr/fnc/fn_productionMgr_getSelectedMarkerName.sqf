@@ -19,18 +19,15 @@
         The currently selected marker name, if possible [STRING, default: ""]
 */
 
-private _markerName = "";
-
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
 private _lnbSectors = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS;
 
 private _i = lnbCurSelRow _lnbSectors;
 
-if (_i < 0) exitWith {
-    _markerName;
+// Yes, we are looking up the marker name from the additional text data
+if (_i >= 0) exitWith {
+    _lnbSectors lnbData [_i, 0];
 };
 
-_markerName = _lnbSectors lnbData [_i, 0];
-
-_markerName;
+"";

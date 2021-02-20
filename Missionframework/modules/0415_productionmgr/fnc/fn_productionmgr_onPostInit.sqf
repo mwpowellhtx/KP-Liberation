@@ -26,7 +26,7 @@ if (_debug) then {
 };
 
 if (isServer) then {
-    ["KPLIB_productionMgr_onDialogClosed", KPLIB_fnc_productionMgr_server_onDialogClosed] call CBA_fnc_addEventHandler;
+    // Server section
 };
 
 if (hasInterface) then {

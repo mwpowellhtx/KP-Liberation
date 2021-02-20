@@ -44,30 +44,50 @@ if (_debug) then {
 // Which allows for cases when we are refreshing the list, leave the selection intact
 private _previousIndex = lnbCurSelRow _lnbSectors;
 
-lnbClear _lnbSectors;
-
 private _view = _production apply {
     _x call KPLIB_fnc_productionMgr_productionElemViews_onSector;
 };
 
-if (!(_view isEqualTo [])) then {
-    {
-        _x params [
-            ["_viewData", [], [[]], 2]
-            , ["_markerName", "", [""]]
-        ];
+// Trim any excess rows from the LNB
+[] call {
+    private _getRowCount = { (lnbSize _lnbSectors) select 0; };
 
-        private _rowIndex = _lnbSectors lnbAddRow _viewData;
-
-        [_lnbSectors, _rowIndex, _markerName] call KPLIB_fnc_productionMgr_setAdditionalDataOrValue;
-
-    } forEach _view;
+    while {([] call _getRowCount) > count _view} do {
+        _lnbSectors lnbDeleteRow (([] call _getRowCount) - 1)
+    };
 };
+
+{
+    _x params [
+        ["_rowInfo", ["0", ""], [[]], 2]
+        , ["_markerName"]
+    ];
+
+    private _rowIndex = _forEachIndex;
+
+    // Add new LNB row or set the existing row bits
+    if (_rowIndex >= lnbSize _lnbSectors) then {
+        _lnbSectors lnbAddRow _rowInfo;
+    } else {
+        // Else refresh the contents and data of the LNB
+        [0, 1] select {
+            _lnbSector lnbSetText [[_rowIndex, _x], (_rowInfo select _x)];
+            true;
+        };
+    };
+
+    // Then update the invisible additional text data
+    [_lnbSectors, _rowIndex, _markerName] call KPLIB_fnc_productionMgr_setAdditionalDataOrValue;
+
+} forEach _view;
+
+// // TODO: TBD: may sort in addition to that, assuming the backing array is not sufficiently ordered
+//_lnbSectors lnbSort [0];
 
 // Allow the index to be re-selected when necessary, i.e. receiving updates from the server
 if (_previousIndex >= 0) then {
     // Taking into account any overages in the new view
-    _lnbSectors lnbSetCurSelRow (_previousIndex min (count _view));
+    _lnbSectors lnbSetCurSelRow (_previousIndex min (count _view - 1));
 };
 
 if (_debug) then {

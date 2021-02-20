@@ -37,11 +37,10 @@ params [
     };
 
 } forEach [
-    "KPLIB_productionClient_onProductionResponse"
-    , "KPLIB_productionMgr_onProductionElemResponse"
+    "KPLIB_productionMgr_onProductionElemPublished"
 ];
 
 [nil, _exitCode] call KPLIB_fnc_productionMgr_ctrlMap_onUnload;
 
 // Disconnect the event handlers and inform the server that this dialog session is closed
-["KPLIB_productionMgr_onDialogClosed", [clientOwner]] spawn CBA_fnc_serverEvent;
+["KPLIB_productionsm_onProductionMgrClosed", [clientOwner]] spawn CBA_fnc_serverEvent;

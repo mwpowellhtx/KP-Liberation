@@ -28,11 +28,7 @@ if (isServer) then {
 };
 
 if (isServer) then {
-
-    /* Keep track of the known client owners with open production manager dialogs
-     * We will use this in order to post updates to their respective client UI. */
-
-    KPLIB_productionMgr_clientOwners = [];
+    // Server side init
 };
 
 // TODO: TBD: lays any ground work, client or server, required to support the module

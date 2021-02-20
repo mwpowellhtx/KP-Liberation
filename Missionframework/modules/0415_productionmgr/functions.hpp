@@ -111,14 +111,8 @@ class productionMgr {
     // Arranges the production element view
     class productionMgr_productionElemViews_onTimeRem {};
 
-    // Client server acknowledgment that the dialog session has closed
-    class productionMgr_server_onDialogClosed {};
-
-    // Client server production response event handler
-    class productionMgr_client_onProductionResponse {};
-
-    // Client server production element updated request event handler
-    class productionMgr_client_onProductionElemResponse {};
+    // Server published a production element, upon request, during normal statemachine updates, etc
+    class productionMgr_onProductionElemPublished {};
 
     // Map control onLoad event handler
     class productionMgr_ctrlMap_onLoad {};

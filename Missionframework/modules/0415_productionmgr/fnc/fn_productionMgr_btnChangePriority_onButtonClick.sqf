@@ -124,7 +124,7 @@ if (_targetIndex >= 0 && _targetIndex < count _queue) then {
             _values;
         };
 
-        private _eventName = "KPLIB_productionServer_onRequestQueueChange";
+        private _eventName = "KPLIB_productionsm_onRequestQueueChange";
 
         if (_debug) then {
             [format ["[fn_productionMgr_btnChangePriority_onButtonClick] Server event: [_eventName, _markerName, _queue, _candidateQueue, _queueIndex, _targetIndex, _cid]: %1"
