@@ -2377,6 +2377,9 @@
     <!-- PRODUCTION -->
 
     <Package name="Production">
+        <Key ID="STR_KPLIB_PRODUCTION_ADD_CAPABILITY_EXISTS">
+            <English>%1 sector %2 production capability already exists.\nCost: [%3S, %4A, %5F]</English>
+        </Key>
         <Key ID="STR_KPLIB_PRODUCTION_CANNOT_ADD_CAPABILITY">
             <English>Cannot add %1 capability to unknown factory sector.\nCost: [%3S, %4A, %5F]</English>
         </Key>
