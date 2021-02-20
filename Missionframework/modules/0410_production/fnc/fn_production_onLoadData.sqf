@@ -70,10 +70,12 @@ if (_debug) then {
 private _namespaces = _production apply { _x call KPLIB_fnc_production_arrayToNamespace; };
 
 // TODO: TBD: added this for the time being for troubleshooting purposes..
+// TODO: TBD: we keep this held aside while we work out SM and UI integration kinks...
+// TODO: TBD: also so as not to damage the bits unduly while we do...
 KPLIB_production_loadedData = _production;
 
 // TODO: TBD: convert the reconciled production tuples to namespaces...
-KPLIB_production = _namespaces call KPLIB_fnc_production_onReconcile;
+KPLIB_production_namespaces = _namespaces call KPLIB_fnc_production_onReconcile;
 
 if (_debug) then {
     ["[fn_production_onLoadData] Loaded", "PRODUCTION"] call KPLIB_fnc_common_log;

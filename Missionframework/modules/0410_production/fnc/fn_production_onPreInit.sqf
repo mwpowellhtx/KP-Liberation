@@ -3,8 +3,9 @@
 
     File: fn_production_onPreInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-02-02
-    Last Update: 2019-04-23
+    Last Update: 2021-02-18 21:08:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -84,8 +85,8 @@ if (isServer) then {
         Assumes that the 'KPLIB_resources_crateClassesF' are arranged by:
         [[S]upply, [A]mmo, [F]uel], or [S, A, F] for short.
      */
-    KPLIB_production_cap_default = KPLIB_resources_crateClassesF apply {false};
-    KPLIB_production_sum_default = KPLIB_resources_crateClassesF apply {0};
+    KPLIB_production_cap_default = KPLIB_resources_indexes apply {false};
+    KPLIB_production_sum_default = KPLIB_resources_indexes apply {0};
 
     /*
         Indexes into the crate classes is used to inform production, which is also
@@ -117,18 +118,13 @@ if (isServer) then {
     KPLIB_production_info_i_queue = 2;
 
     // TODO: TBD: we think we will need to have some sort of push/pull capability between client/server...
-    KPLIB_production = [];
+    KPLIB_production_namespaces = [];
 
-    // TODO: TBD: may not want to make the array public after all...
-    publicVariable "KPLIB_production";
+    // // // TODO: TBD: we do not want to make this public... rather clients request via events...
+    // // TODO: TBD: may not want to make the array public after all...
+    //publicVariable "KPLIB_production_namespaces";
 
     KPLIB_production_moduleData_key = "production";
-
-    // Arrange the enumerated add sector capability status codes
-    KPLIB_production_addCap_clear = 0;
-    KPLIB_production_addCap_elementNotFound = -1;
-    KPLIB_production_addCap_insufficientSumFob = -2;
-    KPLIB_production_addCap_insufficientSumSector = -3;
 };
 
 if (!(hasInterface || isDedicated)) then {

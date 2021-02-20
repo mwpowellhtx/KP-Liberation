@@ -12,19 +12,20 @@
         Verifies that the CBA namespace is at 
 
     Parameter(s):
-        _this - a CBA production namespace [NAMESPACE]
+        _namespace - a CBA production namespace [NAMESPACE]
 
     Returns:
         A newly converted SQF ARRAY representation of the production NAMESPACE [ARRAY]
  */
 
-private _namespace = _this;
+params [
+    ["_namespace", locationNull, [locationNull]]
+];
 
-// As verified in the in game A3 Extended Debug Console (EDC) ...
-if (!(typeName _namespace isEqualTo "LOCATION")) exitWith {
-    false;
-};
+// Type has already been trapped: ^^^^^^^^^^^^
+if (isNull _namespace) exitWith { false; };
 
+// There may be other intermediate and transient variables, but these are the core...
 private _expectedVars = [
     "_markerName"
     , "_baseMarkerText"

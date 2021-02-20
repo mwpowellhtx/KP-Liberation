@@ -92,17 +92,17 @@ if (hasInterface) then {
 
         // The goal here is to delegate and then get out of the way as quickly as possible
         _args params [
-            ["_cap", 0, [0]]
+            ["_targetCap", 0, [0]]
         ];
 
         // TODO: TBD: will see if this works... it may be too naive of an event handler aligning with the action menu request...
         // TODO: TBD: to know definitively we could assume the storage objects are there with an attribute name aligned to the sector...
         // TODO: TBD: but we would also want to revise the action condition itself to be certain...
         // TODO: TBD: so conditions would need to be: nearest factory sector to player within sector cap range NOT having aligned storage...
-        private _markerName = [KPLIB_param_sectorCapRange, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
+        private _targetMarker = [KPLIB_param_sectorCapRange, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
 
         // Raise the event server side adding factory sector production capability
-        ["KPLIB_productionServer_onAddCapability", [_markerName, _cap, clientOwner]] call CBA_fnc_serverEvent;
+        ["KPLIB_productionsm_raiseAddCapability", [_targetMarker, _targetCap, clientOwner]] call CBA_fnc_serverEvent;
     };
 
     {

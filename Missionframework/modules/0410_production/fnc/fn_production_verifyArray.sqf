@@ -12,7 +12,7 @@
         Verifies that '_this' is in the shape of a production array as expected.
 
     Parameter(s):
-        _this - an SQF production array [ARRAY]
+        _production - an SQF production array [ARRAY]
 
     Returns:
         Whether the array is in a valid form [BOOL]
@@ -23,7 +23,9 @@
         https://community.bistudio.com/wiki/isEqualTypeArray
  */
 
-private _production = _this;
+params [
+    ["_production", [], [[]]]
+];
 
 // Short circuit verification early, and often, ASAP when we know invalid
 if (!(_production isEqualType [])) exitWith {

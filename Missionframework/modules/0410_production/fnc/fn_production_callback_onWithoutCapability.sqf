@@ -23,7 +23,7 @@
         Whether there is not already target production capability at the '_markerName' site [BOOL]
 */
 
-if (isNil "KPLIB_production") exitWith {
+if (isNil "KPLIB_production_namespaces") exitWith {
     false;
 };
 
@@ -39,7 +39,7 @@ _args params [
 ];
 
 // Expecting these to be CBA namespaces...
-private _matched = KPLIB_production select {
+private _matched = KPLIB_production_namespaces select {
     private _markerName = _x getVariable ["_markerName", KPLIB_production_markerNameDefault];
     private _capability = +(_x getVariable ["_capability", KPLIB_resources_capDefault]);
     (_markerName isEqualTo _targetMarkerName) && (_capability#_targetCap);

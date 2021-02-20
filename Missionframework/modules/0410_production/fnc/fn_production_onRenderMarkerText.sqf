@@ -23,7 +23,9 @@ Dependencies:
     0025_timers
 */
 
-private _namespace = _this;
+params [
+    ["_namespace", locationNull, [locationNull]]
+];
 
 if (!(_namespace call KPLIB_fnc_production_verifyNamespace)) exitWith {
     _namespace;

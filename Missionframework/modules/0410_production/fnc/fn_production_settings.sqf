@@ -92,4 +92,7 @@
     , {}
 ] call CBA_Settings_fnc_init;
 
-true
+// TODO: TBD: refactor as a proper CBA settings param...
+KPLIB_param_production_rescheduleLastResource = true;
+
+true;

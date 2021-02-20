@@ -20,7 +20,9 @@
 
 private _debug = [] call KPLIB_fnc_production_debug;
 
-private _namespaces = _this;
+params [
+    ["_namespaces", [], [[]]]
+];
 
 // Pick them up only once
 private _sectors = +KPLIB_sectors_factory;
@@ -57,9 +59,6 @@ if (_debug) then {
     [format ["[fn_production_onReconcile] %1 sectors created", count _staged], "PRODUCTION", true] call KPLIB_fnc_common_log;
 };
 
-// Assuming we identify the '_baseMarkerText' on create...
-_staged = _staged apply { _x call KPLIB_fnc_production_onRenderMarkerText; };
-
 // Last but not least arrange the production tuples by sector order
 private _retval = _sectors apply {
     private _sectorName = _x;
@@ -75,6 +74,6 @@ private _retval = _sectors apply {
 
 /* And render the production sector '_markerText', which may be re-rendered at any
  * future point based on capability updates, sector alignment, etc. */
-_retval = _retval apply { _x call KPLIB_fnc_production_onRenderMarkerText; };
+_retval = _retval apply { [_x] call KPLIB_fnc_production_onRenderMarkerText; };
 
 +_retval;
