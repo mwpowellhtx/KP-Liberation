@@ -12,17 +12,17 @@
         Spawns a resource crate of given type and side at given position.
 
     Parameter(s):
-        _resource   - Type of resource crate                                                [STRING, defaults to "Supply"]
-        _pos        - Position where to spawn the crate                                     [POSITION ATL, defaults to KPLIB_zeroPos]
-        _value      - Amount of resources inside the crate. Limited by crateVolume param    [NUMBER, defaults to KPLIB_param_crateVolume]
-        _side       - Side of the preset from where to take the classname from              [SIDE, defaults to KPLIB_preset_sideF]
+        _resource   - Type of resource crate                                                [STRING, default: KPLIB_resources_resourceKind_sup]
+        _pos        - Position where to spawn the crate                                     [POSITION ATL, default: KPLIB_zeroPos]
+        _value      - Amount of resources inside the crate. Limited by crateVolume param    [NUMBER, default: KPLIB_param_crateVolume]
+        _side       - Side of the preset from where to take the classname from              [SIDE, default: KPLIB_preset_sideF]
 
     Returns:
         Spawned crate [OBJECT]
 */
 
 params [
-    ["_resource", "Supply", [""]],
+    ["_resource", KPLIB_resources_resourceKind_sup, [""]],
     ["_pos", KPLIB_zeroPos, [[]], [3]],
     ["_value", KPLIB_param_crateVolume, [0]],
     ["_side", KPLIB_preset_sideF, [sideEmpty]]

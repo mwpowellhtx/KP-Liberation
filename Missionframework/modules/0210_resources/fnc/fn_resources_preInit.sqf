@@ -27,6 +27,16 @@ if (isServer) then {
     ----- Module Globals -----
 */
 
+KPLIB_resources_resourceKind_sup = "Supply";
+KPLIB_resources_resourceKind_amm = "Ammo";
+KPLIB_resources_resourceKind_fue = "Fuel";
+
+KPLIB_resources_resourceKinds = [
+    KPLIB_resources_resourceKind_sup
+    , KPLIB_resources_resourceKind_amm
+    , KPLIB_resources_resourceKind_fue
+];
+
 // Intel currency resource amount
 KPLIB_resources_intel = 0;
 
