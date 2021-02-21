@@ -22,7 +22,11 @@
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
 */
 
-private _debug = [] call KPLIB_fnc_productionMgr_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionMgr_lnbSectors_debug"
+    ]
+] call KPLIB_fnc_productionMgr_debug;
 
 if (_debug) then {
     ["[fn_productionMgr_lnbSectors_onLoad] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
@@ -34,55 +38,38 @@ params [
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-private _production = _display getVariable ["_production", []];
+private _productionState = _display getVariable ["_productionState", []];
 
 if (_debug) then {
-    [format ["[fn_productionMgr_lnbSectors_onLoad] [count _production]: %1"
-        , str [count _production]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionMgr_lnbSectors_onLoad] [count _productionState]: %1"
+        , str [count _productionState]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 // Which allows for cases when we are refreshing the list, leave the selection intact
 private _previousIndex = lnbCurSelRow _lnbSectors;
 
-private _view = _production apply {
+// TODO: TBD: just replace the entire list... might then re-apply the selection as well...
+private _view = _productionState apply {
     _x call KPLIB_fnc_productionMgr_productionElemViews_onSector;
 };
 
-// Trim any excess rows from the LNB
-[] call {
-    private _getRowCount = { (lnbSize _lnbSectors) select 0; };
+private _getRowCount = { (lnbSize _lnbSectors) select 0; };
 
-    while {([] call _getRowCount) > count _view} do {
-        _lnbSectors lnbDeleteRow (([] call _getRowCount) - 1)
-    };
-};
+lnbClear _lnbSectors;
 
 {
     _x params [
         ["_rowInfo", ["0", ""], [[]], 2]
-        , ["_markerName"]
+        , ["_markerName", "", [""]]
     ];
 
     private _rowIndex = _forEachIndex;
 
-    // Add new LNB row or set the existing row bits
-    if (_rowIndex >= lnbSize _lnbSectors) then {
-        _lnbSectors lnbAddRow _rowInfo;
-    } else {
-        // Else refresh the contents and data of the LNB
-        [0, 1] select {
-            _lnbSector lnbSetText [[_rowIndex, _x], (_rowInfo select _x)];
-            true;
-        };
-    };
+    _lnbSectors lnbAddRow _rowInfo;
 
-    // Then update the invisible additional text data
     [_lnbSectors, _rowIndex, _markerName] call KPLIB_fnc_productionMgr_setAdditionalDataOrValue;
 
 } forEach _view;
-
-// // TODO: TBD: may sort in addition to that, assuming the backing array is not sufficiently ordered
-//_lnbSectors lnbSort [0];
 
 // Allow the index to be re-selected when necessary, i.e. receiving updates from the server
 if (_previousIndex >= 0) then {

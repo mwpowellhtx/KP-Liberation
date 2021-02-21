@@ -63,15 +63,15 @@ if (_displayOrCtrl isEqualTo displayNull) exitWith {
     _default;
 };
 
-private _production = _displayOrCtrl getVariable ["_production", []];
+private _productionState = _displayOrCtrl getVariable ["_productionState", []];
 
-private _selected = _production select { (_x#0#0) isEqualTo _markerName; };
+private _selected = _productionState select { (_x#0#0) isEqualTo _markerName; };
 
 if (_selected isEqualTo []) exitWith {
 
     if (_debug) then {
-        [format ["[fn_productionMgr_getProductionElement] Finished: [_markerName, _default, count _production]: %1"
-            , str [_markerName, _default, count _production]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+        [format ["[fn_productionMgr_getProductionElement] Finished: [_markerName, _default, count _productionState]: %1"
+            , str [_markerName, _default, count _productionState]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
     };
 
     _default;

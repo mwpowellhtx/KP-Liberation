@@ -37,7 +37,7 @@ params [
     };
 
 } forEach [
-    "KPLIB_productionMgr_onProductionElemPublished"
+    "KPLIB_productionMgr_onProductionStatePublished"
 ];
 
 [nil, _exitCode] call KPLIB_fnc_productionMgr_ctrlMap_onUnload;

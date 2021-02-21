@@ -29,7 +29,7 @@ if (_debug) then {
 private _production = _this;
 
 // TODO: TBD: we might verify that production is production...
-// TODO: TBD: i.e. (_production select { _x call KPLIB_fnc_production_verifyArray; })
+// TODO: TBD: i.e. (_production select { [_x] call KPLIB_fnc_production_verifyArray; })
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 

@@ -57,7 +57,8 @@ private _eids = [];
     // TODO: TBD: we will use the one response, either adds 'new' (to the mgr dlg) production elements, or updates existing ones
     // TODO: TBD: mgr dlg should BIS_fnc_sortBy 'parseNumber _gridref' ... ascending, by default...
     // TODO: TBD: although would be interesting to indicate sort order up or down... i.e. when clicking a title row, let's say...
-    ["KPLIB_productionMgr_onProductionElemPublished", KPLIB_fnc_productionMgr_onProductionElemPublished]
+
+    ["KPLIB_productionMgr_onProductionStatePublished", KPLIB_fnc_productionMgr_onProductionStatePublished]
 ];
 
 private _btnRefresh = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_BTNREFRESH;

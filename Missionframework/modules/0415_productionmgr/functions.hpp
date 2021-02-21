@@ -111,8 +111,8 @@ class productionMgr {
     // Arranges the production element view
     class productionMgr_productionElemViews_onTimeRem {};
 
-    // Server published a production element, upon request, during normal statemachine updates, etc
-    class productionMgr_onProductionElemPublished {};
+    // Server published the production state, upon request, during normal or requested statemachine updates, etc
+    class productionMgr_onProductionStatePublished {};
 
     // Map control onLoad event handler
     class productionMgr_ctrlMap_onLoad {};

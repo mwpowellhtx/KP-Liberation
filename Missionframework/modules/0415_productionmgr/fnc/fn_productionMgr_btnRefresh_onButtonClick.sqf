@@ -31,8 +31,8 @@ params [
     ["_ctrl", controlNull, [controlNull]]
 ];
 
-// That is all just kick off the client server sequence, "force" a next refresh
-["KPLIB_productionsm_onProductionMgrOpened", [clientOwner, true]] call CBA_fnc_serverEvent;
+// 'Forced' is implied now, by the fact that a manager dialog has been announced to the server
+["KPLIB_productionsm_onProductionMgrOpened", [clientOwner]] call CBA_fnc_serverEvent;
 
 if (_debug) then {
     ["[fn_productionMgr_btnRefresh_onButtonClick] Finished", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;

@@ -33,9 +33,9 @@ params [
 // TODO: TBD: may need some error handling around display... production... markername... etc...
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
-private _production = _display getVariable ["_production", []];
+private _productionState = _display getVariable ["_productionState", []];
 
-if (_selectedIndex < 0 || _production isEqualTo []) exitWith {
+if (_selectedIndex < 0 || _productionState isEqualTo []) exitWith {
     false;
 };
 
@@ -46,11 +46,11 @@ if (_markerName isEqualTo "") exitWith {
 };
 
 // TODO: TBD: may need to put debugging here...
-private _selected = _production select { ((_x#0#0) isEqualTo _markerName); };
+private _selected = _productionState select { ((_x#0#0) isEqualTo _markerName); };
 
 private _productionElem = (_selected#0);
 
-[(_production select _selectedIndex)] call {
+[(_productionState select _selectedIndex)] call {
     params [
         ["_productionElem", +KPLIB_productionMgr_productionElem_default, [[]], 3]
     ];
