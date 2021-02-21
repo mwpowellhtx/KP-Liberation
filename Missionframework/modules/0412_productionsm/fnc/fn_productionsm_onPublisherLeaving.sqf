@@ -47,7 +47,7 @@ if (_debug) then {
 };
 
 // Handle a bit of cid bookkeeping on leaving the state
-_objSM setVariable ["KPLIB_productionsm_forcedCids", []];
+_objSM setVariable ["KPLIB_productionsm_forced", false];
 
 if (_debug) then {
     ["[fn_productionsm_onPublisherLeaving] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;

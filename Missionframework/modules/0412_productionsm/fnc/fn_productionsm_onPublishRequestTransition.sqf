@@ -44,6 +44,8 @@ if (_debug) then {
         , str [_markerName, getText (_config >> "targetState")]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
+_objSM setVariable ["KPLIB_productionsm_forced", true];
+
 if (_debug) then {
     ["[fn_productionsm_onPublishRequestTransition] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };

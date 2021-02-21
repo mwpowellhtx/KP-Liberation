@@ -39,16 +39,14 @@ if (_cid <= 0) exitWith {};
 private _objSM = KPLIB_productionsm_objSM;
 private _productionList = _objSM getVariable ["CBA_statemachine_list", []];
 
-/* Must do this for each known production namespace. This is because the statemachine event
- * loop runs per production namespace, including new or existing publish notifications. */
-
-private _forcedCids = _objSM getVariable ["KPLIB_productionsm_forcedCids", []];
-_objSM setVariable ["KPLIB_productionsm_forcedCids", (_forcedCids + [_cid])];
-
+// There is no 'forced' just receive the manager announcement and await next cycles
 private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
 _objSM setVariable ["KPLIB_productionsm_cids", (_cids + [_cid])];
 
-// Any of the SM namespaces will do, serves as a trigger for the event only
+// Upon manager announcement considered 'forced'
+_objSM setVariable ["KPLIB_productionsm_forced", true];
+
+// Any of the SM namespaces will do, serves only as a trigger for the SM event driven transition
 private _namespace = (_productionList#0);
 
 // Local event assuming this callback was invoked server side

@@ -46,7 +46,7 @@ if (_debug) then {
         , str [_markerName]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
-[_objSM] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
+[] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
 
 if (_debug) then {
     ["[fn_productionsm_onPublisherEntered] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;

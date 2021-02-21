@@ -41,9 +41,6 @@ private _objSM = KPLIB_productionsm_objSM;
 private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
 _objSM setVariable ["KPLIB_productionsm_cids", (_cids - [_cid])];
 
-private _forcedCids = _objSM getVariable ["KPLIB_productionsm_forcedCids", []];
-_objSM setVariable ["KPLIB_productionsm_forcedCids", (_forcedCids - [_cid])];
-
 if (_debug) then {
     [format ["[fn_productionsm_onProductionMgrClosed] Finished: [_cid]: %1"
         , str [_cid]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;

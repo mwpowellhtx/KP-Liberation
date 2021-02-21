@@ -76,7 +76,7 @@ class KPLIB_productionsm_statemachine {
             targetState = "KPLIB_productionsm_state_scheduler";
             condition = " \
                 ([KPLIB_fnc_timers_isRunning] call KPLIB_fnc_productionsm_hasPublicationTimer) \
-                    && !([] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+                    && !([] call KPLIB_fnc_productionsm_hasPublicationTimer); \
             ";
         };
     };
@@ -93,7 +93,7 @@ class KPLIB_productionsm_statemachine {
             condition = " \
                 ([] call KPLIB_fnc_productionsm_hasManagers) \
                     && ([KPLIB_fnc_timers_isRunning] call KPLIB_fnc_productionsm_hasPublicationTimer) \
-                    && ([] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+                    && ([] call KPLIB_fnc_productionsm_hasPublicationTimer); \
             ";
         };
 
@@ -103,7 +103,7 @@ class KPLIB_productionsm_statemachine {
                 "KPLIB_productionsm_onPublishProductionState"
             };
             condition = "true";
-            onTransition = "[_this] call KPLIB_fnc_productionsm_onPublishRequestTransition;";
+            onTransition = "([_this] call KPLIB_fnc_productionsm_onPublishRequestTransition);";
         };
 
         // Process change orders on event...

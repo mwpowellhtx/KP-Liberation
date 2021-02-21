@@ -40,15 +40,20 @@ if (_debug) then {
 
 if (({ !([_x] call KPLIB_fnc_production_verifyArray); } count _productionState) > 0) exitWith {
     if (_debug) then {
-        ["[fn_productionMgr_onProductionStatePublished] Invalid production element", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+        ["[fn_productionMgr_onProductionStatePublished] Invalid production state", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
     };
     false;
 };
 
 private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
 
+if (_debug) then {
+    [format ["[fn_productionMgr_onProductionStatePublished] Setting display production state: %1 factories"
+        , count _productionState], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
 // Just replace the known '_productionState' and be done with it
-_display setVariable ["_productionState", []];
+_display setVariable ["_productionState", _productionState];
 
 // TODO: TBD: do we need to inject any config? i.e. 
 [_display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS] call KPLIB_fnc_productionMgr_lnbSectors_onLoad;

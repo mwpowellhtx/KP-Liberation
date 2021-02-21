@@ -33,8 +33,8 @@ if (isServer) then {
     KPLIB_param_productionsm_rebaser_debug = false;
     KPLIB_param_productionsm_rebaserEntered_debug = false;
     KPLIB_param_productionsm_publisher_debug = false;
-    KPLIB_param_productionsm_publisherEntered_debug = true;
-    KPLIB_param_productionsm_publisherCore_debug = false;
+    KPLIB_param_productionsm_publisherEntered_debug = false;
+    KPLIB_param_productionsm_publisherCore_debug = true;
     KPLIB_param_productionsm_publisherLeaving_debug = false;
     KPLIB_param_productionsm_conditions_debug = false;
     KPLIB_param_productionsm_calculators_debug = false;

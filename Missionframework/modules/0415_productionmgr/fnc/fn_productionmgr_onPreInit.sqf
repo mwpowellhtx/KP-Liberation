@@ -34,7 +34,7 @@ if (isServer) then {
 // TODO: TBD: lays any ground work, client or server, required to support the module
 if (hasInterface) then {
 
-    KPLIB_param_productionMgr_debug = true;
+    KPLIB_param_productionMgr_debug = false;
     KPLIB_param_productionMgr_lnbSectors_debug = true;
 
     KPLIB_productionMgr_storageMarkerType = "hd_pickup";

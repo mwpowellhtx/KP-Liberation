@@ -9,27 +9,29 @@
     Public: No
 
     Description:
-        Handles refreshing the publication timer.
+        Refreshes or creates the timer afresh, depending on the conditions.
 
     Parameter(s):
-        _objSM - the target statemachine [LOCATION, default: KPLIB_productionsm_objSM]
         _period - the timer period [SCALAR, default: KPLIB_param_productionsm_publisherPeriodSeconds]
+        _restart - whether to restart the timer entirely [BOOL, default: false]
 
     Returns:
         The event handler is fini [BOOL]
  */
 
 params [
-    ["_objSM", KPLIB_productionsm_objSM, [locationNull]]
-    , ["_period", KPLIB_param_productionsm_publisherPeriodSeconds, [0]]
+    ["_period", KPLIB_param_productionsm_publisherPeriodSeconds, [0]]
+    , ["_restart", false, [false]]
 ];
+
+private _objSM = KPLIB_productionsm_objSM;
 
 private _publicationTimer = _objSM getVariable ["KPLIB_productionsm_publicationTimer", []];
 
-private _newTimer = if (_publicationTimer call KPLIB_fnc_timers_isRunning) then {
-    _publicationTimer call KPLIB_fnc_timers_refresh;
-} else {
+private _newTimer = if (_restart || !(_publicationTimer call KPLIB_fnc_timers_isRunning)) then {
     [_period] call KPLIB_fnc_timers_create;
+} else {
+    _publicationTimer call KPLIB_fnc_timers_refresh;
 };
 
 _objSM setVariable ["KPLIB_productionsm_publicationTimer", _newTimer];

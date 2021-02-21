@@ -27,7 +27,8 @@ private _debug = [
 
 private _objSM = KPLIB_productionsm_objSM;
 
-[_objSM] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
+// Scheduler also needs to consider the publication timer during its transitions
+[] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
 
 params [
     ["_namespace", locationNull, [locationNull]]

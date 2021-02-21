@@ -39,8 +39,6 @@ private _debug = [
     ]
 ] call KPLIB_fnc_productionsm_debug;
 
-[_objSM] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
-
 private _markerName = _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault];
 
 if (_debug) then {
@@ -55,15 +53,15 @@ private _onPublish = {
         , ["_debug", false, [false]]
     ];
     {
-        // TODO: TBD: verify the state, of each '_productionElem'
         private _cid = _x;
-        if (_cid >= 0 /* && ([_targetElem] call KPLIB_fnc_production_verifyArray) */ ) then {
-
+        private _verified = _state apply {
+            [_x] call KPLIB_fnc_production_verifyArray;
+        };
+        if (_cid >= 0 && ((count _verified) isEqualTo (count _state))) then {
             if (_debug) then {
-                [format ["[fn_productionsm_onPublisher::_onPublish] Owner event: ['KPLIB_productionMgr_onProductionStatePublished', _state]: %1"
-                    , str _state], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+                [format ["[fn_productionsm_onPublisher::_onPublish] Owner event: ['KPLIB_productionMgr_onProductionStatePublished', [_cid, _state]]: %1"
+                    , str [_cid, _state]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
             };
-
             ["KPLIB_productionMgr_onProductionStatePublished", [_state], _cid] call CBA_fnc_ownerEvent;
         };
     } forEach _cids;
@@ -71,42 +69,36 @@ private _onPublish = {
 
 // Keep all of the client identifiers in front of us here
 private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
-private _forcedCids = _objSM getVariable ["KPLIB_productionsm_forcedCids", []];
+private _forced = _objSM getVariable ["KPLIB_productionsm_forced", false];
+private _elapsed = [] call KPLIB_fnc_productionsm_hasPublicationTimer;
 
-// Only perform routine notification for the clients which were not forced
-private _publishCids = _cids select { !(_x in _forcedCids); };
+private _productionList = _objSM getVariable ["CBA_statemachine_list", []];
+
+private _whereProductionF = {
+    private _markerName = _x getVariable ["_markerName", ""];
+    !(_markerName isEqualTo "")
+        && _markerName in KPLIB_sectors_blufor;
+};
+
+// We only want the '_state' that is considered friendly, i.e. BLUFOR
+private _state = _productionList select _whereProductionF apply {
+    [_x] call KPLIB_fnc_production_namespaceToArray;
+};
 
 if (_debug) then {
-    [format ["[fn_productionsm_onPublisher] cids: [_cids, _forcedCids, _publishCids]: %1"
-        , str [_cids, _forcedCids, _publishCids]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionsm_onPublisher] [_cids, _elapsed, _forced, count _state]: %1"
+        , str [_cids, _elapsed, _forced, count _state]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
-// Keep the timer and production element states in front of us
-private _oldState = _objSM getVariable ["KPLIB_productionsm_publishedState", []];
-private _productionList = _objSM getVariable ["CBA_statemachine_list", []];
-private _newState = _productionList apply { [_x] call KPLIB_fnc_production_namespaceToArray; };
-
-/* Publish either:
- *  - new and 'forced' (refresh button) mgr dialog announcements
- *  - existing timer elapsed mgrs
- */
-
-// Forced publish includes new and actual 'forced' i.e. mgr refresh button
-[_newState, _forcedCids] call _onPublish;
-
-// Do not publish when nothing of any significance changed
-if (!(_newState isEqualTo _oldState)) then {
-    // Mark the new line in the sand and notify the listening clients
-    [_newState, _publishCids] call _onPublish;
+// Publish for a couple of reasons, on request, or timer elapsed
+if (_forced || _elapsed) then {
+    [_state, _cids, _debug] call _onPublish;
 };
 
-_objSM setVariable ["KPLIB_productionsm_publishedState", _newState];
+_objSM setVariable ["KPLIB_productionsm_publishedState", _state];
 
-// Kick off the next wait period by restarting the timer period
-[_objSM, KPLIB_param_productionsm_publisherPeriodSeconds] call {
-    params ["_objSM", "_period"];
-    _objSM setVariable ["KPLIB_productionsm_publicationTimer", ([_period] call KPLIB_fnc_timers_create)];
-};
+// Kick off the next wait period by restarting the timer, regardless
+[nil, true] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
 
 if (_debug) then {
     ["[fn_productionsm_onPublisher] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;

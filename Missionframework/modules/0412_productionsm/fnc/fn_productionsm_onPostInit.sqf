@@ -54,6 +54,14 @@ if (true) then {
     //    true;
     //}] call CBA_fnc_addEventHandler;
 
+    // ["KPLIB_productionMgr_onProductionStatePublished", {
+    //     params [
+    //         ["_state", [], [[]]]
+    //     ];
+    //     systemChat format ["State received: [count _state, systemTime]: %1", str [count _state, systemTime]];
+    //     true;
+    // }] call CBA_fnc_addEventHandler;
+
     /*
 [] call KPLIB_fnc_admin_productionMgr_toggle;
 [] call KPLIB_fnc_admin_productionMgr_refresh;
