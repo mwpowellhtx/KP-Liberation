@@ -19,11 +19,27 @@
         The event handler is fini [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
-
 params [
     ["_namespace", locationNull, [locationNull]]
 ];
+
+private _objSM = KPLIB_productionsm_objSM;
+
+private _debug = [
+    [
+        "KPLIB_param_productionsm_publisher_debug"
+        , "KPLIB_param_productionsm_productionMgr_debug"
+        , "KPLIB_param_productionsm_publisherCore_debug"
+        , { _namespace getVariable ["KPLIB_param_productionsm_publisher_debug", false]; }
+        , { _namespace getVariable ["KPLIB_param_productionsm_productionMgr_debug", false]; }
+        , { _namespace getVariable ["KPLIB_param_productionsm_publisherCore_debug", false]; }
+        , { _objSM getVariable ["KPLIB_param_productionsm_publisher_debug", false]; }
+        , { _objSM getVariable ["KPLIB_param_productionsm_productionMgr_debug", false]; }
+        , { _objSM getVariable ["KPLIB_param_productionsm_publisherCore_debug", false]; }
+    ]
+] call KPLIB_fnc_productionsm_debug;
+
+[_objSM] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
 
 private _markerName = _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault];
 
@@ -34,33 +50,41 @@ if (_debug) then {
 
 private _onPublish = {
     params [
-        ["_targetElem", [], [[]]]
+        ["_state", [], [[]]]
         , ["_cids", [], [[]]]
+        , ["_debug", false, [false]]
     ];
     {
-        private_cid = _x;
-        if (_cid >= 0 && ([_targetElem] call KPLIB_fnc_production_verifyArray)) then {
-            ["KPLIB_productionMgr_onProductionElemPublished", _targetElem, _cid] call CBA_fnc_ownerEvent;
+        // TODO: TBD: verify the state, of each '_productionElem'
+        private _cid = _x;
+        if (_cid >= 0 /* && ([_targetElem] call KPLIB_fnc_production_verifyArray) */ ) then {
+
+            if (_debug) then {
+                [format ["[fn_productionsm_onPublisher::_onPublish] Owner event: ['KPLIB_productionMgr_onProductionStatePublished', _state]: %1"
+                    , str _state], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+            };
+
+            ["KPLIB_productionMgr_onProductionStatePublished", [_state], _cid] call CBA_fnc_ownerEvent;
         };
     } forEach _cids;
 };
 
-// Keep the timer and production element states in front of us
-private _timer = _namespace getVariable ["_publisherTimer", []];
-private _oldState = _namespace getVariable ["_publisherState", []];
-private _productionElem = [_namespace] call KPLIB_fnc_production_namespaceToArray;
-
 // Keep all of the client identifiers in front of us here
-private _cids = _namespace getVariable ["_cids", []];
-private _previousCids = _namespace getVariable ["_previousCids", []];
+private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
+private _forcedCids = _objSM getVariable ["KPLIB_productionsm_forcedCids", []];
 
-private _newCids = _cids select { !(_x in _previousCids); };
-
-private _forcedCids = _namespace getVariable ["_forcedCids", []];
-{ _forcedCids pushBackUnique _x; } forEach _newCids;
-
-// Publish any that are not forced during normal statemachine iterations
+// Only perform routine notification for the clients which were not forced
 private _publishCids = _cids select { !(_x in _forcedCids); };
+
+if (_debug) then {
+    [format ["[fn_productionsm_onPublisher] cids: [_cids, _forcedCids, _publishCids]: %1"
+        , str [_cids, _forcedCids, _publishCids]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
+
+// Keep the timer and production element states in front of us
+private _oldState = _objSM getVariable ["KPLIB_productionsm_publishedState", []];
+private _productionList = _objSM getVariable ["CBA_statemachine_list", []];
+private _newState = _productionList apply { [_x] call KPLIB_fnc_production_namespaceToArray; };
 
 /* Publish either:
  *  - new and 'forced' (refresh button) mgr dialog announcements
@@ -68,17 +92,20 @@ private _publishCids = _cids select { !(_x in _forcedCids); };
  */
 
 // Forced publish includes new and actual 'forced' i.e. mgr refresh button
-[_productionElem, _forcedCids] call _onPublish;
+[_newState, _forcedCids] call _onPublish;
 
 // Do not publish when nothing of any significance changed
-if (_timer isEqualTo []
-    || (_timer call KPLIB_fnc_timers_hasElapsed
-        && !(_productionElem isEqualTo _oldState))) then {
-
+if (!(_newState isEqualTo _oldState)) then {
     // Mark the new line in the sand and notify the listening clients
-    _namespace setVariable ["_publisherState", (+_productionElem)];
+    [_newState, _publishCids] call _onPublish;
+};
 
-    [_productionElem, _publishCids] call _onPublish;
+_objSM setVariable ["KPLIB_productionsm_publishedState", _newState];
+
+// Kick off the next wait period by restarting the timer period
+[_objSM, KPLIB_param_productionsm_publisherPeriodSeconds] call {
+    params ["_objSM", "_period"];
+    _objSM setVariable ["KPLIB_productionsm_publicationTimer", ([_period] call KPLIB_fnc_timers_create)];
 };
 
 if (_debug) then {

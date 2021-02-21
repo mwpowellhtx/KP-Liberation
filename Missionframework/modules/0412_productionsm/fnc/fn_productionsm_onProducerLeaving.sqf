@@ -20,7 +20,11 @@
         NONE
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_producer_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]

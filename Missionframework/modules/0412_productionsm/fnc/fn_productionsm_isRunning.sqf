@@ -18,7 +18,11 @@
         Whether the production '_namespace' is running [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_conditions_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]

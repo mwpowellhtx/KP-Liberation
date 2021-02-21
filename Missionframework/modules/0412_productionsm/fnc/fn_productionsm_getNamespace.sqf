@@ -18,7 +18,11 @@
         The CBA production '_namespace' corresponding with the '_targetMarker' [LOCATION, default: locationNull]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_calculators_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_targetMarker", "", [""]]

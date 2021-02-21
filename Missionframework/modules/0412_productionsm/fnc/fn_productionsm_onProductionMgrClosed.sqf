@@ -19,7 +19,11 @@
         NONE
 */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_productionMgr_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_cid", -1, [0]]
@@ -27,23 +31,20 @@ params [
 
 if (_debug) then {
     [format ["[fn_productionsm_onProductionMgrClosed] Entering: [_cid]: %1"
-        , str [_cid]], "PRODUCTION", true] call KPLIB_fnc_common_log;
+        , str [_cid]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 if (_cid <= 0) exitWith {};
 
-{
-    private _namespace = _x;
+private _objSM = KPLIB_productionsm_objSM;
 
-    private _cids = _namespace getVariable ["_cids", []];
-    _namespace setVariable ["_previousCids", (+_cids)];
+private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
+_objSM setVariable ["KPLIB_productionsm_cids", (_cids - [_cid])];
 
-    _cids = _cids - [_cid];
-    _namespace setVariable ["_cids", _cids];
-
-} forEach KPLIB_production_namespaces;
+private _forcedCids = _objSM getVariable ["KPLIB_productionsm_forcedCids", []];
+_objSM setVariable ["KPLIB_productionsm_forcedCids", (_forcedCids - [_cid])];
 
 if (_debug) then {
     [format ["[fn_productionsm_onProductionMgrClosed] Finished: [_cid]: %1"
-        , str [_cid]], "PRODUCTION", true] call KPLIB_fnc_common_log;
+        , str [_cid]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };

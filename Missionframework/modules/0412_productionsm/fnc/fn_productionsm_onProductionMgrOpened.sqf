@@ -19,44 +19,42 @@
         NONE
 */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_productionMgr_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_cid", -1, [0]]
-    , ["_forced", false, [false]]
 ];
 
 if (_debug) then {
     [format ["[fn_productionsm_onProductionMgrOpened] Entering: [_cid, _forced]: %1"
-        , str [_cid, _forced]], "PRODUCTION", true] call KPLIB_fnc_common_log;
+        , str [_cid, _forced]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 if (_cid <= 0) exitWith {};
 
+private _objSM = KPLIB_productionsm_objSM;
+private _productionList = _objSM getVariable ["CBA_statemachine_list", []];
+
 /* Must do this for each known production namespace. This is because the statemachine event
  * loop runs per production namespace, including new or existing publish notifications. */
 
-{
-    private _namespace = _x;
+private _forcedCids = _objSM getVariable ["KPLIB_productionsm_forcedCids", []];
+_objSM setVariable ["KPLIB_productionsm_forcedCids", (_forcedCids + [_cid])];
 
-    if (_forced) then {
-        private _forcedCids = _namespace getVariable ["_forcedCids", []];
-        _forcedCids pushBackUnique _cid;
-        _namespace setVariable ["_forcedCids", _forcedCids];
-    };
+private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
+_objSM setVariable ["KPLIB_productionsm_cids", (_cids + [_cid])];
 
-    private _cids = _namespace getVariable ["_cids", []];
-    _namespace setVariable ["_previousCids", (+_cids)];
+// Any of the SM namespaces will do, serves as a trigger for the event only
+private _namespace = (_productionList#0);
 
-    _cids pushBackUnique _cid;
-    _namespace setVariable ["_cids", _cids];
-
-    // Local event assuming this callback was invoked server side.
-    ["KPLIB_productionsm_onPublishProductionElem", [_namespace]] call CBA_fnc_localEvent;
-
-} forEach KPLIB_production_namespaces;
+// Local event assuming this callback was invoked server side
+["KPLIB_productionsm_onPublishProductionState", [_namespace]] call CBA_fnc_localEvent;
 
 if (_debug) then {
     [format ["[fn_productionsm_onProductionMgrOpened] Finished: [_cid]: %1"
-        , str [_cid]], "PRODUCTION", true] call KPLIB_fnc_common_log;
+        , str [_cid]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };

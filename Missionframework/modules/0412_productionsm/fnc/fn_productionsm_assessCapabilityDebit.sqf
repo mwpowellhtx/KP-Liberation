@@ -57,7 +57,7 @@ private _assessment = KPLIB_productionsm_addCap_success;
 private _cost = _capabilityMask call KPLIB_fnc_productionsm_getCapabilityCost;
 
 // Namespace is not considered a CBA production namespace...
-if (!(_namespace call KPLIB_fnc_production_verifyNamespace)) exitWith {
+if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
     if (_debug) then {
         ["[fn_productionsm_assessCapabilityDebit] Invalid namespace", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
     };

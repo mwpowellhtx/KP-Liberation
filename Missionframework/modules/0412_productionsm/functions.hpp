@@ -31,7 +31,7 @@ class productionsm {
     class productionsm_debug {};
 
     //
-    class productionsm_create {};
+    class productionsm_createSM {};
 
     //
     class productionsm_getNamespace {};
@@ -58,7 +58,10 @@ class productionsm {
     class productionsm_onAddCapabilityRaised {};
 
     //
-    class productionsm_hasElapsed {};
+    class productionsm_hasPublicationTimer {};
+
+    //
+    class productionsm_hasProductionTimerElapsed {};
 
     //
     class productionsm_onChangeQueueRaised {};
@@ -70,7 +73,10 @@ class productionsm {
     class productionsm_hasQueueRemaining {};
 
     //
-    class productionsm_onProducerEntering {};
+    class productionsm_onPublishRequestTransition {};
+
+    //
+    class productionsm_onProducerEntered {};
 
     //
     class productionsm_onProducerLeaving {};
@@ -91,13 +97,13 @@ class productionsm {
     class productionsm_onPublisher {};
 
     //
-    class productionsm_onPublisherEntering {};
+    class productionsm_onPublisherEntered {};
 
     //
     class productionsm_onPublisherLeaving {};
 
     //
-    class productionsm_onRebaseEntering {};
+    class productionsm_onRebaseEntered {};
 
     //
     class productionsm_onScheduler {};
@@ -110,4 +116,10 @@ class productionsm {
 
     //
     class productionsm_tryProduceResource {};
+
+    //
+    class productionsm_hasManagers {};
+
+    //
+    class productionsm_onPublicationTimerRefresh {};
 };

@@ -18,7 +18,11 @@
         Whether the factory sector is considered secure [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_conditions_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]

@@ -18,7 +18,11 @@
         Whether the resource was successfully produced and stored [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_producer_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]
@@ -61,7 +65,7 @@ if ((_queue isEqualTo []) || isNull _targetStorage) exitWith {
 private _markerPos = markerPos _markerName;
 
 // TODO: TBD: could capture as a preset or param...
-private _targetPos = _markerPos getPos [25, random 360]
+private _targetPos = _markerPos getPos [25, random 360];
 
 // Do not delete the queue item, we leave that for subsequent tear down...
 private _crate = [KPLIB_resources_resourceKinds select (_queue#0), _targetPos] call KPLIB_fnc_resources_createCrate;

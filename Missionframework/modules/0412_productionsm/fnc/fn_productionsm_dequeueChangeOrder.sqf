@@ -18,7 +18,11 @@
         The next element in the '_changeOrders' queue, or [] when none were available [ARRAY, default: []]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_changeOrders_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]

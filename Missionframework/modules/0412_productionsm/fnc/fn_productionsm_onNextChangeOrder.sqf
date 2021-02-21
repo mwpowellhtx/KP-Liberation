@@ -37,7 +37,7 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
-private _changeOrder = [_namespace] get KPLIB_fnc_productionsm_dequeueChangeOrder;
+private _changeOrder = [_namespace] call KPLIB_fnc_productionsm_dequeueChangeOrder;
 
 _changeOrder params [
     ["_cid", -1, [0]]

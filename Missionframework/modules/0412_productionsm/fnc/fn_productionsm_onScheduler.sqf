@@ -19,7 +19,15 @@
         When the event handler is finished [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_scheduler_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
+
+private _objSM = KPLIB_productionsm_objSM;
+
+[_objSM] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
 
 params [
     ["_namespace", locationNull, [locationNull]]
@@ -33,6 +41,15 @@ params [
     "_markerName"
     , "_queue"
 ];
+
+// Refresh the publication timer with every visit
+private _publicationTimer = [_namespace] call {
+    params ["_namespace"];
+    private _timer = _namespace getVariable ["_publicationTimer", (+KPLIB_timers_default)];
+    _timer = _timer call KPLIB_fnc_timers_refresh;
+    _namespace setVariable ["_publicationTimer", _timer];
+    _timer;
+};
 
 if (_debug) then {
     [format ["[fn_productionsm_onScheduler] Entering: [_markerName, _queue]: %1"

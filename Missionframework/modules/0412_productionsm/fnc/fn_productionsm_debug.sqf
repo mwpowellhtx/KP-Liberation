@@ -9,17 +9,19 @@
     Public: No
 
     Description:
-        ...
+        Returns whether the caller should debug the module.
 
     Parameter(s):
-        ...
+        _additional - additional debug flags to incorporate into the broader flag [ARRAY, default: []]
 
     Returns:
         Whether the module ought to run in debug mode [BOOL]
  */
 
-[
-    [
-        "KPLIB_param_productionsm_debug"
-    ]
-] call KPLIB_fnc_debug_debug;
+params [
+    ["_additional", [], [[]]]
+];
+
+_additional pushBackUnique "KPLIB_param_productionsm_debug";
+
+[_additional] call KPLIB_fnc_debug_debug;

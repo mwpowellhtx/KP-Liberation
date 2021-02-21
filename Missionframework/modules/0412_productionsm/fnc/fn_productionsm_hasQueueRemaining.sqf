@@ -18,7 +18,11 @@
         Whether the production timer is considered to be elapsed [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_conditions_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 // TODO: TBD: fill in this gap...
 params [

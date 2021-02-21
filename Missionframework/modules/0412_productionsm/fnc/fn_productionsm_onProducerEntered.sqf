@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_productionsm_onProducerEntering
+    KPLIB_fnc_productionsm_onProducerEntered
 
-    File: fn_productionsm_onProducerEntering.sqf
+    File: fn_productionsm_onProducerEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-18 00:01:34
     Last Update: 2021-02-18 00:10:31
@@ -21,7 +21,7 @@
         NONE
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [["KPLIB_param_productionsm_producer_debug"]] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]
@@ -32,7 +32,7 @@ private _markerName = _namespace getVariable ["_markerName", KPLIB_production_ma
 // TODO: TBD: while we are debugging... we'll get there, but for now let's focus on the other SM bits...
 if (true) exitWith {
     if (_debug) then {
-        [format ["[fn_productionsm_onProducerEntering] For future use: [_markerName]: %1"
+        [format ["[fn_productionsm_onProducerEntered] For future use: [_markerName]: %1"
             , str [_markerName]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
     };
     true;
@@ -66,7 +66,7 @@ if (_namespace call KPLIB_fnc_productionsm_tryProduceResource) then {
 };
 
 if (_debug) then {
-    ["[fn_productionsm_onProducerEntering] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    ["[fn_productionsm_onProducerEntered] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

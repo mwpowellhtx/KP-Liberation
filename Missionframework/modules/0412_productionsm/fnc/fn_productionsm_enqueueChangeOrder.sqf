@@ -21,7 +21,11 @@
         https://cbateam.github.io/CBA_A3/docs/files/events/fnc_localEvent-sqf.html
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_changeOrders_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]

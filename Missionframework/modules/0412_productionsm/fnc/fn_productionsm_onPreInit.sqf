@@ -25,11 +25,25 @@ if (isServer) then {
 if (isServer) then {
 
     // TODO: TBD: establish CBA settings for the param bits...
-    KPLIB_param_productionsm_publishPeriodSeconds = 3;
-    KPLIB_param_productionsm_debug = true;
+    KPLIB_param_productionsm_publisherPeriodSeconds = 3;
 
-    KPLIB_productionsm_obj = locationNull;
-    KPLIB_productionsm_configClassNameDefault = "KPLIB_productionStatemachine";
+    KPLIB_param_productionsm_debug = false;
+    KPLIB_param_productionsm_create_debug = false;
+    KPLIB_param_productionsm_rebaserEntered_debug = false;
+    KPLIB_param_productionsm_rebaser_debug = false;
+    KPLIB_param_productionsm_rebaserEntered_debug = false;
+    KPLIB_param_productionsm_publisher_debug = false;
+    KPLIB_param_productionsm_publisherEntered_debug = true;
+    KPLIB_param_productionsm_publisherCore_debug = false;
+    KPLIB_param_productionsm_publisherLeaving_debug = false;
+    KPLIB_param_productionsm_conditions_debug = false;
+    KPLIB_param_productionsm_calculators_debug = false;
+    KPLIB_param_productionsm_changeOrders_debug = false;
+    KPLIB_param_productionsm_raisers_debug = false;
+    KPLIB_param_productionsm_productionMgr_debug = false;
+
+    KPLIB_productionsm_objSM = locationNull;
+    KPLIB_productionsm_configClassNameDefault = "KPLIB_productionsm_statemachine";
 
     ///* Nil, nothing was last produced, or -1. We use this value to indicate when scheduling,
     // * etc, ought to occur with passes through the production statemachine. */

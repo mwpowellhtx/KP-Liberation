@@ -21,7 +21,11 @@
         The string table key reporting on the 'KPLIB_productionsm_raiseAddCapability' assessment [STRING]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_calculators_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_assessment", KPLIB_productionsm_addCap_success, [0]]

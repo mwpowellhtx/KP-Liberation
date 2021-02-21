@@ -39,8 +39,8 @@
  *
  */
 
-class KPLIB_productionStatemachine {
-    list = 'KPLIB_production_namespaces';
+class KPLIB_productionsm_statemachine {
+    list = "KPLIB_production_namespaces";
     skipNull = 1;
 
     /* The KPLIB production statemachine enters this mode once and only once in order to recalibrate
@@ -49,13 +49,13 @@ class KPLIB_productionStatemachine {
      * References:
      *      https://community.bistudio.com/wiki/serverTime
      */
-    class Rebaser {
-        onStateEntering = '_this call KPLIB_fnc_productionsm_onRebaseEntering;';
+    class KPLIB_productionsm_state_rebaser {
+        onStateEntered = "[_this] call KPLIB_fnc_productionsm_onRebaseEntered;";
 
         // Always publish
-        class OnSemperPublish {
-            targetState = "Publisher";
-            condition = 'true;';
+        class KPLIB_productionsm_transition_onSemperPublish {
+            targetState = "KPLIB_productionsm_state_publisher";
+            condition = "true";
         };
     };
 
@@ -67,13 +67,17 @@ class KPLIB_productionStatemachine {
     // _namespace call KPLIB_fnc_production_onRenderMarkerText;
 
     // Publish the namespace to qualified listeners on the next cycle...
-    class Publisher {
-        onStateEntering = '_this call KPLIB_fnc_productionsm_onPublisherEntering;';
-        onState = '_this call KPLIB_fnc_productionsm_onPublisher;';
-        onStateLeaving = '_this call KPLIB_fnc_productionsm_onPublisherLeaving;';
+    class KPLIB_productionsm_state_publisher {
+        onStateEntered = "[_this] call KPLIB_fnc_productionsm_onPublisherEntered;";
+        onState = "[_this] call KPLIB_fnc_productionsm_onPublisher;";
+        onStateLeaving = "[_this] call KPLIB_fnc_productionsm_onPublisherLeaving;";
 
-        class On0SemperScheduler : OnSemperPublish {
-            targetState = "Scheduler";
+        class KPLIB_productionsm_transition_onSemperScheduler {
+            targetState = "KPLIB_productionsm_state_scheduler";
+            condition = " \
+                ([KPLIB_fnc_timers_isRunning] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+                    && !([] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+            ";
         };
     };
 
@@ -81,44 +85,42 @@ class KPLIB_productionStatemachine {
      * time as the production '_timer' has elapsed, or a change order has arrived requiring
      * statemachine attention. The '_timer' is scheduled as a function of factory sector
      * control and of '_queue' state having changed in some way, shape, or form. */
-    class Scheduler {
-        onState = '_this call KPLIB_fnc_productionsm_onScheduler;';
+    class KPLIB_productionsm_state_scheduler {
+        onState = "[_this] call KPLIB_fnc_productionsm_onScheduler;";
 
-        class OnPublish {
-            targetState = "Publisher";
-            condition = '
-                !(
-                    (_this call KPLIB_fnc_productionsm_hasElapsed)
-                        || (_this call KPLIB_fnc_productionsm_hasChangeOrders)
-                );
-            ';
+        class KPLIB_productionsm_transition_onPublish {
+            targetState = "KPLIB_productionsm_state_publisher";
+            condition = " \
+                ([] call KPLIB_fnc_productionsm_hasManagers) \
+                    && ([KPLIB_fnc_timers_isRunning] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+                    && ([] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+            ";
         };
 
         // Publish when, i.e. a productionMgr dialog announces himself to the server
-        class OnPublishRequested : OnPublish {
+        class KPLIB_productionsm_transition_onPublishRequest : KPLIB_productionsm_transition_onPublish {
             events[] = {
-                "KPLIB_productionsm_onPublishProductionElem"
+                "KPLIB_productionsm_onPublishProductionState"
             };
-            condition = 'true;';
+            condition = "true";
+            onTransition = "[_this] call KPLIB_fnc_productionsm_onPublishRequestTransition;";
         };
 
         // Process change orders on event...
-        class OnEdictMutatioRaised {
+        class KPLIB_productionsm_transition_onEdictMutatioRaised {
             events[] = {
                 "KPLIB_productionsm_onChangeOrder"
             };
-            targetState = "EdictMutatio";
-            condition = '
-                (_this call KPLIB_fnc_productionsm_hasChangeOrders);
-            ';
+            targetState = "KPLIB_productionsm_state_edictMutatio";
+            condition = "([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
         };
 
-        class OnProduction {
-            targetState = "Producer";
-            condition = '
-                (_this call KPLIB_fnc_productionsm_hasElapsed)
-                    && !(_this call KPLIB_fnc_productionsm_hasChangeOrders);
-            ';
+        class KPLIB_productionsm_transition_onProduction {
+            targetState = "KPLIB_productionsm_state_producer";
+            condition = " \
+                ([_this] call KPLIB_fnc_productionsm_hasProductionTimerElapsed) \
+                    && !([_this] call KPLIB_fnc_productionsm_hasChangeOrders); \
+            ";
         };
     };
 
@@ -133,28 +135,30 @@ class KPLIB_productionStatemachine {
 
     // TODO: TBD: we do not want to get stuck producing when there is no room, let's say...
     // TODO: TBD: allow room for change orders to occur, which may consequently change the outlook...
-    class Producer {
-        onStateEntering = '_this call KPLIB_fnc_productionsm_onProducerEntering;';
-        onState = '_this call KPLIB_fnc_productionsm_onProducer;';
+    class KPLIB_productionsm_state_producer {
+        onStateEntered = "[_this] call KPLIB_fnc_productionsm_onProducerEntered;";
+        onState = "[_this] call KPLIB_fnc_productionsm_onProducer;";
 
         // TODO: TBD: CO conditions probably unnecessary, or we consider an event transition...
-        class OnCondicionalisEdictMutatio : OnSemperPublish {
-            targetState = "EdictMutatio";
-            condition = '_this call KPLIB_fnc_productionsm_hasChangeOrders;';
+        class KPLIB_productionsm_transition_onCondicionalisEdictMutatio {
+            targetState = "KPLIB_productionsm_state_edictMutatio";
+            condition = "[_this] call KPLIB_fnc_productionsm_hasChangeOrders;";
         };
 
-        class OnCondicionalisPublish : OnSemperPublish {
-            condition = '!(_this call KPLIB_fnc_productionsm_hasChangeOrders);';
+        class KPLIB_productionsm_transition_onCondicionalisPublish {
+            targetState = "KPLIB_productionsm_state_publisher";
+            condition = "!([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
         };
     };
 
     // Process the change orders while we have some...
-    class EdictMutatio {
-        onState = '_this call KPLIB_fnc_productionsm_onNextChangeOrder;';
+    class KPLIB_productionsm_state_edictMutatio {
+        onState = "[_this] call KPLIB_fnc_productionsm_onNextChangeOrder;";
 
         // Notify production manager listeners ASAP when able to do so...
-        class OnCondicionalisPublish : OnSemperPublish {
-            condition = '!(_this call KPLIB_fnc_productionsm_hasChangeOrders);';
+        class KPLIB_productionsm_transition_onCondicionalisPublish {
+            targetState = "KPLIB_productionsm_state_publisher";
+            condition = "!([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
         };
     };
 };
