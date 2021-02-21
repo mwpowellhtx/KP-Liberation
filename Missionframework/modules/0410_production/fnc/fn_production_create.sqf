@@ -29,7 +29,7 @@ if (!(_markerName call KPLIB_fnc_production_markerExists)) exitWith {
     [] call CBA_fnc_createNamespace;
 };
 
-private _namespace = (+KPLIB_production_default) call KPLIB_fnc_production_arrayToNamespace;
+private _namespace = [] call KPLIB_fnc_production_arrayToNamespace;
 
 /* We shall defer the discovery of the _markerText until after reconciling
  * saved data with the current 'KPLIB_sectors_factory' discovery. */

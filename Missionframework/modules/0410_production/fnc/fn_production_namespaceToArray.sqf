@@ -23,7 +23,7 @@ params [
 ];
 
 // Respond with empty array when the namespace is unexpected...
-if (!(_namespace call KPLIB_fnc_production_verifyNamespace)) exitWith {
+if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
     [];
 };
 

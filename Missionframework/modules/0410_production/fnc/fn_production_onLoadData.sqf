@@ -67,15 +67,24 @@ if (_debug) then {
 };
 
 // Convert the serialized production arrays to CBA production namespaces...
-private _namespaces = _production apply { _x call KPLIB_fnc_production_arrayToNamespace; };
+private _namespaces = _production apply {
+    [_x] call KPLIB_fnc_production_arrayToNamespace;
+};
+
+private _namespaceSortByCallback = {
+    private _markerName = _x getVariable ["_markerName", ""];
+    private _pos = markerPos _markerName;
+    private _ref = mapGridPosition _pos;
+    parseNumber _ref;
+};
 
 // TODO: TBD: added this for the time being for troubleshooting purposes..
 // TODO: TBD: we keep this held aside while we work out SM and UI integration kinks...
 // TODO: TBD: also so as not to damage the bits unduly while we do...
-KPLIB_production_loadedData = _production;
+KPLIB_production_loadedData = [_namespaces, [], _namespaceSortByCallback] call BIS_fnc_sortBy;
 
 // TODO: TBD: convert the reconciled production tuples to namespaces...
-KPLIB_production_namespaces = _namespaces call KPLIB_fnc_production_onReconcile;
+KPLIB_production_namespaces = [_namespaces] call KPLIB_fnc_production_onReconcile;
 
 if (_debug) then {
     ["[fn_production_onLoadData] Loaded", "PRODUCTION"] call KPLIB_fnc_common_log;

@@ -27,7 +27,7 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
-if (!(_namespace call KPLIB_fnc_production_verifyNamespace)) exitWith {
+if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
     _namespace;
 };
 

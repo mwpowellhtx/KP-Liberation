@@ -12,7 +12,7 @@
         Converts the SQF ARRAY to a corresponding CBA namespace.
 
     Parameter(s):
-        _this - an SQF production array [ARRAY]
+        _productionElem - an SQF production element array [ARRAY]
 
     Returns:
         A newly converted CBA production namespace [NAMESPACE]
@@ -23,17 +23,19 @@
  */
 
 // TODO: TBD: because of snafus in the transition period, was: []
-private _production = _this;
+params [
+    ["_productionElem", (+KPLIB_production_default), [[]], 3]
+];
 
 private _namespace = [] call CBA_fnc_createNamespace;
 
 //// TODO: TBD: ideally I think we should be able to verify, but let's not for the time being...
-// if (_production call KPLIB_fnc_production_verifyArray) exitWith {
+// if ([_productionElem] call KPLIB_fnc_production_verifyArray) exitWith {
 //     _namespace;
 // };
 
 // Will have already been verified above, so only decon what we must...
-_production params [
+_productionElem params [
     ["_ident", [], [[]], 2]
     , ["_timer", KPLIB_timers_default, [[]], 4]
     , ["_info", [], [[]], 3]
