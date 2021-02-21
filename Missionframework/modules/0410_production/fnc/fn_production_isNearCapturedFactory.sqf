@@ -38,6 +38,6 @@ private _markerName = [_target, KPLIB_sectors_factory] call KPLIB_fnc_common_get
 
 // Then we may also focus the actual range check, predicate, etc...
 _markerName in KPLIB_sectors_blufor
-    && [_target, _range, [_markerName]] call KPLIB_fnc_core_getTargetMarkerInRange
+    && [_target, _range, [_markerName]] call KPLIB_fnc_common_getTargetMarkerInRange
     && [_target, _range, _markerName, _predicateArgs] call _predicate
     ;
