@@ -222,6 +222,10 @@ class CfgFunctions {
     #include "KPLIB_functions.hpp"
 };
 
+class CfgStateMachines {
+    #include "KPLIB_statemachines.hpp"
+};
+
 class CfgRespawnTemplates
 {
     // TODO: TBD: this is the "respawnTemplate" rub, where rubber meets road...
