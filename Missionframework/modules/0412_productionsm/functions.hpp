@@ -122,4 +122,7 @@ class productionsm {
 
     //
     class productionsm_onPublicationTimerRefresh {};
+
+    //
+    class productionsm_onForcedPublication {};
 };

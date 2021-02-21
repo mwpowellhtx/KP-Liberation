@@ -25,6 +25,13 @@ if (isServer) then {
 if (isServer) then {
     // Refactored production server side event handlers
 
+    ["KPLIB_updateMarkers", {
+        KPLIB_production_namespaces select {
+            [_x] call KPLIB_fnc_production_onRenderMarkerText;
+            true;
+        };
+    }] call CBA_fnc_addEventHandler;
+
     // Client may add capability to a target factory sector
     ["KPLIB_productionsm_raiseAddCapability", KPLIB_fnc_productionsm_raiseAddCapability] call CBA_fnc_addEventHandler;
 
@@ -105,6 +112,28 @@ if (true) then {
 
         _target;
     };
+
+    KPLIB_fnc_admin_productionsm_getAvailableCap = {
+        params [
+            ["_targetCap", 0, [0]]
+        ];
+        private _retval = KPLIB_production_namespaces select {
+            private _markerName = _x getVariable ["_markerName", ""];
+            private _capability = _x getVariable ["_capability", KPLIB_production_cap_default];
+            (_markerName in KPLIB_sectors_blufor) && !(_capability select _targetCap);
+        };
+        _retval;
+    };
+
+/*
+// snippet of code that handles client server add cap via the SM ...
+_targetCap = 0;
+_y = ([_targetCap] call KPLIB_fnc_admin_productionsm_getAvailableCap);
+_y = _y#0;
+_markerName = _y getVariable "_markerName";
+[_markerName, _targetCap, clientOwner] call KPLIB_fnc_productionsm_raiseAddCapability;
+*/
+
 };
 
 true;

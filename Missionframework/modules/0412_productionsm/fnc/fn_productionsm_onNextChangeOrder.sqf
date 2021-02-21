@@ -31,13 +31,27 @@
         The event handler finished [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_changeOrders_debug"
+        , "KPLIB_param_productionsm_raiseAddCap_debug"
+        , "KPLIB_param_productionsm_raiseChangeQueue_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
 private _changeOrder = [_namespace] call KPLIB_fnc_productionsm_dequeueChangeOrder;
+
+if (_changeOrder isEqualTo []) exitWith {
+    if (_debug) then {
+        [format ["[fn_productionsm_onNextChangeOrder] Finished: [_changeOrder]: %1"
+            , str [_changeOrder]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    };
+    false;
+};
 
 _changeOrder params [
     ["_cid", -1, [0]]
@@ -82,6 +96,10 @@ private _candidateValue = [_namespace, _sourceValue, _targetValue, _cid] call _o
 
 if (!(_candidateValue isEqualTo _sourceValue)) then {
     _namespace setVariable [_sourceVariableName, _candidateValue];
+    private _onChangeOrderComplete = _namespace getVariable ["_onChangeOrderComplete", {}];
+    [] call _onChangeOrderComplete;
+    // Replace with innocuous no-op callback
+    _namespace setVariable ["_onChangeOrderComplete", {}];
 };
 
 if (_debug) then {

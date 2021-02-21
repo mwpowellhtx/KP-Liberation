@@ -86,6 +86,7 @@ if (isServer) then {
         [[S]upply, [A]mmo, [F]uel], or [S, A, F] for short.
      */
     KPLIB_production_cap_default = KPLIB_resources_indexes apply {false};
+    KPLIB_production_cap_complete = KPLIB_resources_indexes apply {true};
     KPLIB_production_sum_default = KPLIB_resources_indexes apply {0};
 
     /*

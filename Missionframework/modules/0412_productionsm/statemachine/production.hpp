@@ -136,13 +136,13 @@ class KPLIB_productionsm_statemachine {
     // TODO: TBD: we do not want to get stuck producing when there is no room, let's say...
     // TODO: TBD: allow room for change orders to occur, which may consequently change the outlook...
     class KPLIB_productionsm_state_producer {
-        onStateEntered = "[_this] call KPLIB_fnc_productionsm_onProducerEntered;";
+        onStateEntered = "([_this] call KPLIB_fnc_productionsm_onProducerEntered);";
         onState = "[_this] call KPLIB_fnc_productionsm_onProducer;";
 
         // TODO: TBD: CO conditions probably unnecessary, or we consider an event transition...
         class KPLIB_productionsm_transition_onCondicionalisEdictMutatio {
             targetState = "KPLIB_productionsm_state_edictMutatio";
-            condition = "[_this] call KPLIB_fnc_productionsm_hasChangeOrders;";
+            condition = "([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
         };
 
         class KPLIB_productionsm_transition_onCondicionalisPublish {
@@ -153,12 +153,13 @@ class KPLIB_productionsm_statemachine {
 
     // Process the change orders while we have some...
     class KPLIB_productionsm_state_edictMutatio {
-        onState = "[_this] call KPLIB_fnc_productionsm_onNextChangeOrder;";
+        onState = "([_this] call KPLIB_fnc_productionsm_onNextChangeOrder);";
 
         // Notify production manager listeners ASAP when able to do so...
         class KPLIB_productionsm_transition_onCondicionalisPublish {
             targetState = "KPLIB_productionsm_state_publisher";
             condition = "!([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
+            onTransition = "([_this] call KPLIB_fnc_productionsm_onForcedPublication);";
         };
     };
 };

@@ -43,9 +43,6 @@ private _productionList = _objSM getVariable ["CBA_statemachine_list", []];
 private _cids = _objSM getVariable ["KPLIB_productionsm_cids", []];
 _objSM setVariable ["KPLIB_productionsm_cids", (_cids + [_cid])];
 
-// Upon manager announcement considered 'forced'
-_objSM setVariable ["KPLIB_productionsm_forced", true];
-
 // Any of the SM namespaces will do, serves only as a trigger for the SM event driven transition
 private _namespace = (_productionList#0);
 

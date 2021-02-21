@@ -55,8 +55,7 @@ _changeOrder params [
 ];
 
 private _changeOrders = _namespace getVariable ["_changeOrders", []];
-_changeOrders pushBack _changeOrder;
-_namespace setVariable ["_changeOrders", _changeOrders];
+_namespace setVariable ["_changeOrders", _changeOrders + [_changeOrder]];
 
 if (_debug) then {
     ["[fn_productionsm_enqueueChangeOrder] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;

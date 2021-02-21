@@ -24,7 +24,9 @@
 
 private _debug = [
     [
-        "KPLIB_param_productionsm_raisers_debug"
+        "KPLIB_param_productionsm_changeOrders_debug"
+        , "KPLIB_param_productionsm_raise_debug"
+        , "KPLIB_param_productionsm_raiseChangeQueue_debug"
     ]
 ] call KPLIB_fnc_productionsm_debug;
 

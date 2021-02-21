@@ -38,8 +38,10 @@ if (isServer) then {
     KPLIB_param_productionsm_publisherLeaving_debug = false;
     KPLIB_param_productionsm_conditions_debug = false;
     KPLIB_param_productionsm_calculators_debug = false;
-    KPLIB_param_productionsm_changeOrders_debug = false;
-    KPLIB_param_productionsm_raisers_debug = false;
+    KPLIB_param_productionsm_changeOrders_debug = true;
+    KPLIB_param_productionsm_raise_debug = false;
+    KPLIB_param_productionsm_raiseAddCap_debug = true;
+    KPLIB_param_productionsm_raiseChangeQueue_debug = false;
     KPLIB_param_productionsm_productionMgr_debug = false;
 
     KPLIB_productionsm_objSM = locationNull;

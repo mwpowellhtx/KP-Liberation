@@ -20,7 +20,8 @@
 
 private _debug = [
     [
-        "KPLIB_param_productionsm_conditions_debug"
+        "KPLIB_param_productionsm_changeOrders_debug"
+        , "KPLIB_param_productionsm_conditions_debug"
     ]
 ] call KPLIB_fnc_productionsm_debug;
 
@@ -42,4 +43,4 @@ if (_debug) then {
         , str [count _changeOrders]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
-!([] isEqualTo _changeOrders);
+count _changeOrders > 0;

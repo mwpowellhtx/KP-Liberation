@@ -27,7 +27,8 @@
 
 private _debug = [
     [
-        "KPLIB_param_productionsm_raisers_debug"
+        "KPLIB_param_productionsm_changeOrders_debug"
+        , "KPLIB_param_productionsm_raise_debug"
     ]
 ] call KPLIB_fnc_productionsm_debug;
 
@@ -63,7 +64,7 @@ private _resourceName = localize (switch (true) do {
 private _candidate = [_capability, _capabilityMask, { (_this#0) || (_this#1); }] call KPLIB_fnc_linq_zip;
 
 // Assumes predetermined '_capabilityMask', one of the capabilities under requested
-private _debitResult = [_namespace, _capabilityMask, _candidate] call KPLIB_fnc_production_assessCapabilityDebit;
+private _debitResult = [_namespace, _capabilityMask, _candidate] call KPLIB_fnc_productionsm_assessCapabilityDebit;
 
 _debitResult params [
     ["_assessment", KPLIB_productionsm_addCap_success, [0]]
@@ -81,12 +82,14 @@ private _key = _debitResult call KPLIB_fnc_productionsm_getAddCapabilityNotifica
 // 3.   Fuel:                        ^^^^^^^
 
 if (_debug) then {
-    [format ["[fn_production_onAddCapabilityRaised] Finished: [_key, _resourceName, _baseMarkerText, _candidate, _capability]"
-        , str [_key, _resourceName, _baseMarkerText, _candidate, _capability]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_production_onAddCapabilityRaised] Finished: [_key, (_debitResult#0), _resourceName, _baseMarkerText, _capability, _candidate]: %1"
+        , str [_key, (_debitResult#0), _resourceName, _baseMarkerText, _capability, _candidate]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 // Zip them up when the costs are successfully debited
-if ((_debugResult#0) isEqualTo KPLIB_productionsm_addCap_success) exitWith {
+if ((_debitResult#0) isEqualTo KPLIB_productionsm_addCap_success) exitWith {
+    // Actually it is a local event from this context, but ensure no confusion, regardless
+    _namespace setVariable ["_onChangeOrderComplete", { ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent; }];
     _candidate;
 };
 
