@@ -2407,12 +2407,12 @@
 
     <Package name="ProductionMgr">
         <Key ID="STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_NIL">
-            <English>#.##:##:##</English>
-            <!--     d.HH:mm:ss -->
+            <English>#.##:##:##.###</English>
+            <!--     d.HH:mm:ss.sss -->
         </Key>
         <Key ID="STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_IDLE">
-            <English>-.--:--:--</English>
-            <!--     d.HH:mm:ss -->
+            <English>-.--:--:--.---</English>
+            <!--     d.HH:mm:ss.sss -->
         </Key>
         <Key ID="STR_KPLIB_PRODUCTIONMGR_LBLTIMEREM_TEXT">
             <English>TIME REMAINING:</English>

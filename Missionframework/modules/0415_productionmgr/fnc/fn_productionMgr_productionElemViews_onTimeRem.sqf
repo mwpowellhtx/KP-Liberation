@@ -18,16 +18,30 @@
         The view based on the '_productionElement' tuple.
 */
 
-private _productionElem = _this;
+private _debug = [
+    [
+        "KPLIB_param_productionMgr_timer_debug"
+    ]
+] call KPLIB_fnc_productionMgr_debug;
 
-[
-    (_productionElem#0#0)
-    , (_productionElem#1)
-] params [
-    "_markerName"
-    , "_timer"
+if (_debug) then {
+    ["[fn_productionMgr_productionElemViews_onTimeRem] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
+
+params [
+    ["_ident", [], [[]], 2]
+    , ["_timer", [], [[]], 4]
+];
+
+_ident params [
+    ["_markerName", "", [""]]
 ];
 
 private _viewData = _timer call KPLIB_fnc_timers_renderTimeRemainingString;
+
+if (_debug) then {
+    [format ["[fn_productionMgr_productionElemViews_onTimeRem] Fini: [_viewData, _markerName]: %1"
+        , str [_viewData, _markerName]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+};
 
 [_viewData, _markerName];
