@@ -121,7 +121,10 @@ if (true) then {
         private _retval = KPLIB_production_namespaces select {
             private _markerName = _x getVariable ["_markerName", ""];
             private _capability = _x getVariable ["_capability", KPLIB_production_cap_default];
-            (_markerName in KPLIB_sectors_blufor) && (_capability isEqualTo _capMask);
+            (_markerName in KPLIB_sectors_blufor) && (
+                _capMask isEqualTo []
+                || _capability isEqualTo _capMask
+            );
         };
         _retval;
     };
