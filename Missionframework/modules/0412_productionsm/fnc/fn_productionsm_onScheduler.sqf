@@ -35,13 +35,8 @@ params [
 ];
 
 // Start with the basics, we need to know '_markerName' and '_queue' to begin with
-[
-    _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault]
-    , _namespace getVariable ["_queue", []]
-] params [
-    "_markerName"
-    , "_queue"
-];
+private _markerName = _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault];
+private _queue = _namespace getVariable ["_queue", []];
 
 // Refresh the publication timer with every visit
 private _publicationTimer = [_namespace] call {
@@ -86,17 +81,10 @@ private _onExit = {
  *      event, or a naturally running timer, matters not, in which case, continue
  *      mission, CM, keep running.
  */
-[
-    _markerName in KPLIB_sectors_blufor
-    , _queue isEqualTo []
-    , _namespace getVariable ["_previousQueue", (+_queue)]
-    , _namespace getVariable ["_timer", (+KPLIB_timers_default)]
-] params [
-    "_isBlufor"
-    , "_isQueueEmpty"
-    , "_previousQueue"
-    , "_timer"
-];
+private _isBlufor = _markerName in KPLIB_sectors_blufor;
+private _isQueueEmpty = _queue isEqualTo [];
+private _previousQueue = _namespace getVariable ["_previousQueue", (+_queue)];
+private _timer = _namespace getVariable ["_timer", (+KPLIB_timers_default)];
 
 if (_debug) then {
     [format ["[fn_productionsm_onScheduler] Additional bits: [_isBlufor, _isQueueEmpty, _previousQueue, _timer]: %1"
