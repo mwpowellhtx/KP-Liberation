@@ -49,6 +49,10 @@ if (_duration <= 0) exitWith {
 private _signage = if (_timeRemaining <= 0) then { "+"; } else { ""; };
 _timeRemaining = abs _timeRemaining;
 
+// Less milliseconds, capture that appart from the other parts
+private _milliseconds = _timeRemaining - (floor _timeRemaining);
+_timeRemaining = floor _timeRemaining;
+
 private _parts = [];
 
 private _factors = [60, 60, 24];
@@ -66,15 +70,23 @@ for [{ _i = 0; }, { _i < count _factors && _timeRemaining >= 0; }, { _i = _i + 1
 
 // We want at least these number of parts, minutes and seconds
 if (count _parts < 2) then { _parts = [0] + _parts; };
+// Then recapture the milliseconds with the last of the part components
+_parts set [count _parts - 1, (_parts select (count _parts - 1)) + _milliseconds];
 
-// Renders the hours:minutes:seconds parts first
+// Renders the hours:minutes:seconds.milliseconds parts first
 private _renderedParts = (_parts apply {
-    if (_x >= 10) then { str _x; } else { format ["0%1", _x]; }
+    // Renders both larger denomination parts as well as seconds+milliseconds
+    private _y = if ((_x - floor _x) == 0) then {str _x;} else {
+        _x toFixed 3;
+    };
+    if (_x >= 10) then {_y;} else {
+        format ["0%1", _y];
+    };
 }) joinString ":";
 
 private _rendered = _renderedParts;
 
-// If there is still time remaining then these are a 'days' component
+// If there is still time remaining then these are a 'days.##:##:##.###' component
 if (_timeRemaining > 0) then {
     _rendered = format ["%1.%2", _timeRemaining, _renderedParts];
 };
