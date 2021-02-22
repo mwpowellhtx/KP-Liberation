@@ -12,7 +12,7 @@
         Verifies that '_this' is in the shape of a production array as expected.
 
     Parameter(s):
-        _production - an SQF production array [ARRAY]
+        _productionElem - an SQF production array [ARRAY]
 
     Returns:
         Whether the array is in a valid form [BOOL]
@@ -24,18 +24,18 @@
  */
 
 params [
-    ["_production", [], [[]]]
+    ["_productionElem", [], [[]]]
 ];
 
 // Short circuit verification early, and often, ASAP when we know invalid
-if (!(_production isEqualType [])) exitWith {
+if (!(_productionElem isEqualType [])) exitWith {
     false;
 };
 
 [
-    (_production#0) isEqualTypeArray ["", ""]
-    , (_production#1) isEqualTypeArray [0, 0, 0, 0]
-    , (_production#2) isEqualTypeArray [[], [], []]
+    (_productionElem#0) isEqualTypeArray ["", ""]
+    , (_productionElem#1) isEqualTypeArray [0, 0, 0, 0]
+    , (_productionElem#2) isEqualTypeArray [[], [], []]
 ] params [
     "_identValid"
     , "_timerValid"
@@ -47,9 +47,9 @@ if (!(_identValid || _timerValid || _infoValid)) exitWith {
 };
 
 [
-    (_production#2#0) isEqualTypeArray [false, false, false]
-    , (_production#2#1) isEqualTypeArray [0, 0, 0]
-    , (_production#2#2) isEqualType []
+    (_productionElem#2#0) isEqualTypeArray [false, false, false]
+    , (_productionElem#2#1) isEqualTypeArray [0, 0, 0]
+    , (_productionElem#2#2) isEqualType []
 ] params [
     "_capValid"
     , "_storageValueValid"
@@ -61,11 +61,8 @@ if (!(_capValid || _storageValueValid || _queueIsArray)) exitWith {
     false;
 };
 
-private _queue = (_production#2#2);
+private _queue = (_productionElem#2#2);
 
-private _verifiedQueue = _queue select {
-    (_x isEqualType 0)
-        && (_x in KPLIB_resources_indexes);
-};
+private _verified = _queue select { (_x in KPLIB_resources_indexes); };
 
-_queue isEqualTo _verifiedQueue;
+_queue isEqualTo _verified;
