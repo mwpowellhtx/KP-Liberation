@@ -35,7 +35,7 @@ if (isServer) then {
 if (hasInterface) then {
 
     KPLIB_param_productionMgr_debug = false;
-    KPLIB_param_productionMgr_lnbSectors_debug = true;
+    KPLIB_param_productionMgr_lnbSectors_debug = false;
 
     KPLIB_productionMgr_storageMarkerType = "hd_pickup";
     KPLIB_productionMgr_storageMarkerColor = KPLIB_preset_colorF;
