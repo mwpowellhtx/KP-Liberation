@@ -66,7 +66,7 @@ private _queueIndex = _rowIndex - 1;
 
 private _resourceIndex = _candidateQueue deleteAt _queueIndex;
 
-private _eventName = "KPLIB_productionsm_onRequestQueueChange";
+private _eventName = "KPLIB_productionsm_raiseChangeQueue";
 
 if (_debug) then {
     [format ["[fn_productionMgr_btnDequeue_onButtonClick] Server event: [_eventName, _markerName, _queue, _candidateQueue, _queueIndex, _resourceIndex, _cid]: %1"

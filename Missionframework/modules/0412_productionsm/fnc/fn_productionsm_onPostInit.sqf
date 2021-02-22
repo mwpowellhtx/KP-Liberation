@@ -113,14 +113,15 @@ if (true) then {
         _target;
     };
 
+    // Selects the first available namespaces corresponding to the capability mask
     KPLIB_fnc_admin_productionsm_getAvailableCap = {
         params [
-            ["_targetCap", 0, [0]]
+            ["_capMask", [false, false, false], [[]]]
         ];
         private _retval = KPLIB_production_namespaces select {
             private _markerName = _x getVariable ["_markerName", ""];
             private _capability = _x getVariable ["_capability", KPLIB_production_cap_default];
-            (_markerName in KPLIB_sectors_blufor) && !(_capability select _targetCap);
+            (_markerName in KPLIB_sectors_blufor) && (_capability isEqualTo _capMask);
         };
         _retval;
     };

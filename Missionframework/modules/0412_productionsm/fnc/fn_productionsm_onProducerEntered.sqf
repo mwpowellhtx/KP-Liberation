@@ -62,7 +62,7 @@ if (_namespace call KPLIB_fnc_productionsm_tryProduceResource) then {
     private _queue = _namespace getVariable ["_queue", []];
     private _lastResource = _queue deleteAt 0;
     _namespace setVariable ["_lastResource", _lastResource];
-    _namespace setVariable ["_queue", +_queue];
+    _namespace setVariable ["_queue", (+_queue)];
 };
 
 if (_debug) then {

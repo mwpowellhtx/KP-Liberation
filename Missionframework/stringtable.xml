@@ -2441,6 +2441,9 @@
         <Key ID="STR_KPLIB_PRODUCTIONMGR_BTNENQFUE_TEXT">
             <English>&lt; FUE</English>
         </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_NO_CHANGE">
+            <English>No change to the production queue.</English>
+        </Key>
         <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_SECTORNOTFOUND">
             <English>&apos;%1&apos; factory sector production could not be found.</English>
         </Key>

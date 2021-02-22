@@ -26,6 +26,7 @@ private _debug = [
     [
         "KPLIB_param_productionsm_changeOrders_debug"
         , "KPLIB_param_productionsm_raise_debug"
+        , "KPLIB_param_productionsm_raiseChangeQueue_debug"
     ]
 ] call KPLIB_fnc_productionsm_debug;
 
@@ -36,46 +37,52 @@ params [
     , ["_cid", -1, [0]]
 ];
 
+private _baseMarkerText = _namespace getVariable ["_baseMarkerText", ""];
 private _markerName = _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault];
 private _capability = _namespace getVariable ["_capability", KPLIB_production_cap_default];
+private _previousQueue = _namespace getVariable ["_previousQueue", []];
+private _queueDepth = KPLIB_param_production_maxQueueDepth;
 
 if (_debug) then {
     [format ["[fn_productionsm_onChangeQueueRaised] Entering: [_markerName, _queue, _newQueue, _capability, _cid]: %1"
         , str [_markerName, _queue, _newQueue, _capability, _cid]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
-[
-    _newQueue isEqualTo _queue
-    , (count _newQueue) isEqualTo (count _capability)
-    , (_newQueue select { _capability select _x; }) isEqualTo _newQueue
-] params [
-    "_noChange"
-    , "_sizeEqual"
-    , "_capVerified"
-];
-
-// TODO: TBD: no change, nothing to report...
-if (_noChange) exitWith {
+private _onExitWith = {
+    params [
+        ["_retval", [], [[]]]
+        , ["_msg", "", [""]]
+    ];
     if (_debug) then {
-        [format ["[fn_productionsm_onChangeQueueRaised] Finished: [_noChange]: %1"
-            , str [_noChange]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+        [format ["[fn_productionsm_onChangeQueueRaised] %1", _msg], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
     };
-    false;
+    [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+    _retval;
 };
 
-// TODO: TBD: send '_cid' notification when something is wrong about the queue...
-if (!(_sizeEqual || _capVerified)) exitWith {
-    if (_debug) then {
-        [format ["[fn_productionsm_onChangeQueueRaised] Finished: [_sizeEqual, _capVerified]: %1"
-            , str [_sizeEqual, _capVerified]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
-    };
-    false;
+private _noChange = _newQueue isEqualTo _queue;
+private _capable = _newQueue select { _capability select _x; };
+
+if (_noChange) exitWith {
+    [_queue, localize "STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_NO_CHANGE"] call _onExitWith;
+};
+
+if (count _newQueue > _queueDepth) exitWith {
+    [_queue, format [localize "STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_QUEUEDEPTH", _queueDepth]] call _onExitWith;
+};
+
+if (!(_capable isEqualTo _newQueue)) exitWith {
+    [_queue, format [localize "STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_INSUFFICIENTCAP", _baseMarkerText]] call _onExitWith;
+};
+
+if (_debug) then {
+    [format ["[fn_productionsm_onChangeQueueRaised] Finished: [_queue, _newQueue]: %1"
+        , str [_queue, _newQueue]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 /* Keep hold of the old value for evaluation during the next Scheduler phase. Which the Scheduler
  * will use to evaluate how to effect changes, if any, to the respective production '_timer'. */
 
-_namespace setVariable ["_previousQueue", (+_queue)];
-_namespace setVariable ["_queue", (+_newQueue)];
+_namespace setVariable ["_previousQueue", _queue];
 
-true;
+_newQueue;
