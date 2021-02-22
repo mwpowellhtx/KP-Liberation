@@ -3,8 +3,9 @@
 
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-12-13
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-12-13
+    Last Update: 2021-02-21 20:34:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -16,6 +17,9 @@ class res {
 
     // Adds actions to spawned crates
     class resources_addActions {};
+
+    //
+    class resources_resourceIndexToName {};
 
     // Estimates the number of crates necessary to support the volume
     class resources_estimateCrates {};
