@@ -72,11 +72,25 @@ class KPLIB_productionsm_statemachine {
         onState = "[_this] call KPLIB_fnc_productionsm_onPublisher;";
         onStateLeaving = "[_this] call KPLIB_fnc_productionsm_onPublisherLeaving;";
 
+        class KPLIB_productionsm_transition_onCondicionalisEdictMutatio {
+            targetState = "KPLIB_productionsm_state_edictMutatio";
+            condition = "([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
+        };
+
+        class KPLIB_productionsm_transition_onEdictMutatioRaised {
+            events[] = {
+                "KPLIB_productionsm_onChangeOrder"
+            };
+            targetState = "KPLIB_productionsm_state_edictMutatio";
+            condition = "true";
+        };
+
         class KPLIB_productionsm_transition_onSemperScheduler {
             targetState = "KPLIB_productionsm_state_scheduler";
             condition = " \
                 ([KPLIB_fnc_timers_isRunning] call KPLIB_fnc_productionsm_hasPublicationTimer) \
-                    && !([] call KPLIB_fnc_productionsm_hasPublicationTimer); \
+                    && !([] call KPLIB_fnc_productionsm_hasPublicationTimer) \
+                    && !([_this] call KPLIB_fnc_productionsm_hasChangeOrders); \
             ";
         };
     };
@@ -86,6 +100,7 @@ class KPLIB_productionsm_statemachine {
      * statemachine attention. The '_timer' is scheduled as a function of factory sector
      * control and of '_queue' state having changed in some way, shape, or form. */
     class KPLIB_productionsm_state_scheduler {
+        onStateEntered = "[_this] call KPLIB_fnc_productionsm_onSchedulerEntered;";
         onState = "[_this] call KPLIB_fnc_productionsm_onScheduler;";
 
         class KPLIB_productionsm_transition_onPublish {
@@ -106,13 +121,18 @@ class KPLIB_productionsm_statemachine {
             onTransition = "([_this] call KPLIB_fnc_productionsm_onPublishRequestTransition);";
         };
 
+        class KPLIB_productionsm_transition_onCondicionalisEdictMutatio {
+            targetState = "KPLIB_productionsm_state_edictMutatio";
+            condition = "([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
+        };
+
         // Process change orders on event...
         class KPLIB_productionsm_transition_onEdictMutatioRaised {
             events[] = {
                 "KPLIB_productionsm_onChangeOrder"
             };
             targetState = "KPLIB_productionsm_state_edictMutatio";
-            condition = "([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
+            condition = "true";
         };
 
         class KPLIB_productionsm_transition_onProduction {
@@ -139,10 +159,17 @@ class KPLIB_productionsm_statemachine {
         onStateEntered = "([_this] call KPLIB_fnc_productionsm_onProducerEntered);";
         onState = "[_this] call KPLIB_fnc_productionsm_onProducer;";
 
-        // TODO: TBD: CO conditions probably unnecessary, or we consider an event transition...
         class KPLIB_productionsm_transition_onCondicionalisEdictMutatio {
             targetState = "KPLIB_productionsm_state_edictMutatio";
             condition = "([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
+        };
+
+        class KPLIB_productionsm_transition_onEdictMutatioRaised {
+            events[] = {
+                "KPLIB_productionsm_onChangeOrder"
+            };
+            targetState = "KPLIB_productionsm_state_edictMutatio";
+            condition = "true";
         };
 
         class KPLIB_productionsm_transition_onCondicionalisPublish {
