@@ -180,7 +180,16 @@ if (isServer) then {
 // TODO: TBD: may capture in terms of CBA settings...
 KPLIB_param_resources_loadRange = 20;
 
-KPLIB_resources_indexes = [0, 1, 2];
+KPLIB_resources_i_sup = 0;
+KPLIB_resources_i_amm = 1;
+KPLIB_resources_i_fue = 2;
+
+KPLIB_resources_indexes = [
+    KPLIB_resources_i_sup
+    , KPLIB_resources_i_amm
+    , KPLIB_resources_i_fue
+];
+
 KPLIB_resources_capDefault = KPLIB_resources_indexes apply {false};
 KPLIB_resources_storageValueDefault = KPLIB_resources_indexes apply {0};
 
