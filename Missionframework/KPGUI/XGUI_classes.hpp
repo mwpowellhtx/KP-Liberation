@@ -4,12 +4,16 @@
     File: XGUI_classes.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-07 17:16:37
-    Last Update: 2021-02-07 17:16:39
+    Last Update: 2021-02-21 22:19:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Base UI classes for KPGUI.
-*/
+
+    References:
+        https://community.bistudio.com/wiki/CT_BUTTON#soundClick
+        https://community.bistudio.com/wiki/CT_BUTTON#soundEnter
+ */
 
 /*
     --- Small sized classes ---
@@ -23,6 +27,9 @@ class XGUI_PRE_Label : KPGUI_PRE_Label {
 class XGUI_PRE_Button : KPGUI_PRE_Button {
     h = KPX_BUTTON_M_H;
     sizeEx = KPX_TEXT_M;
+    soundEnter[] = { "\A3\ui_f\data\sound\RscButton\soundEnter", 0.09, 1 };
+    soundPush[] = { "\A3\ui_f\data\sound\RscButton\soundPush", 0.09, 1 };
+    soundClick[] = { "\A3\ui_f\data\sound\RscButton\soundClick", 0.09, 1 };
 };
 
 // Title bar
