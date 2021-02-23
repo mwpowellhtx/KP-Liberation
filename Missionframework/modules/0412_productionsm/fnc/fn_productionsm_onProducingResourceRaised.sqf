@@ -73,7 +73,12 @@ private _targetStorage = [_markerName] call {
         ["_markerName", "", [""]]
     ];
     private _candidateStorages = [_markerName] call KPLIB_fnc_resources_getFactoryStorages;
-    private _storagesWithSpace = _candidateStorages apply { [_x, [_x] call KPLIB_fnc_resources_getStorageSpace]; };
+    private _storagesWithSpace = _candidateStorages apply {
+        [_x, [_x] call KPLIB_fnc_resources_getStorageSpace];
+    } select {
+        // Only identify storages with available space
+        (_x#1) > 0;
+    };
     if (_storagesWithSpace isEqualTo []) then {
         objNull;
     } else {

@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-15
-    Last Update: 2021-02-15 23:07:36
+    Last Update: 2021-02-23 13:50:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -15,6 +15,7 @@
     Parameter(s):
         _crate - Crate which should be stored [OBJECT, default: objNull]
         _targetStorage - the target storage container or transport used to receive the '_crate' [OOBJECT, default: objNull]
+        _cid - client identifier for purposes of notifying the player [SCALAR, default: -1]
 
     Returns:
         Function reached the end [BOOL]
@@ -23,6 +24,7 @@
 params [
     ["_crate", objNull, [objNull]]
     , ["_targetStorage", objNull, [objNull]]
+    , ["_cid", -1, [0]]
 ];
 
 // Exit if we have no valid crate object
@@ -35,7 +37,7 @@ if (isNull _targetStorage) then {
     private _nearStorage = nearestObjects [_crate, KPLIB_resources_storageClasses, KPLIB_param_resources_loadRange];
 
     // Exit if no storages near
-    if (_nearStorage isEqualTo []) exitWith {
+    if (_cid >= 0 && (_nearStorage isEqualTo [])) exitWith {
         [localize "STR_KPLIB_HINT_NOSTORAGENEAR"] call KPLIB_fnc_notification_hint;
         false;
     };
@@ -53,10 +55,12 @@ private _attachedCrates = [_targetStorage] call KPLIB_fnc_resources_getAttachedC
 if ((count _attachedCrates) >= (count _attachPosition)) exitWith {
 
     // TODO: TBD: this was fine, but it may be interesting to also report storage sitrep with that...
-    [localize "STR_KPLIB_HINT_NOSTORAGESPACE"] call KPLIB_fnc_notification_hint;
+    if (_cid >= 0) then {
+        [localize "STR_KPLIB_HINT_NOSTORAGESPACE"] call KPLIB_fnc_notification_hint;
 
-    //[format [localize "STR_KPLIB_HINT_STORAGE_CONTAINER_NO_SPACE"
-    //    , _attachedCrates, count _attachPosition]] call KPLIB_fnc_notification_hint;
+        //[format [localize "STR_KPLIB_HINT_STORAGE_CONTAINER_NO_SPACE"
+        //    , _attachedCrates, count _attachPosition]] call KPLIB_fnc_notification_hint;
+    };
 
     false
 };

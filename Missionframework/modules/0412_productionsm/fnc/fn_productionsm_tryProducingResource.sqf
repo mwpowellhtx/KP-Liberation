@@ -45,14 +45,20 @@ private _debug = [
 
 private _baseMarkerText = _namespace getVariable ["_baseMarkerText", ""];
 private _markerName = _namespace getVariable ["_markerName", KPLIB_production_markerNameDefault];
+private _storageSpace = [_targetStorage] call KPLIB_fnc_resources_getStorageSpace;
 
 if (_debug) then {
-    [format ["[fn_productionsm_tryProducingResource] Entering: [_markerName, _baseMarkerText, isNull _namespace, isNull _targetStorage, _resourceIndex]: %1"
-        , str [_markerName, _baseMarkerText, isNull _namespace, isNull _targetStorage, _resourceIndex]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionsm_tryProducingResource] Entering: [_markerName, _baseMarkerText, isNull _namespace, isNull _targetStorage, _storageSpace, _resourceIndex]: %1"
+        , str [_markerName, _baseMarkerText, isNull _namespace, isNull _targetStorage, _storageSpace, _resourceIndex]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
+
+// End of discussion there was no eligible storage and/or no space in view of the attempt
+if (_storageSpace == 0) exitWith {
+    false;
 };
 
 private _cratePos = [getPos _targetStorage] call {
-    (_this#0) getPos [20, random 360];
+    (_this#0) getPos [10, random 360];
 };
 
 private _resourceClassName = KPLIB_resources_resourceKinds select _resourceIndex;
@@ -66,18 +72,11 @@ if (isNull _crate) exitWith {
     false;
 };
 
-// TODO: TBD: do we need to put any locks on the storage while we do this (?)
-if (!([_crate, _targetStorage] call KPLIB_fnc_resources_storeCrate)) exitWith {
-    // TODO: TBD: log problem storing the crate itself in the target storage...
-    // [...] call KPLIB_fnc_common_log
-
-    // Crate production did occur even though it was not stored properly
-    true;
-};
+private _stored = [_crate, _targetStorage] call KPLIB_fnc_resources_storeCrate;
 
 if (_debug) then {
-    [format ["[fn_productionsm_tryProducingResource] Fini: [_markerName, _baseMarkerText]: %1"
-        , str [_markerName, _baseMarkerText]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionsm_tryProducingResource] Fini: [_markerName, _baseMarkerText, _resourceClassName, _stored]: %1"
+        , str [_markerName, _baseMarkerText, _resourceClassName, _stored]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

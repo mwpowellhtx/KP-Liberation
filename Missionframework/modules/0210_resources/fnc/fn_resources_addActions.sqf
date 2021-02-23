@@ -3,8 +3,9 @@
 
     File: fn_resources_addActions.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-12-15
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-12-15
+    Last Update: 2021-02-23 13:50:51
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -47,7 +48,8 @@ if ((typeOf _object) in KPLIB_resources_crateClasses) then {
     [
         _object,
         "STR_KPLIB_ACTION_STORECRATE",
-        [{[_this select 0] call KPLIB_fnc_resources_storeCrate;}, nil, -502, false, true, "", "isNull attachedTo _target", 4],
+        // TODO: TBD: we could probably refactor the action ids as well to the head file, but not right now...
+        [{[_this select 0, objNull, clientOwner] call KPLIB_fnc_resources_storeCrate;}, nil, -502, false, true, "", "isNull attachedTo _target", 4],
         "#FFFF00"
     ] remoteExecCall ["KPLIB_fnc_common_addAction", 0, _object];
 

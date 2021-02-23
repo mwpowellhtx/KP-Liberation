@@ -22,6 +22,9 @@ params [
     ["_storage", objNull, [objNull]]
 ];
 
+// Just return when there is no storage
+if (isNull _storage) exitWith { 0; };
+
 // Get the storage positions amount
 private _allSpaces = count ([typeOf _storage] call KPLIB_fnc_resources_getAttachArray);
 

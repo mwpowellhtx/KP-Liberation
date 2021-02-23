@@ -20,8 +20,8 @@
 */
 
 params [
-    ["_storage", objNull, [objNull]],
-    ["_resource", KPLIB_resources_resourceKinds_sup, [""]]
+    ["_storage", objNull, [objNull]]
+    , ["_resource", KPLIB_resources_resourceKind_sup, [""]]
 ];
 
 // Exit, if no storage or invalid resource type is given
