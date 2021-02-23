@@ -79,12 +79,9 @@ private _targetStorage = [_markerName] call {
         // Only identify storages with available space
         (_x#1) > 0;
     };
-    if (_storagesWithSpace isEqualTo []) then {
-        objNull;
-    } else {
-        private _sortedStorage = [_storagesWithSpace, [], { (_x#1); }, "DESCEND"] call BIS_fnc_sortBy;
-        (_sortedStorage deleteAt 0)#0;
-    };
+    if (_storagesWithSpace isEqualTo []) exitWith { objNull; };
+    private _sortedStorage = [_storagesWithSpace, [], { (_x#1); }, "DESCEND"] call BIS_fnc_sortBy;
+    (_sortedStorage deleteAt 0)#0;
 };
 
 if ([_namespace, _targetStorage, (_remAlpha#0)] call KPLIB_fnc_productionsm_tryProducingResource) then {
