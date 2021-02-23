@@ -28,6 +28,11 @@ private _debug = [
     ]
 ] call KPLIB_fnc_productionMgr_debug;
 
+// TODO: TBD: add storage image to the LNB ...
+// configfile >> "CfgVehicles" >> "ContainmentArea_02_sand_F" >> "radarType"
+// TODO: TBD: also, could simply indicate whether it has storage, "yes" or "no"
+// configfile >> "CfgVehicles" >> "ContainmentArea_02_sand_F" >> "editorPreview" (?) <- a jpg image path
+
 if (_debug) then {
     ["[fn_productionMgr_lnbSectors_onLoad] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
