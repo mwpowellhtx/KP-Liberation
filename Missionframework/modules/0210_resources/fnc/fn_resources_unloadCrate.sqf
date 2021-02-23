@@ -29,7 +29,7 @@ if ((_vehicle getVariable ["KPLIB_resources_usedSlots", 0]) isEqualTo 0) exitWit
 private _distance = (KPLIB_resources_transportConfigs select (KPLIB_resources_transportConfigs findIf {(_x select 0) isEqualTo (typeOf _vehicle)})) select 1;
 
 // Get the last loaded crate
-private _loadedCrates = (attachedObjects _vehicle) select {(typeOf _x) in KPLIB_resources_crateClasses};
+private _loadedCrates = [_vehicle] call KPLIB_fnc_resources_getAttachedCrates;
 reverse _loadedCrates;
 private _crate = _loadedCrates select 0;
 

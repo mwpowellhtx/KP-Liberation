@@ -57,18 +57,20 @@ private _storages = nearestObjects [markerPos _location, KPLIB_resources_storage
 private _sCrates = [];
 private _aCrates = [];
 private _fCrates = [];
+
+
+private _crates = [_storages] call KPLIB_fnc_resources_getAttachedCrtates;
+
 {
-    {
-        switch (typeOf _x) do {
-            case KPLIB_preset_crateSupplyE;
-            case KPLIB_preset_crateSupplyF: {_sCrates pushBack _x};
-            case KPLIB_preset_crateAmmoE;
-            case KPLIB_preset_crateAmmoF: {_aCrates pushBack _x};
-            case KPLIB_preset_crateFuelE;
-            case KPLIB_preset_crateFuelF: {_fCrates pushBack _x};
-        };
-    } forEach (attachedObjects _x);
-} forEach _storages;
+    switch (typeOf _x) do {
+        case KPLIB_preset_crateSupplyE;
+        case KPLIB_preset_crateSupplyF: {_sCrates pushBack _x};
+        case KPLIB_preset_crateAmmoE;
+        case KPLIB_preset_crateAmmoF: {_aCrates pushBack _x};
+        case KPLIB_preset_crateFuelE;
+        case KPLIB_preset_crateFuelF: {_fCrates pushBack _x};
+    };
+} forEach _crates;
 
 // Remove crates according to needed resources
 private ["_resource", "_crate", "_value"];

@@ -27,10 +27,11 @@ if (isNull _storage) exitWith {false};
 
 // Get resource values and remove crates
 private _resources = [_storage] call KPLIB_fnc_resources_getStorageValue;
+private _crates = [_storage] call KPLIB_fnc_resources_getAttachedCrates;
 {
     detach _x;
     deleteVehicle _x;
-} forEach (attachedObjects _storage);
+} forEach _crates;
 
 // Refill the storage
 private ["_resource", "_amount", "_crate"];

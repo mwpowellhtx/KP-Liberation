@@ -46,13 +46,11 @@ if (isNull _targetStorage) then {
 
 // Get storage position array depending on storage type
 private _attachPosition = [typeOf _targetStorage] call KPLIB_fnc_resources_getAttachArray;
-
-// TODO: TBD: simple enough to count with primitives, but should be captured as a first class function nonetheless...
 // Get number of already stored crates
-private _attachedCrates = count (attachedObjects _targetStorage);
+private _attachedCrates = [_targetStorage] call KPLIB_fnc_resources_getAttachedCrates;
 
 // Exit if the nearest storage has no more space
-if (_attachedCrates >= (count _attachPosition)) exitWith {
+if ((count _attachedCrates) >= (count _attachPosition)) exitWith {
 
     // TODO: TBD: this was fine, but it may be interesting to also report storage sitrep with that...
     [localize "STR_KPLIB_HINT_NOSTORAGESPACE"] call KPLIB_fnc_notification_hint;
@@ -63,8 +61,8 @@ if (_attachedCrates >= (count _attachPosition)) exitWith {
     false
 };
 
-// Get the correct attachTo position from the array
-_attachPosition = _attachPosition select _attachedCrates;
+// Get the correct attachTo position from the array, tricky to remember also count here
+_attachPosition = _attachPosition select (count _attachedCrates);
 
 // Attach crate to storage
 _crate attachTo [_targetStorage, [
@@ -72,6 +70,8 @@ _crate attachTo [_targetStorage, [
     (_attachPosition#1),
     [typeOf _crate] call KPLIB_fnc_resources_getCrateZ
 ]];
+
+[_targetStorage] call KPLIB_fnc_resources_onAttachedCratesChanged;
 
 // TODO: TBD: yes, it is necessary to attach the crate... and to disable attaching ropes to attached crates...
 // TODO: TBD: We need to test, if this on/off is really necessary.

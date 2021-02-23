@@ -28,6 +28,8 @@ if (isNull _storage) exitWith {false};
 // Get the attach positions for the storage type
 private _attachPositions = [typeOf _storage] call KPLIB_fnc_resources_getAttachArray;
 
+private _crates = [_storage] call KPLIB_fnc_resources_getAttachedCrates;
+
 // Detach and reattach crates
 {
     detach _x;
@@ -36,6 +38,6 @@ private _attachPositions = [typeOf _storage] call KPLIB_fnc_resources_getAttachA
         (_attachPositions select _forEachIndex) select 1,
         [typeOf _x] call KPLIB_fnc_resources_getCrateZ
     ]];
-} forEach (attachedObjects _storage);
+} forEach _crates;
 
 true

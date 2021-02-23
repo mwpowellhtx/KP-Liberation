@@ -21,11 +21,11 @@
 
 params [
     ["_storage", objNull, [objNull]],
-    ["_resource", "Supply", [""]]
+    ["_resource", KPLIB_resources_resourceKinds_sup, [""]]
 ];
 
 // Exit, if no storage or invalid resource type is given
-if (isNull _storage || !(_resource in ["Supply", "Ammo", "Fuel"])) exitWith {objNull};
+if (isNull _storage || !(_resource in KPLIB_resources_resourceKinds)) exitWith {objNull};
 
 // We need to determine for what type of crate we'll looking for
 private _validCrates = switch (_resource) do {
@@ -35,7 +35,7 @@ private _validCrates = switch (_resource) do {
 };
 
 // Get all stored crates in reverse Order (LIFO)
-private _attachedCrates = attachedObjects _storage;
+private _attachedCrates = [_storage] call KPLIB_fnc_resources_getAttachedCrates;
 reverse _attachedCrates;
 
 // Check if there is one crate of the desired type and select the crate
@@ -58,6 +58,11 @@ private _unloadPos = _storage getPos [_distance, (getDir _storage) - 180];
 private _i = 0;
 while {!((nearestObjects [_unloadPos, [], 1]) isEqualTo [])} do {
     _i = _i + 1;
+    // TODO: TBD: should refactor this calculation to a single place...
+    // TODO: TBD: and then perhaps we also parameterize some of it in terms of settings...
+    // TODO: TBD: also, should seriously consider in terms of asset spec in the init phases...
+    // TODO: TBD: should also concolidate load/store and unload/unstore...
+    // TODO: TBD: the pattern is the same, the "objects" are just objects, with positions, etc, so use that to our advantage...
     _unloadPos = _storage getPos [_distance + _i * 1.8, (getDir _storage) - 180];
 };
 
@@ -70,6 +75,8 @@ private _attachPositions = [typeOf _storage] call KPLIB_fnc_resources_getAttachA
 
 // Reorder the crates to close the possible gap
 [_storage] call KPLIB_fnc_resources_orderStorage;
+
+[_storage] call KPLIB_fnc_resources_onAttachedCratesChanged;
 
 // Return unstored crate
 _crate

@@ -26,7 +26,7 @@ params [
 private _allSpaces = count ([typeOf _storage] call KPLIB_fnc_resources_getAttachArray);
 
 // Get amount of already stored crates
-private _attachedCrates = count (attachedObjects _storage);
+private _attachedCrates = count ([_storage] call KPLIB_fnc_getAttachedCrates);
 
 // Return free space amount
 _allSpaces - _attachedCrates

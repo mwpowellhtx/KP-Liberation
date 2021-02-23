@@ -16,7 +16,11 @@
 
     Returns:
         Amount of supplies, ammo and fuel [ARRAY]
-*/
+ */
+
+// TODO: TBD: will leave this one alone for now...
+// TODO: TBD: however I think we can do better, and potentially support multiple storages
+// TODO: TBD: while at the same time rolling up 'KPLIB_resources_storageValue' summaries...
 
 params [
     ["_storage", objNull, [objNull]]
@@ -29,6 +33,9 @@ if (isNull _storage) exitWith {[0, 0, 0]};
 private _supplies = 0;
 private _ammo = 0;
 private _fuel = 0;
+
+private _crates = [_storage] call KPLIB_fnc_resources_getAttachedCrates;
+
 {
     switch (typeOf _x) do {
         case KPLIB_preset_crateSupplyE;
@@ -38,6 +45,6 @@ private _fuel = 0;
         case KPLIB_preset_crateFuelE;
         case KPLIB_preset_crateFuelF: {_fuel = _fuel + (_x getVariable ["KPLIB_resources_crateValue", 0])};
     };
-} forEach (attachedObjects _storage);
+} forEach _crates;
 
-[_supplies, _ammo, _fuel]
+[_supplies, _ammo, _fuel];
