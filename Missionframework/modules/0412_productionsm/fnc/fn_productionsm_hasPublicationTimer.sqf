@@ -12,14 +12,17 @@
         Returns whether the CBA production '_namespace' is considered elapsed.
 
     Parameter(s):
-        _namespace - a CBA production namespace [LOCATION, default: locationNull]
         _timerPredicate - a timer predicate [CODE, default: KPLIB_fnc_timers_hasElapsed]
 
     Returns:
         Whether the production timer is considered to be elapsed [BOOL]
  */
 
-private _debug = [["KPLIB_param_productionsm_conditions_debug"]] call KPLIB_fnc_productionsm_debug;
+private _debug = [
+    [
+        "KPLIB_param_productionsm_conditions_debug"
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 params [
     ["_timerPredicate", KPLIB_fnc_timers_hasElapsed, [{}]]

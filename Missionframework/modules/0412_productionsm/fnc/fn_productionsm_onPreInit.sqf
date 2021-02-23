@@ -25,14 +25,17 @@ if (isServer) then {
 if (isServer) then {
 
     // TODO: TBD: establish CBA settings for the param bits...
-    KPLIB_param_productionsm_publisherPeriodSeconds = 3;
+    KPLIB_param_productionsm_publisherPeriodSeconds = 5;
 
     /* We use this in order to accelerate production especially while we debug
      * scheduler, resource production, etc. When we detect the production timer
      * exceeding this threshold, then we fast forward the timer by the difference
      * in order to troubleshoot the statemachine producer assets. */
 
-    KPLIB_param_productionsm_productionTimerThresholdSecondsDebug = 0;
+    KPLIB_productionsm_productionTimerThresholdSecondsDebug = 15;
+
+    // Which we can use to throttle and debug whether production actually occurs
+    KPLIB_param_productionsm_productionEnabled = true;
 
     KPLIB_param_productionsm_debug = false;
     KPLIB_param_productionsm_create_debug = false;
@@ -45,6 +48,10 @@ if (isServer) then {
     KPLIB_param_productionsm_publisherLeaving_debug = false;
     KPLIB_param_productionsm_scheduler_debug = false;
     KPLIB_param_productionsm_schedulerEntered_debug = false;
+    KPLIB_param_productionsm_producer_debug = false;
+    KPLIB_param_productionsm_producerEntered_debug = false;
+    KPLIB_param_productionsm_tryProducingResource_debug = false;
+    KPLIB_param_productionsm_onProducingResourceRaised_debug = false;
     KPLIB_param_productionsm_timer_debug = false;
     KPLIB_param_productionsm_conditions_debug = false;
     KPLIB_param_productionsm_calculators_debug = false;

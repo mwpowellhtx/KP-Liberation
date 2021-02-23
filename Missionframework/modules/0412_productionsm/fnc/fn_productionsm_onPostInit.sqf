@@ -129,6 +129,27 @@ if (true) then {
         _retval;
     };
 
+    // Align one of the production sectors for debugging...
+    [] call {
+
+        private _namespace = KPLIB_production_namespaces select {
+            "Gori Factory" isEqualTo (_x getVariable ["_baseMarkerText", ""]);
+        } select 0;
+
+        [
+            "KPLIB_param_productionsm_scheduler_debug"
+            , "KPLIB_param_productionsm_producer_debug"
+            , "KPLIB_param_productionsm_producerEntered_debug"
+            , "KPLIB_param_productionsm_tryProducingResource_debug"
+            , "KPLIB_param_productionsm_onProducingResourceRaised_debug"
+        ] select {
+            _namespace setVariable [_x, true];
+            true;
+        };
+
+        _namespace setVariable ["KPLIB_productionsm_productionTimerThresholdSecondsDebug", 15];
+    };
+
 /*
 // snippet of code that handles client server add cap via the SM ...
 _targetCap = 0;

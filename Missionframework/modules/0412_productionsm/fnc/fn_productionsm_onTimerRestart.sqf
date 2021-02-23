@@ -34,13 +34,18 @@ params [
 private _markerName = _namespace getVariable ["_markerName", ""];
 private _baseMarkerText = _namespace getVariable ["_baseMarkerText", ""];
 
-private _restartedTimer = [_duration] call KPLIB_fnc_timers_create;
+private _timerThreshold = [_namespace] call KPLIB_fnc_productionsm_getProductionTimerThreshold;
 
+if (_timerThreshold > 0) then {
+    _duration = _timerThreshold;
+};
+
+private _restartedTimer = [_duration] call KPLIB_fnc_timers_create;
 _namespace setVariable ["_timer", _restartedTimer];
 
 if (_debug) then {
-    [format ["[fn_productionsm_onTimerRestart] Timer restarted: [_markerName, _baseMarkerText, _duration, _restartedTimer]: %1"
-        , str [_markerName, _baseMarkerText, _duration, _restartedTimer]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionsm_onTimerRestart] Timer restarted: [_markerName, _baseMarkerText, _timerThreshold, _duration, _restartedTimer]: %1"
+        , str [_markerName, _baseMarkerText, _timerThreshold, _duration, _restartedTimer]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

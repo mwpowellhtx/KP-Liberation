@@ -61,7 +61,7 @@ class productionsm {
     class productionsm_hasPublicationTimer {};
 
     //
-    class productionsm_hasProductionTimerElapsed {};
+    class productionsm_hasProductionTimer {};
 
     //
     class productionsm_onChangeQueueRaised {};
@@ -77,9 +77,6 @@ class productionsm {
 
     //
     class productionsm_onProducerEntered {};
-
-    //
-    class productionsm_onProducerLeaving {};
 
     //
     class productionsm_isRunning {};
@@ -109,16 +106,19 @@ class productionsm {
     class productionsm_onScheduler {};
 
     //
-    class productionsm_onSchedulerEntered {};
-
-    //
     class productionsm_raiseAddCapability {};
 
     //
     class productionsm_raiseChangeQueue {};
 
     //
-    class productionsm_tryProduceResource {};
+    class productionsm_onProducingResourceRaised {};
+
+    //
+    class productionsm_tryProducingResource {};
+
+    //
+    class productionsm_getProductionTimerThreshold {};
 
     //
     class productionsm_hasManagers {};

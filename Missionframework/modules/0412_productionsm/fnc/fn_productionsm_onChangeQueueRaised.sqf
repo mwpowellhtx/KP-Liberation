@@ -16,7 +16,7 @@
         _namespace - a CBA production namespace [LOCATION, default: locationNull]
         _queue - the current '_queue' value [ARRAY, default: []]
         _newQueue - the current '_newQueue' value [ARRAY, default: []]
-        _cid - the client identifier [SCALAR, default: -1]
+        _cid - the client identifier, optional [SCALAR, default: -1]
 
     Returns:
         The event handler finished [BOOL]

@@ -100,7 +100,6 @@ class KPLIB_productionsm_statemachine {
      * statemachine attention. The '_timer' is scheduled as a function of factory sector
      * control and of '_queue' state having changed in some way, shape, or form. */
     class KPLIB_productionsm_state_scheduler {
-        onStateEntered = "[_this] call KPLIB_fnc_productionsm_onSchedulerEntered;";
         onState = "[_this] call KPLIB_fnc_productionsm_onScheduler;";
 
         class KPLIB_productionsm_transition_onPublish {
@@ -138,7 +137,7 @@ class KPLIB_productionsm_statemachine {
         class KPLIB_productionsm_transition_onProduction {
             targetState = "KPLIB_productionsm_state_producer";
             condition = " \
-                ([_this] call KPLIB_fnc_productionsm_hasProductionTimerElapsed) \
+                ([_this] call KPLIB_fnc_productionsm_hasProductionTimer) \
                     && !([_this] call KPLIB_fnc_productionsm_hasChangeOrders); \
             ";
         };
@@ -157,7 +156,6 @@ class KPLIB_productionsm_statemachine {
     // TODO: TBD: allow room for change orders to occur, which may consequently change the outlook...
     class KPLIB_productionsm_state_producer {
         onStateEntered = "([_this] call KPLIB_fnc_productionsm_onProducerEntered);";
-        onState = "[_this] call KPLIB_fnc_productionsm_onProducer;";
 
         class KPLIB_productionsm_transition_onCondicionalisEdictMutatio {
             targetState = "KPLIB_productionsm_state_edictMutatio";
@@ -172,6 +170,8 @@ class KPLIB_productionsm_statemachine {
             condition = "true";
         };
 
+        // TODO: TBD: we are "here" in the producer state because there "is" something to produce
+        // TODO: TBD: as such it is doubtful we should ever transition to anything "publisher" ...
         class KPLIB_productionsm_transition_onCondicionalisPublish {
             targetState = "KPLIB_productionsm_state_publisher";
             condition = "!([_this] call KPLIB_fnc_productionsm_hasChangeOrders);";
