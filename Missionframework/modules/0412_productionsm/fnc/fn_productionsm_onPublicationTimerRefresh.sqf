@@ -20,8 +20,8 @@
  */
 
 params [
-    ["_period", KPLIB_param_productionsm_publisherPeriodSeconds, [0]]
-    , ["_restart", false, [false]]
+    ["_restart", false, [false]]
+    , ["_period", KPLIB_param_productionsm_publisherPeriodSeconds, [0]]
 ];
 
 private _objSM = KPLIB_productionsm_objSM;

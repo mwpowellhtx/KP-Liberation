@@ -130,7 +130,7 @@ if (true) then {
     };
 
     // Align one of the production sectors for debugging...
-    [] call {
+    private _onAdminDebugging = {
 
         private _namespace = KPLIB_production_namespaces select {
             "Gori Factory" isEqualTo (_x getVariable ["_baseMarkerText", ""]);
@@ -147,18 +147,12 @@ if (true) then {
             true;
         };
 
-        _namespace setVariable ["KPLIB_productionsm_productionTimerThresholdSecondsDebug", 15];
+        _namespace setVariable ["KPLIB_param_productionsm_preemptLeadTime", true];
+        _namespace setVariable ["KPLIB_param_productionsm_preemptiveLeadTimeDuration", 10];
     };
 
-/*
-// snippet of code that handles client server add cap via the SM ...
-_targetCap = 0;
-_y = ([_targetCap] call KPLIB_fnc_admin_productionsm_getAvailableCap);
-_y = _y#0;
-_markerName = _y getVariable "_markerName";
-[_markerName, _targetCap, clientOwner] call KPLIB_fnc_productionsm_raiseAddCapability;
-*/
-
+    // // Allowing for admin debugging ability
+    //[] call _onAdminDebug;
 };
 
 true;

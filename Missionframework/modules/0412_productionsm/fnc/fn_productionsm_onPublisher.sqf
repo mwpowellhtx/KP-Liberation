@@ -97,8 +97,10 @@ if (_forced || _elapsed) then {
 
 _objSM setVariable ["KPLIB_productionsm_publishedState", _state];
 
+private _restart = true;
+
 // Kick off the next wait period by restarting the timer, regardless
-[nil, true] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
+[_restart] call KPLIB_fnc_productionsm_onPublicationTimerRefresh;
 
 if (_debug) then {
     ["[fn_productionsm_onPublisher] Finished", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;

@@ -118,7 +118,7 @@ class productionsm {
     class productionsm_tryProducingResource {};
 
     //
-    class productionsm_getProductionTimerThreshold {};
+    class productionsm_getProductionTimerDuration {};
 
     //
     class productionsm_hasManagers {};
@@ -137,4 +137,7 @@ class productionsm {
 
     //
     class productionsm_onTimerRefreshOrRestart {};
+
+    //
+    class productionsm_settings {};
 };

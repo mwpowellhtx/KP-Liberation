@@ -2052,11 +2052,35 @@
         <Key ID="STR_KPLIB_SETTINGS_PROD">
             <English>KPLIB - Production</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PUBLISHERPERIODSECONDS">
+            <English>Production Publisher Period</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PUBLISHERPERIODSECONDS_TT">
+            <English>The production state machine publisher period in seconds. [default: 30s]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PRODUCERENABLED">
+            <English>Produces Resources</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PRODUCERENABLED_TT">
+            <English>Enables or disables resource production during the production state machine producer state. [default: true]</English>
+        </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_LEADTIME">
             <English>Lead Time</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_LEADTIME_TT">
             <English>The lead time in seconds between resources being produced. [default: 50]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PREEMPT_LEADTIME">
+            <English>Preempt Lead Time</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PREEMPT_LEADTIME_TT">
+            <English>Interrupts the lead time with one used for debugging purposes. [default: false]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PREEMPTIVE_LEADTIME_DURATION">
+            <English>Preemptive Lead Time Duration</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_PREEMPTIVE_LEADTIME_DURATION_TT">
+            <English>The preemptive lead time duration in seconds. [default: 10s]</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_YIELD">
             <English>Yield</English>

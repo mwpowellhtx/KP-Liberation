@@ -31,17 +31,22 @@
         The event handler finished [BOOL]
  */
 
-private _debug = [
-    [
-        "KPLIB_param_productionsm_changeOrders_debug"
-        , "KPLIB_param_productionsm_raiseAddCap_debug"
-        , "KPLIB_param_productionsm_raiseChangeQueue_debug"
-    ]
-] call KPLIB_fnc_productionsm_debug;
-
 params [
     ["_namespace", locationNull, [locationNull]]
 ];
+
+private _debug = [
+    [
+        "KPLIB_param_productionsm_changeOrders_debug"
+        , "KPLIB_param_productionsm_nextChangeOrder_debug"
+        , "KPLIB_param_productionsm_raiseAddCap_debug"
+        , "KPLIB_param_productionsm_raiseChangeQueue_debug"
+        , { _namespace getVariable ["KPLIB_param_productionsm_changeOrders_debug", false]; }
+        , { _namespace getVariable ["KPLIB_param_productionsm_nextChangeOrder_debug", false]; }
+        , { _namespace getVariable ["KPLIB_param_productionsm_raiseAddCap_debug", false]; }
+        , { _namespace getVariable ["KPLIB_param_productionsm_raiseChangeQueue_debug", false]; }
+    ]
+] call KPLIB_fnc_productionsm_debug;
 
 private _changeOrder = [_namespace] call KPLIB_fnc_productionsm_dequeueChangeOrder;
 

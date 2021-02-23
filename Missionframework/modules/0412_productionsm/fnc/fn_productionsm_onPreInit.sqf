@@ -22,24 +22,12 @@ if (isServer) then {
     ["[fn_productionsm_onPreInit] Initializing...", "PRE] [PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
+[] call KPLIB_fnc_productionsm_settings;
+
 if (isServer) then {
-
-    // TODO: TBD: establish CBA settings for the param bits...
-    KPLIB_param_productionsm_publisherPeriodSeconds = 5;
-
-    /* We use this in order to accelerate production especially while we debug
-     * scheduler, resource production, etc. When we detect the production timer
-     * exceeding this threshold, then we fast forward the timer by the difference
-     * in order to troubleshoot the statemachine producer assets. */
-
-    KPLIB_productionsm_productionTimerThresholdSecondsDebug = 15;
-
-    // Which we can use to throttle and debug whether production actually occurs
-    KPLIB_param_productionsm_productionEnabled = true;
 
     KPLIB_param_productionsm_debug = false;
     KPLIB_param_productionsm_create_debug = false;
-    KPLIB_param_productionsm_rebaserEntered_debug = false;
     KPLIB_param_productionsm_rebaser_debug = false;
     KPLIB_param_productionsm_rebaserEntered_debug = false;
     KPLIB_param_productionsm_publisher_debug = false;
@@ -47,7 +35,6 @@ if (isServer) then {
     KPLIB_param_productionsm_publisherCore_debug = false;
     KPLIB_param_productionsm_publisherLeaving_debug = false;
     KPLIB_param_productionsm_scheduler_debug = false;
-    KPLIB_param_productionsm_schedulerEntered_debug = false;
     KPLIB_param_productionsm_producer_debug = false;
     KPLIB_param_productionsm_producerEntered_debug = false;
     KPLIB_param_productionsm_tryProducingResource_debug = false;
@@ -56,6 +43,7 @@ if (isServer) then {
     KPLIB_param_productionsm_conditions_debug = false;
     KPLIB_param_productionsm_calculators_debug = false;
     KPLIB_param_productionsm_changeOrders_debug = false;
+    KPLIB_param_productionsm_nextChangeOrder_debug = false;
     KPLIB_param_productionsm_raise_debug = false;
     KPLIB_param_productionsm_raiseAddCap_debug = false;
     KPLIB_param_productionsm_raiseChangeQueue_debug = false;
@@ -63,18 +51,6 @@ if (isServer) then {
 
     KPLIB_productionsm_objSM = locationNull;
     KPLIB_productionsm_configClassNameDefault = "KPLIB_productionsm_statemachine";
-
-    ///* Nil, nothing was last produced, or -1. We use this value to indicate when scheduling,
-    // * etc, ought to occur with passes through the production statemachine. */
-    //KPLIB_productionsm_producing_nil = -1;
-
-    //// TODO: TBD: how much of this we will need...
-    //// TODO: TBD: also, may want to keep track of the old version of the queue...
-    //// TODO: TBD: and just let statemachine do the notification...
-    //KPLIB_producingStatemachine_queueChanged_nil = 0;
-    //KPLIB_producingStatemachine_queueChanged_add = 1;
-    //KPLIB_producingStatemachine_queueChanged_del = 2;
-    //KPLIB_producingStatemachine_queueChanged_ord = 3;
 
     // Arrange the enumerated add sector capability status codes
     KPLIB_productionsm_addCap_success = 0;

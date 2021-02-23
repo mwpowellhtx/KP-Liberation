@@ -13,7 +13,6 @@
 
     Parameter(s):
         _namespace - a CBA production namespace [LOCATION, default: locationNull]
-        _duration - the duration, in seconds, to use in the timer restart [SCALAR, default: KPLIB_param_production_leadTime]
 
     Returns:
         When the event handler is finished [BOOL]
@@ -21,7 +20,6 @@
 
 params [
     ["_namespace", locationNull, [locationNull]]
-    , ["_duration", KPLIB_param_production_leadTime, [0]]
 ];
 
 [
@@ -34,18 +32,15 @@ params [
 private _markerName = _namespace getVariable ["_markerName", ""];
 private _baseMarkerText = _namespace getVariable ["_baseMarkerText", ""];
 
-private _timerThreshold = [_namespace] call KPLIB_fnc_productionsm_getProductionTimerThreshold;
-
-if (_timerThreshold > 0) then {
-    _duration = _timerThreshold;
-};
+// We just get the production timer duration based on the single point
+private _duration = [_namespace] call KPLIB_fnc_productionsm_getProductionTimerDuration;
 
 private _restartedTimer = [_duration] call KPLIB_fnc_timers_create;
 _namespace setVariable ["_timer", _restartedTimer];
 
 if (_debug) then {
-    [format ["[fn_productionsm_onTimerRestart] Timer restarted: [_markerName, _baseMarkerText, _timerThreshold, _duration, _restartedTimer]: %1"
-        , str [_markerName, _baseMarkerText, _timerThreshold, _duration, _restartedTimer]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionsm_onTimerRestart] Timer restarted: [_markerName, _baseMarkerText, _duration, _restartedTimer]: %1"
+        , str [_markerName, _baseMarkerText, _duration, _restartedTimer]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
 true;
