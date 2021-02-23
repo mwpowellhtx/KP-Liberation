@@ -53,6 +53,7 @@ private _storageValue = [
             };
     }] call KPLIB_fnc_linq_aggregate;
 
+// TODO: TBD: see above note, would want to factor at least through here, and probably extending to the setVariable just below: L57
 _namespace setVariable ["KPLIB_resources_storageValue", _storageValue];
 
 private _info = [
