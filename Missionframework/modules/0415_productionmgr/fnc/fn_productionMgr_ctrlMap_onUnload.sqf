@@ -28,12 +28,14 @@ params [
     , ["_exitCode", -1, [0]]
 ];
 
-if (_ctrlMap isEqualTo controlNull) then {
+if (isNull _ctrlMap) then {
    private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
     _ctrlMap = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_CTRLMAP;
 };
 
-[_ctrlMap getVariable ["KPLIB_productionMgr_storageMarkerNames", []]] call {
+private _storageMarkerNames = uiNamespace getVariable ["KPLIB_productionMgr_storageMarkerNames", []];
+
+[_storageMarkerNames] call {
     params [
         ["_storageMarkerNames", [], [[]]]
     ];

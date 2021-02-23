@@ -113,7 +113,7 @@ private _productionElem = (_selected#0);
 
     _ctrlMap setVariable ["KPLIB_sector_markerName", _markerName];
 
-    [_ctrlMap] spawn KPLIB_fnc_productionMgr_ctrlMap_onLoad;
+    [_ctrlMap] call KPLIB_fnc_productionMgr_ctrlMap_onLoad;
 
     ctrlMapAnimCommit _ctrlMap;
 };

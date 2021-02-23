@@ -25,7 +25,7 @@ params [
     ["_ctrlMap", controlNull, [controlNull]]
 ];
 
-if (_ctrlMap isEqualTo controlNull) then {
+if (isNull _ctrlMap) then {
     private _display = findDisplay KPLIB_IDD_PRODUCTIONMGR;
     _ctrlMap = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_CTRLMAP;
 };
@@ -46,18 +46,24 @@ private _storageMarkerNames = _storageContainers apply {
 
     private _storageMarkerName = format ["%1_storage_%2", _sectorMarkerName, str _i];
 
-    createMarkerLocal [_storageMarkerName, getPosATL _x];
+    if (!(_storageMarkerName in allMapMarkers)) then {
+        createMarkerLocal [_storageMarkerName, getPosATL _x];
 
-    _i = _i + 1;
+        _i = _i + 1;
 
-    // TODO: TBD: add string table entry...
-    _storageMarkerName setMarkerTextLocal "Storage";
-    _storageMarkerName setMarkerTypeLocal KPLIB_productionMgr_storageMarkerType;
-    _storageMarkerName setMarkerColorLocal KPLIB_productionMgr_storageMarkerColor;
+        // TODO: TBD: add string table entry...
+        _storageMarkerName setMarkerTextLocal "Storage";
+        _storageMarkerName setMarkerTypeLocal KPLIB_productionMgr_storageMarkerType;
+        _storageMarkerName setMarkerColorLocal KPLIB_productionMgr_storageMarkerColor;
 
-    _storageMarkerName;
-};
+        _storageMarkerName;
+    } else {
+        "";
+    };
+    
+} select { !(_x isEqualTo "") };
 
-_ctrlMap setVariable ["KPLIB_productionMgr_storageMarkerNames", _storageMarkerNames];
+private _existingMarkerNames = uiNamespace getVariable ["KPLIB_productionMgr_storageMarkerNames", []];
+uiNamespace setVariable ["KPLIB_productionMgr_storageMarkerNames", _existingMarkerNames + _storageMarkerNames];
 
 true;
