@@ -33,6 +33,16 @@
 ] call CBA_Settings_fnc_init;
 
 [
+    "KPLIB_param_production_rescheduleLastResource"
+    , "CHECKBOX"
+    , [localize "STR_KPLIB_SETTINGS_PROD_RESCHEDULELAST", localize "STR_KPLIB_SETTINGS_PROD_RESCHEDULELAST_TT"]
+    , localize "STR_KPLIB_SETTINGS_PROD"
+    , true // default: true
+    , 2
+    , {}
+] call CBA_Settings_fnc_init;
+
+[
     "KPLIB_param_production_defaultCost"
     , "SLIDER"
     , [localize "STR_KPLIB_SETTINGS_PROD_DEFAULTCOST", localize "STR_KPLIB_SETTINGS_PROD_DEFAULTCOST_TT"]

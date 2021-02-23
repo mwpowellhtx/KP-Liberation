@@ -114,14 +114,19 @@ _zipped params [
     , ["_bravo", [], [[]]]
 ];
 
-// Nothing in the queue, resets timer
+// Nothing in the queue, optionally reschedule last, or reset timer
 if ((_diffs + _alpha) isEqualTo []) exitWith {
 
-    [_namespace] call KPLIB_fnc_productionsm_onTimerReset;
+    if (count _bravo == 1 && KPLIB_param_production_rescheduleLastResource) then {
+        _namespace setVariable ["_queue", _bravo];
+        [_namespace] call KPLIB_fnc_productionsm_onTimerRestart;
+    } else {
+        [_namespace] call KPLIB_fnc_productionsm_onTimerReset;
+    };
 
     if (_debug) then {
-        [format ["[fn_productionsm_onScheduler] Nothing enqueued, reset: [_markerName, _baseMarkerText, _namespace getVariable '_timer']: %1"
-            , str [_markerName, _baseMarkerText, _namespace getVariable '_timer']], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+        [format ["[fn_productionsm_onScheduler] Queue exhausted, rescheduled or reset: [_markerName, _baseMarkerText, _namespace getVariable '_queue', _namespace getVariable '_timer']: %1"
+            , str [_markerName, _baseMarkerText, _namespace getVariable '_queue', _namespace getVariable '_timer']], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
     };
 
     [_namespace] call _onExitWith;

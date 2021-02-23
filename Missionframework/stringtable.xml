@@ -2082,6 +2082,12 @@
         <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB_TT">
             <English>Credit the nearest FOB for the cost of building the production facility. Default means billing against the storage on site. [default: false]</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_RESCHEDULELAST">
+            <English>Reschedule Last Resource</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_RESCHEDULELAST_TT">
+            <English>Reschedule the last resource in queue for continual production. [default: true]</English>
+        </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_MAXQUEUEDEPTH">
             <English>Maximum Queue Depth</English>
         </Key>
