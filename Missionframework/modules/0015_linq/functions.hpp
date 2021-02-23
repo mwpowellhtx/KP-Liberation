@@ -32,6 +32,9 @@ class linq {
     // Provides a LINQ style aggregate function
     class linq_aggregate {};
 
+    // Provides a LINQ style reverse function
+    class linq_reverse {};
+
     // Initialize linq module
     class linq_preInit {
         preInit = 1;
