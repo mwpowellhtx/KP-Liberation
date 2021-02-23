@@ -245,6 +245,7 @@ if (isServer) then {
     // Adding actions to spawned crates and storages
     ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_resources_addActions}] call CBA_fnc_addEventHandler;
 
+    // TOOD: TBD: may not neecd to public anything as long as these are defined for all...
     publicVariable "KPLIB_resources_crateClassesF";
     publicVariable "KPLIB_resources_storageClassesF";
 
