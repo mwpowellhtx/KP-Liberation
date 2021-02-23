@@ -84,11 +84,11 @@ private _targetStorage = [_markerName] call {
     (_sortedStorage deleteAt 0)#0;
 };
 
-if ([_namespace, _targetStorage, (_remAlpha#0)] call KPLIB_fnc_productionsm_tryProducingResource) then {
+if ([_namespace, _targetStorage, (_remAlpha#0)] call KPLIB_fnc_productionsm_tryProducingResource) exitWith {
     _namespace setVariable ["_previousQueue", _queueAlpha];
     _queueBravo;
-} else {
-    // TODO: TBD: and log that this is the case...
-    // TODO: TBD: may also do what with the timers involved, leave them unchanged (?)
-    _queueAlpha;
 };
+
+// TODO: TBD: and log that this is the case...
+// TODO: TBD: may also do what with the timers involved, leave them unchanged (?)
+_queueAlpha;
