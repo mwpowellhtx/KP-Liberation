@@ -36,6 +36,9 @@ class res {
     // Gets storage attachTo positions
     class resources_getAttachArray {};
 
+    // Returns the attached crates on the storages
+    class resources_getAttachedCrates {};
+
     // Gets Z offset for crate storing
     class resources_getCrateZ {};
 
@@ -96,6 +99,9 @@ class res {
 
     // Unstores given kind of resource crate
     class resources_unstoreCrate {};
+
+    // Server side event handler responding to the 'KPLIB_resources_attachedCratesChanged'
+    class resources_onAttachedCratesChanged {};
 
     // Returns the storage containers in proximity of the specified factory sector
     class resources_getFactoryStorages {};
