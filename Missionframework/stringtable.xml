@@ -1317,6 +1317,10 @@
             <English>No free space.</English>
             <German>Kein freier Platz.</German>
         </Key>
+        <Key ID="STR_KPLIB_HINT_STORAGE_CONTAINER_NO_SPACE">
+            <English>No free space (%1 out of %2).</English>
+            <German>Kein freier Platz (%1 out of %2).</German>
+        </Key>
         <Key ID="STR_KPLIB_HINT_NOTATGARRISON">
             <English>Not enough units/vehicles available.</English>
             <German>Nicht genug Einheiten/Fahrzeuge vorhanden.</German>

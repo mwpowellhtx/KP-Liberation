@@ -53,7 +53,13 @@ private _attachedCrates = count (attachedObjects _targetStorage);
 
 // Exit if the nearest storage has no more space
 if (_attachedCrates >= (count _attachPosition)) exitWith {
+
+    // TODO: TBD: this was fine, but it may be interesting to also report storage sitrep with that...
     [localize "STR_KPLIB_HINT_NOSTORAGESPACE"] call KPLIB_fnc_notification_hint;
+
+    //[format [localize "STR_KPLIB_HINT_STORAGE_CONTAINER_NO_SPACE"
+    //    , _attachedCrates, count _attachPosition]] call KPLIB_fnc_notification_hint;
+
     false
 };
 
