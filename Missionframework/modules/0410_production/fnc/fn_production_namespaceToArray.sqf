@@ -27,16 +27,37 @@ if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
     [];
 };
 
+private _markerName = _namespace getVariable ["_markerName", ""];
+
 private _ident = [
-    _namespace getVariable ["_markerName", ""]
+    _markerName
     , _namespace getVariable ["_baseMarkerText", ""]
 ];
 
 private _timer = _namespace getVariable ["_timer", KPLIB_timers_default];
 
+// TODO: TBD: the factoring here could perhaps be better...
+private _storages = [_markerName] call KPLIB_fnc_resources_getFactoryStorages;
+
+private _storageValue = [
+        KPLIB_resources_storageValueDefault
+        , (_storages apply { [_x] call KPLIB_fnc_resources_getStorageValue; })
+        , {
+            params [
+                ["_g", KPLIB_resources_storageValueDefault, [[]], 3]
+                , ["_y", KPLIB_resources_storageValueDefault, [[]], 3]
+            ];
+            KPLIB_resources_indexes apply {
+                private _resourceIndex = _x;
+                (_g select _resourceIndex) + (_y select _resourceIndex);
+            };
+    }] call KPLIB_fnc_linq_aggregate;
+
+_namespace setVariable ["KPLIB_resources_storageValue", _storageValue];
+
 private _info = [
     _namespace getVariable ["_capability", ([] call KPLIB_fnc_production_getDefaultCapability)]
-    , _namespace getVariable ["KPLIB_resources_storageValue", (KPLIB_resources_indexes apply {0})]
+    , _namespace getVariable ["KPLIB_resources_storageValue", KPLIB_resources_storageValueDefault]
     , _namespace getVariable ["_queue", []]
 ];
 
