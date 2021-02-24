@@ -37,8 +37,8 @@ if (isServer) then {
     KPLIB_param_productionsm_scheduler_debug = false;
     KPLIB_param_productionsm_producer_debug = false;
     KPLIB_param_productionsm_producerEntered_debug = false;
-    KPLIB_param_productionsm_tryProducingResource_debug = false;
     KPLIB_param_productionsm_onProducingResourceRaised_debug = false;
+    KPLIB_param_productionsm_tryProducingResource_debug = false;
     KPLIB_param_productionsm_timer_debug = false;
     KPLIB_param_productionsm_conditions_debug = false;
     KPLIB_param_productionsm_calculators_debug = false;

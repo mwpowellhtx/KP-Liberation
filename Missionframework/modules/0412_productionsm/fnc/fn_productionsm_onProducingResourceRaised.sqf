@@ -34,10 +34,10 @@ private _debug = [
     [
         "KPLIB_param_productionsm_raise_debug"
         , "KPLIB_param_productionsm_changeOrders_debug"
-        , "KPLIB_param_productionsm_raiseProducingResource_debug"
+        , "KPLIB_param_productionsm_onProducingResourceRaised_debug"
         , { _namespace getVariable ["KPLIB_param_productionsm_raise_debug", false]; }
         , { _namespace getVariable ["KPLIB_param_productionsm_changeOrders_debug", false]; }
-        , { _namespace getVariable ["KPLIB_param_productionsm_raiseProducingResource_debug", false]; }
+        , { _namespace getVariable ["KPLIB_param_productionsm_onProducingResourceRaised_debug", false]; }
     ]
 ] call KPLIB_fnc_productionsm_debug;
 
@@ -72,23 +72,36 @@ private _targetStorage = [_markerName] call {
     params [
         ["_markerName", "", [""]]
     ];
-    private _candidateStorages = [_markerName] call KPLIB_fnc_resources_getFactoryStorages;
-    private _storagesWithSpace = _candidateStorages apply {
-        [_x, [_x] call KPLIB_fnc_resources_getStorageSpace];
-    } select {
-        // Only identify storages with available space
-        (_x#1) > 0;
+    private _factoryStorages = [_markerName] call KPLIB_fnc_resources_getFactoryStorages;
+    private _storagePairs = _factoryStorages apply {
+        [
+            _x
+            , [_x] call KPLIB_fnc_resources_getStorageSpace
+        ];
     };
-    if (_storagesWithSpace isEqualTo []) exitWith { objNull; };
-    private _sortedStorage = [_storagesWithSpace, [], { (_x#1); }, "DESCEND"] call BIS_fnc_sortBy;
-    (_sortedStorage deleteAt 0)#0;
+    switch (count _storagePairs) do {
+        case 0: { objNull; };
+        case 1: { (_storagePairs#0#0) };
+        default {
+            private _candidate = [_storagePairs, { (_this#1); }] call KPLIB_fnc_linq_max;
+            (_candidate#0);
+        };
+    };
 };
 
-if ([_namespace, _targetStorage, (_remAlpha#0)] call KPLIB_fnc_productionsm_tryProducingResource) exitWith {
+private _produced = [_namespace, _targetStorage, (_remAlpha#0)] call KPLIB_fnc_productionsm_tryProducingResource;
+
+if (_debug) then {
+    [format ["[fn_productionsm_onProducingResourceRaised] Fini: [_markerName, _baseMarkerText, isNull _namespace, isNull _targetStorage, _storageSpace, _queueAlpha, _queueBravo, _produced]: %1"
+        , str [_markerName, _baseMarkerText, isNull _namespace, isNull _targetStorage, _storageSpace, _queueAlpha, _queueBravo, _produced]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
+
+if (_produced) exitWith {
     _namespace setVariable ["_previousQueue", _queueAlpha];
     _queueBravo;
 };
 
 // TODO: TBD: and log that this is the case...
 // TODO: TBD: may also do what with the timers involved, leave them unchanged (?)
+_namespace setVariable ["_previousQueue", nil];
 _queueAlpha;
