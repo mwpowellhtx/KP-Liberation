@@ -87,7 +87,7 @@ if (_cost isEqualTo (_cost apply {0})) exitWith {
 };
 
 // Cost is not zero, so we need to verify resources
-if (KPLIB_param_production_creditFob) then {
+if (KPLIB_param_production_debitFob) then {
     if (KPLIB_sectors_fobs isEqualTo []) then {
         _assessment = KPLIB_productionsm_addCap_insufficientSumFob;
     } else {

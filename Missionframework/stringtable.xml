@@ -2109,11 +2109,11 @@
         <Key ID="STR_KPLIB_SETTINGS_PROD_DEFAULTCOST_TT">
             <English>Establishes the default cost to build a target production capability at the factory. [default: 100]</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB">
-            <English>Credit FOB</English>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_DEBIT_FOB">
+            <English>Debit FOB</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_PROD_CREDITFOB_TT">
-            <English>Credit the nearest FOB for the cost of building the production facility. Default means billing against the storage on site. [default: false]</English>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_DEBIT_FOB_TT">
+            <English>Debit the nearest FOB for the cost of building the production facility. Default means billing against the storage on site. [default: false]</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_RESCHEDULELAST">
             <English>Reschedule Last Resource</English>

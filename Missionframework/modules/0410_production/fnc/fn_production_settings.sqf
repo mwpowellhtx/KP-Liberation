@@ -63,9 +63,9 @@
 ] call CBA_Settings_fnc_init;
 
 [
-    "KPLIB_param_production_creditFob"
+    "KPLIB_param_production_debitFob"
     , "CHECKBOX"
-    , [localize "STR_KPLIB_SETTINGS_PROD_CREDITFOB", localize "STR_KPLIB_SETTINGS_PROD_CREDITFOB_TT"]
+    , [localize "STR_KPLIB_SETTINGS_PROD_DEBIT_FOB", localize "STR_KPLIB_SETTINGS_PROD_DEBIT_FOB_TT"]
     , localize "STR_KPLIB_SETTINGS_PROD"
     , false // default: false
     , 2
