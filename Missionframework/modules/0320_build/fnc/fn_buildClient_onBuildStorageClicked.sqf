@@ -30,15 +30,9 @@ params [
     ["_player", player, [objNull]]
 ];
 
-[
-    KPLIB_preset_storageSmallF
-    , KPLIB_param_sectorCapRange
-    , KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; }
-] params [
-    "_className"
-    , "_range"
-    , "_candidateSectors"
-];
+private _className = KPLIB_preset_storageSmallF;
+private _range = KPLIB_param_sectorCapRange;
+private _candidateSectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
 
 // Do not need to re-ask the condition question, we are "there" now...
 private _markerName = [_player, _range, _candidateSectors] call KPLIB_fnc_common_getTargetMarkerIfInRange;
