@@ -29,7 +29,7 @@ if (isNull _storage) exitWith { 0; };
 private _allSpaces = count ([typeOf _storage] call KPLIB_fnc_resources_getAttachArray);
 
 // Get amount of already stored crates
-private _attachedCrates = count ([_storage] call KPLIB_fnc_getAttachedCrates);
+private _attachedCrates = count ([_storage] call KPLIB_fnc_resources_getAttachedCrates);
 
 // Return free space amount
 _allSpaces - _attachedCrates
