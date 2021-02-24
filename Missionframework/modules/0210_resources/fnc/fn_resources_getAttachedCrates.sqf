@@ -20,7 +20,7 @@
  */
 
 params [
-    ["_storages", [], [objNull, []]]
+    ["_storages", []]
     , ["_classNames", KPLIB_resources_crateClasses, [[]]]
 ];
 
