@@ -87,4 +87,10 @@ class persistence {
 
     // Performs a lighter weight screening of the same qualification criteria
     class persistence_whereAssetMayBeFobPersistent {};
+
+    //
+    class persistence_enumerateFobObjects {};
+
+    //
+    class persistence_enumerateFactoryStorages {};
 };
