@@ -32,12 +32,6 @@ if (isServer) then {
 
 [] call KPLIB_fnc_persistence_settings;
 
-// TODO: TBD: eventually refactor in terms of CBA setting...
-KPLIB_param_persistence_refreshStoragePeriodSeconds = 3;
-
-// We recommend no more often than every ~30s for performance reasons
-KPLIB_param_persistence_refreshFobAssetPersistencePeriodSeconds = 3;
-
 // Server section (dedicated and player hosted)
 if (isServer) then {
 

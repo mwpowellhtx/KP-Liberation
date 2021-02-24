@@ -35,7 +35,7 @@
 
         KPLIB_persistence_objects = _factoryStoragesToInclude + _fobObjectsToInclude;
     }
-    , KPLIB_param_persistence_refreshFobAssetPersistencePeriodSeconds
+    , KPLIB_param_persistence_refreshObjectsPeriodSeconds
     , []
     , {
         // No-op, there are no variables worth resetting in this handler worth

@@ -2047,6 +2047,15 @@
         <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE_DEBUG_TT">
             <English>Enables/disables Liberation persistence module server log debug output.</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE">
+            <English>KPLIB - Persistence</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE_REFRESH_OBJECTS_PERIOD">
+            <English>Refresh Objects Period</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE_REFRESH_OBJECTS_PERIOD_TT">
+            <English>Updates the objects to persist every so often (in seconds) [default: 15s]</English>
+        </Key>
 
         <!-- PRODUCTION CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_PROD">

@@ -19,8 +19,6 @@
         Function reached the end [BOOL]
 */
 
-private _noop = {};
-
 private _debug = +[
     [
         // Enables/Disables extended Liberation debug output for the server log [default: false]
@@ -33,7 +31,25 @@ private _debug = +[
                 , localize "STR_KPLIB_SETTINGS_DEBUG"
                 , false
                 , 2
-                , _noop
+                , {}
+            ];
+        }
+    ]
+];
+
+private _settings = +[
+    [
+        // Refresh the KPLIB_persistence_objects every period in seconds [default: 15]
+        "KPLIB_param_persistence_refreshObjectsPeriodSeconds"
+        , {
+            [
+                _this
+                , "SLIDER"
+                , [localize "STR_KPLIB_SETTINGS_PERSISTENCE_REFRESH_OBJECTS_PERIOD", localize "STR_KPLIB_SETTINGS_PERSISTENCE_REFRESH_OBJECTS_PERIOD_TT"]
+                , localize "STR_KPLIB_SETTINGS_PERSISTENCE"
+                , [3, 900, 15, 0] // default: 3s, range: [3s, 900s], or [0:03, 15:00]
+                , 2
+                , {}
             ];
         }
     ]
@@ -41,6 +57,6 @@ private _debug = +[
 
 {
     [_x, _forEachIndex] call KPLIB_fnc_config_onRegisterSettings;
-} forEach [_debug];
+} forEach [_debug, _settings];
 
 true;
