@@ -51,22 +51,6 @@ if (hasInterface) then {
     ];
 
     [_fobBuildAction] call CBA_fnc_addPlayerAction;
-
-    private _buildStorageArgs = [
-        localize "STR_KPLIB_ACTION_BUILD_STORAGE"
-        , {[(_this#0)] call KPLIB_fnc_buildClient_onBuildStorageClicked;}
-        , nil
-        , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
-        , false
-        , true
-        , ""
-        , '
-            [_target] call KPLIB_fnc_build_canBuildStorage
-        '
-        , -1
-    ];
-
-    [_buildStorageArgs] call CBA_fnc_addPlayerAction;
 };
 
 true;

@@ -34,37 +34,22 @@ if (hasInterface) then {
         -- BUILD STORAGE --
      */
 
-    // TODO: TBD: 'Build' perms, also 'Logistician' perms ...
-    // TODO: TBD: add permissions... i.e. build || logistics
-    private _buildStorageCondition = '
-        _target == _originalTarget
-        && ["Build"] call KPLIB_fnc_permission_checkPermission
-        && [_target, KPLIB_param_sectorCapRange
-            , KPLIB_fnc_production_callback_onWithoutStorageContainers] call KPLIB_fnc_production_isNearCapturedFactory
-    ';
-
-    private _onBuildStorage = {
-        //// TODO: TBD: start building storage...
-        //// TODO: TBD: closing the gap here, like building FOB, but for storage...
-        //private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
-        //private _markerPos = getMarkerPos _markerName;
-        //[_markerPos, KPLIB_param_fobRange] call KPLIB_fnc_build_start;
-    };
-
-    // Build storage actions
-    private _buildStorageActionArgs = [
-        format ["<t color='#33cc33'>%1</t>", localize "STR_KPLIB_ACTION_BUILD_STORAGE"]
-        , _onBuildStorage
+    // format ["<t color='#33cc33'>%1</t>", localize "STR_KPLIB_ACTION_BUILD_STORAGE"]
+    private _buildStorageArgs = [
+        localize "STR_KPLIB_ACTION_BUILD_STORAGE"
+        , {[(_this#1)] call KPLIB_fnc_buildClient_onBuildStorageClicked;}
         , nil
         , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
         , false
         , true
         , ""
-        , _buildStorageCondition
+        , '
+            [_target] call KPLIB_fnc_build_canBuildStorage
+        '
         , -1
     ];
 
-    [_buildStorageActionArgs] call CBA_fnc_addPlayerAction;
+    [_buildStorageArgs] call CBA_fnc_addPlayerAction;
 
     /*
         -- ADD [RESOURCE] CAPABILITY --
