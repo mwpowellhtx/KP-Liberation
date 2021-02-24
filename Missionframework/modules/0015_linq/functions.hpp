@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 02:37:45
-    Last Update: 2021-02-05 16:30:22
+    Last Update: 2021-02-23 18:59:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -16,6 +16,9 @@ class linq {
 
     // Identifies the minimum element from a given array
     class linq_min {};
+
+    // Identifies the maximum element from a given array
+    class linq_max {};
 
     // Provides a LINQ style zip function
     class linq_first {};
