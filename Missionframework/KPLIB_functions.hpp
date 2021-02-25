@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-02-04 13:53:57
+    Last Update: 2021-02-25 12:33:00
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -31,6 +31,7 @@ class KPLIB {
     #include "modules\0005_config\functions.hpp"
 
     #include "modules\0010_math\functions.hpp"
+    #include "modules\0012_unitsofmeasure\functions.hpp"
     #include "modules\0015_linq\functions.hpp"
     #include "modules\0020_uuid\functions.hpp"
     #include "modules\0025_timers\functions.hpp"
@@ -61,6 +62,10 @@ class KPLIB {
     #include "modules\0420_enemy\functions.hpp"
     #include "modules\0430_cratefiller\functions.hpp"
     
+    #include "modules\0440_logistics\functions.hpp"
+    #include "modules\0445_logisticsSM\functions.hpp"
+    #include "modules\0450_logisticsMgr\functions.hpp"
+
     #include "modules\0800_mission\functions.hpp"
     #include "modules\0810_captive\functions.hpp"
 
