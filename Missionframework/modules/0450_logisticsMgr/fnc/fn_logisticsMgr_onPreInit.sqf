@@ -23,12 +23,12 @@ if (isServer) then {
 
 /*
     ----- Module Globals -----
-*/
+ */
 
 
 /*
     ----- Module Initialization -----
-*/
+ */
 
 if (isServer) then {
     // Server section (dedicated and player hosted)

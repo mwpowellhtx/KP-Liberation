@@ -2133,6 +2133,24 @@
         <Key ID="STR_KPLIB_SETTINGS_PROD_DEBUG_TT">
             <English>Allows for debugging of client and server side production features. [default: false]</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_DEBUG">
+            <English>Debug Logistics</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_DEBUG_TT">
+            <English>Allows for debugging of client and server side logistics features. [default: false]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICSSM_DEBUG">
+            <English>Debug Logistics State Machine</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICSSM_DEBUG_TT">
+            <English>Allows for debugging of logistics state machine aspects. [default: false]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICSMGR_DEBUG">
+            <English>Debug Logistics Manager</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICSMGR_DEBUG_TT">
+            <English>Allows for debugging of logistics manager aspects. [default: false]</English>
+        </Key>
     </Package>
 
 

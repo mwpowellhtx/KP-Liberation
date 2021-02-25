@@ -23,12 +23,14 @@ if (isServer) then {
 
 /*
     ----- Module Globals -----
-*/
+ */
 
 
 /*
     ----- Module Initialization -----
-*/
+ */
+
+[] call KPLIB_fnc_logisticsSM_settings;
 
 if (isServer) then {
     // Server section (dedicated and player hosted)

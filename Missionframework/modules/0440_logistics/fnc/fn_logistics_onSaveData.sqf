@@ -17,4 +17,18 @@
         NONE
  */
 
+private _debug = [] call KPLIB_fnc_logistics_debug;
+
+if (_debug) then {
+    ["[fn_logistics_onSaveData] Saving data...", "LOGISTICS"] call KPLIB_fnc_common_log;
+};
+
+// Set module data to save and send it to the global save data array
+[
+    "logistics"
+    , [
+        KPLIB_logistics_namespaces apply { [_x] call KPLIB_fnc_logistics_namespaceToArray; }
+    ]
+] call KPLIB_fnc_init_setSaveData;
+
 true;

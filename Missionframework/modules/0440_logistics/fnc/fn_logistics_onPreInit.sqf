@@ -23,12 +23,12 @@ if (isServer) then {
 
 /*
     ----- Module Globals -----
-*/
+ */
 
 
 /*
     ----- Module Initialization -----
-*/
+ */
 
 // Process CBA Settings
 [] call KPLIB_fnc_logistics_settings;
@@ -36,6 +36,9 @@ if (isServer) then {
 if (isServer) then {
     // Server section (dedicated and player hosted)
     KPLIB_logistics_namespaces = [];
+
+    ["KPLIB_doLoad", {[] call KPLIB_fnc_logistics_onLoadData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doSave", {[] call KPLIB_fnc_logistics_onSaveData;}] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

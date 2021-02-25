@@ -16,3 +16,15 @@
     Returns:
         NONE
  */
+
+[
+    "KPLIB_param_logistics_debug"
+    , "CHECKBOX"
+    , [localize "STR_KPLIB_SETTINGS_LOGISTICS_DEBUG", localize "STR_KPLIB_SETTINGS_LOGISTICS_DEBUG_TT"]
+    , localize "STR_KPLIB_SETTINGS_DEBUG"
+    , false // default: false
+    , 0 // Because debugging may make sense either on client or server
+    , {}
+] call CBA_Settings_fnc_init;
+
+true;
