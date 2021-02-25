@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-24 14:55:07
-    Last Update: 2021-02-24 14:55:10
+    Last Update: 2021-02-25 13:20:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -13,6 +13,9 @@
 
 class logisticsSM {
     file = "modules\0445_logisticsSM\fnc";
+
+    // Returns whether caller should conduct debugging
+    class logisticsSM_debug {};
 
     // Module post initialization phase event handler
     class logisticsSM_onPostInit {
@@ -23,4 +26,7 @@ class logisticsSM {
     class logisticsSM_onPreInit {
         preInit = 1;
     };
+
+    // Initializes the CBA settings
+    class logisticsSM_settings {};
 };

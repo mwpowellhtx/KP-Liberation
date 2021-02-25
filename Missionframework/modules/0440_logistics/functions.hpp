@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-24 14:51:36
-    Last Update: 2021-02-24 14:51:39
+    Last Update: 2021-02-25 13:20:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -13,6 +13,9 @@
 
 class logistics {
     file = "modules\0440_logistics\fnc";
+
+    // Returns whether caller should conduct debugging
+    class logistics_debug {};
 
     // Module post initialization phase event handler
     class logistics_onPostInit {
