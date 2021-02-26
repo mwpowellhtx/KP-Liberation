@@ -84,7 +84,7 @@ KPLIB_uom_time_secondsPerMinute = 60;
 KPLIB_uom_time_minutesPerHour   = 60;
 KPLIB_uom_time_hoursPerDay      = 24;
 
-/* Multiply to convert 'kilometers per hour' to 'peters per second'.
+/* Multiply to convert 'kilometers per hour' to 'meters per second'.
  * Divide to convert in the other direction. */
 
 KPLIB_uom_kph_to_mps            = KPLIB_uom_siPrefix_kilo / (KPLIB_uom_time_secondsPerMinute * KPLIB_uom_time_minutesPerHour);
