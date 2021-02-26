@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 02:37:45
-    Last Update: 2021-02-23 18:59:17
+    Last Update: 2021-02-25 18:23:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -37,6 +37,9 @@ class linq {
 
     // Provides a LINQ style reverse function
     class linq_reverse {};
+
+    // Verifies that the tuple shape equals that of a given template
+    class linq_tupleShapeEquals {};
 
     // Initialize linq module
     class linq_preInit {
