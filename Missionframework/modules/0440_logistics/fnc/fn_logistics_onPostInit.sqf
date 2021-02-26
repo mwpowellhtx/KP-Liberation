@@ -31,7 +31,7 @@ if (isServer) then {
     private _pos = +KPLIB_zeroPos;
     private _markerName = "";
     private _baseMarkerText = "";
-    private _billValues = +KPLIB_resources_storageValueDefault;
+    private _billValue = +KPLIB_resources_storageValueDefault;
 
     KPLIB_logistics_endpointTemplate_unassigned = +[
         _pos
@@ -43,7 +43,7 @@ if (isServer) then {
         _pos
         , _markerName
         , _baseMarkerText
-        , _billValues
+        , _billValue
     ];
 };
 

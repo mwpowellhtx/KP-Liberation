@@ -45,6 +45,10 @@ KPLIB_logistics_status_abortingAmbushed     = KPLIB_logistics_status_aborting   
 KPLIB_logistics_status_abortingBlocked      = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_routeBlocked;
 KPLIB_logistics_status_abortingAbandoned    = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_abandoned;
 
+KPLIB_logistics_status_enRouteAbortingAbandoned
+                                            = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_aborted
+                                                + KPLIB_logistics_status_abandoned;
+
 
 /*
     ----- Module Initialization -----

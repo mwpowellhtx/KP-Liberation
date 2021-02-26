@@ -13,7 +13,7 @@
     Parameters:
         _candidate - a candidate endpoint tuple, which can come in one of two forms [ARRAY, default: []]
             unassigned form: [_pos, _markerName, _baseMarkerText]
-            assigned form: [_pos, _markerName, _baseMarkerText, _billValues]
+            assigned form: [_pos, _markerName, _baseMarkerText, _billValue]
 
     Returns:
         Whether the '_candidate' is valid [BOOL]

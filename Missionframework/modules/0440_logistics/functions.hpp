@@ -27,13 +27,13 @@ class logistics {
         preInit = 1;
     };
 
-    //
+    // Arranges for the module CBA settings
     class logistics_settings {};
 
-    //
+    // Arranges to load the module saved data
     class logistics_onLoadData {};
 
-    //
+    // Arranges to save the module data
     class logistics_onSaveData {};
 
     // Returns the current set of known endpoints
@@ -42,10 +42,10 @@ class logistics {
     // Creates a newly minted logistics tuple (ARRAY)
     class logistics_createArray {};
 
-    //
+    // Converts the given ARRAY to CBA logistics namespace
     class logistics_arrayToNamespace {};
 
-    //
+    // Converts the given CBA logistics namespace to ARRAY
     class logistics_namespaceToArray {};
 
     // Verifies that the ARRAY is shaped as a valid endpoint tuple
@@ -54,14 +54,11 @@ class logistics {
     // Verifies that the ARRAY is shaped as a valid logistics tuple
     class logistics_verifyArray {};
 
-    //
+    // Verifies that the CBA namespace has adequate variable support to be considered a logistics namespace
     class logistics_verifyNamespace {};
 
-    // Line add event handler
-    class logistics_onLineAdd {};
-
-    // Line remove event handler
-    class logistics_onLineRemove {};
+    // Request to either add or remove some UUID to or from the CBA logistic namespaces
+    class logistics_onLineRequest {};
 
     // Transport 'build' event handler
     class logistics_onTransportBuild {};
@@ -75,15 +72,33 @@ class logistics {
     // Returns the next available transport awaiting either loading or unloading
     class logistics_findNextTransportIndex {};
 
-    // Whether the asset has remaining bill at the current ALPHA endpoint
-    class logistics_hasCurrentRemainingBill {};
+    // Returns the logistics namespace given a predicate
+    class logistics_getNamespaceBy {};
 
-    // Whether the asset bill at both endpoints is completely fulfilled
-    class logistics_isTransferComplete {};
+    // Returns the logistics namespace aligned with the given UUID
+    class logistics_getNamespaceByUuid {};
 
-    // Returns the calculated, estimated transit distance
-    class logistics_getTransitDistance {};
+    // Whether ALPHA bill values have been fulfilled
+    class logistics_hasAlphaBillValues {};
+
+    // Whether the logistics ALPHA and BRAVO bill values have been fulfilled
+    class logistics_hasTransferCompleted {};
 
     // Calculates transport position and direction vectors from estimated transit distance, based on nearest road elements, etc
     class logistics_getTransportVectors {};
+
+    // Calculates an up to date transport speed in meters per second (mps) using 'KPLIB_param_logistics_transportSpeedKph'
+    class logistics_calculateTransportSpeedMps {};
+
+    // Calculates the current telemetry for the logistics asset
+    class logistics_calculateTelemetry {};
+
+    // Gets a telemetry array corresponding to the CBA logistics namespace
+    class logistics_getTelemetryArray {};
+
+    // Sets the telemetry for the given CBA logistics namespace
+    class logistics_setTelemetry {};
+
+    // Calibrates the logistics timer given the most up to date in situ sitrep
+    class logistics_calibrateTimer {};
 };
