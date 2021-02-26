@@ -23,6 +23,7 @@
         https://en.wikipedia.org/wiki/Language_Integrated_Query
         https://community.bistudio.com/wiki/isEqualTypeArray
         https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.select
+        https://community.bistudio.com/wiki/flatten - does not really work here, either, because we do want to preserve every level of arrays
  */
 
 // params [
