@@ -74,30 +74,6 @@
 
 #define KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_W      KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_DIALOG_WC,2,25,KPX_SPACING_W)
 
-/*
-    Description:
-        The queue list box will have several buttons accompanying it for purposes of
-        arranging the queue and interacting with it. The buttons will be arranged in
-        a grid like manner.
-
-        11111 22222 33333
-        44444 55555 66666
- */
-
-// Align the queue buttons with respect to the queue list box from the bottom up
-#define KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XL     KPX_GETXL_VXW(KPLIB_LOGISTICSMGR_LNB_CONVOY_X,(KPLIB_LOGISTICSMGR_LNB_CONVOY_W + KPX_SPACING_W))
-#define KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XM     KPX_GETXL_VXW(KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XL,(KPX_SPACING_W + KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_W))
-#define KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XR     KPX_GETXL_VXW(KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XM,(KPX_SPACING_W + KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_W))
-
-#define KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_GETDELTAH(BY) (KPLIB_LOGISTICSMGR_LNB_CONVOY_H - ((BY + 1) * KPLIB_LOGISTICSMGR_BTN_H) - (BY * KPX_SPACING_H))
-
-// Aligned with the buttons...
-#define KPLIB_LOGISTICSMGR_LBLTIMEREM_X         KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XL
-#define KPLIB_LOGISTICSMGR_LBLTIMEREM_W         ((KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XR + KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_W) - KPLIB_LOGISTICSMGR_LNBCONVOY_BTN_XL)
-
-// Aligning time remaining elements with the queue list box from the top down
-#define KPLIB_LOGISTICSMGR_LBLTIMEREM_GETDELTAH(BY) ((BY * KPLIB_LOGISTICSMGR_BTN_H) + (BY * KPX_SPACING_H))
-
 
 
 
@@ -114,40 +90,45 @@
  */
 
 // Which EP GRP W is a function of the parent coordinate grid...
-#define KPLIB_LOGISTICSMGR_EP_GRP_W KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_CTRLAREA_W,6,40,KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_GRP_W             ((KPLIB_LOGISTICSMGR_LNB_TELEMETRY_W - KPX_SPACING_W) / 2)
+
+#define KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X       KPLIB_LOGISTICSMGR_LNB_TELEMETRY_X
+#define KPLIB_LOGISTICSMGR_EP_GRP_BRAVO_X       (KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X + KPLIB_LOGISTICSMGR_EP_GRP_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_GRP_Y             (KPLIB_LOGISTICSMGR_LNB_CONVOY_Y + KPLIB_LOGISTICSMGR_LNB_CONVOY_H + KPLIB_LOGISTICSMGR_BTN_H + (2 * KPX_SPACING_H))
+
+// We know the endpoint group height by process of elimination...
+//#define KPLIB_LOGISTICSMGR_EP_GRP_H             (KPLIB_LOGISTICSMGR_CTRLAREA_H - ((4 * KPX_SPACING_H) + KPLIB_LOGISTICSMGR_LNB_TELEMETRY_H + KPLIB_LOGISTICSMGR_LNB_CONVOY_H + (2 * KPLIB_LOGISTICSMGR_BTN_H)))
+#define KPLIB_LOGISTICSMGR_EP_GRP_H             ((5 * KPLIB_LOGISTICSMGR_BTN_H) + (4 * KPX_SPACING_H))
+
 // Which W we use to inform the grid for the child controls...
 
-#define KPLIB_LOGISTICSMGR_EP_TITLE_X 0
-#define KPLIB_LOGISTICSMGR_EP_TITLE_Y 0
-#define KPLIB_LOGISTICSMGR_EP_TITLE_W KPLIB_LOGISTICSMGR_EP_GRP_W
-#define KPLIB_LOGISTICSMGR_EP_TITLE_H KPX_TITLE_M_H
+#define KPLIB_LOGISTICSMGR_EP_TITLE_X           0
+#define KPLIB_LOGISTICSMGR_EP_TITLE_Y           0
+#define KPLIB_LOGISTICSMGR_EP_TITLE_W           KPLIB_LOGISTICSMGR_EP_GRP_W
+#define KPLIB_LOGISTICSMGR_EP_TITLE_H           KPLIB_LOGISTICSMGR_BTN_H
 
-#define KPLIB_LOGISTICSMGR_EP_CBO_X KPLIB_LOGISTICSMGR_EP_TITLE_X
-#define KPLIB_LOGISTICSMGR_EP_CBO_Y (KPLIB_LOGISTICSMGR_EP_TITLE_Y + KPX_SPACING_H + KPLIB_LOGISTICSMGR_EP_TITLE_H)
-#define KPLIB_LOGISTICSMGR_EP_CBO_W KPLIB_LOGISTICSMGR_EP_TITLE_W
-#define KPLIB_LOGISTICSMGR_EP_CBO_H KPX_BUTTON_M_H
+#define KPLIB_LOGISTICSMGR_EP_CBO_X             KPLIB_LOGISTICSMGR_EP_TITLE_X
+#define KPLIB_LOGISTICSMGR_EP_CBO_Y             (KPLIB_LOGISTICSMGR_EP_TITLE_Y + KPX_SPACING_H + KPLIB_LOGISTICSMGR_EP_TITLE_H)
+#define KPLIB_LOGISTICSMGR_EP_CBO_W             KPLIB_LOGISTICSMGR_EP_TITLE_W
+#define KPLIB_LOGISTICSMGR_EP_CBO_H             KPLIB_LOGISTICSMGR_BTN_H
 
-#define KPLIB_LOGISTICSMGR_EP_IMG_X KPLIB_LOGISTICSMGR_EP_TITLE_X
-#define KPLIB_LOGISTICSMGR_EP_IMG_Y (KPLIB_LOGISTICSMGR_EP_CBO_Y + KPX_SPACING_H + KPLIB_LOGISTICSMGR_EP_CBO_H)
-#define KPLIB_LOGISTICSMGR_EP_IMG_W KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,1,6,KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_IMG_H KPX_BUTTON_M_H
+#define KPLIB_LOGISTICSMGR_EP_IMG_X             KPLIB_LOGISTICSMGR_EP_TITLE_X
 
-#define KPLIB_LOGISTICSMGR_EP_LBL_X (KPLIB_LOGISTICSMGR_EP_IMG_X + KPLIB_LOGISTICSMGR_EP_IMG_W + KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_LBL_Y KPLIB_LOGISTICSMGR_EP_IMG_Y
-#define KPLIB_LOGISTICSMGR_EP_LBL_W KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,2,6,KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_LBL_H KPX_BUTTON_M_H
+// TODO: TBD: placeholder while we work out the finer points...
+#define KPLIB_LOGISTICSMGR_EP_IMG_Y             (KPLIB_LOGISTICSMGR_EP_CBO_Y + KPX_SPACING_H + KPLIB_LOGISTICSMGR_EP_CBO_H)
+#define KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(RSC)    (KPLIB_LOGISTICSMGR_EP_CBO_Y + KPLIB_LOGISTICSMGR_EP_CBO_H + ((RSC + 1) * KPX_SPACING_H) + (RSC * KPLIB_LOGISTICSMGR_BTN_H))
+#define KPLIB_LOGISTICSMGR_EP_IMG_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,1,6,KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_IMG_H             KPLIB_LOGISTICSMGR_BTN_H
 
-#define KPLIB_LOGISTICSMGR_EP_TXT_X (KPLIB_LOGISTICSMGR_EP_LBL_X + KPLIB_LOGISTICSMGR_EP_LBL_W + KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_TXT_Y KPLIB_LOGISTICSMGR_EP_IMG_Y
-#define KPLIB_LOGISTICSMGR_EP_TXT_W KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,3,6,KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_TXT_H KPX_BUTTON_M_H
+#define KPLIB_LOGISTICSMGR_EP_LBL_X             (KPLIB_LOGISTICSMGR_EP_IMG_X + KPLIB_LOGISTICSMGR_EP_IMG_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_LBL_Y             KPLIB_LOGISTICSMGR_EP_IMG_Y
+#define KPLIB_LOGISTICSMGR_EP_LBL_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,2,6,KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_LBL_H             KPLIB_LOGISTICSMGR_BTN_H
 
-// TODO: TBD: may need to include additional spacing, but we'll see...
-// TODO: TBD: may want to simply leverage the KPX_GETW_VWGS(...) macro after all...
-#define KPLIB_LOGISTICSMGR_EP_GRP_H ((4 * KPX_SPACING_H) + KPLIB_LOGISTICSMGR_EP_TITLE_H + KPLIB_LOGISTICSMGR_EP_CBO_H + (3 * KPLIB_LOGISTICSMGR_EP_TXT_H))
-
-#define KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X (KPLIB_LOGISTICSMGR_LNB_LINES_X + KPLIB_LOGISTICSMGR_LNB_LINES_W + KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_GRP_BRAVO_X (KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X + KPLIB_LOGISTICSMGR_EP_GRP_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_TXT_X             (KPLIB_LOGISTICSMGR_EP_LBL_X + KPLIB_LOGISTICSMGR_EP_LBL_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_TXT_Y             KPLIB_LOGISTICSMGR_EP_IMG_Y
+#define KPLIB_LOGISTICSMGR_EP_TXT_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,3,6,KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_TXT_H             KPLIB_LOGISTICSMGR_BTN_H
 
 class KPLIB_logisticsMgr_Button : XGUI_PRE_Button {
     h = KPLIB_LOGISTICSMGR_BTN_H;
@@ -155,7 +136,7 @@ class KPLIB_logisticsMgr_Button : XGUI_PRE_Button {
 
 // TODO: TBD: is there a better place for these sort of base classes (?)
 class KPLIB_logisticsMgr_controlsEndpoint : XGUI_PRE_ControlsGroup {
-    x = 
+    y = KPLIB_LOGISTICSMGR_EP_GRP_Y;
     w = KPLIB_LOGISTICSMGR_EP_GRP_W;
     h = KPLIB_LOGISTICSMGR_EP_GRP_H;
 };
@@ -185,9 +166,23 @@ class KPLIB_logisticsMgr_cboEndpoint : XGUI_PRE_Combo {
 
 class KPLIB_logisticsMgr_imgEndpointResource : XGUI_PRE_PictureRatio {
     x = KPLIB_LOGISTICSMGR_EP_IMG_X;
-    y = KPLIB_LOGISTICSMGR_EP_IMG_Y;
     w = KPLIB_LOGISTICSMGR_EP_IMG_W;
     h = KPLIB_LOGISTICSMGR_EP_IMG_H;
+};
+
+class KPLIB_logisticsMgr_imgSupplyResource : KPLIB_logisticsMgr_imgEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
+    text = "$STR_KPLIB_LOGISTICSMGR_IMG_SUP";
+};
+
+class KPLIB_logisticsMgr_imgAmmoResource : KPLIB_logisticsMgr_imgEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
+    text = "$STR_KPLIB_LOGISTICSMGR_IMG_AMM";
+};
+
+class KPLIB_logisticsMgr_imgFuelResource : KPLIB_logisticsMgr_imgEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
+    text = "$STR_KPLIB_LOGISTICSMGR_IMG_FUE";
 };
 
 class KPLIB_logisticsMgr_lblEndpointResource : XGUI_PRE_Label {
@@ -362,7 +357,6 @@ class KPLIB_logisticsMgr {
 
         class KPLIB_logisticsMgr_controlsAlpha : KPLIB_logisticsMgr_controlsEndpoint {
             x = KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X;
-            y = KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_Y;
 
             class controls {
 
@@ -377,51 +371,55 @@ class KPLIB_logisticsMgr {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_CBO;
                 };
 
-                class KPLIB_logisticsMgr_imgAlphaSupply : KPLIB_logisticsMgr_imgEndpointResource {
+                class KPLIB_logisticsMgr_imgAlphaSupply : KPLIB_logisticsMgr_imgSupplyResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_IMG_SUPPLY;
-                    text = "$STR_KPLIB_LOGISTICSMGR_IMG_SUP";
                 };
 
-                class KPLIB_logisticsMgr_imgAlphaAmmo : KPLIB_logisticsMgr_imgAlphaSupply {
+                class KPLIB_logisticsMgr_imgAlphaAmmo : KPLIB_logisticsMgr_imgAmmoResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_IMG_AMMO;
-                    text = "$STR_KPLIB_LOGISTICSMGR_IMG_AMM";
                 };
 
-                class KPLIB_logisticsMgr_imgAlphaFuel : KPLIB_logisticsMgr_imgAlphaSupply {
+                class KPLIB_logisticsMgr_imgAlphaFuel : KPLIB_logisticsMgr_imgFuelResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_IMG_FUEL;
-                    text = "$STR_KPLIB_LOGISTICSMGR_IMG_FUE";
                 };
 
                 class KPLIB_logisticsMgr_lblAlphaSupply : KPLIB_logisticsMgr_lblEndpointResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_SUPPLY;
+                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
                     text = "$STR_KPLIB_LOGISTICSMGR_LBL_SUP";
                 };
 
                 class KPLIB_logisticsMgr_lblAlphaAmmo : KPLIB_logisticsMgr_lblAlphaSupply {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_AMMO;
+                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
                     text = "$STR_KPLIB_LOGISTICSMGR_LBL_AMM";
                 };
 
                 class KPLIB_logisticsMgr_lblAlphaFuel : KPLIB_logisticsMgr_lblAlphaSupply {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_FUEL;
                     text = "$STR_KPLIB_LOGISTICSMGR_LBL_FUE";
+                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
                 };
 
                 class KPLIB_logisticsMgr_txtAlphaSupply : KPLIB_logisticsMgr_txtEndpointResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_TXT_SUPPLY;
+                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
                 };
 
                 class KPLIB_logisticsMgr_txtAlphaAmmo : KPLIB_logisticsMgr_txtAlphaSupply {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_TXT_AMMO;
+                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
                 };
 
                 class KPLIB_logisticsMgr_txtAlphaFuel : KPLIB_logisticsMgr_txtAlphaSupply {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_TXT_FUEL;
+                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
                 };
             };
         };
 
         class KPLIB_logisticsMgr_controlsBravo : KPLIB_logisticsMgr_controlsEndpoint {
+            x = KPLIB_LOGISTICSMGR_EP_GRP_BRAVO_X;
 
             class controls {
 
@@ -435,15 +433,15 @@ class KPLIB_logisticsMgr {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_CBO;
                 };
 
-                class KPLIB_logisticsMgr_imgBravoSupply : KPLIB_logisticsMgr_imgEndpointResource {
+                class KPLIB_logisticsMgr_imgBravoSupply : KPLIB_logisticsMgr_imgSupplyResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_IMG_SUPPLY;
                 };
 
-                class KPLIB_logisticsMgr_imgBravoAmmo : KPLIB_logisticsMgr_imgBravoSupply {
+                class KPLIB_logisticsMgr_imgBravoAmmo : KPLIB_logisticsMgr_imgAmmoResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_IMG_AMMO;
                 };
 
-                class KPLIB_logisticsMgr_imgBravoFuel : KPLIB_logisticsMgr_imgBravoSupply {
+                class KPLIB_logisticsMgr_imgBravoFuel : KPLIB_logisticsMgr_imgFuelResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_IMG_FUEL;
                 };
 
