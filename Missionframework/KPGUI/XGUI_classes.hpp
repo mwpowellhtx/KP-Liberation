@@ -19,17 +19,39 @@
     --- Small sized classes ---
 */
 
+// Label
 class XGUI_PRE_Label : KPGUI_PRE_Label {
     h = KPX_BUTTON_M_H;
     sizeEx = KPX_TEXT_M;
 };
 
+// Active Text
+class XGUI_PRE_ActiveText : KPGUI_PRE_ActiveText {
+};
+
+// Combo
+class XGUI_PRE_Combo : KPGUI_PRE_Combo {
+};
+
+// Picture
+class XGUI_PRE_Picture : KPGUI_PRE_Picture {
+};
+
+// Picture which keeps aspect ratio
+class XGUI_PRE_PictureRatio : KPGUI_PRE_PictureRatio {
+};
+
+// Button
 class XGUI_PRE_Button : KPGUI_PRE_Button {
     h = KPX_BUTTON_M_H;
     sizeEx = KPX_TEXT_M;
     soundEnter[] = { "\A3\ui_f\data\sound\RscButton\soundEnter", 0.09, 1 };
     soundPush[] = { "\A3\ui_f\data\sound\RscButton\soundPush", 0.09, 1 };
     soundClick[] = { "\A3\ui_f\data\sound\RscButton\soundClick", 0.09, 1 };
+};
+
+// Controls group
+class XGUI_PRE_ControlsGroup : KPGUI_PRE_ControlsGroup {
 };
 
 // Title bar

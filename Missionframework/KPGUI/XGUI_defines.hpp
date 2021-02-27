@@ -200,19 +200,30 @@
 
 #define KPX_GETXR_VXW(VX,VW,W)      (VX + (VW - W))
 
+// TODO: TBD: these were "working" but not sure the calcs are quite right...
 #define KPX_GETXC_CXW(CX,W)         (CX - (W/2))
 #define KPX_GETYC_CYW(CY,H)         KPX_GETXC_CXW(CY,H)
+
+// TODO: TBD: potentially replacing with these...
+#define KPX_GETXC_XVW(X,VW,W)       (X + ((VW - W) / 2))
+#define KPX_GETYC_YVH(Y,VH,H)       KPX_GETXC_XVW(Y,VH,H)
 
 // TODO: TBD: working out the kinks in centered scenarios...
 // TODO: TBD: rinse and repeat for left and right aligned...
 
 #define KPX_GETXL_W(W)              KPX_GETXL_VXW(safeZoneX,W)
 #define KPX_GETXR_W(W)              KPX_GETXR_VXW(GUI_GRID_X,GUI_GRID_WAbs,W)
+
+// TODO: TBD: ditto above, potentially replacing _W(...) with _W2(...)
 #define KPX_GETXC_W(W)              KPX_GETXC_CXW((safeZoneX + (safeZoneW/2)),W)
+#define KPX_GETXC_W2(W)             KPX_GETXC_XVW(safeZoneX,safeZoneW,W)
 
 #define KPX_GETYT_H(H)              KPX_GETYT_VYH(safeZoneY,H)
 #define KPX_GETYB(H)                KPX_GETXR_VXW(GUI_GRID_Y,GUI_GRID_HAbs,H)
+
+// TODO: TBD: ditto above, potentially replacing _W(...) with _W2(...)
 #define KPX_GETYC_H(H)              KPX_GETYC_CYW((safeZoneY + (safeZoneH/2)),H)
+#define KPX_GETYC_H2(H)             KPX_GETYC_YVH(safeZoneY,safeZoneH,H)
 
 /*
     --- Dialog defaults ---
@@ -233,6 +244,9 @@
 // TODO: TBD: should there be WAbs or HAbs aspect ratio comprehension (?)
 #define KPX_DEFAULT_DIALOG_WC       (0.5 * safeZoneW)
 #define KPX_DEFAULT_DIALOG_HC       (0.5 * safeZoneH)
+
+#define KPX_DEFAULT_DIALOG_WC2      (0.65 * safeZoneW)
+#define KPX_DEFAULT_DIALOG_HC2      (0.65 * safeZoneH)
 
 #define KPX_DEFAULT_DIALOG_XC       KPX_GETXC_W(KPX_DEFAULT_DIALOG_WC)
 #define KPX_DEFAULT_DIALOG_YC       KPX_GETYC_H(KPX_DEFAULT_DIALOG_HC)
@@ -295,7 +309,7 @@
  */
 
 #define KPX_GETW_VWGS(VW,W,G,S)     ((W * ((VW + S) / G)) - S)
-#define KPX_GETH_VHGS(VH,H,G,S)     KPX_GETW_VWGS(H,Y,G,S)
+#define KPX_GETH_VHGS(VH,H,G,S)     KPX_GETW_VWGS(VH,H,G,S)
 
 #define KPX_GETWC_CTRLAREA_XG(X,G)  KPX_GETW_WXGS(KPX_DEFAULT_CTRLAREA_WC,X,G,KPX_SPACING_W)
 #define KPX_GETHC_CTRLAREA_YG(Y,G)  KPX_GETH_HYGS(KPX_DEFAULT_CTRLAREA_HC,Y,G,KPX_SPACING_H)
