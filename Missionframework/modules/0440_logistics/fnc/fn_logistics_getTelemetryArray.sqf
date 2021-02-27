@@ -51,14 +51,14 @@ private _telemetrySpecs = [
     , ["KPLIB_logistics_telemetry_actualDir", 0]
 ];
 
-private _onGetTelemetrySpec = [
+private _onGetTelemetrySpec = {
     _x params [
         ["_variableName", "", [""]]
         , "_defaultValue"
     ];
-    private _value = _namespace getVariable [_variableName. _defaultValue];
+    private _value = _namespace getVariable [_variableName, _defaultValue];
     _value;
-];
+};
 
 private _telemetry = (_telemetrySpecs apply _onGetTelemetrySpec);
 

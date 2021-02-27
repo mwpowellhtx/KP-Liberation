@@ -35,7 +35,7 @@ private _varSpecs = [
 private _onGetVariableValue = {
     _x params [
         ["_variableName", "", [""]]
-        "_defaultValue"
+        , "_defaultValue"
     ];
     private _value = _namespace getVariable [_variableName, _defaultValue];
     _value;

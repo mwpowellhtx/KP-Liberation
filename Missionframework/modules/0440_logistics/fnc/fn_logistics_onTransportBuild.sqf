@@ -21,7 +21,7 @@ params [
     ["_targetUuid", "", [""]]
 ];
 
-private _namespace = [_targetUuid] call KPLIB_fnc_logistics_getNamespaceByUuid
+private _namespace = [_targetUuid] call KPLIB_fnc_logistics_getNamespaceByUuid;
 
 if (isNull _namespace) exitWith {
     // TODO: TBD: do some logging...

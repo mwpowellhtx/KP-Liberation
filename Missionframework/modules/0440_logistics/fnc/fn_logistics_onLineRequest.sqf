@@ -34,7 +34,7 @@ private _onSelectRemoved = {
     private _targetUuid = _x;
 
     private _i = KPLIB_logistic_namespaces findIf {
-        private _uuid = getVariable "KPLIB_logistic_uuid";
+        private _uuid = _x getVariable "KPLIB_logistic_uuid";
         _uuid isEqualTo _targetUuid;
     };
 
