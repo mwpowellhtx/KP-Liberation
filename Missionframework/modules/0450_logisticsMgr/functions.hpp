@@ -78,6 +78,9 @@ class logisticsMgr {
     // Endpoint CT_COMBO 'onLoad' event handler
     class logisticsMgr_cboEndpoint_onLoad {};
 
+    // Resource CT_EDIT 'onKillFocus' event handler
+    class logisticsMgr_edtResource_onKillFocus {};
+
     // Confirm mission CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnConfirm_onButtonClick {};
 

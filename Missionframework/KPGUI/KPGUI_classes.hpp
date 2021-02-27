@@ -3,13 +3,14 @@
 
     File: KPGUI_classes.hpp
     Author: Wyqer - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2018-09-13
-    Last Update: 2019-05-19
+    Last Update: 2021-02-27 17:36:08
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Base UI classes for KPGUI.
-*/
+ */
 
 /*
     Description:
@@ -280,6 +281,16 @@ class KPGUI_PRE_Label : KPGUI_PRE_Text {
 class KPGUI_PRE_InlineTitle: KPGUI_PRE_Text {
     style = ST_CENTER;
     sizeEx = KP_TEXT_L;
+};
+
+// Edit text
+class KPGUI_PRE_EditText: KPGUI_PRE_Text {
+    type = CT_EDIT;
+	colorText[] = {0.95, 0.95, 0.95, 1};
+	colorBackground[] = {0, 0, 0, 0};
+    colorDisabled[] = {0.9, 0.9, 0.9, 0.25};
+    colorSelection[] = {1, 1, 1, 0.25};
+	autocomplete = "";
 };
 
 // Active Text

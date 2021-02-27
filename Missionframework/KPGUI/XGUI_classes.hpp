@@ -25,6 +25,10 @@ class XGUI_PRE_Label : KPGUI_PRE_Label {
     sizeEx = KPX_TEXT_M;
 };
 
+// Edit text
+class XGUI_PRE_EditText : KPGUI_PRE_EditText {
+};
+
 // Active Text
 class XGUI_PRE_ActiveText : KPGUI_PRE_ActiveText {
 };

@@ -113,22 +113,18 @@
 #define KPLIB_LOGISTICSMGR_EP_CBO_H             KPLIB_LOGISTICSMGR_BTN_H
 
 #define KPLIB_LOGISTICSMGR_EP_IMG_X             KPLIB_LOGISTICSMGR_EP_TITLE_X
-
-// TODO: TBD: placeholder while we work out the finer points...
-#define KPLIB_LOGISTICSMGR_EP_IMG_Y             (KPLIB_LOGISTICSMGR_EP_CBO_Y + KPX_SPACING_H + KPLIB_LOGISTICSMGR_EP_CBO_H)
-#define KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(RSC)    (KPLIB_LOGISTICSMGR_EP_CBO_Y + KPLIB_LOGISTICSMGR_EP_CBO_H + ((RSC + 1) * KPX_SPACING_H) + (RSC * KPLIB_LOGISTICSMGR_BTN_H))
 #define KPLIB_LOGISTICSMGR_EP_IMG_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,1,6,KPX_SPACING_W)
 #define KPLIB_LOGISTICSMGR_EP_IMG_H             KPLIB_LOGISTICSMGR_BTN_H
 
 #define KPLIB_LOGISTICSMGR_EP_LBL_X             (KPLIB_LOGISTICSMGR_EP_IMG_X + KPLIB_LOGISTICSMGR_EP_IMG_W + KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_LBL_Y             KPLIB_LOGISTICSMGR_EP_IMG_Y
 #define KPLIB_LOGISTICSMGR_EP_LBL_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,2,6,KPX_SPACING_W)
 #define KPLIB_LOGISTICSMGR_EP_LBL_H             KPLIB_LOGISTICSMGR_BTN_H
 
-#define KPLIB_LOGISTICSMGR_EP_TXT_X             (KPLIB_LOGISTICSMGR_EP_LBL_X + KPLIB_LOGISTICSMGR_EP_LBL_W + KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_TXT_Y             KPLIB_LOGISTICSMGR_EP_IMG_Y
-#define KPLIB_LOGISTICSMGR_EP_TXT_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,3,6,KPX_SPACING_W)
-#define KPLIB_LOGISTICSMGR_EP_TXT_H             KPLIB_LOGISTICSMGR_BTN_H
+#define KPLIB_LOGISTICSMGR_EP_EDT_X             (KPLIB_LOGISTICSMGR_EP_LBL_X + KPLIB_LOGISTICSMGR_EP_LBL_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_EDT_W             KPX_GETW_VWGS(KPLIB_LOGISTICSMGR_EP_GRP_W,3,6,KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_EP_EDT_H             KPLIB_LOGISTICSMGR_BTN_H
+
+#define KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(RSC)    (KPLIB_LOGISTICSMGR_EP_CBO_Y + KPLIB_LOGISTICSMGR_EP_CBO_H + ((RSC + 1) * KPX_SPACING_H) + (RSC * KPLIB_LOGISTICSMGR_BTN_H))
 
 class KPLIB_logisticsMgr_Button : XGUI_PRE_Button {
     h = KPLIB_LOGISTICSMGR_BTN_H;
@@ -146,6 +142,7 @@ class KPLIB_logisticsMgr_lblEndpoint : XGUI_PRE_Label {
     y = KPLIB_LOGISTICSMGR_EP_TITLE_Y;
     w = KPLIB_LOGISTICSMGR_EP_TITLE_W;
     h = KPLIB_LOGISTICSMGR_EP_TITLE_H;
+    style = ST_CENTER;
     // w = ? ; // TODO: TBD: pending the other controls...
 };
 
@@ -207,12 +204,24 @@ class KPLIB_logisticsMgr_lblFuelResource : KPLIB_logisticsMgr_lblEndpointResourc
     text = "$STR_KPLIB_LOGISTICSMGR_LBL_FUE";
 };
 
-class KPLIB_logisticsMgr_txtEndpointResource : XGUI_PRE_ActiveText {
-    x = KPLIB_LOGISTICSMGR_EP_TXT_X;
-    y = KPLIB_LOGISTICSMGR_EP_TXT_Y;
-    w = KPLIB_LOGISTICSMGR_EP_TXT_W;
-    h = KPLIB_LOGISTICSMGR_EP_TXT_H;
+class KPLIB_logisticsMgr_edtEndpointResource : XGUI_PRE_EditText {
+    x = KPLIB_LOGISTICSMGR_EP_EDT_X;
+    w = KPLIB_LOGISTICSMGR_EP_EDT_W;
+    h = KPLIB_LOGISTICSMGR_EP_EDT_H;
     text = "0";
+    onKillFocus = "_this spawn KPLIB_fnc_logisticsMgr_edtResource_onKillFocus";
+};
+
+class KPLIB_logisticsMgr_edtSupplyResource : KPLIB_logisticsMgr_edtEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
+};
+
+class KPLIB_logisticsMgr_edtAmmoResource : KPLIB_logisticsMgr_edtEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
+};
+
+class KPLIB_logisticsMgr_edtFuelResource : KPLIB_logisticsMgr_edtEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
 };
 
 #define KPLIB_LOGISTICSMGR_BTN_CONFIRM_X        KPLIB_LOGISTICSMGR_LNB_TELEMETRY_X
@@ -409,18 +418,18 @@ class KPLIB_logisticsMgr {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_FUEL;
                 };
 
-                class KPLIB_logisticsMgr_txtAlphaSupply : KPLIB_logisticsMgr_txtEndpointResource {
-                    idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_TXT_SUPPLY;
+                class KPLIB_logisticsMgr_edtAlphaSupply : KPLIB_logisticsMgr_edtSupplyResource {
+                    idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_SUPPLY;
                     y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
                 };
 
-                class KPLIB_logisticsMgr_txtAlphaAmmo : KPLIB_logisticsMgr_txtAlphaSupply {
-                    idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_TXT_AMMO;
+                class KPLIB_logisticsMgr_edtAlphaAmmo : KPLIB_logisticsMgr_edtAmmoResource {
+                    idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_AMMO;
                     y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
                 };
 
-                class KPLIB_logisticsMgr_txtAlphaFuel : KPLIB_logisticsMgr_txtAlphaSupply {
-                    idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_TXT_FUEL;
+                class KPLIB_logisticsMgr_edtAlphaFuel : KPLIB_logisticsMgr_edtFuelResource {
+                    idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_FUEL;
                     y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
                 };
             };
@@ -465,16 +474,16 @@ class KPLIB_logisticsMgr {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_LBL_FUEL;
                 };
 
-                class KPLIB_logisticsMgr_txtBravoSupply : KPLIB_logisticsMgr_txtEndpointResource {
-                    idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_TXT_SUPPLY;
+                class KPLIB_logisticsMgr_edtBravoSupply : KPLIB_logisticsMgr_edtSupplyResource {
+                    idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_SUPPLY;
                 };
 
-                class KPLIB_logisticsMgr_txtBravoAmmo : KPLIB_logisticsMgr_txtBravoSupply {
-                    idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_TXT_AMMO;
+                class KPLIB_logisticsMgr_edtBravoAmmo : KPLIB_logisticsMgr_edtAmmoResource {
+                    idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_AMMO;
                 };
 
-                class KPLIB_logisticsMgr_txtBravoFuel : KPLIB_logisticsMgr_txtBravoSupply {
-                    idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_TXT_FUEL;
+                class KPLIB_logisticsMgr_edtBravoFuel : KPLIB_logisticsMgr_edtFuelResource {
+                    idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_FUEL;
                 };
             };
         };
