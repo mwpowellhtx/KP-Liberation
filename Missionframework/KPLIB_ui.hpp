@@ -5,12 +5,12 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-02-07 14:14:04
+    Last Update: 2021-02-26 18:59:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Includes all ui defines, dialogs and elements from each module.
-*/
+ */
 
 #include "CBA\defineCommonGrids.hpp"
 
@@ -40,3 +40,4 @@
 #include "KPGUI\XGUI_defines.hpp"
 #include "KPGUI\XGUI_classes.hpp"
 #include "modules\0415_productionMgr\ui.hpp"
+#include "modules\0450_logisticsMgr\ui.hpp"

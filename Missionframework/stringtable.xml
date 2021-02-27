@@ -70,13 +70,13 @@
     <Package name="General">
         <!-- TODO: TBD: they need to be moved out of the General package (?) -->
         <Key ID="STR_KPLIB_TITLE">
-            <English>CTI 34 KP Liberation v0.98d.dev-s5</English>
+            <English>CTI 34 KP Liberation v0.98d.dev-s7</English>
         </Key>
         <Key ID="STR_SAVE_KEY">
             <English>KP_LIBERATION_%1_SAVEGAME_REWRITE_DEV</English>
         </Key>
         <Key ID="STR_KPLIB_VERSION">
-            <English>v0.98.dev-s5</English>
+            <English>v0.98.dev-s7</English>
         </Key>
         <Key ID="STR_KPLIB_DESCRIPTION">
             <English>Liberate the region from the enemy oppression! Strategy will be key! Good luck soldiers.</English>
@@ -411,7 +411,6 @@
         <Key ID="STR_KPLIB_ACTION_MANAGE_PRODUCTION">
             <English>== MANAGE PRODUCTION ==</English>
         </Key>
-        <!-- TODO: TBD: eventually, also log, for future use... -->
         <Key ID="STR_KPLIB_ACTION_MANAGE_LOGISTICS">
             <English>== MANAGE LOGISTICS ==</English>
         </Key>
@@ -1219,6 +1218,12 @@
 
         <Key ID="STR_KPLIB_DIALOG_PRODUCTIONMGR_TITLE">
             <English>KP Production Manager</English>
+        </Key>
+
+        <!-- LOGISTICS MANAGER -->
+
+        <Key ID="STR_KPLIB_DIALOG_LOGISTICSMGR_TITLE">
+            <English>KP Logistics Manager</English>
         </Key>
 
     </Package>
@@ -2464,7 +2469,7 @@
         </Key>
     </Package>
 
-    <!-- PRODUCTIONMGR -->
+    <!-- PRODUCTIONMGR DIALOG -->
 
     <Package name="ProductionMgr">
         <Key ID="STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_NIL">
@@ -2513,6 +2518,76 @@
         </Key>
         <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_INSUFFICIENTCAP">
             <English>&apos;%1&apos; insufficient production capability to support request.</English>
+        </Key>
+    </Package>
+
+    <!-- LOGISTICSMGR DIALOG -->
+
+    <Package name="LogisticsMgr">
+        <Key ID="STR_KPLIB_LOGISTICSMGR_TXTTIMEREM_NIL">
+            <English>#.##:##:##.###</English>
+            <!--     d.HH:mm:ss.sss -->
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_TXTTIMEREM_IDLE">
+            <English>-.--:--:--.---</English>
+            <!--     d.HH:mm:ss.sss -->
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBLTIMEREM_TEXT">
+            <English>TIME REMAINING:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_LINE_ADD_TEXT">
+            <English>+ADD</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS">
+            <English>Status:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING">
+            <English>Time Remaining:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TRANSPORT_SPEED">
+            <English>Transport Speed:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_ADD">
+            <English>+ADD</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_REMOVE">
+            <English>-REM</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_RECYCLE">
+            <English>-REC</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_IMG_SUP">
+            <English>res\ui_supplies.paa</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_IMG_AMM">
+            <English>res\ui_ammo.paa</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_IMG_FUE">
+            <English>res\ui_fuel.paa</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_SUP">
+            <English>SUP</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_AMM">
+            <English>AMM</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_FUE">
+            <English>FUE</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_REFRESH">
+            <English>REFRESH</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_ALPHA">
+            <English>ALPHA</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_BRAVO">
+            <English>BRAVO</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_MISSION_CONFIRM">
+            <English>+CONFIRM</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_MISSION_ABORT">
+            <English>-ABORT</English>
         </Key>
     </Package>
 </Project>
