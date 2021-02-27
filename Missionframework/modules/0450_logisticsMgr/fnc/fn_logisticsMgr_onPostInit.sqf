@@ -31,6 +31,7 @@ if (!(hasInterface || isDedicated)) then {
 
 if (hasInterface) then {
     // Player section
+    [] call KPLIB_fnc_logisticsMgr_setupPlayerMenu;
 };
 
 if (isServer) then {

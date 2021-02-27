@@ -29,4 +29,58 @@ class logisticsMgr {
 
     // Initializes module CBA settings
     class logisticsMgr_settings {};
+
+    // Setup player menu
+    class logisticsMgr_setupPlayerMenu {};
+
+    // Opens the logistics manager dialog
+    class logisticsMgr_openDialog {};
+
+    // Dialog 'onLoad' event handler
+    class logisticsMgr_onLoad {};
+
+    // Dialog 'onUnload' event handler
+    class logisticsMgr_onUnload {};
+
+    // Lines LISTNBOX 'onLoad' event handler
+    class logisticsMgr_lnbLines_onLoad {};
+
+    // Lines LISTNBOX 'onLBSelChanged' event handler
+    class logisticsMgr_lnbLines_onLBSelChanged {};
+
+    // Line Add CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnLineAdd_onButtonClick {};
+
+    // Line Remove CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnLineRemove_onButtonClick {};
+
+    // Refresh CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnRefresh_onButtonClick {};
+
+    // Telemetry LISTNBOX 'onLoad' event handler
+    class logisticsMgr_lnbTelemetry_onLoad {};
+
+    // Telemetry LISTNBOX 'onLBSelChanged' event handler
+    class logisticsMgr_lnbTelemetry_onLBSelChanged {};
+
+    // Convoy LISTNBOX 'onLoad' event handler
+    class logisticsMgr_lnbConvoy_onLoad {};
+
+    // Convoy LISTNBOX 'onLBSelChanged' event handler
+    class logisticsMgr_lnbConvoy_onLBSelChanged {};
+
+    // Add Transport CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnTransportAdd_onButtonClick {};
+
+    // Recycle Transport CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnTransportRecycle_onButtonClick {};
+
+    // Endpoint CT_COMBO 'onLoad' event handler
+    class logisticsMgr_cboEndpoint_onLoad {};
+
+    // Confirm mission CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnConfirm_onButtonClick {};
+
+    // Abort mission CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnAbort_onButtonClick {};
 };
