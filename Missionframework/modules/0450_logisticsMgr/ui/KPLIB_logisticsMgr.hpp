@@ -187,10 +187,24 @@ class KPLIB_logisticsMgr_imgFuelResource : KPLIB_logisticsMgr_imgEndpointResourc
 
 class KPLIB_logisticsMgr_lblEndpointResource : XGUI_PRE_Label {
     x = KPLIB_LOGISTICSMGR_EP_LBL_X;
-    y = KPLIB_LOGISTICSMGR_EP_LBL_Y;
     w = KPLIB_LOGISTICSMGR_EP_LBL_W;
     h = KPLIB_LOGISTICSMGR_EP_LBL_H;
     text = "";
+};
+
+class KPLIB_logisticsMgr_lblSupplyResource : KPLIB_logisticsMgr_lblEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
+    text = "$STR_KPLIB_LOGISTICSMGR_LBL_SUP";
+};
+
+class KPLIB_logisticsMgr_lblAmmoResource : KPLIB_logisticsMgr_lblEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
+    text = "$STR_KPLIB_LOGISTICSMGR_LBL_AMM";
+};
+
+class KPLIB_logisticsMgr_lblFuelResource : KPLIB_logisticsMgr_lblEndpointResource {
+    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
+    text = "$STR_KPLIB_LOGISTICSMGR_LBL_FUE";
 };
 
 class KPLIB_logisticsMgr_txtEndpointResource : XGUI_PRE_ActiveText {
@@ -383,22 +397,16 @@ class KPLIB_logisticsMgr {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_IMG_FUEL;
                 };
 
-                class KPLIB_logisticsMgr_lblAlphaSupply : KPLIB_logisticsMgr_lblEndpointResource {
+                class KPLIB_logisticsMgr_lblAlphaSupply : KPLIB_logisticsMgr_lblSupplyResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_SUPPLY;
-                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(0);
-                    text = "$STR_KPLIB_LOGISTICSMGR_LBL_SUP";
                 };
 
-                class KPLIB_logisticsMgr_lblAlphaAmmo : KPLIB_logisticsMgr_lblAlphaSupply {
+                class KPLIB_logisticsMgr_lblAlphaAmmo : KPLIB_logisticsMgr_lblAmmoResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_AMMO;
-                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(1);
-                    text = "$STR_KPLIB_LOGISTICSMGR_LBL_AMM";
                 };
 
-                class KPLIB_logisticsMgr_lblAlphaFuel : KPLIB_logisticsMgr_lblAlphaSupply {
+                class KPLIB_logisticsMgr_lblAlphaFuel : KPLIB_logisticsMgr_lblFuelResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_LBL_FUEL;
-                    text = "$STR_KPLIB_LOGISTICSMGR_LBL_FUE";
-                    y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
                 };
 
                 class KPLIB_logisticsMgr_txtAlphaSupply : KPLIB_logisticsMgr_txtEndpointResource {
@@ -445,15 +453,15 @@ class KPLIB_logisticsMgr {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_IMG_FUEL;
                 };
 
-                class KPLIB_logisticsMgr_lblBravoSupply : KPLIB_logisticsMgr_lblEndpointResource {
+                class KPLIB_logisticsMgr_lblBravoSupply : KPLIB_logisticsMgr_lblSupplyResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_LBL_SUPPLY;
                 };
 
-                class KPLIB_logisticsMgr_lblBravoAmmo : KPLIB_logisticsMgr_lblBravoSupply {
+                class KPLIB_logisticsMgr_lblBravoAmmo : KPLIB_logisticsMgr_lblAmmoResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_LBL_AMMO;
                 };
 
-                class KPLIB_logisticsMgr_lblBravoFuel : KPLIB_logisticsMgr_lblBravoSupply {
+                class KPLIB_logisticsMgr_lblBravoFuel : KPLIB_logisticsMgr_lblFuelResource {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_LBL_FUEL;
                 };
 
