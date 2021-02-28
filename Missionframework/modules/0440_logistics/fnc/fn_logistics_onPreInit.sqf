@@ -49,6 +49,21 @@ KPLIB_logistics_status_enRouteAbortingAbandoned
                                             = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_aborted
                                                 + KPLIB_logistics_status_abandoned;
 
+// TODO: TBD: this one is probably "either" server or client side, but more than likely we eventually favor client side only for UI purposes...
+// The first one is a special case, but every other one should be compiled in the report in that order
+KPLIB_logistics_status_reports = [
+    [KPLIB_logistics_status_standby, localize "STR_KPLIB_LOGISTICS_STATUS_STANDBY"]
+    , [KPLIB_logistics_status_loading, localize "STR_KPLIB_LOGISTICS_STATUS_LOADING"]
+    , [KPLIB_logistics_status_enRoute, localize "STR_KPLIB_LOGISTICS_STATUS_EN_ROUTE"]
+    , [KPLIB_logistics_status_aborting, localize "STR_KPLIB_LOGISTICS_STATUS_ABORTING"]
+    , [KPLIB_logistics_status_unloading, localize "STR_KPLIB_LOGISTICS_STATUS_UNLOADING"]
+    , [KPLIB_logistics_status_noResources, localize "STR_KPLIB_LOGISTICS_STATUS_NO_RESOURCES"]
+    , [KPLIB_logistics_status_routeBlocked, localize "STR_KPLIB_LOGISTICS_STATUS_ROUTE_BLOCKED"]
+    , [KPLIB_logistics_status_noSpace, localize "STR_KPLIB_LOGISTICS_STATUS_NO_SPACE"]
+    , [KPLIB_logistics_status_ambushed, localize "STR_KPLIB_LOGISTICS_STATUS_AMBUSHED"]
+    , [KPLIB_logistics_status_abandoned, localize "STR_KPLIB_LOGISTICS_STATUS_ABANDONED"]
+];
+
 
 /*
     ----- Module Initialization -----

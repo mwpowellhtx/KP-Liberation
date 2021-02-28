@@ -78,6 +78,9 @@ class logistics {
     // Returns the logistics namespace aligned with the given UUID
     class logistics_getNamespaceByUuid {};
 
+    // Returns an enumerated status report composed of human readable decoded status bits
+    class logistics_getStatusReport {};
+
     // Whether ALPHA bill values have been fulfilled
     class logistics_hasAlphaBillValues {};
 
