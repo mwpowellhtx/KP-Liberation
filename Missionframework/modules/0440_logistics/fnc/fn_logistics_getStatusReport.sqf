@@ -25,6 +25,10 @@ params [
     ["_status", KPLIB_logistics_status_standby, [0]]
 ];
 
+if (_status < KPLIB_logistics_status_standby) exitWith {
+    toUpper (localize "STR_KPLIB_LOGISTICS_STATUS_NA");
+};
+
 if (_status == KPLIB_logistics_status_standby) exitWith {
     toUpper (KPLIB_logistics_status_reports#0#1);
 };
