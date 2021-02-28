@@ -157,7 +157,7 @@ class KPLIB_logisticsMgr_cboEndpoint : XGUI_PRE_Combo {
     //          {_gridref, _markerText}
     columns[] = {       0,        0.25};
 
-    onLoad = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLoad";
+    onLoad = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLoadDummyData";
     onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLBSelChanged";
 };
 

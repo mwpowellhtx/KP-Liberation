@@ -76,7 +76,7 @@ class logisticsMgr {
     class logisticsMgr_btnTransportRecycle_onButtonClick {};
 
     // Endpoint CT_COMBO 'onLoad' event handler
-    class logisticsMgr_cboEndpoint_onLoad {};
+    class logisticsMgr_cboEndpoint_onLoadDummyData {};
 
     // Resource CT_EDIT 'onKeyUp' event handler
     class logisticsMgr_edtResource_onKeyUp {};
