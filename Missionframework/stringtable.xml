@@ -2524,6 +2524,9 @@
     <!-- LOGISTICS -->
 
     <Package name="Logistics">
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_NA">
+            <English>(n/a)</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICS_STATUS_STANDBY">
             <English>Standby</English>
         </Key>
@@ -2575,6 +2578,9 @@
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT">
             <English>Status Report:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_DURATION">
+            <English>Duration:</English>
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING">
             <English>Time Remaining:</English>
