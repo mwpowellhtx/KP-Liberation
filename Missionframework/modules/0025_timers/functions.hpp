@@ -4,12 +4,12 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 02:38:42
-    Last Update: 2021-02-03 17:41:29
+    Last Update: 2021-02-28 12:05:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Defines for all functions, which are brought by this module.
-*/
+ */
 
 class timers {
     file = "modules\0025_timers\fnc";
@@ -60,6 +60,6 @@ class timers {
     // Returns whether the timer instance has tripped
     class timers_hasTripped {};
 
-    // Returns the rendered timer to string format, "#.##:##:##"
-    class timers_renderTimeRemainingString {};
+    // Returns the rendered timer component to string format, "#.##:##:##"
+    class timers_renderComponentString {};
 };
