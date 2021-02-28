@@ -51,21 +51,23 @@ private _testStatus = [
 for "_i" from 0 to 19 do {
 
     private _status = selectRandom _testStatus;
+    private _statusReport = [_status] call KPLIB_fnc_logistics_getStatusReport;
 
     private _timer = +KPLIB_timers_default;
+    private _renderedTimeRemaining = _timer call KPLIB_fnc_timers_renderTimeRemainingString;
 
     private _speedKph = random [40, 100, 150];
-    private _renderedSpeed = format ["%1 kph", _speedKph toFixed  1];
+    private _renderedSpeed = format ["%1 kph", _speedKph toFixed 2];
 
     private _data = [
-        [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS", [_status] call KPLIB_fnc_logistics_getStatusReport]
-        , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING", _timer call KPLIB_fnc_timers_renderTimeRemainingString]
+        [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT", _statusReport]
+        , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING", _renderedTimeRemaining]
         , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TRANSPORT_SPEED", _renderedSpeed]
     ];
 
     {
-        private _datum = _x;
-        _lnbTelemetry lnbAddRow (_datum apply { toUpper _x; });
+        private _datum = _x apply { toUpper _x; };
+        _lnbTelemetry lnbAddRow _datum;
     } forEach _data;
 };
 

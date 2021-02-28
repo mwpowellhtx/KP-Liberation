@@ -26,7 +26,7 @@ params [
 ];
 
 if (_status == KPLIB_logistics_status_standby) exitWith {
-    (KPLIB_logistics_status_reports#0#1);
+    toUpper (KPLIB_logistics_status_reports#0#1);
 };
 
 private _reports = KPLIB_logistics_status_reports select {

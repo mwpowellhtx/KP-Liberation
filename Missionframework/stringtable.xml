@@ -2573,8 +2573,8 @@
         <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_LINE_ADD_TEXT">
             <English>+ADD</English>
         </Key>
-        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS">
-            <English>Status:</English>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT">
+            <English>Status Report:</English>
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING">
             <English>Time Remaining:</English>
@@ -2590,6 +2590,9 @@
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_RECYCLE">
             <English>-REC</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_TRANSPORT">
+            <English>Transport</English>
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_IMG_SUP">
             <English>res\ui_supplies.paa</English>

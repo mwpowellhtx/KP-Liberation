@@ -359,8 +359,9 @@ class KPLIB_logisticsMgr {
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
 
-            //          { _img, _label}
-            columns[] = {-0.01,    0.3};
+            //          { _i, _img, _sum, _img, _sum, _img, _sum}
+            columns[] = {  0,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7};
+            // Resources: _i, SUPPLY ^^^, AMMO ^^^^^, FUEL ^^^^^
 
             onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLoad";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLBSelChanged";

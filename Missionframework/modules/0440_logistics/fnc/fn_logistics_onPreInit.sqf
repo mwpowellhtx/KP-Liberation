@@ -45,9 +45,7 @@ KPLIB_logistics_status_abortingAmbushed     = KPLIB_logistics_status_aborting   
 KPLIB_logistics_status_abortingBlocked      = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_routeBlocked;
 KPLIB_logistics_status_abortingAbandoned    = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_abandoned;
 
-KPLIB_logistics_status_enRouteAbortingAbandoned
-                                            = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_aborted
-                                                + KPLIB_logistics_status_abandoned;
+KPLIB_logistics_status_enRouteAbortingAbandoned = KPLIB_logistics_status_enRoute + KPLIB_logistics_status_aborting + KPLIB_logistics_status_abandoned;
 
 // TODO: TBD: this one is probably "either" server or client side, but more than likely we eventually favor client side only for UI purposes...
 // The first one is a special case, but every other one should be compiled in the report in that order
