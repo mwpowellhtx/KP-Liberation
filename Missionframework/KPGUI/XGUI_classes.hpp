@@ -25,6 +25,10 @@ class XGUI_PRE_Label : KPGUI_PRE_Label {
     sizeEx = KPX_TEXT_M;
 };
 
+// Slider
+class XGUI_PRE_Slider : KPGUI_PRE_Slider {
+};
+
 // Edit text
 class XGUI_PRE_EditText : KPGUI_PRE_EditText {
 };

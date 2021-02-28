@@ -648,7 +648,7 @@ class KPGUI_PRE_XListBox {
 class KPGUI_PRE_Slider {
     deletable = 0;
     fade = 0;
-    type = 43;
+    type = CT_XSLIDER;
     color[] = {1, 1, 1, 0.6};
     colorActive[] = {1, 1, 1, 0.6};
     colorDisable[] = {1, 1, 1, 0.4};
