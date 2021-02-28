@@ -70,14 +70,20 @@ _actualPos = /* insert valid 3D position */ ;
 _transitDir = /* a valid heading */ ;
 _actualDir = /* a valid heading */ ;
 
+// Basically a 2D associative array mapping the TELEMETRY HASHMAP
 _telemetry = [
-    _transportSpeedMps
-    , _totalDistanceMeters
-    , _transitDistanceMeters
-    , _transitPos
-    , _transitDir
-    , _actualPos
-    , _actualDir
+    ["_status", -1]                         // status, i.e. 'KPLIB_logistics_status_*'
+    , ["_duration", KPLIB_timers_disabled]  // seconds
+    , ["_timeRemaining", 0]                 // seconds
+    , ["_transportSpeed", 0]                // kilometers per hour (kph)
+    , ["_totalDistance", 0]                 // meters
+    , ["_transitDistance", 0]               // meters
+    , ["_transitPos", [0, 0, 0]]            // 3D position
+    , ["_transitDir", 0]
+    , ["_transitGridref", ""]               // i.e. '012345'
+    , ["_actualPos", [0, 0, 0]]             // 3D position
+    , ["_actualDir", 0]
+    , ["_actualGridref", ""]                // i.e. '012345'
 ];
 
 _transportRebateValue = [

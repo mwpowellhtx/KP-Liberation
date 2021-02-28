@@ -23,11 +23,16 @@ params [
     , ["_config", configNull, [configNull]]
 ];
 
-lnbClear _lnbLines;
+private _lines = [];
 
-for "_i" from 0 to 99 do {
-    private _mil = [_i] call KPLIB_fnc_common_indexToMilitaryAlpha;
-    _lnbLines lnbAddRow [_mil];
+while {count _lines < 100} do {
+    private _line = +KPLIB_logistics_tupleTemplate;
+    _line set [0, [] call KPLIB_fnc_uuid_create_string];
+    _lines pushBack _line;
 };
+
+uiNamespace setVariable ["KPLIB_logistics_lines", _lines];
+
+[_lnbLines, _config] call KPLIB_fnc_logisticsMgr_lnbLines_onLoad;
 
 true;

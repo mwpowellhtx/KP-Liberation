@@ -23,11 +23,39 @@ params [
     , ["_config", configNull, [configNull]]
 ];
 
+private _getRowCount = {
+    params [
+        ["_lnb", controlNull, [controlNull]]
+    ];
+    (lnbSize _lnb)#0;
+};
+
+private _lines = uiNamespace getVariable ["KPLIB_logistics_lines", []];
+private _lineCount = count _lines;
+
+// In order to re-select the currently selected row...
+private _selectedRow = lnbCurSelRow _lnbLines;
+
 lnbClear _lnbLines;
 
-for "_i" from 0 to 99 do {
+for "_i" from 0 to (_lineCount - 1) do {
+
+    (_lines select _i) params [
+        ["_uuid", "", [""]]
+    ];
+
+    // Assuming that lines are presented in a deterministic system wide order
     private _mil = [_i] call KPLIB_fnc_common_indexToMilitaryAlpha;
-    _lnbLines lnbAddRow [_mil];
+
+    private _rowIndex = _lnbLines lnbAddRow [_mil];
+
+    // Logistics line requests begin by knowing the corresponding UUID
+    _lnbLines lnbSetData [[_rowIndex, 0], _uuid];
+};
+
+// Re-select any rows that might have been previously selected
+if (_selectedRow >= 0 && _selectedRow < ([_lnbLines] call _getRowCount)) then {
+    _lnbLines lnbSetCurSelRow _selectedRow;
 };
 
 true;

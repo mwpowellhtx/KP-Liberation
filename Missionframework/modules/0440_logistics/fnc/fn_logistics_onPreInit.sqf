@@ -25,6 +25,7 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
+KPLIB_logistics_status_na                   =  -1;
 KPLIB_logistics_status_standby              =   0;
 KPLIB_logistics_status_loading              =   1;
 KPLIB_logistics_status_enRoute              =   2;
@@ -69,6 +70,31 @@ KPLIB_logistics_status_reports = [
 
 // Process CBA Settings
 [] call KPLIB_fnc_logistics_settings;
+
+/* Should be "simple" primitive data, no HASHMAP or other objects... It might be useful here
+ * for "all" both server and clients, for UI and for server side serialization purposes. */
+KPLIB_logistics_tupleTemplate = +[
+    [] call KPLIB_fnc_uuid_create_string
+    , KPLIB_logistics_status_na
+    , KPLIB_timers_default
+    , []            // ALPHA and BRAVO endpoints, empty for STANDBY
+    , []            // CONVOY, array of 'KPLIB_resources_storageValue' shaped elements
+    , [
+        ["_status", KPLIB_logistics_status_na]
+        , ["_duration", KPLIB_timers_disabled]
+        , ["_timeRemaining", 0]
+        , ["_transportSpeed", 0]
+        , ["_totalDistance", 0]
+        , ["_transitDistance", 0]
+        , ["_transitPos", [0, 0, 0]]
+        , ["_transitDir", 0]
+        , ["_transitGridref", ""]
+        , ["_actualPos", [0, 0, 0]]
+        , ["_actualDir", 0]
+        , ["_actualGridref", ""]
+    ]
+    // TODO: TBD: may append other bits, like transport economics, cost and recycle specs, etc, etc...
+];
 
 if (isServer) then {
 
