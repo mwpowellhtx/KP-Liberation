@@ -28,6 +28,10 @@ if (_index < 0) exitWith {
 private _bits = [];
 private _count = count KPLIB_preset_alphabetF;
 
-private _alphaValues = [_index, count KPLIB_preset_alphabetF + 1] call KPLIB_fnc_math_convertDecimalToBaseRadix;
+private _alphaValues = [_index, count KPLIB_preset_alphabetF] call KPLIB_fnc_math_convertDecimalToBaseRadix;
 
-(_alphaValues apply {KPLIB_preset_alphabetF select _x}) joinString " ";
+// Such that high order bits are presented first
+reverse _alphaValues;
+
+// "Alpha ..." is assumed for lines appearing earlier in the set...
+(_alphaValues apply { (KPLIB_preset_alphabetF select _x); }) joinString " ";
