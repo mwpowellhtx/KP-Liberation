@@ -37,7 +37,7 @@ _ident params [
     ["_markerName", "", [""]]
 ];
 
-private _viewData = _timer call KPLIB_fnc_timers_renderTimeRemainingString;
+private _viewData = _timer call KPLIB_fnc_timers_renderComponentString;
 
 if (_debug) then {
     [format ["[fn_productionMgr_productionElemViews_onTimeRem] Fini: [_viewData, _markerName]: %1"
