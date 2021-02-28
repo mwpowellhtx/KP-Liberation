@@ -25,9 +25,20 @@ params [
     ["_edtResource", controlNull, [controlNull]]
 ];
 
-private _selection = ctrlTextSelection _edtResource;
+// // TODO: TBD: not doing this any more, on losing focus, parse the number...
+// private _selection = ctrlTextSelection _edtResource;
+// // Which respects the selection position, direction, and clears the selection to zero (0)
+// _edtResource ctrlSetTextSelection [(_selection#0)+(_selection#1), 0];
 
-// Which respects the selection position, direction, and clears the selection to zero (0)
-_edtResource ctrlSetTextSelection [(_selection#0)+(_selection#1), 0];
+private _raw = ctrlText _edtResource;
+
+// And ensure that we disallow negative numbers...
+private _zed = 0;
+
+private _filtered = str (_zed max (parseNumber _raw));
+
+_edtResource ctrlSetText _filtered;
+
+_edtResource ctrlSetTextSelection [count _filtered, 0];
 
 true;

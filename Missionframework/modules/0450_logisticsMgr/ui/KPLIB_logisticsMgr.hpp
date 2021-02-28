@@ -204,11 +204,22 @@ class KPLIB_logisticsMgr_lblFuelResource : KPLIB_logisticsMgr_lblEndpointResourc
     text = "$STR_KPLIB_LOGISTICSMGR_LBL_FUE";
 };
 
+// TODO: TBD: may go with a slider approach, i.e. XGUI_PRE_Slider
+// TODO: TBD: along the lines of the A3 game options, CBA settings, i.e. "Label: [< slider >] [editbox]"
+// https://community.bistudio.com/wiki/CT_STATIC
+// https://community.bistudio.com/wiki/CT_SLIDER
+// https://community.bistudio.com/wiki/Arma:_GUI_Configuration#Control_Types
+// https://github.com/CBATeam/CBA_A3/tree/master/addons/settings
+
+// TODO: TBD: so the A3 game options numeric slider+editbox does not bother to filter much...
+// TODO: TBD: but it does seem to be able to detect changes, so what is the event (?)
 class KPLIB_logisticsMgr_edtEndpointResource : XGUI_PRE_EditText {
     x = KPLIB_LOGISTICSMGR_EP_EDT_X;
     w = KPLIB_LOGISTICSMGR_EP_EDT_W;
     h = KPLIB_LOGISTICSMGR_EP_EDT_H;
     text = "0";
+    onKeyUp = "_this spawn KPLIB_fnc_logisticsMgr_edtResource_onKeyUp";
+    onChar = "_this spawn KPLIB_fnc_logisticsMgr_edtResource_onChar";
     onKillFocus = "_this spawn KPLIB_fnc_logisticsMgr_edtResource_onKillFocus";
 };
 
