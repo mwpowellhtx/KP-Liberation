@@ -26,7 +26,8 @@ params [
 lnbClear _lnbLines;
 
 for "_i" from 0 to 99 do {
-    _lnbLines lnbAddRow [str _i, "This Is A Test"];
+    private _mil = [_i] call KPLIB_fnc_common_indexToMilitaryAlpha;
+    _lnbLines lnbAddRow [_mil];
 };
 
 true;

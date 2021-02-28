@@ -292,8 +292,8 @@ class KPLIB_logisticsMgr {
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
 
-            //          {_grid, _markerText}
-            columns[] = {-0.01,         0.2};
+            //          { _mil}
+            columns[] = {-0.01};
 
             onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoad";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLBSelChanged";
