@@ -2521,6 +2521,41 @@
         </Key>
     </Package>
 
+    <!-- LOGISTICS -->
+
+    <Package name="Logistics">
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_STANDBY">
+            <English>Standby</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_LOADING">
+            <English>Loading</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_EN_ROUTE">
+            <English>En route</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_ABORTING">
+            <English>Aborting</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_UNLOADING">
+            <English>Unloading</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_NO_RESOURCES">
+            <English>No resources</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_ROUTE_BLOCKED">
+            <English>Route blocked</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_NO_SPACE">
+            <English>No space</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_AMBUSHED">
+            <English>Ambushed</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_STATUS_ABANDONED">
+            <English>Abandoned</English>
+        </Key>
+    </Package>
+
     <!-- LOGISTICSMGR DIALOG -->
 
     <Package name="LogisticsMgr">

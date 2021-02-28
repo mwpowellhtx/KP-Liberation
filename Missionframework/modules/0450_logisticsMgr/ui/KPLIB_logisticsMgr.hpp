@@ -342,9 +342,8 @@ class KPLIB_logisticsMgr {
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
 
-            // // TODO: TBD: ...
-            ////          { _img, _label, _cap, _prod, _totals, _crates}
-            //columns[] = {-0.01,  0.075,  0.2,  0.35,     0.5,     0.6};
+            //          {_telemetry, _value}
+            columns[] = {     -0.01,   0.45};
 
             onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoad";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLBSelChanged";
