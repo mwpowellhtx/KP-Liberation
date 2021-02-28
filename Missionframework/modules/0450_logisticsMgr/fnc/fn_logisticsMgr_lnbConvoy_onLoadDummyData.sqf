@@ -12,7 +12,7 @@
 
     Parameters:
         _lnbConvoy - the logistics convoy LISTNBOX control [CONTROL, default: controlNull]
-        _config - the config
+        _config - the config [CONFIG, default: configNull]
 
     Returns:
         The event handler finished [BOOL]
@@ -25,54 +25,27 @@
 
 params [
     ["_lnbConvoy", controlNull, [controlNull]]
-    , "_config"
+    , ["_config", configNull, [configNull]]
 ];
 
-lnbClear _lnbConvoy;
+// "Get" random convoy resource values, in the shape of 'KPLIB_resources_storageValue'
+private _getRandomResourceValue = { random [0, 150, 300]; };
 
-private _transportPlaceholder = toUpper localize "STR_KPLIB_LOGISTICSMGR_LBL_TRANSPORT";
-private _picturePlaceholder = "";
+private _convoy = [];
 
-_lnbConvoy lnbAddRow [
-    _transportPlaceholder
-    , _picturePlaceholder
-    , localize "STR_KPLIB_LOGISTICSMGR_LBL_SUP"
-    , _picturePlaceholder
-    , localize "STR_KPLIB_LOGISTICSMGR_LBL_AMM"
-    , _picturePlaceholder
-    , localize "STR_KPLIB_LOGISTICSMGR_LBL_FUE"
-];
-
-{
-    private _resourceColumnIndex = (2 * (_forEachIndex + 1)) - 1;
-    private _resourcePath = localize _x;
-    private _pos = [0, _resourceColumnIndex];
-    _lnbConvoy lnbSetPicture [_pos, _resourcePath];
-} forEach [
-    "STR_KPLIB_LOGISTICSMGR_IMG_SUP"
-    , "STR_KPLIB_LOGISTICSMGR_IMG_AMM"
-    , "STR_KPLIB_LOGISTICSMGR_IMG_FUE"
-];
-
-private _numberPlaceholder = "";
-
-private _get = { (random [0, 150, 300]) toFixed 0; };
-
-for "_i" from 1 to 20 do {
-
-    private _transportNumber = str _i;
-
-    private _rowIndex = _lnbConvoy lnbAddRow [
-        _transportNumber
-        , _numberPlaceholder
-        , [] call _get
-        , _numberPlaceholder
-        , [] call _get
-        , _numberPlaceholder
-        , [] call _get
+while {count _convoy < 10} do {
+    _convoy pushBack [
+        [] call _getRandomResourceValue
+        , [] call _getRandomResourceValue
+        , [] call _getRandomResourceValue
     ];
-
-    _lnbConvoy lnbSetTextRight [[_rowIndex, 0], _transportNumber];
 };
+
+_lnbConvoy setVariable ["KPLIB_logisticsMgr_convoy", _convoy];
+
+// TODO: TBD: for initial use only...
+systemChat format ["[fn_logisticsMgr_lnbConvoy_onLoadDummyData] [typeName _config]: %1", str [typeName _config]];
+
+[_lnbConvoy, _config] call KPLIB_fnc_logisticsMgr_lnbConvoy_onLoad;
 
 true;

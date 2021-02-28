@@ -4,15 +4,15 @@
     File: fn_logisticsMgr_lnbTelemetry_onLoadDummyData.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-27 15:14:51
-    Last Update: 2021-02-27 15:14:54
+    Last Update: 2021-02-28 11:34:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        ...
+        The TELEMETRY LISTNBOX 'onLoad' event handler for dummy data use only.
 
     Parameters:
         _lnbTelemetry - the logistics telemetry LISTNBOX control [CONTROL, default: controlNull]
-        _config - the config
+        _config - the config [CONFIG, default: configNull]
 
     Returns:
         The event handler finished [BOOL]
@@ -20,10 +20,12 @@
 
 params [
     ["_lnbTelemetry", controlNull, [controlNull]]
-    , "_config"
+    , ["_config", configNull, [configNull]]
 ];
 
-lnbClear _lnbTelemetry;
+uiNamespace setVariable ["KPLIB_logisticsMgr_lnbTelemetry", _lnbTelemetry];
+
+[_lnbTelemetry] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onClear;
 
 private _testStatus = [
     KPLIB_logistics_status_standby
@@ -47,28 +49,14 @@ private _testStatus = [
     , KPLIB_logistics_status_enRouteAbortingAbandoned
 ];
 
-// TODO: TBD: Of course we would not have more than one of these instances, but this is for illustration purposes...
-for "_i" from 0 to 19 do {
+private _status = selectRandom _testStatus;
+private _timer = +KPLIB_timers_default;
+private _speedKph = random [40, 100, 150];
 
-    private _status = selectRandom _testStatus;
-    private _statusReport = [_status] call KPLIB_fnc_logistics_getStatusReport;
+// Update the TELEMETRY REPORT with some dummy data...
+[_status, _timer, _speedKph] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onUpdateReport;
 
-    private _timer = +KPLIB_timers_default;
-    private _renderedTimeRemaining = _timer call KPLIB_fnc_timers_renderTimeRemainingString;
-
-    private _speedKph = random [40, 100, 150];
-    private _renderedSpeed = format ["%1 kph", _speedKph toFixed 2];
-
-    private _data = [
-        [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT", _statusReport]
-        , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING", _renderedTimeRemaining]
-        , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TRANSPORT_SPEED", _renderedSpeed]
-    ];
-
-    {
-        private _datum = _x apply { toUpper _x; };
-        _lnbTelemetry lnbAddRow _datum;
-    } forEach _data;
-};
+// And refresh the TELEMETRY LISTNBOX ...
+[] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onRefresh;
 
 true;

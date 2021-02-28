@@ -42,6 +42,9 @@ class logisticsMgr {
     // Dialog 'onUnload' event handler
     class logisticsMgr_onUnload {};
 
+    // Lines LISTNBOX 'onLoad' event handler
+    class logisticsMgr_lnbLines_onLoad {};
+
     // Lines LISTNBOX 'onLoad' dummy data event handler
     class logisticsMgr_lnbLines_onLoadDummyData {};
 
@@ -57,11 +60,32 @@ class logisticsMgr {
     // Refresh CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnRefresh_onButtonClick {};
 
+    // Gets the TELEMETRY REPORT HASHMAP from the 'uiNamespace', creating one if necessary
+    class logisticsMgr_lnbTelemetry_getReport {};
+
+    // Refreshes the TELEMETRY LISTNBOX with the current REPORT HASHMAP bits
+    class logisticsMgr_lnbTelemetry_onRefresh {};
+
+    // Updates the TELEMETRY REPORT HASHMAP with up to the moment details
+    class logisticsMgr_lnbTelemetry_onUpdateReport {};
+
+    // Clears the TELEMETRY LISTNBOX and prepares it to receive HASHMAP reports
+    class logisticsMgr_lnbTelemetry_onClear {};
+
+    // Responds to the TELEMETRY LISTNBOX 'onLoad' event by clearing and staging the bits for subsequent use
+    class logisticsMgr_lnbTelemetry_onLoad {};
+
     // Telemetry LISTNBOX 'onLoad' dummy data event handler
     class logisticsMgr_lnbTelemetry_onLoadDummyData {};
 
     // Telemetry LISTNBOX 'onLBSelChanged' event handler
     class logisticsMgr_lnbTelemetry_onLBSelChanged {};
+
+    // Clears the Convoy LISTNBOX during 'onLoad' and prepares it to receive transport value
+    class logisticsMgr_lnbConvoy_onClear {};
+
+    // Convoy LISTNBOX 'onLoad' event handler
+    class logisticsMgr_lnbConvoy_onLoad {};
 
     // Convoy LISTNBOX 'onLoad' dummy data event handler
     class logisticsMgr_lnbConvoy_onLoadDummyData {};
@@ -76,6 +100,9 @@ class logisticsMgr {
     class logisticsMgr_btnTransportRecycle_onButtonClick {};
 
     // Endpoint CT_COMBO 'onLoad' event handler
+    class logisticsMgr_cboEndpoint_onLoad {};
+
+    // Endpoint CT_COMBO 'onLoad' dummy data event handler
     class logisticsMgr_cboEndpoint_onLoadDummyData {};
 
     // Resource CT_EDIT 'onKeyUp' event handler

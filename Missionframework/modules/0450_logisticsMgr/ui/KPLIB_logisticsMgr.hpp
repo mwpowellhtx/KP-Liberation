@@ -403,6 +403,7 @@ class KPLIB_logisticsMgr {
                 // https://community.bistudio.com/wiki/CT_LISTBOX
                 class KPLIB_logisticsMgr_cboAlpha : KPLIB_logisticsMgr_cboEndpoint {
                     idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_CBO;
+                    endpoint = "alpha";
                 };
 
                 class KPLIB_logisticsMgr_imgAlphaSupply : KPLIB_logisticsMgr_imgSupplyResource {
@@ -459,6 +460,7 @@ class KPLIB_logisticsMgr {
 
                 class KPLIB_logisticsMgr_cboBravo : KPLIB_logisticsMgr_cboEndpoint {
                     idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_CBO;
+                    endpoint = "bravo";
                 };
 
                 class KPLIB_logisticsMgr_imgBravoSupply : KPLIB_logisticsMgr_imgSupplyResource {
