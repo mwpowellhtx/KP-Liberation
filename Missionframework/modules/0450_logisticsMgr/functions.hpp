@@ -42,8 +42,8 @@ class logisticsMgr {
     // Dialog 'onUnload' event handler
     class logisticsMgr_onUnload {};
 
-    // Lines LISTNBOX 'onLoad' event handler
-    class logisticsMgr_lnbLines_onLoad {};
+    // Lines LISTNBOX 'onLoad' dummy data event handler
+    class logisticsMgr_lnbLines_onLoadDummyData {};
 
     // Lines LISTNBOX 'onLBSelChanged' event handler
     class logisticsMgr_lnbLines_onLBSelChanged {};
@@ -57,14 +57,14 @@ class logisticsMgr {
     // Refresh CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnRefresh_onButtonClick {};
 
-    // Telemetry LISTNBOX 'onLoad' event handler
-    class logisticsMgr_lnbTelemetry_onLoad {};
+    // Telemetry LISTNBOX 'onLoad' dummy data event handler
+    class logisticsMgr_lnbTelemetry_onLoadDummyData {};
 
     // Telemetry LISTNBOX 'onLBSelChanged' event handler
     class logisticsMgr_lnbTelemetry_onLBSelChanged {};
 
-    // Convoy LISTNBOX 'onLoad' event handler
-    class logisticsMgr_lnbConvoy_onLoad {};
+    // Convoy LISTNBOX 'onLoad' dummy data event handler
+    class logisticsMgr_lnbConvoy_onLoadDummyData {};
 
     // Convoy LISTNBOX 'onLBSelChanged' event handler
     class logisticsMgr_lnbConvoy_onLBSelChanged {};

@@ -295,7 +295,7 @@ class KPLIB_logisticsMgr {
             //          { _mil}
             columns[] = {-0.01};
 
-            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoad";
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoadDummyData";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLBSelChanged";
         };
 
@@ -345,7 +345,7 @@ class KPLIB_logisticsMgr {
             //          {_telemetry, _value}
             columns[] = {     -0.01,   0.45};
 
-            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoad";
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoadDummyData";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLBSelChanged";
         };
 
@@ -363,7 +363,7 @@ class KPLIB_logisticsMgr {
             columns[] = {  0,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7};
             // Resources: _i, SUPPLY ^^^, AMMO ^^^^^, FUEL ^^^^^
 
-            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLoad";
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLoadDummyData";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLBSelChanged";
         };
 

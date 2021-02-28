@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoad
+    KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoadDummyData
 
-    File: fn_logisticsMgr_lnbTelemetry_onLoad.sqf
+    File: fn_logisticsMgr_lnbTelemetry_onLoadDummyData.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-27 15:14:51
     Last Update: 2021-02-27 15:14:54
