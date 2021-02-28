@@ -15,6 +15,9 @@
 
     Returns:
         NONE
+
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/events/fnc_addEventHandler-sqf.html
  */
 
 if (isServer) then {
@@ -24,7 +27,13 @@ if (isServer) then {
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
-    // TODO: TBD: warm up the SM instance here...
+    // TODO: TBD: replace "createNamespace" with "createStatemachine"...
+    // TODO: TBD: but for now, do this, since we know it is a namespace...
+    KPLIB_logisticsSM_namespace = [] call CBA_fnc_createNamespace;
+
+    // Listen for client Logistics Manager dialog announcements...
+    ["KPLIB_logistics_onLogisticsMgrOpened", KPLIB_fnc_logisticsSM_onLogisticsMgrOpened] call CBA_fnc_addEventHandler;
+    ["KPLIB_logistics_onLogisticsMgrClosed", KPLIB_fnc_logisticsSM_onLogisticsMgrClosed] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

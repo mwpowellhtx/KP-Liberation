@@ -29,4 +29,10 @@ class logisticsSM {
 
     // Initializes the CBA settings
     class logisticsSM_settings {};
+
+    // Logistics SM 'KPLIB_logistics_onLogisticsMgrOpened' CBA server event handler
+    class logisticsSM_onLogisticsMgrOpened {};
+
+    // Logistics SM 'KPLIB_logistics_onLogisticsMgrClosed' CBA server event handler
+    class logisticsSM_onLogisticsMgrClosed {};
 };
