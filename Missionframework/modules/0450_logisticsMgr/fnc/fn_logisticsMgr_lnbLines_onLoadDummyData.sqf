@@ -25,6 +25,7 @@ params [
 
 private _lines = [];
 
+// TODO: TBD: may refactor this to server side for test purposes, and a full-fledged tuple, including telemetry, convoy, etc...
 while {count _lines < 100} do {
     private _line = +KPLIB_logistics_tupleTemplate;
     _line set [0, [] call KPLIB_fnc_uuid_create_string];
