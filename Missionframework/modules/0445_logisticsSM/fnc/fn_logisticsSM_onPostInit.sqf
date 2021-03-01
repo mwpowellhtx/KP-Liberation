@@ -27,6 +27,29 @@ if (isServer) then {
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
+    // TODO: TBD: refactor as proper function...
+    KPLIB_fnc_logisticsSM_getTransportDebit = {
+        params [
+            ["_transportBaseCost", KPLIB_param_logistics_transportBaseCost, [0]]
+        ];
+        [
+            _transportBaseCost      // supply debit
+            , 0                     // ammo debit
+            , _transportBaseCost    // fuel debit
+        ];
+    };
+
+    // TODO: TBD: for now, doing it this way...
+    // TODO: TBD: but it opens the mission up for gaming the system...
+    KPLIB_fnc_logisticsSM_getTransportCredit = {
+        params [
+            ["_transportBaseCost", KPLIB_param_logistics_transportBaseCost, [0]]
+        ];
+        private _factor = KPLIB_param_logistics_transportRecycleValue / 100;
+        private _debit = [_transportBaseCost] call KPLIB_fnc_logisticsSM_getTransportDebit;
+        _debit apply { _x * _factor; };
+    };
+
     // TODO: TBD: replace "createNamespace" with "createStatemachine"...
     // TODO: TBD: but for now, do this, since we know it is a namespace...
     KPLIB_logisticsSM_namespace = [] call CBA_fnc_createNamespace;
@@ -40,6 +63,10 @@ if (isServer) then {
 
     // Allow for line change requests via client server event handling
     ["KPLIB_logisticsSM_requestLineChange", KPLIB_fnc_logisticsSM_onRequestLineChange] call CBA_fnc_addEventHandler;
+
+    // Allow for building and recycling convoy transports
+    [KPLIB_logisticsSM_transportRequest_build, KPLIB_fnc_logisticsSM_onRequestTransportBuild] call CBA_fnc_addEventHandler;
+    [KPLIB_logisticsSM_transportRequest_recycle, KPLIB_fnc_logisticsSM_onRequestTransportRecycle] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

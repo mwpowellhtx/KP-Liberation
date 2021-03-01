@@ -39,6 +39,15 @@ class logisticsSM {
     // Publishes to the client logistics line tuples converted from 'KPLIB_logistics_namespaces'
     class logisticsSM_onPublishLines {};
 
+    // Broadcasts the logistics lines to all currently registered logistics manager listeners
+    class logisticsSM_onBroadcastLines {};
+
     // Request to either add or remove some UUID to or from the CBA logistic namespaces
     class logisticsSM_onRequestLineChange {};
+
+    // Client requests convoy transport build
+    class logisticsSM_onRequestTransportBuild {}
+
+    // Client requests convoy transport recycle
+    class logisticsSM_onRequestTransportRecycle {}
 };

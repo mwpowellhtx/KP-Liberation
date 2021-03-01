@@ -96,26 +96,20 @@ _toAdd = _toAdd apply { [] call KPLIB_fnc_uuid_create_string; };
 private _removed = _toRemove select _onSelectRemoved;
 private _added = _toAdd select _onSelectAdded;
 
-// TODO: TBD: notify the client, or turn around and re-publish...
-private _cids = KPLIB_logisticsSM_namespace getVariable ["KPLIB_logistics_cids", []];
+private _broadcast = [] call KPLIB_fnc_logisticsSM_onBroadcastLines;
 
 private _counts = [
     count _added
     , count _removed
-    , {
-        // Publish the new set of logistics lines to all cataloged managers
-        [_x] call KPLIB_fnc_logisticsSM_onPublishLines;
-        true;
-    } count _cids
 ];
 
 private _retval = (_counts#0) == (count _toAdd)
     && (_counts#1) == (count _toRemove)
-    && (_counts#2) == (count _cids);
+    && _broadcast;
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onRequestLineChange] Fini: [_toAdd, _toRemove, count _cids, _counts]: %1"
-        , str [_toAdd, _toRemove, count _cids, _counts]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onRequestLineChange] Fini: [_toAdd, _toRemove, _counts, _broadcast]: %1"
+        , str [_toAdd, _toRemove, _counts, _broadcast]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 _retval;

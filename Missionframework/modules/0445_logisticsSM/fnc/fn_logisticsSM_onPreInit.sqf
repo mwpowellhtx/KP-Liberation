@@ -25,6 +25,10 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
+// Dots connecting across client server boundaries including UI event handling scaffolding
+KPLIB_logisticsSM_transportRequest_build        = "KPLIB_logisticsSM_requestTransportBuild";
+KPLIB_logisticsSM_transportRequest_recycle      = "KPLIB_logisticsSM_recycleTransportBuild";
+
 
 /*
     ----- Module Initialization -----
@@ -35,10 +39,13 @@ if (isServer) then {
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
-    KPLIB_logisticsSM_onPublishLines_debug          = true;
-    KPLIB_logisticsSM_onLogisticsMgrOpened_debug    = true;
-    KPLIB_logisticsSM_onLogisticsMgrClosed_debug    = true;
-    KPLIB_logisticsSM_onRequestLineChange_debug     = true;
+    KPLIB_logisticsSM_onPublishLines_debug              = false;
+    KPLIB_logisticsSM_onBroadcastLines_debug            = false;
+    KPLIB_logisticsSM_onLogisticsMgrOpened_debug        = false;
+    KPLIB_logisticsSM_onLogisticsMgrClosed_debug        = false;
+    KPLIB_logisticsSM_onRequestLineChange_debug         = false;
+    KPLIB_logisticsSM_onRequestTransportBuild_debug     = true;
+    KPLIB_logisticsSM_onRequestTransportRecycle_debug   = true;
 };
 
 if (!(hasInterface || isDedicated)) then {
