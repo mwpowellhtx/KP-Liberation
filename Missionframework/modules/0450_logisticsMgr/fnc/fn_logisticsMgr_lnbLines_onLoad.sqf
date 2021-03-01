@@ -8,7 +8,9 @@
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        ...
+        LINES LISTNBOX 'onLoad' event handler. Takes care of some bookkeeping by caching
+        the control instance in the UI namespace, and posts a request to the server to
+        publish the current lines.
 
     Parameters:
         _lnbLines - the logistics lines LISTNBOX control [CONTROL, default: controlNull]
