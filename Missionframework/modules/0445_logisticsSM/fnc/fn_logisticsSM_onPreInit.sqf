@@ -38,6 +38,7 @@ if (isServer) then {
     KPLIB_logisticsSM_onPublishLines_debug          = true;
     KPLIB_logisticsSM_onLogisticsMgrOpened_debug    = true;
     KPLIB_logisticsSM_onLogisticsMgrClosed_debug    = true;
+    KPLIB_logisticsSM_onRequestLineChange_debug     = true;
 };
 
 if (!(hasInterface || isDedicated)) then {

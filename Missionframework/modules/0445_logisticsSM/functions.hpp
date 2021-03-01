@@ -38,4 +38,7 @@ class logisticsSM {
 
     // Publishes to the client logistics line tuples converted from 'KPLIB_logistics_namespaces'
     class logisticsSM_onPublishLines {};
+
+    // Request to either add or remove some UUID to or from the CBA logistic namespaces
+    class logisticsSM_onRequestLineChange {};
 };

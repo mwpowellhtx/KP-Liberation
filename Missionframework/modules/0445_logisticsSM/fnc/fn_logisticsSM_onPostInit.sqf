@@ -37,6 +37,9 @@ if (isServer) then {
 
     // Requests for updates may occur secondarily to dialog opening, and regularly during SM publisher states
     ["KPLIB_logisticsSM_publishLines", KPLIB_fnc_logisticsSM_onPublishLines] call CBA_fnc_addEventHandler;
+
+    // Allow for line change requests via client server event handling
+    ["KPLIB_logisticsSM_requestLineChange", KPLIB_fnc_logisticsSM_onRequestLineChange] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

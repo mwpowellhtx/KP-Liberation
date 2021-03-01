@@ -57,9 +57,6 @@ class logistics {
     // Verifies that the CBA namespace has adequate variable support to be considered a logistics namespace
     class logistics_verifyNamespace {};
 
-    // Request to either add or remove some UUID to or from the CBA logistic namespaces
-    class logistics_onLineRequest {};
-
     // Transport 'build' event handler
     class logistics_onTransportBuild {};
 
