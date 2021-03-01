@@ -373,7 +373,7 @@ class KPLIB_logisticsMgr {
             y = KPLIB_LOGISTICSMGR_BTN_TRANSPORT_Y;
             w = KPLIB_LOGISTICSMGR_BTN_TRANSPORT_W;
 
-            text = "$STR_KPLIB_LOGISTICSMGR_BTN_ADD";
+            text = "$STR_KPLIB_LOGISTICSMGR_BTN_BUILD";
 
             // Yes, with event names extending from the SM module
             onButtonClick = "(_this + [KPLIB_logisticsSM_transportRequest_build]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";

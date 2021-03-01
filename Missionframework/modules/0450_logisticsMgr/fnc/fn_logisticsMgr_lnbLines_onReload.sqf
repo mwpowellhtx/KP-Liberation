@@ -31,6 +31,9 @@ private _debug = [
     ]
 ] call KPLIB_fnc_logisticsMgr_debug;
 
+// (Re-)set the selection approaching the new set of things...
+uiNamespace setVariable ["KPLIB_logisticsMgr_selectedLine", nil];
+
 private _lnbLines = uiNamespace getVariable ["KPLIB_logisticsMgr_lnbLines", controlNull];
 
 if (_debug) then {

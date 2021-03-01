@@ -2551,6 +2551,9 @@
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME_TT">
             <English>Transport loading and unloading time for each transport during the loading logistics phase, in seconds.</English>
         </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_TRANSPORT_REQUEST_LINE_NOT_SELECTED">
+            <English>Select a line in order to submit the transport request.</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_CANNOT_BUILD">
             <English>Convoy transport cannot be built at this time.\nStatus report: '%1'</English>
         </Key>
@@ -2619,12 +2622,6 @@
             <English>-.--:--:--.---</English>
             <!--     d.HH:mm:ss.sss -->
         </Key>
-        <Key ID="STR_KPLIB_LOGISTICSMGR_LBLTIMEREM_TEXT">
-            <English>TIME REMAINING:</English>
-        </Key>
-        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_LINE_ADD_TEXT">
-            <English>+ADD</English>
-        </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT">
             <English>Status Report:</English>
         </Key>
@@ -2646,8 +2643,11 @@
         <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_REMOVE">
             <English>-REM</English>
         </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_BUILD">
+            <English>+BUILD</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_RECYCLE">
-            <English>-REC</English>
+            <English>-RECYCLE</English>
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LBL_TRANSPORT">
             <English>Transport</English>

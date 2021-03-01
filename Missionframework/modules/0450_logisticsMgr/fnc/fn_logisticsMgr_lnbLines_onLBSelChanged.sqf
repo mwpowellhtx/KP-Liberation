@@ -40,7 +40,7 @@ if (_debug) then {
 
 private _lines = uiNamespace getVariable ["KPLIB_logistics_lines", []];
 
-if ((_selectedIndex + 1) > count _lines) exitWith {
+if (_selectedIndex < 0 || (_selectedIndex + 1) > count _lines) exitWith {
 
     if (_debug) then {
         [format ["[fn_logisticsMgr_lnbLines_onLBSelChanged] Index out of range: [count _lines, _selectedIndex]: %1"

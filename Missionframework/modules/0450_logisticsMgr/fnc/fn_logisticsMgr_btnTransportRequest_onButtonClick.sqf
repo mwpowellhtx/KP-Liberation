@@ -47,6 +47,7 @@ if (_lineUuid isEqualTo "") exitWith {
     if (_debug) then {
         ["[fn_logisticsMgr_btnTransportRequest_onButtonClick] Line not selected", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
     };
+    [localize "STR_KPLIB_LOGISTICS_MSG_TRANSPORT_REQUEST_LINE_NOT_SELECTED"] spawn KPLIB_fnc_notification_hint;
     false;
 };
 

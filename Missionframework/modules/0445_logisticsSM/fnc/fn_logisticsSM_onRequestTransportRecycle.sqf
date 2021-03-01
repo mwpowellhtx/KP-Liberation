@@ -67,7 +67,7 @@ if (_convoyIndex < 0) exitWith {
             , str [_targetUuid, _targetFobMarker, _convoyIndex, _cid]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
     };
     _msg = localize "STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_RECYCLE_EMPTY";
-    [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+    [_msg, 7] remoteExec ["KPLIB_fnc_notification_hint", _cid];
     false;
 };
 
