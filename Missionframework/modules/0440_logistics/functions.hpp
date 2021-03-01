@@ -57,12 +57,6 @@ class logistics {
     // Verifies that the CBA namespace has adequate variable support to be considered a logistics namespace
     class logistics_verifyNamespace {};
 
-    // Transport 'build' event handler
-    class logistics_onTransportBuild {};
-
-    // Transport 'recycle' event handler
-    class logistics_onTransportRecycle {};
-
     // Returns whether the ALPHA and BRAVO endpoints combination is equal in either direction
     class logistics_areEndpointsEqual {};
 

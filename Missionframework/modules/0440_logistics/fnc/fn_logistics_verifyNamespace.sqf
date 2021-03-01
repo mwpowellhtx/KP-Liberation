@@ -34,10 +34,10 @@ if (isNull _namespace) exitWith {
 
 private _candidate = [
     _namespace getVariable ["KPLIB_logistics_uuid", ""]
-    , _namespace getVariable ["KPLIB_logistics_status", -1]
+    , _namespace getVariable ["KPLIB_logistics_status", KPLIB_logistics_status_na]
     , _namespace getVariable ["KPLIB_logistics_timer", []]
     , _namespace getVariable ["KPLIB_logistics_endpoints", []]
-    , _namespace getVariable ["KPLIB_logistics_transportValues", []]
+    , _namespace getVariable ["KPLIB_logistics_convoy", []]
 ];
 
 [_candidate] call KPLIB_fnc_logistics_verifyArray;

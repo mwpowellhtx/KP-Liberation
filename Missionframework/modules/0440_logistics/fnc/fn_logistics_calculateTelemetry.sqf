@@ -35,9 +35,10 @@ params [
 // TODO: TBD: indicate whether blockage has occurred, etc
 // TODO: TBD: if on standby then should estimate distance, duration, assuming the same, etc...
 
-private _status = _namespace getVariable ["KPLIB_logistics_status", 0];
+private _status = _namespace getVariable ["KPLIB_logistics_status", KPLIB_logistics_status_standby];
 
-if (_status == 0) exitWith {
+if (_status <= KPLIB_logistics_status_standby) exitWith {
+    // TODO: TBD: should log this...
     false;
 };
 

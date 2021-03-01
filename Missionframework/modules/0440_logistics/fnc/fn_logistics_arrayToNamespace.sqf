@@ -35,10 +35,10 @@ _namespace = [] call CBA_fnc_createNamespace;
 
 _logistic params [
     ["_uuid", "", [""]]
-    , ["_status", 0, [0]]
+    , ["_status", KPLIB_logistics_status_standby, [0]]
     , ["_timer", +KPLIB_timers_default, [[]]]
     , ["_endpoints", [], [[]]]
-    , ["_transportValues", [], [[]]]
+    , ["_convoy", [], [[]]]
     , ["_telemetry", [], [[]]]
 ];
 
@@ -47,7 +47,7 @@ private _varSpecs = [
     , ["KPLIB_logistics_status", _status]
     , ["KPLIB_logistics_timer", _timer]
     , ["KPLIB_logistics_endpoints", _endpoints]
-    , ["KPLIB_logistics_transportValues", _transportValues]
+    , ["KPLIB_logistics_convoy", _convoy]
 ];
 
 private _onInstallVarSpec = {

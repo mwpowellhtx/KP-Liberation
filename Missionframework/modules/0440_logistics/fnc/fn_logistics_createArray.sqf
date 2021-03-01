@@ -25,12 +25,12 @@ params [
 private _endpoints = [];
 
 // Likewise no transports are assigned to new lines
-private _transportValues = [];
+private _convoy = [];
 
 +[
     _uuid
     , KPLIB_logistics_status_standby
     , KPLIB_timers_default
     , _endpoints
-    , _transportValues
+    , _convoy
 ];

@@ -45,32 +45,31 @@ _bravo params [
     ["_bravoPos", _zeroPos, [[]]]
 ];
 
-/* This is the server side equivalent to the client side Logistics Manager
- * TELEMETRY LISTNBOX view. This is a map, from the server side CBA namespace
- * variables, to Logistics Manager TELEMETRY LISTNBOX and HASHMAP keys. */
-
-private _timerDefault = +KPLIB_timers_default;
+/* This is the server side equivalent to the client side Logistics Manager TELEMETRY LISTNBOX
+ * view, for bits not otherwise identified by the parent LOGISTICS LINE tuple itself. This is
+ * a map, from the server side CBA namespace variables, to Logistics Manager TELEMETRY LISTNBOX
+ * and HASHMAP keys. */
 
 private _telemetrySpecs = [
-    ["KPLIB_logistics_telemetry_totalDistanceMeters", "_totalDistance", (_alphaPos distance2D _bravoPos)]
-    , ["KPLIB_logistics_telemetry_transitDistanceMeters", "_transitDistance", 0]
-    , ["KPLIB_logistics_telemetry_transportSpeedMps", "_transportSpeed", _transportSpeedMps]
-    , ["KPLIB_logistics_telemetry_transitPos", "_transitPos", +_alphaPos]
-    , ["KPLIB_logistics_telemetry_transitDir", "_transitDir", (_alphaPos getDir _bravoPos)]
-    , ["KPLIB_logistics_telemetry_actualPos", "_actualPos", +_alphaPos]
-    , ["KPLIB_logistics_telemetry_actualDir", "_actualDir", 0]
+    ["KPLIB_logistics_telemetry_totalDistanceMeters", KPLIB_logistics_telemetry_totalDistance, (_alphaPos distance2D _bravoPos)]
+    , ["KPLIB_logistics_telemetry_transitDistanceMeters", KPLIB_logistics_telemetry_transitDistance, 0]
+    , ["KPLIB_logistics_telemetry_transportSpeed", KPLIB_logistics_telemetry_transportSpeed, (_transportSpeedMps/KPLIB_uom_kph_to_mps)]
+    , ["KPLIB_logistics_telemetry_transitPos", KPLIB_logistics_telemetry_transitPos, +_alphaPos]
+    , ["KPLIB_logistics_telemetry_transitDir", KPLIB_logistics_telemetry_transitDir, (_alphaPos getDir _bravoPos)]
+    , ["KPLIB_logistics_telemetry_actualPos", KPLIB_logistics_telemetry_actualPos, +_alphaPos]
+    , ["KPLIB_logistics_telemetry_actualDir", KPLIB_logistics_telemetry_actualDir, 0]
 ];
 
-private _onGetTelemetrySpec = {
+private _onGetAssociativeTelemetryArray = {
     _x params [
         ["_variableName", "", [""]]
-        , ["_telemetryName", "", [""]]
+        , ["_assocPairKey", "", [""]]
         , "_defaultValue"
     ];
-    private _value = _namespace getVariable [_variableName, _defaultValue];
-    [_telemetryName, _value];
+    private _assocPairValue = _namespace getVariable [_variableName, _defaultValue];
+    [_assocPairKey, _assocPairValue];
 };
 
-private _telemetry = (_telemetrySpecs apply _onGetTelemetrySpec);
+private _telemetry = (_telemetrySpecs apply _onGetAssociativeTelemetryArray);
 
 _telemetry;

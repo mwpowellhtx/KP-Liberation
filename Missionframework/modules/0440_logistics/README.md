@@ -107,7 +107,7 @@ _transportRebateValues = [
     , _status
     , _timer
     , _endpoints
-    , _transportValues
+    , _transportValues  // AKA _convoy
     , _telemetry
     , _transportRebateValues
 ];
@@ -203,7 +203,7 @@ In terms of namespace variables, the following variables are used to feed a _CBA
 * `KPLIB_logistics_status` - The _status_ variable.
 * `KPLIB_logistics_timer` - The _timer_ variable.
 * `KPLIB_logistics_endpoints` - The _endpoints_ pair, `[_alphaEndpoint, _bravoEndpoint]`.
-* `KPLIB_logistics_transportValues` - The `_transportValues` associated with the logistics asset.
+* `KPLIB_logistics_transportValues` - The `_transportValues` associated with the logistics asset. Better named `KPLIB_logistics_convoy` or `_convoy`.
 * `KPLIB_logistics__transportRebateValues` - The `_transportRebateValues` associated with _transport recycle requests_. Should be aligned with the `KPLIB_logistics_transportValues`. Optional, defaults drawn from the current CBA settings, which is why this feature is a worthwhile loop to close, to avoid gaming the system.
 
 And for _telemetry_, especially as a function of `KPLIB_logistics_status`:

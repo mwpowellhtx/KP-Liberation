@@ -37,6 +37,7 @@ KPLIB_logistics_status_noSpace              =  64;
 KPLIB_logistics_status_ambushed             = 128;
 KPLIB_logistics_status_abandoned            = 256;
 
+KPLIB_logistics_status_loadingUnloading     = KPLIB_logistics_status_loading    + KPLIB_logistics_status_unloading;
 KPLIB_logistics_status_loadingNoResoures    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResources;
 KPLIB_logistics_status_unloadingNoSpace     = KPLIB_logistics_status_unloading  + KPLIB_logistics_status_noSpace;
 KPLIB_logistics_status_enRouteAmbushed      = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_ambushed;
@@ -70,6 +71,16 @@ KPLIB_logistics_status_reports = [
 
 // Process CBA Settings
 [] call KPLIB_fnc_logistics_settings;
+
+// Used to identify TELEMETRY associative bits from the logistics LINE tuple shape
+KPLIB_logistics_telemetry_totalDistance     = "_totalDistance";
+KPLIB_logistics_telemetry_transitDistance   = "_transitDistance";
+KPLIB_logistics_telemetry_transportSpeed    = "_transportSpeed";
+KPLIB_logistics_telemetry_transitPos        = "_transitPos";
+KPLIB_logistics_telemetry_transitPos        = "_transitPos";
+KPLIB_logistics_telemetry_transitDir        = "_transitDir";
+KPLIB_logistics_telemetry_actualPos         = "_actualPos";
+KPLIB_logistics_telemetry_actualDir         = "_actualDir";
 
 /* Should be "simple" primitive data, no HASHMAP or other objects... It might be useful here
  * for "all" both server and clients, for UI and for server side serialization purposes. */
@@ -109,7 +120,7 @@ if (isServer) then {
         params [
             ["_totalDistance", 0, [0]]
             , ["_transitDistance", 0, [0]]
-            , ["_transportSpeedMps", 0, [0]]
+            , ["_transportSpeed", 0, [0]]
             , ["_transitPos", _zeroPos, [[]]]
             , ["_transitDir", 0, [0]]
             , ["_actualPos", _zeroPos, [[]]]
@@ -119,7 +130,7 @@ if (isServer) then {
         [
             _totalDistance
             , _transitDistance
-            , _transportSpeedMps
+            , _transportSpeed       // Assumed that we pass speed around in KPH terms
             , _transitPos
             , _transitDir
             , _actualPos

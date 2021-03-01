@@ -28,23 +28,23 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
-private _status = _namespace getVariable ["KPLIB_logistics_status", 0];
-private _transportValues = _namespace getVariable ["KPLIB_logistics_transportValues", []];
+private _status = _namespace getVariable ["KPLIB_logistics_status", KPLIB_logistics_status_standby];
+private _convoy = _namespace getVariable ["KPLIB_logistics_convoy", []];
 
 private _default = -1;
 
-if (_transportValues isEqualTo []) exitWith {
+if (_convoy isEqualTo []) exitWith {
     // TODO: TBD: do some logging
     _default;
 };
 
 // Load and unload from the front forward...
 if ([_status, KPLIB_logistics_status_loading] call BIS_fnc_bitflagsCheck) exitWith {
-    _transportValues findIf { (_x isEqualTo KPLIB_resources_storageValueDefault); };
+    _convoy findIf { (_x isEqualTo KPLIB_resources_storageValueDefault); };
 };
 
 if ([_status, KPLIB_logistics_status_unloading] call BIS_fnc_bitflagsCheck) exitWith {
-    _transportValues findIf { !(_x isEqualTo KPLIB_resources_storageValueDefault); };
+    _convoy findIf { !(_x isEqualTo KPLIB_resources_storageValueDefault); };
 };
 
 _default;

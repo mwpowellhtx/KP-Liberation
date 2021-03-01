@@ -51,7 +51,7 @@ private _defaultDir = (_alphaPos getDir _bravoPos);
 _telemetry params [
     ["_totalDistance", _alphaBravoDistance, [0]]
     , ["_transitDistance", 0, [0]]
-    , ["_transportSpeedMps", _newSpeedMpsDefaultValue, [0]]
+    , ["_transportSpeed", (_newSpeedMpsDefaultValue / KPLIB_uom_kph_to_mps), [0]]
     , ["_transitPos", _defaultPos, [[]], 3]
     , ["_transitDir", _defaultDir, [0]]
     , ["_actualPos", _defaultPos, [[]], 3]
@@ -62,7 +62,7 @@ _telemetry params [
 private _telemetrySpecs = [
     ["KPLIB_logistics_telemetry_totalDistanceMeters", _totalDistance]
     , ["KPLIB_logistics_telemetry_transitDistanceMeters", _transitDistance]
-    , ["KPLIB_logistics_telemetry_transportSpeedMps", _transportSpeedMps]
+    , ["KPLIB_logistics_telemetry_transportSpeed", _transportSpeed]
     , ["KPLIB_logistics_telemetry_transitPos", _transitPos]
     , ["KPLIB_logistics_telemetry_transitDir", _transitDir]
     , ["KPLIB_logistics_telemetry_actualPos", _actualPos]

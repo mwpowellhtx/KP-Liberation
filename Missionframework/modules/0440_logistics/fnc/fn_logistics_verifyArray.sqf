@@ -52,7 +52,7 @@ _candidate params [
     , ["_status", 0, [0]]
     , ["_timer", [], [[]]]
     , ["_endpoints", [], [[]]]
-    , ["_transportValues", [], [[]]]
+    , ["_convoy", [], [[]]]
 ];
 
 [
@@ -60,13 +60,13 @@ _candidate params [
     , _status >= 0
     , _timer call KPLIB_fnc_timers_verify
     , count _endpoints
-    , _transportValues select { (_x isEqualTypeArray KPLIB_resources_storageValueDefault); }
+    , _convoy select { (_x isEqualTypeArray KPLIB_resources_storageValueDefault); }
 ] params [
     ["_uuidValid", false, [false]]
     , ["_statusValid", false, [false]]
     , ["_timerValid", false, [false]]
     , ["_endpointCount", 0, [0]]
-    , ["_validTransportValues", [], [[]]]
+    , ["_validConvoy", [], [[]]]
 ];
 
 // TODO: TBD: perhaps other bits we can verify here...
@@ -111,10 +111,10 @@ if (!(
     false;
 };
 
-if (!(_validTransportValues isEqualTo _transportValues)) exitWith {
+if (!(_validConvoy isEqualTo _convoy)) exitWith {
     if (_debug) then {
-        [format ["[fn_logistics_verifyArray] Invalid transports: [_uuid, _status, _timer, _endpoints, _transportValues]: %1"
-            , str [_uuid, _status, _timer, _endpoints, _transportValues]], "LOGISTICS", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logistics_verifyArray] Invalid transports: [_uuid, _status, _timer, _endpoints, _convoy]: %1"
+            , str [_uuid, _status, _timer, _endpoints, _convoy]], "LOGISTICS", true] call KPLIB_fnc_common_log;
     };
     false;
 };
