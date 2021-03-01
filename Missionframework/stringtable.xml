@@ -2528,28 +2528,49 @@
             <English>KPLIB - Logistics</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_BASE_COST">
-            <English>Transport Base Cost:</English>
+            <English>Transport Base Cost</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_BASE_COST_TT">
             <English>The supply and fuel cost to build a logistics line convoy transport.</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_RECYCLE_VALUE">
-            <English>Transport Recycle Value:</English>
+            <English>Transport Recycle Value</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_RECYCLE_VALUE_TT">
             <English>Percentage of the base cost which may be redeemeded as credit upon recycling of a convoy transport.</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_SPEED_KPH">
-            <English>Transport Speed:</English>
+            <English>Transport Speed</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_SPEED_KPH_TT">
             <English>Transport speed used to calibrate transit times between endpoints, in kilometers per hour (kph).</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME">
-            <English>Transport Load Time:</English>
+            <English>Transport Load Time</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME_TT">
             <English>Transport loading and unloading time for each transport during the loading logistics phase, in seconds.</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_CANNOT_BUILD">
+            <English>Convoy transport cannot be built at this time.\nStatus report: '%1'</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_INSUFFICIENT_RESOURCES">
+            <English>Insufficient resources to build convoy transport.\nDebit: [%1S, %2A, %3F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_INSUFFICIENT_SPACE">
+            <English>Insufficient space to recycle convoy transport.\nCredit: [%1S, %2A, %3F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_BUILT">
+            <English>Convoy transport built.\nDebit: [%1S, %2A, %3F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_RECYCLE_EMPTY">
+            <English>Convoy empty, no transports to recycle.</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_RECYCLED">
+            <English>Convoy transport recycled.\nCredit: [%1S, %2A, %3F]</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_CANNOT_RECYCLE">
+            <English>Convoy transport cannot be recycled at this time.</English>
         </Key>
 
         <Key ID="STR_KPLIB_LOGISTICS_STATUS_NA">
@@ -2609,6 +2630,9 @@
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_DURATION">
             <English>Duration:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ELAPSED_TIME">
+            <English>Elapsed Time:</English>
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING">
             <English>Time Remaining:</English>
