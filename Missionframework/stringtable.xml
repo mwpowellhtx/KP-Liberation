@@ -2521,9 +2521,37 @@
         </Key>
     </Package>
 
-    <!-- LOGISTICS -->
+    <!-- LOGISTICS CATEGORY -->
 
     <Package name="Logistics">
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS">
+            <English>KPLIB - Logistics</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_BASE_COST">
+            <English>Transport Base Cost:</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_BASE_COST_TT">
+            <English>The supply and fuel cost to build a logistics line convoy transport.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_RECYCLE_VALUE">
+            <English>Transport Recycle Value:</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_RECYCLE_VALUE_TT">
+            <English>Percentage of the base cost which may be redeemeded as credit upon recycling of a convoy transport.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_SPEED_KPH">
+            <English>Transport Speed:</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_SPEED_KPH_TT">
+            <English>Transport speed used to calibrate transit times between endpoints, in kilometers per hour (kph).</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME">
+            <English>Transport Load Time:</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME_TT">
+            <English>Transport loading and unloading time for each transport during the loading logistics phase, in seconds.</English>
+        </Key>
+
         <Key ID="STR_KPLIB_LOGISTICS_STATUS_NA">
             <English>(n/a)</English>
         </Key>
