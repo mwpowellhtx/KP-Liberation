@@ -41,7 +41,6 @@ if (_debug) then {
 private _lines = uiNamespace getVariable ["KPLIB_logistics_lines", []];
 
 if (_selectedIndex < 0 || (_selectedIndex + 1) > count _lines) exitWith {
-
     if (_debug) then {
         [format ["[fn_logisticsMgr_lnbLines_onLBSelChanged] Index out of range: [count _lines, _selectedIndex]: %1"
             , str [count _lines, _selectedIndex]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
@@ -49,10 +48,10 @@ if (_selectedIndex < 0 || (_selectedIndex + 1) > count _lines) exitWith {
 
     uiNamespace setVariable ["KPLIB_logisticsMgr_selectedLine", nil];
 
-    // // TODO: TBD: we'll get there re: TELEM... for now focused on wiring up the CONVOY itself...
-    //uiNamespace setVariable ["KPLIB_logisticsMgr_telemetry", nil];
-    //[true] call KPLIB_fnc_logisticsMgr_lnbTelemetry_getReport;
-    //[] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onRefresh;
+    // Clear the TELEMETRY data, obtain a zeroed HASHMAP report, and refresh
+    uiNamespace setVariable ["KPLIB_logisticsMgr_telemetry", nil];
+    [true] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onUpdateReport;
+    [] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onRefresh;
 
     uiNamespace setVariable ["KPLIB_logisticsMgr_convoy", []];
     [] call KPLIB_fnc_logisticsMgr_lnbConvoy_onReload;
@@ -85,10 +84,13 @@ _endpoints params [
     , ["_bravo", [], [[]]]
 ];
 
-// // TODO: TBD: ditto TELEM versus CONVOY...
-//uiNamespace setVariable ["KPLIB_logisticsMgr_telemetry", _telemetry];
-//[false, [_status, _timer]] call KPLIB_fnc_logisticsMgr_lnbTelemetry_getReport;
-//[] spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onRefresh;
+/* Inject the actual TELEMETRY, obtain status and timer HASHMAP report, and refresh. Remember, now, however,
+ * "telemetry" published by the server to the client are now associative key/value pairs; mapping string names
+ * to primitive values. */
+
+uiNamespace setVariable ["KPLIB_logisticsMgr_telemetry", _telemetry];
+[false, [_status, _timer]] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onUpdateReport;
+[] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onRefresh;
 
 uiNamespace setVariable ["KPLIB_logisticsMgr_convoy", _convoy];
 [] call KPLIB_fnc_logisticsMgr_lnbConvoy_onReload;

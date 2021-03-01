@@ -69,6 +69,9 @@ class logisticsMgr {
     // Gets the TELEMETRY REPORT HASHMAP from the 'uiNamespace', creating one if necessary
     class logisticsMgr_lnbTelemetry_getReport {};
 
+    // Updates the TELEMETRY HASHMAP report given nominal arguments
+    class logisticsMgr_lnbTelemetry_onUpdateReport {};
+
     // Refreshes the TELEMETRY LISTNBOX with the current REPORT HASHMAP bits
     class logisticsMgr_lnbTelemetry_onRefresh {};
 

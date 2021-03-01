@@ -343,9 +343,9 @@ class KPLIB_logisticsMgr {
             rowHeight = KPX_TITLE_S_H;
 
             //          {_telemetry, _value}
-            columns[] = {     -0.01,   0.45};
+            columns[] = {      0.01,   0.45};
 
-            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoadDummyData";
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoad";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLBSelChanged";
         };
 
