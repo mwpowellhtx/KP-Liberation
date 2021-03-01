@@ -292,10 +292,10 @@ class KPLIB_logisticsMgr {
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
 
-            //          { _mil}
-            columns[] = {-0.01};
+            //          {_mil}
+            columns[] = {   0};
 
-            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoadDummyData";
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoad";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLBSelChanged";
         };
 

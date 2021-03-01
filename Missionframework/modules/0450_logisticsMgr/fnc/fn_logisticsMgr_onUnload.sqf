@@ -21,12 +21,22 @@
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers
  */
 
+private _debug = [
+    [
+        {KPLIB_logisticsMgr_onUnload_debug}
+    ]
+] call KPLIB_fnc_logisticsMgr_debug;
+
 params [
     ["_display", displayNull, [displayNull]]
 ];
 
+if (_debug) then {
+    ["[fn_logisticsMgr_onUnload] Entering", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+};
+
 // Announce to the server...
-["KPLIB_logiticsSM_onLogisticsMgrClosed", [clientOwner]] call CBA_fnc_serverEvent;
+["KPLIB_logisticsSM_onLogisticsMgrClosed", [clientOwner]] call CBA_fnc_serverEvent;
 
 // And unload bits from the 'uiNamespace' ...
 uiNamespace setVariable ["KPLIB_logisticsMgr_display", nil];
@@ -47,5 +57,9 @@ uiNamespace setVariable ["KPLIB_logistics_convoy", nil];
 // // TODO: TBD: but since it is effectively a singleton useful for one purpose only, should be fine...
 // // TODO: TBD: will leave it in for now...
 //uinamespace setVariable ["KPLIB_logisticsMgr_telemetryReport", nil];
+
+if (_debug) then {
+    ["[fn_logisticsMgr_onUnload] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+};
 
 true;

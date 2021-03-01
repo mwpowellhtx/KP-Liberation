@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-24 14:55:07
-    Last Update: 2021-02-25 13:20:58
+    Last Update: 2021-02-28 16:51:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -35,4 +35,7 @@ class logisticsSM {
 
     // Logistics SM 'KPLIB_logistics_onLogisticsMgrClosed' CBA server event handler
     class logisticsSM_onLogisticsMgrClosed {};
+
+    // Publishes to the client logistics line tuples converted from 'KPLIB_logistics_namespaces'
+    class logisticsSM_onPublishLines {};
 };

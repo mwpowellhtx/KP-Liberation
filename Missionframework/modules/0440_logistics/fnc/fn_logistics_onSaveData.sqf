@@ -27,7 +27,9 @@ if (_debug) then {
 [
     "logistics"
     , [
-        KPLIB_logistics_namespaces apply { [_x] call KPLIB_fnc_logistics_namespaceToArray; }
+        // // TODO: TBD: now, not saving anything while we work out client server integration bits...
+        // KPLIB_logistics_namespaces apply { [_x] call KPLIB_fnc_logistics_namespaceToArray; }
+        []
     ]
 ] call KPLIB_fnc_init_setSaveData;
 

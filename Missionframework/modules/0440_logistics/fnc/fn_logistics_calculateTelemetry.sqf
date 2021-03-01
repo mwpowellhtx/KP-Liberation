@@ -9,7 +9,9 @@
 
     Description:
         Recalculates logistics asset telemetry based on any new information, changes in
-        transport velocity from the most recent telemetry, etc. Should include side effects like impact to status flags, etc.
+        transport velocity from the most recent telemetry, etc. Should include side effects
+        like impact to status flags, etc. Server side we only keep track of a few additional
+        bits of detail in addition to the core logistics elements.
 
     Parameters:
         _targetUuid - the target UUID of the CBA logistics namespace to recycle transport [STRING, default: ""]
@@ -55,12 +57,14 @@ _endpoints params [
     , ["_bravo", [], [[]]]
 ];
 
+private _zeroPos = +KPLIB_zeroPos;
+
 _alpha params [
-    ["_alphaPos", +KPLIB_zeroPos, [[]]]
+    ["_alphaPos", _zeroPos, [[]]]
 ];
 
 _bravo params [
-    ["_bravoPos", +KPLIB_zeroPos, [[]]]
+    ["_bravoPos", _zeroPos, [[]]]
 ];
 
 private _newTransportSpeedMps = [] call KPLIB_fnc_logistics_calculateTransportSpeedMps;

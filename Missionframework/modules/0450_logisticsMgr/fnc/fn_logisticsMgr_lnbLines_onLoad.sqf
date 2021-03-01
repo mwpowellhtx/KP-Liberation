@@ -18,44 +18,29 @@
         The event handler finished [BOOL]
  */
 
+private _debug = [
+    [
+        {KPLIB_logisticsMgr_lnbLines_onLoad_debug}
+    ]
+] call KPLIB_fnc_logisticsMgr_debug;
+
 params [
     ["_lnbLines", controlNull, [controlNull]]
     , ["_config", configNull, [configNull]]
 ];
 
-private _getRowCount = {
-    params [
-        ["_lnb", controlNull, [controlNull]]
-    ];
-    (lnbSize _lnb)#0;
+if (_debug) then {
+    [format ["[fn_logisticsMgr_lnbLines_onLoad] Entering: [isNull _lnbLines]: %1"
+        , str [isNull _lnbLines]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
-private _lines = uiNamespace getVariable ["KPLIB_logistics_lines", []];
-private _lineCount = count _lines;
+// We are really for only for the bookkeeping, which the actual row updates occur via sister callbacks
+uiNamespace setVariable ["KPLIB_logisticsMgr_lnbLines", _lnbLines];
 
-// In order to re-select the currently selected row...
-private _selectedRow = lnbCurSelRow _lnbLines;
+["KPLIB_logisticsSM_publishLines", [clientOwner]] call CBA_fnc_serverEvent;
 
-lnbClear _lnbLines;
-
-for "_i" from 0 to (_lineCount - 1) do {
-
-    (_lines select _i) params [
-        ["_uuid", "", [""]]
-    ];
-
-    // Assuming that lines are presented in a deterministic system wide order
-    private _mil = [_i] call KPLIB_fnc_common_indexToMilitaryAlpha;
-
-    private _rowIndex = _lnbLines lnbAddRow [_mil];
-
-    // Logistics line requests begin by knowing the corresponding UUID
-    _lnbLines lnbSetData [[_rowIndex, 0], _uuid];
-};
-
-// Re-select any rows that might have been previously selected
-if (_selectedRow >= 0 && _selectedRow < ([_lnbLines] call _getRowCount)) then {
-    _lnbLines lnbSetCurSelRow _selectedRow;
+if (_debug) then {
+    ["[fn_logisticsMgr_lnbLines_onLoad] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;

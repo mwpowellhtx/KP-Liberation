@@ -103,6 +103,30 @@ if (isServer) then {
     KPLIB_param_logistics_arrayVerificationDebug            = true;
     KPLIB_param_logistics_namespaceVerificationDebug        = true;
 
+    KPLIB_logisticsServer_telemetryDefault = [] call {
+        private _zeroPos = +KPLIB_zeroPos;
+
+        params [
+            ["_totalDistance", 0, [0]]
+            , ["_transitDistance", 0, [0]]
+            , ["_transportSpeedMps", 0, [0]]
+            , ["_transitPos", _zeroPos, [[]]]
+            , ["_transitDir", 0, [0]]
+            , ["_actualPos", _zeroPos, [[]]]
+            , ["_actualDir", 0, [0]]
+        ];
+
+        [
+            _totalDistance
+            , _transitDistance
+            , _transportSpeedMps
+            , _transitPos
+            , _transitDir
+            , _actualPos
+            , _actualDir
+        ];
+    };
+
     // Server section (dedicated and player hosted)
     KPLIB_logistics_namespaces = [];
 

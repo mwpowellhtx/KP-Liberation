@@ -33,31 +33,35 @@ _endpoints params [
     , ["_bravo", [], [[]]]
 ];
 
+private _zeroPos = +KPLIB_zeroPos;
+
 _alpha params [
-    ["_alphaPos", +KPLIB_zeroPos, [[]]]
+    ["_alphaPos", _zeroPos, [[]]]
 ];
 
 _bravo params [
-    ["_bravoPos", +KPLIB_zeroPos, [[]]]
+    ["_bravoPos", _zeroPos, [[]]]
 ];
 
-private _alphaBravoDistance = _alphaPos distance2D _bravoPos;
-private _alphaBravoDir = _alphaPos getDir _bravoPos;
+private _alphaBravoDistance = (_alphaPos distance2D _bravoPos);
+private _defaultPos = +_alphaPos;
+private _defaultDir = (_alphaPos getDir _bravoPos);
 
 // Deconstruct the telemetry for purposes of injecting into the namespace variables
 _telemetry params [
-    ["_totalDistanceMeters", _alphaBravoDistance, [0]]
-    , ["_transitDistanceMeters", 0, [0]]
+    ["_totalDistance", _alphaBravoDistance, [0]]
+    , ["_transitDistance", 0, [0]]
     , ["_transportSpeedMps", _newSpeedMpsDefaultValue, [0]]
-    , ["_transitPos", +_alphaPos, [[]]]
-    , ["_transitDir", _alphaBravoDir, [0]]
-    , ["_actualPos", +_alphaPos, [[]]]
-    , ["_actualDir", _alphaBravoDir, [0]]
+    , ["_transitPos", _defaultPos, [[]], 3]
+    , ["_transitDir", _defaultDir, [0]]
+    , ["_actualPos", _defaultPos, [[]], 3]
+    , ["_actualDir", _defaultDir, [0]]
 ];
 
+// Specify the TELEMETRY bits that we must refresh in the namespace...
 private _telemetrySpecs = [
-    ["KPLIB_logistics_telemetry_totalDistanceMeters", _totalDistanceMeters]
-    , ["KPLIB_logistics_telemetry_transitDistanceMeters", _transitDistanceMeters]
+    ["KPLIB_logistics_telemetry_totalDistanceMeters", _totalDistance]
+    , ["KPLIB_logistics_telemetry_transitDistanceMeters", _transitDistance]
     , ["KPLIB_logistics_telemetry_transportSpeedMps", _transportSpeedMps]
     , ["KPLIB_logistics_telemetry_transitPos", _transitPos]
     , ["KPLIB_logistics_telemetry_transitDir", _transitDir]
@@ -66,10 +70,8 @@ private _telemetrySpecs = [
 ];
 
 private _onSetTelemetryVariable = {
-    _x params [
-        ["_variableName", "", [""]]
-        , "_value"
-    ];
+    private _variableName = (_x#0);
+    private _value = (_x#1);
     _namespace setVariable [_variableName, _value];
     true;
 };

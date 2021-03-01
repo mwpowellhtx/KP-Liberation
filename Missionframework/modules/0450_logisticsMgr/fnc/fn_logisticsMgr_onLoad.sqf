@@ -8,7 +8,7 @@
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        The display 'onUnload' event handler.
+        The display 'onLoad' event handler.
 
     Parameters:
         _display - The display [DISPLAY, default: displayNull]
@@ -21,13 +21,27 @@
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers
  */
 
+private _debug = [
+    [
+        {KPLIB_logisticsMgr_onLoad_debug}
+    ]
+] call KPLIB_fnc_logisticsMgr_debug;
+
 params [
     ["_display", displayNull, [displayNull]]
 ];
 
+if (_debug) then {
+    ["[fn_logisticsMgr_onLoad] Entering", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+};
+
 uiNamespace setVariable ["KPLIB_logisticsMgr_display", _display];
 
 // And announce to the server...
-["KPLIB_logiticsSM_onLogisticsMgrOpened", [clientOwner]] call CBA_fnc_serverEvent;
+["KPLIB_logisticsSM_onLogisticsMgrOpened", [clientOwner]] call CBA_fnc_serverEvent;
+
+if (_debug) then {
+    ["[fn_logisticsMgr_onLoad] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+};
 
 true;

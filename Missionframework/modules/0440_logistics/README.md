@@ -53,6 +53,7 @@ _endpoints = [
     , _endpoint         // _bravo - always second, to where logistic is arriving
 ];
 
+// Interchangeable with '_convoy'
 _transportValue = _billValue;
 
 // May, in fact, be empty, i.e. no transports have been built
@@ -70,10 +71,14 @@ _actualPos = /* insert valid 3D position */ ;
 _transitDir = /* a valid heading */ ;
 _actualDir = /* a valid heading */ ;
 
-// Basically a 2D associative array mapping the TELEMETRY HASHMAP
+/* Basically a 2D associative array mapping the TELEMETRY HASHMAP...
+ * Although this is the form we deal with on the client side, we work with
+ * a slimmer version of that on the server side.
+ */
 _telemetry = [
-    ["_status", -1]                         // status, i.e. 'KPLIB_logistics_status_*'
+    ["_status", KPLIB_logistics_status_na]  // not applicable
     , ["_duration", KPLIB_timers_disabled]  // seconds
+    , ["_elapsedTime", 0]                   // seconds
     , ["_timeRemaining", 0]                 // seconds
     , ["_transportSpeed", 0]                // kilometers per hour (kph)
     , ["_totalDistance", 0]                 // meters

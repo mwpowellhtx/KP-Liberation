@@ -15,6 +15,9 @@
 
     Returns:
         NONE
+
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/events/fnc_addEventHandler-sqf.html
  */
 
 if (isServer) then {
@@ -32,6 +35,8 @@ if (!(hasInterface || isDedicated)) then {
 if (hasInterface) then {
     // Player section
     [] call KPLIB_fnc_logisticsMgr_setupPlayerMenu;
+
+    ["KPLIB_logisticsMgr_onLinesPublished", KPLIB_fnc_logisticsMgr_onLinesPublished] call CBA_fnc_addEventHandler;
 };
 
 if (isServer) then {

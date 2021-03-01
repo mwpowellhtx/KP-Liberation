@@ -25,6 +25,12 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
+KPLIB_logisticsMgr_onLoad_debug                     = true;
+KPLIB_logisticsMgr_lnbLines_onLoad_debug            = true;
+KPLIB_logisticsMgr_lnbLines_onReload_debug          = true;
+KPLIB_logisticsMgr_btnRefresh_onButtonClick_debug   = true;
+KPLIB_logisticsMgr_onLinesPublished_debug           = true;
+KPLIB_logisticsMgr_onUnload_debug                   = true;
 
 /*
     ----- Module Initialization -----

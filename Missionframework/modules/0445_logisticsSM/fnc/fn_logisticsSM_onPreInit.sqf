@@ -34,6 +34,10 @@ if (isServer) then {
 
 if (isServer) then {
     // Server section (dedicated and player hosted)
+
+    KPLIB_logisticsSM_onPublishLines_debug          = true;
+    KPLIB_logisticsSM_onLogisticsMgrOpened_debug    = true;
+    KPLIB_logisticsSM_onLogisticsMgrClosed_debug    = true;
 };
 
 if (!(hasInterface || isDedicated)) then {

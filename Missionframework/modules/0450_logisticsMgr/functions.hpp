@@ -45,6 +45,9 @@ class logisticsMgr {
     // Lines LISTNBOX 'onLoad' event handler
     class logisticsMgr_lnbLines_onLoad {};
 
+    // Lines LISTNBOX reload callback
+    class logisticsMgr_lnbLines_onReload {};
+
     // Lines LISTNBOX 'onLoad' dummy data event handler
     class logisticsMgr_lnbLines_onLoadDummyData {};
 
@@ -59,6 +62,9 @@ class logisticsMgr {
 
     // Refresh CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnRefresh_onButtonClick {};
+
+    // 'KPLIB_logisticsMgr_onLinesPublished' CBA event handler
+    class logisticsMgr_onLinesPublished {};
 
     // Gets the TELEMETRY REPORT HASHMAP from the 'uiNamespace', creating one if necessary
     class logisticsMgr_lnbTelemetry_getReport {};
@@ -119,4 +125,7 @@ class logisticsMgr {
 
     // Abort mission CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnAbort_onButtonClick {};
+
+    // Transforms the logistics line tuple to a view for use with the LINES LISTNBOX
+    class logisticsMgr_toLineView {};
 };

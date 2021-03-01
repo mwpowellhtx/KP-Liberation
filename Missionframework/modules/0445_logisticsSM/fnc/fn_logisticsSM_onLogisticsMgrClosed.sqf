@@ -17,12 +17,27 @@
         Whether the announcement was valid and received [BOOL]
  */
 
+private _debug = [
+    [
+        {KPLIB_logisticsSM_onLogisticsMgrClosed_debug}
+    ]
+] call KPLIB_fnc_logisticsSM_debug;
+
 params [
     ["_cid", -1, [0]]
 ];
 
+if (_debug) then {
+    [format ["[fn_logisticsSM_onLogisticsMgrClosed] Entering: [_cid]: %1"
+        , str [_cid]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 // TODO: TBD: and perhaps do some logging...
 if (_cid < 0) exitWith {
+    if (_debug) then {
+        [format ["[fn_logisticsSM_onLogisticsMgrClosed] Invalid client identifier: [_cid]: %1"
+            , str [_cid]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
     false;
 };
 
@@ -36,4 +51,11 @@ _cids = _cids - _cidsToRemove;
 
 KPLIB_logisticsSM_namespace setVariable ["KPLIB_logistics_cids", _cids];
 
-_cidCount > count _cids;
+private _retval = _cidCount > count _cids;
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_onLogisticsMgrClosed] Fini: [_cid, _cidCount, count _cids]: %1"
+        , str [_cid, _cidCount, count _cids]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
+_retval;

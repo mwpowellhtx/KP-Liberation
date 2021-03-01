@@ -32,8 +32,11 @@ if (isServer) then {
     KPLIB_logisticsSM_namespace = [] call CBA_fnc_createNamespace;
 
     // Listen for client Logistics Manager dialog announcements...
-    ["KPLIB_logistics_onLogisticsMgrOpened", KPLIB_fnc_logisticsSM_onLogisticsMgrOpened] call CBA_fnc_addEventHandler;
-    ["KPLIB_logistics_onLogisticsMgrClosed", KPLIB_fnc_logisticsSM_onLogisticsMgrClosed] call CBA_fnc_addEventHandler;
+    ["KPLIB_logisticsSM_onLogisticsMgrOpened", KPLIB_fnc_logisticsSM_onLogisticsMgrOpened] call CBA_fnc_addEventHandler;
+    ["KPLIB_logisticsSM_onLogisticsMgrClosed", KPLIB_fnc_logisticsSM_onLogisticsMgrClosed] call CBA_fnc_addEventHandler;
+
+    // Requests for updates may occur secondarily to dialog opening, and regularly during SM publisher states
+    ["KPLIB_logisticsSM_publishLines", KPLIB_fnc_logisticsSM_onPublishLines] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {
