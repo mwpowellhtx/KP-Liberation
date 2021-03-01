@@ -77,8 +77,10 @@ private _onAddLineRow = {
 private _added = _linesView select _onAddLineRow;
 
 // Re-select any rows that might have been previously selected
-if (_selectedRow >= 0 && _selectedRow < ([_lnbLines] call _getRowCount)) then {
-    _lnbLines lnbSetCurSelRow _selectedRow;
+if (_selectedRow >= 0) then {
+    // Allowing for scenarios that truncate the lines, i.e. upon a removal
+    private _rowCount = [_lnbLines] call _getRowCount;
+    _lnbLines lnbSetCurSelRow (_selectedRow min (_rowCount - 1));
 };
 
 private _retval = (count _added) == (count _linesView);
