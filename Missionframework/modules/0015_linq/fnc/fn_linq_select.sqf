@@ -44,7 +44,7 @@ for [{_i = 0}, {_i < _count}, {_i = _i + 1}] do {
 
     private _element = _values select _i;
 
-    private _selectorArgs = if (_includeIndex) then {[_element, _i]} else {_element};
+    private _selectorArgs = if (_includeIndex) then {[_element, _i]} else {[_element]};
 
     private _selected = _selectorArgs call _selector;
 
