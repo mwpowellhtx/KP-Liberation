@@ -46,6 +46,6 @@ _lnbConvoy setVariable ["KPLIB_logisticsMgr_convoy", _convoy];
 // TODO: TBD: for initial use only...
 systemChat format ["[fn_logisticsMgr_lnbConvoy_onLoadDummyData] [typeName _config]: %1", str [typeName _config]];
 
-[_lnbConvoy, _config] call KPLIB_fnc_logisticsMgr_lnbConvoy_onLoad;
+[_lnbConvoy, _config] call KPLIB_fnc_logisticsMgr_lnbConvoy_onReload;
 
 true;

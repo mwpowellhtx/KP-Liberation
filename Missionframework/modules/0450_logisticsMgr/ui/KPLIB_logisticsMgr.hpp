@@ -363,7 +363,7 @@ class KPLIB_logisticsMgr {
             columns[] = {  0,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7};
             // Resources: _i, SUPPLY ^^^, AMMO ^^^^^, FUEL ^^^^^
 
-            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLoadDummyData";
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLoad";
             onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbConvoy_onLBSelChanged";
         };
 
@@ -375,7 +375,8 @@ class KPLIB_logisticsMgr {
 
             text = "$STR_KPLIB_LOGISTICSMGR_BTN_ADD";
 
-            onButtonClick = "_this spawn KPLIB_fnc_logisticsMgr_btnTransportAdd_onButtonClick";
+            // Yes, with event names extending from the SM module
+            onButtonClick = "(_this + [KPLIB_logisticsSM_transportRequest_build]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";
         };
 
         class KPLIB_logisticsMgr_btnTransportRecycle : KPLIB_logisticsMgr_Button {
@@ -386,7 +387,8 @@ class KPLIB_logisticsMgr {
 
             text = "$STR_KPLIB_LOGISTICSMGR_BTN_RECYCLE";
 
-            onButtonClick = "_this spawn KPLIB_fnc_logisticsMgr_btnTransportRecycle_onButtonClick";
+            // Ditto SM module event names...
+            onButtonClick = "(_this + [KPLIB_logisticsSM_transportRequest_recycle]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";
         };
 
         class KPLIB_logisticsMgr_controlsAlpha : KPLIB_logisticsMgr_controlsEndpoint {

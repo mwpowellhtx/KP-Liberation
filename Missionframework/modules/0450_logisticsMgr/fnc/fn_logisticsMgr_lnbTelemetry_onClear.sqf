@@ -28,19 +28,22 @@ lnbClear _lnbTelemetry;
  * which we will use to coordinate updates with the LISTNBOX. */
 
 private _data = [
-    [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT", "_status"]
-    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_DURATION", "_duration"]
-    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING", "_timeRemaining"]
-    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TRANSPORT_SPEED", "_transportSpeed"]
+    [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT", KPLIB_logistics_telemetry_hashMap_status]
+    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_DURATION", KPLIB_logistics_telemetry_hashMap_duration]
+    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ELAPSED_TIME", KPLIB_logistics_telemetry_hashMap_elapsedTime]
+    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING", KPLIB_logistics_telemetry_hashMap_timeRemaining]
+    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TRANSPORT_SPEED", KPLIB_logistics_telemetry_hashMap_transportSpeed]
 ];
 
-{
+private _onAddTelemetryRow = {
     _x params [
         ["_label", "", [""]]
-        , ["_reportHashMapKey", "", [""]]
+        , ["_key", "", [""]]
     ];
     private _rowIndex = _lnbTelemetry lnbAddRow [_label, ""];
-    _lnbTelemetry lnbSetData [[_rowIndex, 0], _reportHashMapKey];
-} forEach _data;
+    _lnbTelemetry lnbSetData [[_rowIndex, 0], _key];
+};
+
+_onAddTelemetryRow forEach _data;
 
 true;

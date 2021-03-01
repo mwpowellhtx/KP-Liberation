@@ -72,9 +72,6 @@ class logisticsMgr {
     // Refreshes the TELEMETRY LISTNBOX with the current REPORT HASHMAP bits
     class logisticsMgr_lnbTelemetry_onRefresh {};
 
-    // Updates the TELEMETRY REPORT HASHMAP with up to the moment details
-    class logisticsMgr_lnbTelemetry_onUpdateReport {};
-
     // Clears the TELEMETRY LISTNBOX and prepares it to receive HASHMAP reports
     class logisticsMgr_lnbTelemetry_onClear {};
 
@@ -93,17 +90,17 @@ class logisticsMgr {
     // Convoy LISTNBOX 'onLoad' event handler
     class logisticsMgr_lnbConvoy_onLoad {};
 
+    // Convoy LISTNBOX reload callback, typically seen during 'onLoad', also when LINES LISTNBOX selection changes
+    class logisticsMgr_lnbConvoy_onReload {};
+
     // Convoy LISTNBOX 'onLoad' dummy data event handler
     class logisticsMgr_lnbConvoy_onLoadDummyData {};
 
     // Convoy LISTNBOX 'onLBSelChanged' event handler
     class logisticsMgr_lnbConvoy_onLBSelChanged {};
 
-    // Add Transport CT_BUTTON 'onButtonClick' event handler
-    class logisticsMgr_btnTransportAdd_onButtonClick {};
-
-    // Recycle Transport CT_BUTTON 'onButtonClick' event handler
-    class logisticsMgr_btnTransportRecycle_onButtonClick {};
+    // Add and Recycle Transport CT_BUTTON 'onButtonClick' event handlers
+    class logisticsMgr_btnTransportRequest_onButtonClick {};
 
     // Endpoint CT_COMBO 'onLoad' event handler
     class logisticsMgr_cboEndpoint_onLoad {};

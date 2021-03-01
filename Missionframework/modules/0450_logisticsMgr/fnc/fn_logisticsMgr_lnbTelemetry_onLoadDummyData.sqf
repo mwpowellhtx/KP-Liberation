@@ -49,12 +49,14 @@ private _testStatus = [
     , KPLIB_logistics_status_enRouteAbortingAbandoned
 ];
 
-private _status = selectRandom _testStatus;
-private _timer = +KPLIB_timers_default;
-private _speedKph = random [40, 100, 150];
+private _reports = [
+    selectRandom _testStatus    // _status
+    , +KPLIB_timers_default     // _timer
+    , random [40, 100, 150]     // _transportSpeedKph
+];
 
-// Update the TELEMETRY REPORT with some dummy data...
-[_status, _timer, _speedKph] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onUpdateReport;
+// Gets the TELEMETRY REPORT HASHMAP with some infused dummy data...
+private _report = [false, _reports] call KPLIB_fnc_logisticsMgr_lnbTelemetry_getReport;
 
 // And refresh the TELEMETRY LISTNBOX ...
 [] call KPLIB_fnc_logisticsMgr_lnbTelemetry_onRefresh;

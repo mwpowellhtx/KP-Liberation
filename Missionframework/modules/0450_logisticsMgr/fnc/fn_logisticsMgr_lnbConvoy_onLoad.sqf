@@ -24,42 +24,31 @@
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
  */
 
+private _debug = [
+    [
+        {KPLIB_logisticsMgr_lnbConvoy_onLoad_debug}
+    ]
+] call KPLIB_fnc_logisticsMgr_debug;
+
 params [
     ["_lnbConvoy", controlNull, [controlNull]]
     , ["_config", configNull, [configNull]]
 ];
 
-// TODO: TBD: and perhaps some logging...
+if (_debug) then {
+    [format ["[fn_logisticsMgr_lnbConvoy_onLoad] Entering: [isNull _lnbConvoy, isNull _config]: %1"
+        , str [isNull _lnbConvoy, isNull _config]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+};
+
+// Always 'clear' the LISTNBOX so to speak, regardless... just for UI presentation, consistency, etc
 if (!([_lnbConvoy] call KPLIB_fnc_logisticsMgr_lnbConvoy_onClear)) exitWith {
     false;
 };
 
-// Which will have been relayed indirectly to the client by the server via selected 'KPLIB_logisticsMgr_lnbLines' ...
-private _convoy = _lnbConvoy getVariable ["KPLIB_logisticsMgr_convoy", []];
+uiNamespace setVariable ["KPLIB_logisticsMgr_lnbConvoy", _lnbConvoy];
 
-private _numberPlaceholder = "";
-
-private _onAddConvoyTransport = {
-
-    private _transportValue = _x;
-    // Remember LNBSIZE is [_row, _col]
-    private _transportNumber = str ((lnbSize _lnbConvoy)#0);
-    //                              ^^^^^^^^^^^^^^^^^^^^^^
-    private _renderedTransportValue = _transportValue apply { (_x toFixed 0); };
-
-    private _rowIndex = _lnbConvoy lnbAddRow [
-        _transportNumber
-        , _numberPlaceholder
-        , (_renderedTransportValue#0)
-        , _numberPlaceholder
-        , (_renderedTransportValue#1)
-        , _numberPlaceholder
-        , (_renderedTransportValue#2)
-    ];
-
-    _rowIndex >= 0;
+if (_debug) then {
+    ["[fn_logisticsMgr_lnbConvoy_onLoad] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
-private _added = _convoy select _onAddConvoyTransport;
-
-count _added == count _convoy;
+true;

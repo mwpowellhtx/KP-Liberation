@@ -25,14 +25,20 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
-KPLIB_logisticsMgr_onLoad_debug                         = true;
-KPLIB_logisticsMgr_lnbLines_onLoad_debug                = true;
-KPLIB_logisticsMgr_lnbLines_onReload_debug              = true;
-KPLIB_logisticsMgr_btnLineAdd_onButtonClick_debug       = true;
-KPLIB_logisticsMgr_btnLineRemove_onButtonClick_debug    = true;
-KPLIB_logisticsMgr_btnRefresh_onButtonClick_debug       = true;
-KPLIB_logisticsMgr_onLinesPublished_debug               = true;
-KPLIB_logisticsMgr_onUnload_debug                       = true;
+KPLIB_logisticsMgr_onLoad_debug                             = false;
+KPLIB_logisticsMgr_lnbLines_onLoad_debug                    = false;
+KPLIB_logisticsMgr_lnbLines_onReload_debug                  = false;
+KPLIB_logisticsMgr_lnbLines_onLBSelChanged_debug            = true;
+KPLIB_logisticsMgr_btnLineAdd_onButtonClick_debug           = false;
+KPLIB_logisticsMgr_btnLineRemove_onButtonClick_debug        = false;
+KPLIB_logisticsMgr_lnbConvoy_onLoad_debug                   = true;
+KPLIB_logisticsMgr_lnbConvoy_onReload_debug                 = true;
+KPLIB_logisticsMgr_lnbConvoy_onLBSelChanged_debug           = true;
+KPLIB_logisticsMgr_btnTransportAdd_onButtonClick_debug      = true;
+KPLIB_logisticsMgr_btnTransportRecycle_onButtonClick_debug  = true;
+KPLIB_logisticsMgr_btnRefresh_onButtonClick_debug           = false;
+KPLIB_logisticsMgr_onLinesPublished_debug                   = false;
+KPLIB_logisticsMgr_onUnload_debug                           = false;
 
 /*
     ----- Module Initialization -----
@@ -48,6 +54,12 @@ if (!(hasInterface || isDedicated)) then {
 
 if (hasInterface) then {
     // Player section
+
+    KPLIB_logistics_telemetry_hashMap_status            = "_status";
+    KPLIB_logistics_telemetry_hashMap_duration          = "_duration";
+    KPLIB_logistics_telemetry_hashMap_elapsedTime       = "_elapsedTime";
+    KPLIB_logistics_telemetry_hashMap_timeRemaining     = "_timeRemaining";
+    KPLIB_logistics_telemetry_hashMap_transportSpeed    = "_transportSpeed";
 };
 
 if (isServer) then {
