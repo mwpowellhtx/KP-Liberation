@@ -39,6 +39,8 @@ lnbClear _lnbTelemetry;
 
 private _data = [
     [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_STATUS_REPORT", KPLIB_logistics_telemetry_hashMap_status]
+    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ESTIMATED_DISTANCE", KPLIB_logistics_telemetry_hashMap_estimatedDistance]
+    , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ESTIMATED_DURATION", KPLIB_logistics_telemetry_hashMap_estimatedDuration]
     , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_DURATION", KPLIB_logistics_telemetry_hashMap_duration]
     , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ELAPSED_TIME", KPLIB_logistics_telemetry_hashMap_elapsedTime]
     , [localize "STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_TIME_REMAINING", KPLIB_logistics_telemetry_hashMap_timeRemaining]

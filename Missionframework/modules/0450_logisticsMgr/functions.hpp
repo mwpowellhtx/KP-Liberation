@@ -149,4 +149,7 @@ class logisticsMgr {
 
     // ...
     class logisticsMgr_ctrlMap_onReload {};
+
+    // ...
+    class logisticsMgr_onCalculateEstimatedDuration {};
 };

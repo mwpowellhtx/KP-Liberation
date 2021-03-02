@@ -70,6 +70,8 @@ if (hasInterface) then {
     // Player section
 
     KPLIB_logistics_telemetry_hashMap_status            = "_status";
+    KPLIB_logistics_telemetry_hashMap_estimatedDistance = "_estimatedDistance";
+    KPLIB_logistics_telemetry_hashMap_estimatedDuration = "_estimatedDuration";
     KPLIB_logistics_telemetry_hashMap_duration          = "_duration";
     KPLIB_logistics_telemetry_hashMap_elapsedTime       = "_elapsedTime";
     KPLIB_logistics_telemetry_hashMap_timeRemaining     = "_timeRemaining";

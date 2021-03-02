@@ -50,7 +50,9 @@ if (_selectedIndex < 0) exitWith {
 
 private _endpointMarker = _cboEndpoint lbData _selectedIndex;
 
-[markerPos _endpointMarker] call KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+[markerPos _endpointMarker] spawn KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+
+[] call KPLIB_fnc_logisticsMgr_onCalculateEstimatedDuration;
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_cboEndpoint_onLBSelChanged] Fini: [_endpointMarker]: %1"

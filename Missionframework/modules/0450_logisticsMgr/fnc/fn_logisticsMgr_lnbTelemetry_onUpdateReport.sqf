@@ -56,6 +56,22 @@ if (_zero) then {
 // Get or create the report HASHMAP in the first place...
 private _report = [] call KPLIB_fnc_logisticsMgr_lnbTelemetry_getReport;
 
+// Estimated duration calculated while arranging the endpoints prior to confirming mission
+private _estimatedDuration = uiNamespace getVariable ["KPLIB_logisitcsMgr_estimatedDuration", KPLIB_timers_disabled];
+private _estimatedDistance = uiNamespace getVariable ["KPLIB_logisitcsMgr_estimatedDistance", -1];
+
+// TODO: TBD: should refactor this bit...
+private _onRenderDistance = {
+    params [
+        ["_distance", -1, [0]]
+    ];
+    // TODO: TBD: could factor bits of this into string table...
+    if (_distance < 0) then { "----- m"; } else {
+        format ["%1 m", (_distance toFixed 0)];
+    };
+};
+
+
 private _onSetReport = {
     _x params [
         ["_key", "", [""]]
@@ -73,6 +89,8 @@ private _onSetReport = {
 // TODO: TBD: append any new or interesting telemetry bits here...
 _onSetReport forEach [
     [KPLIB_logistics_telemetry_hashMap_status, [_status] call KPLIB_fnc_logistics_getStatusReport]
+    , [KPLIB_logistics_telemetry_hashMap_estimatedDistance, [_estimatedDistance] call _onRenderDistance]
+    , [KPLIB_logistics_telemetry_hashMap_estimatedDuration, ([_estimatedDuration, 0, 0, 0, { (_this#0); }]) call KPLIB_fnc_timers_renderComponentString]
     , [KPLIB_logistics_telemetry_hashMap_duration, (_timer + [{ (_this#0); }]) call KPLIB_fnc_timers_renderComponentString]
     , [KPLIB_logistics_telemetry_hashMap_elapsedTime, (_timer + [{ (_this#2); }]) call KPLIB_fnc_timers_renderComponentString]
     , [KPLIB_logistics_telemetry_hashMap_timeRemaining, _timer call KPLIB_fnc_timers_renderComponentString]

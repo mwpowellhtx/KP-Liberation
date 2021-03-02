@@ -2628,6 +2628,12 @@
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_DURATION">
             <English>Duration:</English>
         </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ESTIMATED_DISTANCE">
+            <English>Estimated Distance:</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ESTIMATED_DURATION">
+            <English>Estimated Duration:</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_LNBTELEMETRY_LBL_ELAPSED_TIME">
             <English>Elapsed Time:</English>
         </Key>
