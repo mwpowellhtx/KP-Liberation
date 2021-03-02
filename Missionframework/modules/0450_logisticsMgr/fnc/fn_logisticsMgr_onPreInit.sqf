@@ -45,11 +45,12 @@ KPLIB_logisticsMgr_lnbTelemetry_onLoad_debug                = false;
 KPLIB_logisticsMgr_lnbTelemetry_onClear_debug               = false;
 KPLIB_logisticsMgr_lnbTelemetry_onRefresh_debug             = false;
 KPLIB_logisticsMgr_btnRefresh_onButtonClick_debug           = false;
-KPLIB_logisticsMgr_cboEndpoint_onLoad_debug                 = true;
-KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = true;
-KPLIB_logisticsMgr_cboEndpoint_getSelectedEndpoint_debug    = true;
+KPLIB_logisticsMgr_cboEndpoint_onLoad_debug                 = false;
+KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = false;
+KPLIB_logisticsMgr_cboEndpoint_getSelectedEndpoint_debug    = false;
+KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug         = false;
 KPLIB_logisticsMgr_onLinesPublished_debug                   = false;
-KPLIB_logisticsMgr_onEndpointsPublished_debug               = true;
+KPLIB_logisticsMgr_onEndpointsPublished_debug               = false;
 KPLIB_logisticsMgr_onUnload_debug                           = false;
 
 /*

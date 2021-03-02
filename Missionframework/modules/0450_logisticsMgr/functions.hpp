@@ -137,4 +137,13 @@ class logisticsMgr {
 
     // Transforms the logistics line tuple to a view for use with the LINES LISTNBOX
     class logisticsMgr_toLineView {};
+
+    // Map control 'onLoad' event handler
+    class logisticsMgr_ctrlMap_onLoad {};
+
+    // ...
+    class logisticsMgr_ctrlMap_onReload {};
+
+    // ...
+    class logisticsMgr_cboEndpoint_onLBSelChanged {};
 };

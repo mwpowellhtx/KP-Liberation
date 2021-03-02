@@ -528,6 +528,7 @@ class KPLIB_logisticsMgr {
             w = KPLIB_LOGISTICSMGR_MAPCTRL_W;
             h = KPLIB_LOGISTICSMGR_MAPCTRL_H;
             // Does not actually support an 'onUnload' per se, but we have an event handler defined for use throughout anyway
+            onLoad = "_this spawn KPLIB_fnc_logisticsMgr_ctrlMap_onLoad";
         };
 
         class KPLIB_logisticsMgr_ctrlCross : XGUI_PRE_DialogCrossC {
