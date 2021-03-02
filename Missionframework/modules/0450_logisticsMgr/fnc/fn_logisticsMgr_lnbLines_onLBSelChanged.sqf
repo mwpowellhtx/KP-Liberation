@@ -38,7 +38,7 @@ if (_debug) then {
         , str [isNull _lnbLines, _selectedIndex]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
-private _lines = uiNamespace getVariable ["KPLIB_logistics_lines", []];
+private _lines = uiNamespace getVariable ["KPLIB_logisticsMgr_lines", []];
 
 if (_selectedIndex < 0 || (_selectedIndex + 1) > count _lines) exitWith {
     if (_debug) then {

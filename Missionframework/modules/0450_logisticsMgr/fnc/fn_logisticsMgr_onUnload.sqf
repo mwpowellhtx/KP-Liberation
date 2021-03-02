@@ -50,8 +50,9 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_lnbConvoy", nil];
 uiNamespace setVariable ["KPLIB_logisticsMgr_cboAlpha", nil];
 uiNamespace setVariable ["KPLIB_logisticsMgr_cboBravo", nil];
 
-uiNamespace setVariable ["KPLIB_logistics_lines", nil];
-uiNamespace setVariable ["KPLIB_logistics_convoy", nil];
+uiNamespace setVariable ["KPLIB_logisticsMgr_lines", nil];
+uiNamespace setVariable ["KPLIB_logisticsMgr_convoy", nil];
+uiNamespace setVariable ["KPLIB_logisticsMgr_endpoints", nil];
 
 // // TODO: TBD: do not know if there is a way to clear or delete a hashmap once it is created
 // // TODO: TBD: but since it is effectively a singleton useful for one purpose only, should be fine...

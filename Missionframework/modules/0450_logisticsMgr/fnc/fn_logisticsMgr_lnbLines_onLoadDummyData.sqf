@@ -32,7 +32,7 @@ while {count _lines < 100} do {
     _lines pushBack _line;
 };
 
-uiNamespace setVariable ["KPLIB_logistics_lines", _lines];
+uiNamespace setVariable ["KPLIB_logisticsMgr_lines", _lines];
 
 [_lnbLines, _config] call KPLIB_fnc_logisticsMgr_lnbLines_onLoad;
 

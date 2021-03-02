@@ -108,8 +108,17 @@ class logisticsMgr {
     // Endpoint CT_COMBO 'onLoad' event handler
     class logisticsMgr_cboEndpoint_onLoad {};
 
+    // Reloads the ENDPOINT CT_COMBO given up to date UI namespace variables
+    class logisticsMgr_cboEndpoint_onReload {};
+
+    // Client callback responds when server publishes ENDPOINT tuples to listening clients
+    class logisticsMgr_onEndpointsPublished {};
+
     // Endpoint CT_COMBO 'onLoad' dummy data event handler
     class logisticsMgr_cboEndpoint_onLoadDummyData {};
+
+    // Returns the ENDPOINT tuple corresponding to the selected CT_COMBO row
+    class logisticsMgr_cboEndpoint_getSelectedEndpoint {};
 
     // Resource CT_EDIT 'onKeyUp' event handler
     class logisticsMgr_edtResource_onKeyUp {};

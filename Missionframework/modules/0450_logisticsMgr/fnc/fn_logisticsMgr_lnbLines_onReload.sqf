@@ -50,7 +50,7 @@ private _getRowCount = {
 
 // In order to re-select the currently selected row...
 private _selectedRow = lnbCurSelRow _lnbLines;
-private _lines = uiNamespace getVariable ["KPLIB_logistics_lines", []];
+private _lines = uiNamespace getVariable ["KPLIB_logisticsMgr_lines", []];
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_lnbLines_onReload] [_selectedRow, count _lines, _lines apply { (_x#0); }]: %1"

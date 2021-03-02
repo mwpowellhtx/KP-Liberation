@@ -151,13 +151,9 @@ class KPLIB_logisticsMgr_cboEndpoint : XGUI_PRE_Combo {
     y = KPLIB_LOGISTICSMGR_EP_CBO_Y;
     w = KPLIB_LOGISTICSMGR_EP_CBO_W;
     h = KPLIB_LOGISTICSMGR_EP_CBO_H;
-    // w = ? ; // TODO: TBD: pending the other controls...
 
-    // TODO: TBD: two columns, at least, for grid ref, marker text, maybe also cap
-    //          {_gridref, _markerText}
-    columns[] = {       0,        0.25};
-
-    onLoad = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLoadDummyData";
+    // Comboboxes do not support multi-column, i.e. 'columns[] = {}', etc
+    onLoad = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLoad";
     onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLBSelChanged";
 };
 

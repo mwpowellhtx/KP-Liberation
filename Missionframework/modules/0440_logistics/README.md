@@ -53,11 +53,10 @@ _endpoints = [
     , _endpoint         // _bravo - always second, to where logistic is arriving
 ];
 
-// Interchangeable with '_convoy'
-_transportValue = _billValue;
+_transportValue = _billValue;   // '_convoy' individually known as '_transportValue'
 
 // May, in fact, be empty, i.e. no transports have been built
-_transportValues = [] || [
+_convoy = [] || [
     _transportValue
     , ...
 ];
@@ -96,7 +95,7 @@ _transportRebateValue = [
     , _rebateValue // percentage of expected rebate upon recycle, range: [0, 1]
 ];
 
-// As aligned to the '_transportValues' themselves
+// As aligned to the '_convoy' themselves
 _transportRebateValues = [
     _transportRebateValue
     , ...
@@ -107,7 +106,7 @@ _transportRebateValues = [
     , _status
     , _timer
     , _endpoints
-    , _transportValues  // AKA _convoy
+    , _convoy               // Individually, '_transportValue'
     , _telemetry
     , _transportRebateValues
 ];

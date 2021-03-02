@@ -33,7 +33,7 @@ if (_debug) then {
 };
 
 // (Re-)set the '_lines' in the 'uiNamespace' and (re-)load the LINES LISTNBOX accordingly...
-uiNamespace setVariable ["KPLIB_logistics_lines", _lines];
+uiNamespace setVariable ["KPLIB_logisticsMgr_lines", _lines];
 
 // Dissect the views and present them starting with the logistics lines LISTNBOX control
 private _lnbLines = uiNamespace getVariable ["KPLIB_logisticsMgr_lnbLines", controlNull];

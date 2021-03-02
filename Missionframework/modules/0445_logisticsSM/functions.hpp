@@ -50,4 +50,10 @@ class logisticsSM {
 
     // Client requests convoy transport recycle
     class logisticsSM_onRequestTransportRecycle {}
+
+    // Server side callback publishes an ENDPOINT array to the specified client
+    class logisticsSM_onPublishEndpoints {};
+
+    // Server side callback broadcasts an ENDPOINT array to the specified clients
+    class logisticsSM_onBroadcastEndpoints {};
 };
