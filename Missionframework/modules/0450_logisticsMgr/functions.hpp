@@ -117,6 +117,12 @@ class logisticsMgr {
     // Endpoint CT_COMBO 'onLoad' dummy data event handler
     class logisticsMgr_cboEndpoint_onLoadDummyData {};
 
+    // ...
+    class logisticsMgr_cboEndpoint_onSetFocus {};
+
+    // ...
+    class logisticsMgr_cboEndpoint_onLBSelChanged {};
+
     // Returns the ENDPOINT tuple corresponding to the selected CT_COMBO row
     class logisticsMgr_cboEndpoint_getSelectedEndpoint {};
 
@@ -143,7 +149,4 @@ class logisticsMgr {
 
     // ...
     class logisticsMgr_ctrlMap_onReload {};
-
-    // ...
-    class logisticsMgr_cboEndpoint_onLBSelChanged {};
 };

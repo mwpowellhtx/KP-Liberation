@@ -49,6 +49,7 @@ KPLIB_logisticsMgr_cboEndpoint_onLoad_debug                 = false;
 KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = false;
 KPLIB_logisticsMgr_cboEndpoint_getSelectedEndpoint_debug    = false;
 KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug         = false;
+KPLIB_logisticsMgr_cboEndpoint_onSetFocus_debug             = true;
 KPLIB_logisticsMgr_onLinesPublished_debug                   = false;
 KPLIB_logisticsMgr_onEndpointsPublished_debug               = false;
 KPLIB_logisticsMgr_onUnload_debug                           = false;

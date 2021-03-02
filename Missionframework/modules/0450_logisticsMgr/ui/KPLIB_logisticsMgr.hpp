@@ -154,6 +154,7 @@ class KPLIB_logisticsMgr_cboEndpoint : XGUI_PRE_Combo {
 
     // Comboboxes do not support multi-column, i.e. 'columns[] = {}', etc
     onLoad = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLoad";
+    onSetFocus = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onSetFocus";
     onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_cboEndpoint_onLBSelChanged";
 };
 
