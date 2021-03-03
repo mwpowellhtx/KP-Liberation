@@ -166,16 +166,17 @@ switch (true) do {
         private _endpointsAreEqual = _endpointCtrls call _areEndpointCurSelEqual;
         private _endpointsAreUnique = [_endpoint, _lines] call _areEndpointsUnique;
         private _endpointsAreInConflict = _endpointsAreEqual || !_endpointsAreUnique;
+        private _endpointCtrlCurSels = _endpointCtrls apply { (lbCurSel _x); };
 
         if (_debug) then {
-            [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _endpointsAreInConflict]: %1"
-                , str [_status, _endpointsAreInConflict]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+            [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _endpointsAreBothSelected, _endpointsAreEqual, _endpointsAreUnique, _endpointsAreInConflict, _endpointCtrlCurSels]: %1"
+                , str [_status, _endpointsAreBothSelected, _endpointsAreEqual, _endpointsAreUnique, _endpointsAreInConflict, _endpointCtrlCurSels]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
         };
 
         [_endpointGrps] call _onShouldEnable;
 
-        [_mayConfigureAlpha, lbCurSel (_endpointCtrls#0) >= 0] call _onShouldEnable;
-        [_mayConfigureBravo, lbCurSel (_endpointCtrls#1) >= 0] call _onShouldEnable;
+        [_mayConfigureAlpha, (_endpointCtrlCurSels#0) >= 0] call _onShouldEnable;
+        [_mayConfigureBravo, (_endpointCtrlCurSels#1) >= 0] call _onShouldEnable;
 
         private _configuredCount = { [_x] call _hasConfiguredBill; } count [_mayConfigureAlpha, _mayConfigureBravo];
 
