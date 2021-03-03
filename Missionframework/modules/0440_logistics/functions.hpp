@@ -60,6 +60,9 @@ class logistics {
     // Returns whether the ALPHA and BRAVO endpoints combination is equal in either direction
     class logistics_areEndpointsEqual {};
 
+    // Returns whether the candidate ENDPOINTS are considered UNIQUE given the set of LINES
+    class logistics_areEndpointsUnique {};
+
     // Returns the next available transport awaiting either loading or unloading
     class logistics_findNextTransportIndex {};
 

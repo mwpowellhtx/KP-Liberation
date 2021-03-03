@@ -18,6 +18,7 @@
 
     References:
         https://cbateam.github.io/CBA_A3/docs/files/events/fnc_addEventHandler-sqf.html
+        https://cbateam.github.io/CBA_A3/docs/files/common/fnc_addPerFrameHandler-sqf.html
  */
 
 if (isServer) then {
@@ -38,6 +39,10 @@ if (hasInterface) then {
 
     ["KPLIB_logisticsMgr_onLinesPublished", KPLIB_fnc_logisticsMgr_onLinesPublished] call CBA_fnc_addEventHandler;
     ["KPLIB_logisticsMgr_onEndpointsPublished", KPLIB_fnc_logisticsMgr_onEndpointsPublished] call CBA_fnc_addEventHandler;
+
+    KPLIB_logisticsMgr_enableOrDisableCtrlsPeriod = 0.75;
+
+    [KPLIB_fnc_logisticsMgr_onEnableOrDisableCtrls, KPLIB_logisticsMgr_enableOrDisableCtrlsPeriod] call CBA_fnc_addPerFrameHandler;
 };
 
 if (isServer) then {

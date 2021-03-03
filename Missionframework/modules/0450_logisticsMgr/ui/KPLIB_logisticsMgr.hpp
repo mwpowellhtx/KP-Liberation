@@ -365,7 +365,7 @@ class KPLIB_logisticsMgr {
         };
 
         class KPLIB_logisticsMgr_btnTransportAdd : KPLIB_logisticsMgr_Button {
-            idc = KPLIB_IDC_LOGISTICSMGR_BTN_TRANSPORT_ADD;
+            idc = KPLIB_IDC_LOGISTICSMGR_BTN_TRANSPORT_BUILD;
             x = KPLIB_LOGISTICSMGR_BTN_TRANSPORT_X1;
             y = KPLIB_LOGISTICSMGR_BTN_TRANSPORT_Y;
             w = KPLIB_LOGISTICSMGR_BTN_TRANSPORT_W;
@@ -389,6 +389,7 @@ class KPLIB_logisticsMgr {
         };
 
         class KPLIB_logisticsMgr_controlsAlpha : KPLIB_logisticsMgr_controlsEndpoint {
+            idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_GRP;
             x = KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X;
 
             class controls {
@@ -447,6 +448,7 @@ class KPLIB_logisticsMgr {
         };
 
         class KPLIB_logisticsMgr_controlsBravo : KPLIB_logisticsMgr_controlsEndpoint {
+            idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_GRP;
             x = KPLIB_LOGISTICSMGR_EP_GRP_BRAVO_X;
 
             class controls {
