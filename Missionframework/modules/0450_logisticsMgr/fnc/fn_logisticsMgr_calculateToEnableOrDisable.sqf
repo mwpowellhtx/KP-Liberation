@@ -127,13 +127,11 @@ switch (true) do {
     case (_status > KPLIB_logistics_status_standby): {
 
         [_mayRemoveLine, false] call _onShouldEnable;
-        [_mayBuildConvoyTransports] call _onShouldEnable;
 
-        [
-            _mayRecycleConvoyTransports
-            , _convoyHasTransportZeros
-                && ([_status, KPLIB_logistics_status_loadingUnloading] call BIS_fnc_bitflagsCheck)
-        ] call _onShouldEnable;
+        private _mayBuildOrRecycleTransports = [_status, KPLIB_logistics_status_loadingUnloading] call BIS_fnc_bitflagsCheck;
+
+        [_mayBuildConvoyTransports, _mayBuildOrRecycleTransports] call _onShouldEnable;
+        [_mayRecycleConvoyTransports, _convoyHasTransportZeros && _mayBuildOrRecycleTransports] call _onShouldEnable;
 
         // Yes, we enable the endpoints controls, but we disable the groups...
         [_mayConfigureAlpha, true] call _onShouldEnable;
