@@ -98,4 +98,7 @@ class logistics {
 
     // Calibrates the logistics timer given the most up to date in situ sitrep
     class logistics_calibrateTimer {};
+
+    // Does routine GC on the CBA logistics namespace
+    class logistics_onGC {};
 };
