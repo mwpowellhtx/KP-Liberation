@@ -38,6 +38,7 @@ KPLIB_logistics_status_ambushed             = 128;
 KPLIB_logistics_status_abandoned            = 256;
 
 KPLIB_logistics_status_loadingUnloading     = KPLIB_logistics_status_loading    + KPLIB_logistics_status_unloading;
+KPLIB_logistics_status_loadingEnRoute       = KPLIB_logistics_status_loading    + KPLIB_logistics_status_enRoute;
 KPLIB_logistics_status_loadingNoResoures    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResources;
 KPLIB_logistics_status_unloadingNoSpace     = KPLIB_logistics_status_unloading  + KPLIB_logistics_status_noSpace;
 KPLIB_logistics_status_enRouteAmbushed      = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_ambushed;
