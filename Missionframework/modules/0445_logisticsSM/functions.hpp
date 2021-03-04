@@ -56,4 +56,16 @@ class logisticsSM {
 
     // Server side callback broadcasts an ENDPOINT array to the specified clients
     class logisticsSM_onBroadcastEndpoints {};
+
+    // Returns the CBA logistics namespaces array
+    class logisticsSM_getList {};
+
+    // Clears the publication required flags and resets the broadcast timer 
+    class logisticsSM_clearPublicationRequired {};
+
+    // Logistics SM rebasing 'onStateEntered' event handler
+    class logisticsSM_onRebasingEntered {};
+
+    // Logistics SM standby 'onState' event handler
+    class logisticsSM_onStandby {};
 };

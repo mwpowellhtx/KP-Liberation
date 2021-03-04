@@ -94,7 +94,7 @@ if (!_debited) exitWith {
     false;
 };
 
-private _finalized = [_namespace, _debit, _cid] call {
+private _onFinalize = {
     params [
         ["_namespace", locationNull, [locationNull]]
         , ["_debit", [], [[]], 3]
@@ -114,10 +114,12 @@ private _finalized = [_namespace, _debit, _cid] call {
     _msg = format _args;
     [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
 
-    [] call KPLIB_fnc_logisticsSM_onBroadcastLines;
+    _namespace setVariable ["KPLIB_logistics_publicationRequired", true];
 
     true;
 };
+
+private _finalized = [_namespace, _debit, _cid] call _onFinalize;
 
 if (_debug) then {
     [format ["[fn_logisticsSM_onRequestTransportBuild] Fini: [_finalized]: %1"
