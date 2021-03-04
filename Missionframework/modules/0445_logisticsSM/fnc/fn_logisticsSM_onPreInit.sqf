@@ -41,11 +41,13 @@ if (isServer) then {
 
     KPLIB_logisticsSM_onPublishLines_debug              = false;
     KPLIB_logisticsSM_onBroadcastLines_debug            = false;
+    KPLIB_logisticsSM_onBroadcastLine_debug             = false;
     KPLIB_logisticsSM_onLogisticsMgrOpened_debug        = false;
     KPLIB_logisticsSM_onLogisticsMgrClosed_debug        = false;
     KPLIB_logisticsSM_onRequestLineChange_debug         = false;
     KPLIB_logisticsSM_onRequestTransportBuild_debug     = false;
     KPLIB_logisticsSM_onRequestTransportRecycle_debug   = false;
+    KPLIB_logisticsSM_clearPublicationRequired_debug    = true;
 };
 
 if (!(hasInterface || isDedicated)) then {
