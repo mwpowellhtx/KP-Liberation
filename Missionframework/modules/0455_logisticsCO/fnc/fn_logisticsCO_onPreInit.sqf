@@ -51,14 +51,14 @@ if (isServer) then {
     KPLIB_param_logisticsCO_addOrRemoveLinesPeriodSeconds       = 1;
     KPLIB_param_logisticsCO_onRequestAddOrRemoveLines_debug     = false;
 
-    KPLIB_param_logisticsCO_onRequestTransportBuild_debug       = true;
-    KPLIB_param_logisticsCO_onRequestTransportRecycle_debug     = true;
+    KPLIB_param_logisticsCO_onRequestTransportBuild_debug       = false;
+    KPLIB_param_logisticsCO_onRequestTransportRecycle_debug     = false;
 
-    KPLIB_param_logisticsCO_onTransportBuild_debug              = true;
-    KPLIB_param_logisticsCO_onTransportBuildEntering_debug      = true;
+    KPLIB_param_logisticsCO_onTransportBuild_debug              = false;
+    KPLIB_param_logisticsCO_onTransportBuildEntering_debug      = false;
 
-    KPLIB_param_logisticsCO_onTransportRecycle_debug            = true;
-    KPLIB_param_logisticsCO_onTransportRecycleEntering_debug    = true;
+    KPLIB_param_logisticsCO_onTransportRecycle_debug            = false;
+    KPLIB_param_logisticsCO_onTransportRecycleEntering_debug    = false;
 
     KPLIB_param_logisticsCO_onRequestConfirm_debug              = true;
     KPLIB_param_logisticsCO_onRequestAbort_debug                = true;

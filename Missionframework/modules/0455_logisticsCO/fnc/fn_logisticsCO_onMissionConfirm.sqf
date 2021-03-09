@@ -41,7 +41,7 @@ params [
     , "_cid"
 ];
 
-private _status = [_endpoints] call KPLIB_fnc_logistics_calculateMissionStatus;
+private _status = [_namespace] call KPLIB_fnc_logistics_calculateMissionStatus;
 private _loading = [_status, KPLIB_logistics_status_loading] call KPLIB_fnc_logistics_checkStatus;
 
 private _timer = if (!_loading) then {
