@@ -33,6 +33,12 @@ class res {
     // Creates a resource crate
     class resources_createCrate {};
 
+    // Gets a crate value
+    class resources_getCrateValue {};
+
+    // Sets a crate value
+    class resources_setCrateValue {};
+
     // Gets storage attachTo positions
     class resources_getAttachArray {};
 
