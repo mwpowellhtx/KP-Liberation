@@ -117,17 +117,17 @@ KPLIB_logistics_tupleTemplate = +[
 
 if (isServer) then {
 
-    KPLIB_logistics_uuid = "KPLIB_logistics_uuid";
-    KPLIB_logistics_status = "KPLIB_logistics_status";
-    KPLIB_logistics_timer = "KPLIB_logistics_timer";
-    KPLIB_logistics_endpoints = "KPLIB_logistics_endpoints";
-    KPLIB_logistics_convoy = "KPLIB_logistics_convoy";
+    KPLIB_logistics_uuid                                    = "KPLIB_logistics_uuid";
+    KPLIB_logistics_status                                  = "KPLIB_logistics_status";
+    KPLIB_logistics_timer                                   = "KPLIB_logistics_timer";
+    KPLIB_logistics_endpoints                               = "KPLIB_logistics_endpoints";
+    KPLIB_logistics_convoy                                  = "KPLIB_logistics_convoy";
 
     KPLIB_param_logistics_verificationDebug                 = false;
     KPLIB_param_logistics_endpointVerificationDebug         = true;
     KPLIB_param_logistics_arrayVerificationDebug            = true;
     KPLIB_param_logistics_namespaceVerificationDebug        = true;
-    KPLIB_param_logistics_calculateMissionStatus_debug      = true;
+    KPLIB_param_logistics_calculateMissionStatus_debug      = false;
     KPLIB_param_logistics_calculateLoadingStatus_debug      = true;
     KPLIB_param_logistics_calculateTransitWindow_debug      = true;
     KPLIB_param_logistics_calculateArrivalStatus_debug      = true;

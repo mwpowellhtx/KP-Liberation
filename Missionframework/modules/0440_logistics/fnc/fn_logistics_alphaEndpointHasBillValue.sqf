@@ -24,19 +24,21 @@ params [
 ([_namespace, [
     ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    ["_endpoints", [], [[]]]
+    "_endpoints"
 ];
 
 _endpoints params [
     ["_alpha", [], [[]]]
 ];
 
+private _storageValueDefault = +KPLIB_resources_storageValueDefault;
+
 _alpha params [
-    ["_pos", +KPLIB_zeroPos, [[]], 3]
-    , ["_markerName", "", [""]]
-    , ["_baseMarkerText", "", [""]]
-    , ["_alphaValue", +KPLIB_resources_storageValueDefault, [[]], 3]
+    ["_alphaPos", +KPLIB_zeroPos, [[]], 3]
+    , ["_alphaMarker", "", [""]]
+    , ["_alphaMarkerText", "", [""]]
+    , ["_alphaBillValue", _storageValueDefault, [[]], 3]
 ];
 
 // Meaning that there is something to consider LOADING
-!(_alphaValue isEqualTo KPLIB_resources_storageValueDefault);
+!(_alphaBillValue isEqualTo _storageValueDefault);

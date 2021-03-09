@@ -33,9 +33,10 @@ params [
     , [KPLIB_logistics_convoy, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_status"
-    , "_timer"
     , "_convoy"
 ];
+
+_convoy = +_convoy;
 
 private _default = -1;
 
@@ -45,12 +46,12 @@ if (_convoy isEqualTo []) exitWith {
 };
 
 // Load and unload from the front forward...
-if ([_status, KPLIB_logistics_status_loading] call BIS_fnc_bitflagsCheck) exitWith {
+if ([_status, KPLIB_logistics_status_loading] call KPLIB_fnc_logistics_checkStatus) exitWith {
     _convoy findIf { (_x isEqualTo KPLIB_resources_storageValueDefault); };
 };
 
 // Any of the status: EN_ROUTE, _UNLOADING, may be considered for UNLOADING...
-if ([_status, KPLIB_logistics_status_enRouteUnloading] call BIS_fnc_bitflagsCheck) exitWith {
+if ([_status, KPLIB_logistics_status_unloading] call KPLIB_fnc_logistics_checkStatus) exitWith {
     _convoy findIf { !(_x isEqualTo KPLIB_resources_storageValueDefault); };
 };
 
