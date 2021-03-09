@@ -21,7 +21,11 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
-private _endpoints = _namespace getVariable ["KPLIB_logistics_endpoints"];
+([_namespace, [
+    ["KPLIB_logistics_endpoints", []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    ["_endpoints", [], [[]]]
+];
 
 _endpoints params [
     ["_alpha", [], [[]]]
@@ -48,6 +52,6 @@ private _onSum = { (_this#0) + (_this#1); };
 private _zed = 0;
 
 // No values remaining, zero sum, means transfer complete
-private _sum = [_zed, _alphaValues + _bravoValues, _onSum] call KPLIB_fnc_linq_aggregate;
+private _sum = [_zed, (_alphaValues + _bravoValues), _onSum] call KPLIB_fnc_linq_aggregate;
 
 _sum == _zed;

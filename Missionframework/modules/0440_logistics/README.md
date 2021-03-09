@@ -150,7 +150,7 @@ KPLIB_logistics_status_loading              =   1;
 KPLIB_logistics_status_enRoute              =   2;
 KPLIB_logistics_status_aborting             =   4;
 KPLIB_logistics_status_unloading            =   8;
-KPLIB_logistics_status_noResources          =  16;
+KPLIB_logistics_status_noResource           =  16;
 KPLIB_logistics_status_routeBlocked         =  32;
 KPLIB_logistics_status_noSpace              =  64;
 KPLIB_logistics_status_ambushed             = 128;
@@ -160,7 +160,7 @@ KPLIB_logistics_status_abandoned            = 256;
 In addition, there are several `_status` masks that make sense to capture:
 
 ```sqf
-KPLIB_logistics_status_loadingNoResoures    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResources;
+KPLIB_logistics_status_loadingNoResource    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResource;
 KPLIB_logistics_status_unloadingNoSpace     = KPLIB_logistics_status_unloading  + KPLIB_logistics_status_noSpace;
 KPLIB_logistics_status_enRouteAmbushed      = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_ambushed;
 KPLIB_logistics_status_enRouteBlocked       = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_routeBlocked;

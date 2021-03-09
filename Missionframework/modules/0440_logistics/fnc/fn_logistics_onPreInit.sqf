@@ -31,7 +31,7 @@ KPLIB_logistics_status_loading              =   1;
 KPLIB_logistics_status_enRoute              =   2;
 KPLIB_logistics_status_aborting             =   4;
 KPLIB_logistics_status_unloading            =   8;
-KPLIB_logistics_status_noResources          =  16;
+KPLIB_logistics_status_noResource           =  16;
 KPLIB_logistics_status_routeBlocked         =  32;
 KPLIB_logistics_status_noSpace              =  64;
 KPLIB_logistics_status_ambushed             = 128;
@@ -39,16 +39,23 @@ KPLIB_logistics_status_abandoned            = 256;
 
 KPLIB_logistics_status_loadingUnloading     = KPLIB_logistics_status_loading    + KPLIB_logistics_status_unloading;
 KPLIB_logistics_status_loadingEnRoute       = KPLIB_logistics_status_loading    + KPLIB_logistics_status_enRoute;
-KPLIB_logistics_status_loadingNoResoures    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResources;
+KPLIB_logistics_status_loadingNoResource    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResource ;
 KPLIB_logistics_status_unloadingNoSpace     = KPLIB_logistics_status_unloading  + KPLIB_logistics_status_noSpace;
+KPLIB_logistics_status_ambushedRouteBlocked = KPLIB_logistics_status_ambushed   + KPLIB_logistics_status_routeBlocked;
 KPLIB_logistics_status_enRouteAmbushed      = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_ambushed;
 KPLIB_logistics_status_enRouteBlocked       = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_routeBlocked;
+KPLIB_logistics_status_enRouteUnloading     = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_unloading;
 KPLIB_logistics_status_enRouteAbandoned     = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_abandoned;
 KPLIB_logistics_status_abortingAmbushed     = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_ambushed;
 KPLIB_logistics_status_abortingBlocked      = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_routeBlocked;
 KPLIB_logistics_status_abortingAbandoned    = KPLIB_logistics_status_aborting   + KPLIB_logistics_status_abandoned;
+KPLIB_logistics_status_unloadingAborting    = KPLIB_logistics_status_unloading  + KPLIB_logistics_status_aborting;
+KPLIB_logistics_status_enRouteAborting      = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_aborting;
 
-KPLIB_logistics_status_enRouteAbortingAbandoned = KPLIB_logistics_status_enRoute + KPLIB_logistics_status_aborting + KPLIB_logistics_status_abandoned;
+KPLIB_logistics_status_loadingUnloadingEnRoute  = KPLIB_logistics_status_loading + KPLIB_logistics_status_unloading + KPLIB_logistics_status_enRoute;
+KPLIB_logistics_status_enRouteAbortingUnloading = KPLIB_logistics_status_enRoute + KPLIB_logistics_status_Aborting  + KPLIB_logistics_status_unloading;
+KPLIB_logistics_status_enRouteAbortingAbandoned = KPLIB_logistics_status_enRoute + KPLIB_logistics_status_aborting  + KPLIB_logistics_status_abandoned;
+KPLIB_logistics_status_mayBeAborted             = KPLIB_logistics_status_loading + KPLIB_logistics_status_unloading + KPLIB_logistics_status_enRoute + KPLIB_logistics_status_abandoned;
 
 // TODO: TBD: this one is probably "either" server or client side, but more than likely we eventually favor client side only for UI purposes...
 // The first one is a special case, but every other one should be compiled in the report in that order
@@ -58,7 +65,7 @@ KPLIB_logistics_status_reports = [
     , [KPLIB_logistics_status_enRoute, localize "STR_KPLIB_LOGISTICS_STATUS_EN_ROUTE"]
     , [KPLIB_logistics_status_aborting, localize "STR_KPLIB_LOGISTICS_STATUS_ABORTING"]
     , [KPLIB_logistics_status_unloading, localize "STR_KPLIB_LOGISTICS_STATUS_UNLOADING"]
-    , [KPLIB_logistics_status_noResources, localize "STR_KPLIB_LOGISTICS_STATUS_NO_RESOURCES"]
+    , [KPLIB_logistics_status_noResource, localize "STR_KPLIB_LOGISTICS_STATUS_NO_RESOURCES"]
     , [KPLIB_logistics_status_routeBlocked, localize "STR_KPLIB_LOGISTICS_STATUS_ROUTE_BLOCKED"]
     , [KPLIB_logistics_status_noSpace, localize "STR_KPLIB_LOGISTICS_STATUS_NO_SPACE"]
     , [KPLIB_logistics_status_ambushed, localize "STR_KPLIB_LOGISTICS_STATUS_AMBUSHED"]
@@ -110,10 +117,20 @@ KPLIB_logistics_tupleTemplate = +[
 
 if (isServer) then {
 
+    KPLIB_logistics_uuid = "KPLIB_logistics_uuid";
+    KPLIB_logistics_status = "KPLIB_logistics_status";
+    KPLIB_logistics_timer = "KPLIB_logistics_timer";
+    KPLIB_logistics_endpoints = "KPLIB_logistics_endpoints";
+    KPLIB_logistics_convoy = "KPLIB_logistics_convoy";
+
     KPLIB_param_logistics_verificationDebug                 = false;
     KPLIB_param_logistics_endpointVerificationDebug         = true;
     KPLIB_param_logistics_arrayVerificationDebug            = true;
     KPLIB_param_logistics_namespaceVerificationDebug        = true;
+    KPLIB_param_logistics_calculateMissionStatus_debug      = true;
+    KPLIB_param_logistics_calculateLoadingStatus_debug      = true;
+    KPLIB_param_logistics_calculateTransitWindow_debug      = true;
+    KPLIB_param_logistics_calculateArrivalStatus_debug      = true;
 
     KPLIB_logisticsServer_telemetryDefault = [] call {
         private _zeroPos = +KPLIB_zeroPos;

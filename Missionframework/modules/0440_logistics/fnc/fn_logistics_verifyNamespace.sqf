@@ -32,12 +32,12 @@ if (isNull _namespace) exitWith {
     false;
 };
 
-private _candidate = [
-    _namespace getVariable ["KPLIB_logistics_uuid", ""]
-    , _namespace getVariable ["KPLIB_logistics_status", KPLIB_logistics_status_na]
-    , _namespace getVariable ["KPLIB_logistics_timer", []]
-    , _namespace getVariable ["KPLIB_logistics_endpoints", []]
-    , _namespace getVariable ["KPLIB_logistics_convoy", []]
-];
+private _candidate = [_namespace, [
+    ["KPLIB_logistics_uuid", ""]
+    , ["KPLIB_logistics_status", KPLIB_logistics_status_na]
+    , ["KPLIB_logistics_timer", []]
+    , ["KPLIB_logistics_endpoints", []]
+    , [KPLIB_logistics_convoy, []]
+]] call KPLIB_fnc_namespace_getVars;
 
 [_candidate] call KPLIB_fnc_logistics_verifyArray;

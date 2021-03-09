@@ -26,7 +26,11 @@ params [
     , ["_telemetry", [], [[]]]
 ];
 
-private _endpoints = _namespace getVariable ["KPLIB_logistics_endpoints", []];
+([_namespace, [
+    ["KPLIB_logistics_endpoints", []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    ["_endpoints", [], [[]]]
+];
 
 _endpoints params [
     ["_alpha", [], [[]]]

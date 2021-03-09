@@ -39,6 +39,9 @@ class logistics {
     // Returns the current set of known endpoints
     class logistics_getEndpoints {};
 
+    // Returns the ALPHA+BRAVO ENDPOINTS swapped, i.e. BRAVO+ALPHA
+    class logistics_swapEndpoints {};
+
     // Creates a newly minted logistics tuple (ARRAY)
     class logistics_createArray {};
 
@@ -75,8 +78,11 @@ class logistics {
     // Returns an enumerated status report composed of human readable decoded status bits
     class logistics_getStatusReport {};
 
-    // Whether ALPHA bill values have been fulfilled
-    class logistics_hasAlphaBillValues {};
+    // Whether ALPHA ENDPOINT bill values has remaining bill value
+    class logistics_alphaEndpointHasBillValue {};
+
+    // Whether BRAVO ENDPOINT bill values has remaining bill value
+    class logistics_bravoEndpointHasBillValue {};
 
     // Whether the logistics ALPHA and BRAVO bill values have been fulfilled
     class logistics_hasTransferCompleted {};
@@ -99,6 +105,42 @@ class logistics {
     // Calibrates the logistics timer given the most up to date in situ sitrep
     class logistics_calibrateTimer {};
 
-    // Does routine GC on the CBA logistics namespace
-    class logistics_onGC {};
+    // Checks the 'KPLIB_logistics_status' is as expected using, in part, 'BIS_fnc_bitflagsCheck'
+    class logistics_checkStatus {};
+
+    // ...
+    class logistics_setStatus {};
+
+    // ...
+    class logistics_unsetStatus {};
+
+    // ...
+    class logistics_getRefreshedTimer {};
+
+    // Determines the next STATUS when the MISSION was first CONFIRMED by the manager
+    class logistics_calculateMissionStatus {};
+
+    // Determines the next STATUS when the CONVOY is LOADING
+    class logistics_calculateLoadingStatus {};
+
+    // Determines the next STATUS when the CONVOY is UNLOADING
+    class logistics_calculateUnloadingStatus {};
+
+    // Determines the next STATUS when the CONVOY first ARRIVES at BRAVO
+    class logistics_calculateArrivalStatus {};
+
+    // Calculates the TRANSIT DURATION in seconds between ALPHA and BRAVO
+    class logistics_calculateTransitDuration {};
+
+    // Determins the mid TRANSIT safe zones in terms of TIMER times in seconds
+    class logistics_calculateTransitWindow {};
+
+    // Translates 'KPLIB_param_fobRange' in terms of 'KPLIB_param_logistics_transportSpeedKph', in meters per second
+    class logistics_calculateFobRangeSeconds {};
+
+    // ...
+    class logistics_convoyIsFull {};
+
+    // ...
+    class logistics_convoyIsEmpty {};
 };

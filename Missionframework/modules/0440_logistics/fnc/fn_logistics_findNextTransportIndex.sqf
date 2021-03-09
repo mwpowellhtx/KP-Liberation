@@ -28,8 +28,14 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
-private _status = _namespace getVariable ["KPLIB_logistics_status", KPLIB_logistics_status_standby];
-private _convoy = _namespace getVariable ["KPLIB_logistics_convoy", []];
+([_namespace, [
+    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
+    , [KPLIB_logistics_convoy, []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_status"
+    , "_timer"
+    , "_convoy"
+];
 
 private _default = -1;
 
@@ -43,9 +49,9 @@ if ([_status, KPLIB_logistics_status_loading] call BIS_fnc_bitflagsCheck) exitWi
     _convoy findIf { (_x isEqualTo KPLIB_resources_storageValueDefault); };
 };
 
-if ([_status, KPLIB_logistics_status_unloading] call BIS_fnc_bitflagsCheck) exitWith {
+// Any of the status: EN_ROUTE, _UNLOADING, may be considered for UNLOADING...
+if ([_status, KPLIB_logistics_status_enRouteUnloading] call BIS_fnc_bitflagsCheck) exitWith {
     _convoy findIf { !(_x isEqualTo KPLIB_resources_storageValueDefault); };
 };
 
 _default;
-

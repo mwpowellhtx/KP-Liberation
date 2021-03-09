@@ -61,7 +61,12 @@ if (_debug) then {
 
 // Convert the serialized arrays to CBA namespaces...
 private _namespaces = _logistics apply {
-    [_x] call KPLIB_fnc_logistics_arrayToNamespace;
+    private _namespace = [_x] call KPLIB_fnc_logistics_arrayToNamespace;
+    // Yes, "should rebase" loading LOGISTICS LINES...
+    [_namespace, [
+        ["KPLIB_logistics_shouldRebase", true]
+    ]] call KPLIB_fnc_namespace_setVars;
+    _namespace;
 };
 
 // TODO: TBD: keeping hold of this for debuging purposes...

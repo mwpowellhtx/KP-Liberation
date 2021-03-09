@@ -47,7 +47,7 @@ private _varSpecs = [
     , ["KPLIB_logistics_status", _status]
     , ["KPLIB_logistics_timer", _timer]
     , ["KPLIB_logistics_endpoints", _endpoints]
-    , ["KPLIB_logistics_convoy", _convoy]
+    , [KPLIB_logistics_convoy, _convoy]
 ];
 
 private _onInstallVarSpec = {

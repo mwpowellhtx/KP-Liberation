@@ -29,7 +29,7 @@ private _varSpecs = [
     , ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
     , ["KPLIB_logistics_timer", +KPLIB_timers_default]
     , ["KPLIB_logistics_endpoints", []]
-    , ["KPLIB_logistics_convoy", []]
+    , [KPLIB_logistics_convoy, []]
 ];
 
 private _onGetVariableValue = {
