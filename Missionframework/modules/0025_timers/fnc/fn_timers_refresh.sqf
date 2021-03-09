@@ -59,7 +59,9 @@ params [
 // Nothing to refresh when the timer has not started
 if (_duration < 0) exitWith {+KPLIB_timers_default};
 
-if (_startTime <= 0) then {_startTime = _now};
+// // TODO: TBD: no, do not change the start time when this is the case...
+// // TODO: TBD: why, because timers may be "rebased", meaning their 'start' may be negative, from that of the serverTime...
+//if (_startTime <= 0) then {_startTime = _now};
 
 _elapsedTime = _now - _startTime;
 
