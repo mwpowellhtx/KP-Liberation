@@ -167,8 +167,6 @@ if (isServer) then {
     // Send filtered lists to clients
     publicVariable "KPLIB_resources_transportConfigs";
     publicVariable "KPLIB_resources_transportVehicles";
-
-    KPLIB_param_resources_pay_debug             = true;
 };
 
 
@@ -232,6 +230,12 @@ KPLIB_resources_factoryStorageClasses = [
     KPLIB_preset_storageSmallE
     , KPLIB_preset_storageSmallF
 ];
+
+if (isServer) then {
+
+    // Arrange some debug flags
+    KPLIB_param_resources_pay_debug             = true;
+};
 
 // Server section (dedicated and player hosted)
 if (isServer) then {

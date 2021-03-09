@@ -13,7 +13,7 @@
         Removes given amount of resources from the provided location.
 
     Parameter(s):
-        _location   - Sector or FOB marker from where to pay the resources from [STRING, default: ""]
+        _markerName - Sector or FOB marker from where to pay the resources from [STRING, default: ""]
         _supplies   - Amount of supplies to pay                                 [NUMBER, default: 0]
         _ammo       - Amount of ammo to pay                                     [NUMBER, default: 0]
         _fuel       - Amount of fuel to pay                                     [NUMBER, default: 0]
@@ -35,73 +35,94 @@ private _debug = [
 // TODO: TBD: ... and _amount is the _amount, or amount of change, whether debit or credit
 // TODO: TBD: HOWEVER... not, not, NOT this sprint... maybe a future sprint do we look to simplify that whole thing...
 params [
-    ["_location", "", [""]]
+    ["_markerName", [] call KPLIB_fnc_common_getPlayerFob, [""]]
     , ["_supplies", 0, [0]]
     , ["_ammo", 0, [0]]
     , ["_fuel", 0, [0]]
     , ["_range", KPLIB_param_fobRange, [0]]
 ];
 
+private _bill = [_supplies, _ammo, _fuel];
+
 if (_debug) then {
-    [format ["[fn_resources_pay] Entering: [_location, _supplies, _ammo, _fuel, _range]: %1"
-        , str [_location, _supplies, _ammo, _fuel, _range]], "RESOURCES", true] call KPLIB_fnc_common_log;
+    [format ["[fn_resources_pay] Entering: [_markerName, markerText _markerName, _bill, _range]: %1"
+        , str [_markerName, markerText _markerName, _bill, _range]], "RESOURCES", true] call KPLIB_fnc_common_log;
 };
 
-// Can always pay if there is no price
-if ([_supplies, _ammo, _fuel] isEqualTo KPLIB_resources_storageValueDefault) exitWith {
-    true;
-};
+[
+    _bill isEqualTo KPLIB_resources_storageValueDefault
+    , !(_markerName isEqualTo "")
+] params [
+    "_zeroBill"
+    , "_validMarker"
+];
 
-// Exit if no location is given
-if (_location isEqualTo "") exitWith {
-    false;
+// Exit early when ZERO BILL or when MARKER INVALID
+if (_zeroBill || !_validMarker) exitWith {
+    _zeroBill && _validMarker;
 };
 
 // Check if the location even has the needed amount of resources
-private _resTotal = [_location] call KPLIB_fnc_resources_getResTotal;
+([_markerName] call KPLIB_fnc_resources_getResTotal) params [
+    "_totalSupplies"
+    , "_totalAmmo"
+    , "_totalFuel"
+];
 
-if (
-    ((_resTotal#0) < _supplies)
-        || ((_resTotal#1) < _ammo)
-        || ((_resTotal#2) < _fuel)
-) exitWith {
+if (_totalSupplies < _supplies || _totalAmmo < _ammo || _totalFuel < _fuel) exitWith {
     if (_debug) then {
-        [format ["[fn_resources_pay] Insufficient resources: [[_supplies, _ammo, _fuel], _resTotal]: %1"
-            , str [[_supplies, _ammo, _fuel], _resTotal]], "RESOURCES", true] call KPLIB_fnc_common_log;
+        [format ["[fn_resources_pay] Insufficient resources: [_markerName, markerText _markerName, _bill, [_totalSupplies, _totalAmmo, _totalFuel]]: %1"
+            , str [_markerName, markerText _markerName, _bill, [_totalSupplies, _totalAmmo, _totalFuel]]], "RESOURCES", true] call KPLIB_fnc_common_log;
     };
     false;
 };
 
 // Get all storage areas in the vicinity of the marker
-private _storages = nearestObjects [markerPos _location, KPLIB_resources_storageClasses, KPLIB_param_fobRange];
+private _storages = nearestObjects [markerPos _markerName, KPLIB_resources_storageClasses, _range];
 
-// Get the stored resource crates by type
-private _sCrates = [];
-private _aCrates = [];
-private _fCrates = [];
+// Maintain the set of ALL crates, we will draw from this after the transaction has been resolved
+private _allCrates = [_storages] call KPLIB_fnc_resources_getAttachedCrates;
 
-private _crates = [_storages] call KPLIB_fnc_resources_getAttachedCrtates;
+// Identify each of the resource crates by typeOf
+private _allCratesByTypeOf = [
+    [KPLIB_preset_crateSupplyE, KPLIB_preset_crateSupplyF]
+    , [KPLIB_preset_crateAmmoE, KPLIB_preset_crateAmmoF]
+    , [KPLIB_preset_crateFuelE, KPLIB_preset_crateFuelF]
+] apply {
+    private _classNames = _x;
+    _allCrates select { typeof _x in _classNames; };
+};
 
+_allCratesByTypeOf params [
+    ["_supplyCrates", [], [[]]]
+    , ["_ammoCrates", [], [[]]]
+    , ["_fuelCrates", [], [[]]]
+];
+
+if (_debug) then {
+    private _storageNedIds = _storages apply { netId _x; };
+    private _supplyNetIds = _supplyCrates apply { netId _x; };
+    private _ammoNetIds = _ammoCrates apply { netId _x; };
+    private _fuelNetIds = _fuelCrates apply { netId _x; };
+    [format ["[fn_resources_pay] Resolving: [_markerName, _bill, [count _storages, _storageNedIds], [count _supplyCrates, _supplyNetIds], [count _ammoCrates, _ammoNetIds], [count _fuelCrates, _fuelNetIds]]: %1"
+        , str [_markerName, _bill, [count _storages, _storageNedIds], [count _supplyCrates, _supplyNetIds], [count _ammoCrates, _ammoNetIds], [count _fuelCrates, _fuelNetIds]]], "RESOURCES", true] call KPLIB_fnc_common_log;
+};
+
+// Remove crates according to requested resource
 {
-    switch (typeOf _x) do {
-        case KPLIB_preset_crateSupplyE;
-        case KPLIB_preset_crateSupplyF: {_sCrates pushBack _x};
-        case KPLIB_preset_crateAmmoE;
-        case KPLIB_preset_crateAmmoF: {_aCrates pushBack _x};
-        case KPLIB_preset_crateFuelE;
-        case KPLIB_preset_crateFuelF: {_fCrates pushBack _x};
-    };
-} forEach _crates;
-
-// Remove crates according to needed resources
-private ["_resource", "_crate", "_value"];
-{
-    _resource = _x select 0;
+    _x params [
+        ["_resource", 0, [0]]
+        , ["_crates", [], [[]]]
+    ];
     while {_resource > 0} do {
-        _crate = (_x select 1) deleteAt 0;
-        _value = _crate getVariable ["KPLIB_resources_crateValue", 0];
+        // Always draw from the crate of least resource first
+        private _ordered = [_crates, [], { [_x] call KPLIB_fnc_resources_getCrateValue; }, "ascend"] call BIS_fnc_sortBy;
+        // And because we may also have exhausted crates, remove them from the set
+        _ordered = _ordered select { ([_x] call KPLIB_fnc_resources_getCrateValue) > 0; };
+        private _crate = _ordered#0;
+        private _value = [_crate] call KPLIB_fnc_resources_getCrateValue;
 
-        // Check if crate holds enough resources already
+        // Draw from the crate resource, either exhausted or leaving some remaining
         if (_resource >= _value) then {
             _resource = _resource - _value;
             _value = 0;
@@ -110,15 +131,32 @@ private ["_resource", "_crate", "_value"];
             _resource = 0;
         };
 
-        // Remove crate, if needed. Or adjust value
-        if (_value isEqualTo 0) then {
-            detach _crate;
-            deleteVehicle _crate;
-        } else {
-            _crate setVariable ["KPLIB_resources_crateValue", _value, true];
-        }
+        [_crate, _value] call KPLIB_fnc_resources_setCrateValue;
+
+        if (_debug) then {
+            [format ["[fn_resources_pay] Crate value updated: [count _allCrates, count _crates, count _ordered, _value, netId _crate]: %1"
+                , str [count _allCrates, count _crates, count _ordered, _value, netId _crate]], "RESOURCES", true] call KPLIB_fnc_common_log;
+        };
     };
-} forEach [[_supplies, _sCrates], [_ammo, _aCrates], [_fuel, _fCrates]];
+} forEach [
+    [_supplies, _supplyCrates]
+    , [_ammo, _ammoCrates]
+    , [_fuel, _fuelCrates]
+];
+
+// GC the crates which resource is now EXHAUSTED
+private _toGC = _allCrates select { 0 == ([_x] call KPLIB_fnc_resources_getCrateValue); };
+
+if (_debug && count _toGC > 0) then {
+    [format ["[fn_resources_pay] GC crates: [count _allCrates, count _toGC]: %1"
+        , str [count _allCrates, count _toGC]], "RESOURCES", true] call KPLIB_fnc_common_log;
+};
+
+{
+    private _crate = _x;
+    detach _crate;
+    deleteVehicle _crate;
+} forEach _toGC;
 
 // Reorder the crates on all storages to close the possible gaps
 {
