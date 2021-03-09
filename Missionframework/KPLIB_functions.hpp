@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-02-25 12:33:00
+    Last Update: 2021-03-05 16:02:14
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -37,9 +37,11 @@ class KPLIB {
     #include "modules\0025_timers\functions.hpp"
 
     #include "modules\0100_init\functions.hpp"
+    #include "modules\0105_namespace\functions.hpp"
     #include "modules\0110_eden\functions.hpp"
     #include "modules\0120_common\functions.hpp"
     #include "modules\0130_core\functions.hpp"
+    #include "modules\0135_changeOrders\functions.hpp"
     #include "modules\0140_persistence\functions.hpp"
     #include "modules\0150_respawn\functions.hpp"
 
@@ -65,6 +67,7 @@ class KPLIB {
     #include "modules\0440_logistics\functions.hpp"
     #include "modules\0445_logisticsSM\functions.hpp"
     #include "modules\0450_logisticsMgr\functions.hpp"
+    #include "modules\0455_logisticsCO\functions.hpp"
 
     #include "modules\0800_mission\functions.hpp"
     #include "modules\0810_captive\functions.hpp"
