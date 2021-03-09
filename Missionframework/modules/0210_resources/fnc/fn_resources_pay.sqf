@@ -23,6 +23,12 @@
         Payment successful  [BOOL]
 */
 
+private _debug = [
+    [
+        {KPLIB_param_resources_pay_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
+
 // TODO: TBD: this is a lot of code, switches, and so forth...
 // TODO: TBD: we think we can do better if we assume a couple of things about a transaction, shape of:
 // TODO: TBD: [_resourceIndex, _amount], where (_resourceIndex in [0, 1, 2]) ...
@@ -36,19 +42,35 @@ params [
     , ["_range", KPLIB_param_fobRange, [0]]
 ];
 
+if (_debug) then {
+    [format ["[fn_resources_pay] Entering: [_location, _supplies, _ammo, _fuel, _range]: %1"
+        , str [_location, _supplies, _ammo, _fuel, _range]], "RESOURCES", true] call KPLIB_fnc_common_log;
+};
+
 // Can always pay if there is no price
-if ([_supplies, _ammo, _fuel] isEqualTo [0,0,0]) exitWith {true};
+if ([_supplies, _ammo, _fuel] isEqualTo KPLIB_resources_storageValueDefault) exitWith {
+    true;
+};
 
 // Exit if no location is given
-if (_location isEqualTo "") exitWith {false};
+if (_location isEqualTo "") exitWith {
+    false;
+};
 
 // Check if the location even has the needed amount of resources
 private _resTotal = [_location] call KPLIB_fnc_resources_getResTotal;
+
 if (
-    ((_resTotal select 0) < _supplies) ||
-    ((_resTotal select 1) < _ammo) ||
-    ((_resTotal select 2) < _fuel)
-) exitWith {false};
+    ((_resTotal#0) < _supplies)
+        || ((_resTotal#1) < _ammo)
+        || ((_resTotal#2) < _fuel)
+) exitWith {
+    if (_debug) then {
+        [format ["[fn_resources_pay] Insufficient resources: [[_supplies, _ammo, _fuel], _resTotal]: %1"
+            , str [[_supplies, _ammo, _fuel], _resTotal]], "RESOURCES", true] call KPLIB_fnc_common_log;
+    };
+    false;
+};
 
 // Get all storage areas in the vicinity of the marker
 private _storages = nearestObjects [markerPos _location, KPLIB_resources_storageClasses, KPLIB_param_fobRange];
@@ -57,7 +79,6 @@ private _storages = nearestObjects [markerPos _location, KPLIB_resources_storage
 private _sCrates = [];
 private _aCrates = [];
 private _fCrates = [];
-
 
 private _crates = [_storages] call KPLIB_fnc_resources_getAttachedCrtates;
 
@@ -104,4 +125,8 @@ private ["_resource", "_crate", "_value"];
     [_x] call KPLIB_fnc_resources_orderStorage;
 } forEach _storages;
 
-true
+if (_debug) then {
+    ["[fn_resources_pay] Fini", "RESOURCES", true] call KPLIB_fnc_common_log;
+};
+
+true;

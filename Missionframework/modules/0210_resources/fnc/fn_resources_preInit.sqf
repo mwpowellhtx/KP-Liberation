@@ -167,6 +167,8 @@ if (isServer) then {
     // Send filtered lists to clients
     publicVariable "KPLIB_resources_transportConfigs";
     publicVariable "KPLIB_resources_transportVehicles";
+
+    KPLIB_param_resources_pay_debug             = true;
 };
 
 
