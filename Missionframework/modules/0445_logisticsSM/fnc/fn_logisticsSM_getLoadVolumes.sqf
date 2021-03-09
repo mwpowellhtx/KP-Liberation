@@ -42,9 +42,18 @@ _endpoints params [
 // Do not care about the other alpha components
 _alpha params [
     "_0"
-    , "_1"
+    , ["_markerName", "", [""]]
     , "_2"
     , ["_alphaBillValue", +KPLIB_resources_storageValueDefault, [[]]]
+];
+
+// We also need to constrain in terms of what is actually available and deliver what we can
+private _totalValue = [_markerName] call KPLIB_fnc_resources_getResTotal;
+
+_totalValue params [
+    ["_totalSupply", 0, [0]]
+    , ["_totalAmmo", 0, [0]]
+    , ["_totalFuel", 0, [0]]
 ];
 
 // We need the alpha bill as raw as well a crate estimate form
@@ -54,8 +63,11 @@ _alphaBillValue params [
     , ["_alphaFuel", 0, [0]]
 ];
 
-(_alphaBillValue apply { ([_x] call KPLIB_fnc_resources_estimateCrates); }) params [
-    ["_alphaSupplyCrates", 0, [0]]
+((_totalValue + _alphaBillValue) apply { ([_x] call KPLIB_fnc_resources_estimateCrates); }) params [
+    ["_totalSupplyCrates", 0, [0]]
+    , ["_totalAmmoCrates", 0, [0]]
+    , ["_totalFuelCrates", 0, [0]]
+    , ["_alphaSupplyCrates", 0, [0]]
     , ["_alphaAmmoCrates", 0, [0]]
     , ["_alphaFuelCrates", 0, [0]]
 ];
@@ -69,7 +81,10 @@ private _loads = _loadTemplates select {
     ];
     _supplyCrates <= _alphaSupplyCrates
         && _ammoCrates <= _alphaAmmoCrates
-        && _fuelCrates <= _alphaFuelCrates;
+        && _fuelCrates <= _alphaFuelCrates
+        && _supplyCrates <= _totalSupplyCrates
+        && _ammoCrates <= _totalAmmoCrates
+        && _fuelCrates <= _totalFuelCrates
 };
 
 // Return early when that rules out any all candidates
