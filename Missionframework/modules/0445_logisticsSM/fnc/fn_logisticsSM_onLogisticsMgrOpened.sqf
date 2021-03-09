@@ -41,7 +41,12 @@ if (_cid < 0) exitWith {
     false;
 };
 
-private _cids = KPLIB_logisticsSM_namespace getVariable ["KPLIB_logistics_cids", []];
+// TODO: TBD: the only problem with this is, when there are no lines, where does this land?
+([KPLIB_logisticsSM_objSM, [
+    ["KPLIB_logistics_cids", []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    ["_cids", [], [[]]]
+];
 
 private _cidCount = count _cids;
 
@@ -53,7 +58,9 @@ _cidsToAdd select {
 };
 
 // The only thing we want to be doing here is cataloging the '_cid' itself
-KPLIB_logisticsSM_namespace setVariable ["KPLIB_logistics_cids", _cids];
+[KPLIB_logisticsSM_objSM, [
+    ["KPLIB_logistics_cids", _cids]
+]] call KPLIB_fnc_namespace_setVars;
 
 // This is because other controls and message sources will request lines to be published
 private _retval = count _cids > _cidCount;

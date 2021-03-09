@@ -11,6 +11,12 @@
         Defines for all functions, which are brought by this module.
  */
 
+/*
+ TODO: TBD: with the refactory to proper change orders, could be interesting... any operation
+ that has an effect on a target namespace might be considered a change order of sorts... so
+ potentially we stage those accordingly as such... that could be very interesting...
+ */
+
 class logisticsSM {
     file = "modules\0445_logisticsSM\fnc";
 
@@ -30,11 +36,35 @@ class logisticsSM {
     // Initializes the CBA settings
     class logisticsSM_settings {};
 
+    // Creates the CBA logistics state machine
+    class logisticsSM_createSM {};
+
+    // // Performs logistics state machine garbage collection
+    // class logisticsSM_gcSM {};
+
     // Logistics SM 'KPLIB_logistics_onLogisticsMgrOpened' CBA server event handler
     class logisticsSM_onLogisticsMgrOpened {};
 
     // Logistics SM 'KPLIB_logistics_onLogisticsMgrClosed' CBA server event handler
     class logisticsSM_onLogisticsMgrClosed {};
+
+    // ...
+    class logisticsSM_onAddLines {};
+
+    // ...
+    class logisticsSM_onRemoveLines {};
+
+    // // ...
+    // class logisticsSM_onAddOrRemoveLines {};
+
+    // ...
+    class logisticsSM_getLineUuids {};
+
+    // TODO: TBD: also, we may want to reconsider how we identify line mil-al designations...
+    // TODO: TBD: i.e. identify them on the server side as such as part of the tuple...
+    // TODO: TBD: especially so as to avoid inadvertently tearing at that incorrectly client side...
+    // Publishes a single line to the client, major assumption is that a complete set of ordered lines already exists...
+    class logisticsSM_onPublishLine {};
 
     // Publishes to the client logistics line tuples converted from 'KPLIB_logistics_namespaces'
     class logisticsSM_onPublishLines {};
@@ -42,30 +72,69 @@ class logisticsSM {
     // Broadcasts the logistics lines to all currently registered logistics manager listeners
     class logisticsSM_onBroadcastLines {};
 
-    // Request to either add or remove some UUID to or from the CBA logistic namespaces
-    class logisticsSM_onRequestLineChange {};
-
-    // Client requests convoy transport build
-    class logisticsSM_onRequestTransportBuild {}
-
-    // Client requests convoy transport recycle
-    class logisticsSM_onRequestTransportRecycle {}
-
     // Server side callback publishes an ENDPOINT array to the specified client
     class logisticsSM_onPublishEndpoints {};
 
     // Server side callback broadcasts an ENDPOINT array to the specified clients
     class logisticsSM_onBroadcastEndpoints {};
 
-    // Returns the CBA logistics namespaces array
-    class logisticsSM_getList {};
+    // Checks the 'KPLIB_logistics_status' of the given CBA logistics namespace
+    class logisticsSM_checkStatus {};
 
-    // Clears the publication required flags and resets the broadcast timer 
-    class logisticsSM_clearPublicationRequired {};
+    // Returns whether the 'KPLIB_logistics_timer' of the given CBA logistics namespace has elapsed
+    class logisticsSM_timerHasElapsed {};
+
+    // Event handler responds to the state machine request for its 'list' on every pass
+    class logisticsSM_onGetList {};
+
+    //
+    class logisticsSM_onNoOp {};
+
+    // ...
+    class logisticsSM_onRefreshTimer {};
 
     // Logistics SM rebasing 'onStateEntered' event handler
     class logisticsSM_onRebasingEntered {};
 
-    // Logistics SM standby 'onState' event handler
+    //
     class logisticsSM_onStandby {};
+
+    // ...
+    class logisticsSM_onPending {};
+
+    // ...
+    class logisticsSM_onLoadingEntered {};
+
+    // ...
+    class logisticsSM_onEnRouteEntered {};
+
+    // ...
+    class logisticsSM_onUnloadingEntered {};
+
+    // ...
+    class logisticsSM_onPendingEnRoute {};
+
+    // ...
+    class logisticsSM_onPendingLoading {};
+
+    // ...
+    class logisticsSM_onPendingUnloading {};
+
+    //
+    class logisticsSM_onConfirmReturn {};
+
+    //
+    class logisticsSM_onAbortComplete {};
+
+    // ...
+    class logisticsSM_getLoadVolumes {};
+
+    // ...
+    class logisticsSM_onApplyTransaction {};
+
+    // ...
+    class logisticsSM_tryLoadNextTransport {};
+
+    // ...
+    class logisticsSM_tryUnloadNextTransport {};
 };

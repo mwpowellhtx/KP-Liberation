@@ -17,6 +17,10 @@
         The callback finished [BOOL]
  */
 
+if (isNil "KPLIB_logisticsSM_objSM") exitWith {
+    false;
+};
+
 private _debug = [
     [
         {KPLIB_logisticsSM_onBroadcastLines_debug}
@@ -24,7 +28,7 @@ private _debug = [
 ] call KPLIB_fnc_logisticsSM_debug;
 
 params [
-    ["_cids", (KPLIB_logisticsSM_namespace getVariable ["KPLIB_logistics_cids", []]), [[]]]
+    ["_cids", (KPLIB_logisticsSM_objSM getVariable ["KPLIB_logistics_cids", []]), [[]]]
 ];
 
 if (_debug) then {
@@ -39,13 +43,29 @@ if (_cids isEqualTo []) exitWith {
     false;
 };
 
-private _onPublish = {
-    private _cid = _x;
-    [_cid] call KPLIB_fnc_logisticsSM_onPublishLines;
-    true;
-};
+[
+    ({ _x getVariable [KPLIB_namespace_changed, false]; } count KPLIB_logistics_namespaces) > 0
+    , []
+] params [
+    "_changed"
+    , "_broadcast"
+];
 
-private _broadcast = _cids select _onPublish;
+// Publish only when a change has been detected during set variables
+if (_changed) then {
+    if (_debug) then {
+        [format ["[fn_logisticsSM_onBroadcastLines] Publishing changes: [_cids]: %1"
+            , str [_cids]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
+
+    private _tryOnPublish = {
+        private _cid = _x;
+        [_cid] call KPLIB_fnc_logisticsSM_onPublishLines;
+        true;
+    };
+
+    _broadcast = _cids select _tryOnPublish;
+};
 
 private _retval = _broadcast isEqualTo _cids;
 

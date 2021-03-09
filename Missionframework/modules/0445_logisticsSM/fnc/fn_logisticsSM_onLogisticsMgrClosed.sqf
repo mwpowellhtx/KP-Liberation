@@ -41,7 +41,12 @@ if (_cid < 0) exitWith {
     false;
 };
 
-private _cids = KPLIB_logisticsSM_namespace getVariable ["KPLIB_logistics_cids", []];
+// TODO: TBD: ditto hosting CIDs when there is no SM running...
+([KPLIB_logisticsSM_objSM, [
+    ["KPLIB_logistics_cids", []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    ["_cids", [], [[]]]
+];
 
 private _cidCount = count _cids;
 
@@ -49,7 +54,9 @@ private _cidsToRemove = _cids select { _x == _cid; };
 
 _cids = _cids - _cidsToRemove;
 
-KPLIB_logisticsSM_namespace setVariable ["KPLIB_logistics_cids", _cids];
+[KPLIB_logisticsSM_objSM, [
+    ["KPLIB_logistics_cids", _cids]
+]] call KPLIB_fnc_namespace_setVars;
 
 private _retval = _cidCount > count _cids;
 

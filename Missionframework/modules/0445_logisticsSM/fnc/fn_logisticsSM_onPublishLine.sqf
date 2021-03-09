@@ -47,8 +47,6 @@ if (_cid < 0) exitWith {
     false;
 };
 
-// Also remembering to clear the publication required flags...
-[_namespace] call KPLIB_fnc_logisticsSM_clearPublicationRequired;
 private _line = [_namespace] call KPLIB_fnc_logistics_namespaceToArray;
 
 // TODO: TBD: client side manager code will require an additional 'single' line published event handler...

@@ -49,11 +49,12 @@ if (_cid < 0) exitWith {
 private _lines = KPLIB_logistics_namespaces apply {
     private _namespace = _x;
     // We are 'there', publication shall not be required, for awhile anyway...
-    [_namespace] call KPLIB_fnc_logisticsSM_clearPublicationRequired;
     [_namespace] call KPLIB_fnc_logistics_namespaceToArray;
 };
 
 ["KPLIB_logisticsMgr_onLinesPublished", [_lines], _cid] call CBA_fnc_ownerEvent;
+
+{ _x setVariable [KPLIB_namespace_changed, false]; } forEach KPLIB_logistics_namespaces;
 
 if (_debug) then {
     [format ["[fn_logisticsSM_onPublishLines] Fini: [_cid]: %1"

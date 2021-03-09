@@ -25,10 +25,10 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
-// Dots connecting across client server boundaries including UI event handling scaffolding
-KPLIB_logisticsSM_transportRequest_build        = "KPLIB_logisticsSM_requestTransportBuild";
-KPLIB_logisticsSM_transportRequest_recycle      = "KPLIB_logisticsSM_recycleTransportBuild";
-
+KPLIB_logisticsSM_onLogisticsMgrOpened  = "KPLIB_logisticsSM_onLogisticsMgrOpened";
+KPLIB_logisticsSM_onLogisticsMgrClosed  = "KPLIB_logisticsSM_onLogisticsMgrClosed";
+KPLIB_logisticsSM_publishLines          = "KPLIB_logisticsSM_publishLines";
+KPLIB_logisticsSM_publishEndpoints      = "KPLIB_logisticsSM_publishEndpoints";
 
 /*
     ----- Module Initialization -----
@@ -39,15 +39,63 @@ KPLIB_logisticsSM_transportRequest_recycle      = "KPLIB_logisticsSM_recycleTran
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
-    KPLIB_logisticsSM_onPublishLines_debug              = false;
-    KPLIB_logisticsSM_onBroadcastLines_debug            = false;
-    KPLIB_logisticsSM_onBroadcastLine_debug             = false;
-    KPLIB_logisticsSM_onLogisticsMgrOpened_debug        = false;
-    KPLIB_logisticsSM_onLogisticsMgrClosed_debug        = false;
-    KPLIB_logisticsSM_onRequestLineChange_debug         = false;
-    KPLIB_logisticsSM_onRequestTransportBuild_debug     = false;
-    KPLIB_logisticsSM_onRequestTransportRecycle_debug   = false;
-    KPLIB_logisticsSM_clearPublicationRequired_debug    = true;
+    KPLIB_logisticsSM_configClassNameDefault                    = "KPLIB_logisticsSM";
+
+    KPLIB_logisticsSM_standbyPeriod                             = 1;
+
+    KPLIB_param_logisticsSM_createSM_debug                      = false;
+    // KPLIB_param_logisticsSM_gcSM_debug                          = true;
+    KPLIB_logisticsSM_onPublishLines_debug                      = false;
+    KPLIB_logisticsSM_onBroadcastLines_debug                    = false;
+    KPLIB_logisticsSM_onBroadcastLine_debug                     = false;
+    KPLIB_logisticsSM_onLogisticsMgrOpened_debug                = false;
+    KPLIB_logisticsSM_onLogisticsMgrClosed_debug                = false;
+
+    KPLIB_param_logisticsSM_onRebasingEntered_debug             = false;
+    KPLIB_param_logisticsSM_onStandby_debug                     = false;
+    KPLIB_param_logisticsSM_onPending_debug                     = true;
+    KPLIB_param_logisticsSM_onLoadingEntered_debug              = true;
+    KPLIB_param_logisticsSM_onEnRouteEntered_debug              = true;
+    KPLIB_param_logisticsSM_onArrivalResetTimer_debug           = true;
+    KPLIB_param_logisticsSM_onConfirmReturnMission_debug        = true;
+    KPLIB_param_logisticsSM_onAbortComplete_debug               = true;
+    KPLIB_param_logisticsSM_toTransit_debug                     = true;
+    KPLIB_param_logisticsSM_toPendingUnloading_debug            = true;
+    KPLIB_param_logisticsSM_toPendingEnRoute_debug              = true;
+    KPLIB_param_logisticsSM_toArriving_debug                    = true;
+    KPLIB_param_logisticsSM_onPendingUnloading_debug            = true;
+    KPLIB_param_logisticsSM_toStandby_debug                     = true;
+    KPLIB_logisticsSM_onTransitStart_debug                      = true;
+    KPLIB_param_logisticsSM_onNoOp_debug                        = true;
+
+    // Estimated number of CRATES that each CONVOY TRANSPORT may support
+    KPLIB_logisticsSM_fullLoads = [
+        [1, 1, 1]
+        , [2, 1, 0]
+        , [2, 0, 1]
+        , [1, 2, 0]
+        , [0, 2, 1]
+        , [1, 0, 2]
+        , [0, 1, 2]
+        , [3, 0, 0]
+        , [0, 3, 0]
+        , [0, 0, 3]
+    ];
+
+    // We may also support PARTIAL LOADS
+    KPLIB_logisticsSM_partialLoads = [
+        [1, 1, 0]
+        , [1, 0, 1]
+        , [0, 1, 1]
+        , [2, 0, 0]
+        , [0, 2, 0]
+        , [0, 0, 2]
+        , [1, 0, 0]
+        , [0, 1, 0]
+        , [0, 0, 1]
+    ];
+
+    // TODO: TBD: let's define some valid combinations to consider for the load sequence...
 };
 
 if (!(hasInterface || isDedicated)) then {

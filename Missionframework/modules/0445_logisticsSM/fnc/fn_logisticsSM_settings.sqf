@@ -17,11 +17,6 @@
         NONE
  */
 
-if (isServer) then {
-    // TODO: TBD: eventually establish a proper CBA setting for this one...
-    KPLIB_param_logistics_publicationTimerPeriod = 7;
-};
-
 [
     "KPLIB_param_logisticsSM_debug"
     , "CHECKBOX"

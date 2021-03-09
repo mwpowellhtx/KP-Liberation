@@ -18,23 +18,27 @@
         The callback finished [BOOL]
  */
 
+if (isNil "KPLIB_logisticsSM_objSM") exitWith {
+    false;
+};
+
 // TODO: TBD: will want to monitor for sector and FOB changes and raise the event when necessary
 // TODO: TBD: could do so during on of the SM states, entered, etc...
 // TODO: TBD: and/or a wholely separate per frame event handler...
 
 params [
-    ["_cids", (KPLIB_logisticsSM_namespace getVariable ["KPLIB_logistics_cids", []]), [[]]]
+    ["_cids", (KPLIB_logisticsSM_objSM getVariable ["KPLIB_logistics_cids", []]), [[]]]
     , ["_endpoints", ([] call KPLIB_fnc_logistics_getEndpoints), [[]]]
 ];
 
 private _onPublishEndpoints = {
-    param [
+    params [
         ["_cid", -1, [0]]
     ];
     [_cid, _endpoints] call KPLIB_fnc_logisticsSM_onPublishEndpoints;
     true;
 };
 
-_cids select _onPublishEndpoints;
+{ [_x] call _onPublishEndpoints; } forEach _cids;
 
 true;
