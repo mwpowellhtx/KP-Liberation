@@ -22,6 +22,5 @@ params [
     ["_volume", 0, [0]]
 ];
 
-
 // TODO: TBD: replace the half dozen or a dozen or so "manual" calculations with this one
 ceil (_volume / KPLIB_param_crateVolume);
