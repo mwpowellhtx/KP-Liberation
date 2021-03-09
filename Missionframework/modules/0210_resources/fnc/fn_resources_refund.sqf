@@ -83,4 +83,6 @@ while {(_supplies + _ammo + _fuel) > 0} do {
     [_x] call KPLIB_fnc_resources_stackNsort;
 } forEach _storages;
 
+[] call KPLIB_fnc_init_save;
+
 true;
