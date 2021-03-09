@@ -2575,6 +2575,15 @@
         <Key ID="STR_KPLIB_LOGISTICS_MSG_CONVOY_TRANSPORT_CANNOT_RECYCLE">
             <English>Convoy transport cannot be recycled at this time.</English>
         </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_ABORT">
+            <English>Unable to abort the logistics mission.</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_ALREADY_ABORTING">
+            <English>Logistics mission already aborting.</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED">
+            <English>Unable to abort an ambushed logistics mission.</English>
+        </Key>
 
         <Key ID="STR_KPLIB_LOGISTICS_STATUS_NA">
             <English>(n/a)</English>
