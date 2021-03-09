@@ -74,6 +74,10 @@ private _onAddLineRow = {
     // Logistics line requests begin by knowing the corresponding UUID
     _lnbLines lnbSetData [[_rowIndex, 0], _lineUuid];
 
+    if (_debug) then {
+        _lnbLines lnbSetTooltip [[_rowIndex, 0], _lineUuid];
+    };
+
     true;
 };
 

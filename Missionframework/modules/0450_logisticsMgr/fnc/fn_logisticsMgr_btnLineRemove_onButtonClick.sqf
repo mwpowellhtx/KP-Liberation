@@ -44,7 +44,7 @@ if (_selectedRow >= 0) then {
     private _args = [[], [_lineUuid], clientOwner];
     //        _toRemove:  ^^^^^^^^^
 
-    ["KPLIB_logisticsSM_requestLineChange", _args] call CBA_fnc_serverEvent;
+    [KPLIB_logisticsCO_requestAddOrRemoveLines, _args] call CBA_fnc_serverEvent;
 
     if (_debug) then {
         [format ["[fn_logisticsMgr_btnLineRemove_onButtonClick] Line change requested: [_args]: %1"

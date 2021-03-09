@@ -36,8 +36,8 @@ if (_debug) then {
 };
 
 // Request logistics LINES and ENDPOINTS publications from the server and get out of the way ASAP
-["KPLIB_logisticsSM_publishLines", [clientOwner]] call CBA_fnc_serverEvent;
-["KPLIB_logisticsSM_publishEndpoints", [clientOwner]] call CBA_fnc_serverEvent;
+[KPLIB_logisticsSM_publishLines, [clientOwner]] call CBA_fnc_serverEvent;
+[KPLIB_logisticsSM_publishEndpoints, [clientOwner]] call CBA_fnc_serverEvent;
 
 if (_debug) then {
     ["[fn_logisticsMgr_btnRefresh_onButtonClick] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

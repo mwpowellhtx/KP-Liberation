@@ -12,7 +12,7 @@
 
     Parameters:
         _btnTransportRequest - the Request Transport CT_BUTTON [CONTROL, default: controlNull]
-        _serverEventName - the server event name being addressed by the requested [STRING, default: KPLIB_logisticsSM_transportRequest_build]
+        _serverEventName - the server event name being addressed by the requested [STRING, default: KPLIB_logisticsCO_requestTransportBuild]
 
     Returns:
         The event handler finished [BOOL]
@@ -29,12 +29,14 @@ private _debug = [
 
 params [
     ["_btnTransportAdd", controlNull, [controlNull]]
-    , ["_serverEventName", KPLIB_logisticsSM_transportRequest_build, [""]]
+    , ["_serverEventName", KPLIB_logisticsCO_requestTransportBuild, [""]]
 ];
 
+private _lnbLines = uiNamespace getVariable ["KPLIB_logisticsMgr_lnbLines", controlNull];
+
 if (_debug) then {
-    [format ["[fn_logisticsMgr_btnTransportRequest_onButtonClick] Entering: [isNull _btnTransportAdd, _serverEventName]: %1"
-        , str [isNull _btnTransportAdd, _serverEventName]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsMgr_btnTransportRequest_onButtonClick] Entering: [isNull _btnTransportAdd, isNull _lnbLines, lnbCurSelRow _lnbLines, _serverEventName]: %1"
+        , str [isNull _btnTransportAdd, isNull _lnbLines, lnbCurSelRow _lnbLines, _serverEventName]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
 private _line = uiNamespace getVariable ["KPLIB_logisticsMgr_selectedLine", []];

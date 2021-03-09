@@ -36,7 +36,7 @@ if (_debug) then {
 };
 
 // Announce to the server...
-["KPLIB_logisticsSM_onLogisticsMgrClosed", [clientOwner]] call CBA_fnc_serverEvent;
+[KPLIB_logisticsSM_onLogisticsMgrClosed, [clientOwner]] call CBA_fnc_serverEvent;
 
 // And unload bits from the 'uiNamespace' ...
 uiNamespace setVariable ["KPLIB_logisticsMgr_display", nil];

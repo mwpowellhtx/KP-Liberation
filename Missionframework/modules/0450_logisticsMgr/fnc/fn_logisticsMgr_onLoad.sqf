@@ -38,7 +38,7 @@ if (_debug) then {
 uiNamespace setVariable ["KPLIB_logisticsMgr_display", _display];
 
 // And announce to the server...
-["KPLIB_logisticsSM_onLogisticsMgrOpened", [clientOwner]] call CBA_fnc_serverEvent;
+[KPLIB_logisticsSM_onLogisticsMgrOpened, [clientOwner]] call CBA_fnc_serverEvent;
 
 if (_debug) then {
     ["[fn_logisticsMgr_onLoad] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

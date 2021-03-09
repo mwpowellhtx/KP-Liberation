@@ -33,12 +33,12 @@ private _testStatus = [
     , KPLIB_logistics_status_enRoute
     , KPLIB_logistics_status_aborting
     , KPLIB_logistics_status_unloading
-    , KPLIB_logistics_status_noResources
+    , KPLIB_logistics_status_noResource
     , KPLIB_logistics_status_routeBlocked
     , KPLIB_logistics_status_noSpace
     , KPLIB_logistics_status_ambushed
     , KPLIB_logistics_status_abandoned
-    , KPLIB_logistics_status_loadingNoResoures
+    , KPLIB_logistics_status_loadingNoResource
     , KPLIB_logistics_status_unloadingNoSpace
     , KPLIB_logistics_status_enRouteAmbushed
     , KPLIB_logistics_status_enRouteBlocked

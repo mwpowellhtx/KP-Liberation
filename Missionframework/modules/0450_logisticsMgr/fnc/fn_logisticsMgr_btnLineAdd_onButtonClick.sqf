@@ -41,7 +41,7 @@ private _lineUuidPlaceholder = "";
 private _args = [[_lineUuidPlaceholder], [], clientOwner];
 //      _toAdd:   ^^^^^^^^^^^^^^^^^^^^
 
-["KPLIB_logisticsSM_requestLineChange", _args] call CBA_fnc_serverEvent;
+[KPLIB_logisticsCO_requestAddOrRemoveLines, _args] call CBA_fnc_serverEvent;
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_btnLineAdd_onButtonClick] Fini: [_args]: %1"

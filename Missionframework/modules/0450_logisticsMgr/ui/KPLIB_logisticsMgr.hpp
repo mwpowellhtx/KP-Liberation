@@ -373,7 +373,7 @@ class KPLIB_logisticsMgr {
             text = "$STR_KPLIB_LOGISTICSMGR_BTN_BUILD";
 
             // Yes, with event names extending from the SM module
-            onButtonClick = "(_this + [KPLIB_logisticsSM_transportRequest_build]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";
+            onButtonClick = "(_this + [KPLIB_logisticsCO_requestTransportBuild]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";
         };
 
         class KPLIB_logisticsMgr_btnTransportRecycle : KPLIB_logisticsMgr_Button {
@@ -385,7 +385,7 @@ class KPLIB_logisticsMgr {
             text = "$STR_KPLIB_LOGISTICSMGR_BTN_RECYCLE";
 
             // Ditto SM module event names...
-            onButtonClick = "(_this + [KPLIB_logisticsSM_transportRequest_recycle]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";
+            onButtonClick = "(_this + [KPLIB_logisticsCO_requestTransportRecycle]) spawn KPLIB_fnc_logisticsMgr_btnTransportRequest_onButtonClick";
         };
 
         class KPLIB_logisticsMgr_controlsAlpha : KPLIB_logisticsMgr_controlsEndpoint {

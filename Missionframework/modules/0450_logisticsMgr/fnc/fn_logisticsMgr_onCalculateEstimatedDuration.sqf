@@ -11,8 +11,7 @@
         Recalculates the estimated duration between
 
     Parameters:
-        _btnTransportRequest - the Request Transport CT_BUTTON [CONTROL, default: controlNull]
-        _serverEventName - the server event name being addressed by the requested [STRING, default: KPLIB_logisticsSM_transportRequest_build]
+        _transportSpeedMps - ...
 
     Returns:
         The event handler finished [BOOL]
@@ -63,6 +62,7 @@ private _onGetMarkerPos = {
     _endpointPos;
 };
 
+// TODO: TBD: this really really REALLY needs to be refactored...
 private _endpointPositions = _variableNames
     apply _onGetEndpointCtrl
     apply _onGetEndpointMarker

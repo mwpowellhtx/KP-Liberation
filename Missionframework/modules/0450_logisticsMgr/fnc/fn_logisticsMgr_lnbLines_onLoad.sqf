@@ -39,7 +39,7 @@ if (_debug) then {
 // We are really for only for the bookkeeping, which the actual row updates occur via sister callbacks
 uiNamespace setVariable ["KPLIB_logisticsMgr_lnbLines", _lnbLines];
 
-["KPLIB_logisticsSM_publishLines", [clientOwner]] call CBA_fnc_serverEvent;
+[KPLIB_logisticsSM_publishLines, [clientOwner]] call CBA_fnc_serverEvent;
 
 if (_debug) then {
     ["[fn_logisticsMgr_lnbLines_onLoad] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

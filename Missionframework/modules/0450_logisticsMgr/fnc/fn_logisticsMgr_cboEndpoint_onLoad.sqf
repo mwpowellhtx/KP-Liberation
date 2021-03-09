@@ -76,7 +76,7 @@ private _hasLoadedBothEndpointControls = {
 
 // When both ENDPOINT comboboxes have loaded, then request server publication
 if ([keys KPLIB_logisticsMgr_cboEndpointHashMap] call _hasLoadedBothEndpointControls) then {
-    ["KPLIB_logisticsSM_publishEndpoints", [clientOwner]] call CBA_fnc_serverEvent;
+    [KPLIB_logisticsSM_publishEndpoints, [clientOwner]] call CBA_fnc_serverEvent;
 };
 
 if (_debug) then {
