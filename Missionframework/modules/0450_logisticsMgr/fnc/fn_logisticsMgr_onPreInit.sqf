@@ -32,15 +32,15 @@ if (isServer) then {
 
 KPLIB_logisticsMgr_onLoad_debug                             = false;
 KPLIB_logisticsMgr_lnbLines_onLoad_debug                    = false;
-KPLIB_logisticsMgr_lnbLines_onReload_debug                  = true;
-KPLIB_logisticsMgr_lnbLines_onLBSelChanged_debug            = true;
+KPLIB_logisticsMgr_lnbLines_onReload_debug                  = false;
+KPLIB_logisticsMgr_lnbLines_onLBSelChanged_debug            = false;
 KPLIB_logisticsMgr_btnLineAdd_onButtonClick_debug           = false;
 KPLIB_logisticsMgr_btnLineRemove_onButtonClick_debug        = false;
 KPLIB_logisticsMgr_lnbConvoy_onLoad_debug                   = false;
 KPLIB_logisticsMgr_lnbConvoy_onReload_debug                 = false;
 KPLIB_logisticsMgr_lnbConvoy_onLBSelChanged_debug           = false;
-KPLIB_logisticsMgr_btnTransportAdd_onButtonClick_debug      = true;
-KPLIB_logisticsMgr_btnTransportRecycle_onButtonClick_debug  = true;
+KPLIB_logisticsMgr_btnTransportAdd_onButtonClick_debug      = false;
+KPLIB_logisticsMgr_btnTransportRecycle_onButtonClick_debug  = false;
 KPLIB_logisticsMgr_lnbTelemetry_getReport_debug             = false;
 KPLIB_logisticsMgr_lnbTelemetry_onLoad_debug                = false;
 KPLIB_logisticsMgr_lnbTelemetry_onClear_debug               = false;
