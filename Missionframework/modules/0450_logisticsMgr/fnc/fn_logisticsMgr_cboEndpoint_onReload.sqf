@@ -42,26 +42,66 @@ if (isNull _cboEndpoint) exitWith {
     false;
 };
 
-lnbClear _cboEndpoint;
+private _curSelData = [lbCurSel _cboEndpoint] call {
+    params ["_curSel"];
+    if (_curSel < 0) then { ""; } else {
+        _cboEndpoint lbData _curSel;
+    };
+};
 
+lbClear _cboEndpoint;
+
+// Allowing for edge cases, including active ENDPOINT, as well as a zero UNSELECTED tuple
 private _onAddEndpoint = {
-    _x params [
+    params [
         ["_pos", +KPLIB_zeroPos, [[]], 3]
         , ["_markerName", "", [""]]
         , ["_baseMarkerText", "", [""]]
+        , ["_billValue", +KPLIB_resources_storageValueDefault, [[]], 3]
+        , ["_mapGridPos", "", [""]]
     ];
-    private _text = format ["%1 - %2", mapGridPosition _pos, _baseMarkerText];
+    // _billValue - unused, in keeping with operational ENDPOINT tuples
+    if (_mapGridPos isEqualTo "") then {
+        _mapGridPos = mapGridPosition _pos;
+    };
+    private _text = format ["%1 - %2", _mapGridPos, _baseMarkerText];
     private _rowIndex = _cboEndpoint lbAdd _text;
     _cboEndpoint lbSetData [_rowIndex, _markerName];
     true;
 };
 
-private _added = _endpoints select _onAddEndpoint;
-private _retval = (count _added) == (count _endpoints);
-
-if (_debug) then {
-    [format ["[fn_logisticsMgr_cboEndpoint_onReload] Fini: [_retval, count _added, count _endpoints]: %1"
-        , str [_retval, count _added, count _endpoints]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+private _unselected = [] call {
+    // Identify the maximum ENDPOINT according to its _baseMarkerText length
+    private _max = [_endpoints, {count (_this#0#3)}] call KPLIB_fnc_linq_max;
+    _max params [
+        "_0"
+        , "_1"
+        , "_baseTemplateText"
+    ];
+    private _mapGridPosChars = (mapGridPosition KPLIB_zeroPos) splitString "";
+    private _baseTemplateChars = _baseTemplateText splitString "";
+    [
+        nil                                                     // _pos
+        , ""                                                    // _markerName
+        , (_baseTemplateChars apply { "-"; }) joinString ""     // _baseMarkerText
+        , nil                                                   // _ billValue
+        , (_mapGridPosChars apply { "-"; }) joinString ""       // _mapGridPos
+    ];
 };
 
-_retval;
+// Including the UNSELECTED zero entry
+_unselected call _onAddEndpoint;
+{ _x call _onAddEndpoint; } forEach _endpoints;
+
+// TODO: TBD: could introduce a "selectbydata" ...
+private _endpointIndex = _endpoints findIf { ((_x#1) isEqualTo _curSelData); };
+//                              _markerName:   ^^^^
+
+_cboEndpoint lbSetCurSel (_endpointIndex + 1);
+
+if (_debug) then {
+    [format ["[fn_logisticsMgr_cboEndpoint_onReload] Fini: [count _endpoints]: %1"
+        , str [count _endpoints]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+};
+
+true;

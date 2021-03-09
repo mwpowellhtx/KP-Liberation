@@ -51,6 +51,8 @@ KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = false;
 KPLIB_logisticsMgr_cboEndpoint_getSelectedEndpoint_debug    = false;
 KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug         = false;
 KPLIB_logisticsMgr_cboEndpoint_onSetFocus_debug             = false;
+KPLIB_param_logisticsMgr_endpointCtrls_onReload_debug       = true;
+KPLIB_param_logisticsMgr_cboEndpoints_getViewData_debug     = false;
 KPLIB_logisticsMgr_onLinesPublished_debug                   = false;
 KPLIB_logisticsMgr_onEndpointsPublished_debug               = false;
 KPLIB_logisticsMgr_onEnableOrDisableCtrls_debug             = false;
@@ -127,6 +129,22 @@ if (hasInterface) then {
         private _retval = createHashMap;
         _retval set ["ALPHA", "KPLIB_logisticsMgr_cboAlpha"];
         _retval set ["BRAVO", "KPLIB_logisticsMgr_cboBravo"];
+        _retval;
+    };
+
+    // TODO: TBD: there are no doubt FAR better ways to handle this...
+    KPLIB_logisticsMgr_edtEndpointHashMap = [] call {
+        private _retval = createHashMap;
+
+        // Aligning the ENDPOINT with the RESOURCE in order to obtain a namespace resource key
+        _retval set [["ALPHA", 0], "KPLIB_logisticsMgr_edtAlphaSupply"];
+        _retval set [["ALPHA", 1], "KPLIB_logisticsMgr_edtAlphaAmmo"];
+        _retval set [["ALPHA", 2], "KPLIB_logisticsMgr_edtAlphaFuel"];
+
+        _retval set [["BRAVO", 0], "KPLIB_logisticsMgr_edtBravoSupply"];
+        _retval set [["BRAVO", 1], "KPLIB_logisticsMgr_edtBravoAmmo"];
+        _retval set [["BRAVO", 2], "KPLIB_logisticsMgr_edtBravoFuel"];
+
         _retval;
     };
 };

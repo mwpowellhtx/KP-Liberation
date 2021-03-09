@@ -135,6 +135,7 @@ class KPLIB_logisticsMgr_controlsEndpoint : XGUI_PRE_ControlsGroup {
     y = KPLIB_LOGISTICSMGR_EP_GRP_Y;
     w = KPLIB_LOGISTICSMGR_EP_GRP_W;
     h = KPLIB_LOGISTICSMGR_EP_GRP_H;
+    onLoad = "_this spawn KPLIB_fnc_logisticsMgr_endpointCtrls_onLoad";
 };
 
 class KPLIB_logisticsMgr_lblEndpoint : XGUI_PRE_Label {
@@ -392,6 +393,14 @@ class KPLIB_logisticsMgr {
             idc = KPLIB_IDC_LOGISTICSMGR_ALPHA_GRP;
             x = KPLIB_LOGISTICSMGR_EP_GRP_ALPHA_X;
 
+            endpoint = "alpha";
+
+            billIdcs[] = {
+                KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_SUPPLY
+                , KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_AMMO
+                , KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_FUEL
+            };
+
             class controls {
 
                 // TODO: TBD: need a picture class if there is not one already...
@@ -450,6 +459,14 @@ class KPLIB_logisticsMgr {
         class KPLIB_logisticsMgr_controlsBravo : KPLIB_logisticsMgr_controlsEndpoint {
             idc = KPLIB_IDC_LOGISTICSMGR_BRAVO_GRP;
             x = KPLIB_LOGISTICSMGR_EP_GRP_BRAVO_X;
+
+            endpoint = "bravo";
+
+            billIdcs[] = {
+                KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_SUPPLY
+                , KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_AMMO
+                , KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_FUEL
+            };
 
             class controls {
 

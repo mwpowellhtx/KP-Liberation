@@ -78,12 +78,6 @@ _line params [
     , ["_telemetry", [], [[]]]
 ];
 
-// TODO: TBD: eventually also dissecting the endpoints...
-_endpoints params [
-    ["_alpha", [], [[]]]
-    , ["_bravo", [], [[]]]
-];
-
 /* Inject the actual TELEMETRY, obtain status and timer HASHMAP report, and refresh. Remember, now, however,
  * "telemetry" published by the server to the client are now associative key/value pairs; mapping string names
  * to primitive values. */
@@ -94,6 +88,15 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_telemetry", _telemetry];
 
 uiNamespace setVariable ["KPLIB_logisticsMgr_convoy", _convoy];
 [] call KPLIB_fnc_logisticsMgr_lnbConvoy_onReload;
+
+// TODO: TBD: eventually also dissecting the endpoints...
+_endpoints params [
+    ["_alpha", [], [[]]]
+    , ["_bravo", [], [[]]]
+];
+
+[_alpha, "alpha"] call KPLIB_fnc_logisticsMgr_endpointCtrls_onReload;
+[_bravo, "bravo"] call KPLIB_fnc_logisticsMgr_endpointCtrls_onReload;
 
 if (_debug) then {
     ["[fn_logisticsMgr_lnbLines_onLBSelChanged] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

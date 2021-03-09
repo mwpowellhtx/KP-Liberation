@@ -105,11 +105,20 @@ class logisticsMgr {
     // Add and Recycle Transport CT_BUTTON 'onButtonClick' event handlers
     class logisticsMgr_btnTransportRequest_onButtonClick {};
 
+    // Endpoint CT_GROUP 'onLoad' event handler
+    class logisticsMgr_endpointCtrls_onLoad {};
+
+    // Endpoint CT_GROUP reload callback
+    class logisticsMgr_endpointCtrls_onReload {};
+
     // Endpoint CT_COMBO 'onLoad' event handler
     class logisticsMgr_cboEndpoint_onLoad {};
 
     // Reloads the ENDPOINT CT_COMBO given up to date UI namespace variables
     class logisticsMgr_cboEndpoint_onReload {};
+
+    // Lifts the view data from the ENDPOINT CT_COMBO, including DATA backing each row
+    class logisticsMgr_cboEndpoints_getViewData {};
 
     // Client callback responds when server publishes ENDPOINT tuples to listening clients
     class logisticsMgr_onEndpointsPublished {};

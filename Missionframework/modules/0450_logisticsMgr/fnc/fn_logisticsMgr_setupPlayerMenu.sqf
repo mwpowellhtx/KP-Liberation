@@ -32,9 +32,13 @@ if (hasInterface) then {
     // TODO: TBD: add permissions: i.e. admin | commander | logistics
 
     // Using the production manager as a blueprint...
+    // private _manageLogisticsCondition = '
+    //     _target == _originalTarget
+    //         && !(([_target] call KPLIB_fnc_common_getPlayerFob) isEqualTo "")
+    // ';
+    // // TODO: TBD: disabling the proximity bit for the moment...
     private _manageLogisticsCondition = '
         _target == _originalTarget
-            && !(([_target] call KPLIB_fnc_common_getPlayerFob) isEqualTo "")
     ';
 
     // TODO: TBD: dialog opens, but then closes, when navigation by keyboard, i.e. Enter, Space, etc...
