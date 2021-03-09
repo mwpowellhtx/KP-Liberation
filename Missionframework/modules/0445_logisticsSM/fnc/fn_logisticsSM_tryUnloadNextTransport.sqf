@@ -13,20 +13,37 @@
 
     Parameter(s):
         _namespace - a CBA logistics namespace [LOCATION, default: locationNull]
-        _transportIndex - [SCALAR, default: -1]
 
     Returns:
         The array of CBA logistics namespaces [ARRAY]
  */
 
+private _debug = [
+    [
+        {KPLIB_param_logisticsSM_tryUnloadNextTransport_debug}
+    ]
+] call KPLIB_fnc_logisticsSM_debug;
+
 params [
     ["_namespace", locationNull, [locationNull]]
-    , ["_transportIndex", -1, [0]]
 ];
 
-if (isNull _namespace || _transportIndex < 0) exitWith {
-    false;
+if (_debug) then {
+    [format ["[fn_logisticsSM_tryUnloadNextTransport] Entering: [isNull _namespace]: %1"
+        , str [isNull _namespace]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
+
+if (isNull _namespace) exitWith { false; };
+
+private _transportIndex = [_namespace] call KPLIB_fnc_logistics_findNextTransportIndex;
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_tryUnloadNextTransport] May unload: [_transportIndex]: %1"
+        , str [_transportIndex]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
+// Nothing further to unload in any event
+if (_transportIndex < 0) exitWith { true; };
 
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
@@ -41,7 +58,7 @@ if (isNull _namespace || _transportIndex < 0) exitWith {
 ];
 
 // Make a genuine copy of the array
-_convoy = +_convoy;
+private _unloadedConvoy = +_convoy;
 
 _endpoints params [
     ["_alpha", [], [[]], 4]
@@ -54,16 +71,25 @@ _bravo params [
     , ["_baseMarkerText", "", [""]]
 ];
 
-private _transportValue = _convoy select _transportIndex;
+private _transportValue = _unloadedConvoy select _transportIndex;
 
 if (!([_markerName, _transportValue] call KPLIB_fnc_logisticsSM_onApplyTransaction)) exitWith {
+    if (_debug) then {
+        [format ["[fn_logisticsSM_tryUnloadNextTransport] Unable to apply transaction: [_markerName, _transportValue]: %1"
+            , str [_markerName, _transportValue]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
     false;
 };
 
-_convoy set [_transportIndex, +KPLIB_resources_storageValueDefault];
+_unloadedConvoy set [_transportIndex, +KPLIB_resources_storageValueDefault];
 
 [_namespace, [
-    [KPLIB_logistics_convoy, _convoy]
+    [KPLIB_logistics_convoy, _unloadedConvoy]
 ]] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_tryUnloadNextTransport] Unable to apply transaction: [_markerName, _transportIndex, _convoy, _unloadedConvoy]: %1"
+        , str [_markerName, _transportIndex, _convoy, _unloadedConvoy]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 true;

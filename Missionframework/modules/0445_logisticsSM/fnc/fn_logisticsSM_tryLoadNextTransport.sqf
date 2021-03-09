@@ -13,7 +13,6 @@
 
     Parameter(s):
         _namespace - a CBA logistics namespace [LOCATION, default: locationNull]
-        _transportIndex - [SCALAR, default: -1]
 
     Returns:
         The array of CBA logistics namespaces [ARRAY]
@@ -27,17 +26,27 @@ private _debug = [
 
 params [
     ["_namespace", locationNull, [locationNull]]
-    , ["_transportIndex", -1, [0]]
 ];
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_tryLoadNextTransport] Entering: [isNull _namespace, _transportIndex]: %1"
-        , str [isNull _namespace, _transportIndex]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_tryLoadNextTransport] Entering: [isNull _namespace]: %1"
+        , str [isNull _namespace]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
-if (isNull _namespace || _transportIndex < 0) exitWith {
+if (isNull _namespace) exitWith {
     false;
 };
+
+private _transportIndex = [_namespace] call KPLIB_fnc_logistics_findNextTransportIndex;
+
+// // TODO: TBD: probably do not need to check the _transportIndex here...
+// // TODO: TBD: meaning, if we are "here" then we are "supposed" to be here
+// if (_debug) then {
+//     [format ["[fn_logisticsSM_tryLoadNextTransport] Loading: [_transportIndex]: %1"
+//         , str [_transportIndex]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+// };
+
+// if (_transportIndex < 0) exitWith { true; };
 
 ([_namespace, [
     ["KPLIB_logistics_endpoints", []]
@@ -62,13 +71,22 @@ _alpha params [
     , ["_alphaBillValue", +KPLIB_resources_storageValueDefault, [[]], 3]
 ];
 
+// Nothing billed to ALPHA
+if (_alphaBillValue isEqualTo KPLIB_resources_storageValueDefault) exitWith {
+    if (_debug) then {
+        [format ["[fn_logisticsSM_tryLoadNextTransport] Nothing billed: [_alphaBillValue]: %1"
+            , str [_alphaBillValue]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
+    true;
+};
+
 private _loadValue = [_namespace] call KPLIB_fnc_logisticsSM_getLoadVolumes;
 
-// Could not meet the bill
+// Unable to bill
 if (_loadValue isEqualTo KPLIB_resources_storageValueDefault) exitWith {
     if (_debug) then {
-        [format ["[fn_logisticsSM_tryLoadNextTransport] Unable to specify: [_alphaBillValue]: %1"
-            , str [_alphaBillValue]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logisticsSM_tryLoadNextTransport] Unable to bill: [_alphaBillValue, _loadValue]: %1"
+            , str [_alphaBillValue, _loadValue]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
     };
     false;
 };

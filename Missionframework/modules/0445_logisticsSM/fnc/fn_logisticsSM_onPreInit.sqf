@@ -68,6 +68,7 @@ if (isServer) then {
     KPLIB_logisticsSM_onTransitStart_debug                      = true;
     KPLIB_param_logisticsSM_onNoOp_debug                        = false;
     KPLIB_param_logisticsSM_tryLoadNextTransport_debug          = true;
+    KPLIB_param_logisticsSM_tryUnloadNextTransport_debug        = true;
     KPLIB_param_logisticsSM_onApplyTransaction_debug            = true;
 
     // Estimated number of CRATES that each CONVOY TRANSPORT may support

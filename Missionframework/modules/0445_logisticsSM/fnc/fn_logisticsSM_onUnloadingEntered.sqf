@@ -37,8 +37,7 @@ params [
 //     , "_endpoints"
 // ];
 
-private _transportIndex = [_namespace] call KPLIB_fnc_logistics_findNextTransportIndex;
-private _tried = [_namespace, _transportIndex] call KPLIB_fnc_logisticsSM_tryUnloadNextTransport;
+private _tried = [_namespace] call KPLIB_fnc_logisticsSM_tryUnloadNextTransport;
 
 // TODO: TBD: if we can get a more diagnostic result then do so...
 _status = if (_tried) then {
