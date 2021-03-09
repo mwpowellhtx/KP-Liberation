@@ -38,6 +38,7 @@ if (_classname isEqualTo "" || _spawnPos isEqualTo []) exitWith {objNull};
 
 // Local variables initialization
 private _specialAttr = "NONE";
+// TODO: TBD: this needs to be "CAN_COLLIDE" quite probably... especially for FOB rebuilds...
 private _paradrop = false;
 private _firstPos = KPLIB_zeroPos;
 private _reposition = true;
