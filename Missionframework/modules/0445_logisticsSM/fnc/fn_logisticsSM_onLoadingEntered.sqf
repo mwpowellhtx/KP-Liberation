@@ -29,6 +29,10 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
+if (_debug) then {
+    ["[fn_logisticsSM_onLoadingEntered] Entering...", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
 ]] call KPLIB_fnc_namespace_getVars) params [
@@ -39,12 +43,22 @@ private _transportIndex = [_namespace] call KPLIB_fnc_logistics_findNextTranspor
 // TODO: TBD: it might even be better to respond with the actual resources tuple deficit... i.e. ({ _x < 0 } count _balance)
 private _tried = [_namespace, _transportIndex] call KPLIB_fnc_logisticsSM_tryLoadNextTransport;
 
+if (_debug) then {
+    [format ["[fn_logisticsSM_onLoadingEntered] Tried: [_transportIndex, _tried]: %1"
+        , str [_transportIndex, _tried]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 _status = if (_tried) then {
     // NO_RESOURCE is cleared in part as a function calculating the TRANSIT PLAN...
     [_namespace] call KPLIB_fnc_logistics_calculateLoadingStatus;
 } else {
     // Do not re-set any TIMER, allow it to continue running until NO_RESOURCE has cleared
     [_status, KPLIB_logistics_status_noResource] call KPLIB_fnc_logistics_setStatus;
+};
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_onLoadingEntered] Fini: [_transportIndex, _tried, _status]: %1"
+        , str [_transportIndex, _tried, _status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 // Continue mission LOADING, or transition to EN_ROUTE, as determined by the PLAN

@@ -20,10 +20,16 @@
         The callback has finished [ARRAY]
  */
 
+private _debug = [
+    [
+        {KPLIB_param_logisticsSM_onApplyTransaction_debug}
+    ]
+] call KPLIB_fnc_logisticsSM_debug;
+
 params [
     ["_markerName", "", [""]]
-    , ["_billValue", [], [[]], 3]
-    , ["_onApply", KPLIB_fnc_resources_refund, [{}]]
+    , ["_billValue", +KPLIB_resources_storageValueDefault, [[]], 3]
+    , ["_onApply", KPLIB_fnc_resources_refund, [{ false; }]]
 ];
 
 _billValue params [

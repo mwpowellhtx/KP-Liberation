@@ -28,20 +28,18 @@ params [
     , ["_loadTemplates", +KPLIB_logisticsSM_fullLoads, [[]]]
 ];
 
+// Dissect the endpoints, alpha, and bill
 ([_namespace, [
     ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_endpoints"
 ];
 
-/* Unused bits:
- *      _0: _alphaPos
- *      _1: _alphaMarker
- *      _2: _alphaMarkerText
- */
 _endpoints params [
     ["_alpha", [], [[]]]
 ];
+
+// Do not care about the other alpha components
 _alpha params [
     "_0"
     , "_1"
@@ -49,51 +47,54 @@ _alpha params [
     , ["_alphaBillValue", +KPLIB_resources_storageValueDefault, [[]]]
 ];
 
-private _alphaBillCrates = _alphaBillValue apply {
-    ([_x] call KPLIB_fnc_resources_estimateCrates);
-};
-
-_alphaBillCrates params [
+// We need the alpha bill as raw as well a crate estimate form
+_alphaBillValue params [
     ["_alphaSupply", 0, [0]]
     , ["_alphaAmmo", 0, [0]]
     , ["_alphaFuel", 0, [0]]
 ];
 
-// Constrain the available sets by the bill
+(_alphaBillValue apply { ([_x] call KPLIB_fnc_resources_estimateCrates); }) params [
+    ["_alphaSupplyCrates", 0, [0]]
+    , ["_alphaAmmoCrates", 0, [0]]
+    , ["_alphaFuelCrates", 0, [0]]
+];
+
+// Do a crude filter of the load template crates at first
 private _loads = _loadTemplates select {
     _x params [
-        ["_supply", 0, [0]]
-        , ["_ammo", 0, [0]]
-        , ["_fuel", 0, [0]]
+        ["_supplyCrates", 0, [0]]
+        , ["_ammoCrates", 0, [0]]
+        , ["_fuelCrates", 0, [0]]
     ];
-    _supply <= _alphaSupply
-        && _ammo <= _alphaAmmo
-        && _fuel <= _alphaFuel;
+    _supplyCrates <= _alphaSupplyCrates
+        && _ammoCrates <= _alphaAmmoCrates
+        && _fuelCrates <= _alphaFuelCrates;
 };
 
-// There may not be any matches
+// Return early when that rules out any all candidates
 if (count _loads == 0) exitWith {
-    +KPLIB_resources_storageValueDefaults;
+    +KPLIB_resources_storageValueDefault;
 };
 
+// Establish a qualitative metric maximizing crates and minimizing zeros
+private _each = {
+    if (_this == 0) exitWith { -1; };
+    (_this*2);
+};
 private _summarize = {
-    params [
-        ["_supply", 0, [0]]
-        , ["_ammo", 0, [0]]
-        , ["_fuel", 0, [0]]
-    ];
-    _supply + _ammo + _fuel;
+    ((_this#0) call _each)
+    + ((_this#1) call _each)
+    + ((_this#2) call _each);
 };
 
-// ONE LOAD is a no brainer...
+// Identify the candidates aligned with the first element coverage
 private _descending = if (count _loads == 1) then {
-    (_loads#0);
+    _loads;
 } else {
-    // We also want the widest possible distribution, 3, 2, or 1, regardless of crates, volumes
-    [_loads, [], { (_x apply { _x min 1; }) call _summarize; }, "descend"] call BIS_fnc_sortBy;
+    [_loads, [], { (_x call _summarize); }, "descend"] call BIS_fnc_sortBy;
 };
 
-// Use the FIRST item to further constraint the CANDIDATES
 private _candidates = [(_descending#0) call _summarize] call {
     params [
         ["_coverage", 0, [0]]
@@ -101,11 +102,8 @@ private _candidates = [(_descending#0) call _summarize] call {
     _descending select { (_x call _summarize) == _coverage; };
 };
 
-// Now we have a FILTER against which we may present the next load
-private _filter = selectRandom _candidates;
-
-// Now we need the LOAD in terms of VOLUME
-private _crateVolumes = _filter apply { (_x * KPLIB_param_crateVolume); };
+// And get the the crate volume for the random selection
+private _crateVolumes = (selectRandom _candidates) apply { (_x * KPLIB_param_crateVolume); };
 
 _crateVolumes params [
     ["_supplyVolume", 0, [0]]
@@ -113,11 +111,11 @@ _crateVolumes params [
     , ["_fuelVolume", 0, [0]]
 ];
 
-// Load the maximum possible, either FULL VOLUME, or whatever ALPHA is requesting
+// Finally constrain the result by the current bill
 private _retval = [
-    _supplyVolume max _alphaSupply
-    , _ammoVolume max _alphaAmmo
-    , _fuelVolume max _alphaFuel
+    _supplyVolume min _alphaSupply
+    , _ammoVolume min _alphaAmmo
+    , _fuelVolume min _alphaFuel
 ];
 
 _retval;

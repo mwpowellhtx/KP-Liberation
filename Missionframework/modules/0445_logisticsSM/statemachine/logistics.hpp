@@ -76,7 +76,7 @@ class KPLIB_logisticsSM {
     };
 
     class KPLIB_logisticsSM_state_loading {
-        onStateEntered = "[_this] call KPLIB_fnc_logisticsSM_onLoadingEntering";
+        onStateEntered = "[_this] call KPLIB_fnc_logisticsSM_onLoadingEntered";
         onState = "[_this, 'loading'] call KPLIB_fnc_logisticsSM_onNoOp";
 
         // Held up due to NO_RESOURCE

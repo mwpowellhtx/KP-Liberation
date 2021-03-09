@@ -53,7 +53,7 @@ if (isServer) then {
 
     KPLIB_param_logisticsSM_onRebasingEntered_debug             = false;
     KPLIB_param_logisticsSM_onStandby_debug                     = false;
-    KPLIB_param_logisticsSM_onPending_debug                     = true;
+    KPLIB_param_logisticsSM_onPending_debug                     = false;
     KPLIB_param_logisticsSM_onLoadingEntered_debug              = true;
     KPLIB_param_logisticsSM_onEnRouteEntered_debug              = true;
     KPLIB_param_logisticsSM_onArrivalResetTimer_debug           = true;
@@ -66,7 +66,9 @@ if (isServer) then {
     KPLIB_param_logisticsSM_onPendingUnloading_debug            = true;
     KPLIB_param_logisticsSM_toStandby_debug                     = true;
     KPLIB_logisticsSM_onTransitStart_debug                      = true;
-    KPLIB_param_logisticsSM_onNoOp_debug                        = true;
+    KPLIB_param_logisticsSM_onNoOp_debug                        = false;
+    KPLIB_param_logisticsSM_tryLoadNextTransport_debug          = true;
+    KPLIB_param_logisticsSM_onApplyTransaction_debug            = true;
 
     // Estimated number of CRATES that each CONVOY TRANSPORT may support
     KPLIB_logisticsSM_fullLoads = [

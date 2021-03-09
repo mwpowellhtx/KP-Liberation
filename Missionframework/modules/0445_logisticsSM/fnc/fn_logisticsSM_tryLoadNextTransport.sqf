@@ -19,57 +19,83 @@
         The array of CBA logistics namespaces [ARRAY]
  */
 
+private _debug = [
+    [
+        {KPLIB_param_logisticsSM_tryLoadNextTransport_debug}
+    ]
+] call KPLIB_fnc_logisticsSM_debug;
+
 params [
     ["_namespace", locationNull, [locationNull]]
     , ["_transportIndex", -1, [0]]
 ];
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_tryLoadNextTransport] Entering: [isNull _namespace, _transportIndex]: %1"
+        , str [isNull _namespace, _transportIndex]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 if (isNull _namespace || _transportIndex < 0) exitWith {
     false;
 };
 
 ([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_timer", []]
-    , ["KPLIB_logistics_endpoints", []]
+    ["KPLIB_logistics_endpoints", []]
     , [KPLIB_logistics_convoy, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
-    , "_timer"
-    , "_endpoints"
+    "_endpoints"
     , "_convoy"
 ];
 
 // So that we are indeed working with a genuine copy
-_convoy = +_convoy;
+private _loadedConvoy = +_convoy;
 
 _endpoints params [
     ["_alpha", [], [[]], 4]
+    , ["_bravo", [], [[]], 4]
 ];
 
 _alpha params [
-    ["_pos", +KPLIB_zeroPos, [[]], 3]
-    , ["_markerName", "", [""]]
-    , ["_baseMarkerText", "", [""]]
-    , ["_billValue", [], [[]], 3]
+    ["_alphaPos", +KPLIB_zeroPos, [[]], 3]
+    , ["_alphaMarker", "", [""]]
+    , ["_alphaMarkerText", "", [""]]
+    , ["_alphaBillValue", +KPLIB_resources_storageValueDefault, [[]], 3]
 ];
 
-private _loadVolumes = [_billValue] call KPLIB_fnc_logisticsSM_getLoadVolumes;
+private _loadValue = [_namespace] call KPLIB_fnc_logisticsSM_getLoadVolumes;
 
-if (!([_markerName, _loadVolumes, KPLIB_fnc_resources_pay] call KPLIB_fnc_logisticsSM_onApplyTransaction)) exitWith {
+// Could not meet the bill
+if (_loadValue isEqualTo KPLIB_resources_storageValueDefault) exitWith {
+    if (_debug) then {
+        [format ["[fn_logisticsSM_tryLoadNextTransport] Unable to specify: [_alphaBillValue]: %1"
+            , str [_alphaBillValue]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
     false;
 };
 
-_convoy set [_transportIndex, _loadValue];
+if (!([_alphaMarker, _loadValue, KPLIB_fnc_resources_pay] call KPLIB_fnc_logisticsSM_onApplyTransaction)) exitWith {
+    if (_debug) then {
+        [format ["[fn_logisticsSM_tryLoadNextTransport] Unable to pay: [_alphaBillValue, _loadValue]: %1"
+            , str [_alphaBillValue, _loadValue]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
+    false;
+};
+
+_loadedConvoy set [_transportIndex, _loadValue];
 
 // Bill value less load value, in LINQ zip manner...
-private _remainingValue = [_billValue, _loadValue, {(_this#0) - (_this#1)}] call KPLIB_fnc_linq_zip;
+private _remainingValue = [_alphaBillValue, _loadValue, {(_this#0) - (_this#1)}] call KPLIB_fnc_linq_zip;
 // TODO: TBD: probably unnecessary to set so much here...
-_endpoints set [0, +[_pos, _markerName, _baseMarkerText, _remainingValue]];
+private _loadedEndpoints = +[[_alphaPos, _alphaMarker, _alphaMarkerText, _remainingValue], _bravo];
 
 [_namespace, [
-    [KPLIB_logistics_convoy, +_convoy]
-    , ["KPLIB_logistics_endpoints", +_endpoints]
+    ["KPLIB_logistics_endpoints", _loadedEndpoints]
+    , [KPLIB_logistics_convoy, _loadedConvoy]
 ]] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_tryLoadNextTransport] Fini: [_endpoints, _loadedEndpoints, _convoy, _loadedConvoy]: %1"
+        , str [_endpoints, _loadedEndpoints, _convoy, _loadedConvoy]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 true;
