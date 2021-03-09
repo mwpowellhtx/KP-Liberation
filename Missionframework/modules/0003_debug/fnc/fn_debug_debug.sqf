@@ -33,7 +33,8 @@ private _evaluated = _conditions apply {
     switch (typeName _x) do {
         case "CODE": { [] call _x; };
         case "STRING": { missionNamespace getVariable [_x, false]; };
-        default { _x; };
+        case "BOOL": { _x; };
+        default { false; };
     };
 };
 
