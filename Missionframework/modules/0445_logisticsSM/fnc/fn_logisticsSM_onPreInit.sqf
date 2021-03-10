@@ -58,11 +58,11 @@ if (isServer) then {
     KPLIB_param_logisticsSM_onStandby_debug                     = false;
     KPLIB_param_logisticsSM_onPending_debug                     = false;
     KPLIB_param_logisticsSM_onRefreshTimer_debug                = false;
-    KPLIB_param_logisticsSM_onPendingLoading_debug              = true;
-    KPLIB_param_logisticsSM_onLoadingEntered_debug              = true;
-    KPLIB_param_logisticsSM_onEnRouteEntered_debug              = true;
+    KPLIB_param_logisticsSM_onPendingLoading_debug              = false;
+    KPLIB_param_logisticsSM_onLoadingEntered_debug              = false;
+    KPLIB_param_logisticsSM_onEnRouteEntered_debug              = false;
     KPLIB_param_logisticsSM_onArrivalResetTimer_debug           = false;
-    KPLIB_param_logisticsSM_onUnloadingEntered_debug            = true;
+    KPLIB_param_logisticsSM_onUnloadingEntered_debug            = false;
     KPLIB_param_logisticsSM_onConfirmReturnMission_debug        = false;
     KPLIB_param_logisticsSM_onAbortComplete_debug               = false;
     KPLIB_param_logisticsSM_toTransit_debug                     = false;
@@ -72,7 +72,7 @@ if (isServer) then {
     KPLIB_param_logisticsSM_onPendingUnloading_debug            = false;
     KPLIB_param_logisticsSM_toStandby_debug                     = false;
     KPLIB_logisticsSM_onTransitStart_debug                      = false;
-    KPLIB_param_logisticsSM_onNoOp_debug                        = true;
+    KPLIB_param_logisticsSM_onNoOp_debug                        = false;
     KPLIB_param_logisticsSM_tryLoadNextTransport_debug          = false;
     KPLIB_param_logisticsSM_tryUnloadNextTransport_debug        = false;
     KPLIB_param_logisticsSM_onApplyTransaction_debug            = false;
