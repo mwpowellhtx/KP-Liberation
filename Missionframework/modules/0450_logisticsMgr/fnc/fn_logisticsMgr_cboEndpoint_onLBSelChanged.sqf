@@ -47,11 +47,23 @@ if (_selectedIndex < 0) exitWith {
     false;
 };
 
+private _selectedLine = uiNamespace getVariable ["KPLIB_logisticsMgr_selectedLine", []];
+
+_selectedLine params [
+    ["_lineUuid", "", [""]]
+    , ["_status", KPLIB_logistics_status_standby, [0]]
+];
+
+// // TODO: TBD: may need the selected line...
+// private _selectedLine = uiNamespace getVariable ["KPLIB_logisticsMgr_selectedLine", []];
+
 private _endpointMarker = _cboEndpoint lbData _selectedIndex;
 
-[markerPos _endpointMarker] spawn KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
-
-[] call KPLIB_fnc_logisticsMgr_onCalculateEstimatedDuration;
+if (_status == KPLIB_logistics_status_standby) then {
+    private _target = if (_selectedIndex >= 1) then { objNull; } else { player; };
+    [markerPos _endpointMarker, _target] spawn KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+    [] call KPLIB_fnc_logisticsMgr_onCalculateEstimatedDuration;
+};
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_cboEndpoint_onLBSelChanged] Fini: [_endpointMarker]: %1"

@@ -43,6 +43,8 @@ if (_debug) then {
 
 private _endpointName = toUpper (getText (_config >> "endpoint"));
 
+_cboEndpoint setVariable ["KPLIB_logisticsMgr_cboEndpoint_endpoint", _endpointName];
+
 if (_debug) then {
     [format ["[fn_logisticsMgr_cboEndpoint_onLoad] Identifying ENDPOINT variable: [_endpointName]: %1"
         , str [_endpointName]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

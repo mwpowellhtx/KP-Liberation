@@ -42,17 +42,27 @@ if (_debug) then {
 uiNamespace setVariable ["KPLIB_logisticsMgr_display", nil];
 
 uiNamespace setVariable ["KPLIB_logisticsMgr_lnbLines", nil];
-
 uiNamespace setVariable ["KPLIB_logisticsMgr_lnbTelemetry", nil];
-
 uiNamespace setVariable ["KPLIB_logisticsMgr_lnbConvoy", nil];
 
 uiNamespace setVariable ["KPLIB_logisticsMgr_cboAlpha", nil];
 uiNamespace setVariable ["KPLIB_logisticsMgr_cboBravo", nil];
 
+uiNamespace setVariable ["KPLIB_logisticsMgr_cboEndpoints", nil];
+uiNamespace setVariable ["KPLIB_logisticsMgr_ctrlMap", nil];
+
 uiNamespace setVariable ["KPLIB_logisticsMgr_lines", nil];
 uiNamespace setVariable ["KPLIB_logisticsMgr_convoy", nil];
 uiNamespace setVariable ["KPLIB_logisticsMgr_endpoints", nil];
+
+{
+    if (_x in allMapMarkers) then {
+        deleteMarkerLocal _x;
+    };
+} forEach [
+    KPLIB_logisticsMgr_markerName
+    , KPLIB_logisticsMgr_actualMarkerName
+];
 
 // // TODO: TBD: do not know if there is a way to clear or delete a hashmap once it is created
 // // TODO: TBD: but since it is effectively a singleton useful for one purpose only, should be fine...

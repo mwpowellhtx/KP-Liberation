@@ -18,8 +18,11 @@
         NONE
 
     References:
-        // https://community.bistudio.com/wiki/set
-        // https://community.bistudio.com/wiki/createHashMap
+        https://community.bistudio.com/wiki/set
+        https://community.bistudio.com/wiki/createHashMap
+        https://community.bistudio.com/wiki/CfgMarkers
+        https://community.bistudio.com/wiki/Arma_3:_CfgMarkerColors
+        https://www.w3schools.com/colors/colors_picker.asp
  */
 
 if (isServer) then {
@@ -29,6 +32,7 @@ if (isServer) then {
 /*
     ----- Module Globals -----
  */
+
 
 KPLIB_logisticsMgr_onLoad_debug                             = false;
 KPLIB_logisticsMgr_lnbLines_onLoad_debug                    = false;
@@ -54,6 +58,7 @@ KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug         = false;
 KPLIB_logisticsMgr_cboEndpoint_onSetFocus_debug             = false;
 KPLIB_param_logisticsMgr_endpointCtrls_onReload_debug       = false;
 KPLIB_param_logisticsMgr_cboEndpoints_getViewData_debug     = false;
+KPLIB_param_logisticsMgr_ctrlMap_onReload_debug             = true;
 KPLIB_logisticsMgr_onLinesPublished_debug                   = false;
 KPLIB_param_logisticsMgr_onEndpointsPublished_debug         = false;
 KPLIB_logisticsMgr_onEnableOrDisableCtrls_debug             = false;
@@ -76,6 +81,14 @@ if (!(hasInterface || isDedicated)) then {
 
 if (hasInterface) then {
     // Player section
+
+    KPLIB_logisticsMgr_markerName               = "KPLIB_logisticsMgr_pos";
+    KPLIB_logisticsMgr_actualMarkerName         = "KPLIB_logisticsMgr_actualPos";
+    KPLIB_logisticsMgr_loadingClassName         = "hd_start";
+    KPLIB_logisticsMgr_unloadingClassName       = "hd_end";
+    KPLIB_logisticsMgr_enRouteClassName         = "hd_arrow";
+    KPLIB_logisticsMgr_ambushedClassName        = "hd_ambush";
+    KPLIB_logisticsMgr_routeBlockedClassName    = "hd_objective";
 
     // Defined in layout order from top-left to bottom-right...
     KPLIB_logisticsMgr_ctrls_mayRemoveLine = [

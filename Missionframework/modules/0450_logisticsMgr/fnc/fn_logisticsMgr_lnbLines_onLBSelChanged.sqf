@@ -71,7 +71,7 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_selectedLine", _line];
 // This is where we dissect the tuple and stage the bits for the rest of the dialog
 _line params [
     ["_lineUuid", "", [""]]
-    , ["_status", KPLIB_logistics_status_na, [0]]
+    , ["_status", KPLIB_logistics_status_standby, [0]]
     , ["_timer", +KPLIB_timers_default, [[]], 4]
     , ["_endpoints", [], [[]]]
     , ["_convoy", [], [[]]]
@@ -97,6 +97,11 @@ _endpoints params [
 
 [_alpha, "alpha"] call KPLIB_fnc_logisticsMgr_endpointCtrls_onReload;
 [_bravo, "bravo"] call KPLIB_fnc_logisticsMgr_endpointCtrls_onReload;
+
+if (_status > KPLIB_logistics_status_standby) then {
+    private _ctrlMap = uiNamespace getVariable ["KPLIB_logisticsMgr_ctrlMap", controlNull];
+    [nil, nil, _ctrlMap] spawn  KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+};
 
 if (_debug) then {
     ["[fn_logisticsMgr_lnbLines_onLBSelChanged] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

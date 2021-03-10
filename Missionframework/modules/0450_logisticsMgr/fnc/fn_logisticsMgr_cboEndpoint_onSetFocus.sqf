@@ -17,7 +17,7 @@
         The event handler finished [BOOL]
 
     References:
-        ...
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onSetFocus
  */
 
 private _debug = [
@@ -30,15 +30,30 @@ params [
     ["_cboEndpoint", controlNull, [controlNull]]    
 ];
 
-private _selectedIndex = lbCurSel _cboEndpoint;
+private _selectedLine = uiNamespace getVariable ["KPLIB_logisticsMgr_selectedLine", []];
 
-if (_selectedIndex < 0) exitWith {
+_selectedLine params [
+    ["_lineUuid", "", [""]]
+    , ["_status", KPLIB_logistics_status_standby, [0]]
+];
+
+// When not in STANDBY then exit early
+if (_status > KPLIB_logistics_status_standby) exitWith {
+    uiNamespace setVariable ["KPLIB_logisticsMgr_cboEndpoint", controlNull];
     false;
 };
 
-private _endpointMarker = _cboEndpoint lbData _selectedIndex;
+[] call {
+    uiNamespace setVariable ["KPLIB_logisticsMgr_cboEndpoint", _cboEndpoint];
 
-// Repositions the map, etc, when the control focus is (re-)set
-[markerPos _endpointMarker] call KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+    private _selectedIndex = lbCurSel _cboEndpoint;
 
-true;
+    if (_selectedIndex < 1) exitWith { false; };
+
+    private _endpointMarker = _cboEndpoint lbData _selectedIndex;
+
+    // Repositions the map, etc, when the control focus is (re-)set
+    [markerPos _endpointMarker] call KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+
+    true;
+};
