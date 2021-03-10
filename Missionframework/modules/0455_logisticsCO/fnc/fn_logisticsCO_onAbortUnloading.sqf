@@ -34,9 +34,19 @@ params [
 
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
+    , [KPLIB_logistics_timer, +KPLIB_timers_default]
+    , [KPLIB_logistics_convoy, []]
+    , ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_status"
+    , "_timer"
+    , "_convoy"
+    , "_endpoints"
 ];
+
+_timer = +_timer;
+_convoy = +_convoy;
+_endpoints = +_endpoints;
 
 // TODO: TBD: because we may also need to inspect the request origin, either manager or automated...
 // TODO: TBD: at the very least potentially also notify the user... perhaps broadcast that anyway...
@@ -47,26 +57,29 @@ params [
 ];
 
 // When there are CONVOY TRANSPORTS remaining to UNLOAD, then allow CONTINUE MISSION...
-private _transportIndex = [_namespace] call KPLIB_fnc_logistics_findNextTransportIndex;
-
-// Either stage the LOGISTIC LINE for ABORT later on...
-if (_transportIndex >= 0) then {
-
+if (0 < ({ !(_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy)) then {
     // May also be blocked for NO_SPACE, but is now also ABORTING...
-    [_namespace, [
-        ["KPLIB_logistics_status", [_status, KPLIB_logistics_status_aborting] call BIS_fnc_bitflagsSet]
-    ]] call KPLIB_fnc_namespace_setVars;
-
+    _status = [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_setStatus;
 } else {
-
     // ...or process the ABORT request IMMEDIATELY
-    [_namespace, [
-        ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-        , ["KPLIB_logistics_timer", +KPLIB_timers_default]
-        , ["KPLIB_logistics_endpoints", []]
-    ]] call KPLIB_fnc_namespace_getVars;
+    _status = KPLIB_logistics_status_standby;
+    _timer = +KPLIB_timers_default;
+    _endpoints = [];
 };
 
+[_namespace, [
+    ["KPLIB_logistics_status", _status]
+    , [KPLIB_logistics_timer, +_timer]
+    , ["KPLIB_logistics_endpoints", +_endpoints]
+]] call KPLIB_fnc_namespace_setVars;
+
 // Success: ABORTED ... or ... ABORTING
-_status == KPLIB_logistics_status_standby
-    || [_status, KPLIB_logistics_status_aborting] call BIS_fnc_bitflagsSet;
+[
+    _status == KPLIB_logistics_status_standby
+    , [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
+] params [
+    "_standby"
+    , "_aborting"
+];
+
+_standby || _aborting;

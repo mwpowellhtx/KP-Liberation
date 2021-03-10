@@ -33,7 +33,7 @@ params [
 // Must do a role reversal...
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_timer", []]
+    , [KPLIB_logistics_timer, []]
     , ["KPLIB_logistics_endpoints", []]
     , [KPLIB_logistics_convoy, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
@@ -52,7 +52,7 @@ params [
 ];
 
 // When there are zero loaded CONVOY TRANSPORTS at the moment of ABORT, then STANDBY
-if ((_convoy findIf { !(_x isEqualTo KPLIB_resources_storageValueDefault); }) < 0) then {
+if (0 == ({ !(_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy)) then {
 
     _status = KPLIB_logistics_status_standby;
     _timer = +KPLIB_timers_default;
@@ -68,8 +68,8 @@ if ((_convoy findIf { !(_x isEqualTo KPLIB_resources_storageValueDefault); }) < 
 
 [_namespace, [
     ["KPLIB_logistics_status", _status]
-    , ["KPLIB_logistics_timer", _timer]
-    , ["KPLIB_logistics_endpoints", _endpoints]
+    , [KPLIB_logistics_timer, +_timer]
+    , ["KPLIB_logistics_endpoints", +_endpoints]
 ]] call KPLIB_fnc_namespace_setVars;
 
 true;

@@ -60,14 +60,14 @@ if (isServer) then {
     KPLIB_param_logisticsCO_onTransportRecycle_debug            = false;
     KPLIB_param_logisticsCO_onTransportRecycleEntering_debug    = false;
 
-    KPLIB_param_logisticsCO_onRequestConfirm_debug              = true;
-    KPLIB_param_logisticsCO_onRequestAbort_debug                = true;
+    KPLIB_param_logisticsCO_onRequestConfirm_debug              = false;
+    KPLIB_param_logisticsCO_onRequestAbort_debug                = false;
 
-    KPLIB_param_logisticsCO_onMissionConfirmEntering_debug      = true;
-    KPLIB_param_logisticsCO_onMissionConfirm_debug              = true;
+    KPLIB_param_logisticsCO_onMissionConfirmEntering_debug      = false;
+    KPLIB_param_logisticsCO_onMissionConfirm_debug              = false;
 
-    KPLIB_param_logisticsCO_onMissionAbortEntering_debug        = true;
-    KPLIB_param_logisticsCO_onMissionAbort_debug                = true;
+    KPLIB_param_logisticsCO_onMissionAbortEntering_debug        = false;
+    KPLIB_param_logisticsCO_onMissionAbort_debug                = false;
 
     KPLIB_param_logisticsCO_onAbortLoading_debug                = true;
     KPLIB_param_logisticsCO_onAbortUnloading_debug              = true;

@@ -52,7 +52,7 @@ private _timer = if (!_loading) then {
 
 [_namespace, [
     ["KPLIB_logistics_status", _status]
-    , ["KPLIB_logistics_timer", _timer]
+    , [KPLIB_logistics_timer, _timer]
     , ["KPLIB_logistics_endpoints", _endpoints]
 ]] call KPLIB_fnc_namespace_setVars;
 

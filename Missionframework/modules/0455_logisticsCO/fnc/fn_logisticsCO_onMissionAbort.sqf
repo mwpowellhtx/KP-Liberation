@@ -54,7 +54,7 @@ private _contingencies = [
 ];
 
 // Invoke the first CONTINGENCY CALLBACK whose PREDICATE was aligned
-[(_contingencies select { [] call (_x#0); })] call {
+(_contingencies select { [] call (_x#0); }) call {
     // Which deconstructs the "first" contingency matching its predicate
     params [
         ["_contingency", [], [[]]]
@@ -62,8 +62,8 @@ private _contingencies = [
 
     // If we fail to identify a contingency, i.e. AMBUSH, should be fine in default values
     _contingency params [
-        ["_predicate", {}, [{}]] // Already selected, no need to repeat
-        , ["_callback", {}, [{}]] // This is what we want to invoke
+        ["_predicate", { true; }, [{}]] // Already selected, no need to repeat
+        , ["_callback", { true; }, [{}]] // This is what we want to invoke
     ];
 
     [_namespace, _changeOrder] call _callback;
@@ -76,13 +76,15 @@ _status = [_namespace] call {
     ([_namespace, [
         ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
     ]] call KPLIB_fnc_namespace_getVars) params [
-        ["_0", KPLIB_logistics_status_standby, [0]]
+        "_0"
     ];
 
     _0;
 };
 
-private _retval = [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus;
+// Success is ABORTED || ABORTING ...
+private _retval = _status == KPLIB_logistics_status_standby
+    || [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus;
 
 if (!_retval) then {
     if (_debug) then {

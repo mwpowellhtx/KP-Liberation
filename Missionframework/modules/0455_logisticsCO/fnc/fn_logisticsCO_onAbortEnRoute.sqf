@@ -27,7 +27,7 @@ private _debug = [
     [
         {KPLIB_param_logisticsCO_onAbortEnRoute_debug}
     ]
-] call KLIB_fnc_logisticsCO_debug;
+] call KPLIB_fnc_logisticsCO_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]
@@ -36,7 +36,7 @@ params [
 
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_timer", +KPLIB_timers_default]
+    , [KPLIB_logistics_timer, +KPLIB_timers_default]
     , ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_status"
@@ -44,8 +44,17 @@ params [
     , "_endpoints"
 ];
 
+if (_debug) then {
+    [format ["[fn_logisticsCO_onAbortEnRoute] Entering: [_status, _timer, _endpoints]: %1"
+        , str [_status, _timer, _endpoints]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
+_endpoints = +_endpoints;
+
 // Just deconstruct the TIMER, which by this point we ought to have some confidence in
-_timer params ["_duration", "_startTime", "_elapsedTime", "_timeRemaining"];
+(+_timer) params ["_duration", "_startTime", "_elapsedTime", "_timeRemaining"];
+
+private _abortedTimer = +_timer;
 
 // Swap when not halfway, i.e. return shortest possible path, or...
 if ((_elapsedTime < (_duration / 2)) || ([_status, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_checkStatus)) then {
@@ -54,21 +63,26 @@ if ((_elapsedTime < (_duration / 2)) || ([_status, KPLIB_logistics_status_routeB
     // Re-orient the TIMER in the opposite direction, BRAVO becomes ALPHA, and vice versa
     _endpoints = [_endpoints] call KPLIB_fnc_logistics_swapEndpoints;
 
-    // Just go ahead and re-set the TIMER when the ENDPOINT is swapped...
-    _timer = [
-        _duration
-        , _startTime
-        , _duration - _elapsedTime
-        , _duration - (_duration - _elapsedTime)
-    ];
+    // INVERT the TIMER, thereby reflecting the new swapped ENDPOINTS orientation
+    _abortedTimer = _timer call KPLIB_fnc_timers_invert;
+
+    if (_debug) then {
+        [format ["[fn_logisticsCO_onAbortEnRoute] Endpoints swapped: [_timer, _abortedTimer, _endpoints]: %1"
+            , str [_timer, _abortedTimer, _endpoints]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
 };
 
-_status = KPLIB_logistics_status_enRouteAborting;
+_status = [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_setStatus;
 
 [_namespace, [
     ["KPLIB_logistics_status", _status]
-    , ["KPLIB_logistics_timer", _timer]
-    , ["KPLIB_logistics_endpoints", _endpoints]
-]] call KPLIB_fnc_namespace_getVars;
+    , [KPLIB_logistics_timer, _abortedTimer]
+    , ["KPLIB_logistics_endpoints", +_endpoints]
+]] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    [format ["[fn_logisticsCO_onAbortEnRoute] Fini: [_status, _timer, _abortedTimer, _endpoints]: %1"
+        , str [_status, _timer, _abortedTimer, _endpoints]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 true;
