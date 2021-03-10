@@ -130,7 +130,7 @@ if (isServer) then {
     KPLIB_param_logistics_calculateMissionStatus_debug      = false;
     KPLIB_param_logistics_calculateLoadingStatus_debug      = false;
     KPLIB_param_logistics_calculateTransitWindow_debug      = false;
-    KPLIB_param_logistics_calculateArrivalStatus_debug      = true;
+    KPLIB_param_logistics_calculateArrivalStatus_debug      = false;
 
     KPLIB_logisticsServer_telemetryDefault = [] call {
         private _zeroPos = +KPLIB_zeroPos;
