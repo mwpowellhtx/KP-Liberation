@@ -44,9 +44,10 @@ if (isNull _cboEndpoint) exitWith {
 
 private _curSelData = [lbCurSel _cboEndpoint] call {
     params ["_curSel"];
-    if (_curSel < 0) then { ""; } else {
+    private _data = if (_curSel < 0) then { ""; } else {
         _cboEndpoint lbData _curSel;
     };
+    [_curSel, _data];
 };
 
 lbClear _cboEndpoint;
@@ -94,10 +95,13 @@ _unselected call _onAddEndpoint;
 { _x call _onAddEndpoint; } forEach _endpoints;
 
 // TODO: TBD: could introduce a "selectbydata" ...
-private _endpointIndex = _endpoints findIf { ((_x#1) isEqualTo _curSelData); };
+private _endpointIndex = _endpoints findIf { ((_x#1) isEqualTo (_curSelData#1)); };
 //                              _markerName:   ^^^^
 
-_cboEndpoint lbSetCurSel (_endpointIndex + 1);
+// Only re-select when the index was actually different
+if (_endpointIndex >= 0 && _endpointIndex != (_curSelData#0)) then {
+    _cboEndpoint lbSetCurSel (_endpointIndex + 1);
+};
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_cboEndpoint_onReload] Fini: [count _endpoints]: %1"

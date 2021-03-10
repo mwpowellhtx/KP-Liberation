@@ -38,7 +38,7 @@ if (hasInterface) then {
     [] call KPLIB_fnc_logisticsMgr_setupPlayerMenu;
 
     ["KPLIB_logisticsMgr_onLinesPublished", KPLIB_fnc_logisticsMgr_onLinesPublished] call CBA_fnc_addEventHandler;
-    ["KPLIB_logisticsMgr_onEndpointsPublished", KPLIB_fnc_logisticsMgr_onEndpointsPublished] call CBA_fnc_addEventHandler;
+    [KPLIB_logisticsMgr_onEndpointsPublished, KPLIB_fnc_logisticsMgr_onEndpointsPublished] call CBA_fnc_addEventHandler;
 
     KPLIB_logisticsMgr_enableOrDisableCtrlsPeriod = 0.75;
 

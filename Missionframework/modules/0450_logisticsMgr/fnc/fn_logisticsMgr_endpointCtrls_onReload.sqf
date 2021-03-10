@@ -50,8 +50,7 @@ if (_debug) then {
         , str [_endpoint, _endpointKey, _cboEndpointKey]], "POST] [LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
-// (Re-)select the ENDPOINT combobox
-[uiNamespace getVariable _cboEndpointKey] call {
+private _onReselectEndpoint = {
     params ["_cboEndpoint"];
     private _cboViewData = [_cboEndpoint] call KPLIB_fnc_logisticsMgr_cboEndpoints_getViewData;
     // Assuming a first UNSELECTED row
@@ -64,6 +63,9 @@ if (_debug) then {
 
     _cboEndpoint lbSetCurSel _markerIndex;
 };
+
+// (Re-)select the ENDPOINT combobox
+[uiNamespace getVariable _cboEndpointKey] call _onReselectEndpoint;
 
 // Then (re-)popupate the ENDPOINT resource editors
 private _onReloadResource = {

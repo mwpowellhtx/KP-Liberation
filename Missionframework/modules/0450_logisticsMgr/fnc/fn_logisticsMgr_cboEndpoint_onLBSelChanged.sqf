@@ -24,7 +24,6 @@
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLBSelChanged
  */
 
-
 private _debug = [
     [
         {KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug}

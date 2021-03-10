@@ -19,7 +19,7 @@
 
 private _debug = [
     [
-        {KPLIB_logisticsMgr_onEndpointsPublished_debug}
+        {KPLIB_param_logisticsMgr_onEndpointsPublished_debug}
     ]
 ] call KPLIB_fnc_logisticsMgr_debug;
 
@@ -37,14 +37,17 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_endpoints", _endpoints];
 
 // Dissect the views and present them starting with the logistics lines LISTNBOX control
 private _onReloadEndpointCombo = {
-    private _cboEndpoint = _x;
+    params ["_cboEndpoint"];
     [_cboEndpoint] call KPLIB_fnc_logisticsMgr_cboEndpoint_onReload;
 };
 
-_onReloadEndpointCombo forEach [
-    uiNamespace getVariable ["KPLIB_logisticsMgr_cboAlpha", controlNull]
-    , uiNamespace getVariable ["KPLIB_logisticsMgr_cboBravo", controlNull]
-];
+private _endpointCtrls = (keys KPLIB_logisticsMgr_cboEndpointHashMap) apply {
+    KPLIB_logisticsMgr_cboEndpointHashMap get _x;
+} apply {
+    uiNamespace getVariable [_x, controlNull];
+};
+
+{ [_x] call _onReloadEndpointCombo; } forEach _endpointCtrls;
 
 if (_debug) then {
     ["[fn_logisticsMgr_onEndpointsPublished] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

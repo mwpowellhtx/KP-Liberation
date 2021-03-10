@@ -27,7 +27,7 @@
 
 private _debug = [
     [
-        {KPLIB_logisticsMgr_lnbTelemetry_getReport_debug}
+        {KPLIB_param_logisticsMgr_lnbTelemetry_onUpdateReport_debug}
     ]
 ] call KPLIB_fnc_logisticsMgr_debug;
 
@@ -71,7 +71,6 @@ private _onRenderDistance = {
     };
 };
 
-
 private _onSetReport = {
     _x params [
         ["_key", "", [""]]
@@ -84,6 +83,11 @@ private _onSetReport = {
     };
 
     _report set [_key, _text];
+};
+
+if (_debug) then {
+    [format ["[fn_logisticsMgr_lnbTelemetry_onUpdateReport] Setting reports: [_status, _timer, _transportSpeedKph]: %1"
+        , str [_status, _timer, _transportSpeedKph]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
 // TODO: TBD: append any new or interesting telemetry bits here...

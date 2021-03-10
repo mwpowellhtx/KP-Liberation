@@ -27,6 +27,8 @@ params [
     ["_lines", [], [[]]]
 ];
 
+_lines = +_lines;
+
 if (_debug) then {
     [format ["[fn_logisticsMgr_onLinesPublished] Entering: [count _lines, _lines apply { (_this#0); }]: %1"
         , str [count _lines, _lines apply { (_this#0); }]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
@@ -40,6 +42,8 @@ private _lnbLines = uiNamespace getVariable ["KPLIB_logisticsMgr_lnbLines", cont
 
 // Everything else works its way out from there, selected indexes, etc...
 [_lnbLines] call KPLIB_fnc_logisticsMgr_lnbLines_onReload;
+
+// TODO: TBD: should also consider re-selecting endpoints here...
 
 if (_debug) then {
     ["[fn_logisticsMgr_onLinesPublished] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;

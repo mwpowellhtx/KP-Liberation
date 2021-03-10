@@ -23,7 +23,7 @@
 
 private _debug = [
     [
-        {KPLIB_logisticsMgr_lnbTelemetry_getReport_debug}
+        {KPLIB_param_logisticsMgr_lnbTelemetry_getReport_debug}
     ]
 ] call KPLIB_fnc_logisticsMgr_debug;
 

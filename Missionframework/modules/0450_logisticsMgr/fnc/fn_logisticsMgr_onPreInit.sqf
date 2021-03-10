@@ -41,20 +41,21 @@ KPLIB_logisticsMgr_lnbConvoy_onReload_debug                 = false;
 KPLIB_logisticsMgr_lnbConvoy_onLBSelChanged_debug           = false;
 KPLIB_logisticsMgr_btnTransportAdd_onButtonClick_debug      = false;
 KPLIB_logisticsMgr_btnTransportRecycle_onButtonClick_debug  = false;
-KPLIB_logisticsMgr_lnbTelemetry_getReport_debug             = false;
+KPLIB_param_logisticsMgr_lnbTelemetry_getReport_debug       = false;
+KPLIB_param_logisticsMgr_lnbTelemetry_onUpdateReport_debug  = false;
 KPLIB_logisticsMgr_lnbTelemetry_onLoad_debug                = false;
 KPLIB_logisticsMgr_lnbTelemetry_onClear_debug               = false;
-KPLIB_logisticsMgr_lnbTelemetry_onRefresh_debug             = false;
+KPLIB_param_logisticsMgr_lnbTelemetry_onRefresh_debug       = false;
 KPLIB_logisticsMgr_btnRefresh_onButtonClick_debug           = false;
 KPLIB_logisticsMgr_cboEndpoint_onLoad_debug                 = false;
 KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = false;
 KPLIB_logisticsMgr_cboEndpoint_getSelectedEndpoint_debug    = false;
 KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug         = false;
 KPLIB_logisticsMgr_cboEndpoint_onSetFocus_debug             = false;
-KPLIB_param_logisticsMgr_endpointCtrls_onReload_debug       = true;
+KPLIB_param_logisticsMgr_endpointCtrls_onReload_debug       = false;
 KPLIB_param_logisticsMgr_cboEndpoints_getViewData_debug     = false;
 KPLIB_logisticsMgr_onLinesPublished_debug                   = false;
-KPLIB_logisticsMgr_onEndpointsPublished_debug               = false;
+KPLIB_param_logisticsMgr_onEndpointsPublished_debug         = false;
 KPLIB_logisticsMgr_onEnableOrDisableCtrls_debug             = false;
 KPLIB_logisticsMgr_calculateToEnableOrDisable_debug         = false;
 KPLIB_logisticsMgr_onUnload_debug                           = false;
@@ -62,6 +63,8 @@ KPLIB_logisticsMgr_onUnload_debug                           = false;
 /*
     ----- Module Initialization -----
  */
+
+KPLIB_logisticsMgr_onEndpointsPublished = "KPLIB_logisticsMgr_onEndpointsPublished";
 
 if (isServer) then {
     // Server section (dedicated and player hosted)
