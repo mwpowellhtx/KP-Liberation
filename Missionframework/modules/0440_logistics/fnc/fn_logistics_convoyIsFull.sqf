@@ -30,27 +30,47 @@ params [
     , "_convoy"
 ];
 
+_convoy = +_convoy;
+
+// TODO: TBD: FULL is FULL, that is not an unreasonable expectation...
 [
     count _convoy
-    , { !(_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy
     , { (_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy
     , [_namespace] call KPLIB_fnc_logistics_alphaEndpointHasBillValue
-    , [_status, KPLIB_logistics_status_enRoute] call KPLIB_fnc_logistics_checkStatus
 ] params [
     "_transportCount"
-    , "_fullTransportCount"
     , "_emptyTransportCount"
     , "_alphaHasBill"
-    , "_enRoute"
 ];
 
-// TODO: TBD: this would be when we evaluate for partially loaded transports, is it allowable?
-_transportCount > 0
-    && (
-        // En route with at least partial load
-        (_enRoute && _fullTransportCount > 0)
-            // Loading with full load ready to transit
-            || (!_enRoute && _alphaHasBill && _emptyTransportCount == 0)
-            // Loading no bill remaining ready to transit
-            || (!(_enRoute || _alphaHasBill) && _fullTransportCount > 0)
-    );
+_transportCount > 0 && (
+    !_alphaHasBill
+        || _emptyTransportCount == 0
+);
+
+// // TODO: TBD: leaving this in for reference material only...
+// // TODO: TBD: not going to support anything remotely like "partial loads"
+// [
+//     count _convoy
+//     , { !(_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy
+//     , { (_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy
+//     , [_namespace] call KPLIB_fnc_logistics_alphaEndpointHasBillValue
+//     , [_status, KPLIB_logistics_status_enRoute] call KPLIB_fnc_logistics_checkStatus
+// ] params [
+//     "_transportCount"
+//     , "_fullTransportCount"
+//     , "_emptyTransportCount"
+//     , "_alphaHasBill"
+//     , "_enRoute"
+// ];
+
+// // TODO: TBD: this would be when we evaluate for partially loaded transports, is it allowable?
+// _transportCount > 0
+//     && (
+//         // En route with at least partial load
+//         (_enRoute && _fullTransportCount > 0)
+//             // Loading with full load ready to transit
+//             || (!_enRoute && _alphaHasBill && _emptyTransportCount == 0)
+//             // Loading no bill remaining ready to transit
+//             || (!(_enRoute || _alphaHasBill) && _fullTransportCount > 0)
+//     );

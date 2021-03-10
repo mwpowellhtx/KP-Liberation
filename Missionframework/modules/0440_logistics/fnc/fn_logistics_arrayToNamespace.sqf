@@ -45,7 +45,7 @@ _logistic params [
 private _varSpecs = [
     ["KPLIB_logistics_uuid", _uuid]
     , ["KPLIB_logistics_status", _status]
-    , ["KPLIB_logistics_timer", _timer]
+    , [KPLIB_logistics_timer, _timer]
     , ["KPLIB_logistics_endpoints", _endpoints]
     , [KPLIB_logistics_convoy, _convoy]
 ];

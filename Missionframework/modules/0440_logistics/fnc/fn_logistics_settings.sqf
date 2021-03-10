@@ -63,7 +63,8 @@
     , "SLIDER"
     , [localize "STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME", localize "STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME_TT"]
     , localize "STR_KPLIB_SETTINGS_LOGISTICS"
-    , [30, 300, 60, 0] // range: [30, 300], default: 60, no dec
+    , [0, 300, 60, 0] // range: [30, 300], default: 60, no dec
+    //, [30, 300, 60, 0] // range: [30, 300], default: 60, no dec
     , 2 // server side only
     , {}
 ] call CBA_Settings_fnc_init;

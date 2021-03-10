@@ -34,16 +34,29 @@ params [
     "_status"
 ];
 
+if (_debug) then {
+    [format ["[fn_logistics_calculateArrivalStatus] Entering: [_status]: %1"
+        , str [_status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 [
     [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
 ] params [
     "_aborting"
 ];
 
-_status = if (_aborting) then {
-    KPLIB_logistics_status_unloadingAborting;
-} else {
-    KPLIB_logistics_status_unloading;
+_status = switch (true) do {
+    case (_aborting): {
+        KPLIB_logistics_status_unloadingAborting;
+    };
+    default {
+        KPLIB_logistics_status_unloading;
+    };
+};
+
+if (_debug) then {
+    [format ["[fn_logistics_calculateArrivalStatus] Fini: [_aborting, _status]: %1"
+        , str [_aborting, _status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 _status;

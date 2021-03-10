@@ -22,15 +22,15 @@ params [
 ];
 
 ([_namespace, [
-    ["KPLIB_logistics_timer", []]
+    [KPLIB_logistics_timer, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    ["_timer", [], [[]]]
+    "_timer"
 ];
 
 _timer = _timer call KPLIB_fnc_timers_refresh;
 
 [_namespace, [
-    ["KPLIB_logistics_timer", _timer]
+    [KPLIB_logistics_timer, _timer]
 ]] call KPLIB_fnc_namespace_setVars;
 
 _timer;

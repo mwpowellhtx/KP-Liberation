@@ -124,12 +124,12 @@ if (isServer) then {
     KPLIB_logistics_convoy                                  = "KPLIB_logistics_convoy";
 
     KPLIB_param_logistics_verificationDebug                 = false;
-    KPLIB_param_logistics_endpointVerificationDebug         = true;
-    KPLIB_param_logistics_arrayVerificationDebug            = true;
-    KPLIB_param_logistics_namespaceVerificationDebug        = true;
+    KPLIB_param_logistics_endpointVerificationDebug         = false;
+    KPLIB_param_logistics_arrayVerificationDebug            = false;
+    KPLIB_param_logistics_namespaceVerificationDebug        = false;
     KPLIB_param_logistics_calculateMissionStatus_debug      = false;
-    KPLIB_param_logistics_calculateLoadingStatus_debug      = true;
-    KPLIB_param_logistics_calculateTransitWindow_debug      = true;
+    KPLIB_param_logistics_calculateLoadingStatus_debug      = false;
+    KPLIB_param_logistics_calculateTransitWindow_debug      = false;
     KPLIB_param_logistics_calculateArrivalStatus_debug      = true;
 
     KPLIB_logisticsServer_telemetryDefault = [] call {

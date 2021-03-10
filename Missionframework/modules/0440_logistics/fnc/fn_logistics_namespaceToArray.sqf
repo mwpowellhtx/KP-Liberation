@@ -27,7 +27,7 @@ if (isNull _namespace) exitWith { []; };
 private _varSpecs = [
     ["KPLIB_logistics_uuid", [] call KPLIB_fnc_uuid_create_string]
     , ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_timer", +KPLIB_timers_default]
+    , [KPLIB_logistics_timer, +KPLIB_timers_default]
     , ["KPLIB_logistics_endpoints", []]
     , [KPLIB_logistics_convoy, []]
 ];

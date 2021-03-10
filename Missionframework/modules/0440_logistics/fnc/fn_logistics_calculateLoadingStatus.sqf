@@ -37,20 +37,18 @@ params [
 ];
 
 [
-    [_namespace] call KPLIB_logistics_convoyIsFull
-    , [_namespace] call KPLIB_fnc_logistics_alphaEndpointHasBillValue
+    [_namespace] call KPLIB_fnc_logistics_convoyIsFull
     , [_status, KPLIB_logistics_status_noResource] call KPLIB_fnc_logistics_checkStatus
 ] params [
     "_full"
-    , "_alphaHasBill"
     , "_noResource"
 ];
 
 _status = switch (true) do {
-    case (_alphaHasBill && _noResource && !_full): {
+    case (!_full && _noResource): {
         KPLIB_logistics_status_loadingNoResource;
     };
-    case (_alphaHasBill && !(_noResource || _full)): {
+    case (!(_full || _noResource)): {
         KPLIB_logistics_status_loading;
     };
     default {

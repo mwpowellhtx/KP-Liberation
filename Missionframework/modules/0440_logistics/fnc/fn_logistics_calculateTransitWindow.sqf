@@ -32,7 +32,7 @@ params [
 ];
 
 ([_namespace, [
-    ["KPLIB_logistics_timer", []]
+    [KPLIB_logistics_timer, +KPLIB_timers_default]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_timer"
 ];

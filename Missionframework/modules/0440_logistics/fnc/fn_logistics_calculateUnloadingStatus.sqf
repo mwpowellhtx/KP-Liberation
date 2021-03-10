@@ -35,29 +35,31 @@ params [
 ];
 
 [
-    [_namespace] call KPLIB_fnc_logistics_convoyIsFull
-    , [_namespace] call KPLIB_fnc_logistics_convoyIsEmpty
+    [_namespace] call KPLIB_fnc_logistics_convoyIsEmpty
     , [_namespace] call KPLIB_fnc_logistics_hasTransferCompleted
+    , [_status, KPLIB_logistics_status_noSpace] call KPLIB_fnc_logistics_checkStatus
     , [_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
 ] params [
-    "_full"
-    , "_empty"
+    "_empty"
     , "_completed"
+    , "_noSpace"
     , "_aborting"
 ];
 
-// TODO: TBD: we can probably leverage the "calculateTransitPlan" bits where loading, enroute, etc are concerned...
-// An ARRIVING CONVOY may be EMPTY, FULL, ABORTING, etc...
 _status = switch (true) do {
-    case (_full && _aborting): {
-        // ABORTING consideration deferred until after UNLOADING resolved
-        KPLIB_logistics_status_unloadingAborting;
-    };
-    case (_full && !_aborting): {
+    case (!(_empty || _noSpace)): {
         KPLIB_logistics_status_unloading;
     };
+    case (!(_empty || _aborting) && _noSpace): {
+        KPLIB_logistics_status_unloadingNoSpace;
+    };
+    case (!_empty && _aborting && _noSpace): {
+        KPLIB_logistics_status_unloadingNoSpace + KPLIB_logistics_status_aborting;
+    };
+    case (!_empty && _aborting): {
+        KPLIB_logistics_status_unloadingAborting;
+    };
     case (_empty && !(_completed || _aborting)): {
-        // BRAVO delivery complete, mission not complete, therefore kick back to ALPHA
         KPLIB_logistics_status_loading;
     };
     default {

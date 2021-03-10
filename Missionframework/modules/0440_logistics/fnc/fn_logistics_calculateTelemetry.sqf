@@ -37,7 +37,7 @@ params [
 
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_timer", +KPLIB_timers_default]
+    , [KPLIB_logistics_timer, +KPLIB_timers_default]
     , ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     ["_status", KPLIB_logistics_status_standby, [0]]
@@ -111,7 +111,7 @@ if ([_status, KPLIB_logistics_status_enRouteAbortingAbandoned] call BIS_fnc_bitf
         /* Telemetry MAY recalibrate the timer, but that's it; the only thing we are
          * 'here' to do is calculate speed, distance, position, heading, etc. */
 
-        _namespace setVariable ["KPLIB_logistics_timer", _timer];
+        _namespace setVariable [KPLIB_logistics_timer, _timer];
     };
 
     // ============================================================================

@@ -28,6 +28,9 @@ params [
     "_convoy"
 ];
 
+_convoy = +_convoy;
+
+// Which like FULL, EMPTY is EMPTY, no in betweens
 [
     count _convoy
     , { (_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy
@@ -36,5 +39,6 @@ params [
     , "_emptyTransportCount"
 ];
 
-_transportCount > 0
-    && (_emptyTransportCount == _transportCount);
+_transportCount > 0 && (
+    _emptyTransportCount == _transportCount
+);
