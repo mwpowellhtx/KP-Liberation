@@ -24,7 +24,7 @@
 
 private _debug = [
     [
-        {KPLIB_logisticsSM_onPublishLine_debug}
+        {KPLIB_param_logisticsSM_onPublishLine_debug}
     ]
 ] call KPLIB_fnc_logisticsSM_debug;
 
@@ -53,8 +53,8 @@ private _line = [_namespace] call KPLIB_fnc_logistics_namespaceToArray;
 ["KPLIB_logisticsMgr_onLinePublished", [_lines], _cid] call CBA_fnc_ownerEvent;
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onPublishLine] Fini: [_cid]: %1"
-        , str [_cid]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onPublishLine] Fini: [_cid, _line]: %1"
+        , str [_cid, _line]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

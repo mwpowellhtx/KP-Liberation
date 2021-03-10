@@ -37,6 +37,12 @@ params [
     "_targetUuid"
 ];
 
+[
+    [_status] call KPLIB_fnc_logistics_getStatusReport
+] params [
+    "_statusReport"
+];
+
 if (_debug) then {
     [format ["[fn_logisticsSM_onNoOp] Entering: [_targetUuid, _stateOrTransition]: %1"
         , str [_targetUuid, _stateOrTransition]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
@@ -45,8 +51,23 @@ if (_debug) then {
 // TODO: TBD: introduce this in the event that we mess up on some conditions...
 // TODO: TBD: so that we have a clue as to "where" we landed in the SM ...
 
+([_namespace, [
+    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
+    , [KPLIB_logistics_timer, +KPLIB_timers_default]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_status"
+    , "_timer"
+];
+
+[
+    [_status] call KPLIB_fnc_logistics_getStatusReport
+] params [
+    "_statusReport"
+];
+
 if (_debug) then {
-    ["[fn_logisticsSM_onNoOp] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onNoOp] Fini: [_status, _statusReport, _timer]: %1"
+        , str [_status, _statusReport, _timer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

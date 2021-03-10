@@ -17,6 +17,8 @@
         NONE
  */
 
+KPLIB_param_logisticsSM_broadcastLinesPeriodSeconds = 1;
+
 [
     "KPLIB_param_logisticsSM_debug"
     , "CHECKBOX"

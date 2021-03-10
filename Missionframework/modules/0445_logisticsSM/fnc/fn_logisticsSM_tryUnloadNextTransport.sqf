@@ -47,7 +47,7 @@ if (_transportIndex < 0) exitWith { true; };
 
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_timer", []]
+    , [KPLIB_logistics_timer, []]
     , ["KPLIB_logistics_endpoints", []]
     , [KPLIB_logistics_convoy, []]
 ]] call KPLIB_fnc_namespace_getVars) params [

@@ -27,6 +27,16 @@ params [
     ["_namespace", locationNull, [locationNull]]
 ];
 
+([_namespace, [
+    [KPLIB_logistics_timer, []]
+    , ["KPLIB_changeOrders", []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_beforeTimer"
+    , "_changeOrders"
+];
+
+_beforeTimer = +_beforeTimer;
+
 [
     [_namespace, KPLIB_logistics_status_ambushedRouteBlocked] call KPLIB_fnc_logisticsSM_checkStatus
 ] params [
@@ -34,34 +44,44 @@ params [
 ];
 
 if (_debug) then {
-
-    ([_namespace, [
-        ["KPLIB_changeOrders", []]
-    ]] call KPLIB_fnc_namespace_getVars) params [
-        "_changeOrders"
-    ];
-
-    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushedOrRouteBlocked]: %1"
-        , str [count _changeOrders, _ambushedOrRouteBlocked]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushedOrRouteBlocked, _beforeTimer]: %1"
+        , str [count _changeOrders, _ambushedOrRouteBlocked, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 [_namespace] call KPLIB_fnc_changeOrders_process;
+
+([_namespace, [
+    [KPLIB_logistics_timer, []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_changeOrdersTimer"
+];
+
+_changeOrdersTimer = +_changeOrdersTimer;
 
 // AMBUSHED+ROUTE_BLOCKED are the only status which 'pauses' the TIMER, everything else continues, even NO_SPACE+NO_RESOURCE
 if (!_ambushedOrRouteBlocked) then {
     [_namespace] call KPLIB_fnc_logisticsSM_onRefreshTimer;
 };
 
+([_namespace, [
+    [KPLIB_logistics_timer, []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_refreshedTimer"
+];
+
+_refreshedTimer = +_refreshedTimer;
+
+([_namespace, [
+    [KPLIB_logistics_timer, []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_afterTimer"
+];
+
+_afterTimer = +_afterTimer;
+
 if (_debug) then {
-
-    ([_namespace, [
-        ["KPLIB_logistics_timer", []]
-    ]] call KPLIB_fnc_namespace_getVars) params [
-        "_timer"
-    ];
-
-    [format ["[fn_logisticsSM_onPending] Fini: [_timer]: %1"
-        , str [_timer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onPending] Fini: [_beforeTimer, _changeOrdersTimer, _refreshedTimer, _afterTimer]: %1"
+        , str [_beforeTimer, _changeOrdersTimer, _refreshedTimer, _afterTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

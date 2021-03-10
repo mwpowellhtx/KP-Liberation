@@ -24,7 +24,7 @@
 
 private _debug = [
     [
-        {KPLIB_logisticsSM_onPublishLines_debug}
+        {KPLIB_param_logisticsSM_onPublishLines_debug}
     ]
 ] call KPLIB_fnc_logisticsSM_debug;
 

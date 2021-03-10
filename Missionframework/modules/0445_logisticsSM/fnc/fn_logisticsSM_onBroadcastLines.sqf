@@ -17,18 +17,16 @@
         The callback finished [BOOL]
  */
 
-if (isNil "KPLIB_logisticsSM_objSM") exitWith {
-    false;
-};
-
 private _debug = [
     [
         {KPLIB_logisticsSM_onBroadcastLines_debug}
     ]
 ] call KPLIB_fnc_logisticsSM_debug;
 
+private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locationNull];
+
 params [
-    ["_cids", (KPLIB_logisticsSM_objSM getVariable ["KPLIB_logistics_cids", []]), [[]]]
+    ["_cids", (_objSM getVariable ["KPLIB_logistics_cids", []]), [[]]]
 ];
 
 if (_debug) then {
@@ -43,35 +41,56 @@ if (_cids isEqualTo []) exitWith {
     false;
 };
 
-[
-    ({ _x getVariable [KPLIB_namespace_changed, false]; } count KPLIB_logistics_namespaces) > 0
-    , []
-] params [
-    "_changed"
-    , "_broadcast"
-];
+private _onBroadcastToListeners = {
+    params [
+        ["_namespaces", [], [[]]]
+        , ["_cids", [], [[]]]
+    ];
 
-// Publish only when a change has been detected during set variables
-if (_changed) then {
-    if (_debug) then {
-        [format ["[fn_logisticsSM_onBroadcastLines] Publishing changes: [_cids]: %1"
-            , str [_cids]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [
+        ({ (_x getVariable [KPLIB_namespace_changed, false]); } count _namespaces) > 0
+    ] params [
+        "_changed"
+    ];
+
+    // Publish only when a change has been detected during set variables
+    if (_changed) then {
+        if (_debug) then {
+            [format ["[fn_logisticsSM_onBroadcastLines::_onBroadcastToListeners] Publishing: [_cids]: %1"
+                , str [_cids]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+        };
+
+        private _onPublish = {
+            params ["_cid"];
+            private _published = [_cid] call KPLIB_fnc_logisticsSM_onPublishLines;
+        };
+
+        { [_x] call _onPublish; } forEach _cids;
     };
-
-    private _tryOnPublish = {
-        private _cid = _x;
-        [_cid] call KPLIB_fnc_logisticsSM_onPublishLines;
-        true;
-    };
-
-    _broadcast = _cids select _tryOnPublish;
 };
 
-private _retval = _broadcast isEqualTo _cids;
+[_objSM, KPLIB_logistics_namespaces, _cids] call {
+    params [
+        ["_objSM", locationNull, [locationNull]]
+        , ["_namespaces", [], [[]]]
+        , ["_cids", [], [[]]]
+    ];
+
+    private _defaultTimer = [KPLIB_param_logisticsSM_broadcastLinesPeriodSeconds] call KPLIB_fnc_timers_create;
+    private _timer = _objSM getVariable [KPLIB_logisticsSM_broadcastLinesTimer, +_defaultTimer];
+
+    private _refreshedTimer = _timer call KPLIB_fnc_timers_refresh;
+
+    if (_refreshedTimer call KPLIB_fnc_timers_hasElapsed) then {
+        [_namespaces, _cids] call _onBroadcastToListeners;
+        _refreshedTimer = +_defaultTimer;
+    };
+
+    _objSM setVariable [KPLIB_logisticsSM_broadcastLinesTimer, +_refreshedTimer];
+};
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onBroadcastLines] Fini: [_retval]: %1"
-        , str [_retval]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_logisticsSM_onBroadcastLines] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
-_retval;
+true;

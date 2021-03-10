@@ -32,5 +32,7 @@ private _duration = [_endpoints] call KPLIB_fnc_logistics_calculateTransitDurati
 private _timer = [_duration] call KPLIB_fnc_timers_create;
 
 [_namespace, [
-    ["KPLIB_logistics_timer", _timer]
-]] call KPLIB_fnc_namespace_getVars;
+    [KPLIB_logistics_timer, _timer]
+]] call KPLIB_fnc_namespace_setVars;
+
+true;

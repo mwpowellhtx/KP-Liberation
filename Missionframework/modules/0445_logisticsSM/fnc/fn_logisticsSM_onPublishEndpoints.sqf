@@ -32,6 +32,6 @@ if (isNil "_endpoints") then {
     _endpoints = [] call KPLIB_fnc_logistics_getEndpoints;
 };
 
-["KPLIB_logisticsMgr_onEndpointsPublished", [_endpoints], _cid] call CBA_fnc_ownerEvent;
+[KPLIB_logisticsMgr_onEndpointsPublished, [_endpoints], _cid] call CBA_fnc_ownerEvent;
 
 true;

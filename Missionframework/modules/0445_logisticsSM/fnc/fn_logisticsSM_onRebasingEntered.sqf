@@ -36,17 +36,17 @@ if (_debug) then {
 };
 
 ([_namespace, [
-    ["KPLIB_logistics_timer", []]
+    [KPLIB_logistics_timer, []]
     , ["KPLIB_logistics_shouldRebase", false]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    ["_timer", [], [[]]]
-    , ["_shouldRebase", false, [false]]
+    "_timer"
+    , "_shouldRebase"
 ];
 
 private _rebased = _timer call KPLIB_fnc_timers_rebase;
 
 [_namespace, [
-    ["KPLIB_logistics_timer", _rebased]
+    [KPLIB_logistics_timer, _rebased]
     , ["KPLIB_logistics_shouldRebase", false]
     , ["KPLIB_logistics_rebased", true]
 ]] call KPLIB_fnc_namespace_setVars;

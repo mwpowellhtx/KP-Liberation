@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_logisticsSM_onTransition_toUnloadingEntered
+    KPLIB_fnc_logisticsSM_onUnloadingEntered
 
-    File: fn_logisticsSM_onTransition_toUnloadingEntered.sqf
+    File: fn_logisticsSM_onUnloadingEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-04 18:37:17
     Last Update: 2021-03-05 18:00:38
@@ -17,9 +17,19 @@
         The event handler finished [BOOL]
  */
 
+private _debug = [
+    [
+        {KPLIB_param_logisticsSM_onUnloadingEntered_debug}
+    ]
+] call KPLIB_fnc_logisticsSM_debug;
+
 params [
     ["_namespace", locationNull, [locationNull]]
 ];
+
+if (_debug) then {
+    ["[fn_logisticsSM_onUnloadingEntered] Entering...", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 ([_namespace, [
     ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
@@ -48,9 +58,18 @@ _status = if (_tried) then {
     [_status, KPLIB_logistics_status_noSpace] call KPLIB_fnc_logistics_setStatus;
 };
 
+if (_debug) then {
+    [format ["[fn_logisticsSM_onUnloadingEntered] Unloaded: [_tried, _status]: %1"
+        , str [_tried, _status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 // Do not re-set any TIMER, allow it to continue running until NO_RESOURCE has cleared
 [_namespace, [
     ["KPLIB_logistics_status", _status]
 ]] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    ["[fn_logisticsSM_onUnloadingEntered] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 true;

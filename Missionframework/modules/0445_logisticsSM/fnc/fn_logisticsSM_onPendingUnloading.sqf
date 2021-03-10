@@ -53,7 +53,7 @@ if (_unloading) exitWith {
     private _timer = [KPLIB_param_logistics_transportLoadTimeSeconds] call KPLIB_fnc_timers_create;
 
     [_namespace, [
-        ["KPLIB_logistics_timer", _timer]
+        [KPLIB_logistics_timer, _timer]
     ]] call KPLIB_fnc_namespace_setVars;
 
     true;

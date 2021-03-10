@@ -34,12 +34,12 @@ params [
 ];
 
 ([_namespace, [
-    ["KPLIB_logistics_timer", []]
+    [KPLIB_logistics_timer, +KPLIB_timers_default]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_timer"
 ];
 
-_timer params ["_duration", "_startTime", "_elapsedTime", "_timeRemaining"];
+(+_timer) params ["_duration", "_startTime", "_elapsedTime", "_timeRemaining"];
 
 // TODO: TBD: planned for future... for now just let it pass through...
 // TODO: TBD: evaluate approximate versus 'actual' road position/direction...
@@ -53,6 +53,11 @@ _timer params ["_duration", "_startTime", "_elapsedTime", "_timeRemaining"];
 // TODO: TBD: use window? or simple FOB range seconds? probably FOB range...
 private _fobRangeSeconds = [] call KPLIB_fnc_logistics_calculateFobRangeSeconds;
 
+if (_debug) then {
+    [format ["[fn_logisticsSM_onEnRouteEntered] Entering: [_timer, _fobRangeSeconds]: %1"
+        , str [_timer, _fobRangeSeconds]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 [
     _elapsedTime <= _fobRangeSeconds
     , _timeRemaining <= _fobRangeSeconds
@@ -60,6 +65,11 @@ private _fobRangeSeconds = [] call KPLIB_fnc_logistics_calculateFobRangeSeconds;
     "_departing"
     , "_arriving"
 ];
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_onEnRouteEntered] Entering: [_departing, _arriving]: %1"
+        , str [_departing, _arriving]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 // TODO: TBD: is also the moment when we potentially evaluate for ambush, etc, maybe we do that in a transition...
 // TODO: TBD: we would want to evaluate for blockage as well...
@@ -77,9 +87,18 @@ if (_arriving) then {
     // Which also includes the ABORTING flag when necessary
     private _status = [_namespace] call KPLIB_fnc_logistics_calculateArrivalStatus;
 
+    if (_debug) then {
+        [format ["[fn_logisticsSM_onEnRouteEntered] Entering: [_status]: %1"
+            , str [_status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
+
     [_namespace, [
         ["KPLIB_logistics_status", _status]
     ]] call KPLIB_fnc_namespace_setVars;
+};
+
+if (_debug) then {
+    ["[fn_logisticsSM_onEnRouteEntered] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;
