@@ -40,67 +40,25 @@ KPLIB_resources_resourceKinds = [
 // Intel currency resource amount
 KPLIB_resources_intel = 0;
 
+// TODO: TBD: is a Z offset even necessary? when we have different offsets for different crate class names...
+// TODO: TBD: or perhaps would be better to establish a base offset, then the crate offset is an offset from the offset...
+KPLIB_resources_storageOffsetZ = 0.6;
+
 // TODO: TBD: there's got to be a better way to align these than a hard-coded table...
 // TODO: TBD: i.e. never heard of a matrix for loop?
 // Large storage area placement position offsets.
+
+// TODO: TBD: we can probably rinse and repeat this same thing assembling transport vehicle configs as well...
 KPLIB_resources_storageOffsetsLarge = [
-    [ -5.59961,        3.60938,     0.6],
-    [ -3.99902,        3.60938,     0.6],
-    [ -2.39941,        3.60938,     0.6],
-    [-0.799805,        3.60938,     0.6],
-    [ 0.800781,        3.60938,     0.6],
-    [  2.40039,        3.60938,     0.6],
-    [  4.00098,        3.60938,     0.6],
-    [  5.60059,        3.60938,     0.6],
-    [ -5.59961,        1.80859,     0.6],
-    [ -3.99902,        1.80859,     0.6],
-    [ -2.39941,        1.80859,     0.6],
-    [-0.799805,        1.80859,     0.6],
-    [ 0.800781,        1.80859,     0.6],
-    [  2.40039,        1.80859,     0.6],
-    [  4.00098,        1.80859,     0.6],
-    [  5.60059,        1.80859,     0.6],
-    [ -5.59961,     0.00976563,     0.6],
-    [ -3.99902,     0.00976563,     0.6],
-    [ -2.39941,     0.00976563,     0.6],
-    [-0.799805,     0.00976563,     0.6],
-    [ 0.800781,     0.00976563,     0.6],
-    [  2.40039,     0.00976563,     0.6],
-    [  4.00098,     0.00976563,     0.6],
-    [  5.60059,     0.00976563,     0.6],
-    [ -5.59961,       -1.79102,     0.6],
-    [ -3.99902,       -1.79102,     0.6],
-    [ -2.39941,       -1.79102,     0.6],
-    [-0.799805,        1.79102,     0.6],
-    [ 0.800781,        1.79102,     0.6],
-    [  2.40039,       -1.79102,     0.6],
-    [  4.00098,       -1.79102,     0.6],
-    [  5.60059,       -1.79102,     0.6],
-    [ -5.59961,       -3.58984,     0.6],
-    [ -3.99902,       -3.58984,     0.6],
-    [ -2.39941,       -3.58984,     0.6],
-    [-0.799805,        3.58984,     0.6],
-    [ 0.800781,        3.58984,     0.6],
-    [  2.40039,       -3.58984,     0.6],
-    [  4.00098,       -3.58984,     0.6],
-    [  5.60059,       -3.58984,     0.6]
-];
+    [-5.59961, -3.99902, -2.39941, -0.799805, 0.800781, 2.40039, 4.00098, 5.60059]
+    , [3.60938, 1.80859, 0.00976563, -1.79102, -3.58984]
+] call KPLIB_fnc_resources_registerStoragePositions;
 
 // Small storage area placement position offsets.
 KPLIB_resources_storageOffsetsSmall = [
-    [ -2.34961,        1.80078,     0.6],
-    [    -0.75,        1.80078,     0.6],
-    [ 0.850586,        1.80078,     0.6],
-    [   2.4502,        1.80078,     0.6],
-    [ -2.34961,              0,     0.6],
-    [    -0.75,              0,     0.6],
-    [ 0.850586,              0,     0.6],
-    [   2.4502,              0,     0.6],
-    [ -2.34961,       -1.79883,     0.6],
-    [    -0.75,       -1.79883,     0.6],
-    [ 0.850586,       -1.79883,     0.6],
-    [   2.4502,       -1.79883,     0.6]
-];
+    [-2.34961, -0.75, 0.850586, 2.4502]
+    , [1.80078, 0, -1.79883]
+] call KPLIB_fnc_resources_registerStoragePositions;
 
 // Configuration settings for crates transported by vehicles ["classname", distance from vehicle center to unload crate, attachTo positions for each box].
 // Set and filtered on the server

@@ -24,7 +24,7 @@
  */
 
 params [
-    ["_location", "", [""]]
+    ["_location", [] call KPLIB_fnc_common_getPlayerFob, [""]]
     , ["_supplies", 0, [0]]
     , ["_ammo", 0, [0]]
     , ["_fuel", 0, [0]]

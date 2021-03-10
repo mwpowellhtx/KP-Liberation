@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-02-21 20:34:04
+    Last Update: 2021-03-10 15:05:00
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -20,6 +20,9 @@ class res {
 
     //
     class resources_resourceIndexToName {};
+
+    // Returns the matrix of XYZ offset coordinates for use by the caller
+    class resources_registerStoragePositions {};
 
     // Estimates the number of crates necessary to support the volume
     class resources_estimateCrates {};

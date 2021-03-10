@@ -68,11 +68,13 @@ if ((count _attachedCrates) >= (count _attachPosition)) exitWith {
 // Get the correct attachTo position from the array, tricky to remember also count here
 _attachPosition = _attachPosition select (count _attachedCrates);
 
+// TODO: TBD: can probably do a similar thing re: "load" vs. "store"...
+// TODO: TBD: and then I think we consolidate the nature of it...
 // Attach crate to storage
 _crate attachTo [_targetStorage, [
-    (_attachPosition#0),
-    (_attachPosition#1),
-    [typeOf _crate] call KPLIB_fnc_resources_getCrateZ
+    (_attachPosition#0)
+    , (_attachPosition#1)
+    , [typeOf _crate] call KPLIB_fnc_resources_getCrateZ
 ]];
 
 [_targetStorage] call KPLIB_fnc_resources_onAttachedCratesChanged;
