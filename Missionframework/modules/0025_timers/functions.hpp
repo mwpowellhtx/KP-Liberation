@@ -39,6 +39,9 @@ class timers {
     // Rebases the timer with respect to ([] call KPLIB_fnc_timers_now)
     class timers_rebase {};
 
+    // Inverts the timer swapping elapsed time with time remaining then rebasing to recalibrate
+    class timers_invert {};
+
     // Fast forwards the given timer instance by a _delta time in seconds
     class timers_fastForward {};
 
