@@ -19,7 +19,7 @@ if (isServer) then {
 
     KPLIB_namespace_changed = "KPLIB_namespace_changed";
 
-    KPLIB_param_namespace_setVars_debug = true;
+    KPLIB_param_namespace_setVars_debug = false;
 };
 
 [format ["[fn_namespace_onPreInit] Initialized"], "PRE] [NAMESPACE", true] call KPLIB_fnc_common_log;

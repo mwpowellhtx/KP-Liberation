@@ -53,7 +53,7 @@ private _updated = _names apply { _namespace getVariable [_x, -1]; };
 private _changedOld = _namespace getVariable [KPLIB_namespace_changed, false];
 private _changedNew = _changedOld || (_changedMask && !(_current isEqualTo _updated));
 
-if (_debug && KPLIB_logistics_convoy in _names) then {
+if (_debug && KPLIB_logistics_timer in _names) then {
     [format ["[fn_namespace_setVars] [_nameValuePairs, _current, _updated, _changedOld, _changedMask, _changedNew]: %1"
         , str [_nameValuePairs, _current, _updated, _changedOld, _changedMask, _changedNew]], "NAMESPACE", true] call KPLIB_fnc_common_log;
 };
