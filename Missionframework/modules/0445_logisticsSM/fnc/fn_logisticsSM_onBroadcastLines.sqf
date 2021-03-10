@@ -45,6 +45,7 @@ private _onBroadcastToListeners = {
     params [
         ["_namespaces", [], [[]]]
         , ["_cids", [], [[]]]
+        , ["_forced", false, [false]]
     ];
 
     [
@@ -54,7 +55,7 @@ private _onBroadcastToListeners = {
     ];
 
     // Publish only when a change has been detected during set variables
-    if (_changed) then {
+    if (_changed || _forced) then {
         if (_debug) then {
             [format ["[fn_logisticsSM_onBroadcastLines::_onBroadcastToListeners] Publishing: [_cids]: %1"
                 , str [_cids]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
@@ -76,17 +77,19 @@ private _onBroadcastToListeners = {
         , ["_cids", [], [[]]]
     ];
 
+    private _changed = _objSM getVariable [KPLIB_namespace_changed, false];
     private _defaultTimer = [KPLIB_param_logisticsSM_broadcastLinesPeriodSeconds] call KPLIB_fnc_timers_create;
     private _timer = _objSM getVariable [KPLIB_logisticsSM_broadcastLinesTimer, +_defaultTimer];
 
     private _refreshedTimer = _timer call KPLIB_fnc_timers_refresh;
 
-    if (_refreshedTimer call KPLIB_fnc_timers_hasElapsed) then {
-        [_namespaces, _cids] call _onBroadcastToListeners;
+    if (_changed || (_refreshedTimer call KPLIB_fnc_timers_hasElapsed)) then {
+        [_namespaces, _cids, _changed] call _onBroadcastToListeners;
         _refreshedTimer = +_defaultTimer;
     };
 
     _objSM setVariable [KPLIB_logisticsSM_broadcastLinesTimer, +_refreshedTimer];
+    _objSM setVariable [KPLIB_namespace_changed, false];
 };
 
 if (_debug) then {

@@ -18,11 +18,13 @@
         The callback finished [ARRAY]
  */
 
-if (isNil "KPLIB_logisticsSM_objSM") exitWith {
+private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locationNull];
+
+if (isNull _objSM) exitWith {
     false;
 };
 
-([KPLIB_logisticsSM_objSM, [
+([_objSM, [
     ["KPLIB_logistics_namespacesToAdd", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     ["_namespacesToAdd", [], [[]]]
@@ -38,7 +40,7 @@ private _onPushBack = {
 _onPushBack forEach _namespacesToAdd;
 
 // Be sure to clear both queues afterwards...
-[KPLIB_logisticsSM_objSM, [
+[_objSM, [
     ["KPLIB_logistics_namespacesToAdd", []]
 ]] call KPLIB_fnc_namespace_setVars;
 

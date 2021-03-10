@@ -39,12 +39,14 @@ params [
     , ["_cid", -1, [0]]
 ];
 
+private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locationNull];
+
 if (_debug) then {
     [format ["[fn_logisticsCO_onRequestAddOrRemoveLines] Entering: [_toAdd, _toRemove, _cid]: %1"
         , str [_toAdd, _toRemove, _cid]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
-([KPLIB_logisticsSM_objSM, [
+([_objSM, [
     ["KPLIB_logistics_uuidToRemove", []]
     , ["KPLIB_logistics_namespacesToAdd", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
@@ -78,7 +80,7 @@ private _tryStageNamespaceToAdd = {
 private _removed = _toRemove select _tryStageUuidToRemove;
 private _added = _toAdd select _tryStageNamespaceToAdd;
 
-[KPLIB_logisticsSM_objSM, [
+[_objSM, [
     ["KPLIB_logistics_uuidToRemove", _uuidToRemove]
     , ["KPLIB_logistics_namespacesToAdd", _namespacesToAdd]
 ]] call KPLIB_fnc_namespace_setVars;

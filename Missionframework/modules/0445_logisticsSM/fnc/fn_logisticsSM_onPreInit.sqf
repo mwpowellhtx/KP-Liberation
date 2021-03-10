@@ -55,6 +55,7 @@ if (isServer) then {
     KPLIB_logisticsSM_onLogisticsMgrClosed_debug                = false;
 
     KPLIB_param_logisticsSM_onRebasingEntered_debug             = false;
+    KPLIB_param_logisticsSM_onRemoveLines_debug                 = false;
     KPLIB_param_logisticsSM_onStandby_debug                     = false;
     KPLIB_param_logisticsSM_onPending_debug                     = false;
     KPLIB_param_logisticsSM_onRefreshTimer_debug                = false;

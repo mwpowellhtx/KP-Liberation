@@ -18,11 +18,24 @@
         The callback finished [ARRAY]
  */
 
-if (isNil "KPLIB_logisticsSM_objSM") exitWith {
+private _debug = [
+    [
+        {KPLIB_param_logisticsSM_onRemoveLines_debug}
+    ]
+] call KPLIB_fnc_logisticsSM_debug;
+
+private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locationNull];
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_onRemoveLines] Entering: [isNull _objSM]: %1"
+        , str [isNull _objSM]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
+if (isNull _objSM) exitWith {
     false;
 };
 
-([KPLIB_logisticsSM_objSM, [
+([_objSM, [
     ["KPLIB_logistics_uuidToRemove", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_uuidToRemove"
@@ -51,11 +64,20 @@ private _onGcMatchingNamespace = {
     };
 };
 
+if (_debug) then {
+    [format ["[fn_logisticsSM_onRemoveLines] Removing: [count _uuidToRemove, _uuidToRemove]: %1"
+        , str [count _uuidToRemove, _uuidToRemove]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
+
 _onGcMatchingNamespace forEach _uuidToRemove;
 
 // Be sure to clear both queues afterwards...
-[KPLIB_logisticsSM_objSM, [
+[_objSM, [
     ["KPLIB_logistics_uuidToRemove", []]
 ]] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    ["[fn_logisticsSM_onRemoveLines] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 true;
