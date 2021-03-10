@@ -234,7 +234,7 @@ KPLIB_resources_factoryStorageClasses = [
 if (isServer) then {
 
     // Arrange some debug flags
-    KPLIB_param_resources_pay_debug             = true;
+    KPLIB_param_resources_pay_debug             = false;
 };
 
 // Server section (dedicated and player hosted)
