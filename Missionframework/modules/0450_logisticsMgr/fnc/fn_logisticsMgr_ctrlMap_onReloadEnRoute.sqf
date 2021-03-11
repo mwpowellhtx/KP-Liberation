@@ -54,7 +54,7 @@ private _estimatedPos = _alphaPos getPos [(_elapsedTime * _transportSpeedMps), _
 
 private _markerName = KPLIB_logisticsMgr_markerName;
 
-[_markerName, _estimatedPos, KPLIB_logisticsMgr_enRouteClassName] call KPLIB_fnc_logisticsMgr_marker_create;
+[_markerName, _estimatedPos, KPLIB_logisticsMgr_enRouteClassName] call KPLIB_fnc_markers_create;
 
 if (_targetDir != (markerDir _markerName)) then {
     _markerName setMarkerDirLocal _targetDir;

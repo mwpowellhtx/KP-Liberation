@@ -22,6 +22,6 @@ params [
 ];
 
 // When STATUS STANDBY there is no marker, and allow the caller to center focus
-[KPLIB_logisticsMgr_markerName] call KPLIB_fnc_logisticsMgr_marker_delete;
+[KPLIB_logisticsMgr_markerName] call KPLIB_fnc_markers_delete;
 
 +KPLIB_zeroPos;

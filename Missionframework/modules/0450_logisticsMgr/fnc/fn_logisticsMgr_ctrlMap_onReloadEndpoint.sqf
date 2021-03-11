@@ -32,6 +32,6 @@ _endpoint params [
     ["_pos", +KPLIB_zeroPos, [[]], 3]
 ];
 
-[KPLIB_logisticsMgr_markerName, _pos, _markerType] call KPLIB_fnc_logisticsMgr_marker_create;
+[KPLIB_logisticsMgr_markerName, _pos, _markerType] call KPLIB_fnc_markers_create;
 
 +_pos;

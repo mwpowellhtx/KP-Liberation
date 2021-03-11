@@ -1,15 +1,15 @@
 // TODO: TBD: ditto marker...
 /*
-    KPLIB_fnc_logisticsMgr_marker_create
+    KPLIB_fnc_markers_create
 
-    File: fn_logisticsMgr_marker_create.sqf
+    File: fn_markers_create.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-10 10:24:03
-    Last Update: 2021-03-10 10:24:06
+    Last Update: 2021-03-11 10:41:41
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        ...
+        Creates a map marker given nominal arguments, marker name, position, etc.
 
     Parameters:
         _markerName - the marker name to delete [STRING, default: ""]

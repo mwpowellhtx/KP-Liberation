@@ -1,16 +1,14 @@
-// TODO: TBD: could setup a markers module...
-// TODO: TBD: especially approaching this, missions, tracking mobile respawns, etc, will need/want more support for it...
 /*
-    KPLIB_fnc_logisticsMgr_marker_delete
+    KPLIB_fnc_markers_delete
 
-    File: fn_logisticsMgr_marker_delete.sqf
+    File: fn_markers_delete.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-10 10:24:11
-    Last Update: 2021-03-10 10:24:14
+    Last Update: 2021-03-11 10:43:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        Deletes the marker loclally.
+        Deletes the marker locally given the marker name.
 
     Parameters:
         _markerName - the marker name to delete [STRING, default: ""]
