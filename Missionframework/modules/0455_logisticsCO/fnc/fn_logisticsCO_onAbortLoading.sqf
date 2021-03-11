@@ -23,7 +23,7 @@ private _debug = [
     [
         {KPLIB_param_logisticsCO_onAbortLoading_debug}
     ]
-] call KLIB_fnc_logisticsCO_debug;
+] call KLIB_fnc_debug_debug;
 
 params [
     ["_namespace", locationNull, [locationNull]]

@@ -47,20 +47,20 @@ params [
 ];
 
 _status = switch (true) do {
-    case (!(_empty || _noSpace)): {
-        KPLIB_logistics_status_unloading;
+    case (_aborting && !(_empty || _noSpace)): {
+        KPLIB_logistics_status_unloading + KPLIB_logistics_status_aborting;
     };
-    case (!(_empty || _aborting) && _noSpace): {
-        KPLIB_logistics_status_unloadingNoSpace;
-    };
-    case (!_empty && _aborting && _noSpace): {
+    case (_aborting && (!_empty && _noSpace)): {
         KPLIB_logistics_status_unloadingNoSpace + KPLIB_logistics_status_aborting;
-    };
-    case (!_empty && _aborting): {
-        KPLIB_logistics_status_unloadingAborting;
     };
     case (_empty && !(_completed || _aborting)): {
         KPLIB_logistics_status_loading;
+    };
+    case (!_empty && _noSpace): {
+        KPLIB_logistics_status_unloadingNoSpace;
+    };
+    case (!(_empty || _noSpace)): {
+        KPLIB_logistics_status_unloading;
     };
     default {
         KPLIB_logistics_status_standby;
