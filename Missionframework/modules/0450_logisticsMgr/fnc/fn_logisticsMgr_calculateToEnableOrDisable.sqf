@@ -51,8 +51,8 @@ if (_debug) then {
 private _toEnable = [];
 private _toDisable = [];
 
-private _convoyHasTransports = count _convoy > 0;
-private _convoyHasTransportZeros = ({ (_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy) > 0;
+private _transportCount = count _convoy;
+private _loadedTransportCount = ({ !(_x isEqualTo KPLIB_resources_storageValueDefault); } count _convoy);
 
 // In layout order from top-left to bottom-right...
 private _mayRemoveLine = KPLIB_logisticsMgr_ctrls_mayRemoveLine;
@@ -66,8 +66,8 @@ private _mayConfirm = KPLIB_logisticsMgr_ctrls_mayConfirm;
 private _mayAbort = KPLIB_logisticsMgr_ctrls_mayAbort;
 
 if (_debug) then {
-    [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _convoyHasTransports, _convoyHasTransportZeros]: %1"
-        , str [_status, _convoyHasTransports, _convoyHasTransportZeros]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _transportCount, _loadedTransportCount]: %1"
+        , str [_status, _transportCount, _loadedTransportCount]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
 private _onShouldEnable = {
@@ -128,10 +128,24 @@ switch (true) do {
 
         [_mayRemoveLine, false] call _onShouldEnable;
 
-        private _mayBuildOrRecycleTransports = [_status, KPLIB_logistics_status_loadingUnloading] call BIS_fnc_bitflagsCheck;
+        private _mayBuildTransports = [_status, KPLIB_logistics_status_loadingUnloading] call KPLIB_fnc_logistics_checkStatus;
 
-        [_mayBuildConvoyTransports, _mayBuildOrRecycleTransports] call _onShouldEnable;
-        [_mayRecycleConvoyTransports, _convoyHasTransportZeros && _mayBuildOrRecycleTransports] call _onShouldEnable;
+        private _mayRecycleTransports = switch (true) do {
+            case ([_status, KPLIB_logistics_status_loading] call KPLIB_fnc_logistics_checkStatus): {
+                // LOADING maintains a "lock" on the next available UNLOADED transport
+                (_transportCount > 0) && ((_transportCount - _loadedTransportCount) > 1);
+            };
+            case ([_status, KPLIB_logistics_status_unloading] call KPLIB_fnc_logistics_checkStatus): {
+                // Whereas UNLOADING has already CLEARED all of the unloaded transports
+                (_transportCount > 0) && ((_transportCount - _loadedTransportCount) > 0);
+            };
+            default { false; };
+        };
+
+        [_mayBuildConvoyTransports, _mayBuildTransports] call _onShouldEnable;
+        // TODO: TBD: loading recycle: maintain N+1 transports, where N are the loaded transports, "lock" on the next one being loaded
+        // TODO: TBD: unloading recycling: maintain N transports, all unloaded transports are clear to recycle
+        [_mayRecycleConvoyTransports, _mayRecycleTransports] call _onShouldEnable;
 
         // Yes, we enable the endpoints controls, but we disable the groups...
         [_mayConfigureAlpha, true] call _onShouldEnable;
@@ -143,14 +157,14 @@ switch (true) do {
         // May always abort running lines as long as neither ABORTING nor AMBUSHED...
         [
             _mayAbort
-            , !([_status, KPLIB_logistics_status_abortingAmbushed] call BIS_fnc_bitflagsCheck)
+            , !([_status, KPLIB_logistics_status_abortingAmbushed] call KPLIB_fnc_logistics_checkStatus)
         ] call _onShouldEnable;
     };
     default {
 
-        [_mayRemoveLine, !_convoyHasTransports] call _onShouldEnable;
+        [_mayRemoveLine, _transportCount == 0] call _onShouldEnable;
         [_mayBuildConvoyTransports] call _onShouldEnable;
-        [_mayRecycleConvoyTransports, _convoyHasTransportZeros] call _onShouldEnable;
+        [_mayRecycleConvoyTransports, _transportCount > 0] call _onShouldEnable;
 
         private _endpointCtrls = ["KPLIB_logisticsMgr_cboAlpha", "KPLIB_logisticsMgr_cboBravo"] apply {
             uiNamespace getVariable [_x, controlNull];
@@ -179,7 +193,7 @@ switch (true) do {
         private _configuredCount = { [_x] call _hasConfiguredBill; } count [_mayConfigureAlpha, _mayConfigureBravo];
 
         // In order to confirm, must have transports, both selected, not in conflict, and at least one configured bill...
-        [_mayConfirm, _convoyHasTransports && _endpointsAreBothSelected && !_endpointsAreInConflict && _configuredCount > 0] call _onShouldEnable;
+        [_mayConfirm, (_transportCount > 0) && _endpointsAreBothSelected && !_endpointsAreInConflict && _configuredCount > 0] call _onShouldEnable;
         [_mayAbort, false] call _onShouldEnable;
     };
 };
