@@ -30,7 +30,7 @@ params [
 if (_debug) then {
 
     ([_namespace, [
-        ["KPLIB_changeOrders", []]
+        [KPLIB_changeOrders_orders, []]
     ]] call KPLIB_fnc_namespace_getVars) params [
         "_changeOrders"
     ];

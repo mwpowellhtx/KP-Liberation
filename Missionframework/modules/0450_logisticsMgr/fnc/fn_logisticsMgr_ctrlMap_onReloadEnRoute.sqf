@@ -26,6 +26,8 @@
 
 private _transportSpeedMps = [] call KPLIB_fnc_logistics_calculateTransportSpeedMps;
 
+// TODO: TBD: really should refactor this calculation, except for the fact that it is client side, tuples oriented, etc...
+// TODO: TBD: versus server side where calculation should be namespace oriented...
 params [
     ["_ctrlMap", controlNull, [controlNull]]
     , ["_timer", +KPLIB_timers_default, [[]], 4]

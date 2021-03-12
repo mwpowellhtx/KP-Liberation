@@ -28,27 +28,59 @@ params [
 ];
 
 ([_namespace, [
-    [KPLIB_logistics_timer, []]
-    , ["KPLIB_changeOrders", []]
+    ["KPLIB_logistics_uuid", ""]
+    , [KPLIB_logistics_timer, []]
+    , [KPLIB_changeOrders_orders, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    "_beforeTimer"
+    "_targetUuid"
+    , "_beforeTimer"
     , "_changeOrders"
 ];
 
 _beforeTimer = +_beforeTimer;
 
-[
-    [_namespace, KPLIB_logistics_status_ambushedRouteBlocked] call KPLIB_fnc_logisticsSM_checkStatus
-] params [
-    "_ambushedOrRouteBlocked"
-];
+// Optionally insert standing CHANGE ORDER: line EN ROUTE and potentially BLOCKED
+[KPLIB_param_logistics_routesCanBeBlocked] call {
+    params ["_canBeBlocked"];
 
-if (_debug) then {
-    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushedOrRouteBlocked, _beforeTimer]: %1"
-        , str [count _changeOrders, _ambushedOrRouteBlocked, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    if (!_canBeBlocked) exitWith {};
+
+    private _onInitializeChangeOrder = {
+        params ["_changeOrder"];
+
+        [_changeOrder, [
+            ["KPLIB_logistics_targetUuid", _targetUuid]
+            , ["KPLIB_changeOrder_onChangeOrder", KPLIB_fnc_logisticsCO_onMissionBlocked]
+            , ["KPLIB_changeOrder_onChangeOrderEntering", KPLIB_fnc_logisticsCO_onMissionBlockedEntering]
+        ]] call KPLIB_fnc_namespace_setVars;
+    };
+
+    private _changeOrder = [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
+
+    private _inserted = [_namespace, [_changeOrder]] call KPLIB_fnc_changeOrders_insert;
+
+    if (_debug) then {
+        [format ["[fn_logisticsSM_onPending::onCanBeBlocked] [_targetUuid, _inserted]: %1"
+            , str [_targetUuid, _inserted]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
 };
 
 [_namespace] call KPLIB_fnc_changeOrders_process;
+
+[
+    [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logisticsSM_checkStatus
+    , [_namespace, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logisticsSM_checkStatus
+    , [_namespace, KPLIB_logistics_status_aborting] call KPLIB_fnc_logisticsSM_checkStatus
+] params [
+    "_ambushed"
+    , "_routeBlocked"
+    , "_aborting"
+];
+
+if (_debug) then {
+    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushed, _routeBlocked, _aborting, _beforeTimer]: %1"
+        , str [count _changeOrders, _ambushed, _routeBlocked, _aborting, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+};
 
 ([_namespace, [
     [KPLIB_logistics_timer, []]
@@ -58,8 +90,9 @@ if (_debug) then {
 
 _changeOrdersTimer = +_changeOrdersTimer;
 
-// AMBUSHED+ROUTE_BLOCKED are the only status which 'pauses' the TIMER, everything else continues, even NO_SPACE+NO_RESOURCE
-if (!_ambushedOrRouteBlocked) then {
+// TODO: TBD: without getting too nuts in the heuristics of when to (block || !block), abort, etc
+// Allowing for timer movement when...
+if ((_aborting && !_ambushed) || !(_ambushed || _routeBlocked)) then {
     [_namespace] call KPLIB_fnc_logisticsSM_onRefreshTimer;
 };
 

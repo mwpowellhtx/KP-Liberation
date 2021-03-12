@@ -2563,6 +2563,12 @@
         <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_TRANSPORT_LOAD_TIME_TT">
             <English>Transport loading and unloading time for each transport during the loading logistics phase, in seconds.</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_ROUTES_CAN_BE_BLOCKED">
+            <English>Routes Can Be Blocked</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_LOGISTICS_ROUTES_CAN_BE_BLOCKED_TT">
+            <English>Routes can be blocked in proximity of enemy controlled sectors.</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICS_MSG_TRANSPORT_REQUEST_LINE_NOT_SELECTED">
             <English>Select a line in order to submit the transport request.</English>
         </Key>
