@@ -69,6 +69,9 @@ if (isServer) then {
     KPLIB_param_logisticsCO_onMissionAbortEntering_debug        = false;
     KPLIB_param_logisticsCO_onMissionAbort_debug                = false;
 
+    KPLIB_param_logisticsCO_onMissionBlockedEntering_debug      = true;
+    KPLIB_param_logisticsCO_onMissionBlocked_debug              = true;
+
     KPLIB_param_logisticsCO_onAbortLoading_debug                = false;
     KPLIB_param_logisticsCO_onAbortUnloading_debug              = false;
     KPLIB_param_logisticsCO_onAbortEnRoute_debug                = false;

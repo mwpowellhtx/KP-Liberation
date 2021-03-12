@@ -63,6 +63,12 @@ class logisticsCO {
     // ...
     class logisticsCO_onMissionAbort {};
 
+    // ...
+    class logisticsCO_onMissionBlockedEntering {};
+
+    // ...
+    class logisticsCO_onMissionBlocked {};
+
     // Handles aborting when the line was 'KPLIB_logistics_status_enRoute'
     class logisticsCO_onAbortEnRoute {};
 
