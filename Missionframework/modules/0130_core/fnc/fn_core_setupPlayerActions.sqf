@@ -18,31 +18,80 @@
 
     Returns:
         Function reached the end [BOOL]
-*/
+
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/common/fnc_addPlayerAction-sqf.html
+        https://community.bistudio.com/wiki/addAction
+ */
 
 // Actions available LOCALLY to player
 if (hasInterface) then {
 
-    private _fobRedeployCondition = '
-        _target isEqualTo _originalTarget
-          && ([_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
-            || [_target, KPLIB_param_edenRange, KPLIB_sectors_edens] call KPLIB_fnc_common_getTargetMarkerInRange)
-    ';
+    // Redeploy player action
+    [] call {
+        private _condition = '
+            _target isEqualTo _originalTarget
+            && ([_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
+                || [_target, KPLIB_param_edenRange, KPLIB_sectors_edens] call KPLIB_fnc_common_getTargetMarkerInRange)
+        ';
 
-    // FOB redeploy action
-    private _actionArray = [
-        localize "STR_KPLIB_ACTION_REDEPLOY"
-        , {["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent}
-        , nil
-        , KPLIB_ACTION_PRIORITY_REDEPLOY
-        , false
-        , true
-        , ""
-        , _fobRedeployCondition
-        , -1
+        private _args = [
+            localize "STR_KPLIB_ACTION_REDEPLOY"
+            , {["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent}
+            , nil
+            , KPLIB_ACTION_PRIORITY_REDEPLOY
+            , false
+            , true
+            , ""
+            , _condition
+            , -1
+        ];
+
+        [_args] call CBA_fnc_addPlayerAction;
+    };
+
+    {
+        // Repackage FOB player actions
+        _x call {
+            params [
+                ["_key", "", [""]]
+                , ["_args", [], [[]]]
+                , ["_priority", -1, [0]]
+            ];
+
+            // TODO: TBD: also consider permissions, commander? logistics? build?
+            private _condition = '
+                _target isEqualTo _originalTarget
+                    && !("" isEqualTo ([] call KPLIB_fnc_common_getPlayerFob))
+            ';
+
+            private _args = [
+                localize _key
+                , { _this call KPLIB_fnc_core_onRepackageFob; }
+                , _args
+                , _priority
+                , false
+                , true
+                , ""
+                , _condition
+                , -1
+            ];
+
+            [_args] call CBA_fnc_addPlayerAction;
+        };
+
+    } forEach [
+        [
+            "STR_KPLIB_ACTION_REPACKAGE_FOB_BOX"
+            , [KPLIB_preset_fobBoxF]
+            , KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_BOX
+        ]
+        , [
+            "STR_KPLIB_ACTION_REPACKAGE_FOB_TRUCK"
+            , [KPLIB_preset_fobTruckF]
+            , KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_TRUCK
+        ]
     ];
-
-    [_actionArray] call CBA_fnc_addPlayerAction;
 };
 
 true;

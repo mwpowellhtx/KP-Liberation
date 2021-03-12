@@ -37,7 +37,7 @@ if (hasInterface) then {
     // format ["<t color='#33cc33'>%1</t>", localize "STR_KPLIB_ACTION_BUILD_STORAGE"]
     private _buildStorageArgs = [
         localize "STR_KPLIB_ACTION_BUILD_STORAGE"
-        , {[(_this#1)] call KPLIB_fnc_buildClient_onBuildStorageClicked;}
+        , { _this call KPLIB_fnc_buildClient_onBuildStorageClicked; }
         , nil
         , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
         , false

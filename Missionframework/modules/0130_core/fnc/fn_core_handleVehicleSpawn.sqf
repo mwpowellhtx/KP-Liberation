@@ -38,7 +38,7 @@ switch (typeOf _vehicle) do {
             , [
                 {["KPLIB_fob_build_requested", [_this select 0]] call CBA_fnc_localEvent}
                 , true
-                , KPLIB_ACTION_PRIORITY_DEPLOYFOB
+                , KPLIB_ACTION_PRIORITY_DEPLOY_FOB
                 , false
                 , true
                 , ""

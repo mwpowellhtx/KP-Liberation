@@ -38,6 +38,9 @@ class core {
     // Selects the Forward Operating Bases (FOBs) meeting the predicated conditions
     class core_selectFobs {};
 
+    // Repackages the nearest FOB to either container or truck depending on the event arguments
+    class core_onRepackageFob {};
+
     // Callback used to determine whether the target is within range of the FOB position
     class core_fob_callback_onWithinRange {};
 

@@ -254,6 +254,12 @@
             <Spanish>-- DESPLEGAR FOB --</Spanish>
             <Turkish>-- FOB KUR --</Turkish>
         </Key>
+        <Key ID="STR_KPLIB_ACTION_REPACKAGE_FOB_BOX">
+            <English>-- REPACKAGE FOB CONTAINER --</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_REPACKAGE_FOB_TRUCK">
+            <English>-- REPACKAGE FOB TRUCK --</English>
+        </Key>
         <Key ID="STR_KPLIB_ACTION_DEPLOYRANDOM">
             <English>-- RANDOM FOB DEPLOYMENT --</English>
             <German>-- ZUFÄLLIGE FOB PLATZIERUNG --</German>
@@ -2302,8 +2308,6 @@
     </Package>
 
     <!-- BUILD -->
-
-    <!-- LOGISTICSMGR DIALOG -->
 
     <Package name="Build">
         <Key ID="STR_KPLIB_BUILD_ITEM_FOB_BOX">
