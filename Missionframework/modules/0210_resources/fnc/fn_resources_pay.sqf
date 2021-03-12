@@ -58,9 +58,8 @@ if (_debug) then {
 ];
 
 // Exit early when ZERO BILL or when MARKER INVALID
-if (_zeroBill || !_validMarker) exitWith {
-    _zeroBill && _validMarker;
-};
+if (_zeroBill) exitWith { true; };
+if (!_validMarker) exitWith { false; };
 
 // Check if the location even has the needed amount of resources
 ([_markerName] call KPLIB_fnc_resources_getResTotal) params [
