@@ -38,7 +38,11 @@ if (isServer) then {
     KPLIB_param_changeOrders_enqueue_debug          = false;
     KPLIB_param_changeOrders_tryDequeue_debug       = false;
 
+    KPLIB_param_changeOrders_insert_debug           = true;
+
     KPLIB_param_changeOrders_process_debug          = false;
+
+    KPLIB_changeOrders_orders                       = "KPLIB_changeOrders_orders";
 };
 
 if (!(hasInterface || isDedicated)) then {

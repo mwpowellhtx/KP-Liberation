@@ -41,7 +41,7 @@ if (_debug) then {
 
 // This is it, enqueue the change order and get out of the way ASAP
 ([_target, [
-    ["KPLIB_changeOrders", []]
+    [KPLIB_changeOrders_orders, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
     ["_changeOrders", [], [[]]]
 ];
@@ -49,7 +49,7 @@ if (_debug) then {
 private _i = _changeOrders pushBack _changeOrder;
 
 [_target, [
-    ["KPLIB_changeOrders", _changeOrders]
+    [KPLIB_changeOrders_orders, _changeOrders]
 ]] call KPLIB_fnc_namespace_setVars;
 
 if (_debug) then {
