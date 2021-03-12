@@ -22,8 +22,8 @@
 */
 
 params [
-    ["_center", position player, [[]], 3],
-    ["_radius", KPLIB_param_fobRange, [0]]
+    ["_center", position player, [[]], 3]
+    , ["_radius", KPLIB_param_fobRange, [0]]
 ];
 
 // Animate player
@@ -37,35 +37,37 @@ KPLIB_buildLogic = _logic;
     _logic setVariable _x;
 } forEach [
     // General
-    ["selectedCategoryIdx", nil],
-    ["buildMode", 0],
-    ["buildItem", []],
-    ["buildQueue", []],
-    ["buildables", KPLIB_build_categoryItems],
-    ["center", _center],
-    ["radius", _radius],
-    ["areaIndicators", [_center, _radius] call KPLIB_fnc_build_markArea],
-    ["camera", [_center, _radius] call KPLIB_fnc_build_camCreate],
-    ["display", displayNull],
-    ["selection", []],
-    ["cursorObject", objNull],
-    ["dragAnchorObject", objNull],
-    ["rotationAnchorObject", objNull],
+    ["selectedCategoryIdx", nil]
+    , ["buildMode", KPLIB_build_buildMode_move]
+    , ["upVectorMode", KPLIB_build_upVectorMode_terrain]
+    , ["buildItem", []]
+    , ["buildQueue", []]
+    , ["buildables", KPLIB_build_categoryItems]
+    , ["center", _center]
+    , ["radius", _radius]
+    , ["areaIndicators", [_center, _radius] call KPLIB_fnc_build_markArea]
+    , ["camera", [_center, _radius] call KPLIB_fnc_build_camCreate]
+    , ["display", displayNull]
+    , ["selection", []]
+    , ["cursorObject", objNull]
+    , ["dragAnchorObject", objNull]
+    , ["rotationAnchorObject", objNull]
     // States
-    ["isDragging", false],
-    ["isRotating", false],
+    , ["isDragging", false]
+    , ["isRotating", false]
     // Keys
-    ["altKey", false],
-    ["ctrlKey", false],
-    ["shiftKey", false],
-    ["heldKeys", [] resize 255],
-    ["mouseLeft", false],
-    ["mouseRight", false],
-    ["mousePos", [0.5, 0.5]]
+    , ["altKey", false]
+    , ["ctrlKey", false]
+    , ["shiftKey", false]
+    , ["heldKeys", [] resize 255]
+    , ["mouseLeft", false]
+    , ["mouseRight", false]
+    , ["mousePos", [0.5, 0.5]]
 ];
 
 // Draw bounding boxes for objects in queue
 [] call KPLIB_fnc_build_boundingBoxPFH;
+
 // Draw icons for objects in queue
 [] call KPLIB_fnc_build_drawIconsPFH;
 
@@ -74,4 +76,4 @@ KPLIB_buildLogic = _logic;
 
 ["KPLIB_build_start", [_logic, _center, _radius]] call CBA_fnc_localEvent;
 
-_logic
+_logic;

@@ -33,7 +33,11 @@ if (_updatePos) exitWith {
     // Move all selected objects to target positions
     {
         private _targetPos = _x getVariable ["KPLIB_dragPos", KPLIB_zeroPos];
+        // TODO: TBD: may want to refactor up vectors such as this to a function...
         private _targetVectorUp = _x getVariable ["KPLIB_dragVectorUp", surfaceNormal _targetPos];
+        if (LGVAR(upVectorMode) == KPLIB_build_upVectorMode_true) then {
+            _targetVectorUp = +KPLIB_build_upVector_true;
+        };
         // Zero target values
         _x setVariable ["KPLIB_dragPos", nil];
         _x setVariable ["KPLIB_dragVectorUp", nil];

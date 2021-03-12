@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-02-12 08:23:58
+    Last Update: 2021-03-11 18:57:20
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -27,8 +27,14 @@ if (isServer) then {
     ----- Module Globals -----
 */
 
-KPLIB_build_buildMode_move = 0;
-KPLIB_build_buildMode_build = 1;
+KPLIB_build_buildMode_move          = 0;
+KPLIB_build_buildMode_build         = 1;
+
+KPLIB_build_upVectorMode_terrain    = 0;
+KPLIB_build_upVectorMode_true       = 1;
+
+KPLIB_build_upVector_true           = [0, 0, 1];
+
 
 // Build camera
 KPLIB_build_camera = objNull;

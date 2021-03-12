@@ -19,6 +19,9 @@
 
     Returns:
         NOTHING
+
+    References:
+        https://community.bistudio.com/wiki/surfaceNormal
 */
 
 params [
@@ -27,6 +30,8 @@ params [
 ];
 
 private _logic = KPLIB_buildLogic;
+
+private _lblUpVector = LGVAR(lblUpVector);
 
 switch toLower _mode do {
     case "onmousebuttondown": {
@@ -66,8 +71,35 @@ switch toLower _mode do {
 
     };
     case "onmousezchanged": {
+        // TODO: TBD: add a response here to determine what other key gestures are in play:
+        // TODO: TBD: one response is to toggle the up vector, true vertical, or using surface normals terrain alignment, i.e. mousewheel
+        // TODO: TBD: another response might be to raise or lower the object being placed: i.e. ctrl+mousewheel
         _args params ["_ctrl","_zChange"];
-        if (true) exitWith {true};
+
+        private _modKeys = [
+            LGVAR(shiftKey)
+            , LGVAR(ctrlKey)
+            , LGVAR(altKey)
+        ];
+
+        switch (true) do {
+            // 1. toggle up vector alignment
+            case (_modKeys isEqualTo [false, true, false]): {
+                [_lblUpVector] spawn KPLIB_fnc_build_lblUpVector_onButtonClick;
+                false;
+            };
+            // // TODO: TBD: 2. possibly also raising and lowering the object...
+            // // TODO: TBD: 3. and by course (alt) or fine (shift+alt) deltas...
+            // case (_modKeys isEqualTo [false, false, true]): {
+            //     false;
+            // };
+            // case (_modKeys isEqualTo [true, false, true]): {
+            //     false;
+            // };
+            default {
+                true;
+            };
+        };
     };
 
     case "onmousemoving": {

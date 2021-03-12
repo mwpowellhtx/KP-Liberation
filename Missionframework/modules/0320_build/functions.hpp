@@ -32,8 +32,14 @@ class build {
     // Creates the build camera
     class build_camCreate {};
 
-    // Change queue mode between moving existing items and placing new
+    // Toggle queue mode between moving existing items and placing new
     class build_changeQueueMode {};
+
+    // Responds when the control loads for the first time
+    class build_lblUpVector_onLoad {};
+
+    // Toggles between terrain and true up vector modes
+    class build_lblUpVector_onButtonClick {};
 
     // Confirms all items in queue
     class build_confirmAll {};

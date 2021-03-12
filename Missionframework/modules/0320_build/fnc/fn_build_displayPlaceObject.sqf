@@ -46,6 +46,11 @@ private _obj = _className createVehicleLocal KPLIB_zeroPos;
 _obj enableSimulation false;
 
 ([] call KPLIB_fnc_build_surfaceUnderCursor) params ["_cursorWorldPosASL", "_cursorSurfaceNormal"];
+
+if (LGVAR(upVectorMode) == KPLIB_build_upVectorMode_true) then {
+    _cursorSurfaceNormal = +KPLIB_build_upVector_true;
+};
+
 _obj setPosASL _cursorWorldPosASL;
 // TODO: TBD: we have some sort of up vector comprehension right here... to start with anyway...
 // TODO: TBD: also having build a FOB, we know that the "up" stays consistent during the build sequence...

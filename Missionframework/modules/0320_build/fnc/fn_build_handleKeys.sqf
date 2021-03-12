@@ -4,8 +4,9 @@
 
     File: fn_build_handleKeys.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2018-10-07
-    Last Update: 2019-04-23
+    Last Update: 2021-03-11 15:16:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,6 +19,12 @@
 
     Returns:
         Stop handling key presses [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onKeyDown
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onKeyUp
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onMouseZChanged
+        https://community.bistudio.com/wiki/DIK_KeyCodes
 */
 
 params [
@@ -25,15 +32,19 @@ params [
     ["_args", nil, [[]]]
 ];
 
+#define DIK_ESCAPE  1
+#define DIK_DELETE  211
+
 switch toLower _mode do {
     case "onkeydown": {
         _args params ["_display","_dik","_shift","_ctrl","_alt"];
 
-        if (!LGVAR(shiftKey)) then {LSVAR("shiftKey", _shift)};
-        if (!LGVAR(ctrlKey)) then {LSVAR("ctrlKey", _ctrl)};
+        // 'true' meaning the key is 'down'
+        if (!LGVAR(shiftKey)) then { LSVAR("shiftKey", _shift); };
+        if (!LGVAR(ctrlKey)) then { LSVAR("ctrlKey", _ctrl); };
+        if (!LGVAR(altKey)) then { LSVAR("altKey", _alt); };
 
-        // ESC
-        if (_dik == 1) exitWith {
+        if (_dik == DIK_ESCAPE) exitWith {
             // [] call KPLIB_fnc_build_stop;
             // Open debug ESC menu (for debugging)
             [] spawn {
@@ -46,7 +57,7 @@ switch toLower _mode do {
         };
 
         switch _dik do {
-            case 211: {
+            case DIK_DELETE: {
                 private _queue = LGVAR(buildQueue);
                 // Remove items from build queue
                 LSVAR("buildQueue", _queue - LGVAR(selection));
@@ -57,20 +68,21 @@ switch toLower _mode do {
             };
         };
 
-        false
+        false;
     };
 
     case "onkeyup": {
         _args params ["_display","_dik","_shift","_ctrl","_alt"];
 
-        if (LGVAR(shiftKey)) then {LSVAR("shiftKey", !_shift)};
-        if (LGVAR(ctrlKey)) then {LSVAR("ctrlKey", !_ctrl)};
+        // 'true' meaning the key is 'up'
+        if (LGVAR(shiftKey)) then { LSVAR("shiftKey", !_shift); };
+        if (LGVAR(ctrlKey)) then { LSVAR("ctrlKey", !_ctrl); };
+        if (LGVAR(altKey)) then { LSVAR("altKey", !_alt); };
 
-        false
+        false;
     };
 
     default {
         [format ["Incorrect mode passed to handleKeys: %1", _mode], "BUILD"] call KPLIB_fnc_common_log
     };
-
 };

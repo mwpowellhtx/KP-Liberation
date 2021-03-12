@@ -635,8 +635,20 @@
             <English>Click to toggle between building new items and moving existing items modes.</English>
             <German>Wechsle zwischen dem Baumodus und dem Bearbeitungsmodus.</German>
         </Key>
+        <Key ID="STR_KPLIB_DIALOG_UP_VECTOR_MODE_TERRAIN">
+            <English>Terrain</English>
+        </Key>
+        <Key ID="STR_KPLIB_DIALOG_UP_VECTOR_MODE_TRUE">
+            <English>True vertical</English>
+        </Key>
+        <Key ID="STR_KPLIB_DIALOG_UP_VECTOR_MODE_TT">
+            <English>Click to toggle between up vector modes aligned to terrain or true vertical.</English>
+        </Key>
         <Key ID="STR_KPLIB_DIALOG_BUILD_HEADING_TT">
             <English>Heading of the item under construction.</English>
+        </Key>
+        <Key ID="STR_KPLIB_DIALOG_BUILD_HEADING_FORMAT_DEFAULT">
+            <English>---.--°</English>
         </Key>
         <Key ID="STR_KPLIB_DIALOG_BUILD_HEADING_FORMAT_NIL">
             <English>---.--</English>
