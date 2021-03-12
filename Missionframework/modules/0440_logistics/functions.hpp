@@ -138,6 +138,9 @@ class logistics {
     // Translates 'KPLIB_param_fobRange' in terms of 'KPLIB_param_logistics_transportSpeedKph', in meters per second
     class logistics_calculateFobRangeSeconds {};
 
+    // Calculates line estimated position in terms of elapsed time and 'KPLIB_param_logistics_transportSpeedKph'
+    class logistics_calculateEstimatedPos {};
+
     // ...
     class logistics_convoyIsFull {};
 
