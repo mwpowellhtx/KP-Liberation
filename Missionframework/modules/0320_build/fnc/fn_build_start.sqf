@@ -29,13 +29,11 @@ params [
 // Animate player
 player playActionNow "gear";
 
-private _logic = [] call CBA_fnc_createNamespace;
+private _logic = [] call KPLIB_fnc_namespace_create;
 KPLIB_buildLogic = _logic;
 
 // Initialize all variables used by logic
-{
-    _logic setVariable _x;
-} forEach [
+[_logic, [
     // General
     ["selectedCategoryIdx", nil]
     , ["buildMode", KPLIB_build_buildMode_move]
@@ -63,7 +61,7 @@ KPLIB_buildLogic = _logic;
     , ["mouseLeft", false]
     , ["mouseRight", false]
     , ["mousePos", [0.5, 0.5]]
-];
+]] call KPLIB_fnc_namespace_setVars;
 
 // Draw bounding boxes for objects in queue
 [] call KPLIB_fnc_build_boundingBoxPFH;

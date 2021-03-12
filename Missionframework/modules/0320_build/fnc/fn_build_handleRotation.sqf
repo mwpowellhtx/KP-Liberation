@@ -22,8 +22,8 @@
 */
 
 params [
-    ["_anchorObject", objNull, [objNull]],
-    ["_updateRot", false, [false]]
+    ["_anchorObject", objNull, [objNull]]
+    , ["_updateRot", false, [false]]
 ];
 
 // Exit rotation drag and set direction of objects
@@ -33,10 +33,10 @@ if (_updateRot) exitWith {
 
     // Move all selected objects to target positions
     {
-        private _targetDir = _x getVariable ["KPLIB_rotationDir", []];
+        private _rotDir = _x getVariable ["KPLIB_rotationDir", []];
 
-        if !(_targetDir isEqualTo []) then {
-            _x setDir _targetDir;
+        if (!(_rotDir isEqualTo [])) then {
+            _x setDir _rotDir;
         };
 
         // Notify that item needs position validity check
@@ -72,11 +72,11 @@ if (isNull _anchorObject) then {
 
     {
         private _posASL = getPosASL _x;
-        private _dir = _posASL getDir _mouseWorldPos;
+        private _rotDir = _posASL getDir _mouseWorldPos;
 
-        private _snappedDir = [_dir] call KPLIB_fnc_build_getSnappedDirection;
+        _rotDir = [_rotDir] call KPLIB_fnc_build_getSnappedDirection;
 
-        _x setVariable ["KPLIB_rotationDir", _snappedDir];
+        _x setVariable ["KPLIB_rotationDir", _rotDir];
 
         // TODO: TBD: should reflect snap in the drawn line as well...
         // TODO: TBD: need distance of the original line
@@ -91,7 +91,7 @@ if (isNull _anchorObject) then {
             [1,1,0,1] // Yellow
         ];
 
-        [nil, _snappedDir] spawn KPLIB_fnc_build_onBuildItemDirectionSnapped;
+        [nil, _rotDir] spawn KPLIB_fnc_build_onBuildItemDirectionSnapped;
 
     } forEach LGVAR(selection);
 };

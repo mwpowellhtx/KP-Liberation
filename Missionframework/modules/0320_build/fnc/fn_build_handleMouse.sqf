@@ -24,17 +24,50 @@
         https://community.bistudio.com/wiki/surfaceNormal
  */
 
-private _debug = [
-    [
-        {KPLIB_param_build_handleMouse_debug}
-    ]
-] call KPLIB_fnc_debug_debug;
+// This seems like a lot, but we really do need to get this kind of granular in order to vet what goes on
+[
+    [[{KPLIB_param_build_handleMouse_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseButtonDown_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseButtonUp_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseButtonClick_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseZChanged_debug}]] call KPLIB_fnc_debug_debug 
+    , [[{KPLIB_param_build_handleMouse_onMouseMoving_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseHolding_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseZChanged_buildCategoryList_debug}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseZChanged_buildList_debug}]] call KPLIB_fnc_debug_debug
+] params [
+    "_debug"
+    , "_debug_onMouseButtonDown"
+    , "_debug_onMouseButtonUp"
+    , "_debug_onMouseButtonClick"
+    , "_debug_onMouseZChanged"
+    , "_debug_onMouseMoving"
+    , "_debug_onMouseHolding"
+    , "_debug_onMouseZChanged_buildCategoryList"
+    , "_debug_onMouseZChanged_buildList"
+];
 
-private _debugSystemChat = [
-    [
-        {KPLIB_param_build_handleMouse_debugSystemChat}
-    ]
-] call KPLIB_fnc_debug_debug;
+[
+    [[{KPLIB_param_build_handleMouse_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseButtonDown_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseButtonUp_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseButtonClick_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseZChanged_debugSystemChat}]] call KPLIB_fnc_debug_debug 
+    , [[{KPLIB_param_build_handleMouse_onMouseMoving_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseHolding_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseZChanged_buildCategoryList_debugSystemChat}]] call KPLIB_fnc_debug_debug
+    , [[{KPLIB_param_build_handleMouse_onMouseZChanged_buildList_debugSystemChat}]] call KPLIB_fnc_debug_debug
+] params [
+    "_debugSystemChat"
+    , "_debugSystemChat_onMouseButtonDown"
+    , "_debugSystemChat_onMouseButtonUp"
+    , "_debugSystemChat_onMouseButtonClick"
+    , "_debugSystemChat_onMouseZChanged"
+    , "_debugSystemChat_onMouseMoving"
+    , "_debugSystemChat_onMouseHolding"
+    , "_debugSystemChat_onMouseZChanged_buildCategoryList"
+    , "_debugSystemChat_onMouseZChanged_buildList"
+];
 
 params [
     ["_mode", nil, [""]]
@@ -49,7 +82,7 @@ switch (toLower _mode) do {
     case "onmousebuttondown": {
         _args params ["_targetCtrl", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
-        if (_debugSystemChat) then {
+        if (_debugSystemChat || _debugSystemChat_onMouseButtonDown) then {
             systemChat format ["[fn_build_handleMouse::onMouseButtonDown] [_button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
                 , str [_button, _xPos, _yPos, _shift, _ctrl, _alt]];
         };
@@ -57,12 +90,15 @@ switch (toLower _mode) do {
         private _buttonName = ["mouseLeft", "mouseRight"] select _button;
         LSVAR(_buttonName, true);
 
-        if (_button isEqualTo 0) then {
+        if (_button == KPLIB_build_mouseButton_left) then {
+
+            private _obj = [] call KPLIB_fnc_build_objectUnderCursor;
+
             // If item is selected try to place it, handle selection/dragging otherwise
             if (!(LGVAR(buildItem) call KPLIB_fnc_build_displayPlaceObject)) then {
                 // Delay selection a bit to allow for mouse dragging
                 [{
-                    if (!LGVAR(isDragging) && !LGVAR(isRotating)) then {
+                    if (!(LGVAR(isDragging) || LGVAR(isRotating))) then {
                         [LGVAR(cursorObject)] call KPLIB_fnc_build_addToSelection;
                     };
                 }, [], 0.1] call CBA_fnc_waitAndExecute;
@@ -73,7 +109,7 @@ switch (toLower _mode) do {
     case "onmousebuttonup": {
         _args params ["_targetCtrl", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
-        if (_debugSystemChat) then {
+        if (_debugSystemChat || _debugSystemChat_onMouseButtonUp) then {
             systemChat format ["[fn_build_handleMouse::onMouseButtonUp] [_button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
                 , str [_button, _xPos, _yPos, _shift, _ctrl, _alt]];
         };
@@ -96,10 +132,20 @@ switch (toLower _mode) do {
         // TODO: TBD: so this is unfortunate, does not appear to suppose a middle mouse button click event...
         _args params ["_targetCtrl", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
 
-        if (_debugSystemChat) then {
-            systemChat format ["[fn_build_handleMouse::onMouseButtonClick]: [_button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
-                , str [_button, _xPos, _yPos, _shift, _ctrl, _alt]];
-        };
+        // // TODO: TBD: probably do not need much of a mouse button click after all...
+        // // TODO: TBD: it might be interesting to modify the selection, but that's about it (?)
+        // if (_button == KPLIB_build_mouseButton_left) then {
+
+        //     private _obj = [] call KPLIB_fnc_build_objectUnderCursor;
+        //     private _typeOfObj = if (isNull _obj) then { "objNull"; } else { typeOf _obj; };
+
+        //     if (_debugSystemChat || _debugSystemChat_onMouseButtonClick) then {
+        //         systemChat format ["[fn_build_handleMouse::onMouseButtonClick]: [isNull _obj, _typeOfObj, _button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
+        //             , str [isNull _obj, _typeOfObj, _button, _xPos, _yPos, _shift, _ctrl, _alt]];
+        //     };
+        //     // TODO: TBD: and with scenarios to add more, remove them from, or simply replace selection, Ftomove)etc...
+        //     [_obj] call KPLIB_fnc_build_addToSelection;
+        // };
 
         // if (_button == KPLIB_build_mouseButton_middle && [_shift, _ctrl, _alt] isEqualTo [false, false, false]) exitWith {
         //     //[_lblUpVector] spawn KPLIB_fnc_build_lblUpVector_onButtonClick;
@@ -115,7 +161,7 @@ switch (toLower _mode) do {
         // TODO: TBD: another response might be to raise or lower the object being placed: i.e. ctrl+mousewheel
         _args params ["_targetCtrl", "_zChange"];
 
-        if (_debugSystemChat) then {
+        if (_debugSystemChat || _debugSystemChat_onMouseZChanged) then {
             systemChat format ["[fn_build_handleMouse::onMouseZChanged] [_zChange]: %1"
                 , str [_zChange]];
         };
@@ -155,7 +201,7 @@ switch (toLower _mode) do {
     case "onmousemoving": {
         _args params ["_targetCtrl", "_xPos", "_yPos", "_mouseOver"];;
 
-        if (_debugSystemChat) then {
+        if (_debugSystemChat || _debugSystemChat_onMouseMoving) then {
             systemChat format ["[fn_build_handleMouse::onMouseMoving] [_xPos, _yPos, _mouseOver]: %1"
                 , str [_xPos, _yPos, _mouseOver]];
         };
@@ -163,7 +209,7 @@ switch (toLower _mode) do {
         // Enable camera movement when cursor not over dialog
         LGVAR(camera) camCommand "manual on";
 
-        private _xyPos = [_xPos, _xPos];
+        private _xyPos = [_xPos, _yPos];
         LSVAR("mousePos", _xyPos);
 
         LSVAR("cursorObject", [] call KPLIB_fnc_build_objectUnderCursor);
@@ -185,7 +231,7 @@ switch (toLower _mode) do {
     case "onmouseholding": {
         _args params ["_targetCtrl", "_xPos", "_yPos", "_mouseOver"];;
 
-        if (_debugSystemChat) then {
+        if (_debugSystemChat || _debugSystemChat_onMouseHolding) then {
             systemChat format ["[fn_build_handleMouse::onMouseHolding] [_xPos, _yPos, _mouseOver]: %1"
                 , str [_xPos, _yPos, _mouseOver]];
         };

@@ -39,6 +39,8 @@ if (_selection isEqualType []) then {
         _selectionArray pushBackUnique _x;
     } forEach _selection;
 } else {
+    // TODO: TBD: if shift held add to...
+    // TODO: TBD: if ctrl is held toggle into or out of...
     // If ctrl is held append to selection
     if (_ctrlKey) then {
         _selectionArray pushBackUnique _selection;

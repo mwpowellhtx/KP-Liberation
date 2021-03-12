@@ -23,7 +23,7 @@
 private _debug = [] call KPLIB_fnc_build_debug;
 
 // TODO: TBD: how does stop operate as an opposite boundary to the start?
-private _logic = missionNamespace getVariable "KPLIB_buildLogic";
+private _logic = missionNamespace getVariable ["KPLIB_buildLogic", locationNull];
 
 if (!(isNull _logic)) then {
 
@@ -49,7 +49,7 @@ if (!(isNull _logic)) then {
         } forEach LGVAR_D(buildQueue,[]);
     };
 
-    _logic call CBA_fnc_deleteNamespace;
+    [_logic] call KPLIB_fnc_namespace_onGC;
 };
 
 ["KPLIB_build_stop"] call CBA_fnc_localEvent;

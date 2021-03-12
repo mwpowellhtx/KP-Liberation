@@ -20,10 +20,12 @@
        Object that is currently under the cursor [OBJECT]
  */
 
-// Guard debugging with a latch so as not to clobber the log
-if (isNil "KPLIB_build_objectUnderCursor_debug") then {
-    KPLIB_build_objectUnderCursor_debug = false;
-};
+// TODO: TBD: need to update the BUILD debug function with additional support...
+private _debug = [
+    [
+        {KPLIB_param_build_objectUnderCursor_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
 
 private _camera = LGVAR(camera);
 private _cursorPos = LGVAR(mousePos);
@@ -32,8 +34,7 @@ private _queue = LGVAR(buildQueue);
 private _target = objNull;
 
 if (_queue isEqualTo []) exitWith {
-    if (KPLIB_param_builddebug && !KPLIB_build_objectUnderCursor_debug) then {
-        KPLIB_build_objectUnderCursor_debug = true;
+    if (_debug) then {
         ["[fn_build_objectUnderCursor] Queue items required", "BUILD", true] call KPLIB_fnc_common_log;
     };
     [] spawn KPLIB_fnc_build_onBuildItemDirectionSnapped;
@@ -41,8 +42,7 @@ if (_queue isEqualTo []) exitWith {
     vehicle _target;
 };
 
-if (KPLIB_param_builddebug && !KPLIB_build_objectUnderCursor_debug) then {
-    KPLIB_build_objectUnderCursor_debug = true;
+if (_debug) then {
     [format ["[fn_build_objectUnderCursor] %1 queue items: %2", count _queue, str (_queue apply {typeOf _x})], "BUILD", true] call KPLIB_fnc_common_log;
 };
 

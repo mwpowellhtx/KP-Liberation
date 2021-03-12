@@ -204,11 +204,31 @@ KPLIB_param_build_degreePlaces = 2;
 
 if (hasInterface) then {
 
-    KPLIB_param_build_handleKeys_debug                          = false;
-    KPLIB_param_build_handleKeys_debugSystemChat                = false;
+    KPLIB_param_build_objectUnderCursor_debug                                           = false;
 
-    KPLIB_param_build_handleMouse_debug                         = false;
-    KPLIB_param_build_handleMouse_debugSystemChat               = false;
+    KPLIB_param_build_handleKeys_debug                                                  = false;
+    KPLIB_param_build_handleKeys_debugSystemChat                                        = false;
+
+    KPLIB_param_build_handleMouse_debug                                                 = false;
+    KPLIB_param_build_handleMouse_debugSystemChat                                       = false;
+
+    KPLIB_param_build_handleMouse_onMouseButtonDown_debug                               = false;
+    KPLIB_param_build_handleMouse_onMouseButtonUp_debug                                 = false;
+    KPLIB_param_build_handleMouse_onMouseButtonClick_debug                              = false;
+    KPLIB_param_build_handleMouse_onMouseZChanged_debug                                 = false;
+    KPLIB_param_build_handleMouse_onMouseMoving_debug                                   = false;
+    KPLIB_param_build_handleMouse_onMouseHolding_debug                                  = false;
+    KPLIB_param_build_handleMouse_onMouseZChanged_buildCategoryList_debug               = false;
+    KPLIB_param_build_handleMouse_onMouseZChanged_buildList_debug                       = false;
+
+    KPLIB_param_build_handleMouse_onMouseButtonDown_debugSystemChat                     = false;
+    KPLIB_param_build_handleMouse_onMouseButtonUp_debugSystemChat                       = false;
+    KPLIB_param_build_handleMouse_onMouseButtonClick_debugSystemChat                    = true;
+    KPLIB_param_build_handleMouse_onMouseZChanged_debugSystemChat                       = false;
+    KPLIB_param_build_handleMouse_onMouseMoving_debugSystemChat                         = false;
+    KPLIB_param_build_handleMouse_onMouseHolding_debugSystemChat                        = false;
+    KPLIB_param_build_handleMouse_onMouseZChanged_buildCategoryList_debugSystemChat     = false;
+    KPLIB_param_build_handleMouse_onMouseZChanged_buildList_debugSystemChat             = false;
 
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;

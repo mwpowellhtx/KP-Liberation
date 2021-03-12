@@ -22,6 +22,7 @@
         Building logic object [LOCATION]
 
     References:
+        https://community.bistudio.com/wiki/remoteExec
         https://cbateam.github.io/CBA_A3/docs/files/events/fnc_addEventHandlerArgs-sqf.html
 */
 
@@ -83,6 +84,11 @@ private _onStopBuild = {
     ["KPLIB_build_display_open", _openEhId] call CBA_fnc_removeEventHandler;
     ["KPLIB_build_item_built_local", _builtEhId] call CBA_fnc_removeEventHandler;
 
+    // TODO: TBD: may see about doing this one conditionally...
+    // TODO: TBD: i.e. only if anything changed during build... i.e. was built, moved, etc...
+    [] spawn {
+        [] remoteExec ["KPLIB_fnc_init_save", 2];
+    };
 };
 
 // Handle item placement
