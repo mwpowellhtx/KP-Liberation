@@ -42,7 +42,14 @@ private _onUpdateNamespaceMember = {
         ["_variableName", "", [""]]
         , "_value"
     ];
-    _namespace setVariable [_variableName, _value];
+    if (isNil "_value") then {
+        if (_debug) then {
+            systemChat format ["[fn_namespace_setVars] Nullifying variable: %1", _variableName];
+        };
+        _namespace setVariable [_variableName, nil];
+    } else {
+        _namespace setVariable [_variableName, _value];
+    };
 };
 
 _onUpdateNamespaceMember forEach _nameValuePairs;
