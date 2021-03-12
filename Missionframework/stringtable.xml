@@ -2301,6 +2301,19 @@
         </Key>
     </Package>
 
+    <!-- BUILD -->
+
+    <!-- LOGISTICSMGR DIALOG -->
+
+    <Package name="Build">
+        <Key ID="STR_KPLIB_BUILD_ITEM_FOB_BOX">
+            <English>FOB Container</English>
+        </Key>
+        <Key ID="STR_KPLIB_BUILD_ITEM_FOB_TRUCK">
+            <English>FOB Truck</English>
+        </Key>
+    </Package>
+
     <!-- LOGISTIC -->
 
     <Package name="Logistic">

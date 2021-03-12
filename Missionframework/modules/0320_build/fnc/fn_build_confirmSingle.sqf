@@ -27,16 +27,18 @@ private _debug = [] call KPLIB_fnc_build_debug;
 params [
     ["_createParams", nil, [[]]],
     ["_vectorDirAndUp", nil, [[]], 2],
-    ["_price", [0, 0, 0], [[]], 3],
+    ["_price", +KPLIB_resources_storageValueDefault, [[]], 3],
     ["_player", objNull, [objNull]]
 ];
 _createParams params ["_className", "_pos", "_dir", "_justBuild"];
 
 private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 
-if !(([_markerName] + _price) call KPLIB_fnc_resources_pay) exitWith {
-    [format ["Not enough resources to build: %1 at: '%2', price: %3", _className, _markerName, _price], "BUILD"] call KPLIB_fnc_common_log;
+// Debit when we have a debit to contend with
+if (!(([_markerName] + _price) call KPLIB_fnc_resources_pay)) exitWith {
+    [format ["Not enough resources to build: %1 at: '%2', price: %3", _className, _markerName, str _price], "BUILD"] call KPLIB_fnc_common_log;
     ["KPLIB_build_not_enough_resources", [_className], _player] call CBA_fnc_targetEvent;
+    false;
 };
 
 private ["_obj"];

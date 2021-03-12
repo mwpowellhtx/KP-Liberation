@@ -152,4 +152,10 @@ class build {
 
     // Server side confirm build storage container callback
     class buildServer_onConfirmBuildStorage {};
+
+    // Gets the display name corresponding to the given class name
+    class build_getClassDisplayName {};
+
+    // Registers a display name corresponding to the class name
+    class build_registerClassDisplayName {};
 };

@@ -21,7 +21,9 @@
 
 if (isServer) then {
     ["Module initializing...", "POST] [BUILD", true] call KPLIB_fnc_common_log;
+};
 
+if (isServer) then {
     // Build menu permissions
     // Build
     [
@@ -34,6 +36,17 @@ if (isServer) then {
 
 [] call KPLIB_fnc_build_setupPlayerActions;
 
-if (isServer) then {["Module initialized", "POST] [BUILD", true] call KPLIB_fnc_common_log;};
+if (hasInterface) then {
 
-true
+    [KPLIB_preset_fobBoxE, localize "STR_KPLIB_BUILD_ITEM_FOB_BOX"] call KPLIB_fnc_build_registerClassDisplayName;
+    [KPLIB_preset_fobBoxF, localize "STR_KPLIB_BUILD_ITEM_FOB_BOX"] call KPLIB_fnc_build_registerClassDisplayName;
+
+    [KPLIB_preset_fobTruckE, localize "STR_KPLIB_BUILD_ITEM_FOB_TRUCK"] call KPLIB_fnc_build_registerClassDisplayName;
+    [KPLIB_preset_fobTruckF, localize "STR_KPLIB_BUILD_ITEM_FOB_TRUCK"] call KPLIB_fnc_build_registerClassDisplayName;
+};
+
+if (isServer) then {
+    ["Module initialized", "POST] [BUILD", true] call KPLIB_fnc_common_log;
+};
+
+true;

@@ -230,6 +230,8 @@ if (hasInterface) then {
     KPLIB_param_build_handleMouse_onMouseZChanged_buildCategoryList_debugSystemChat     = false;
     KPLIB_param_build_handleMouse_onMouseZChanged_buildList_debugSystemChat             = false;
 
+    KPLIB_param_build_displayFillList_debug                                             = true;
+
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;
 

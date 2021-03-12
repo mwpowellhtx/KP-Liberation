@@ -32,11 +32,13 @@ player playActionNow "gear";
 private _logic = [] call KPLIB_fnc_namespace_create;
 KPLIB_buildLogic = _logic;
 
+// General
+_logic setVariable ["selectedCategoryIdx", nil];
+
 // Initialize all variables used by logic
 [_logic, [
     // General
-    ["selectedCategoryIdx", nil]
-    , ["buildMode", KPLIB_build_buildMode_move]
+    ["buildMode", KPLIB_build_buildMode_move]
     , ["upVectorMode", KPLIB_build_upVectorMode_terrain]
     , ["buildItem", []]
     , ["buildQueue", []]
