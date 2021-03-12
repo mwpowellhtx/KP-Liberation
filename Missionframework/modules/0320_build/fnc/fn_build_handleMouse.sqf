@@ -22,20 +22,37 @@
 
     References:
         https://community.bistudio.com/wiki/surfaceNormal
-*/
+ */
+
+private _debug = [
+    [
+        {KPLIB_param_build_handleMouse_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
+
+private _debugSystemChat = [
+    [
+        {KPLIB_param_build_handleMouse_debugSystemChat}
+    ]
+] call KPLIB_fnc_debug_debug;
 
 params [
-    ["_mode", nil, [""]],
-    ["_args", nil, [[]]]
+    ["_mode", nil, [""]]
+    , ["_args", nil, [[]]]
 ];
 
 private _logic = KPLIB_buildLogic;
 
 private _lblUpVector = LGVAR(lblUpVector);
 
-switch toLower _mode do {
+switch (toLower _mode) do {
     case "onmousebuttondown": {
-        _args params ["_ctrl","_button"];
+        _args params ["_targetCtrl", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+        if (_debugSystemChat) then {
+            systemChat format ["[fn_build_handleMouse::onMouseButtonDown] [_button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
+                , str [_button, _xPos, _yPos, _shift, _ctrl, _alt]];
+        };
 
         private _buttonName = ["mouseLeft", "mouseRight"] select _button;
         LSVAR(_buttonName, true);
@@ -54,7 +71,12 @@ switch toLower _mode do {
     };
 
     case "onmousebuttonup": {
-        _args params ["_ctrl","_button"];
+        _args params ["_targetCtrl", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+        if (_debugSystemChat) then {
+            systemChat format ["[fn_build_handleMouse::onMouseButtonUp] [_button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
+                , str [_button, _xPos, _yPos, _shift, _ctrl, _alt]];
+        };
 
         private _buttonName = ["mouseLeft", "mouseRight"] select _button;
         LSVAR(_buttonName, false);
@@ -68,13 +90,35 @@ switch toLower _mode do {
             // Rotate dragged objects
             [LGVAR(rotationAnchorObject), true] call KPLIB_fnc_build_handleRotation;
         };
-
     };
+
+    case "onmousebuttonclick": {
+        // TODO: TBD: so this is unfortunate, does not appear to suppose a middle mouse button click event...
+        _args params ["_targetCtrl", "_button", "_xPos", "_yPos", "_shift", "_ctrl", "_alt"];
+
+        if (_debugSystemChat) then {
+            systemChat format ["[fn_build_handleMouse::onMouseButtonClick]: [_button, _xPos, _yPos, _shift, _ctrl, _alt]: %1"
+                , str [_button, _xPos, _yPos, _shift, _ctrl, _alt]];
+        };
+
+        // if (_button == KPLIB_build_mouseButton_middle && [_shift, _ctrl, _alt] isEqualTo [false, false, false]) exitWith {
+        //     //[_lblUpVector] spawn KPLIB_fnc_build_lblUpVector_onButtonClick;
+        //     //false;
+        // };
+
+        if (true) exitWith { true; };
+    };
+
     case "onmousezchanged": {
         // TODO: TBD: add a response here to determine what other key gestures are in play:
         // TODO: TBD: one response is to toggle the up vector, true vertical, or using surface normals terrain alignment, i.e. mousewheel
         // TODO: TBD: another response might be to raise or lower the object being placed: i.e. ctrl+mousewheel
-        _args params ["_ctrl","_zChange"];
+        _args params ["_targetCtrl", "_zChange"];
+
+        if (_debugSystemChat) then {
+            systemChat format ["[fn_build_handleMouse::onMouseZChanged] [_zChange]: %1"
+                , str [_zChange]];
+        };
 
         private _modKeys = [
             LGVAR(shiftKey)
@@ -82,12 +126,15 @@ switch toLower _mode do {
             , LGVAR(altKey)
         ];
 
+        // TODO: TBD: does not behave quite like we would like, so we will try with a middle mouse button instead
         switch (true) do {
+
             // 1. toggle up vector alignment
             case (_modKeys isEqualTo [false, true, false]): {
                 [_lblUpVector] spawn KPLIB_fnc_build_lblUpVector_onButtonClick;
                 false;
             };
+
             // // TODO: TBD: 2. possibly also raising and lowering the object...
             // // TODO: TBD: 3. and by course (alt) or fine (shift+alt) deltas...
             // case (_modKeys isEqualTo [false, false, true]): {
@@ -96,20 +143,28 @@ switch toLower _mode do {
             // case (_modKeys isEqualTo [true, false, true]): {
             //     false;
             // };
+
             default {
                 true;
             };
         };
+
+        if (true) exitWith { true; };
     };
 
     case "onmousemoving": {
-        _args params ["_ctrl","_x","_y"];
+        _args params ["_targetCtrl", "_xPos", "_yPos", "_mouseOver"];;
+
+        if (_debugSystemChat) then {
+            systemChat format ["[fn_build_handleMouse::onMouseMoving] [_xPos, _yPos, _mouseOver]: %1"
+                , str [_xPos, _yPos, _mouseOver]];
+        };
 
         // Enable camera movement when cursor not over dialog
         LGVAR(camera) camCommand "manual on";
 
-        private _xy = [_x, _y];
-        LSVAR("mousePos", _xy);
+        private _xyPos = [_xPos, _xPos];
+        LSVAR("mousePos", _xyPos);
 
         LSVAR("cursorObject", [] call KPLIB_fnc_build_objectUnderCursor);
 
@@ -128,10 +183,15 @@ switch toLower _mode do {
      };
 
     case "onmouseholding": {
-        _args params ["_ctrl","_x","_y"];
+        _args params ["_targetCtrl", "_xPos", "_yPos", "_mouseOver"];;
 
-        private _xy = [_x, _y];
-        LSVAR("mousePos", _xy);
+        if (_debugSystemChat) then {
+            systemChat format ["[fn_build_handleMouse::onMouseHolding] [_xPos, _yPos, _mouseOver]: %1"
+                , str [_xPos, _yPos, _mouseOver]];
+        };
+
+        private _xyPos = [_xPos, _yPos];
+        LSVAR("mousePos", _xyPos);
 
         LSVAR("cursorObject", [] call KPLIB_fnc_build_objectUnderCursor);
 

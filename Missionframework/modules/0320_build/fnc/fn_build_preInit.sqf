@@ -35,6 +35,11 @@ KPLIB_build_upVectorMode_true       = 1;
 
 KPLIB_build_upVector_true           = [0, 0, 1];
 
+// Left and right mouse buttons are supported
+KPLIB_build_mouseButton_left        = 0;
+KPLIB_build_mouseButton_right       = 1;
+// TODO: TBD: does not seem as though middle mouse button events, down, up, click, are supported; scroll wheel is just fine, but not the button itself
+KPLIB_build_mouseButton_middle      = 2;
 
 // Build camera
 KPLIB_build_camera = objNull;
@@ -198,6 +203,12 @@ KPLIB_param_build_snapDegrees = 5;
 KPLIB_param_build_degreePlaces = 2;
 
 if (hasInterface) then {
+
+    KPLIB_param_build_handleKeys_debug                          = false;
+    KPLIB_param_build_handleKeys_debugSystemChat                = false;
+
+    KPLIB_param_build_handleMouse_debug                         = false;
+    KPLIB_param_build_handleMouse_debugSystemChat               = false;
 
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;

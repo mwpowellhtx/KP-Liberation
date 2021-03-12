@@ -34,6 +34,7 @@ class KPLIB_build {
             h = safeZoneH;
             onMouseButtonDown = "['onMouseButtonDown', _this] call KPLIB_fnc_build_handleMouse";
             onMouseButtonUp = "['onMouseButtonUp', _this] call KPLIB_fnc_build_handleMouse";
+            onMouseButtonClick = "['onMouseButtonClick', _this] call KPLIB_fnc_build_handleMouse";
             onMouseZChanged = "['onMouseZChanged', _this] call KPLIB_fnc_build_handleMouse";
             onMouseMoving = "['onMouseMoving', _this] call KPLIB_fnc_build_handleMouse";
             onMouseHolding = "['onMouseHolding', _this] call KPLIB_fnc_build_handleMouse";

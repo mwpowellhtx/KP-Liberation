@@ -27,15 +27,27 @@
         https://community.bistudio.com/wiki/DIK_KeyCodes
 */
 
+private _debug = [
+    [
+        {KPLIB_param_build_handleKeys_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
+
+private _debugSystemChat = [
+    [
+        {KPLIB_param_build_handleKeys_debugSystemChat}
+    ]
+] call KPLIB_fnc_debug_debug;
+
 params [
-    ["_mode", nil, [""]],
-    ["_args", nil, [[]]]
+    ["_mode", nil, [""]]
+    , ["_args", nil, [[]]]
 ];
 
 #define DIK_ESCAPE  1
 #define DIK_DELETE  211
 
-switch toLower _mode do {
+switch (toLower _mode) do {
     case "onkeydown": {
         _args params ["_display","_dik","_shift","_ctrl","_alt"];
 
@@ -56,7 +68,7 @@ switch toLower _mode do {
             true
         };
 
-        switch _dik do {
+        switch (_dik) do {
             case DIK_DELETE: {
                 private _queue = LGVAR(buildQueue);
                 // Remove items from build queue
