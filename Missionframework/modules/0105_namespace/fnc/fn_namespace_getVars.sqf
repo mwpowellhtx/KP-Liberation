@@ -14,7 +14,7 @@
         instance. If the caller does not need all of them, then do not use them.
 
     Parameter(s):
-        _namespace - a CBA namespace [LOCATION, default: locationNull]
+        _namespace - a CBA namespace [LOCATION || OBJECT, default: locationNull]
         _nameValuePairs - name and default value associative pairs to retrieve [ARRAY, default: []]
 
     Returns:
@@ -22,7 +22,7 @@
  */
 
 params [
-    ["_namespace", locationNull, [locationNull]]
+    ["_namespace", locationNull, [objNull, locationNull]]
     , ["_nameValuePairs", [], [[]]]
 ];
 

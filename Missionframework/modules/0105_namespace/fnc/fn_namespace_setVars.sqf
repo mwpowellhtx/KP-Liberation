@@ -14,7 +14,7 @@
         instance. If the caller does not need all of them, then do not use them.
 
     Parameter(s):
-        _namespace - a CBA namespace [LOCATION, default: locationNull]
+        _namespace - a CBA namespace [LOCATION || OBJECT, default: locationNull]
         _nameValuePairs - name value associative pairs being set [ARRAY, default: []]
 
     Returns:
@@ -28,7 +28,7 @@ private _debug = [
 ] call KPLIB_fnc_debug_debug;
 
 params [
-    ["_namespace", locationNull, [locationNull]]
+    ["_namespace", locationNull, [objNull, locationNull]]
     , ["_nameValuePairs", [], [[]]]
     , ["_changedMask", true, [true]]
 ];
