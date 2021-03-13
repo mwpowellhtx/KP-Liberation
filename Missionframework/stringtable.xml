@@ -260,6 +260,12 @@
         <Key ID="STR_KPLIB_ACTION_REPACKAGE_FOB_TRUCK">
             <English>-- REPACKAGE FOB TRUCK --</English>
         </Key>
+        <Key ID="STR_KPLIB_FOB_BUILT_FORMAT">
+            <English>FOB %1 built.</English>
+        </Key>
+        <Key ID="STR_KPLIB_FOB_ONTEARDOWN_FORMAT">
+            <English>FOB %1 repackaged.</English>
+        </Key>
         <Key ID="STR_KPLIB_ACTION_DEPLOYRANDOM">
             <English>-- RANDOM FOB DEPLOYMENT --</English>
             <German>-- ZUFÄLLIGE FOB PLATZIERUNG --</German>
@@ -1548,6 +1554,12 @@
             <English>Minimum distance in Meters from Operations to build FOB.</English>
             <Chinese>產生 FOB 的最小距離（以米為單位）.</Chinese>
             <German>Mindestabstand in Metern von Operations zum Erstellen von FOB.</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE">
+            <English>Operations Area</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT">
+            <English>Operational buffer zone around the Operations base.</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_GENERAL_FOBRANGE">
             <English>FOB Area</English>

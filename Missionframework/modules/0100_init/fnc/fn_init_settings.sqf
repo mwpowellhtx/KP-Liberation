@@ -65,8 +65,8 @@
     {}
 ] call CBA_Settings_fnc_init;
 
-// KPLIB_param_fobRange
-// Minimum range at which FOB may be build from the nearest Startbase.
+// KPLIB_param_opsRange
+// Operational buffer zone around the Operations base
 // Default: 500 meters
 [
     "KPLIB_param_opsRange"
