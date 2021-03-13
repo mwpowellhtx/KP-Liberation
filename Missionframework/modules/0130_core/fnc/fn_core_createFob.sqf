@@ -59,6 +59,7 @@ private _markerName = format ["KPLIB_fob_%1", _uuid];
     , "_varName"
 ];
 
+// TODO: TBD: should consider refactoring FOB bits to namespaces versus arrays...
 // Simplify the FOB tuple
 private _fob = +[
     _markerName

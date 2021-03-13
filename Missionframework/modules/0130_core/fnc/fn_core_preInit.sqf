@@ -3,8 +3,9 @@
 
     File: fn_core_preInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2018-10-18
-    Last Update: 2019-04-22
+    Last Update: 2021-03-12 18:41:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -21,6 +22,10 @@
 if (isServer) then {
     ["Module initializing...", "PRE] [CORE", true] call KPLIB_fnc_common_log;
 };
+
+KPLIB_param_core_onRepackageFob_debug           = false;
+KPLIB_param_core_onRepackageFob_onConfirm_debug = false;
+KPLIB_param_core_onConfirmRepackageFob_debug    = false;
 
 // Process CBA Settings
 [] call KPLIB_fnc_core_settings;

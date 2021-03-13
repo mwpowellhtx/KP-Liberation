@@ -79,6 +79,10 @@ private _onLocalBuildItemBuilt = {
 private _onStopBuild = {
     [_thisType, _thisId] call CBA_fnc_removeEventHandler;
 
+    // Clear the marker(s) from the player
+    KPLIB_build_player setVariable ["KPLIB_core_repackageFobMarker", nil, true];
+    KPLIB_build_player = nil;
+
     _thisArgs params ["_openEhId", "_builtEhId"];
 
     ["KPLIB_build_display_open", _openEhId] call CBA_fnc_removeEventHandler;

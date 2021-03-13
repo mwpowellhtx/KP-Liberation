@@ -47,7 +47,7 @@ private _settings = +[
                 , "SLIDER"
                 , [localize "STR_KPLIB_SETTINGS_PERSISTENCE_REFRESH_OBJECTS_PERIOD", localize "STR_KPLIB_SETTINGS_PERSISTENCE_REFRESH_OBJECTS_PERIOD_TT"]
                 , localize "STR_KPLIB_SETTINGS_PERSISTENCE"
-                , [3, 900, 15, 0] // default: 3s, range: [3s, 900s], or [0:03, 15:00]
+                , [3, 900, 3, 0] // default: 3s, range: [3s, 900s], or [0:03, 15:00]
                 , 2
                 , {}
             ];

@@ -34,6 +34,35 @@ if (isServer) then {
     [] call KPLIB_fnc_core_spawnStartFobBox;
     [] call KPLIB_fnc_core_spawnStartVeh;
     [] call KPLIB_fnc_core_spawnPotato;
+
+    private _onTearDownFob = {
+        params [
+            ["_markerName", "", [""]]
+        ];
+
+        private _fobIndex = KPLIB_sectors_fobs findIf { ((_x#0) isEqualTo _markerName); };
+
+        private _fob = KPLIB_sectors_fobs deleteAt _fobIndex;
+
+        // TODO: TBD: delete FOB building at the site
+        private _fobBuilding = nearestObject [(markerPos _markerName), KPLIB_preset_fobBuildingF];
+        deleteVehicle _fobBuilding;
+        deleteMarker _markerName;
+
+        _milal = [_fobIndex] call KPLIB_fnc_common_indexToMilitaryAlpha;
+
+        private _cid = if (clientOwner == 2) then {0} else {-2};
+        [format [localize "STR_KPLIB_FOB_ONTEARDOWN_FORMAT", _milal]] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+
+        ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
+
+        [] remoteExec ["KPLIB_fnc_init_save", 2];
+    };
+
+    KPLIB_core_tearDownFob = "KPLIB_core_tearDownFob";
+
+    [KPLIB_core_tearDownFob, _onTearDownFob] call CBA_fnc_addEventHandler;
+
     //// TODO: TBD: refactored to 'KPLIB_updateMarkers' event handler
     //[] call KPLIB_fnc_core_updateSectorMarkers;
     execVM "modules\0130_core\scripts\server\sectorMonitor.sqf";

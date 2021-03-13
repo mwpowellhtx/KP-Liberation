@@ -19,6 +19,14 @@
         Module preInit finished [BOOL]
 */
 
+KPLIB_param_build_preInit_debug = true;
+
+private _debug_onServerBuildItemBuilt = [
+    [
+        {KPLIB_param_build_preInit_debug}
+    ]          
+] call KPLIB_fnc_debug_debug;
+
 if (isServer) then {
     ["Module initializing...", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
 };
@@ -123,7 +131,12 @@ if (isServer) then {
     ["KPLIB_doSave", {[] call KPLIB_fnc_build_saveData}] call CBA_fnc_addEventHandler;
 
     private _onServerBuildItemBuilt = {
-        private _debug = [] call KPLIB_fnc_build_debug;
+
+        private _debug_onServerBuildItemBuilt = [
+            [
+                {KPLIB_param_build_preInit_debug}
+            ]          
+        ] call KPLIB_fnc_debug_debug;
 
         // _markerName of the FOB at which the object was built
         params [
@@ -131,9 +144,9 @@ if (isServer) then {
             , ["_markerName", "", [""]]
         ];
 
-        if (_debug) then {
-            [format ["[fn_build_preInit::_onServerBuildItemBuilt] [_object, _markerName]: %1"
-                , str [_object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
+        if (_debug_onServerBuildItemBuilt) then {
+            [format ["[fn_build_preInit::_onServerBuildItemBuilt] [isNull _object, typeOf _object, _markerName]: %1"
+                , str [isNull _object, typeOf _object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
         };
 
         //// TODO: TBD: we think that possibly we could support moving storage containers...
@@ -145,6 +158,23 @@ if (isServer) then {
         // TODO: TBD: at this moment in dev, we are not producing any resources yet, so it is a good time to get a grip on this issue
         // TODO: TBD: will need to figure out the appropriate time to handle the storage container use cases later on...
 
+        if (typeOf _object isEqualTo KPLIB_preset_fobBuildingF) then {
+
+            private _fobIndex = KPLIB_sectors_fobs findIf { (_x#0) isEqualTo _markerName; };
+
+            private _milal = [_fobIndex] call KPLIB_fnc_common_indexToMilitaryAlpha;
+
+            // To everyone or everyone else other than the server
+            private _cid = if (clientOwner == 2) then {0} else {-2};
+            [format [localize "STR_KPLIB_FOB_BUILT_FORMAT", _milal]] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+
+            // TODO: TBD: will need to sprinkle this in several places most likely...
+            // TODO: TBD: investigate usages of the update functions and replace with this...
+            ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
+
+            publicVariable "KPLIB_sectors_fobs";
+        };
+
         /* We must allow players to select, move, rotate even storage container classes. Why
          * is that, because when "building" for the first time, it is unrealisting, even improbable,
          * that the position, alignment, etc, will be correct straight out of the gate. Therefore,
@@ -155,24 +185,24 @@ if (isServer) then {
          * and re-attach. So be it. */
 
         _object setVariable ["KPLIB_asset_isMovable", true, true];
-
-        [_object] call {
+ 
+        [_object, "", _debug_onServerBuildItemBuilt] spawn {
             params [
                 ["_obj", objNull, [objNull]]
                 , ["_default", "", [""]]
+                , ["_debug", false, [false]]
             ];
             // TODO: TBD: which it "may" be near a FOB if it was just built...
             // TODO: TBD: but then again, it may not, depending on the context of the build...
             // TODO: TBD: i.e. for scenarios involving enemy or civilian assets...
             private _nearestMarkerAndUuid = [_obj, _default] call KPLIB_fnc_common_getNearestMarkerAndUuid;
 
+            if (_debug) then {
+                [format ["[fn_build_preInit::_onServerBuildItemBuilt::call] [str _obj, typeOf _obj, _nearestMarkerAndUuid]: %1"
+                    , str [str _obj, typeOf _obj, _nearestMarkerAndUuid]], "BUILD", true] call KPLIB_fnc_common_log;
+            };
+
             if (!(_nearestMarkerAndUuid isEqualTo [_default, _default])) then {
-
-                if (_debug) then {
-                    [format ["[fn_build_preInit::_onServerBuildItemBuilt::call] [str _obj, typeOf _obj, _nearestMarkerAndUuid]: %1"
-                        , str [str _obj, typeOf _obj, _nearestMarkerAndUuid]], "BUILD", true] call KPLIB_fnc_common_log;
-                };
-
                 // TODO: TBD: may make an event out of this part... or at least a first class function that we can invoke...
                 _obj setVariable ["KPLIB_sector_markerName", (_nearestMarkerAndUuid#0), true];
                 // TODO: TBD: as long as we note a UUID, then we can probably defer the marker name until an FPS event handler picks up the asset...
@@ -181,9 +211,11 @@ if (isServer) then {
         };
 
         // TODO: TBD: this placement is a pretty distant in terms of client/server hops, events handled, etc, from the point of origin, may not be the best placement...
-        [_object] call {
+        [_object, _markerName, _debug_onServerBuildItemBuilt] spawn {
             params [
                 ["_obj", objNull, [objNull]]
+                , ["_markerName", "", [""]]
+                , ["_debug", false, [false]]
             ];
             private _sectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
             if (_markerName in _sectors) then {

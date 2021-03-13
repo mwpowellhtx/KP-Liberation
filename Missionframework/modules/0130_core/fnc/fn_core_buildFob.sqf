@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Crated: 2018-05-11
-    Last Update: 2021-01-26 17:12:04
+    Last Update: 2021-03-12 21:15:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -28,18 +28,6 @@ params [
 
 private _fob = [_buildPos] call KPLIB_fnc_core_createFob;
 
-// TODO: TBD: assumes that the FOB POI does not yet exist...
 KPLIB_sectors_fobs pushBack _fob;
-
-// TODO: TBD: should probably connect this via CBA client/server event as well...
-publicVariable "KPLIB_sectors_fobs";
-
-// TODO: TBD: circle back on the event, must now handle the FOB shape...
-// TODO: TBD: posting the event could/should effectively public the var, also update the markers...
-["KPLIB_fob_built", _fob] call CBA_fnc_globalEvent;
-
-// TODO: TBD: will need to sprinkle this in several places most likely...
-// TODO: TBD: investigate usages of the update functions and replace with this...
-["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
 
 _fob;

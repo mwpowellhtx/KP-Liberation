@@ -41,6 +41,12 @@ class core {
     // Repackages the nearest FOB to either container or truck depending on the event arguments
     class core_onRepackageFob {};
 
+    // Confirmes repackaging of an FOB
+    class core_onConfirmRepackageFob {};
+
+    // Repackage FOB requested
+    class core_onRepackageFobRequested {};
+
     // Callback used to determine whether the target is within range of the FOB position
     class core_fob_callback_onWithinRange {};
 
