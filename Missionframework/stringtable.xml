@@ -70,13 +70,13 @@
     <Package name="General">
         <!-- TODO: TBD: they need to be moved out of the General package (?) -->
         <Key ID="STR_KPLIB_TITLE">
-            <English>CTI 34 KP Liberation v0.98d.dev-s7</English>
+            <English>CTI 34 KP Liberation v0.98d.dev-s10</English>
         </Key>
         <Key ID="STR_SAVE_KEY">
             <English>KP_LIBERATION_%1_SAVEGAME_REWRITE_DEV</English>
         </Key>
         <Key ID="STR_KPLIB_VERSION">
-            <English>v0.98.dev-s7</English>
+            <English>v0.98.dev-s10</English>
         </Key>
         <Key ID="STR_KPLIB_DESCRIPTION">
             <English>Liberate the region from the enemy oppression! Strategy will be key! Good luck soldiers.</English>
@@ -2631,6 +2631,12 @@
         <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_ALREADY_ABORTING">
             <English>Logistics mission already aborting.</English>
         </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_REROUTE">
+            <English>Unable to reroute the logistics mission.</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED">
+            <English>Unable to reroute logistics missions that are not abandoned.</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED">
             <English>Unable to abort an ambushed logistics mission.</English>
         </Key>
@@ -2746,6 +2752,9 @@
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_MISSION_CONFIRM">
             <English>+CONFIRM</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_MISSION_REROUTE">
+            <English>/REROUTE</English>
         </Key>
         <Key ID="STR_KPLIB_LOGISTICSMGR_BTN_MISSION_ABORT">
             <English>-ABORT</English>
