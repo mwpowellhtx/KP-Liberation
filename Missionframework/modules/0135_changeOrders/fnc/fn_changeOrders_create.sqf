@@ -29,16 +29,16 @@ params [
 ];
 
 if (_debug) then {
-    ["[fn_changeOrders_create] Entering", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_changeOrders_create] Entering", "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
 private _changeOrder = [] call KPLIB_fnc_namespace_create;
 
-[_changeOrder] call _onInit;
+_changeOrder call _onInit;
 
 if (_debug) then {
     [format ["[fn_changeOrders_create] Fini: [isNull _changeOrder]: %1"
-        , str [isNull _changeOrder]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+        , str [isNull _changeOrder]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
 _changeOrder;

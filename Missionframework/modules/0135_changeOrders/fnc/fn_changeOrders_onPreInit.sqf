@@ -28,6 +28,11 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
+KPLIB_changeOrders_orders                           = "KPLIB_changeOrders_orders";
+
+KPLIB_changeOrders_onChangeOrder                    = "KPLIB_changeOrders_onChangeOrder";
+KPLIB_changeOrders_onChangeOrderEntering            = "KPLIB_changeOrders_onChangeOrderEntering";
+
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
@@ -38,11 +43,11 @@ if (isServer) then {
     KPLIB_param_changeOrders_enqueue_debug          = false;
     KPLIB_param_changeOrders_tryDequeue_debug       = false;
 
-    KPLIB_param_changeOrders_insert_debug           = true;
+    KPLIB_param_changeOrders_insert_debug           = false;
 
     KPLIB_param_changeOrders_process_debug          = false;
-
-    KPLIB_changeOrders_orders                       = "KPLIB_changeOrders_orders";
+    KPLIB_param_changeOrders_processOne_debug       = false;
+    KPLIB_param_changeOrders_processMany_debug      = false;
 };
 
 if (!(hasInterface || isDedicated)) then {

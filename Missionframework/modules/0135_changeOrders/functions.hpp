@@ -41,4 +41,10 @@ class changeOrders {
 
     // ...
     class changeOrders_process {};
+
+    // Processes one single CHANGE ORDER given the TARGET namespace
+    class changeOrders_processOne {};
+
+    // Processes zero or more CHANGE ORDERS given the TARGET namespace
+    class changeOrders_processMany {};
 };

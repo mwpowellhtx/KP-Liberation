@@ -47,17 +47,19 @@ if (_index >= 0 && count _changeOrdersToInsert > 0) then {
     ([_target, [
         [KPLIB_changeOrders_orders, []]
     ]] call KPLIB_fnc_namespace_getVars) params [
-        ["_changeOrders", [], [[]]]
+        "_changeOrders"
     ];
+
+    private _newChangeOrders = _changeOrders select { true; };
 
     _countBefore = count _changeOrders;
 
-    _changeOrders insert [_index, _changeOrdersToInsert, false];
+    _newChangeOrders insert [_index, _changeOrdersToInsert, false];
 
-    _countAfter = count _changeOrders;
+    _countAfter = count _newChangeOrders;
 
     [_target, [
-        [KPLIB_changeOrders_orders, _changeOrders]
+        [KPLIB_changeOrders_orders, _newChangeOrders]
     ]] call KPLIB_fnc_namespace_getVars;
 };
 

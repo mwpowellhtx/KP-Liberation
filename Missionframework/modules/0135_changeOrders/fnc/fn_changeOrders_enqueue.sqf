@@ -36,25 +36,34 @@ params [
 
 if (_debug) then {
     [format ["[fn_changeOrders_enqueue] Entering: [isNull _target, isNull _changeOrder]: %1"
-        , str [isNull _target, isNull _changeOrder]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+        , str [isNull _target, isNull _changeOrder]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
 // This is it, enqueue the change order and get out of the way ASAP
 ([_target, [
     [KPLIB_changeOrders_orders, []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    ["_changeOrders", [], [[]]]
+    "_changeOrders"
 ];
 
-private _i = _changeOrders pushBack _changeOrder;
+private _changeOrderCount = count _changeOrders;
 
-[_target, [
-    [KPLIB_changeOrders_orders, _changeOrders]
-]] call KPLIB_fnc_namespace_setVars;
+private _newChangeOrders = _changeOrders select { true; };
+
+private _i = _newChangeOrders pushBack _changeOrder;
+private _newChangeOrderCount = count _newChangeOrders;
 
 if (_debug) then {
-    [format ["[fn_changeOrders_enqueue] Fini: [_i]: %1"
-        , str [_i]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_changeOrders_enqueue] Pushed: [_i, _changeOrderCount, _newChangeOrderCount]: %1"
+        , str [_i, _changeOrderCount, _newChangeOrderCount]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
-_i >= 0;
+[_target, [
+    [KPLIB_changeOrders_orders, _newChangeOrders]
+], false] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    ["[fn_changeOrders_enqueue] Fini", "CHANGEORDERS", true] call KPLIB_fnc_common_log;
+};
+
+_i >= 0 && _newChangeOrderCount > _changeOrderCount;

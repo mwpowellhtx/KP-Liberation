@@ -3,18 +3,15 @@
 
     File: fn_changeOrders_process.sqf
     Author: Michael W. Powell [22nd MEU SOC]
-    Created: 2021-03-06 09:50:25
-    Last Update: 2021-03-06 09:50:28
+    Created: 2021-03-13 21:07:43
+    Last Update: 2021-03-13 21:07:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        Processes the '_target' CHANGE ORDERS. Optionally receives a '_changeOrder'
-        for immediate, priority processing.
+        ...
 
     Parameters:
         _target - a target capable of supporting CHANGE ORDERS [LOCATION, default: locationNull]
-        _changeOrder - an optional CHANGE ORDER, allows for immediate, priority processing
-            [LOCATION, default: locationNull]
 
     Returns:
         The event handler finished [BOOL]
@@ -28,52 +25,64 @@ private _debug = [
 
 params [
     ["_target", locationNull, [locationNull]]
-    , ["_changeOrder", locationNull, [locationNull]]
+    , ["_callerName", "fn_changeOrders_process", [""]]
 ];
 
-private _onProcess = {
-    params ["_target", "_changeOrder"];
-    ([_changeOrder, [
-        ["KPLIB_changeOrder_onChangeOrder", { false; }]
-        , ["KPLIB_changeOrder_onChangeOrderEntering", { false; }]
-    ]] call KPLIB_fnc_namespace_getVars) params [
-        "_onChangeOrder"
-        , "_onChangeOrderEntering"
-    ];
-
-    if ([_target, _changeOrder] call _onChangeOrderEntering) then {
-        [_target, _changeOrder] call _onChangeOrder;
-    };
-
-    [_changeOrder] call KPLIB_fnc_namespace_onGC;
+if (_debug) then {
+    [format ["[fn_changeOrders_process] Entering: [isNull _target, _target, _callerName]: %1"
+        , str [isNull _target, _target, _callerName]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
-// Allows for immediate processing of a single '_changeOrder'
-if (!isNull _changeOrder) then {
-    [_target, _changeOrder] call _onProcess;
+// TODO: TBD: is it something about the namespace module causing an ACCESS_VIOLATION (?)
+([_target, [
+    [KPLIB_changeOrders_orders, []]
+], _callerName] call KPLIB_fnc_namespace_getVars) params [
+    "_changeOrders"
+];
+// private _changeOrders = _target getVariable [KPLIB_changeOrders_orders, []];
 
-    // Allowing for a signal whether to clear the CO queue
-    ([_changeOrder, [
-        ["KPLIB_logistics_clearQueueOnly", true]
-    ]] call KPLIB_fnc_namespace_getVars) params [
-        "_clearQueueOnly"
-    ];
-
-    // By default yes we clear the queue when having been given an immediate CO
-    if (_clearQueueOnly) then {
-        _onProcess = {
-            params ["_target", "_changeOrder"];
-            [_changeOrder] call KPLIB_fnc_namespace_onGC;
-        };
-    };
+if (_debug) then {
+    [format ["[fn_changeOrders_process] Got vars: [count _changeOrders]: %1"
+        , str [count _changeOrders]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
-private _processing = true;
+// Nothing to do when there is nothing to do
+if (_changeOrders isEqualTo []) exitWith {
+    if (_debug) then {
+        ["[fn_changeOrders_process] Nothing to process", "CHANGEORDERS", true] call KPLIB_fnc_common_log;
+    };
+    true;
+};
 
-while {_processing} do {
-    _changeOrder = [_target] call KPLIB_fnc_changeOrders_tryDequeue;
-    _processing = !isNull _changeOrder;
-    if (_processing) then { [_target, _changeOrder] call _onProcess; };
+// // TODO: TBD: for whatever reason, maybe this is the problem contributing to the ACCESS_VIOLATION...
+// _changeOrders = +_changeOrders;
+private _changeOrderSnapshot = _changeOrders select { true; };
+private _changeOrderCount = count _changeOrderSnapshot;
+
+if (_debug) then {
+    [format ["[fn_changeOrders_process] Processing: [_callerName, _changeOrderCount]: %1"
+        , str [_callerName, _changeOrderCount]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
+};
+
+{
+    private _changeOrder = _x;
+    private _changeOrderIndex = _forEachIndex;
+
+    if (_debug) then {
+        [format ["[fn_changeOrders_process] Processing: [_callerName, _changeOrderIndex, _changeOrderCount]: %1"
+            , str [_callerName, _changeOrderIndex, _changeOrderCount]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
+    };
+
+    [_target, _changeOrder] call KPLIB_fnc_changeOrders_processOne;
+
+} forEach _changeOrderSnapshot;
+
+[_target, [
+    [KPLIB_changeOrders_orders, []]
+], false, _callerName] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    ["[fn_changeOrders_process] Fini", "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
 true;

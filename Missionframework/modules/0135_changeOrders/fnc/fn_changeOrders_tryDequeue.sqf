@@ -29,31 +29,53 @@ private _debug = [
 
 params [
     ["_target", locationNull, [locationNull]]
+    , ["_callerName", "fn_changeOrders_tryDequeue", [""]]
 ];
 
 if (_debug) then {
     [format ["[fn_changeOrders_tryDequeue] Entering: [isNull _target]: %1"
-        , str [isNull _target]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+        , str [isNull _target]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
 // This is it, enqueue the change order and get out of the way ASAP
 ([_target, [
     [KPLIB_changeOrders_orders, []]
-]] call KPLIB_fnc_namespace_getVars) params [
-    ["_changeOrders", [], [[]]]
+], _callerName] call KPLIB_fnc_namespace_getVars) params [
+    "_changeOrders"
 ];
 
-private _changeOrder = if (_changeOrders isEqualTo []) then {locationNull} else {
-    _changeOrders deleteAt 0;
+private _countBefore = count _changeOrders;
+
+// Return early when there was nothing to dequeu
+if (_changeOrders isEqualTo []) exitWith {
+    if (_debug) then {
+        [format ["[fn_changeOrders_tryDequeue] Empty: [_countBefore]: %1"
+            , str [_countBefore]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
+    };
+    locationNull;
 };
 
+if (_debug) then {
+    // 'Popping' here, loosely speaking, due to apparent access violations faced with 'deleteAt'
+    [format ["[fn_changeOrders_tryDequeue] 'Popping' front element: [_countBefore]: %1"
+        , str [_countBefore]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
+};
+
+// // TODO: TBD: this was causing access violations when faced with 2+ enqueued elements
+// private _changeOrder = _changeOrders deleteAt 0;
+
+// Only affect the orders variable when there were actual orders present
 [_target, [
-    [KPLIB_changeOrders_orders, _changeOrders]
-], false] call KPLIB_fnc_namespace_setVars;
+    [KPLIB_changeOrders_orders, (_changeOrders select [1, count _changeOrders - 1])]
+], false, _callerName] call KPLIB_fnc_namespace_setVars;
+
+// Technically, count less one, although we cannot really treat it that way due to AV ...
+private _countAfter = count _changeOrders - 1;
+private _changeOrder = (_changeOrders#0);
 
 if (_debug) then {
-    [format ["[fn_changeOrders_tryDequeue] Fini: [isNull _changeOrder, count _changeOrders]: %1"
-        , str [isNull _changeOrder, count _changeOrders]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_changeOrders_tryDequeue] Fini: [isNull _changeOrder, _countBefore, _countAfter]: %1"
+        , str [isNull _changeOrder, _countBefore, _countAfter]], "CHANGEORDERS", true] call KPLIB_fnc_common_log;
 };
 
 _changeOrder;
