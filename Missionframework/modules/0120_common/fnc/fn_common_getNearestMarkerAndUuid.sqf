@@ -35,7 +35,7 @@ private _nearestMarker = [
     , KPLIB_sectors_fobs
     , _default] call KPLIB_fnc_common_getTargetMarkerIfInRange;
 
-if (_markerName isEqualTo _default) exitWith {
+if (_nearestMarker isEqualTo _default) exitWith {
     // TODO: TBD: may also log...
     [_default, _default];
 };
