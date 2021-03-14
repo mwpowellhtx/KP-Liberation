@@ -5,7 +5,7 @@
     File: fn_logisticsMgr_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-25 11:58:41
-    Last Update: 2021-03-02 07:50:23
+    Last Update: 2021-03-14 18:06:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -128,6 +128,9 @@ if (hasInterface) then {
     ];
     KPLIB_logisticsMgr_ctrls_mayConfirm = [
         KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_CONFIRM
+    ];
+    KPLIB_logisticsMgr_ctrls_mayReroute = [
+        KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_REROUTE
     ];
     KPLIB_logisticsMgr_ctrls_mayAbort = [
         KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_ABORT

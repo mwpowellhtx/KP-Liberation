@@ -4,7 +4,7 @@
     File: KPLIB_logisticsMgr.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-26 18:57:14
-    Last Update: 2021-02-26 18:57:17
+    Last Update: 202021-03-14 18:05:41
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -233,11 +233,16 @@ class KPLIB_logisticsMgr_edtFuelResource : KPLIB_logisticsMgr_edtEndpointResourc
     y = KPLIB_LOGISTICSMGR_EP_RSC_GET_Y(2);
 };
 
+// Arrange layout for 3x buttons CONFIRM | REROUTE | ABORT, evenly spaced
 #define KPLIB_LOGISTICSMGR_BTN_CONFIRM_X        KPLIB_LOGISTICSMGR_LNB_TELEMETRY_X
 #define KPLIB_LOGISTICSMGR_BTN_CONFIRM_Y        (KPLIB_LOGISTICSMGR_CTRLAREA_Y + KPLIB_LOGISTICSMGR_CTRLAREA_H - KPLIB_LOGISTICSMGR_BTN_H)
-#define KPLIB_LOGISTICSMGR_BTN_CONFIRM_W        (0.5 * (KPLIB_LOGISTICSMGR_LNB_TELEMETRY_W - KPX_SPACING_W))
+#define KPLIB_LOGISTICSMGR_BTN_CONFIRM_W        ((1/3) * (KPLIB_LOGISTICSMGR_LNB_TELEMETRY_W - (2 * KPX_SPACING_W)))
 
-#define KPLIB_LOGISTICSMGR_BTN_ABORT_X          (KPLIB_LOGISTICSMGR_BTN_CONFIRM_X + KPLIB_LOGISTICSMGR_BTN_CONFIRM_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_BTN_REROUTE_X        (KPLIB_LOGISTICSMGR_BTN_CONFIRM_X + KPLIB_LOGISTICSMGR_BTN_CONFIRM_W + KPX_SPACING_W)
+#define KPLIB_LOGISTICSMGR_BTN_REROUTE_Y        KPLIB_LOGISTICSMGR_BTN_CONFIRM_Y
+#define KPLIB_LOGISTICSMGR_BTN_REROUTE_W        KPLIB_LOGISTICSMGR_BTN_CONFIRM_W
+
+#define KPLIB_LOGISTICSMGR_BTN_ABORT_X          (KPLIB_LOGISTICSMGR_BTN_REROUTE_X + KPLIB_LOGISTICSMGR_BTN_CONFIRM_W + KPX_SPACING_W)
 #define KPLIB_LOGISTICSMGR_BTN_ABORT_Y          KPLIB_LOGISTICSMGR_BTN_CONFIRM_Y
 #define KPLIB_LOGISTICSMGR_BTN_ABORT_W          KPLIB_LOGISTICSMGR_BTN_CONFIRM_W
 
@@ -528,6 +533,17 @@ class KPLIB_logisticsMgr {
             text = "$STR_KPLIB_LOGISTICSMGR_BTN_MISSION_CONFIRM";
 
             onButtonClick = "_this spawn KPLIB_fnc_logisticsMgr_btnConfirm_onButtonClick";
+        };
+
+        class KPLIB_logisticsMgr_btnReroute : KPLIB_logisticsMgr_Button {
+            idc = KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_REROUTE;
+            x = KPLIB_LOGISTICSMGR_BTN_REROUTE_X;
+            y = KPLIB_LOGISTICSMGR_BTN_REROUTE_Y;
+            w = KPLIB_LOGISTICSMGR_BTN_REROUTE_W;
+
+            text = "$STR_KPLIB_LOGISTICSMGR_BTN_MISSION_REROUTE";
+
+            onButtonClick = "_this spawn KPLIB_fnc_logisticsMgr_btnReroute_onButtonClick";
         };
 
         class KPLIB_logisticsMgr_btnAbort : KPLIB_logisticsMgr_Button {

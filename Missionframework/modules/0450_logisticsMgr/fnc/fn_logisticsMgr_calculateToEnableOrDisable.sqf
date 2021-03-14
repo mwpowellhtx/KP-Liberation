@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_calculateToEnableOrDisable.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-02 08:47:45
-    Last Update: 2021-03-02 08:47:47
+    Last Update: 2021-03-14 18:06:27
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -63,6 +63,7 @@ private _endpointGrps = KPLIB_logistics_ctrls_endpointGrps;
 private _mayConfigureAlpha = KPLIB_logisticsMgr_ctrls_mayConfigureAlpha;
 private _mayConfigureBravo = KPLIB_logisticsMgr_ctrls_mayConfigureBravo;
 private _mayConfirm = KPLIB_logisticsMgr_ctrls_mayConfirm;
+private _mayReroute = KPLIB_logisticsMgr_ctrls_mayReroute;
 private _mayAbort = KPLIB_logisticsMgr_ctrls_mayAbort;
 
 if (_debug) then {
@@ -122,6 +123,7 @@ switch (true) do {
         [_mayManageConvoyTransports, false] call _onShouldEnable;
         [_endpointGrps, false] call _onShouldEnable;
         [_mayConfirm, false] call _onShouldEnable;
+        [_mayReroute, false] call _onShouldEnable;
         [_mayAbort, false] call _onShouldEnable;
     };
     case (_status > KPLIB_logistics_status_standby): {
@@ -154,7 +156,13 @@ switch (true) do {
 
         [_mayConfirm, false] call _onShouldEnable;
 
-        // May always abort running lines as long as neither ABORTING nor AMBUSHED...
+        // Only REROUTE running lines when 1+ ENDPOINTS determined to have been ABANDONED
+        [
+            _mayReroute
+            , [_status, KPLIB_logistics_status_abandonedAmbushed] call KPLIB_fnc_logistics_checkStatus
+        ] call _onShouldEnable;
+
+        // May always ABORT running lines as long as neither ABORTING nor AMBUSHED...
         [
             _mayAbort
             , !([_status, KPLIB_logistics_status_abortingAmbushed] call KPLIB_fnc_logistics_checkStatus)
@@ -194,6 +202,7 @@ switch (true) do {
 
         // In order to confirm, must have transports, both selected, not in conflict, and at least one configured bill...
         [_mayConfirm, (_transportCount > 0) && _endpointsAreBothSelected && !_endpointsAreInConflict && _configuredCount > 0] call _onShouldEnable;
+        [_mayReroute, false] call _onShouldEnable;
         [_mayAbort, false] call _onShouldEnable;
     };
 };

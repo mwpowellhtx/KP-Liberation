@@ -4,7 +4,7 @@
     File: defines.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-26 20:31:30
-    Last Update: 2021-02-26 20:31:32
+    Last Update: 2021-03-13 17:29:02
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -62,6 +62,7 @@
 #define KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_FUEL                   422555
 
 #define KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_CONFIRM              422600
+#define KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_REROUTE              422605
 #define KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_ABORT                422610
 
 #define KPLIB_IDC_LOGISTICSMGR_CTRL_MAP                         422700
