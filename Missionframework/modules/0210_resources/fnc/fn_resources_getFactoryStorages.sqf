@@ -34,6 +34,8 @@ if (!(_markerName in allMapMarkers)) exitWith {
 
 private _candidates = nearestObjects [(markerPos _markerName), _classNames, _range];
 
+// TODO: TBD: likely ditto here, "when" is this happening relative to build confirmed? / https://github.com/mwpowellhtx/KP-Liberation/issues/60
+
 /* There should not be any overlap, but in the event there is, we can discern that.
  * This is also where the pattern deviates slightly versus FOB storage containers. */
 

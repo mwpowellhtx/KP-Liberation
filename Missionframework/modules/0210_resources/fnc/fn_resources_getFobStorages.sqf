@@ -46,6 +46,7 @@ private _pos = _fob call {
 
 private _candidates = nearestObjects [_pos, _classNames, _range];
 
+// TODO: TBD: "when" is this being set on the object? before or after build is confirmed? / https://github.com/mwpowellhtx/KP-Liberation/issues/60
 // Ditto notes re: factory storages, discerning between the two
 private _retval = _candidates select {
     !((_x getVariable ["KPLIB_fob_originalUuid", ""]) isEqualTo "");
