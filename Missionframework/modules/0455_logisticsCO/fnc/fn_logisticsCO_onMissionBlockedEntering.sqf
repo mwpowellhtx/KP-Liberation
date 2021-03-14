@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onMissionBlockedEntering.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-12 09:22:05
-    Last Update: 2021-03-12 09:22:07
+    Last Update: 2021-03-14 18:10:20
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -31,6 +31,11 @@ params [
     , ["_changeOrder", locationNull, [locationNull]]
 ];
 
+// Just exit early when the settings preclude this feature
+if (!KPLIB_param_logistics_routesCanBeBlocked) exitWith {
+    false;
+};
+
 ([_changeOrder, [
     ["KPLIB_logistics_cid", -1]
 ]] call KPLIB_fnc_namespace_getVars) params [
@@ -39,11 +44,9 @@ params [
 
 // TODO: TBD: may not need CONVOY here after all...
 ([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , [KPLIB_logistics_timer, +KPLIB_timers_default]
+    [KPLIB_logistics_timer, +KPLIB_timers_default]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
-    , "_timer"
+    "_timer"
 ];
 
 _timer params [
@@ -85,28 +88,28 @@ _timer params [
  */
 [
     (_departed && !_arrived)
-    , [_status, KPLIB_logistics_status_enRoute] call KPLIB_fnc_logistics_checkStatus
-    , [_status, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
-    , [_status, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_enRoute] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_checkStatus
 ] params [
     "_timerEnRoute"
-    , "_statusEnRoute"
-    , "_statusAmbushed"
-    , "_statusRouteBlocked"
+    , "_enRoute"
+    , "_ambushed"
+    , "_routeBlocked"
 ];
 
 // Record some useful bits for the subsequent call back to utilize
 [_changeOrder, [
     ["KPLIB_logistics_timerEnRoute", _timerEnRoute]
-    , ["KPLIB_logistics_statusEnRoute", _statusEnRoute]
-    , ["KPLIB_logistics_statusAmbushed", _statusAmbushed]
-    , ["KPLIB_logistics_statusRouteBlocked", _statusRouteBlocked]
+    , ["KPLIB_logistics_statusEnRoute", _enRoute]
+    , ["KPLIB_logistics_statusAmbushed", _ambushed]
+    , ["KPLIB_logistics_statusRouteBlocked", _routeBlocked]
     , ["KPLIB_logistics_blockedByCount", _blockedByCount]
 ]] call KPLIB_fnc_namespace_setVars;
 
 // TODO: TBD: do some logging
 // Either will be blocked, or route is now free and clear
-_timerEnRoute
-    && _statusEnRoute
-    && ((!(_statusAmbushed || _statusRouteBlocked) && _blockedByCount > 0)
-        || ((_statusAmbushed || _statusRouteBlocked) && _blockedByCount == 0));
+_timerEnRoute && _enRoute && (
+    (!(_ambushed || _routeBlocked) && _blockedByCount > 0)
+        || ((_ambushed || _routeBlocked) && _blockedByCount == 0)
+);

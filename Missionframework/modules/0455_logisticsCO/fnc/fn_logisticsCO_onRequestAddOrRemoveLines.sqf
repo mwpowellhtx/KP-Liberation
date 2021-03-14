@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onRequestAddOrRemoveLines.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-28 20:38:56
-    Last Update: 2021-02-28 20:39:06
+    Last Update: 2021-03-14 18:12:22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -39,6 +39,7 @@ params [
     , ["_cid", -1, [0]]
 ];
 
+private _callerName = "fn_logisticsCO_onRequestAddOrRemoveLines";
 private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locationNull];
 
 if (_debug) then {
@@ -49,10 +50,13 @@ if (_debug) then {
 ([_objSM, [
     ["KPLIB_logistics_uuidToRemove", []]
     , ["KPLIB_logistics_namespacesToAdd", []]
-]] call KPLIB_fnc_namespace_getVars) params [
+], _callerName] call KPLIB_fnc_namespace_getVars) params [
     "_uuidToRemove"
     , "_namespacesToAdd"
 ];
+
+private _originalUuidToRemove = +_uuidToRemove;
+private _original_namespacesToAdd = +_namespacesToAdd;
 
 private _tryStageUuidToRemove = {
     private _i = _uuidToRemove pushBackUnique _x;
@@ -70,7 +74,7 @@ private _tryStageNamespaceToAdd = {
     [_namespace, [
         ["KPLIB_logistics_shouldRebase", false]
         , ["KPLIB_logistics_rebased", true]
-    ]] call KPLIB_fnc_namespace_setVars;
+    ], true, _callerName] call KPLIB_fnc_namespace_setVars;
 
     private _i = _namespacesToAdd pushBack _namespace;
 
@@ -80,10 +84,18 @@ private _tryStageNamespaceToAdd = {
 private _removed = _toRemove select _tryStageUuidToRemove;
 private _added = _toAdd select _tryStageNamespaceToAdd;
 
-[_objSM, [
-    ["KPLIB_logistics_uuidToRemove", _uuidToRemove]
-    , ["KPLIB_logistics_namespacesToAdd", _namespacesToAdd]
-]] call KPLIB_fnc_namespace_setVars;
+// Re-set them only when there has been a change
+if (!(_uuidToRemove isEqualTo _originalUuidToRemove)) then {
+    [_objSM, [
+        ["KPLIB_logistics_uuidToRemove", _uuidToRemove]
+    ], true, _callerName] call KPLIB_fnc_namespace_setVars;
+};
+
+if (!(_namespacesToAdd isEqualTo _original_namespacesToAdd)) then {
+    [_objSM, [
+        ["KPLIB_logistics_namespacesToAdd", _namespacesToAdd]
+    ], true, _callerName] call KPLIB_fnc_namespace_setVars;
+};
 
 private _counts = [
     count _added
@@ -94,8 +106,8 @@ private _retval = (_counts#0) == (count _toAdd)
     && (_counts#1) == (count _toRemove);
 
 if (_debug) then {
-    [format ["[fn_logisticsCO_onRequestAddOrRemoveLines] Fini: [_toAdd, _toRemove, _counts]: %1"
-        , str [_toAdd, _toRemove, _counts]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsCO_onRequestAddOrRemoveLines] Fini: [_toAdd, _toRemove, _counts, changed(_objSM)]: %1"
+        , str [_toAdd, _toRemove, _counts, _objSM getVariable [KPLIB_namespace_changed, false]]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 _retval;

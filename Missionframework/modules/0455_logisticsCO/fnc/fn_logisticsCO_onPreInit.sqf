@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-06 10:18:44
-    Last Update: 2021-03-06 10:18:54
+    Last Update: 2021-03-13 16:55:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -60,21 +60,27 @@ if (isServer) then {
     KPLIB_param_logisticsCO_onTransportRecycle_debug            = false;
     KPLIB_param_logisticsCO_onTransportRecycleEntering_debug    = false;
 
-    KPLIB_param_logisticsCO_onRequestConfirm_debug              = false;
-    KPLIB_param_logisticsCO_onRequestAbort_debug                = false;
-
+    KPLIB_param_logisticsCO_onRequestMissionConfirm_debug       = false;
     KPLIB_param_logisticsCO_onMissionConfirmEntering_debug      = false;
     KPLIB_param_logisticsCO_onMissionConfirm_debug              = false;
 
+    KPLIB_param_logisticsCO_onRequestMissionReroute_debug       = true;
+    KPLIB_param_logisticsCO_onMissionRerouteEntering_debug      = true;
+    KPLIB_param_logisticsCO_onMissionReroute_debug              = true;
+
+    KPLIB_param_logisticsCO_onRequestMissionAbort_debug         = false;
     KPLIB_param_logisticsCO_onMissionAbortEntering_debug        = false;
-    KPLIB_param_logisticsCO_onMissionAbort_debug                = false;
+    KPLIB_param_logisticsCO_onMissionAbort_debug                = true;
 
     KPLIB_param_logisticsCO_onMissionBlockedEntering_debug      = true;
     KPLIB_param_logisticsCO_onMissionBlocked_debug              = true;
 
-    KPLIB_param_logisticsCO_onAbortLoading_debug                = false;
-    KPLIB_param_logisticsCO_onAbortUnloading_debug              = false;
-    KPLIB_param_logisticsCO_onAbortEnRoute_debug                = false;
+    KPLIB_param_logisticsCO_onMissionAbandonedEntering_debug    = true;
+    KPLIB_param_logisticsCO_onMissionAbandoned_debug            = true;
+
+    KPLIB_param_logisticsCO_onAbortLoading_debug                = true;
+    KPLIB_param_logisticsCO_onAbortUnloading_debug              = true;
+    KPLIB_param_logisticsCO_onAbortEnRoute_debug                = true;
 };
 
 if (!(hasInterface || isDedicated)) then {

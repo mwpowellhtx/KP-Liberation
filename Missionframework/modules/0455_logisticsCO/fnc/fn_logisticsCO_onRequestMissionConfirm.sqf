@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onRequestMissionConfirm.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-06 12:14:20
-    Last Update: 2021-03-06 12:14:22
+    Last Update: 2021-03-14 18:12:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -28,7 +28,7 @@
 
 private _debug = [
     [
-        {KPLIB_param_logisticsCO_onRequestConfirm_debug}
+        {KPLIB_param_logisticsCO_onRequestMissionConfirm_debug}
     ]
 ] call KPLIB_fnc_logisticsCO_debug;
 
@@ -85,23 +85,21 @@ if (({ _x; } count _verified) != 2) exitWith {
 
 // May proceed scheduling the CHANGE ORDER...
 private _onInitializeChangeOrder = {
-    params ["_changeOrder"];
-
-    [_changeOrder, [
+    [_this, [
         ["KPLIB_logistics_targetUuid", _targetUuid]
         , ["KPLIB_logistics_endpoints", _endpoints]
         , ["KPLIB_logistics_cid", _cid]
-        , ["KPLIB_changeOrder_onChangeOrder", KPLIB_fnc_logisticsCO_onMissionConfirm]
-        , ["KPLIB_changeOrder_onChangeOrderEntering", KPLIB_fnc_logisticsCO_onMissionConfirmEntering]
+        , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionConfirm]
+        , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionConfirmEntering]
     ]] call KPLIB_fnc_namespace_setVars;
 };
 
 private _changeOrder = [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
 
 // TODO: TBD: there may be variables defined with the key CIDs...
-// Server side automated change overs are processed IMMEDIATELY
-private _enqueued = if (_cid < 0) then {
-    [_namespace, _changeOrder, true] call KPLIB_fnc_logisticsCO_onMissionConfirm;
+private _confirmedOrConfirming = if (_cid < 0) then {
+    // Server side automated change overs are processed IMMEDIATELY
+    [_namespace, _changeOrder, true] call KPLIB_fnc_changeOrders_processOne;
 } else {
     // Whereas genuine client requests are submitted to the CHANGE ORDER QUEUE
     [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_enqueue
@@ -111,4 +109,4 @@ if (_debug) then {
     // TODO: TBD: add logging...
 };
 
-_enqueued;
+_confirmedOrConfirming;

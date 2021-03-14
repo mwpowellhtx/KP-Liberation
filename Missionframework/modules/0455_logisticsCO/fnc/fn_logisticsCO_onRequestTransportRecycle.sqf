@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onRequestTransportRecycle.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-01 12:06:32
-    Last Update: 2021-03-01 12:06:36
+    Last Update: 2021-03-14 18:13:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -53,14 +53,12 @@ if (isNull _namespace || _cid < 0) exitWith {
 };
 
 private _onInitializeChangeOrder = {
-    params ["_changeOrder"];
-
-    [_changeOrder, [
+    [_this, [
         ["KPLIB_logistics_targetUuid", _targetUuid]
         , ["KPLIB_logistics_targetFobMarker", _targetFobMarker]
         , ["KPLIB_logistics_cid", _cid]
-        , ["KPLIB_changeOrder_onChangeOrder", KPLIB_fnc_logisticsCO_onTransportRecycle]
-        , ["KPLIB_changeOrder_onChangeOrderEntering", KPLIB_fnc_logisticsCO_onTransportRecycleEntering]
+        , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onTransportRecycle]
+        , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onTransportRecycleEntering]
     ]] call KPLIB_fnc_namespace_setVars;
 
 };

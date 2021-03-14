@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onRequestTransportBuild.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-01 12:06:32
-    Last Update: 2021-03-01 12:06:36
+    Last Update: 2021-03-14 18:13:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -34,6 +34,7 @@ params [
     ["_targetUuid", "", [""]]
     , ["_targetFobMarker", "", [""]]
     , ["_cid", -1, [0]]
+    , ["_callerName", "fn_logisticsCO_onRequestTransportBuild", [""]]
 ];
 
 // TODO: TBD: may message when namespace is null for any reason...
@@ -53,15 +54,13 @@ if (isNull _namespace || _cid < 0) exitWith {
 };
 
 private _onInitializeChangeOrder = {
-    params ["_changeOrder"];
-
-    [_changeOrder, [
+    [_this, [
         ["KPLIB_logistics_targetUuid", _targetUuid]
         , ["KPLIB_logistics_targetFobMarker", _targetFobMarker]
         , ["KPLIB_logistics_cid", _cid]
-        , ["KPLIB_changeOrder_onChangeOrder", KPLIB_fnc_logisticsCO_onTransportBuild]
-        , ["KPLIB_changeOrder_onChangeOrderEntering", KPLIB_fnc_logisticsCO_onTransportBuildEntering]
-    ]] call KPLIB_fnc_namespace_setVars;
+        , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onTransportBuild]
+        , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onTransportBuildEntering]
+    ], true, _callerName] call KPLIB_fnc_namespace_setVars;
 };
 
 // Enqueue the CHANGE ORDER and get out of the way ASAP

@@ -1,20 +1,20 @@
 /*
-    KPLIB_fnc_logisticsCO_onRequestMissionAbort
+    KPLIB_fnc_logisticsCO_onRequestMissionReroute
 
-    File: fn_logisticsCO_onRequestMissionAbort.sqf
+    File: fn_logisticsCO_onRequestMissionReroute.sqf
     Author: Michael W. Powell [22nd MEU SOC]
-    Created: 2021-03-06 12:11:32
-    Last Update: 2021-03-14 18:12:35
+    Created: 2021-03-13 16:34:54
+    Last Update: 2021-03-13 16:34:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        Client logistics manager requests server side mission ABORT. For now we
-        assume that the manager did its routine due diligence and quality control
-        approaching the request. We will do a minimal amount of verification, enough
-        to proceed with the request.
+        Client logistics manager requests server side mission be REROUTED. Effectively,
+        this is in response to the line having falling into an ABANDONED status, in which
+        one or both of its ENDPOINTS are determined to no longer be valid ENDPOINT
+        candidates, and so, the line froze EN_ROUTE, and must be rerouted.
 
     Parameters:
-        _targetUuid - the target LOGISTIC LINE UUID for which to ABORT its mission [STRING, default: ""]
+        _targetUuid - the target LOGISTIC LINE UUID for which to REROUTE its mission [STRING, default: ""]
         _cid - the client identifier used to notify of the outcome [SCALAR, default: -1]
 
     Returns:
@@ -27,7 +27,7 @@
 // TODO: TBD: separate this out into change order protocols...
 private _debug = [
     [
-        {KPLIB_param_logisticsCO_onRequestMissionAbort_debug}
+        {KPLIB_param_logisticsCO_onRequestMissionReroute_debug}
     ]
 ] call KPLIB_fnc_logisticsCO_debug;
 
@@ -39,9 +39,9 @@ params [
 private _namespace = [_targetUuid] call KPLIB_fnc_logistics_getNamespaceByUuid;
 
 if (isNull _namespace) exitWith {
-    _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_ABORT";
+    _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_REROUTE";
     if (_debug) then {
-        [format ["[fn_logisticsCO_onRequestMissionAbort] %1: [isNull _namespace]: %2"
+        [format ["[fn_logisticsCO_onRequestMissionReroute] %1: [isNull _namespace]: %2"
             , _msg, str [isNull _namespace]], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
     };
 
@@ -58,31 +58,33 @@ if (isNull _namespace) exitWith {
     "_status"
 ];
 
-// TODO: TBD: log and/or notify, line already on STANDBY or ABORTING
+// Line cannot be rerouted, but this is not an "error" per se
 if (_status == KPLIB_logistics_status_standby) exitWith {
     true;
 };
 
-// Cannot ABORT a mission that is already ABORTING
-if ([_status, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus) exitWith {
+/* The request should not be here, but indicate when we are anyway,
+ * cannot REROUTE a mission that is determined not to be ABANDONED */
+if (!([_status, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_checkStatus)) exitWith {
     if (_debug) then {
-        [format ["[fn_logisticsCO_onRequestMissionAbort] %1"
-            , localize "STR_KPLIB_LOGISTICS_MSG_MISSION_ALREADY_ABORTING"], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logisticsCO_onRequestMissionReroute] %1"
+            , localize "STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED"], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
     };
 
     if (_cid >= 0) then {
         [
-            localize "STR_KPLIB_LOGISTICS_MSG_MISSION_ALREADY_ABORTING"
+            localize "STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED"
         ] remoteExec ["KPLIB_fnc_notification_hint", _cid];
     };
 
     true;
 };
 
-// Cannot ABORT a mission that has fallen under AMBUSH
+/* ABANDONED lines may still fall under AMBUSH especially when they linger,
+ * at which point are no longer recoverable, AMBUSH must be followed through */
 if ([_status, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus) exitWith {
     if (_debug) then {
-        [format ["[fn_logisticsCO_onRequestMissionAbort] %1"
+        [format ["[fn_logisticsCO_onRequestMissionReroute] %1"
             , localize "STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED"], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
     };
 
@@ -100,24 +102,16 @@ private _onInitializeChangeOrder = {
     [_this, [
         ["KPLIB_logistics_targetUuid", _targetUuid]
         , ["KPLIB_logistics_cid", _cid]
-        , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionAbort]
-        , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionAbortEntering]
+        , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionReroute]
+        , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionRerouteEntering]
     ]] call KPLIB_fnc_namespace_setVars;
 };
 
 private _changeOrder = [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
-
-// TODO: TBD: there may be variables defined with the key CIDs...
-private _abortedOrAborting = if (_cid < 0) then {
-    // Server side automated change overs are processed IMMEDIATELY
-    [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_processOne;
-} else {
-    // Whereas genuine client requests are submitted to the CHANGE ORDER QUEUE...
-    [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_enqueue;
-};
+private _enqueued = [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_enqueue;
 
 if (_debug) then {
     // TODO: TBD: add logging...
 };
 
-_abortedOrAborting;
+_enqueued;

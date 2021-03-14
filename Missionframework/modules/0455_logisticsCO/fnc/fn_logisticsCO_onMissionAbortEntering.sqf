@@ -37,20 +37,17 @@ params [
     "_cid"
 ];
 
-// TODO: TBD: may not need CONVOY here after all...
-([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
+[
+    [_namespace, KPLIB_logistics_status_unloading] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
+] params [
+    "_unloading"
+    , "_aborting"
+    , "_ambushed"
 ];
 
 /* May be "forced", i.e. when responding during automated MISSION COMPLETE scenarios, etc.
  * For good measure, we also verify that the STATUS was actually UNLOADING... */
 
-if ((_cid < 0) && ([_status, KPLIB_logistics_status_unloading] call KPLIB_fnc_logistics_checkStatus)) exitWith {
-    // TODO: TBD: do some logging...
-    true;
-};
-
-// TODO: TBD: a STATUS spot check is probably sufficient...
-!([_status, KPLIB_logistics_status_abortingAmbushed] call KPLIB_fnc_logistics_checkStatus);
+((_cid < 0) && _unloading) || !(_aborting || _ambushed);

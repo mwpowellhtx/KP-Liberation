@@ -4,7 +4,7 @@
     File: fn_logisticsCO_onMissionBlocked.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-12 10:14:26
-    Last Update: 2021-03-12 10:14:29
+    Last Update: 2021-03-14 18:10:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -39,37 +39,20 @@ params [
     , ["KPLIB_logistics_blockedByCount", -1]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_timerEnRoute"
-    , "_statusEnRoute"
-    , "_statusAmbushed"
-    , "_statusRouteBlocked"
+    , "_enRoute"
+    , "_ambushed"
+    , "_routeBlocked"
     , "_blockedByCount"
 ];
 
-if (!(_timerEnRoute || _statusEnRoute)) exitWith {
-    // TODO: TBD: add logging
-    false;
-};
+// TODO: TBD: add logging...
 
-([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
-];
+[_namespace, KPLIB_logistics_status_routeBlocked, { !(_timerEnRoute || _enRoute); }] call KPLIB_fnc_logistics_unsetStatus;
 
-private _newStatus = switch (true) do {
-    case (!(_statusAmbushed || _statusRouteBlocked) && _blockedByCount > 0): {
-        [_status, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_setStatus;
-    };
-    case ((_statusAmbushed || _statusRouteBlocked) && _blockedByCount == 0): {
-        [_status, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_unsetStatus;
-    };
-    default { _status; };
-};
+[_namespace, KPLIB_logistics_status_routeBlocked
+    , { _timerEnRoute && _enRoute && (!(_ambushed || _routeBlocked) && _blockedByCount > 0); }] call KPLIB_fnc_logistics_setStatus;
 
-if (_status != _newStatus) then {
-    [_namespace, [
-        ["KPLIB_logistics_status", _newStatus]
-    ]] call KPLIB_fnc_namespace_setVars;
-};
+[_namespace, KPLIB_logistics_status_routeBlocked
+    , { _timerEnRoute && _enRoute && ((_ambushed || _routeBlocked) && _blockedByCount == 0); }] call KPLIB_fnc_logistics_unsetStatus;
 
-_status != _newStatus;
+true;
