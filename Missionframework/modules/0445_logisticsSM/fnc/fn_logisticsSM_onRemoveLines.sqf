@@ -24,6 +24,7 @@ private _debug = [
     ]
 ] call KPLIB_fnc_logisticsSM_debug;
 
+private _callerName = "fn_logisticsSM_onRemoveLines";
 private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locationNull];
 
 if (_debug) then {
@@ -37,9 +38,17 @@ if (isNull _objSM) exitWith {
 
 ([_objSM, [
     ["KPLIB_logistics_uuidToRemove", []]
-]] call KPLIB_fnc_namespace_getVars) params [
+], _callerName] call KPLIB_fnc_namespace_getVars) params [
     "_uuidToRemove"
 ];
+
+// Nothing to do, do not waste calories on anything further
+if (_uuidToRemove isEqualTo []) exitWith {
+    if (_debug) then {
+        ["[fn_logisticsSM_onRemoveLines] No change", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    };
+    true;
+};
 
 // Removes matching LINES in STANDBY and zero CONVOY TRANSPORTS
 private _onGcMatchingNamespace = {
@@ -74,7 +83,7 @@ _onGcMatchingNamespace forEach _uuidToRemove;
 // Be sure to clear both queues afterwards...
 [_objSM, [
     ["KPLIB_logistics_uuidToRemove", []]
-]] call KPLIB_fnc_namespace_setVars;
+], true, _callerName] call KPLIB_fnc_namespace_setVars;
 
 if (_debug) then {
     ["[fn_logisticsSM_onRemoveLines] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;

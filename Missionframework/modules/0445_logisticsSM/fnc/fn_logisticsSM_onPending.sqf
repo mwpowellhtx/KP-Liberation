@@ -39,47 +39,48 @@ params [
 
 _beforeTimer = +_beforeTimer;
 
-// Optionally insert standing CHANGE ORDER: line EN ROUTE and potentially BLOCKED
-[KPLIB_param_logistics_routesCanBeBlocked] call {
-    params ["_canBeBlocked"];
-
-    if (!_canBeBlocked) exitWith {};
-
-    private _onInitializeChangeOrder = {
-        params ["_changeOrder"];
-
-        [_changeOrder, [
+// TODO: TBD: aside from perhaps forward knowledge of the TARGET and its UUID, this could be a canned function...
+// TODO: TBD: this is far, far, FAR simpler than messing with any queues...
+private _pendingOrders = [
+    {
+        [_this, [
             ["KPLIB_logistics_targetUuid", _targetUuid]
-            , ["KPLIB_changeOrder_onChangeOrder", KPLIB_fnc_logisticsCO_onMissionBlocked]
-            , ["KPLIB_changeOrder_onChangeOrderEntering", KPLIB_fnc_logisticsCO_onMissionBlockedEntering]
+            , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionBlocked]
+            , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionBlockedEntering]
         ]] call KPLIB_fnc_namespace_setVars;
-    };
-
-    private _changeOrder = [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
-
-    private _inserted = [_namespace, [_changeOrder]] call KPLIB_fnc_changeOrders_insert;
-
-    if (_debug) then {
-        [format ["[fn_logisticsSM_onPending::onCanBeBlocked] [_targetUuid, _inserted]: %1"
-            , str [_targetUuid, _inserted]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
-    };
+    }
+    // , {
+    //     [_this, [
+    //         ["KPLIB_logistics_targetUuid", _targetUuid]
+    //         , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionAbandoned]
+    //         , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionAbandonedEntering]
+    //     ]] call KPLIB_fnc_namespace_setVars;
+    // }
+] apply {
+    private _onInitializeChangeOrder = _x;
+    [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
 };
+
+// Process the standing orders prior to processing any player requests
+[_namespace, _pendingOrders] call KPLIB_fnc_changeOrders_processMany;
 
 [_namespace] call KPLIB_fnc_changeOrders_process;
 
 [
-    [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logisticsSM_checkStatus
-    , [_namespace, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logisticsSM_checkStatus
-    , [_namespace, KPLIB_logistics_status_aborting] call KPLIB_fnc_logisticsSM_checkStatus
+    [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
 ] params [
     "_ambushed"
+    , "_abandoned"
     , "_routeBlocked"
     , "_aborting"
 ];
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushed, _routeBlocked, _aborting, _beforeTimer]: %1"
-        , str [count _changeOrders, _ambushed, _routeBlocked, _aborting, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushed, _abandoned, _routeBlocked, _aborting, _beforeTimer]: %1"
+        , str [count _changeOrders, _ambushed, _abandoned, _routeBlocked, _aborting, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 ([_namespace, [
@@ -90,9 +91,9 @@ if (_debug) then {
 
 _changeOrdersTimer = +_changeOrdersTimer;
 
-// TODO: TBD: without getting too nuts in the heuristics of when to (block || !block), abort, etc
-// Allowing for timer movement when...
-if ((_aborting && !_ambushed) || !(_ambushed || _routeBlocked)) then {
+/* Allowing for timer movement when... without getting too nuts in the heuristics of when to:
+ * (BLOCK || !BLOCK), ABORT, ABANDON, etc */
+if ((_aborting && !(_ambushed || _abandoned)) || !(_ambushed || _abandoned || _routeBlocked)) then {
     [_namespace] call KPLIB_fnc_logisticsSM_onRefreshTimer;
 };
 

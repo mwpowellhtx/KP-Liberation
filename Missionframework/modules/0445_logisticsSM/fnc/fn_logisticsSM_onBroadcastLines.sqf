@@ -30,8 +30,8 @@ params [
 ];
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onBroadcastLines] Entering: [_cids]: %1"
-        , str [_cids]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onBroadcastLines] Entering: [_cids, changed(_objSM)]: %1"
+        , str [_cids, _objSM getVariable [KPLIB_namespace_changed, false]]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 if (_cids isEqualTo []) exitWith {

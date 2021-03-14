@@ -1,5 +1,5 @@
 /*
-    KPLIBN_fnc_logisticsSM_onAddLines
+    KPLIB_fnc_logisticsSM_onAddLines
 
     File: fn_logisticsSM_onAddLines.sqf
     Author: Michael W. Powell [22nd MEU SOC]
@@ -24,11 +24,18 @@ if (isNull _objSM) exitWith {
     false;
 };
 
+private _callerName = "fn_logisticsSM_onAddLines";
+
 ([_objSM, [
     ["KPLIB_logistics_namespacesToAdd", []]
-]] call KPLIB_fnc_namespace_getVars) params [
+], _callerName] call KPLIB_fnc_namespace_getVars) params [
     ["_namespacesToAdd", [], [[]]]
 ];
+
+// Do not waste time when there is nothing to add
+if (_namespacesToAdd isEqualTo []) exitWith {
+    true;
+};
 
 private _onPushBack = {
     private _namespace = _x;
@@ -42,6 +49,6 @@ _onPushBack forEach _namespacesToAdd;
 // Be sure to clear both queues afterwards...
 [_objSM, [
     ["KPLIB_logistics_namespacesToAdd", []]
-]] call KPLIB_fnc_namespace_setVars;
+], true, _callerName] call KPLIB_fnc_namespace_setVars;
 
 true;

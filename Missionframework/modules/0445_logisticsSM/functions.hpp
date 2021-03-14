@@ -78,12 +78,6 @@ class logisticsSM {
     // Server side callback broadcasts an ENDPOINT array to the specified clients
     class logisticsSM_onBroadcastEndpoints {};
 
-    // Checks the 'KPLIB_logistics_status' of the given CBA logistics namespace
-    class logisticsSM_checkStatus {};
-
-    // Returns whether the 'KPLIB_logistics_timer' of the given CBA logistics namespace has elapsed
-    class logisticsSM_timerHasElapsed {};
-
     // Event handler responds to the state machine request for its 'list' on every pass
     class logisticsSM_onGetList {};
 

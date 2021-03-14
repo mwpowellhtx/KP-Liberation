@@ -33,12 +33,6 @@ if (_debug) then {
     ["[fn_logisticsSM_onLoadingEntered] Entering...", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
-([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
-];
-
 // TODO: TBD: it might even be better to respond with the actual resources tuple deficit... i.e. ({ _x < 0 } count _balance)
 private _tried = [_namespace] call KPLIB_fnc_logisticsSM_tryLoadNextTransport;
 
@@ -47,22 +41,19 @@ if (_debug) then {
         , str [_tried]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
-_status = if (_tried) then {
-    // NO_RESOURCE is cleared in part as a function calculating the TRANSIT PLAN...
-    [_namespace] call KPLIB_fnc_logistics_calculateLoadingStatus;
-} else {
-    // Do not re-set any TIMER, allow it to continue running until NO_RESOURCE has cleared
-    [_status, KPLIB_logistics_status_noResource] call KPLIB_fnc_logistics_setStatus;
-};
+[
+    [_namespace] call KPLIB_fnc_logistics_convoyIsFull
+] params [
+    "_full"
+];
 
-if (_debug) then {
-    [format ["[fn_logisticsSM_onLoadingEntered] Fini: [_tried, _status]: %1"
-        , str [_tried, _status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
-};
+// Set or unset cross-cutting flags depending on whether FULL, TRIED, etc
+[_namespace, KPLIB_logistics_status_loading, { !_full; }] call KPLIB_fnc_logistics_setStatus;
 
-// Continue mission LOADING, or transition to EN_ROUTE, as determined by the PLAN
-[_namespace, [
-    ["KPLIB_logistics_status", _status]
-]] call KPLIB_fnc_namespace_setVars;
+[_namespace, KPLIB_logistics_status_noResource, { _tried; }] call KPLIB_fnc_logistics_unsetStatus;
+[_namespace, KPLIB_logistics_status_noResource, { !(_full || _tried); }] call KPLIB_fnc_logistics_setStatus;
+
+[_namespace, KPLIB_logistics_status_loading, { _full; }] call KPLIB_fnc_logistics_unsetStatus;
+[_namespace, KPLIB_logistics_status_enRoute, { _full; }] call KPLIB_fnc_logistics_setStatus;
 
 true;

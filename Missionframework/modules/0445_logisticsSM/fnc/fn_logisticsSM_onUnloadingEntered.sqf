@@ -31,45 +31,30 @@ if (_debug) then {
     ["[fn_logisticsSM_onUnloadingEntered] Entering...", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
-([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
-];
-
-// ([_namespace, [
-//     ["KPLIB_logistics_uuid", ""]
-//     , ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-//     , ["KPLIB_logistics_endpoints", []]
-// ]] call KPLIB_fnc_namespace_getVars) params [
-//     "_targetUuid"
-//     , "_status"
-//     , "_endpoints"
-// ];
-
 private _tried = [_namespace] call KPLIB_fnc_logisticsSM_tryUnloadNextTransport;
 
-// TODO: TBD: if we can get a more diagnostic result then do so...
-_status = if (_tried) then {
-    // Continue mission UNLOADING, or complete either ABORT (STANDBY) or CONFIRM (SWAP ENDPOINTS), as determined by the PLAN
-    [_namespace] call KPLIB_fnc_logistics_calculateUnloadingStatus;
-} else {
-    // UNLOADING blocked due to NO_SPACE, then park it...
-    [_status, KPLIB_logistics_status_noSpace] call KPLIB_fnc_logistics_setStatus;
-};
+[
+    [_namespace] call KPLIB_fnc_logistics_convoyIsEmpty
+    , [_namespace] call KPLIB_fnc_logistics_hasTransferCompleted
+    , [_namespace, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
+] params [
+    "_empty"
+    , "_completed"
+    , "_aborting"
+];
+
+[_namespace, KPLIB_logistics_status_noSpace, { !_tried; }] call KPLIB_fnc_logistics_setStatus;
+[_namespace, KPLIB_logistics_status_noSpace, { _tried; }] call KPLIB_fnc_logistics_unsetStatus;
+
+[_namespace, KPLIB_logistics_status_unloading, { !_empty; }] call KPLIB_fnc_logistics_setStatus;
+[_namespace, KPLIB_logistics_status_unloading, { _empty; }] call KPLIB_fnc_logistics_unsetStatus;
+
+[_namespace, KPLIB_logistics_status_aborting, { _empty && (_aborting || _completed); }] call KPLIB_fnc_logistics_unsetStatus;
+[_namespace, KPLIB_logistics_status_loading, { _empty && !(_aborting || _completed); }] call KPLIB_fnc_logistics_setStatus;
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onUnloadingEntered] Unloaded: [_tried, _status]: %1"
-        , str [_tried, _status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
-};
-
-// Do not re-set any TIMER, allow it to continue running until NO_RESOURCE has cleared
-[_namespace, [
-    ["KPLIB_logistics_status", _status]
-]] call KPLIB_fnc_namespace_setVars;
-
-if (_debug) then {
-    ["[fn_logisticsSM_onUnloadingEntered] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onUnloadingEntered] Fini: [_tried, _empty, _completed]: %1"
+        , str [_tried, _empty, _completed]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

@@ -58,6 +58,8 @@ if (isServer) then {
     KPLIB_param_logisticsSM_onRemoveLines_debug                 = false;
     KPLIB_param_logisticsSM_onStandby_debug                     = false;
     KPLIB_param_logisticsSM_onPending_debug                     = false;
+    KPLIB_param_logisticsSM_onPending_onCanBeBlocked_debug      = false;
+    KPLIB_param_logisticsSM_onPending_onIsAbandoned_debug       = false;
     KPLIB_param_logisticsSM_onRefreshTimer_debug                = false;
     KPLIB_param_logisticsSM_onPendingLoading_debug              = false;
     KPLIB_param_logisticsSM_onLoadingEntered_debug              = false;

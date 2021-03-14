@@ -30,8 +30,7 @@ params [
 ];
 
 [_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , [KPLIB_logistics_timer, +KPLIB_timers_default]
+    [KPLIB_logistics_timer, +KPLIB_timers_default]
     , ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_setVars;
 

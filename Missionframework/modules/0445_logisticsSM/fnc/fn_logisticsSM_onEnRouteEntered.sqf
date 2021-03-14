@@ -80,25 +80,8 @@ if (!(_departing || _arriving)) exitWith {
     _continueMissionEnRoute;
 };
 
-// Signal the 'onTransition' event handler how to handle ARRIVAL...
-if (_arriving) then {
-
-    // TODO: TBD: should probably be calculating the same plan during the UNLOADING state...
-    // Which also includes the ABORTING flag when necessary
-    private _status = [_namespace] call KPLIB_fnc_logistics_calculateArrivalStatus;
-
-    if (_debug) then {
-        [format ["[fn_logisticsSM_onEnRouteEntered] Entering: [_status]: %1"
-            , str [_status]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
-    };
-
-    [_namespace, [
-        ["KPLIB_logistics_status", _status]
-    ]] call KPLIB_fnc_namespace_setVars;
-};
-
-if (_debug) then {
-    ["[fn_logisticsSM_onEnRouteEntered] Fini", "LOGISTICSSM", true] call KPLIB_fnc_common_log;
-};
+// Set the cross-cutting UNLOADING STATUS upon ARRIVAL; leave ABORTING, ABANDONED, etc, intact
+[_namespace, KPLIB_logistics_status_enRoute, { _arriving; }] call KPLIB_fnc_logistics_unsetStatus;
+[_namespace, KPLIB_logistics_status_unloading, { _arriving; }] call KPLIB_fnc_logistics_setStatus;
 
 true;
