@@ -35,7 +35,7 @@ params [
     //, ["_endpoints", ([] call KPLIB_fnc_logistics_getEndpoints), [[]]]
 ];
 
-if (!(typeName _candidate isEqualTo "ARRAY")) exitWith {
+if (!(_candidate isEqualType [])) exitWith {
     if (_debug) then {
         [format ["[KPLIB_fnc_logistics_verifyEndpoint] Candidate is not an ARRAY: [typeName _candidate]: %1"
             , str [typeName _candidate]], "LOGISTICS", true] call KPLIB_fnc_common_log;

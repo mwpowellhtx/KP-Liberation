@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-24 14:51:36
-    Last Update: 2021-02-25 14:49:29
+    Last Update: 2021-03-13 17:27:46
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -39,6 +39,9 @@ class logistics {
     // Returns the current set of known endpoints
     class logistics_getEndpoints {};
 
+    // Returns the ENDPOINT that is not the OTHER one, or itself if one could not be identified
+    class logistics_getEndpointOrNearest {};
+
     // Returns the ALPHA+BRAVO ENDPOINTS swapped, i.e. BRAVO+ALPHA
     class logistics_swapEndpoints {};
 
@@ -65,6 +68,9 @@ class logistics {
 
     // Returns whether the candidate ENDPOINTS are considered UNIQUE given the set of LINES
     class logistics_areEndpointsUnique {};
+
+    // Returns whether either of the ENDPOINTS can be considered ABANDONED
+    class logistics_areEndpointsAbandoned {};
 
     // Returns the next available transport awaiting either loading or unloading
     class logistics_findNextTransportIndex {};
@@ -108,26 +114,17 @@ class logistics {
     // Checks the 'KPLIB_logistics_status' is as expected using, in part, 'BIS_fnc_bitflagsCheck'
     class logistics_checkStatus {};
 
-    // ...
+    // Conditionally sets the TARGET bitwise logistics STATUS; supports both TUPLE and LOCATION form factors
     class logistics_setStatus {};
 
-    // ...
+    // Conditionally unsets the TARGET bitwise logistics STATUS; supports both TUPLE and LOCATION form factors
     class logistics_unsetStatus {};
+
+    // Returns whether the TARGET logistics timer has elapsed; supports both TUPLE and LOCATION form factors
+    class logistics_timerHasElapsed {};
 
     // ...
     class logistics_getRefreshedTimer {};
-
-    // Determines the next STATUS when the MISSION was first CONFIRMED by the manager
-    class logistics_calculateMissionStatus {};
-
-    // Determines the next STATUS when the CONVOY is LOADING
-    class logistics_calculateLoadingStatus {};
-
-    // Determines the next STATUS when the CONVOY is UNLOADING
-    class logistics_calculateUnloadingStatus {};
-
-    // Determines the next STATUS when the CONVOY first ARRIVES at BRAVO
-    class logistics_calculateArrivalStatus {};
 
     // Calculates the TRANSIT DURATION in seconds between ALPHA and BRAVO
     class logistics_calculateTransitDuration {};
