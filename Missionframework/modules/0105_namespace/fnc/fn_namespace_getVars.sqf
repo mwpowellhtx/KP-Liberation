@@ -21,21 +21,60 @@
         An array of the namespace member variables for use throughout [ARRAY]
  */
 
+private _debug = [
+    [
+        {KPLIB_param_namespace_getVars_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
+
+private _debug_getVar = [
+    [
+        {KPLIB_param_namespace_getVar_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
+
 params [
     ["_namespace", locationNull, [objNull, locationNull]]
     , ["_nameValuePairs", [], [[]]]
+    , ["_callerName", "", [""]]
 ];
 
-private _onGetNamespaceMember = {
+[
+    !(_callerName isEqualTo "") && (_callerName in KPLIB_namespace_debugCallerNames)
+] params [
+    "_hasCaller"
+];
+
+if (_debug && _hasCaller) then {
+    [format ["[fn_namespace_getVars::%1] Entering: [_namespace, isNull _namespace, typeName _namespace, _nameValuePairs]: %2"
+        , _callerName, str [_namespace, isNull _namespace, typeName _namespace, _nameValuePairs]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+};
+
+private _retval = _nameValuePairs apply {
     _x params [
         ["_variableName", "", [""]]
         , "_defaultValue"
     ];
-    private _args = [_variableName, _defaultValue];
-    if (isNil "_defaultValue") exitWith { _args = _variableName; };
+
+    private _args = if (isNil "_defaultValue") then {
+
+        if (_debug_getVar && _hasCaller) then {
+            [format ["[fn_namespace_getVars::%1::onApply] Entering: [_namespace, _variableName]: %2"
+                , _callerName, str [_namespace, _variableName]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+        };
+
+        _variableName;
+    } else {
+
+        if (_debug_getVar && _hasCaller) then {
+            [format ["[fn_namespace_getVars::%1::onApply] Entering: [_namespace, _variableName, _defaultValue]: %2"
+                , _callerName, str [_namespace, _variableName, _defaultValue]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+        };
+
+        [_variableName, _defaultValue];
+    };
+
     _namespace getVariable _args;
 };
-
-private _retval = _nameValuePairs apply _onGetNamespaceMember;
 
 _retval;

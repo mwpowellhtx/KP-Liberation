@@ -27,42 +27,76 @@ private _debug = [
     ]
 ] call KPLIB_fnc_debug_debug;
 
+private _debug_setVar = [
+    [
+        {KPLIB_param_namespace_setVar_debug}
+    ]
+] call KPLIB_fnc_debug_debug;
+
 params [
     ["_namespace", locationNull, [objNull, locationNull]]
     , ["_nameValuePairs", [], [[]]]
     , ["_changedMask", true, [true]]
+    , ["_callerName", "", [""]]
 ];
 
-private _names = _nameValuePairs apply { (_x#0); };
+[
+    !(_callerName isEqualTo "") && (_callerName in KPLIB_namespace_debugCallerNames)
+] params [
+    "_hasCaller"
+];
 
+if (_debug && _hasCaller) then {
+    [format ["[fn_namespace_setVars::%1] Entering: [_namespace, isNull _namespace, typeName _namespace, _changedMask]: %2"
+        , _callerName, str [_namespace, isNull _namespace, typeName _namespace, _changedMask]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+};
+
+private _names = _nameValuePairs apply { (_x#0); };
 private _current = _names apply { _namespace getVariable [_x, -1]; };
 
-private _onUpdateNamespaceMember = {
+if (_debug && _hasCaller) then {
+    [format ["[fn_namespace_setVars::%1] Setting vars: [_namespace, _names, count _current]: %2"
+        , _callerName, str [_namespace, _names, count _current]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+};
+
+{
     _x params [
         ["_variableName", "", [""]]
         , "_value"
     ];
     if (isNil "_value") then {
-        if (_debug) then {
-            systemChat format ["[fn_namespace_setVars] Nullifying variable: %1", _variableName];
+
+        if (_debug_setVar && _hasCaller) then {
+            [format ["[fn_namespace_setVars::%1] Nullifying var: [_variableName]: %2"
+                , _callerName, str [_variableName]], "NAMESPACE", true] call KPLIB_fnc_common_log;
         };
+
         _namespace setVariable [_variableName, nil];
     } else {
+
+        if (_debug_setVar && _hasCaller) then {
+            [format ["[fn_namespace_setVars::%1] Setting var: [_variableName, _value]: %2"
+                , _callerName, str [_variableName, _value]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+        };
+
         _namespace setVariable [_variableName, _value];
     };
-};
-
-_onUpdateNamespaceMember forEach _nameValuePairs;
+} forEach _nameValuePairs;
 
 private _updated = _names apply { _namespace getVariable [_x, -1]; };
+
+if (_debug && _hasCaller) then {
+    [format ["[fn_namespace_setVars::%1] Vars set: [_namespace, _names, _current isEqualTo _updated]: %2"
+        , _callerName, str [_namespace, _names, _current isEqualTo _updated]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+};
 
 // Reflects whether anything at all about the namespace changed.
 private _changedOld = _namespace getVariable [KPLIB_namespace_changed, false];
 private _changedNew = _changedOld || (_changedMask && !(_current isEqualTo _updated));
 
-if (_debug && KPLIB_logistics_timer in _names) then {
-    [format ["[fn_namespace_setVars] [_nameValuePairs, _current, _updated, _changedOld, _changedMask, _changedNew]: %1"
-        , str [_nameValuePairs, _current, _updated, _changedOld, _changedMask, _changedNew]], "NAMESPACE", true] call KPLIB_fnc_common_log;
+if (_debug && _hasCaller) then {
+    [format ["[fn_namespace_setVars::%1] Fini: [_namespace, _names, _changedOld, _changedMask, _changedNew]: %2"
+        , _callerName, str [_namespace, _names, _changedOld, _changedMask, _changedNew]], "NAMESPACE", true] call KPLIB_fnc_common_log;
 };
 
 _namespace setVariable [KPLIB_namespace_changed, _changedNew];

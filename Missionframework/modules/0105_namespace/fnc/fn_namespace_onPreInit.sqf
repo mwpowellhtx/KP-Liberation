@@ -9,19 +9,29 @@
     Public: Yes
 */
 
-if (!isServer) exitWith {
-    true;
+if (isServer) then {
+    [format ["[fn_namespace_onPreInit] Initializing..."], "PRE] [NAMESPACE", true] call KPLIB_fnc_common_log;
 };
-
-[format ["[fn_namespace_onPreInit] Initializing..."], "PRE] [NAMESPACE", true] call KPLIB_fnc_common_log;
 
 if (isServer) then {
+    KPLIB_namespace_changed                 = "KPLIB_namespace_changed";
 
-    KPLIB_namespace_changed = "KPLIB_namespace_changed";
+    KPLIB_param_namespace_setVar_debug          = false;
+    KPLIB_param_namespace_setVars_debug         = false;
 
-    KPLIB_param_namespace_setVars_debug = false;
+    KPLIB_param_namespace_getVar_debug          = false;
+    KPLIB_param_namespace_getVars_debug         = false;
+
+    KPLIB_namespace_debugCallerNames            = [];
+    // KPLIB_namespace_debugCallerNames pushBack "fn_logisticsCO_onRequestAddOrRemoveLines";
+    // KPLIB_namespace_debugCallerNames pushBack "fn_logisticsSM_onAddLines";
+    // KPLIB_namespace_debugCallerNames pushBack "fn_logisticsSM_onRemoveLines";
+    // KPLIB_namespace_debugCallerNames pushBack "fn_logisticsCO_onRequestTransportBuild";
+    // KPLIB_namespace_debugCallerNames pushBack "fn_changeOrders_process";
 };
 
-[format ["[fn_namespace_onPreInit] Initialized"], "PRE] [NAMESPACE", true] call KPLIB_fnc_common_log;
+if (isServer) then {
+    [format ["[fn_namespace_onPreInit] Initialized"], "PRE] [NAMESPACE", true] call KPLIB_fnc_common_log;
+};
 
 true;
