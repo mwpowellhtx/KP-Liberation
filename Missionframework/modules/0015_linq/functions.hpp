@@ -41,6 +41,9 @@ class linq {
     // Verifies that the tuple shape equals that of a given template
     class linq_tupleShapeEquals {};
 
+    // Verifies that the value is between the lower and upper bound, given an optional predicate
+    class linq_between {};
+
     // Initialize linq module
     class linq_preInit {
         preInit = 1;
