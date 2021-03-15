@@ -13,6 +13,7 @@
     Parameters:
         _cids - the client identifiers to address with the ENDPOINT broadcast [ARRAY, default: []]
         _endpoints - the ENDPOINT array being broadcast [ARRAY, default: []]
+        _abandonedEps - the abandoned ENDPOINT array being broadcast [ARRAY, default: []]
 
     Returns:
         The callback finished [BOOL]
@@ -27,13 +28,14 @@ private _objSM = missionNamespace getVariable ["KPLIB_logisticsSM_objSM", locati
 params [
     ["_cids", (_objSM getVariable ["KPLIB_logistics_cids", []]), [[]]]
     , ["_endpoints", ([] call KPLIB_fnc_logistics_getEndpoints), [[]]]
+    , ["_abandonedEps", ([] call KPLIB_fnc_logistics_getEndpointsAbandoned), [[]]]
 ];
 
 private _onPublishEndpoints = {
     params [
         ["_cid", -1, [0]]
     ];
-    private _published = [_cid, _endpoints] call KPLIB_fnc_logisticsSM_onPublishEndpoints;
+    private _published = [_cid, _endpoints, _abandonedEps] call KPLIB_fnc_logisticsSM_onPublishEndpoints;
 };
 
 { [_x] call _onPublishEndpoints; } forEach _cids;

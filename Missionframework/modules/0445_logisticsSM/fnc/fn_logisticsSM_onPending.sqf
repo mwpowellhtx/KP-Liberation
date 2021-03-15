@@ -49,6 +49,7 @@ private _pendingOrders = [
             , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionBlockedEntering]
         ]] call KPLIB_fnc_namespace_setVars;
     }
+    // // TODO: TBD: reconnect this dot once we've verified ABANDONED ENDPOINTS themselves...
     // , {
     //     [_this, [
     //         ["KPLIB_logistics_targetUuid", _targetUuid]
