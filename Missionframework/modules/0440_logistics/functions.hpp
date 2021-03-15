@@ -36,8 +36,11 @@ class logistics {
     // Arranges to save the module data
     class logistics_onSaveData {};
 
-    // Returns the current set of known endpoints
+    // Returns the current set of known ENDPOINTS
     class logistics_getEndpoints {};
+
+    // Returns the current set of abandoned ENDPOINTS
+    class logistics_getEndpointsAbandoned {};
 
     // Returns the ENDPOINT that is not the OTHER one, or itself if one could not be identified
     class logistics_getEndpointOrNearest {};

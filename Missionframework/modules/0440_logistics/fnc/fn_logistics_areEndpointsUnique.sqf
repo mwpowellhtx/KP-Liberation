@@ -44,15 +44,12 @@ if ((_alpha isEqualTo []) || (_bravo isEqualTo [])) exitWith {
 private _whereNotInStandby = {
     _x params [
         ["_lineUuid", "", [""]]
-        , ["_status", KPLIB_logistics_status_na, [0]]
+        , ["_status", KPLIB_logistics_status_standby, [0]]
     ];
     _status > KPLIB_logistics_status_standby;
 };
 
 private _notInStandby = _lines select _whereNotInStandby;
-
-// For shorthand usage throughout...
-private _areEqual = KPLIB_fnc_logistics_areEndpointsEqual;
 
 // Calling the LINE ENDPOINTS '_charlie' and '_delta', respectively, for predicate purposes
 private _whereInConflict = {
@@ -60,21 +57,22 @@ private _whereInConflict = {
     // Expecting ENDPOINT for active lines in a 2x shape
     _x params [
         ["_lineUuid", "", [""]]
-        , ["_status", KPLIB_logistics_status_na, [0]]
+        , ["_status", KPLIB_logistics_status_standby, [0]]
+        , ["_timer", +KPLIB_timers_default, [[]], 4]
         , ["_endpoints", [], [[]], 2]
     ];
 
-    // Also expecting each ENDPOINT for active lines in a 4x shape
+    // We do not care about BILL VALUE for comparison purposes in these situations
     _endpoints params [
-        ["_charlie", [], [[]], 4]
-        , ["_delta", [], [[]], 4]
+        ["_charlie", [], [[]]]
+        , ["_delta", [], [[]]]
     ];
 
     // Check if the pairings or their swaps are equal, i.e. in CONFLICT
-    private _alphaCharlieEqual = [_alpha, _charlie] call _areEqual;
-    private _bravoDeltaEqual = [_bravo, _delta] call _areEqual;
-    private _alphaDeltaEqual = [_alpha, _delta] call _areEqual;
-    private _bravoCharlieEqual = [_bravo, _charlie] call _areEqual;
+    private _alphaCharlieEqual = [_alpha, _charlie] call KPLIB_fnc_logistics_areEndpointsEqual;
+    private _bravoDeltaEqual = [_bravo, _delta] call KPLIB_fnc_logistics_areEndpointsEqual;
+    private _alphaDeltaEqual = [_alpha, _delta] call KPLIB_fnc_logistics_areEndpointsEqual;
+    private _bravoCharlieEqual = [_bravo, _charlie] call KPLIB_fnc_logistics_areEndpointsEqual;
 
     (_alphaCharlieEqual && _bravoDeltaEqual)
         || (_alphaDeltaEqual && _bravoCharlieEqual);
