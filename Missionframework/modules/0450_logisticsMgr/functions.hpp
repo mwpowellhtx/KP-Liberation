@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-24 14:55:07
-    Last Update: 2021-02-25 13:21:11
+    Last Update: 2021-03-15 01:18:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -109,7 +109,7 @@ class logisticsMgr {
     class logisticsMgr_endpointCtrls_onLoad {};
 
     // Endpoint CT_GROUP reload callback
-    class logisticsMgr_endpointCtrls_onReload {};
+    class logisticsMgr_cboEndpoint_setViewData {};
 
     // Endpoint CT_COMBO 'onLoad' event handler
     class logisticsMgr_cboEndpoint_onLoad {};
@@ -119,6 +119,9 @@ class logisticsMgr {
 
     // Lifts the view data from the ENDPOINT CT_COMBO, including DATA backing each row
     class logisticsMgr_cboEndpoints_getViewData {};
+
+    // Returns the ENDPOINT or ABANDONED POSITION corresponding to the selected MARKER NAME
+    class logisticsMgr_cboEndpoint_getMarkerPos {};
 
     // Client callback responds when server publishes ENDPOINT tuples to listening clients
     class logisticsMgr_onEndpointsPublished {};

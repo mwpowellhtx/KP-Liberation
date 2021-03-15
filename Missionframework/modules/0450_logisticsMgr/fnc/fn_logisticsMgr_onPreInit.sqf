@@ -5,7 +5,7 @@
     File: fn_logisticsMgr_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-25 11:58:41
-    Last Update: 2021-03-14 18:06:06
+    Last Update: 2021-03-15 01:17:38
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -52,11 +52,11 @@ KPLIB_logisticsMgr_lnbTelemetry_onClear_debug               = false;
 KPLIB_param_logisticsMgr_lnbTelemetry_onRefresh_debug       = false;
 KPLIB_logisticsMgr_btnRefresh_onButtonClick_debug           = false;
 KPLIB_logisticsMgr_cboEndpoint_onLoad_debug                 = false;
-KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = false;
+KPLIB_logisticsMgr_cboEndpoint_onReload_debug               = true;
 KPLIB_logisticsMgr_cboEndpoint_getSelectedEndpoint_debug    = false;
 KPLIB_logisticsMgr_cboEndpoint_onLBSelChanged_debug         = false;
 KPLIB_logisticsMgr_cboEndpoint_onSetFocus_debug             = false;
-KPLIB_param_logisticsMgr_endpointCtrls_onReload_debug       = false;
+KPLIB_param_logisticsMgr_cboEndpoint_setViewData_debug      = true;
 KPLIB_param_logisticsMgr_cboEndpoints_getViewData_debug     = false;
 KPLIB_param_logisticsMgr_ctrlMap_onReload_debug             = false;
 KPLIB_logisticsMgr_onLinesPublished_debug                   = false;

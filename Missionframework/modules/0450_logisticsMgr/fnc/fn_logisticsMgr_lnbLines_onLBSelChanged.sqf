@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_lnbLines_onLBSelChanged.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-27 15:14:45
-    Last Update: 2021-02-27 15:14:48
+    Last Update: 2021-03-15 01:17:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -89,16 +89,17 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_telemetry", _telemetry];
 uiNamespace setVariable ["KPLIB_logisticsMgr_convoy", _convoy];
 [] call KPLIB_fnc_logisticsMgr_lnbConvoy_onReload;
 
-// TODO: TBD: eventually also dissecting the endpoints...
-_endpoints params [
-    ["_alpha", [], [[]]]
-    , ["_bravo", [], [[]]]
-];
-
-[_alpha, "alpha"] call KPLIB_fnc_logisticsMgr_endpointCtrls_onReload;
-[_bravo, "bravo"] call KPLIB_fnc_logisticsMgr_endpointCtrls_onReload;
-
 if (_status > KPLIB_logistics_status_standby) then {
+
+    // Yes but only do this when the line is actually running, i.e. >STANDBY
+    _endpoints params [
+        ["_alpha", [], [[]]]
+        , ["_bravo", [], [[]]]
+    ];
+
+    [_alpha, "alpha"] call KPLIB_fnc_logisticsMgr_cboEndpoint_setViewData;
+    [_bravo, "bravo"] call KPLIB_fnc_logisticsMgr_cboEndpoint_setViewData;
+
     private _ctrlMap = uiNamespace getVariable ["KPLIB_logisticsMgr_ctrlMap", controlNull];
     [nil, nil, _ctrlMap] spawn  KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
 };

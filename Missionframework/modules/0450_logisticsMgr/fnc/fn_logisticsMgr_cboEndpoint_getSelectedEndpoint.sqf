@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_cboEndpoint_getSelectedEndpoint.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-01 18:50:27
-    Last Update: 2021-03-01 18:50:30
+    Last Update: 2021-03-15 01:15:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -31,44 +31,47 @@ params [
     ["_cboEndpoint", controlNull, [controlNull]]
 ];
 
-private _endpoints = uiNamespace getVariable ["KPLIB_logisticsMgr_endpoints", []];
+private _eps = uiNamespace getVariable ["KPLIB_logisticsMgr_endpoints", []];
+private _abandonedEps = uiNamespace getVariable ["KPLIB_logisticsMgr_abanonedEps", []];
+
+private _allEps = _eps + _abandonedEps;
 
 if (_debug) then {
-    [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Entering: [isNull _cboEndpoint, count _endpoints]: %1"
-        , str [isNull _cboEndpoint, count _endpoints]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Entering: [isNull _cboEndpoint, count _eps, count _abandonedEps]: %1"
+        , str [isNull _cboEndpoint, count _eps, count _abandonedEps]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
-private _selectedIndex = lbCurSel _cboEndpoint;
+private _curSel = lbCurSel _cboEndpoint;
 
-private _defaultEndpoint = [];
+private _defaultEp = [];
 
-if (_selectedIndex < 0) exitWith {
+if (_curSel < 0) exitWith {
     if (_debug) then {
-        [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Combo not selected: [_selectedIndex, count _endpoints]: %1"
-            , str [_endpointIndex, count _endpoints]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Combo not selected: [_selectedIndex, count _eps, count _abandonedEps]: %1"
+            , str [_epIndex, count _eps, count _abandonedEps]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
     };
-    _defaultEndpoint;
+    _defaultEp;
 };
 
-private _endpointMarker = _cboEndpoint lbData _selectedIndex;
+private _curSelMarker = _cboEndpoint lbData _curSel;
 
-private _alignedToEndpointMarker = {
-    private _markerName = (_x#1);
-    !(_endpointMarker isEqualTo "")
-        && (_markerName isEqualTo _endpointMarker);
+private _whereAlignedToEpMarker = {
+    private _epMarker = (_x#1);
+    !(_curSelMarker isEqualTo "")
+        && (_epMarker isEqualTo _curSelMarker);
 };
 
-private _endpointIndex = _endpoints findIf _alignedToEndpointMarker;
+private _epIndex = _allEps findIf _whereAlignedToEpMarker;
 
-if (_endpointIndex < 0) exitWith {
+if (_epIndex < 0) exitWith {
     if (_debug) then {
-        [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Endpoint not found: [_endpointMarker, _endpointIndex, count _endpoints]: %1"
-            , str [_endpointMarker, _endpointIndex, count _endpoints]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Endpoint not found: [_curSelMarker, _epIndex, count _eps, count _abandonedEps]: %1"
+            , str [_curSelMarker, _epIndex, count _eps, count _abandonedEps]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
     };
-    _defaultEndpoint;
+    _defaultEp;
 };
 
-private _retval = _endpoints select _endpointIndex;
+private _retval = _allEps select _epIndex;
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_cboEndpoint_getSelectedEndpoint] Fini: [_retval]: %1"

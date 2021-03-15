@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_cboEndpoint_onLBSelChanged.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-28 09:52:40
-    Last Update: 2021-03-01 20:06:56
+    Last Update: 2021-03-15 01:16:02
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -57,17 +57,19 @@ _selectedLine params [
 // // TODO: TBD: may need the selected line...
 // private _selectedLine = uiNamespace getVariable ["KPLIB_logisticsMgr_selectedLine", []];
 
-private _endpointMarker = _cboEndpoint lbData _selectedIndex;
+private _epMarker = _cboEndpoint lbData _selectedIndex;
 
 if (_status == KPLIB_logistics_status_standby) then {
     private _target = if (_selectedIndex >= 1) then { objNull; } else { player; };
-    [markerPos _endpointMarker, _target] spawn KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
+    private _pos = [_epMarker] call KPLIB_fnc_logisticsMgr_cboEndpoint_getMarkerPos;
+    [_pos, _target] spawn KPLIB_fnc_logisticsMgr_ctrlMap_onReload;
     [] call KPLIB_fnc_logisticsMgr_onCalculateEstimatedDuration;
+
 };
 
 if (_debug) then {
-    [format ["[fn_logisticsMgr_cboEndpoint_onLBSelChanged] Fini: [_endpointMarker]: %1"
-        , str [_endpointMarker]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsMgr_cboEndpoint_onLBSelChanged] Fini: [_epMarker]: %1"
+        , str [_epMarker]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;

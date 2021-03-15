@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_calculateToEnableOrDisable.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-02 08:47:45
-    Last Update: 2021-03-14 18:06:27
+    Last Update: 2021-03-15 01:15:16
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -65,6 +65,7 @@ private _mayConfigureBravo = KPLIB_logisticsMgr_ctrls_mayConfigureBravo;
 private _mayConfirm = KPLIB_logisticsMgr_ctrls_mayConfirm;
 private _mayReroute = KPLIB_logisticsMgr_ctrls_mayReroute;
 private _mayAbort = KPLIB_logisticsMgr_ctrls_mayAbort;
+private _eps = uiNamespace getVariable ["KPLIB_logisticsMgr_endpoints", []];
 
 if (_debug) then {
     [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _transportCount, _loadedTransportCount]: %1"
@@ -100,7 +101,7 @@ private _areEndpointsBothSelected = {
         , ["_cboBravo", controlNull, [controlNull]]
     ];
     private _curSel = [lbCurSel _cboAlpha, lbCurSel _cboBravo];
-    ({ _x >= 0; } count _curSel) == 2;
+    _curSel apply { [_x, 1, count _eps] call KPLIB_fnc_linq_between; };
 };
 
 private _hasConfiguredBill = {
@@ -112,8 +113,7 @@ private _hasConfiguredBill = {
     (count _bill) == (count _default) && !(_bill isEqualTo _default);
 };
 
-// For shorthand and consistency throughout
-private _areEndpointsUnique = KPLIB_fnc_logistics_areEndpointsUnique;
+// TODO: TBD: yet another ABANDONED nuance... should prohibit CONFIRM when an ABANDONED site is selected...
 
 // Calculate STANDBY or not STANDBY, or not selected, rolls it all up here...
 switch (true) do {
@@ -178,30 +178,36 @@ switch (true) do {
             uiNamespace getVariable [_x, controlNull];
         };
 
-        private _endpoint = _endpointCtrls apply {
+        private _selectedEps = _endpointCtrls apply {
             [_x] call KPLIB_fnc_logisticsMgr_cboEndpoint_getSelectedEndpoint;
         };
 
         private _endpointsAreBothSelected = _endpointCtrls call _areEndpointsBothSelected;
         private _endpointsAreEqual = _endpointCtrls call _areEndpointCurSelEqual;
-        private _endpointsAreUnique = [_endpoint, _lines] call _areEndpointsUnique;
+        private _endpointsAreUnique = [_selectedEps, _lines] call KPLIB_fnc_logistics_areEndpointsUnique;
         private _endpointsAreInConflict = _endpointsAreEqual || !_endpointsAreUnique;
-        private _endpointCtrlCurSels = _endpointCtrls apply { (lbCurSel _x); };
 
         if (_debug) then {
-            [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _endpointsAreBothSelected, _endpointsAreEqual, _endpointsAreUnique, _endpointsAreInConflict, _endpointCtrlCurSels]: %1"
-                , str [_status, _endpointsAreBothSelected, _endpointsAreEqual, _endpointsAreUnique, _endpointsAreInConflict, _endpointCtrlCurSels]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
+            [format ["[fn_logisticsMgr_calculateToEnableOrDisable] Evaluating: [_status, _endpointsAreBothSelected, _endpointsAreEqual, _endpointsAreUnique, _endpointsAreInConflict]: %1"
+                , str [_status, _endpointsAreBothSelected, _endpointsAreEqual, _endpointsAreUnique, _endpointsAreInConflict]], "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
         };
 
         [_endpointGrps] call _onShouldEnable;
 
-        [_mayConfigureAlpha, (_endpointCtrlCurSels#0) >= 0] call _onShouldEnable;
-        [_mayConfigureBravo, (_endpointCtrlCurSels#1) >= 0] call _onShouldEnable;
+        // Ignoring the "unselected" element, and any ABANDONED elements...
+        [_mayConfigureAlpha, (_endpointsAreBothSelected#0)] call _onShouldEnable;
+        [_mayConfigureBravo, (_endpointsAreBothSelected#1)] call _onShouldEnable;
 
         private _configuredCount = { [_x] call _hasConfiguredBill; } count [_mayConfigureAlpha, _mayConfigureBravo];
 
         // In order to confirm, must have transports, both selected, not in conflict, and at least one configured bill...
-        [_mayConfirm, (_transportCount > 0) && _endpointsAreBothSelected && !_endpointsAreInConflict && _configuredCount > 0] call _onShouldEnable;
+        [_mayConfirm,
+            (_transportCount > 0)
+                && (_endpointsAreBothSelected#0)
+                && (_endpointsAreBothSelected#1)
+                && !_endpointsAreInConflict
+                && _configuredCount > 0] call _onShouldEnable;
+
         [_mayReroute, false] call _onShouldEnable;
         [_mayAbort, false] call _onShouldEnable;
     };
