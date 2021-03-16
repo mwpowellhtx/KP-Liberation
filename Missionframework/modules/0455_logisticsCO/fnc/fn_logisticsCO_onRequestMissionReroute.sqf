@@ -38,62 +38,63 @@ params [
 
 private _namespace = [_targetUuid] call KPLIB_fnc_logistics_getNamespaceByUuid;
 
+if (_debug) then {
+    [format ["[fn_logisticsCO_onRequestMissionReroute] Entering: [isNull _namespace, _targetUuid, _cid]: %2"
+        , str [isNull _namespace, _targetUuid, _cid]], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+};
+
+private ["_msg"];
+
 if (isNull _namespace) exitWith {
     _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_REROUTE";
     if (_debug) then {
         [format ["[fn_logisticsCO_onRequestMissionReroute] %1: [isNull _namespace]: %2"
             , _msg, str [isNull _namespace]], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
     };
-
     if (_cid >= 0) then {
         [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
     };
-
     false;
 };
 
-([_namespace, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
+[
+    [_namespace] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
+] params [
+    "_standby"
+    , "_abandoned"
+    , "_ambushed"
 ];
 
 // Line cannot be rerouted, but this is not an "error" per se
-if (_status == KPLIB_logistics_status_standby) exitWith {
+if (_standby) exitWith {
     true;
 };
 
 /* The request should not be here, but indicate when we are anyway,
  * cannot REROUTE a mission that is determined not to be ABANDONED */
-if (!([_status, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_checkStatus)) exitWith {
+if (!_abandoned) exitWith {
+    _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED";
     if (_debug) then {
-        [format ["[fn_logisticsCO_onRequestMissionReroute] %1"
-            , localize "STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED"], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logisticsCO_onRequestMissionReroute] %1", _msg], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
     };
-
     if (_cid >= 0) then {
-        [
-            localize "STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED"
-        ] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+        [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
     };
-
     true;
 };
 
 /* ABANDONED lines may still fall under AMBUSH especially when they linger,
  * at which point are no longer recoverable, AMBUSH must be followed through */
-if ([_status, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus) exitWith {
+if (_ambushed) exitWith {
+    _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED";
     if (_debug) then {
-        [format ["[fn_logisticsCO_onRequestMissionReroute] %1"
-            , localize "STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED"], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+        [format ["[fn_logisticsCO_onRequestMissionReroute] %1", _msg], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
     };
-
     if (_cid >= 0) then {
-        [
-            localize "STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED"
-        ] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+        [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
     };
-
     true;
 };
 
@@ -108,10 +109,16 @@ private _onInitializeChangeOrder = {
 };
 
 private _changeOrder = [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
-private _enqueued = [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_enqueue;
 
-if (_debug) then {
-    // TODO: TBD: add logging...
+private _processedOrEnqueued = if (_cid < 0) then {
+    [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_processOne;
+} else {
+    [_namespace, _changeOrder] call KPLIB_fnc_changeOrders_enqueue;
 };
 
-_enqueued;
+if (_debug) then {
+    [format ["[fn_logisticsCO_onRequestMissionReroute] Fini: [_processedOrEnqueued]: %2"
+        , _msg, str [_processedOrEnqueued]], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+};
+
+_processedOrEnqueued;

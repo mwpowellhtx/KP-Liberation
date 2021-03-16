@@ -97,7 +97,7 @@ private _onInitializeChangeOrder = {
 private _changeOrder = [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
 
 // TODO: TBD: there may be variables defined with the key CIDs...
-private _confirmedOrConfirming = if (_cid < 0) then {
+private _processedOrEnqueued = if (_cid < 0) then {
     // Server side automated change overs are processed IMMEDIATELY
     [_namespace, _changeOrder, true] call KPLIB_fnc_changeOrders_processOne;
 } else {
@@ -109,4 +109,4 @@ if (_debug) then {
     // TODO: TBD: add logging...
 };
 
-_confirmedOrConfirming;
+_processedOrEnqueued;

@@ -9,7 +9,12 @@
     Public: No
 
     Description:
-        ...
+        Closes the loop on the REROUTE MISSION request in a few, key, high level
+        phases. First, filter the known ENDPOINTS excluding current MISSION ENDPOINTS.
+        Second, reroute MISSION ENDPOINTS accordingly using the FILTERED ENDPOINTS as
+        reference. Third, CONFIRM the REROUTED ENDPOINTS as the new mission. Fourth,
+        and finally, calculate a new EN_ROUTE TIMER taking into account the MISSION
+        STATUS.
 
     Parameter(s):
         _namespace - a CBA logistics namespace [LOCATION, default: locationNull]
@@ -18,7 +23,16 @@
     Returns:
         Whether the change order may be further processed [BOOL]
 
-    References:
+    Remarks:
+        REROUTE is perhaps one of the more involved, esoteric LOGISTICS operational
+        response that can occur. At a high level, a REROUTED MISSION identifies zero,
+        one or two new ENDPOINTS, depending on availability, conflicts with the current
+        ABANDONED MISSION, and so on. The REROUTED MISSION is always places in an
+        EN_ROUTE STATUS because it is thought that it simulates the mission having
+        backtracked, planned afresh, and accounted for contingencies, etc. Additionally,
+        we set the mission in ABORTING STATUS, because the objective is to recover as
+        quickly as possible and free up the line for subsequent planning by the COMMANDER
+        or LOGISTICIAN.
  */
 
 private _debug = [
@@ -34,149 +48,193 @@ params [
 
 ([_namespace, [
     ["KPLIB_logistics_uuid", ""]
-    , ["KPLIB_logistics_timer", +KPLIB_timers_default]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_targetUuid"
-    , "_oldTimer"
 ];
 
-// Deconstruct the mission critical bits that got presented to the callback
 ([_changeOrder, [
-    ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-    , ["KPLIB_logistics_cid", -1]
-    , ["KPLIB_logistics_alphaEndpoint", []]
-    , ["KPLIB_logistics_bravoEndpoint", []]
-    , ["KPLIB_logistics_allEndpoints", []]
-    , ["KPLIB_logistics_bluforSectors", []]
-    , ["KPLIB_logistics_alphaIsEndpoint", false]
-    , ["KPLIB_logistics_bravoIsEndpoint", false]
-    , ["KPLIB_logistics_alphaIsFactory", false]
-    , ["KPLIB_logistics_bravoIsFactory", false]
+    ["KPLIB_logistics_cid", -1]
+    , ["KPLIB_logistics_lineEndpoints", []]
+    , ["KPLIB_logistics_lineEndpointIndexes", []]
+    , ["KPLIB_logistics_candidateEndpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    "_status"
-    , "_cid"
-    , "_alpha"
-    , "_bravo"
-    , "_allEndpoints"
-    , "_bluforSectors"
-    , "_alphaIsEndpoint"
-    , "_bravoIsEndpoint"
-    , "_alphaIsFactory"
-    , "_bravoIsFactory"
+    "_cid"
+    , "_lineEps"
+    , "_lineEpIndexes"
+    , "_canEps"
 ];
 
-// Identify the old TIMER elements as reference
-_oldTimer params [
-    "_oldDuration"
-    , "_oldStartTime"
-    , "_oldElapsedTime"
-    , "_oldTimeRemaining"
+[
+    [_namespace, KPLIB_logistics_status_enRoute] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_loading] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_unloading] call KPLIB_fnc_logistics_checkStatus
+] params [
+    "_enRoute"
+    , "_loading"
+    , "_unloading"
 ];
 
-// Also identify the old ENDPOINT bits as reference
-_alpha params [
-    ["_alphaPos", +KPLIB_zeroPos, [[]], 3]
-    , ["_alphaMarker", "", [""]]
-    , ["_alphaMarkerText", "", [""]]
-    , ["_alphaBillValue", +KPLIB_resources_storageValueDefault, [[]], 3]
-];
+// TODO: TBD: we may need the indexes at this level, but for now, disregard them...
 
-_bravo params [
-    ["_bravoPos", +KPLIB_zeroPos, [[]], 3]
-    , ["_bravoMarker", "", [""]]
-    , ["_bravoMarkerText", "", [""]]
-    , ["_bravoBillValue", +KPLIB_resources_storageValueDefault, [[]], 3]
-];
+/* Normalize to a standard [ALPHA, BRAVO] form factor; we should be "here" with a
+ * running LOGISTIC LINE, with correct [ALPHA, BRAVO] form factor, but normalize
+ * anyway as a precaution.
+ */
+private _normalizedEps = [_lineEps] call KPLIB_fnc_logistics_normalizeEndpoints;
 
-// TODO: TBD: may want to set transport speed as a logistics line member
-// TODO: TBD: why is that, because once it is set, we do not want to lose calibration with the setting afterwards
-// TODO: TBD: however this is a broader question than just this change order...
-
-// TODO: TBD: may not need "actual" distances at all, as long as timers, elapsed, etc, will suffice...
-private _oldDistance = _alphaPos distance2D _bravoPos;
-private _transportSpeedMps = [] call KPLIB_fnc_logistics_calculateTransportSpeedMps;
-
-// Remember, we are here because at least one ENDPOINT must be recalibrated
-private _processed = [
-    _targetUuid
-    , [_alpha, _bravo, _alphaIsEndpoint, _allEndpoints] call KPLIB_fnc_logistics_getEndpointOrNearest
-    , [_bravo, _alpha, _bravoIsEndpoint, _allEndpoints] call KPLIB_fnc_logistics_getEndpointOrNearest
-] call {
+/* Allows the known ENDPOINTS where ALPHA was not found, or ALPHA not equal to the
+ * ENDPOINT in question. Rinse and repeat also for BRAVO, same sort of criteria. The
+ * bottom line here, we want to REROUTE to the next nearest ENDPOINTS that are neither
+ * old ALPHA nor old BRAVO. Whether ALPHA or BRAVO feel out of commission approaching
+ * this question ought to be irrelevant, should still work as a filter.
+ */
+private _filteredEps = _normalizedEps call {
     params [
-        ["_targetUuid", "", [""]]
-        , ["_alpha", [], [[]], 4]
-        , ["_bravo", [], [[]], 4]
+        ["_alpha", [], [[]]]
+        , ["_bravo", [], [[]]]
+    ];
+    _canEps select {
+        !(
+            // Should match existing ones and ignore abandoned ones just fine
+            ([_alpha, _x] call KPLIB_fnc_logistics_areEndpointsEqual)
+                || ([_bravo, _x] call KPLIB_fnc_logistics_areEndpointsEqual)
+        );
+    };
+};
+
+// Just process and deal with the intermediate outcomes, short of going nuts and prescreening
+private _onRerouteEp = {
+    params [
+        ["_ep", [], [[]]]
+        , ["_epIndex", -1, [0]]
+    ];
+    // De-con the BILL VALUE in particular, we will append it later on; as well as using other elements
+    _ep params [
+        ["_epPos", +KPLIB_zeroPos, [[]], 3]
+        , ["_epMarker", "", [""]]
+        , ["_epMarkerText", "", [""]]
+        , ["_epBillValue", +KPLIB_resources_storageValueDefault, [[]], 3]
+    ];
+    // Default ENDPOINT sans the BILL VALUE element
+    private _defaultEp = +[_epPos, _epMarker, _epMarkerText];
+    // No need to REROUTE a valid ENDPOINT
+    private _reroutedEp = if (_epIndex >= 0) then {
+        _defaultEp;
+    } else {
+        // Otherwise REROUTE making a best effort from the FILTERED ENDPOINTS (^^^ from above ^^^)
+        switch (count _filteredEps) do {
+            case (0): { _defaultEp; };
+            case (1): { +(_filteredEps#0); };
+            default {
+                // Cannot depend on ENDPOINT MARKER in this instance, so fall back on POSITION
+                private _sortedEps = [_filteredEps, [], { ((_x#0) distance2D _epPos); }, "ascend"] call BIS_fnc_sortBy;
+                +(_sortedEps#0);
+            };
+        };
+    };
+    // Be sure to relay the BILL VALUE in any event
+    private _billValueIndex = _reroutedEp pushBack (+_epBillValue);
+    _reroutedEp;
+};
+
+// REROUTE the ENDPOINTS cutting across LINE ENDPOINT indexes, de-con and evaluate the results
+private _reroutedEps = [0, 1] apply { [(_normalizedEps#_x), (_lineEpIndexes#_x)] call _onRerouteEp; };
+
+[
+    count _normalizedEps
+    , count _reroutedEps
+    , {
+        private _reroutedEp = _x;
+        !([] isEqualTo (_canEps select { [_x, _reroutedEp] call KPLIB_fnc_logistics_areEndpointsEqual; }));
+    } count _reroutedEps
+    , _reroutedEps call KPLIB_fnc_logistics_areEndpointsEqual
+    , ""
+] params [
+    "_lineEpCount"
+    , "_reroutedEpCount"
+    , "_verifiedReroutedEpCount"
+    , "_epsAreEqual"
+    , "_msg"
+];
+
+if (_debug) then {
+    [format ["[fn_logisticsCO_onMissionReroute] [_lineEpCount, _reroutedEpCount, _verifiedReroutedEpCount, _epsAreEqual, _normalizedEps, _reroutedEps]: %1"
+        , str [_lineEpCount, _reroutedEpCount, _verifiedReroutedEpCount, _epsAreEqual, _normalizedEps, _reroutedEps]], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+};
+
+// Rerouted, however could not REROUTE, or MISSION ENDPOINTS cannot be equal
+if (((_reroutedEpCount == _lineEpCount) && (_verifiedReroutedEpCount != _reroutedEpCount)) || _epsAreEqual) exitWith {
+    _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_REROUTE_INSUFFICIENT";
+    if (_debug) then {
+        [format ["[fn_logisticsCO_onMissionReroute] %1", _msg], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+    };
+    if (_cid >= 0) then {
+        [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+    };
+    false;
+};
+
+// TODO: TBD: need to have some ducks in order prior to mission planning...
+if (!([_targetUuid, _reroutedEps] call KPLIB_fnc_logisticsCO_onRequestMissionConfirm)) exitWith {
+    // TODO: TBD: add logging...
+    false;
+};
+
+// Map out the REROUTED TIMER...
+private _timer = [[_reroutedEps] call KPLIB_fnc_logistics_calculateTransitDuration, _loading, _enRoute, _unloading] call {
+
+    params [
+        ["_duration", KPLIB_timers_disabled, [0]]
+        , ["_loading", false, [false]]
+        , ["_enRoute", false, [false]]
+        , ["_unloading", false, [false]]
+        , ["_loadingCoef", KPLIB_param_logistics_reroute_loadingCoefficient, [0]]
+        , ["_enRouteCoef", KPLIB_param_logistics_reroute_enRouteCoefficient, [0]]
+        , ["_unloadingCoef", KPLIB_param_logistics_reroute_unloadingCoefficient, [0]]
     ];
 
-    // TODO: TBD: verify ALPHA and BRAVO ENDPOINTS with 'KPLIB_fnc_logistics_verifyEndpoint'
-    // TODO: TBD: then log, and/or proceed...
-
-    // Submit the CHANGE ORDER for immediate processing
-    private _onInitializeRerouteChangeOrder = {
-        // There is no client owner since this is an AUTOMATED CHANGE ORDER
-        [_this, [
-            ["KPLIB_logistics_targetUuid", _targetUuid]
-            , ["KPLIB_logistics_endpoints", +[_alpha, _bravo]]
-            , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionConfirm]
-            , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionConfirmEntering]
-        ]] call KPLIB_fnc_namespace_setVars;
+    // Then we must arrange the new mission...
+    private _rerouteCoefficient = switch (true) do {
+        // Bounded by the neighboring setting
+        case (_loading): { _enRouteCoef min _loadingCoef; };
+        case (_unloading): { _unloadingCoef max _enRouteCoef; };
+        case (_enRoute); default { _enRouteCoef; };
     };
 
-    private _rerouteChangeOrder = [_onInitializeRerouteChangeOrder] call KPLIB_fnc_changeOrders_create;
+    // De-con bits of the CREATED TIMER for use during REBASE
+    ([_duration] call KPLIB_fnc_timers_create) params [
+        "_0"
+        , ["_startTime", 0, [0]]
+    ];
 
-    [_namespace, _rerouteChangeOrder, true] call KPLIB_fnc_changeOrders_processOne;
+    private _elapsedTime = _rerouteCoefficient * _duration;
+
+    [_duration, _startTime, _elapsedTime, _duration - _elapsedTime] call KPLIB_fnc_timers_rebase;
 };
 
-// TODO: TBD: add CBA setting, whether to automatically "abort" a rerouted line...
-// TODO: TBD: add CBA setting, the penalty for doing so... for now will assume 50%
-KPLIB_param_logistics_reroutedTransitPenalty = 0.5;
+/* Starting with: always EN_ROUTE, just a matter of "when" to consider transit REROUTE; whatever else
+ * STATUS got morphed into throughout, does not matter, is now EN_ROUTE afresh, and we rinse and repeat
+ * the whole state machine, picking up from this moment forward. One likely outcome, if it means the
+ * LINE landed deep in enemy territory and gets BLOCKED, so be it, is highly unlikely that this would
+ * not be the outcome, unless the team happens to have liberated a multitude of sectors. Also, ABORTING
+ * because we want to free up the line as quickly as possible due to potential conflicts with other
+ * lines on account of the ABANDONED recovery.
+ */
+[_namespace, [
+    ["KPLIB_logistics_status", KPLIB_logistics_status_enRouteAborting]
+    , ["KPLIB_logistics_timer", _timer]
+]] call KPLIB_fnc_namespace_setVars;
 
-private _penalized = if (!_processed) then {
-    false;
-} else {
-    [_namespace, (_oldElapsedTime * KPLIB_param_logistics_reroutedTransitPenalty)] call {
-        params [
-            ["_namespace", locationNull, [locationNull]]
-            , ["_reroutedTimeDelta", 0, [0]]
-        ];
+private _rerouted = true;
 
-        ([_namespace, [
-            ["KPLIB_logistics_status", KPLIB_logistics_status_standby]
-            , ["KPLIB_logistics_timer", +KPLIB_timers_default]
-        ]] call KPLIB_fnc_namespace_getVars) params [
-            "_newStatus"
-            , "_newTimer"
-        ];
-
-        // // TODO: TBD: whether to add an abandoned mask, or simply log it and re-route...
-        // private _abandonedMask = KPLIB_logistics_status_abandoned + KPLIB_logistics_status_aborting;
-        // _status = [_status, _abandonedMask] call KPLIB_fnc_logistics_setStatus;
-
-        // Whatever else the operation is doing, we are also clearing the ABANDONED flag
-        _newStatus = [_newStatus, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_unsetStatus;
-
-        // Identify the new TIMER elements as reference
-        _newTimer params [
-            "_newDuration"
-            , "_newStartTime"
-            , "_newElapsedTime"
-            , "_newTimeRemaining"
-        ];
-
-        private _reroutedTimer = [
-            _newDuration
-            , _newStartTime
-            , (_newElapsedTime + _reroutedTimeDelta) min _newDuration
-            , 0 max (_newTimeRemaining - _reroutedTimeDelta)
-        ];
-
-        [_namespace, [
-            ["KPLIB_logistics_status", _newStatus]
-            , ["KPLIB_logistics_timer", _reroutedTimer call KPLIB_fnc_timers_rebase]
-        ]] call KPLIB_fnc_namespace_setVars;
-
-        true;
+if (_rerouted) then {
+    _msg = localize "STR_KPLIB_LOGISTICS_MSG_MISSION_REROUTED";
+    if (_debug) then {
+        [format ["[fn_logisticsCO_onMissionReroute] %1", _msg], "LOGISTICSCO", true] call KPLIB_fnc_common_log;
+    };
+    if (_cid >= 0) then {
+        [_msg] remoteExec ["KPLIB_fnc_notification_hint", _cid];
     };
 };
 
-_processed && _penalized;
+_rerouted;

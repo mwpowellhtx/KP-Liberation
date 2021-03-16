@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-06 10:16:28
-    Last Update: 2021-03-13 17:30:33
+    Last Update: 2021-03-15 18:44:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -26,6 +26,9 @@ class logisticsCO {
 
     // Returns whether the caller should perform debugging
     class logisticsCO_debug {};
+
+    // Arranges for CBA settings exposed to the LOGISTICS CHANGE ORDERS module
+    class logisticsCO_settings {};
 
     // Client requests that the server build a LOGISTIC LINE TRANSPORT
     class logisticsCO_onRequestTransportBuild {};

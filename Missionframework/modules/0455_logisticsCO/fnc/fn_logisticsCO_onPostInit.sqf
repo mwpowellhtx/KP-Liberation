@@ -59,6 +59,7 @@ if (isServer) then {
     [KPLIB_logisticsCO_requestTransportRecycle, KPLIB_fnc_logisticsCO_onRequestTransportRecycle] call CBA_fnc_addEventHandler;
 
     [KPLIB_logisticsCO_requestMissionConfirm, KPLIB_fnc_logisticsCO_onRequestMissionConfirm] call CBA_fnc_addEventHandler;
+    [KPLIB_logisticsCO_requestMissionReroute, KPLIB_fnc_logisticsCO_onRequestMissionReroute] call CBA_fnc_addEventHandler;
     [KPLIB_logisticsCO_requestMissionAbort, KPLIB_fnc_logisticsCO_onRequestMissionAbort] call CBA_fnc_addEventHandler;
 };
 

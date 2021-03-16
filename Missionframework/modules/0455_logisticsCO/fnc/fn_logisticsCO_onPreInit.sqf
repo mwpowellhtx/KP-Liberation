@@ -28,6 +28,8 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
+[] call KPLIB_fnc_logisticsCO_settings;
+
 // Dots connecting across client server boundaries including UI event handling scaffolding
 KPLIB_logisticsCO_requestAddOrRemoveLines   = "KPLIB_logisticsCO_requestAddOrRemoveLines";
 
@@ -35,6 +37,7 @@ KPLIB_logisticsCO_requestTransportBuild     = "KPLIB_logisticsCO_requestTranspor
 KPLIB_logisticsCO_requestTransportRecycle   = "KPLIB_logisticsCO_recycleTransportBuild";
 
 KPLIB_logisticsCO_requestMissionConfirm     = "KPLIB_logisticsCO_requestMissionConfirm";
+KPLIB_logisticsCO_requestMissionReroute     = "KPLIB_logisticsCO_requestMissionReroute";
 KPLIB_logisticsCO_requestMissionAbort       = "KPLIB_logisticsCO_requestMissionAbort";
 
 // The individual status flags in which a TRANSPORT CHANGE ORDER request may occur
@@ -64,23 +67,23 @@ if (isServer) then {
     KPLIB_param_logisticsCO_onMissionConfirmEntering_debug      = false;
     KPLIB_param_logisticsCO_onMissionConfirm_debug              = false;
 
-    KPLIB_param_logisticsCO_onRequestMissionReroute_debug       = true;
-    KPLIB_param_logisticsCO_onMissionRerouteEntering_debug      = true;
+    KPLIB_param_logisticsCO_onRequestMissionReroute_debug       = false;
+    KPLIB_param_logisticsCO_onMissionRerouteEntering_debug      = false;
     KPLIB_param_logisticsCO_onMissionReroute_debug              = true;
 
     KPLIB_param_logisticsCO_onRequestMissionAbort_debug         = false;
     KPLIB_param_logisticsCO_onMissionAbortEntering_debug        = false;
-    KPLIB_param_logisticsCO_onMissionAbort_debug                = true;
+    KPLIB_param_logisticsCO_onMissionAbort_debug                = false;
 
-    KPLIB_param_logisticsCO_onMissionBlockedEntering_debug      = true;
-    KPLIB_param_logisticsCO_onMissionBlocked_debug              = true;
+    KPLIB_param_logisticsCO_onMissionBlockedEntering_debug      = false;
+    KPLIB_param_logisticsCO_onMissionBlocked_debug              = false;
 
-    KPLIB_param_logisticsCO_onMissionAbandonedEntering_debug    = true;
-    KPLIB_param_logisticsCO_onMissionAbandoned_debug            = true;
+    KPLIB_param_logisticsCO_onMissionAbandonedEntering_debug    = false;
+    KPLIB_param_logisticsCO_onMissionAbandoned_debug            = false;
 
-    KPLIB_param_logisticsCO_onAbortLoading_debug                = true;
-    KPLIB_param_logisticsCO_onAbortUnloading_debug              = true;
-    KPLIB_param_logisticsCO_onAbortEnRoute_debug                = true;
+    KPLIB_param_logisticsCO_onAbortLoading_debug                = false;
+    KPLIB_param_logisticsCO_onAbortUnloading_debug              = false;
+    KPLIB_param_logisticsCO_onAbortEnRoute_debug                = false;
 };
 
 if (!(hasInterface || isDedicated)) then {
