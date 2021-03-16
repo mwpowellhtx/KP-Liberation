@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_calculateToEnableOrDisable.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-02 08:47:45
-    Last Update: 2021-03-15 01:15:16
+    Last Update: 2021-03-15 18:54:00
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -41,6 +41,24 @@ _line params [
     , ["_timer", [], [[]], 4]
     , ["_endpoints", [], [[]]]
     , ["_convoy", [], [[]]]
+];
+
+[
+    KPLIB_logistics_status_standby
+    , KPLIB_logistics_status_loading
+    , KPLIB_logistics_status_unloading
+    , KPLIB_logistics_status_abandoned
+    , KPLIB_logistics_status_ambushed
+    , KPLIB_logistics_status_aborting
+] apply {
+    [_status, _x] call KPLIB_fnc_logistics_checkStatus;
+} params [
+    "_standby"
+    , "_loading"
+    , "_unloading"
+    , "_abandoned"
+    , "_ambushed"
+    , "_aborting"
 ];
 
 if (_debug) then {
@@ -130,21 +148,15 @@ switch (true) do {
 
         [_mayRemoveLine, false] call _onShouldEnable;
 
-        private _mayBuildTransports = [_status, KPLIB_logistics_status_loadingUnloading] call KPLIB_fnc_logistics_checkStatus;
-
         private _mayRecycleTransports = switch (true) do {
-            case ([_status, KPLIB_logistics_status_loading] call KPLIB_fnc_logistics_checkStatus): {
-                // LOADING maintains a "lock" on the next available UNLOADED transport
-                (_transportCount > 0) && ((_transportCount - _loadedTransportCount) > 1);
-            };
-            case ([_status, KPLIB_logistics_status_unloading] call KPLIB_fnc_logistics_checkStatus): {
-                // Whereas UNLOADING has already CLEARED all of the unloaded transports
-                (_transportCount > 0) && ((_transportCount - _loadedTransportCount) > 0);
-            };
+            // LOADING maintains a "lock" on the next available UNLOADED transport
+            case (_loading): { (_transportCount > 0) && ((_transportCount - _loadedTransportCount) > 1); };
+            // Whereas UNLOADING has already CLEARED all of the unloaded transports
+            case (_unloading): { (_transportCount > 0) && ((_transportCount - _loadedTransportCount) > 0); };
             default { false; };
         };
 
-        [_mayBuildConvoyTransports, _mayBuildTransports] call _onShouldEnable;
+        [_mayBuildConvoyTransports, (_loading || _unloading)] call _onShouldEnable;
         // TODO: TBD: loading recycle: maintain N+1 transports, where N are the loaded transports, "lock" on the next one being loaded
         // TODO: TBD: unloading recycling: maintain N transports, all unloaded transports are clear to recycle
         [_mayRecycleConvoyTransports, _mayRecycleTransports] call _onShouldEnable;
@@ -157,22 +169,16 @@ switch (true) do {
         [_mayConfirm, false] call _onShouldEnable;
 
         // Only REROUTE running lines when 1+ ENDPOINTS determined to have been ABANDONED
-        [
-            _mayReroute
-            , [_status, KPLIB_logistics_status_abandonedAmbushed] call KPLIB_fnc_logistics_checkStatus
-        ] call _onShouldEnable;
+        [_mayReroute, _abandoned] call _onShouldEnable;
 
-        // May always ABORT running lines as long as neither ABORTING nor AMBUSHED...
-        [
-            _mayAbort
-            , !([_status, KPLIB_logistics_status_abortingAmbushed] call KPLIB_fnc_logistics_checkStatus)
-        ] call _onShouldEnable;
+        // May not ABORT when already one of these three 'A's ...
+        [_mayAbort, !(_abandoned || _aborting || _ambushed)] call _onShouldEnable;
     };
     default {
 
-        [_mayRemoveLine, _transportCount == 0] call _onShouldEnable;
+        [_mayRemoveLine, (_transportCount == 0)] call _onShouldEnable;
         [_mayBuildConvoyTransports] call _onShouldEnable;
-        [_mayRecycleConvoyTransports, _transportCount > 0] call _onShouldEnable;
+        [_mayRecycleConvoyTransports, (_transportCount > 0)] call _onShouldEnable;
 
         private _endpointCtrls = ["KPLIB_logisticsMgr_cboAlpha", "KPLIB_logisticsMgr_cboBravo"] apply {
             uiNamespace getVariable [_x, controlNull];

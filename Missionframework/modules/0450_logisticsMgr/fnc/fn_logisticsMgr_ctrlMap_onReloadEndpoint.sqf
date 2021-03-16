@@ -24,9 +24,11 @@
 
 params [
     ["_ctrlMap", controlNull, [controlNull]]
-    , ["_endpoint", [], [[]], 4]
+    , ["_endpoint", [], [[]]]
     , ["_markerType", KPLIB_logisticsMgr_loadingClassName, [""]]
 ];
+
+[_endpoint] call KPLIB_fnc_logistics_normalizeEndpoint;
 
 _endpoint params [
     ["_pos", +KPLIB_zeroPos, [[]], 3]

@@ -1,7 +1,7 @@
 /*
-    KPLIB_fnc_logisticsMgr_btnRetoute_onButtonClick
+    KPLIB_fnc_logisticsMgr_btnReroute_onButtonClick
 
-    File: fn_logisticsMgr_btnRetoute_onButtonClick.sqf
+    File: fn_logisticsMgr_btnReroute_onButtonClick.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-13 17:00:14
     Last Update: 2021-03-13 17:00:16

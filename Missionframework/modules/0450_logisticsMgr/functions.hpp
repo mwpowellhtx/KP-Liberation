@@ -153,6 +153,9 @@ class logisticsMgr {
     // Confirm mission CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnConfirm_onButtonClick {};
 
+    // Reroute mission CT_BUTTON 'onButtonClick' event handler
+    class logisticsMgr_btnReroute_onButtonClick {};
+
     // Abort mission CT_BUTTON 'onButtonClick' event handler
     class logisticsMgr_btnAbort_onButtonClick {};
 
