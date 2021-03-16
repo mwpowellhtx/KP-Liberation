@@ -72,6 +72,9 @@ class logistics {
     // Returns whether the candidate ENDPOINTS are considered UNIQUE given the set of LINES
     class logistics_areEndpointsUnique {};
 
+    // Returns the ENDPOINT indexes given the current set of known ENDPOINTS
+    class logistics_getEndpointIndexes {};
+
     // Returns whether either of the ENDPOINTS can be considered ABANDONED
     class logistics_areEndpointsAbandoned {};
 
@@ -146,4 +149,10 @@ class logistics {
 
     // ...
     class logistics_convoyIsEmpty {};
+
+    // Normalizes the ENDPOINT to standard form factor, potentially inclusive of BILL VALUE
+    class logistics_normalizeEndpoint {};
+
+    // Normalizes the ENDPOINTS to an [ALPHA, BRAVO] form factor, potentially inclusive of BILL VALUE
+    class logistics_normalizeEndpoints {};
 };

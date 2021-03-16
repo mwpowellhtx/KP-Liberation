@@ -24,4 +24,8 @@ params [
     ["_targetUuid", "", [""]]
 ];
 
+// TODO: TBD: we can do it this way, but we think it would be compelling to manage these things in a hash map...
+// TODO: TBD: hashmap should have a "_list" member for ordering purposes
+// TODO: TBD: beside that, should also be able to identify namespaces BY UUID hashmap key
+// TODO: TBD: so, managing the _list would be expensive, but for everything else, would be VERY FAST indeed
 [{ (_x getVariable ["KPLIB_logistics_uuid", ""]) isEqualTo _targetUuid; }] call KPLIB_fnc_logistics_getNamespaceBy;

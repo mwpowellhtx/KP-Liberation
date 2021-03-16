@@ -39,7 +39,7 @@ KPLIB_logistics_status_abandoned            = 256;
 
 KPLIB_logistics_status_loadingUnloading     = KPLIB_logistics_status_loading    + KPLIB_logistics_status_unloading;
 KPLIB_logistics_status_loadingEnRoute       = KPLIB_logistics_status_loading    + KPLIB_logistics_status_enRoute;
-KPLIB_logistics_status_loadingNoResource    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResource ;
+KPLIB_logistics_status_loadingNoResource    = KPLIB_logistics_status_loading    + KPLIB_logistics_status_noResource;
 KPLIB_logistics_status_unloadingNoSpace     = KPLIB_logistics_status_unloading  + KPLIB_logistics_status_noSpace;
 KPLIB_logistics_status_ambushedBlocked      = KPLIB_logistics_status_ambushed   + KPLIB_logistics_status_routeBlocked;
 KPLIB_logistics_status_enRouteAmbushed      = KPLIB_logistics_status_enRoute    + KPLIB_logistics_status_ambushed;
@@ -134,6 +134,7 @@ if (isServer) then {
     // KPLIB_param_logistics_calculateArrivalStatus_debug      = false;
     // KPLIB_param_logistics_calculateUnloadingPlan_debug      = false;
     KPLIB_param_logistics_getEndpointOrNearest_debug        = false;
+    KPLIB_param_logistics_getEndpointIndexes_debug          = false;
     KPLIB_param_logistics_areEndpointsAbandoned_debug       = false;
 
     KPLIB_logisticsServer_telemetryDefault = [] call {

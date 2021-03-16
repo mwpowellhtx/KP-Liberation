@@ -25,25 +25,30 @@ private _debug = [
 
 params [
     ["_namespace", locationNull, [locationNull]]
+    , "_candidates"
 ];
+
+if (_debug) then {
+    // TODO: TBD: add logging...
+};
 
 ([_namespace, [
     ["KPLIB_logistics_endpoints", []]
 ]] call KPLIB_fnc_namespace_getVars) params [
-    "_endpoints"
+    "_lineEps"
 ];
 
-private _allEndpoints = [] call KPLIB_fnc_logistics_getEndpoints;
-
-private _whereInAllEndpoints = {
-    _x params ["_0", "_endpointMarker"];
-    private _endpointIndex = _allEndpoints findIf {
-        _x params ["_4", "_candidateMarker"];
-        _endpointMarker isEqualTo _candidateMarker;
-    };
-    _endpointIndex >= 0;
+// Obtain the ENDPOINT INDEXES with or without the CANDIDATES
+private _lineEpIndexes = if (isNil "_candidates") then {
+    [_namespace] call KPLIB_fnc_logistics_getEndpointIndexes;
+} else {
+    [_namespace, _candidates] call KPLIB_fnc_logistics_getEndpointIndexes;
 };
 
-private _abandonedCount = _whereInAllEndpoints count _endpoints;
+private _lineEpCount = { (_x >= 0); } count _lineEpIndexes;
 
-_abandonedCount > 0;
+if (_debug) then {
+    // TODO: TBD: add logging...
+};
+
+_lineEpCount < (count _lineEps);
