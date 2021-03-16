@@ -25,16 +25,22 @@ private _debug = [
 
 params [
     ["_namespace", locationNull, [locationNull]]
-    , "_candidates"
+    , "_candidateEps"
 ];
 
 // Now with the advent of ABANDONED ENDPOINTS, technically no longer "all" ENDPOINTS
-_candidates = if (!isNil "_candidates") then { _candidates; } else {
+_candidateEps = if (!isNil "_candidateEps") then { _candidateEps; } else {
     [] call KPLIB_fnc_logistics_getEndpoints;
 };
 
 // And slice the MARKERS for comparison...
-private _canMarkers = _candidates apply { (_x#1); };
+private _canMarkers = _candidateEps apply {
+    _x params [
+        "_0"
+        , ["_canMarker", "", [""]]
+    ];
+    _canMarker;
+};
 
 if (_debug) then {
     // TODO: TBD: add logging...

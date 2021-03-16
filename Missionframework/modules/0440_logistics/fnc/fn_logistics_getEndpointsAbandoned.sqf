@@ -24,13 +24,19 @@
 
 params [
     ["_namespaces", KPLIB_logistics_namespaces, [[]]]
+    , "_candidateEps"
 ];
 
-private _knownEpMarkers = [[] call KPLIB_fnc_logistics_getEndpoints] call {
-    params [
-        ["_ep", [], [[]]]
+_candidateEps = if (!isNil _candidateEps) then { _candidateEps; } else {
+    [] call KPLIB_fnc_logistics_getEndpoints;
+};
+
+private _canMarkers = _candidateEps apply {
+    _x params [
+        "_0"
+        , ["_canMarker", "", [""]]
     ];
-    _ep apply { (_x#1); };
+    _canMarker;
 };
 
 private _allEpCandidates = [] call {
@@ -48,7 +54,13 @@ private _allEpCandidates = [] call {
     _allEps;
 };
 
-private _abandanedEps = _allEpCandidates select { !((_x#1) in _knownEpMarkers); };
+private _abandanedEps = _allEpCandidates select {
+    _x params [
+        "_0"
+        , ["_epMarker", "", [""]]
+    ];
+    !(_epMarker in _canMarkers);
+};
 
 if (count _abandanedEps > 1) exitWith {
     private _gridRefAlgo = { parseNumber (mapGridPosition _this); };

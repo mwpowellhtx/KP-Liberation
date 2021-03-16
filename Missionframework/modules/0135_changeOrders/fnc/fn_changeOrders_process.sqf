@@ -54,8 +54,6 @@ if (_changeOrders isEqualTo []) exitWith {
     true;
 };
 
-// // TODO: TBD: for whatever reason, maybe this is the problem contributing to the ACCESS_VIOLATION...
-// _changeOrders = +_changeOrders;
 private _changeOrderSnapshot = _changeOrders select { true; };
 private _changeOrderCount = count _changeOrderSnapshot;
 

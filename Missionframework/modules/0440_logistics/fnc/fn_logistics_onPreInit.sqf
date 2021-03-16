@@ -166,6 +166,9 @@ if (isServer) then {
 
     ["KPLIB_doLoad", {[] call KPLIB_fnc_logistics_onLoadData;}] call CBA_fnc_addEventHandler;
     ["KPLIB_doSave", {[] call KPLIB_fnc_logistics_onSaveData;}] call CBA_fnc_addEventHandler;
+
+    // For use when comparing ENDPOINTS, should not also "equal" the ZERO ENDPOINT use case
+    KPLIB_logistics_zeroEndpoint = [] call KPLIB_fnc_normalizeEndpoint;
 };
 
 if (!(hasInterface || isDedicated)) then {
