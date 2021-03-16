@@ -52,10 +52,8 @@ private _onUnsetStatusNamespace = {
         "_status"
     ];
 
-    private _newStatus = [_status, _mask] call _onUnsetStatusRaw;
-
     [_namespace, [
-        ["KPLIB_logistics_status", _newStatus]
+        ["KPLIB_logistics_status", [_status, _mask] call _onUnsetStatusRaw]
     ]] call KPLIB_fnc_namespace_setVars;
 
     _namespace;
