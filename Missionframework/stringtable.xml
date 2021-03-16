@@ -2637,6 +2637,12 @@
         <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_NOT_ABANDONED">
             <English>Unable to reroute logistics missions that are not abandoned.</English>
         </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_CANNOT_REROUTE_INSUFFICIENT">
+            <English>Unable to reroute mission insufficient number of available endpoints.</English>
+        </Key>
+        <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_REROUTED">
+            <English>Mission successfully rerouted.</English>
+        </Key>
         <Key ID="STR_KPLIB_LOGISTICS_MSG_MISSION_AMBUSHED">
             <English>Unable to abort an ambushed logistics mission.</English>
         </Key>
