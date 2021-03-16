@@ -49,14 +49,14 @@ private _pendingOrders = [
             , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionBlockedEntering]
         ]] call KPLIB_fnc_namespace_setVars;
     }
-    // // TODO: TBD: reconnect this dot once we've verified ABANDONED ENDPOINTS themselves...
-    // , {
-    //     [_this, [
-    //         ["KPLIB_logistics_targetUuid", _targetUuid]
-    //         , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionAbandoned]
-    //         , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionAbandonedEntering]
-    //     ]] call KPLIB_fnc_namespace_setVars;
-    // }
+    // TODO: TBD: reconnect this dot once we've verified ABANDONED ENDPOINTS themselves...
+    , {
+        [_this, [
+            ["KPLIB_logistics_targetUuid", _targetUuid]
+            , [KPLIB_changeOrders_onChangeOrder, KPLIB_fnc_logisticsCO_onMissionAbandoned]
+            , [KPLIB_changeOrders_onChangeOrderEntering, KPLIB_fnc_logisticsCO_onMissionAbandonedEntering]
+        ]] call KPLIB_fnc_namespace_setVars;
+    }
 ] apply {
     private _onInitializeChangeOrder = _x;
     [_onInitializeChangeOrder] call KPLIB_fnc_changeOrders_create;
@@ -68,20 +68,20 @@ private _pendingOrders = [
 [_namespace] call KPLIB_fnc_changeOrders_process;
 
 [
-    [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
-    , [_namespace, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_checkStatus
+    [_namespace, KPLIB_logistics_status_abandoned] call KPLIB_fnc_logistics_checkStatus
+    , [_namespace, KPLIB_logistics_status_ambushed] call KPLIB_fnc_logistics_checkStatus
     , [_namespace, KPLIB_logistics_status_routeBlocked] call KPLIB_fnc_logistics_checkStatus
     , [_namespace, KPLIB_logistics_status_aborting] call KPLIB_fnc_logistics_checkStatus
 ] params [
-    "_ambushed"
-    , "_abandoned"
+    "_abandoned"
+    , "_ambushed"
     , "_routeBlocked"
     , "_aborting"
 ];
 
 if (_debug) then {
-    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _ambushed, _abandoned, _routeBlocked, _aborting, _beforeTimer]: %1"
-        , str [count _changeOrders, _ambushed, _abandoned, _routeBlocked, _aborting, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_logisticsSM_onPending] Entering: [count _changeOrders, _abandoned, _ambushed, _routeBlocked, _aborting, _beforeTimer]: %1"
+        , str [count _changeOrders, _abandoned, _ambushed, _routeBlocked, _aborting, _beforeTimer]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
 };
 
 ([_namespace, [
@@ -93,8 +93,8 @@ if (_debug) then {
 _changeOrdersTimer = +_changeOrdersTimer;
 
 /* Allowing for timer movement when... without getting too nuts in the heuristics of when to:
- * (BLOCK || !BLOCK), ABORT, ABANDON, etc */
-if ((_aborting && !(_ambushed || _abandoned)) || !(_ambushed || _abandoned || _routeBlocked)) then {
+ * (BLOCK || !BLOCK), ABORT, ABANDON, etc. ABORTING lines get through BLOCK always. */
+if ((_aborting && !(_abandoned || _ambushed)) || !(_abandoned || _ambushed || _routeBlocked)) then {
     [_namespace] call KPLIB_fnc_logisticsSM_onRefreshTimer;
 };
 
