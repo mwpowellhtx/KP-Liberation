@@ -23,14 +23,27 @@ vehicles select {
 
     /* Remembering also, "speed" positive is FORWARD momentum, whereas negative is BACKWARD
      * momentum. Botton line here is MOMENTUM momentum; that is, in ANY direction. */
-    [getPos _x, abs (speed _x)] params ["_pos", "_currentMom"];
+    [
+        getPos _x
+        , abs (speed _x)
+        // TODO: TBD: could potentially configure these...
+        , 5
+        , 5
+    ] params [
+        "_pos"
+        , "_currentMom"
+        , "_maxZ"
+        , "_maxMom"
+    ];
 
-    // TODO: TBD: could potentially configure these...
-    [5, 5] params ["_maxZ", "_maxMom"];
+    // TODO: TBD: what is 'KPLIB_sector_markerName'? should have a specific 'mobile respawn' variable...
 
     // TODO: TBD: may validate the UUID ...
     // TODO: TBD: we'll likely want another per frame updater... for assets transit in and out of zones, Eden, FOB, etc...
+
+    // Include the MR flag, as well as being "away from" the sector marker name
     alive _x
+        && _x getVariable ["KPLIB_asset_isMobileRespawn", false]
         && !((_x getVariable ["KPLIB_sector_markerName", ""]) isEqualTo "")
         && (
             (surfaceIsWater _pos && _x isKindOf "Ship")
