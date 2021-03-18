@@ -26,6 +26,7 @@
 // TODO: TBD: which the caller should have in hand given the tuples...
 params [
     ["_markerName", "", [""]]
+    , ["_range", KPLIB_param_fobRange, [0]]
 ];
 
 private _resources = [0, 0, 0];
@@ -34,7 +35,7 @@ private _resources = [0, 0, 0];
 if (_markerName isEqualTo "") exitWith {_resources};
 
 // Get all storage areas in the vicinity of the marker
-private _storages = nearestObjects [markerPos _markerName, KPLIB_resources_storageClasses, KPLIB_param_fobRange];
+private _storages = nearestObjects [markerPos _markerName, KPLIB_resources_storageClasses, _range];
 
 // Get the stored resource values
 private _supplies = 0;
