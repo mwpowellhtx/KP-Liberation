@@ -13,10 +13,10 @@
 
     Parameter(s):
         _values - The array of values [ARRAY, default: []]
+        _default - A default value that is returned when an element could not be identified [ANY, default: nil]
         _predicate - The predicate to invoke for each of the elements [CODE, default: {}]
             - as a predicate, should return a Boolean for evaluation
             - receives the arguments: [_x, _i], where _x is the element
-        _default - A default value that is returned when an element could not be identified [ANY, default: nil]
         _includeIndex - whether to include the index _i at the predicated element [BOOL, default: false]
 
     Returns:
@@ -31,12 +31,14 @@
 
 // TODO: TBD: ditto error handling for now...
 
-private _defaultPredicate = {true};
+private _defaultPredicate = {
+    true;
+};
 
 params [
     ["_values", [], [[]]]
-    , ["_predicate", _defaultPredicate, [{}]]
     , ["_default", nil]
+    , ["_predicate", _defaultPredicate, [{}]]
     , ["_includeIndex", false, [false]]
 ];
 
