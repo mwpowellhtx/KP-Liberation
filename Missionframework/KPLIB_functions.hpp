@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-03-11 10:40:27
+    Last Update: 2021-03-17 19:10:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -59,7 +59,10 @@ class KPLIB {
     #include "modules\0400_logistic\functions.hpp"
 
     #include "modules\0410_production\functions.hpp"
-    #include "modules\0412_productionsm\functions.hpp"
+    // TODO: TBD: refactoring and cleaning up the PRODUCTIONSM module
+    #include "modules\0412_prodSM\functions.hpp"
+    //#include "modules\0412_productionSM\functions.hpp"
+    #include "modules\0413_productionCO\functions.hpp"
 	#include "modules\0415_productionMgr\functions.hpp"
 
     #include "modules\0420_enemy\functions.hpp"

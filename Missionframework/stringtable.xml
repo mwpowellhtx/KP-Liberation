@@ -2096,11 +2096,11 @@
         <Key ID="STR_KPLIB_SETTINGS_PROD">
             <English>KPLIB - Production</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_PROD_PUBLISHERPERIODSECONDS">
-            <English>Production Publisher Period</English>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_BROADCAST_PERIOD_SECONDS">
+            <English>Production Broadcast Period</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_PROD_PUBLISHERPERIODSECONDS_TT">
-            <English>The production state machine publisher period in seconds. [default: 30s]</English>
+        <Key ID="STR_KPLIB_SETTINGS_PROD_BROADCAST_PERIOD_SECONDS_TT">
+            <English>The production state machine broadcast period in seconds. [default: 1s]</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_PROD_PRODUCERENABLED">
             <English>Produces Resources</English>
@@ -2554,11 +2554,14 @@
         <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_SECTORNOTFOUND">
             <English>&apos;%1&apos; factory sector production could not be found.</English>
         </Key>
-        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_QUEUEDEPTH">
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_QUEUE_DEPTH">
             <English>Cannot exceed production queue depth (%1).</English>
         </Key>
-        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_INSUFFICIENTCAP">
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_CAP_INSUFFICIENT">
             <English>&apos;%1&apos; insufficient production capability to support request.</English>
+        </Key>
+        <Key ID="STR_KPLIB_PRODUCTIONMGR_NOTIFICATION_FORMAT_CHANGED">
+            <English>&apos;%1&apos; production queue changed.</English>
         </Key>
     </Package>
 
