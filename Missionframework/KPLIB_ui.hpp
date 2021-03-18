@@ -39,6 +39,5 @@
 // TODO: TBD: also focused on production, logistics, probably overlay, assets, ironing out the wrinkles...
 #include "KPGUI\XGUI_defines.hpp"
 #include "KPGUI\XGUI_classes.hpp"
-#include "modules\0415_prodMgr\ui.hpp"
-//#include "modules\0415_productionMgr\ui.hpp"
+#include "modules\0415_productionMgr\ui.hpp"
 #include "modules\0450_logisticsMgr\ui.hpp"

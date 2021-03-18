@@ -12,7 +12,7 @@
 */
 
 class productionMgr {
-    file = "modules\0415_prodMgr\fnc";
+    file = "modules\0415_productionMgr\fnc";
 
     class productionMgr_debug {};
 
