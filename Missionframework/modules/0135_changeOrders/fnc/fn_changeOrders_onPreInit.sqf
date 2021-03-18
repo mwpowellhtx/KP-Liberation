@@ -32,6 +32,7 @@ KPLIB_changeOrders_orders                           = "KPLIB_changeOrders_orders
 
 KPLIB_changeOrders_onChangeOrder                    = "KPLIB_changeOrders_onChangeOrder";
 KPLIB_changeOrders_onChangeOrderEntering            = "KPLIB_changeOrders_onChangeOrderEntering";
+KPLIB_changeOrders_onChangeOrderComplete            = "KPLIB_changeOrders_onChangeOrderComplete";
 
 if (isServer) then {
     // Server section (dedicated and player hosted)

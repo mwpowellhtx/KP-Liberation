@@ -34,17 +34,22 @@ params [
 ([_changeOrder, [
     [KPLIB_changeOrders_onChangeOrder, { false; }]
     , [KPLIB_changeOrders_onChangeOrderEntering, { false; }]
+    , [KPLIB_changeOrders_onChangeOrderComplete, {}]
 ], _callerName] call KPLIB_fnc_namespace_getVars) params [
     "_onChangeOrder"
-    , "_onChangeOrderEntered"
+    , "_onChangeOrderEntering"
+    , "_onChangeOrderComplete"
 ];
 
-private _processed = false;
-private _entered = [_target, _changeOrder] call _onChangeOrderEntered;
+private _entered = [_target, _changeOrder] call _onChangeOrderEntering;
 
-if (_entered) then {
+private _processed = if (!_entered) then { false; } else {
     [_target, _changeOrder] call _onChangeOrder;
-    _processed = true;
+    true;
+};
+
+if (_processed) then {
+    [_target, _changeOrder] call _onChangeOrderComplete;
 };
 
 if (_resetQueue) then {
