@@ -63,7 +63,8 @@ class KPLIB {
     #include "modules\0412_prodSM\functions.hpp"
     //#include "modules\0412_productionSM\functions.hpp"
     #include "modules\0413_productionCO\functions.hpp"
-	#include "modules\0415_productionMgr\functions.hpp"
+    #include "modules\0415_prodMgr\functions.hpp"
+    //#include "modules\0415_productionMgr\functions.hpp"
 
     #include "modules\0420_enemy\functions.hpp"
     #include "modules\0430_cratefiller\functions.hpp"
