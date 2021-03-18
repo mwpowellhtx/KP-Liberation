@@ -1,10 +1,10 @@
 /*
-    KPLIB_fnc_productionsm_getCapabilityCost
+    KPLIB_fnc_productionCO_makeCapDebit
 
-    File: fn_productionsm_getCapabilityCost.sqf
+    File: fn_productionCO_makeCapDebit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-18 11:30:50
-    Last Update: 2021-02-18 11:30:52
+    Last Update: 2021-03-17 08:04:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -29,9 +29,9 @@
 
 private _debug = [
     [
-        "KPLIB_param_productionsm_calculators_debug"
+        {KPLIB_param_productionCO_makeCapDebit_debug}
     ]
-] call KPLIB_fnc_productionsm_debug;
+] call KPLIB_fnc_productionCO_debug;
 
 params [
     ["_supplyMask", false, [false]]
@@ -46,8 +46,8 @@ private _mask = [
 ];
 
 if (_debug) then {
-    [format ["[fn_productionsm_getCapabilityCost] Entering: [_mask]: %1"
-        , str [_mask]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionCO_getCapabilityCost] Entering: [_mask]: %1"
+        , str [_mask]], "PRODUCTIONCO", true] call KPLIB_fnc_common_log;
 };
 
 private _retval = _mask apply {
@@ -59,8 +59,8 @@ private _retval = _mask apply {
 };
 
 if (_debug) then {
-    [format ["[fn_productionsm_getCapabilityCost] Finished: [_retval]: %1"
-        , str [_retval]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionCO_getCapabilityCost] Finished: [_retval]: %1"
+        , str [_retval]], "PRODUCTIONCO", true] call KPLIB_fnc_common_log;
 };
 
 _retval;
