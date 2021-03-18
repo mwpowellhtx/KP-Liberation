@@ -55,6 +55,7 @@ if (_debug) then {
 // Just replace the known '_productionState' and be done with it
 _display setVariable ["_productionState", _productionState];
 
+// TODO: TBD: might introduce the "reload" bits here as well...
 // TODO: TBD: do we need to inject any config? i.e. 
 [_display displayCtrl KPLIB_IDC_PRODUCTIONMGR_LNBSECTORS] call KPLIB_fnc_productionMgr_lnbSectors_onLoad;
 

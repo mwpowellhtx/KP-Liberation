@@ -32,10 +32,10 @@ params [
 ];
 
 // 'Forced' is implied now, by the fact that a manager dialog has been announced to the server
-["KPLIB_productionsm_onProductionMgrOpened", [clientOwner]] call CBA_fnc_serverEvent;
+[KPLIB_productionSM_productionMgrOpened, [true, clientOwner]] call CBA_fnc_serverEvent;
 
 if (_debug) then {
-    ["[fn_productionMgr_btnRefresh_onButtonClick] Finished", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    ["[fn_productionMgr_btnRefresh_onButtonClick] Fini", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;

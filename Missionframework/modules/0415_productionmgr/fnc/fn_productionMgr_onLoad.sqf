@@ -58,7 +58,7 @@ private _eids = [];
     // TODO: TBD: mgr dlg should BIS_fnc_sortBy 'parseNumber _gridref' ... ascending, by default...
     // TODO: TBD: although would be interesting to indicate sort order up or down... i.e. when clicking a title row, let's say...
 
-    ["KPLIB_productionMgr_onProductionStatePublished", KPLIB_fnc_productionMgr_onProductionStatePublished]
+    [KPLIB_productionMgr_productionStatePublished, KPLIB_fnc_productionMgr_onProductionStatePublished]
 ];
 
 private _btnRefresh = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_BTNREFRESH;
@@ -68,7 +68,7 @@ private _btnRefresh = _display displayCtrl KPLIB_IDC_PRODUCTIONMGR_BTNREFRESH;
 // Use spawn because we are invoking such within the scope of an event handler.
 
 if (_debug) then {
-    [format ["[fn_productionMgr_onLoad] Finished: [_eids]: %1", str [_eids]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionMgr_onLoad] Fini: [_eids]: %1", str [_eids]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;

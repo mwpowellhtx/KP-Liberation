@@ -124,14 +124,12 @@ if (_targetIndex >= 0 && _targetIndex < count _queue) then {
             _values;
         };
 
-        private _eventName = "KPLIB_productionsm_raiseChangeQueue";
-
         if (_debug) then {
-            [format ["[fn_productionMgr_btnChangePriority_onButtonClick] Server event: [_eventName, _markerName, _queue, _candidateQueue, _queueIndex, _targetIndex, _cid]: %1"
-                , str [_eventName, _markerName, _queue, _candidateQueue, _queueIndex, _targetIndex, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+            [format ["[fn_productionMgr_btnChangePriority_onButtonClick] Server event: [_markerName, _queue, _candidateQueue, _queueIndex, _targetIndex, _cid]: %1"
+                , str [_markerName, _queue, _candidateQueue, _queueIndex, _targetIndex, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
         };
 
-        [_eventName, [_markerName, _candidateQueue, clientOwner]] spawn CBA_fnc_serverEvent;
+        [KPLIB_productionCO_requestChangeQueue, [_markerName, _candidateQueue, clientOwner]] spawn CBA_fnc_serverEvent;
 
     } else {
         if (_debug) then {

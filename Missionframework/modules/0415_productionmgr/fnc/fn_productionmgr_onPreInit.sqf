@@ -31,10 +31,13 @@ if (isServer) then {
     // Server side init
 };
 
+KPLIB_productionMgr_productionStatePublished            = "KPLIB_productionMgr_productionStatePublished";
+
 // TODO: TBD: lays any ground work, client or server, required to support the module
 if (hasInterface) then {
 
     KPLIB_param_productionMgr_debug = false;
+    KPLIB_param_productionMgr_btnEnqueue_onButtonClick_debug = true;
     KPLIB_param_productionMgr_lnbSectors_debug = false;
     KPLIB_param_productionMgr_timer_debug = false;
 
@@ -46,6 +49,7 @@ if (hasInterface) then {
         , [false, "no"]
     ];
 
+    // TODO: TBD: transition to "zeroed prod API" ...
     // Not quite 'empty' but it is a known default state
     KPLIB_productionMgr_productionElem_default = +[
         ["", ""]

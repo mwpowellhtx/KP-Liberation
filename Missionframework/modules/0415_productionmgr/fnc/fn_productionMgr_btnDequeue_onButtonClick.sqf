@@ -66,14 +66,12 @@ private _queueIndex = _rowIndex - 1;
 
 private _resourceIndex = _candidateQueue deleteAt _queueIndex;
 
-private _eventName = "KPLIB_productionsm_raiseChangeQueue";
-
 if (_debug) then {
-    [format ["[fn_productionMgr_btnDequeue_onButtonClick] Server event: [_eventName, _markerName, _queue, _candidateQueue, _queueIndex, _resourceIndex, _cid]: %1"
-        , str [_eventName, _markerName, _queue, _candidateQueue, _queueIndex, _resourceIndex, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionMgr_btnDequeue_onButtonClick] Server event: [_markerName, _queue, _candidateQueue, _queueIndex, _resourceIndex, _cid]: %1"
+        , str [_markerName, _queue, _candidateQueue, _queueIndex, _resourceIndex, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
-[_eventName, [_markerName, _candidateQueue, clientOwner]] spawn CBA_fnc_serverEvent;
+[KPLIB_productionCO_requestChangeQueue, [_markerName, _candidateQueue, clientOwner]] spawn CBA_fnc_serverEvent;
 
 if (_debug) then {
     ["[fn_productionMgr_btnDequeue_onButtonClick] Finished.", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;

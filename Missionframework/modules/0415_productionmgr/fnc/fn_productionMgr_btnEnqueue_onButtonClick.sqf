@@ -27,7 +27,11 @@
         https://cbateam.github.io/CBA_A3/docs/files/events/fnc_serverEvent-sqf.html
 */
 
-private _debug = [] call KPLIB_fnc_productionMgr_debug;
+private _debug = [
+    [
+        {KPLIB_param_productionMgr_btnEnqueue_onButtonClick_debug}
+    ]
+] call KPLIB_fnc_productionMgr_debug;
 
 params [
     ["_ctrl", controlNull, [controlNull]]
@@ -59,21 +63,20 @@ if (_markerName isEqualTo "" || !(_resourceIndex in KPLIB_resources_indexes)) ex
     true;
 };
 
-private _eventName = "KPLIB_productionsm_raiseChangeQueue";
 private _queue = [] call KPLIB_fnc_productionMgr_getSelectedQueue;
 
 // Always append enqueued resource requests to the tail of the queue
 private _candidateQueue = _queue + [_resourceIndex];
 
 if (_debug) then {
-    [format ["[fn_productionMgr_btnEnqueue_onButtonClick] Server event: [_eventName, _markerName, _queue, _candidateQueue, _cid]: %1"
-        , str [_eventName, _markerName, _queue, _candidateQueue, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    [format ["[fn_productionMgr_btnEnqueue_onButtonClick] Server event: [_markerName, _queue, _candidateQueue, _cid]: %1"
+        , str [_markerName, _queue, _candidateQueue, clientOwner]], "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
-[_eventName, [_markerName, _candidateQueue, clientOwner]] spawn CBA_fnc_serverEvent;
+[KPLIB_productionCO_requestChangeQueue, [_markerName, _candidateQueue, clientOwner]] spawn CBA_fnc_serverEvent;
 
 if (_debug) then {
-    ["[fn_productionMgr_btnEnqueue_onButtonClick] Finished.", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
+    ["[fn_productionMgr_btnEnqueue_onButtonClick] Fini", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
 true;
