@@ -12,8 +12,6 @@
 */
 
 class KPLIB {
-    // // TODO: TBD: ditto refactoring and cleaning it up...
-    #include "modules\0412_prodSM\statemachine\production.hpp"
-    //#include "modules\0412_productionSM\statemachine\production.hpp"
+    #include "modules\0412_productionSM\statemachine\production.hpp"
     #include "modules\0445_logisticsSM\statemachine\logistics.hpp"
 };

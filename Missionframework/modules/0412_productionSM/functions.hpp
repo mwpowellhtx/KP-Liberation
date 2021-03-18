@@ -15,7 +15,7 @@
 */
 
 class productionSM {
-    file = "modules\0412_prodSM\fnc";
+    file = "modules\0412_productionSM\fnc";
 
     // Module pre initialization
     class productionSM_onPreInit {
