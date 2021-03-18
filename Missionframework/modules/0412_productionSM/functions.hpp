@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-18 20:53:04
-    Last Update: 2021-02-22 11:36:47
+    Last Update: 2021-03-18 18:27:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -27,50 +27,17 @@ class productionSM {
         postInit = 1;
     };
 
-    //
+    // Indicates to the caller whether to debug
     class productionSM_debug {};
 
-    //
+    // Prepares the module settings for use via CBA
     class productionSM_settings {};
 
-    //
+    // Creates a PRODUCTION state machine for use throughout the module
     class productionSM_createSM {};
 
     // Gets the list with every state machine iteration
     class productionSM_onGetList {};
-
-    ////
-    //class productionSM_getNamespace {};
-
-    ////
-    //class productionSM_enqueueChangeOrder {};
-
-    ////
-    //class productionSM_dequeueChangeOrder {};
-
-    ////
-    //class productionSM_hasChangeOrders {};
-
-    ////
-    //class productionSM_hasPublicationTimer {};
-
-    ////
-    //class productionSM_hasProductionTimer {};
-
-    ////
-    //class productionSM_onNextChangeOrder {};
-
-    ////
-    //class productionSM_hasQueueRemaining {};
-
-    ////
-    //class productionSM_onPublishRequestTransition {};
-
-    ////
-    //class productionSM_isRunning {};
-
-    ////
-    //class productionSM_isSecure {};
 
     // Event handler responds when client opens the production manager dialog
     class productionSM_onProductionMgrOpened {};
@@ -78,47 +45,11 @@ class productionSM {
     // Event handler responsds when client closes the production manager dialog
     class productionSM_onProductionMgrClosed {};
 
-    ////
-    //class productionSM_onPublisher {};
-
-    ////
-    //class productionSM_onPublisherEntered {};
-
-    ////
-    //class productionSM_onPublisherLeaving {};
-
-    ////
-    //class productionSM_onScheduler {};
-
-    ////
-    //class productionSM_onProducingResourceRaised {};
-
-    ////
-    //class productionSM_hasManagers {};
-
-    ////
-    //class productionSM_onPublicationTimerRefresh {};
-
-    ////
-    //class productionSM_onForcedPublication {};
-
-    ////
-    //class productionSM_onTimerReset {};
-
-    ////
-    //class productionSM_onTimerRestart {};
-
-    ////
-    //class productionSM_onTimerRefreshOrRestart {};
-
     // No operation placeholder used to debug...
     class productionSM_onNoOp {};
 
     // CBA PRODUCTION namespace REBASE 'onStateEntered' event handler
     class productionSM_onRebaseEntered {};
-
-    // // CBA PRODUCTION namespace process CHANGE ORDERS helper function
-    // class productionSM_onProcessOrders {};
 
     // CBA PRODUCTION namespace PENDING 'onState' event handler
     class productionSM_onStandbyOrPending {};
@@ -147,10 +78,10 @@ class productionSM {
     // Schedules the next PRODUCTIOM TIMER when there is QUEUE PENDING
     class productionSM_onScheduleTimer {};
 
-    //
+    // Broadcasts the current PRODUCTION TUPLES to listening managers
     class productionSM_onBroadcast {};
 
-    //
+    // Publishes the current PRODUCTION TUPLES to one listening manager
     class productionSM_onPublish {};
 
     // Returns whether the BROADCAST TIMER has elapsed; automatically resets the timer when it has elapsed

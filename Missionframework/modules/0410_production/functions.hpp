@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-04 12:34:49
-    Last Update: 2021-02-17 12:23:42
+    Last Update: 2021-03-18 18:31:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -56,7 +56,7 @@ class production {
     // Verifies that '_this' is in the shape of a CBA production namespace
     class production_verifyNamespace {};
 
-    //
+    // Verifies that the given ARRAY can be considered a valid PRODUCTION QUEUE
     class production_verifyQueue {};
 
     // Converts the given '_this' production array to a CBA production namespace

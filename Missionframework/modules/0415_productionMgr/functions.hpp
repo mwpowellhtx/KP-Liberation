@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 09:57:57
-    Last Update: 2021-02-17 12:26:06
+    Last Update: 2021-03-18 18:30:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -37,10 +37,6 @@ class productionMgr {
 
     // Module display onUnload event handler
     class productionMgr_onUnload {};
-
-    //// TODO: TBD: refactoring these bits to proper client/server callbacks...
-    //// Sectors list box onLoad event handler
-    //class productionMgr_lnbSectors_onLoad {};
 
     // Sectors list box onLoad event handler
     class productionMgr_lnbSectors_onLoad {};
