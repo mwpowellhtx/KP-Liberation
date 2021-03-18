@@ -1,10 +1,10 @@
 /*
-    KPLIB_fnc_productionsm_settings
+    KPLIB_fnc_productionSM_settings
 
-    File: fn_productionsm_settings.sqf
+    File: fn_productionSM_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-23 12:33:28
-    Last Update: 2021-02-23 12:33:31
+    Last Update: 2021-03-17 17:10:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,17 +23,17 @@
 */
 
 [
-    "KPLIB_param_productionsm_publisherPeriodSeconds"
+    "KPLIB_param_productionSM_broadcastPeriodSeconds"
     , "SLIDER"
-    , [localize "STR_KPLIB_SETTINGS_PROD_PUBLISHERPERIODSECONDS", localize "STR_KPLIB_SETTINGS_PROD_PUBLISHERPERIODSECONDS_TT"]
+    , [localize "STR_KPLIB_SETTINGS_PROD_BROADCAST_PERIOD_SECONDS", localize "STR_KPLIB_SETTINGS_PROD_BROADCAST_PERIOD_SECONDS_TT"]
     , localize "STR_KPLIB_SETTINGS_PROD"
-    , [3, 30, 3, 0] // default: 3s, range: [3s, 30s]
+    , [1, 30, 1, 0] // default: 1s, range: [1s, 30s]
     , 2
     , {}
 ] call CBA_Settings_fnc_init;
 
 [
-    "KPLIB_param_productionsm_productionEnabled"
+    "KPLIB_param_productionSM_productionEnabled"
     , "CHECKBOX"
     , [localize "STR_KPLIB_SETTINGS_PROD_PRODUCERENABLED", localize "STR_KPLIB_SETTINGS_PROD_PRODUCERENABLED_TT"]
     , localize "STR_KPLIB_SETTINGS_PROD"
@@ -43,7 +43,7 @@
 ] call CBA_Settings_fnc_init;
 
 [
-    "KPLIB_param_productionsm_preemptLeadTime"
+    "KPLIB_param_productionSM_preemptLeadTime"
     , "CHECKBOX"
     , [localize "STR_KPLIB_SETTINGS_PROD_PREEMPT_LEADTIME", localize "STR_KPLIB_SETTINGS_PROD_PREEMPT_LEADTIME_TT"]
     , localize "STR_KPLIB_SETTINGS_PROD"
@@ -53,7 +53,7 @@
 ] call CBA_Settings_fnc_init;
 
 [
-    "KPLIB_param_productionsm_preemptiveLeadTimeDuration"
+    "KPLIB_param_productionSM_preemptiveLeadTimeDuration"
     , "SLIDER"
     , [localize "STR_KPLIB_SETTINGS_PROD_PREEMPTIVE_LEADTIME_DURATION", localize "STR_KPLIB_SETTINGS_PROD_PREEMPTIVE_LEADTIME_DURATION_TT"]
     , localize "STR_KPLIB_SETTINGS_PROD"
