@@ -31,9 +31,15 @@ if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
     _namespace;
 };
 
-private _markerName = _namespace getVariable ["_markerName", ""];
-private _baseMarkerText = _namespace getVariable ["_baseMarkerText", ""];
-private _capability = +(_namespace getVariable ["_capability", (+KPLIB_resources_capDefault)]);
+([_namespace, [
+    ["KPLIB_production_markerName", ""]
+    , ["KPLIB_production_baseMarkerText", ""]
+    , ["KPLIB_production_capability", +KPLIB_resources_capDefault]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_markerName"
+    , "_baseMarkerText"
+    , "_cap"
+];
 
 // TODO: TBD: might need to refactor "SAF" to appropriate resources module...
 private _renderCap = {
@@ -54,7 +60,7 @@ private _renderCap = {
         _retval;
     };
 
-    ["", _capability, _onRenderCap] call KPLIB_fnc_linq_aggregate;
+    ["", _cap, _onRenderCap] call KPLIB_fnc_linq_aggregate;
 };
 
 // Should never need to tally the text itself, always recalculate from base name and cap

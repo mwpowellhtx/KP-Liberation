@@ -1,10 +1,10 @@
 /*
-    KPLIB_fnc_productionsm_getNamespace
+    KPLIB_fnc_production_getNamespaceByMarker
 
-    File: fn_productionsm_getNamespace.sqf
+    File: fn_production_getNamespaceByMarker.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-19 18:53:34
-    Last Update: 2021-02-19 18:53:37
+    Last Update: 2021-03-17 07:24:22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,9 +20,9 @@
 
 private _debug = [
     [
-        "KPLIB_param_productionsm_calculators_debug"
+        {KPLIB_param_production_getNamespace_debug}
     ]
-] call KPLIB_fnc_productionsm_debug;
+] call KPLIB_fnc_production_debug;
 
 params [
     ["_targetMarker", "", [""]]
@@ -33,12 +33,14 @@ if (_debug) then {
         , str [_targetMarker]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 
-// TODO: TBD: should be its own function...
-private _namespaces = KPLIB_production_namespaces select {
-    // We trap "cap exists" use cases later on, actually...
-    private _markerName = _x getVariable ["_markerName", KPLIB_production_markerNameDefault];
+private _namespaces = [{
+    ([_x, [
+        ["KPLIB_production_markerName", KPLIB_production_markerNameDefault]
+    ]] call KPLIB_fnc_namespace_getVars) params [
+        "_markerName"
+    ];
     _markerName isEqualTo _targetMarker;
-};
+}] call KPLIB_fnc_production_getAllNamespaces;
 
 private _namespace = if (count _namespaces isEqualTo 1) then {
     (_namespaces#0);
@@ -47,7 +49,7 @@ private _namespace = if (count _namespaces isEqualTo 1) then {
 };
 
 if (_debug) then {
-    [format ["[fn_productionsm_getNamespace] Finished: [isNull _namespace]: %1"
+    [format ["[fn_productionsm_getNamespace] Fini: [isNull _namespace]: %1"
         , str [isNull _namespace]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
 };
 

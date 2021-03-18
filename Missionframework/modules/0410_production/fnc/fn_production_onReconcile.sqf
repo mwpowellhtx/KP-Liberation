@@ -40,11 +40,11 @@ if (_debug) then {
         KPLIB_production_ident_i_markerName = 0
  */
 private _staged = _namespaces select {
-    private _markerName = _x getVariable ["_markerName", KPLIB_production_markerNameDefault];
+    private _markerName = _x getVariable ["KPLIB_production_markerName", KPLIB_production_markerNameDefault];
     _markerName in _sectors;
 };
 
-private _currentMarkerNames = _staged apply { _x getVariable ["_markerName", KPLIB_production_markerNameDefault]; };
+private _currentMarkerNames = _staged apply { _x getVariable ["KPLIB_production_markerName", KPLIB_production_markerNameDefault]; };
 private _pendingCreate = _sectors select { !(_x in _currentMarkerNames); };
 
 if (_debug) then {
@@ -64,7 +64,7 @@ private _retval = _sectors apply {
     private _sectorName = _x;
     // Which by this point finding should be guaranteed
     private _i = _staged findIf {
-        private _markerName = _x getVariable ["_markerName", KPLIB_production_markerNameDefault];
+        private _markerName = _x getVariable ["KPLIB_production_markerName", KPLIB_production_markerNameDefault];
         _markerName isEqualTo _sectorName;
     };
     _staged select _i;

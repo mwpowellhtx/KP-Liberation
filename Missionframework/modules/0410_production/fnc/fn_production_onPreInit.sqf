@@ -38,11 +38,13 @@ if (isServer) then {
 if (isServer) then {
     // Server section (dedicated and player hosted)
 
+    KPLIB_param_production_getNamespace_debug           = true;
+
+    KPLIB_production_markerNameDefault                  = "";
+
     // Register load and save event callbacks
     ["KPLIB_doLoad", {[] call KPLIB_fnc_production_onLoadData;}] call CBA_fnc_addEventHandler;
     ["KPLIB_doSave", {[] call KPLIB_fnc_production_onSaveData;}] call CBA_fnc_addEventHandler;
-
-    KPLIB_production_markerNameDefault = "";
 
     // TODO: TBD: verify and/or establish events when sectors are won (or lost) ...
     // TODO: TBD: identify when those sectors are considered factories...

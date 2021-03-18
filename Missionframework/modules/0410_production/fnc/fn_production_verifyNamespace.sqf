@@ -27,11 +27,11 @@ if (isNull _namespace) exitWith { false; };
 
 // There may be other intermediate and transient variables, but these are the core...
 private _expectedVars = [
-    "_markerName"
-    , "_baseMarkerText"
-    , "_timer"
-    , "_capability"
-    , "_queue"
+    "KPLIB_production_markerName"
+    , "KPLIB_production_baseMarkerText"
+    , "KPLIB_production_timer"
+    , "KPLIB_production_capability"
+    , "KPLIB_production_queue"
     , "KPLIB_resources_storageValue"
 ];
 

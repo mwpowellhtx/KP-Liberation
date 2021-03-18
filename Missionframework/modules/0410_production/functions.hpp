@@ -82,4 +82,13 @@ class production {
 
     // Returns whether there is not already target production capability at the given marker
     class production_callback_onWithoutCapability {};
+
+    // Predicate used  to identify where PRODUCTION namespaces "are BLUFOR"
+    class production_whereNamespaceIsBlufor {};
+
+    // Gets all the CBA PRODUCTION namespaces aligned to the PREDICATE
+    class production_getAllNamespaces {};
+
+    // Gets a single CBA PRODUCTION namespace by marker, or locationNull if one could not be found
+    class production_getNamespaceByMarker {};
 };

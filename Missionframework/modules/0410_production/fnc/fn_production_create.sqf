@@ -35,10 +35,10 @@ private _namespace = [] call KPLIB_fnc_production_arrayToNamespace;
  * saved data with the current 'KPLIB_sectors_factory' discovery. */
 
 // Personlize the namespace given the marker name and corresponding text
-_namespace setVariable ["_markerName", _markerName];
-_namespace setVariable ["_baseMarkerText", (markerText _markerName)];
+_namespace setVariable ["KPLIB_production_markerName", _markerName];
+_namespace setVariable ["KPLIB_production_baseMarkerText", (markerText _markerName)];
 
 // We do need to initialize capability given a default, random starting capability
-_namespace setVariable ["_capability", ([] call KPLIB_fnc_production_getDefaultCapability)];
+_namespace setVariable ["KPLIB_production_capability", ([] call KPLIB_fnc_production_getDefaultCapability)];
 
 _namespace;

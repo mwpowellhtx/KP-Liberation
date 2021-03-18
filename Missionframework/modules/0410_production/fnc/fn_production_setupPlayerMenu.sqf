@@ -87,7 +87,7 @@ if (hasInterface) then {
         private _targetMarker = [KPLIB_param_sectorCapRange, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
 
         // Raise the event server side adding factory sector production capability
-        ["KPLIB_productionsm_raiseAddCapability", [_targetMarker, _targetCap, clientOwner]] call CBA_fnc_serverEvent;
+        [KPLIB_productionCO_requestAddCapability, [_targetMarker, _targetCap, clientOwner]] call CBA_fnc_serverEvent;
     };
 
     {

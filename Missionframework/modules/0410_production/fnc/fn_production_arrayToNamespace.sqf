@@ -9,36 +9,30 @@
     Public: No
 
     Description:
-        Converts the SQF ARRAY to a corresponding CBA namespace.
+        Converts the PRODUCTION ARRAY to a corresponding CBA namespace.
 
     Parameter(s):
-        _productionElem - an SQF production element array [ARRAY]
+        _productionElem - an PRODUCTION element array [ARRAY, default: KPLIB_production_default]
 
     Returns:
-        A newly converted CBA production namespace [NAMESPACE]
+        A newly converted CBA PRODUCTION namespace [NAMESPACE]
 
     References:
         https://cbateam.github.io/CBA_A3/docs/files/common/fnc_createNamespace-sqf.html
         https://cbateam.github.io/CBA_A3/docs/files/common/fnc_deleteNamespace-sqf.html
  */
 
-// TODO: TBD: because of snafus in the transition period, was: []
 params [
-    ["_productionElem", (+KPLIB_production_default), [[]], 3]
+    ["_productionElem", +KPLIB_production_default, [[]]]
 ];
 
 private _namespace = [] call CBA_fnc_createNamespace;
 
-//// TODO: TBD: ideally I think we should be able to verify, but let's not for the time being...
-// if ([_productionElem] call KPLIB_fnc_production_verifyArray) exitWith {
-//     _namespace;
-// };
-
 // Will have already been verified above, so only decon what we must...
 _productionElem params [
-    ["_ident", [], [[]], 2]
-    , ["_timer", KPLIB_timers_default, [[]], 4]
-    , ["_info", [], [[]], 3]
+    ["_ident", [], [[]]]
+    , ["_timer", +KPLIB_timers_default, [[]], 4]
+    , ["_info", [], [[]]]
 ];
 
 _ident params [
@@ -52,15 +46,13 @@ _info params [
     , ["_queue", [], [[]]]
 ];
 
-_namespace setVariable ["_markerName", _markerName];
-_namespace setVariable ["_baseMarkerText", _baseMarkerText];
-
-_namespace setVariable ["_timer", (+_timer)];
-
-_namespace setVariable ["_capability", (+_capability)];
-_namespace setVariable ["_queue", (+_queue)];
-
-// 'KPLIB_resources_storageValue' in keeping with recent resources improvements
-_namespace setVariable ["KPLIB_resources_storageValue", (+_storageValue)];
+[_namespace, [
+    ["KPLIB_production_markerName", _markerName]
+    , ["KPLIB_production_baseMarkerText", _baseMarkerText]
+    , ["KPLIB_production_timer", _timer]
+    , ["KPLIB_production_capability", _capability]
+    , ["KPLIB_production_queue", _queue]
+    , ["KPLIB_resources_storageValue", _storageValue]
+]] call KPLIB_fnc_namespace_setVars;
 
 _namespace;

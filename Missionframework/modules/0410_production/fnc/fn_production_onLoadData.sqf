@@ -77,7 +77,7 @@ private _namespaces = _production apply {
 KPLIB_production_loadedData = (+_production);
 
 private _onNamespaceSortByCallback = {
-    private _markerName = _x getVariable ["_markerName", ""];
+    private _markerName = _x getVariable ["KPLIB_production_markerName", ""];
     private _pos = markerPos _markerName;
     private _ref = mapGridPosition _pos;
     parseNumber _ref;

@@ -27,14 +27,19 @@ if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
     [];
 };
 
-private _markerName = _namespace getVariable ["_markerName", ""];
-
-private _ident = [
-    _markerName
-    , _namespace getVariable ["_baseMarkerText", ""]
+([_namespace, [
+    ["KPLIB_production_markerName", ""]
+    , ["KPLIB_production_baseMarkerText", ""]
+    , ["KPLIB_production_timer", +KPLIB_timers_default]
+    , ["KPLIB_production_capability", ([] call KPLIB_fnc_production_getDefaultCapability)]
+    , ["KPLIB_production_queue", []]
+]] call KPLIB_fnc_namespace_getVars) params [
+    "_markerName"
+    , "_baseMarkerText"
+    , "_timer"
+    , "_cap"
+    , "_queue"
 ];
-
-private _timer = _namespace getVariable ["_timer", KPLIB_timers_default];
 
 // TODO: TBD: the factoring here could perhaps be better...
 private _storages = [_markerName] call KPLIB_fnc_resources_getFactoryStorages;
@@ -54,18 +59,15 @@ private _storageValue = [
     }] call KPLIB_fnc_linq_aggregate;
 
 // TODO: TBD: see above note, would want to factor at least through here, and probably extending to the setVariable just below: L57
-_namespace setVariable ["KPLIB_resources_storageValue", _storageValue];
+[_namespace, [
+    ["KPLIB_resources_storageValue", _storageValue]
+]] call KPLIB_fnc_namespace_setVars;
 
-private _info = [
-    _namespace getVariable ["_capability", ([] call KPLIB_fnc_production_getDefaultCapability)]
-    , _namespace getVariable ["KPLIB_resources_storageValue", KPLIB_resources_storageValueDefault]
-    , _namespace getVariable ["_queue", []]
-];
-
+// Bundle the PRODUCTION tuple and return
 private _productionElem = +[
-    _ident
+    [_markerName, _baseMarkerText]
     , _timer
-    , _info
+    , [_cap, _storageValue, _queue]
 ];
 
 _productionElem;
