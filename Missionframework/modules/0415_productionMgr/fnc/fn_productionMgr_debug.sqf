@@ -25,7 +25,7 @@ params [
     ["_additional", [], [[]]]
 ];
 
-_additional pushBackUnique "KPLIB_param_production_debug";
-_additional pushBackUnique "KPLIB_param_productionMgr_debug";
+_additional pushBackUnique {KPLIB_param_production_debug};
+_additional pushBackUnique {KPLIB_param_productionMgr_debug};
 
 [_additional] call KPLIB_fnc_debug_debug;

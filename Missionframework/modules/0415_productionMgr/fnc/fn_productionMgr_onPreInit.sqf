@@ -36,13 +36,14 @@ KPLIB_productionMgr_productionStatePublished            = "KPLIB_productionMgr_p
 // TODO: TBD: lays any ground work, client or server, required to support the module
 if (hasInterface) then {
 
-    KPLIB_param_productionMgr_debug = false;
-    KPLIB_param_productionMgr_btnEnqueue_onButtonClick_debug = true;
-    KPLIB_param_productionMgr_lnbSectors_debug = false;
-    KPLIB_param_productionMgr_timer_debug = false;
+    KPLIB_param_productionMgr_debug                                 = false;
+    KPLIB_param_productionMgr_btnEnqueue_onButtonClick_debug        = true;
+    KPLIB_param_productionMgr_lnbSectors_debug                      = false;
+    KPLIB_param_productionMgr_onProductionStatePublished_debug      = false;
+    KPLIB_param_productionMgr_timer_debug                           = false;
 
-    KPLIB_productionMgr_storageMarkerType = "hd_pickup";
-    KPLIB_productionMgr_storageMarkerColor = KPLIB_preset_colorF;
+    KPLIB_productionMgr_storageMarkerType                           = "hd_pickup";
+    KPLIB_productionMgr_storageMarkerColor                          = KPLIB_preset_colorF;
 
     KPLIB_productionMgr_boolMap = [
         [true, "yes"]
