@@ -178,7 +178,7 @@ if (true) then {
     };
 
     // Allowing for admin debugging ability
-    //["Gori Factory"] call _onAdminDebugging;
+    ["Kore Factory", true, 15] call _onAdminDebugging;
 };
 
 if (isServer) then {

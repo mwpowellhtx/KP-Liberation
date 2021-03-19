@@ -43,6 +43,7 @@ if (isServer) then {
     KPLIB_param_productionSM_onStandbyOrPending_debug           = false;
     KPLIB_param_productionSM_onProcessOrders_debug              = false;
     KPLIB_param_productionSM_hasRunningTimer_debug              = false;
+    KPLIB_param_productionSM_onQualityControlQueue_debug        = false;
     KPLIB_param_productionSM_onUpdateQueue_debug                = false;
     KPLIB_param_productionSM_tryResourceProduction_debug        = false;
     KPLIB_param_productionSM_getProductionTimerDuration_debug   = false;
