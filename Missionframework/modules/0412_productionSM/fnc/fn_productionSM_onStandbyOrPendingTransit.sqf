@@ -48,9 +48,11 @@ private _debug = [
 ([_namespace, [
     ["KPLIB_production_queue", []]
     , ["KPLIB_production_lastResource", -1]
+    , ["KPLIB_production_timer", +KPLIB_timers_default]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_queue"
     , "_lastResource"
+    , "_timer"
 ];
 
 [
@@ -64,13 +66,17 @@ private _debug = [
 ];
 
 private _timer = switch (true) do {
+    case (!_produced): {
+        // Failed to produce, so keep on rolling with the timer until something clears up or mission changes
+        +_timer;
+    };
     case (!_complete): {
-        // TODO: TBD: setup API functions for timers in either direction...
-        // TODO: TBD: and then, maybe we route this in terms of that process one immediate change queue change order...
+        // Mission incomplete but we did produce so roll over to the next timer
         private _duration = [_namespace] call KPLIB_fnc_productionSM_getProductionTimerDuration;
         [_duration] call KPLIB_fnc_timers_create;
     };
-    case (_complete && _reschedule && (_lastResource in KPLIB_resources_indexes)): {
+    case (_complete && _reschedule): {
+        // Mission complete we did produce (i.e. we have a last resource) and rescheduling
         _queue = [_lastResource];
         // TODO: TBD: setup API functions for timers in either direction...
         // TODO: TBD: and then, maybe we route this in terms of that process one immediate change queue change order...

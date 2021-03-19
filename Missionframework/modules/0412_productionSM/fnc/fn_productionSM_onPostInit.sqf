@@ -177,8 +177,8 @@ if (true) then {
         } forEach _namespaces;
     };
 
-    // Allowing for admin debugging ability
-    ["Kore Factory", true, 15] call _onAdminDebugging;
+    // // Allowing for admin debugging ability
+    //["Kore Factory", true, 15] call _onAdminDebugging;
 };
 
 if (isServer) then {

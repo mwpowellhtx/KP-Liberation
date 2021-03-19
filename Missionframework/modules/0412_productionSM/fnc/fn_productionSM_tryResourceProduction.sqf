@@ -80,10 +80,10 @@ if (_debug) then {
  *      1. Unsuccessful, maintain the previous queue, keep timing
  *      2. Successful, reschedule with the new queue in hand, also report the _lastResource produced
  */
-if (_totalAfter isEqualTo _totalBefore) then {
-    _lastResource = -1;
-} else {
+if (_credited && !(_totalAfter isEqualTo _totalBefore)) then {
     _queue = _remaining;
+} else {
+    _lastResource = -1;
 };
 
 if (_debug) then {

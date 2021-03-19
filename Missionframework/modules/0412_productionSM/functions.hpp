@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-18 20:53:04
-    Last Update: 2021-03-18 18:27:37
+    Last Update: 2021-03-19 10:20:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -72,14 +72,8 @@ class productionSM {
     // Gets the LEAD TIME, may return with a PREEMPTIVE LEAD TIME for troubleshooting purposes
     class productionSM_getProductionTimerDuration {};
 
-    // Performs some quality control on the queue
-    class productionSM_onQualityControlQueue {};
-
     // Updates the QUEUE following production one way or another
     class productionSM_onUpdateQueue {};
-
-    // Schedules the next PRODUCTIOM TIMER when there is QUEUE PENDING
-    class productionSM_onScheduleTimer {};
 
     // Broadcasts the current PRODUCTION TUPLES to listening managers
     class productionSM_onBroadcast {};
