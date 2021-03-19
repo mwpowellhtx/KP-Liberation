@@ -68,6 +68,8 @@ if (_debug && _changeOrderCount > 0) then {
         "_timer"
     ];
 
+    [_namespace, _callerName] call KPLIB_fnc_productionSM_onQualityControlQueue;
+
     if (_timer call KPLIB_fnc_timers_isRunning) then {
         [_namespace, [
             ["KPLIB_production_timer", (_timer call KPLIB_fnc_timers_refresh)]

@@ -72,6 +72,9 @@ class productionSM {
     // Gets the LEAD TIME, may return with a PREEMPTIVE LEAD TIME for troubleshooting purposes
     class productionSM_getProductionTimerDuration {};
 
+    // Performs some quality control on the queue
+    class productionSM_onQualityControlQueue {};
+
     // Updates the QUEUE following production one way or another
     class productionSM_onUpdateQueue {};
 
