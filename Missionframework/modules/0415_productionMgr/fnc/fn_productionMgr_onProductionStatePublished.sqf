@@ -26,7 +26,8 @@
 
 private _debug = [
     [
-        "KPLIB_param_productionMgr_lnbSectors_debug"
+        {KPLIB_param_productionMgr_lnbSectors_debug}
+        , {KPLIB_param_productionMgr_onProductionStatePublished_debug}
     ]
 ] call KPLIB_fnc_productionMgr_debug;
 
@@ -38,6 +39,7 @@ if (_debug) then {
     ["[fn_productionMgr_onProductionStatePublished] Entering...", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
 };
 
+// TODO: TBD: so... this is an ALL OR NOTHING proposition... if ANY are invalid then ALL are invalid...
 if (({ !([_x] call KPLIB_fnc_production_verifyArray); } count _productionState) > 0) exitWith {
     if (_debug) then {
         ["[fn_productionMgr_onProductionStatePublished] Invalid production state", "PRODUCTIONMGR", true] call KPLIB_fnc_common_log;
