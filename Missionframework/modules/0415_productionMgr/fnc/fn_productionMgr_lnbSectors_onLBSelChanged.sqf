@@ -72,8 +72,11 @@ private _productionElem = (_selected#0);
         , ["_onLoad", {}, [{}]]
     ];
     private _ctrl = _display displayCtrl _idc;
-    _ctrl setVariable ["_view", _view];
-    [_ctrl] spawn _onLoad;
+    private _currentView = _ctrl getVariable ["_view", []];
+    if (!(_currentView isEqualTo _view)) then {
+        _ctrl setVariable ["_view", _view];
+        [_ctrl] spawn _onLoad;
+    };
 } forEach [
     [
         KPLIB_IDC_PRODUCTIONMGR_LNBSTATUS
