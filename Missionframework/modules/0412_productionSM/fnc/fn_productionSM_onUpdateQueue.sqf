@@ -37,15 +37,29 @@ private _debug = [
     ]
 ] call KPLIB_fnc_productionSM_debug;
 
+if (_debug) then {
+    [format ["[fn_productionSM_onPreInit] Entering: [isNull _namespace, _callerName]: %1"
+        , str [isNull _namespace, _callerName]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
+
 ([_namespace, [
     ["KPLIB_production_queue", []]
+    , ["KPLIB_production_markerName", ""]
+    , ["KPLIB_production_baseMarkerText", ""]
     , ["KPLIB_production_lastResource", -1]
     , ["KPLIB_production_capability", +KPLIB_production_cap_default]
 ]] call KPLIB_fnc_namespace_getVars) params [
     "_queue"
+    , "_markerName"
+    , "_baseMarkerText"
     , "_lastResource"
     , "_cap"
 ];
+
+if (_debug) then {
+    [format ["[fn_productionSM_onPreInit] Evaluating: [_markerName, _baseMarkerText, _queue, _lastResource, _cap]: %1"
+        , str [_markerName, _baseMarkerText, _queue, _lastResource, _cap]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
 
 [
     _lastResource in KPLIB_resources_indexes
@@ -57,8 +71,13 @@ private _debug = [
     , "_reschedule"
 ];
 
+if (_debug) then {
+    [format ["[fn_productionSM_onPreInit] Updating: [_produced, _complete, _reschedule]: %1"
+        , str [_produced, _complete, _reschedule]], "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
+
 // Identify queued production that are still in the cap
-_queue = _queue select { (_cap select _x); };
+_queue = _queue select { (_x in KPLIB_resources_indexes) } select { (_cap select _x); };
 
 // Append the next element on deck when appropriate to do so
 if (_produced && _complete && _reschedule) then {
@@ -69,6 +88,10 @@ if (_produced && _complete && _reschedule) then {
 
 [_namespace, [
     ["KPLIB_production_queue", _queue]
-]] call KPLIB_fnc_namespace_getVars;
+]] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    ["[fn_productionSM_onPreInit] Fini", "PRODUCTIONSM", true] call KPLIB_fnc_common_log;
+};
 
 true;

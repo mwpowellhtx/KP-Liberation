@@ -76,21 +76,14 @@ _timer = ([_timer] + [
 
     private _running = _timer call KPLIB_fnc_timers_isRunning;
 
-    // Or, (_alpha < 0), or by default...
-    private _newTimer = +KPLIB_timers_default;
-
-    // Still having a queue front elements are still the same so keep moving the same timer
-    if (_running && _alpha >= 0 && _alpha == _bravo) then {
-        _newTimer = +_timer;
+    switch (true) do {
+        case (_bravo >= 0 && _alpha == _bravo): { +_timer; };
+        case (_bravo >= 0 && _alpha != _bravo): {
+            private _duration = [_namespace] call KPLIB_fnc_productionSM_getProductionTimerDuration;
+            [_duration] call KPLIB_fnc_timers_create;
+        };
+        default { +KPLIB_timers_default; };
     };
-
-    // Still with a queue but the front elements are now different
-    if (!_running || (_alpha >= 0 && _alpha != _bravo)) then {
-        private _duration = [_namespace] call KPLIB_fnc_productionSM_getProductionTimerDuration;
-        _newTimer = [_duration] call KPLIB_fnc_timers_create;
-    };
-
-    _newTimer;
 };
 
 if (_debug) then {

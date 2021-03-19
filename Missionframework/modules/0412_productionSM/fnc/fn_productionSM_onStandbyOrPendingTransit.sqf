@@ -63,19 +63,21 @@ private _debug = [
     , "_reschedule"
 ];
 
-// TODO: TBD: of course, we assume that production 'PRODUCED', but did it really?
-private _timer = if (_complete && !_reschedule) then {
-    +KPLIB_timers_default;
-} else {
-
-    if (_complete) then {
-        _queue = [_lastResource];
+private _timer = switch (true) do {
+    case (!_complete): {
+        // TODO: TBD: setup API functions for timers in either direction...
+        // TODO: TBD: and then, maybe we route this in terms of that process one immediate change queue change order...
+        private _duration = [_namespace] call KPLIB_fnc_productionSM_getProductionTimerDuration;
+        [_duration] call KPLIB_fnc_timers_create;
     };
-
-    // TODO: TBD: setup API functions for timers in either direction...
-    // TODO: TBD: and then, maybe we route this in terms of that process one immediate change queue change order...
-    private _duration = [_namespace] call KPLIB_fnc_productionSM_getProductionTimerDuration;
-    [_duration] call KPLIB_fnc_timers_create;
+    case (_complete && _reschedule && (_lastResource in KPLIB_resources_indexes)): {
+        _queue = [_lastResource];
+        // TODO: TBD: setup API functions for timers in either direction...
+        // TODO: TBD: and then, maybe we route this in terms of that process one immediate change queue change order...
+        private _duration = [_namespace] call KPLIB_fnc_productionSM_getProductionTimerDuration;
+        [_duration] call KPLIB_fnc_timers_create;
+    };
+    default { +KPLIB_timers_default; };
 };
 
 [_namespace, [
