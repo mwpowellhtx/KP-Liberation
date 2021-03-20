@@ -48,6 +48,7 @@ MSTATUS(_failure)                   =  8;
 MSTATUS(_success)                   = 16;
 MSTATUS(_aborting)                  = 32;
 
+// TODO: TBD: also consider which mission telemetry should be reported...
 MSVAR(_statusReports) = [
     [MSTATUS(_standby), localize "STR_KPLIB_MISSION_STATUS_STANDBY"]
     , [MSTATUS(_started), localize "STR_KPLIB_MISSION_STATUS_STARTED"]
