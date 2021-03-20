@@ -59,6 +59,9 @@ MSVAR(_statusReports) = [
     , [MSTATUS(_aborting), localize "STR_KPLIB_MISSION_STATUS_ABORTING"]
 ];
 
+KPLIB_param_missions_debug              = true;
+
+
 if (isServer) then {
 
     MSVAR(_nameValuePairDefaults) = +[

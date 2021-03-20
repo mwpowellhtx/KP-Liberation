@@ -24,8 +24,20 @@ class mission {
         postInit = 1;
     };
 
+    // Returns whether the caller should do some debugging
+    class missions_debug {};
+
     // CBA Settings initialization for this module
     class missions_settings {};
+
+    // Checks the STATUS of either the raw target, or variable in the CBA MISSION namespace
+    class missions_checkStatus {};
+
+    // Sets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
+    class missions_setStatus {};
+
+    // Unsets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
+    class missions_unsetStatus {};
 
     // Creates a CBA MISSION TEMPLATE namespace
     class missions_createTemplate {};
