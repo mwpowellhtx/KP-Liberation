@@ -36,6 +36,12 @@ class mission {
     // Clones the given CBA MISSION as a new namespace; typically based on a TEMPLATE
     class missions_cloneMission {};
 
+    // Registers ONE MISSION TEMPLATE
+    class missions_registerOne {};
+
+    // Registers zero or more MISSION TEMPLATES
+    class missions_registerMany {};
+
     // Returns the configured REBATE VALUE
     class missions_getRebateValue {};
 
@@ -72,4 +78,13 @@ class mission {
 
     //
     class missions_onNoOp {};
+
+    // Returns a default set of TELEMETRY, or as specified by the CBA MISSION namespace
+    class missions_onNoTelemetry {};
+
+    // Returns the TELEMETRY corresponding to the TUPLE ARRAY form factor
+    class missions_getArrayTelemetry {};
+
+    // Transforms the CBA MISSION namespace to TUPLE ARRAY form factor useful for missions manager clients
+    class missions_namespaceToArray {};
 };

@@ -27,7 +27,7 @@ private _defaultUuid = [] call KPLIB_fnc_uuid_create_string;
 
 params [
     ["_namespace", locationNull, [locationNull]]
-    , ["_variableNamesToClone", +MSVAR(_variablesNamesToClone), [[]]]
+    , ["_variableNamesToClone", +MVAR(_variablesNamesToClone), [[]]]
     , ["_cloneUuid", _defaultUuid, [""]]
 ];
 

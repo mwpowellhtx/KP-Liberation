@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_missions_debug
 
@@ -22,6 +23,6 @@ params [
     ["_additional", [], [[]]]
 ];
 
-_additional pushBackUnique {KPLIB_param_missions_debug};
+_additional pushBackUnique {MSPARAM(_debug)};
 
 [_additional] call KPLIB_fnc_debug_debug;

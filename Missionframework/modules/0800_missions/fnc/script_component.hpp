@@ -24,16 +24,20 @@
 #define Q(x) #x
 #endif // QUOTE
 
+#define MSPARAM(x) LIB##_param_##MODULES##x
+
+#define QMSPARAM(x) Q(MSPARAM(x))
+
 #define MVAR(var) LIB##_##MODULE##var
 #define MSVAR(var) LIB##_##MODULES##var
 
 #define QMVAR(var) Q(MVAR(var))
 #define QMSVAR(var) Q(MSVAR(var))
 
-#define MVAR_F(func) LIB##_fnc_##MODULE##func
-#define MSVAR_F(func) LIB##_fnc_##MODULES##func
+#define MFUNC(func) LIB##_fnc_##MODULE##func
+#define MSFUNC(func) LIB##_fnc_##MODULES##func
 
-#define QMVAR_F(func) Q(MVAR_F(func))
-#define QMSVAR_F(func) Q(MSVAR_F(func))
+#define QMFUNC(func) Q(MFUNC(func))
+#define QMSFUNC(func) Q(MSFUNC(func))
 
 #define MSTATUS(stat) LIB##_##MODULE##_status##stat

@@ -26,18 +26,18 @@
 private _defaultOnInit = { (_this#0); };
 
 params [
-    ["_onInit", _defaultOnInit, [{}]]
-    , ["_nameValuePairs", [], [[]]]
+    [Q(_onInit), _defaultOnInit, [{}]]
+    , [Q(_nameValuePairs), [], [[]]]
 ];
 
 private _onInitNominal = {
     params [
-        ["_namespace", locationNull, [locationNull]]
-        , ["_nameValuePairs", [], [[]]]
+        [Q(_namespace), locationNull, [locationNull]]
+        , [Q(_nameValuePairs), [], [[]]]
     ];
 
     // Set the default defaults, then any user specified NVPs, finally the TEMPLATE UUID default
-    [_namespace, MSVAR(_nameValuePairDefaults)] call KPLIB_fnc_namespace_setVars;
+    [_namespace, MVAR(_nameValuePairDefaults)] call KPLIB_fnc_namespace_setVars;
 
     if (count _nameValuePairs > 0) then {
         [_namespace, _nameValuePairs] call KPLIB_fnc_namespace_setVars;

@@ -23,7 +23,7 @@
 
 
 params [
-    ["_status", MSTATUS(_standby), [0]]
+    [Q(_status), MSTATUS(_standby), [0]]
 ];
 
 if (_status < MSTATUS(_standby)) exitWith {
