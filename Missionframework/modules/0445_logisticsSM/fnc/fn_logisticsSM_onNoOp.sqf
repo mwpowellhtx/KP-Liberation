@@ -37,12 +37,6 @@ params [
     "_targetUuid"
 ];
 
-[
-    [_status] call KPLIB_fnc_logistics_getStatusReport
-] params [
-    "_statusReport"
-];
-
 if (_debug) then {
     [format ["[fn_logisticsSM_onNoOp] Entering: [_targetUuid, _stateOrTransition]: %1"
         , str [_targetUuid, _stateOrTransition]], "LOGISTICSSM", true] call KPLIB_fnc_common_log;
