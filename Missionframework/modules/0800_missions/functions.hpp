@@ -66,6 +66,10 @@ class mission {
     // // Registers zero or more mission namespaces with the parent state machine object
     // class missions_registerMany {};
 
+// TODO: TBD: next, bits to verify shape of namespace, tuple
+// TODO: TBD: and to convert between the shapes, if at all possible...
+// TODO: TBD: or at least with enough detail to convert namespace to tuple, for UI presentation...
+
     //
     class missions_onNoOp {};
 };
