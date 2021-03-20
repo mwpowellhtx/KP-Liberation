@@ -24,14 +24,17 @@ class namespace {
         preInit = 1;
     };
 
+    // Returns a created CBA namespace
+    class namespace_create {};
+
+    // Returns a clone of the CBA namespace, including opportunity to copy a nominal set of variables
+    class namespace_clone {};
+
     // Sets a bundle of variables for the provided CBA namespace
     class namespace_setVars {};
 
     // Gets a bundle of variables from the provided CBA namespace
     class namespace_getVars {};
-
-    // Returns a created CBA namespace
-    class namespace_create {};
 
     // Does routine GC on the CBA namespace
     class namespace_onGC {};
