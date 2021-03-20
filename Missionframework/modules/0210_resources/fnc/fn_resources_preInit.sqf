@@ -228,14 +228,14 @@ if (!(hasInterface || isDedicated)) then {
     // HC section
 };
 
+KPLIB_resources_imagePaths = [
+    "res\ui_supplies.paa"
+    , "res\ui_ammo.paa"
+    , "res\ui_fuel.paa"
+];
+
 if (hasInterface) then {
     // Player section
-
-    KPLIB_resources_imagePaths = [
-        "res\ui_supplies.paa"
-        , "res\ui_ammo.paa"
-        , "res\ui_fuel.paa"
-    ];
 };
 
 if (isServer) then {
