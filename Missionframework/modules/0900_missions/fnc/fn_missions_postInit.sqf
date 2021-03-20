@@ -19,21 +19,22 @@
         Module postInit finished [BOOL]
 */
 
+// TODO: TBD: "this" module likely going away, instead will redefine in terms of "actual" missions...
 if (isServer) then {
 
     ["Module initializing...", "POST] [MISSIONS", true] call KPLIB_fnc_common_log;
 
-// TODO: TBD: this is what? an 'example' mission?
-    [
-        "Example",
-        {true},
-        false,
-        [10, 0, 0, 0],
-        10,
-        10,
-        "modules\0900_missions\example\start.sqf",
-        "modules\0900_missions\example\abort.sqf"
-    ] call KPLIB_fnc_mission_registerMission;
+    // // TODO: TBD: this is what? an 'example' mission?
+    // [
+    //     "Example",
+    //     {true},
+    //     false,
+    //     [10, 0, 0, 0],
+    //     10,
+    //     10,
+    //     "modules\0900_missions\example\start.sqf",
+    //     "modules\0900_missions\example\abort.sqf"
+    // ] call KPLIB_fnc_mission_registerMission;
 
 };
 
