@@ -30,15 +30,6 @@ class mission {
     // CBA Settings initialization for this module
     class missions_settings {};
 
-    // Checks the STATUS of either the raw target, or variable in the CBA MISSION namespace
-    class missions_checkStatus {};
-
-    // Sets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
-    class missions_setStatus {};
-
-    // Unsets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
-    class missions_unsetStatus {};
-
     // Creates a CBA MISSION TEMPLATE namespace
     class missions_createTemplate {};
 
@@ -50,6 +41,18 @@ class mission {
 
     // Returns a human readable status report based on the MISSION STATUS bit flags
     class missions_getStatusReport {};
+
+    // Checks the STATUS of either the raw target, or variable in the CBA MISSION namespace
+    class missions_checkStatus {};
+
+    // Sets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
+    class missions_setStatus {};
+
+    // Unsets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
+    class missions_unsetStatus {};
+
+    // Returns whether the raw or CBA MISSION namespace hosted TIMER has elapsed
+    class missions_timerHasElapsed {};
 
     // Module mission data serialization event handler
     class missions_onLoadData {};
