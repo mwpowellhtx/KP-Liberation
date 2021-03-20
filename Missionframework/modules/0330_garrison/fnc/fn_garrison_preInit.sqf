@@ -75,7 +75,7 @@ if (isServer) then {
                     [] spawn KPLIB_fnc_init_receiveInit;
                 };
                 // Give the server admin a hint that a full server restart is recommended
-                if (hasInterface && serverCommandAvailable "#kick") then {
+                if (hasInterface && ([] call KPLIB_fnc_permission_hasAdminPermission)) then {
                     hint parseText format ["<t color='#ff0000' align='center' size='2'>%1</t><br />%2", localize "STR_KPLIB_HINT_REQUIRERESTART1", localize "STR_KPLIB_HINT_REQUIRERESTART2"];
                 };
             };
@@ -93,7 +93,7 @@ if (isServer) then {
                     [] spawn KPLIB_fnc_init_receiveInit;
                 };
                 // Give the server admin a hint that a full server restart is recommended
-                if (hasInterface && serverCommandAvailable "#kick") then {
+                if (hasInterface && ([] call KPLIB_fnc_permission_hasAdminPermission)) then {
                     hint parseText format ["<t color='#ff0000' align='center' size='2'>%1</t><br />%2", localize "STR_KPLIB_HINT_REQUIRERESTART1", localize "STR_KPLIB_HINT_REQUIRERESTART2"];
                 };
             };

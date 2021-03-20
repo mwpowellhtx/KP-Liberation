@@ -14,6 +14,9 @@
 class permission {
     file = "modules\0220_permission\fnc";
 
+    // Gets whether the caller has administrative permission
+    class permission_hasAdminPermission {};
+
     // Adds a new permission to the permission system
     class permission_addPermissionHandler {};
 

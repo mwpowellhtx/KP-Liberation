@@ -35,7 +35,7 @@ if (hasInterface) then {
         , ""
         , '
             _target isEqualTo _originalTarget
-            && serverCommandAvailable "#kick"
+                && ([] call KPLIB_fnc_permission_hasAdminPermission)
         '
         , -1
     ];
@@ -170,7 +170,7 @@ if (hasInterface) then {
         , ""
         , '
             _target isEqualTo _originalTarget
-            && serverCommandAvailable "#kick"
+                && ([] call KPLIB_fnc_permission_hasAdminPermission)
         '
         , -1
     ];
@@ -192,7 +192,7 @@ if (hasInterface) then {
         , ""
         , '
             _target isEqualTo _originalTarget
-            && serverCommandAvailable "#kick"
+                && ([] call KPLIB_fnc_permission_hasAdminPermission)
         '
         , -1
     ];

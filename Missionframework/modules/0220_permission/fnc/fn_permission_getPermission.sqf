@@ -25,7 +25,7 @@ params [
     ["_target", player, [objNull]]
 ];
 
-if (!KPLIB_param_permission || serverCommandAvailable "#kick") exitWith {
+if (!KPLIB_param_permission || ([] call KPLIB_fnc_permission_hasAdminPermission)) exitWith {
     true
 };
 

@@ -24,7 +24,7 @@
 private _permissionCondition = '
     _target isEqualTo _originalTarget
         && (
-            serverCommandAvailable "#kick"
+            ([] call KPLIB_fnc_permission_hasAdminPermission)
                 || (KPLIB_param_permissionCommander && (str player) isEqualTo "KPLIB_eden_commander")
                 || (KPLIB_param_permissionSubCommander && (str player) isEqualTo "KPLIB_eden_subCommander")
         )
