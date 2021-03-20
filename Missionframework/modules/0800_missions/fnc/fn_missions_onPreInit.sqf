@@ -48,6 +48,16 @@ MSTATUS(_failure)                   =  8;
 MSTATUS(_success)                   = 16;
 MSTATUS(_aborting)                  = 32;
 
+MSVAR(_statusReports) = [
+    [MSTATUS(_standby), localize "STR_KPLIB_MISSION_STATUS_STANDBY"]
+    , [MSTATUS(_started), localize "STR_KPLIB_MISSION_STATUS_STARTED"]
+    , [MSTATUS(_engaged), localize "STR_KPLIB_MISSION_STATUS_ENGAGED"]
+    , [MSTATUS(_completed), localize "STR_KPLIB_MISSION_STATUS_COMPLETED"]
+    , [MSTATUS(_failure), localize "STR_KPLIB_MISSION_STATUS_FAILURE"]
+    , [MSTATUS(_success), localize "STR_KPLIB_MISSION_STATUS_SUCCESS"]
+    , [MSTATUS(_aborting), localize "STR_KPLIB_MISSION_STATUS_ABORTING"]
+];
+
 if (isServer) then {
 
     MSVAR(_nameValuePairDefaults) = +[

@@ -2460,6 +2460,31 @@
 
     <Package name="Missions">
 
+        <Key ID="STR_KPLIB_MISSION_STATUS_STANDBY">
+            <English>Standby</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_STARTED">
+            <English>Started</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_ENGAGED">
+            <English>Engaged</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_COMPLETED">
+            <English>Completed</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_FAILURE">
+            <English>Failure</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_SUCCESS">
+            <English>Success</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_ABORTING">
+            <English>Aborting</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_NA">
+            <English>N/A</English>
+        </Key>
+
         <!-- EXAMPLE MISSION -->
 
         <Key ID="STR_KPLIB_MISSION_EXAMPLE">

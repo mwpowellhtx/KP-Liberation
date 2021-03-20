@@ -36,6 +36,9 @@ class mission {
     // Returns the configured REBATE VALUE
     class missions_getRebateValue {};
 
+    // Returns a human readable status report based on the MISSION STATUS bit flags
+    class missions_getStatusReport {};
+
     // Module mission data serialization event handler
     class missions_onLoadData {};
 
