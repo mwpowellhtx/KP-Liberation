@@ -51,10 +51,10 @@ private _onInitNominal = {
     _namespace;
 };
 
-private _namespace = [] call KPLIB_fnc_namespace_create;
+private _template = [] call KPLIB_fnc_namespace_create;
 
 [
-    [_namespace, _nameValuePairs] call _onInitNominal
+    [_template, _nameValuePairs] call _onInitNominal
 ] call _onInit;
 
-_namespace;
+_template;

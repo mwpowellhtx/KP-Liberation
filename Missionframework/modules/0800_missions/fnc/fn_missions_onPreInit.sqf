@@ -42,11 +42,11 @@ MVAR(_rebateValue)                  = 0.5;
 // TODO: TBD: we may stand on "status"... maybe...
 MSTATUS(_standby)                   =  0;
 MSTATUS(_started)                   =  1;
-MSTATUS(_aborting)                  =  2;
+MSTATUS(_engaged)                   =  2;
 MSTATUS(_completed)                 =  4;
-MSTATUS(_failed)                    =  8;
-MSTATUS(_partial)                   = 16;
-MSTATUS(_engaged)                   = 32;
+MSTATUS(_failure)                   =  8;
+MSTATUS(_success)                   = 16;
+MSTATUS(_aborting)                  = 32;
 
 if (isServer) then {
 
@@ -57,15 +57,13 @@ if (isServer) then {
         , [QMVAR(_cost)                 , MVAR((_zeroDebit)         ]
         , [QMVAR(_pos)                  , KPLIB_zeroPos             ]
         , [QMVAR(_radius)               , KPLIB_param_sectorCapRange]
-        , [QMVAR(_status)               , MVAR(_status_standby)     ]
+        , [QMVAR(_status)               , MSTATUS(_standby)         ]
         , [QMVAR(_timer)                , KPLIB_timers_disabled     ]
-        , [QMVAR_F(_onIsComplete)       , MSVAR_F(_onNoOp)          ]
-        , [QMVAR_F(_onIsFailed)         , MSVAR_F(_onNoOp)          ]
         , [QMVAR_F(_onEnterMission)     , MSVAR_F(_onNoOp)          ]
         , [QMVAR_F(_onAbortMission)     , MSVAR_F(_onNoOp)          ]
         , [QMVAR_F(_onMissionSetup)     , MSVAR_F(_onNoOp)          ]
         , [QMVAR_F(_onMissionEntered)   , MSVAR_F(_onNoOp)          ]
-        , [QMVAR_F(_mission_onMission)  , MSVAR_F(_onNoOp)          ]
+        , [QMVAR_F(_onMission)          , MSVAR_F(_onNoOp)          ]
         , [QMVAR_F(_onMissionLeaving)   , MSVAR_F(_onNoOp)          ]
         , [QMVAR_F(_onMissionTearDown)  , MSVAR_F(_onNoOp)          ]
     ];
