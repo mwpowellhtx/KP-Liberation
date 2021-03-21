@@ -2485,6 +2485,15 @@
             <English>N/A</English>
         </Key>
 
+        <!-- MISSIONS MANAGER -->
+
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNB_TELEMETRY_PARAM">
+            <English>Telemetry</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNB_TELEMETRY_VALUE">
+            <English>Value</English>
+        </Key>
+
         <!-- EXAMPLE MISSION -->
 
         <Key ID="STR_KPLIB_MISSION_EXAMPLE_NAME">
