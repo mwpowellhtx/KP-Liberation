@@ -50,9 +50,7 @@ uiNamespace setVariable [QMVAR(_selectedMission), _mission];
 } forEach [
     [QMVAR(_lnbTelemetry), MFUNC(_lnbTelemetry_toViewData), MFUNC(_lnbTelemetry_onRefresh)]
     , [QMVAR(_imgBriefing), MFUNC(_imgBriefing_toViewData), MFUNC(_imgBriefing_onRefresh)]
-    , [QMVAR(_txtBriefing), MFUNC(_txtBriefing_toViewData), MFUNC(_txtBriefing_onRefresh)]
-    , [QMVAR(_txtSuccess), MFUNC(_txtSuccess_toViewData), MFUNC(_txtSuccess_onRefresh)]
-    , [QMVAR(_txtFailure), MFUNC(_txtFailure_toViewData), MFUNC(_txtFailure_onRefresh)]
+    , [QMVAR(_lnbBriefing), MFUNC(_lnbBriefing_toViewData), MFUNC(_lnbBriefing_onRefresh)]
 ];
 
 true;

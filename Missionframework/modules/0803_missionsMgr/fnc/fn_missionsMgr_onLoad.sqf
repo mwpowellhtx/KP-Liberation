@@ -37,6 +37,8 @@ uiNamespace setVariable [QMVAR(_config), _config];
 
 [
     {
+        private _display = uiNamespace getVariable [QMVAR(_display), displayNull];
+
         ([] call KPLIB_fnc_missionsMgr_calculateEnabledOrDisabled) params [
             [Q(_toEnable), [], [[]]]
             , [Q(_toDisable), [], [[]]]
@@ -50,17 +52,14 @@ uiNamespace setVariable [QMVAR(_config), _config];
     , {}
     , {}
     , {
-        _display = uiNamespace getVariable [QMVAR(_display), displayNull];
-        _config = uiNamespace getVariable [QMVAR(_config), configNull];
+        private _display = uiNamespace getVariable [QMVAR(_display), displayNull];
         !isNull _display;
     }
     , {
+        private _display = uiNamespace getVariable [QMVAR(_display), displayNull];
         isNull _display;
     }
-    , [
-        Q(_display)
-        , Q(_config)
-    ]
+    , []
 ] call CBA_fnc_createPerFrameHandlerObject;
 
 true;

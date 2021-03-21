@@ -36,9 +36,7 @@ params [
         , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_pos)          , KPLIB_zeroPos         ]
         , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefingText) , ""                    ]
-        , [QMVAR(_successText)  , ""                    ]
-        , [QMVAR(_failureText)  , ""                    ]
+        , [QMVAR(_briefing)     , ["", "", ""]          ]
         , [QMVAR(_imagePath)    , ""                    ]
         , [QMVAR(_telemetry)    , []                    ]
     ];
@@ -54,8 +52,6 @@ _mission params [
     , Q(_6)
     , Q(_7)
     , Q(_8)
-    , Q(_9)
-    , Q(_10)
     , [Q(_imagePath), "", [""]]
 ];
 

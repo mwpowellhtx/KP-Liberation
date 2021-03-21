@@ -9,10 +9,15 @@
 
     Description:
         Layout for the module dialog.
+
+    References:
+        https://community.bistudio.com/wiki/Arma:_GUI_Configuration
+        https://community.bistudio.com/wiki/CT_CONTROLS_TABLE
+
 */
 
-#define KPLIB_MISSIONSMGR_DIALOG_WC             KPX_DEFAULT_DIALOG_WC2
-#define KPLIB_MISSIONSMGR_DIALOG_HC             KPX_DEFAULT_DIALOG_HC2
+#define KPLIB_MISSIONSMGR_DIALOG_WC             KPX_DEFAULT_DIALOG_WC
+#define KPLIB_MISSIONSMGR_DIALOG_HC             KPX_DEFAULT_DIALOG_HC
 
 #define KPLIB_MISSIONSMGR_DIALOG_XC             KPX_GETXC_W2(KPLIB_MISSIONSMGR_DIALOG_WC)
 #define KPLIB_MISSIONSMGR_DIALOG_YC             KPX_GETYC_H2(KPLIB_MISSIONSMGR_DIALOG_HC)
@@ -74,13 +79,29 @@
 #define KPLIB_MISSIONSMGR_BRIEFING_IMG_W        (KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W - KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_W - KPX_SPACING_W)
 #define KPLIB_MISSIONSMGR_BRIEFING_IMG_H        KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H
 
-#define KPLIB_MISSIONSMGR_BRIEFING_TXT_X        KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_X
-#define KPLIB_MISSIONSMGR_BRIEFING_TXT_W        KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W
-#define KPLIB_MISSIONSMGR_BRIEFING_TXT_H        (KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + (4 * KPX_SPACING_H))) / 3
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_X   KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_Y   (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPX_SPACING_H)
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_W   KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_H   KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + (2 * KPX_SPACING_H))
 
-#define KPLIB_MISSIONSMGR_BRIEFING_TXT_BRIEFING_Y   (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPX_SPACING_H)
-#define KPLIB_MISSIONSMGR_BRIEFING_TXT_SUCCESS_Y    (KPLIB_MISSIONSMGR_BRIEFING_TXT_BRIEFING_Y + KPLIB_MISSIONSMGR_BRIEFING_TXT_H + KPX_SPACING_H)
-#define KPLIB_MISSIONSMGR_BRIEFING_TXT_FAILURE_Y    (KPLIB_MISSIONSMGR_BRIEFING_TXT_SUCCESS_Y + KPLIB_MISSIONSMGR_BRIEFING_TXT_H + KPX_SPACING_H)
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_X    KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_Y    (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPX_SPACING_H)
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W    KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H    (KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + (2 * KPX_SPACING_H)))
+
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H                (KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H / 3)
+
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X          0
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W          (0.2 * KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W)
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_H          KPLIB_MISSIONSMGR_BTN_H
+
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_X    (KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X + KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W)
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_W    (0.2 * KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W)
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_H    KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H
+
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X             0
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W             KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_H             KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H
 
 class KPLIB_missionsMgr_btnButtonBase : XGUI_PRE_Button {
     h = KPLIB_MISSIONSMGR_BTN_H;
@@ -88,13 +109,52 @@ class KPLIB_missionsMgr_btnButtonBase : XGUI_PRE_Button {
     w = KPLIB_MISSIONSMGR_BTN_MISSIONS_W;
 };
 
-class KPLIB_missionsMgr_txtBriefingBase : XGUI_PRE_Label {
-    x = KPLIB_MISSIONSMGR_BRIEFING_TXT_X;
-    w = KPLIB_MISSIONSMGR_BRIEFING_TXT_W;
-    h = KPLIB_MISSIONSMGR_BRIEFING_TXT_H;
+class XGUI_PRE_ControlTable {
+    idc = KPLIB_IDC_UNDEFINED;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
+
+    type = CT_CONTROLS_TABLE;
+    style = SL_TEXTURES;
+
+    lineSpacing = 0;
+    // TODO: TBD: may run with nominal defaults...
+    // rowHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+    // headerHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+
+    // firstIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_FIRST;
+    // lastIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_LAST;
+
+    // Colors which are used for animation (i.e. change of colour) of the selected line
+    selectedRowColorFrom[]  = {0, 0, 0, 0};
+    selectedRowColorTo[]    = {0, 0, 0, 0};
+    // Length of the animation cycle in seconds
+    selectedRowAnimLength = 1;
+
+    class VScrollBar : XGUI_PRE_ScrollBar {
+        // width = 0.021;
+        // autoScrollEnabled = 0;
+        // autoScrollDelay = 1;
+        // autoScrollRewind = 1;
+        // autoScrollSpeed = 1;
+    };
+
+    class HScrollBar : XGUI_PRE_ScrollBar {
+        // height = 0.028;
+    };
 };
 
-
+class KPLIB_missionsMgr_ctBriefing_RowLabel : XGUI_PRE_Label {
+    colorBackground[] = {0, 0, 0, 0};
+    colorText[] = {1, 1, 1, 1};
+    colorShadow[] = {0, 0, 0, 0};
+    shadow = 0;
+    sizeEx = KPX_TEXT_S;
+    lineSpacing = 1;
+    style = ST_LEFT + ST_MULTI;
+};
 
 
 //#define KPLIB_MISSIONSMGR_BTN_LINES_Y0          KPLIB_MISSIONSMGR_BTN_LINES_GETY(0)
@@ -292,23 +352,96 @@ class KPLIB_missionsMgr {
             //text = "img";
         };
 
-        class KPLIB_missionsMgr_txtBriefing : KPLIB_missionsMgr_txtBriefingBase {
-            idc = KPLIB_IDC_MISSIONSMGR_TXT_BRIEFING;
-            y = KPLIB_MISSIONSMGR_BRIEFING_TXT_BRIEFING_Y;
-            text = "briefing";
+        class KPLIB_missionsMgr_ctBriefing : XGUI_PRE_ControlTable {
+            idc = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING;
+
+            x = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_X;
+            y = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_Y;
+            w = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W;
+            h = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H;
+
+            onLoad = "_this spawn KPLIB_fnc_missionsMgr_ctBriefing_onLoadDummy";
+
+            rowHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+            headerHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+
+            firstIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_FIRST;
+            lastIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_LAST;
+
+            // Template for headers (unlike rows, cannot be selected)
+            class HeaderTemplate {
+                // class HeaderBackground {
+                //     controlBaseClassPath[] = {"RscText"};
+                //     columnX = 0;
+                //     columnW = 15 * GUI_GRID_W;
+                //     controlOffsetY = 0;
+                // };
+                // class Column1 {
+                //     controlBaseClassPath[] = {"RscText"};
+                //     columnX = 0;
+                //     columnW = 2 * GUI_GRID_W;
+                //     controlOffsetY = 0;
+                //     controlH = 1 * GUI_GRID_H;
+                // };
+                // class Column2 {
+                //     controlBaseClassPath[] = {"RscText"};
+                //     columnX = 2 * GUI_GRID_W;
+                //     columnW = 9 * GUI_GRID_W;
+                //     controlOffsetY = 0;
+                //     controlH = 1 * GUI_GRID_H;
+                // };
+            };
+
+            // Template for selectable rows
+            class RowTemplate {
+                // TODO: TBD: is row background necessary (?)
+                // TODO: TBD: could approach row background as a sort of greenbar approach...
+                class RowBackground {
+                    controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
+                    columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X;
+                    columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_H;
+                    colorBackground[] = {0, 0, 0, 0};
+                };
+
+                class KPLIB_missionsMgr_ctBriefing_rowTemplate_lblTitle {
+                    controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
+                    columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X;
+                    columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W;
+                    colorBackground[] = {0, 0, 0, 0};
+                };
+                class KPLIB_missionsMgr_ctBriefing_rowTemplate_lblDescription {
+                    controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
+                    columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_X;
+                    columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_H;
+                    colorBackground[] = {0, 0, 0, 0};
+                };
+            };
         };
 
-        class KPLIB_missionsMgr_txtSuccess : KPLIB_missionsMgr_txtBriefingBase {
-            idc = KPLIB_IDC_MISSIONSMGR_TXT_SUCCESS;
-            y = KPLIB_MISSIONSMGR_BRIEFING_TXT_SUCCESS_Y;
-            text = "success";
-        };
+        // // TODO: TBD: kinda sorta but we need better control of the elements...
+        // class KPLIB_missionsMgr_lnbBriefing : XGUI_PRE_ListNBox {
+        //     idc = KPLIB_IDC_MISSIONSMGR_LNB_BRIEFING;
+        //     x = KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_X;
+        //     y = KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_Y;
+        //     w = KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_W;
+        //     h = KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_H;
 
-        class KPLIB_missionsMgr_txtFailure : KPLIB_missionsMgr_txtBriefingBase {
-            idc = KPLIB_IDC_MISSIONSMGR_TXT_FAILURE;
-            y = KPLIB_MISSIONSMGR_BRIEFING_TXT_FAILURE_Y;
-            text = "failure";
-        };
+        //     sizeEx = KPX_TEXT_S;
+        //     rowHeight = KPX_TITLE_S_H;
+
+        //     //          {_briefing, _description}
+        //     columns[] = { 0.01,             0.11};
+
+        //     onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbBriefing_onLoadDummy";
+        //     //onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbBriefing_onLoad";
+        //     //onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbBriefing_onLBSelChanged";
+        // };
 
         // // TODO: TBD: at the moment, no map, but that might be interesting as well
         // class KPLIB_logisticsMgr_map : XGUI_PRE_MapControl {

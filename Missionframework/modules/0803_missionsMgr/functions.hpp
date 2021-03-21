@@ -49,6 +49,12 @@ class missionsMgr {
     //class mission_startMission {};
 
     //
+    class missionsMgr_onLoad {};
+
+    //
+    class missionsMgr_onUnload {};
+
+    //
     class missionsMgr_btnAbort_onButtonClick {};
 
     //
@@ -100,38 +106,24 @@ class missionsMgr {
     class missionsMgr_lnbTelemetry_toViewData {};
 
     //
-    class missionsMgr_onLoad {};
-
-    //
     class missionsMgr_onMissionsPublished {};
 
-    //
-    class missionsMgr_onUnload {};
+    // // // TODO: TBD: eventually landing on this one...
+    // //
+    // class missionsMgr_ctBriefing_onLoad {};
 
     //
-    class missionsMgr_txtBriefing_onLoad {};
+    class missionsMgr_ctBriefing_onLoadDummy {};
 
     //
-    class missionsMgr_txtBriefing_onRefresh {};
+    class missionsMgr_lnbBriefing_onLoad {};
 
     //
-    class missionsMgr_txtBriefing_toViewData {};
+    class missionsMgr_lnbBriefing_onLoadDummy {};
 
     //
-    class missionsMgr_txtFailure_onLoad {};
+    class missionsMgr_lnbBriefing_onRefresh {};
 
     //
-    class missionsMgr_txtFailure_onRefresh {};
-
-    //
-    class missionsMgr_txtFailure_toViewData {};
-
-    //
-    class missionsMgr_txtSuccess_onLoad {};
-
-    //
-    class missionsMgr_txtSuccess_onRefresh {};
-
-    //
-    class missionsMgr_txtSuccess_toViewData {};
+    class missionsMgr_lnbBriefing_toViewData {};
 };

@@ -23,10 +23,10 @@
 
 private _toDisable = [];
 
-[uiNamespace, [
+([uiNamespace, [
     [QMVAR(_lnbMissions), controlNull]
     , [QMVAR(_selectedMission), []]
-]] params [
+]] call KPLIB_fnc_namespace_getVars) params [
     Q(_lnbMissions)
     , Q(_selectedMission)
 ];

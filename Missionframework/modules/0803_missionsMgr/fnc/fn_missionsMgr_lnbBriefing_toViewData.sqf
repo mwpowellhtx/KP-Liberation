@@ -1,9 +1,9 @@
 #include "..\ui\defines.hpp"
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missionsMgr_lnbTelemetry_toViewData
+    KPLIB_fnc_missionsMgr_txtBriefing_toViewData
 
-    File: fn_missionsMgr_lnbTelemetry_toViewData.sqf
+    File: fn_missionsMgr_txtBriefing_toViewData.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 21:02:35
     Last Update: 2021-03-20 21:33:58
@@ -11,13 +11,14 @@
     Public: No
 
     Description:
-        Dissects the MISSION TUPLE for its current TELEMETRY DATA element.
+        Dissects the MISSION TUPLE for its current BRIEFING elements for
+        presentation through the BRIEFING LISTNBIX.
 
     Parameter(s):
         _mission - a MISSION TUPLE array [ARRAY, default: []]
 
     Returns:
-        The TELEMETRY DATA element [ARRAY]
+        The BRIEFING LISTNBOX view dat [ARRAY]
  */
 
 params [
@@ -51,9 +52,18 @@ _mission params [
     , Q(_5)
     , Q(_6)
     , Q(_7)
-    , Q(_8)
-    , Q(_9)
-    , [Q(_telemetry), [], [[]]]
+    , [Q(_briefing), ["", "", ""], [[]], 3]
 ];
 
-+_telemetry;
+_briefing params [
+    [Q(_overview), "", [""]]
+    , [Q(_success), "", [""]]
+    , [Q(_failure), "", [""]]
+];
+
+// For presentation through the BRIEFING LISTNBOX
+[
+    [[Q(Overview), _overview], QMVAR(_overview)]
+    , [[Q(Success), _success], QMVAR(_success)]
+    , [[Q(Failure), _failure], QMVAR(_failure)]
+];

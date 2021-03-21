@@ -47,12 +47,8 @@ params [
     , QMVAR(_lnbTelemetry_config)
     , QMVAR(_imgBriefing)
     , QMVAR(_imgBriefing_config)
-    , QMVAR(_txtBriefing)
-    , QMVAR(_txtBriefing_config)
-    , QMVAR(_txtSuccess)
-    , QMVAR(_txtSuccess_config)
-    , QMVAR(_txtFailure)
-    , QMVAR(_txtFailure_config)
+    , QMVAR(_lnbBriefing)
+    , QMVAR(_lnbBriefing_config)
 ];
 
 true;
