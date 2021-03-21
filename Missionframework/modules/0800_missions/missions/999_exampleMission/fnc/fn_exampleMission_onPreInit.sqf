@@ -41,9 +41,13 @@ if (isServer) then {
     MVAR(_variableNamesToInit) = +[
         [QPVAR(_name)                   , localize "STR_KPLIB_MISSION_EXAMPLE_NAME"             ]
         , [QPVAR(_title)                , localize "STR_KPLIB_MISSION_EXAMPLE_TITLE"            ]
-        , [QPVAR(_briefingText)         , localize "STR_KPLIB_MISSION_EXAMPLE_BRIEFING_TEXT"    ]
-        , [QPVAR(_successText)          , localize "STR_KPLIB_MISSION_EXAMPLE_SUCCESS_TEXT"     ]
-        , [QPVAR(_failureText)          , localize "STR_KPLIB_MISSION_EXAMPLE_FAILURE_TEXT"     ]
+        , [
+            QPVAR(_briefing)            , [
+                localize "STR_KPLIB_MISSION_EXAMPLE_OVERVIEW_TEXT"
+                , localize "STR_KPLIB_MISSION_EXAMPLE_SUCCESS_TEXT"
+                , localize "STR_KPLIB_MISSION_EXAMPLE_FAILURE_TEXT"
+            ]
+                                                                                                ]
         , [QPFUNC(_onGetTelemetry)      , MFUNC(_onGetTelemetry)                                ]
         , [QPFUNC(_onEnterMission)      , MFUNC(_onEnterMission)                                ]
         , [QPFUNC(_onAbortMission)      , MFUNC(_onAbortMission)                                ]

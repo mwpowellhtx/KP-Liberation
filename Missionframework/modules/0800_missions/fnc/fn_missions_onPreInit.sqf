@@ -72,9 +72,7 @@ if (isServer) then {
      * KPLIB_mission_icon - may inform enumerated missions in the list
      * KPLIB_mission_name - like a 'variable name' but uniquely identifying the mission
      * KPLIB_mission_title - human readable title
-     * KPLIB_mission_briefingText - high level overview of the mission
-     * KPLIB_mission_successText - enumerate any specific parameters influencing 'success'
-     * KPLIB_mission_failureText - ditto, 'failure' parameters
+     * KPLIB_mission_briefing - mission briefing consisting of, [_overview, _success, _failure]
      * KPLIB_mission_imagePath - for use in the mission briefing
      * KPLIB_mission_args - relay for arguments passed to running mission
      * KPLIB_mission_cost - [S, A, F, I]
@@ -88,9 +86,7 @@ if (isServer) then {
         , [QMVAR(_icon)                 , ""                        ]
         , [QMVAR(_name)                 , ""                        ]
         , [QMVAR(_title)                , ""                        ]
-        , [QMVAR(_briefingText)         , ""                        ]
-        , [QMVAR(_successText)          , ""                        ]
-        , [QMVAR(_failureText)          , ""                        ]
+        , [QMVAR(_briefing)             , ["", "", ""]              ]
         , [QMVAR(_imagePath)            , ""                        ]
         , [QMVAR(_args)                 , []                        ]
         , [QMVAR(_cost)                 , MVAR(_zeroDebit)          ]
@@ -113,9 +109,7 @@ if (isServer) then {
         , QMVAR(_icon)
         , QMVAR(_name)
         , QMVAR(_title)
-        , QMVAR(_briefingText)
-        , QMVAR(_successText)
-        , QMVAR(_failureText)
+        , QMVAR(_briefing)
         , QMVAR(_imagePath)
         , QMVAR(_args)
         , QMVAR(_cost)
@@ -150,9 +144,7 @@ if (isServer) then {
         , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_pos)          , KPLIB_zeroPos         ]
         , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefingText) , ""                    ]
-        , [QMVAR(_successText)  , ""                    ]
-        , [QMVAR(_failureText)  , ""                    ]
+        , [QMVAR(_briefing)     , ["", "", ""]          ]
         , [QMVAR(_imagePath)    , ""                    ]
     ];
 
