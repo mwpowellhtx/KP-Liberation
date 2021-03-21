@@ -2503,14 +2503,14 @@
             <English>Example Mission</English>
             <German>Beispiel Mission</German>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_EXAMPLE_BRIEFING_TEXT">
-            <English>Structured text...\n\nFormat accordingly.</English>
+        <Key ID="STR_KPLIB_MISSION_EXAMPLE_OVERVIEW_TEXT">
+            <English>Simple textual overview.</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_EXAMPLE_SUCCESS_TEXT">
-            <English>Success structured text...\n\nFormat accordingly.</English>
+            <English>Simple textual success conditions.</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_EXAMPLE_FAILURE_TEXT">
-            <English>Failure structured text...\n\nFormat accordingly.</English>
+            <English>Simple textual failure conditions.</English>
         </Key>
 
     </Package>
