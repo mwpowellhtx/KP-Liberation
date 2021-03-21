@@ -10,6 +10,10 @@
 
     Description:
         Base UI classes for KPGUI.
+
+    References:
+        https://community.bistudio.com/wiki/Arma:_GUI_Configuration
+        https://community.bistudio.com/wiki/CT_CONTROLS_TABLE
  */
 
 /*
@@ -39,6 +43,7 @@
 #define CT_CONTROLS_GROUP       15
 #define CT_SHORTCUTBUTTON       16
 #define CT_HITZONES             17
+#define CT_CONTROLS_TABLE       19
 #define CT_XKEYDESC             40
 #define CT_XBUTTON              41
 #define CT_XLISTBOX             42
@@ -95,13 +100,13 @@
 
 // Slider styles
 #define SL_DIR                  0x400
-#define SL_VERT                 0
+#define SL_VERT                 0x000
 #define SL_HORZ                 0x400
-#define SL_TEXTURES             0x10
+#define SL_TEXTURES             0x010
 
 // Progress bar styles
 #define ST_VERTICAL             0x01
-#define ST_HORIZONTAL           0
+#define ST_HORIZONTAL           0x00
 
 // Listbox styles
 #define LB_TEXTURES             0x10

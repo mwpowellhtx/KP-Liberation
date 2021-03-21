@@ -13,11 +13,31 @@
     References:
         https://community.bistudio.com/wiki/CT_BUTTON#soundClick
         https://community.bistudio.com/wiki/CT_BUTTON#soundEnter
+        https://community.bistudio.com/wiki/Arma:_GUI_Configuration#Control_Styles
  */
 
 /*
     --- Small sized classes ---
 */
+
+// Scroll bar
+class XGUI_PRE_ScrollBar : KPGUI_PRE_ScrollBar {
+};
+
+// // TODO: TBD: could not seem to get this to work quite right
+// StructuredText
+class XGUI_PRE_StructuredText {
+    idc = KPLIB_IDC_UNDEFINED;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
+    default = 0;
+    deletable = 0;
+    type = CT_STRUCTURED_TEXT;
+    style = ST_LEFT;
+    text = "";
+};
 
 // Label
 class XGUI_PRE_Label : KPGUI_PRE_Label {
