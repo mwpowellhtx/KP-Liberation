@@ -140,18 +140,20 @@ if (isServer) then {
      * state of each running mission. Basically we want to capture everything excepting for
      * actual live code, callbacks, things of this nature. */
 
-    MVAR(_variableNamesToPublish) = [
-        [QMVAR(_uuid)           , ""]
-        , [QMVAR(_templateUuid) , ""]
-        , [QMVAR(_icon)         , ""]
-        , [QMVAR(_name)         , ""]
-        , [QMVAR(_title)        , ""]
-        , [QMVAR(_briefingText) , ""]
-        , [QMVAR(_successText)  , ""]
-        , [QMVAR(_failureText)  , ""]
-        , [QMVAR(_imagePath)    , ""]
-        , [QMVAR(_status)       , MSTATUS(_standby)]
-        , [QMVAR(_timer)        , +KPLIB_timers_default]
+    // Rearranged a tiny bit to better accommodate the user interface
+    MVAR(_variableNamesToPublish) = +[
+        [QMVAR(_uuid)           , ""                    ]
+        , [QMVAR(_templateUuid) , ""                    ]
+        , [QMVAR(_icon)         , ""                    ]
+        , [QMVAR(_name)         , ""                    ]
+        , [QMVAR(_title)        , ""                    ]
+        , [QMVAR(_status)       , MSTATUS(_standby)     ]
+        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
+        , [QMVAR(_timer)        , KPLIB_timers_default  ]
+        , [QMVAR(_briefingText) , ""                    ]
+        , [QMVAR(_successText)  , ""                    ]
+        , [QMVAR(_failureText)  , ""                    ]
+        , [QMVAR(_imagePath)    , ""                    ]
     ];
 
     // Register key event handlers
