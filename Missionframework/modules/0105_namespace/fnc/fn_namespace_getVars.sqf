@@ -34,7 +34,7 @@ private _debug_getVar = [
 ] call KPLIB_fnc_debug_debug;
 
 params [
-    ["_namespace", locationNull, [objNull, locationNull]]
+    ["_namespace", locationNull, [objNull, locationNull, currentNamespace]]
     , ["_nameValuePairs", [], [[]]]
     , ["_callerName", "", [""]]
 ];

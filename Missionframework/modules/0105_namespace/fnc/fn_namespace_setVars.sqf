@@ -34,7 +34,7 @@ private _debug_setVar = [
 ] call KPLIB_fnc_debug_debug;
 
 params [
-    ["_namespace", locationNull, [objNull, locationNull]]
+    ["_namespace", locationNull, [objNull, locationNull, currentNamespace]]
     , ["_nameValuePairs", [], [[]]]
     , ["_changedMask", true, [true]]
     , ["_callerName", "", [""]]
