@@ -73,6 +73,9 @@ class missionsMgr {
     class missionsMgr_lnbMissions_onLBSelChanged {};
 
     //
+    class missionsMgr_lnbMissions_onLoadDummy {};
+
+    //
     class missionsMgr_lnbMissions_onLoad {};
 
     //
@@ -83,6 +86,9 @@ class missionsMgr {
 
     //
     class missionsMgr_lnbTelemetry_getViewKeys {};
+
+    //
+    class missionsMgr_lnbTelemetry_onLoadDummy {};
 
     //
     class missionsMgr_lnbTelemetry_onLoad {};

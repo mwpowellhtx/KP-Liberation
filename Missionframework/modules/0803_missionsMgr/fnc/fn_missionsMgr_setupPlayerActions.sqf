@@ -35,10 +35,9 @@ if (hasInterface) then {
                     || {[KPLIB_missionsMgr_permissionName] call KPLIB_fnc_permission_checkPermission}
             )
         ';
-
         private _actionArgs = [
             localize "STR_KPLIB_ACTION_MISSIONS"
-            , {[] call KPLIB_fnc_missionsMgr_openDialog}
+            , {[] call MFUNC(_openDialog)}
             , nil
             , KPLIB_ACTION_PRIORITY_MISSIONS
             , false

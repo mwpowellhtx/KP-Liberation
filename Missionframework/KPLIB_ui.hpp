@@ -42,5 +42,5 @@
 #include "KPGUI\XGUI_classes.hpp"
 #include "modules\0415_productionMgr\ui.hpp"
 #include "modules\0450_logisticsMgr\ui.hpp"
-// // TODO: TBD: it's coming, but we are not quite there yet
-//#include "modules\0803_missionsMgr\ui.hpp"
+// TODO: TBD: draft work in progress...
+#include "modules\0803_missionsMgr\ui.hpp"
