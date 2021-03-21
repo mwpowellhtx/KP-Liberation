@@ -69,7 +69,7 @@ KPLIB_logisticsMgr_onUnload_debug                           = false;
     ----- Module Initialization -----
  */
 
-KPLIB_logisticsMgr_onEndpointsPublished = "KPLIB_logisticsMgr_onEndpointsPublished";
+KPLIB_logisticsMgr_onEndpointsPublished                 = "KPLIB_logisticsMgr_onEndpointsPublished";
 
 if (isServer) then {
     // Server section (dedicated and player hosted)
@@ -82,43 +82,45 @@ if (!(hasInterface || isDedicated)) then {
 if (hasInterface) then {
     // Player section
 
-    KPLIB_logisticsMgr_markerName               = "KPLIB_logisticsMgr_pos";
-    KPLIB_logisticsMgr_actualMarkerName         = "KPLIB_logisticsMgr_actualPos";
-    KPLIB_logisticsMgr_loadingClassName         = "hd_start";
-    KPLIB_logisticsMgr_unloadingClassName       = "hd_end";
-    KPLIB_logisticsMgr_enRouteClassName         = "hd_arrow";
-    KPLIB_logisticsMgr_ambushedClassName        = "hd_ambush";
-    KPLIB_logisticsMgr_routeBlockedClassName    = "hd_objective";
+    KPLIB_param_logisticsMgr_enableOrDisablePeriod      = 1;
+
+    KPLIB_logisticsMgr_markerName                       = "KPLIB_logisticsMgr_pos";
+    KPLIB_logisticsMgr_actualMarkerName                 = "KPLIB_logisticsMgr_actualPos";
+    KPLIB_logisticsMgr_loadingClassName                 = "hd_start";
+    KPLIB_logisticsMgr_unloadingClassName               = "hd_end";
+    KPLIB_logisticsMgr_enRouteClassName                 = "hd_arrow";
+    KPLIB_logisticsMgr_ambushedClassName                = "hd_ambush";
+    KPLIB_logisticsMgr_routeBlockedClassName            = "hd_objective";
 
     // Defined in layout order from top-left to bottom-right...
     KPLIB_logisticsMgr_ctrls_mayRemoveLine = [
         KPLIB_IDC_LOGISTICSMGR_BTN_LINE_REMOVE
     ];
-    KPLIB_logisticsMgr_ctrls_mayManageConvoyTransports = [
+    KPLIB_logisticsMgr_ctrls_mayManageConvoyTransports  = [
         KPLIB_IDC_LOGISTICSMGR_BTN_TRANSPORT_BUILD
         , KPLIB_IDC_LOGISTICSMGR_BTN_TRANSPORT_RECYCLE
     ];
-    KPLIB_logisticsMgr_ctrls_mayBuildConvoyTransports = [
+    KPLIB_logisticsMgr_ctrls_mayBuildConvoyTransports   = [
         KPLIB_IDC_LOGISTICSMGR_BTN_TRANSPORT_BUILD
     ];
     KPLIB_logisticsMgr_ctrls_mayRecycleConvoyTransports = [
         KPLIB_IDC_LOGISTICSMGR_BTN_TRANSPORT_RECYCLE
     ];
-    KPLIB_logistics_ctrls_endpointGrps = [
+    KPLIB_logistics_ctrls_endpointGrps                  = [
         KPLIB_IDC_LOGISTICSMGR_ALPHA_GRP
         , KPLIB_IDC_LOGISTICSMGR_BRAVO_GRP
     ];
-    KPLIB_logisticsMgr_ctrls_mayConfigureAlpha = [
+    KPLIB_logisticsMgr_ctrls_mayConfigureAlpha          = [
         KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_SUPPLY
         , KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_AMMO
         , KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_FUEL
     ];
-    KPLIB_logisticsMgr_ctrls_mayConfigureBravo = [
+    KPLIB_logisticsMgr_ctrls_mayConfigureBravo          = [
         KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_SUPPLY
         , KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_AMMO
         , KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_FUEL
     ];
-    KPLIB_logisticsMgr_ctrls_mayConfigureBills = [
+    KPLIB_logisticsMgr_ctrls_mayConfigureBills          = [
         KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_SUPPLY
         , KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_AMMO
         , KPLIB_IDC_LOGISTICSMGR_ALPHA_EDT_FUEL
@@ -126,13 +128,13 @@ if (hasInterface) then {
         , KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_AMMO
         , KPLIB_IDC_LOGISTICSMGR_BRAVO_EDT_FUEL
     ];
-    KPLIB_logisticsMgr_ctrls_mayConfirm = [
+    KPLIB_logisticsMgr_ctrls_mayConfirm                 = [
         KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_CONFIRM
     ];
-    KPLIB_logisticsMgr_ctrls_mayReroute = [
+    KPLIB_logisticsMgr_ctrls_mayReroute                 = [
         KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_REROUTE
     ];
-    KPLIB_logisticsMgr_ctrls_mayAbort = [
+    KPLIB_logisticsMgr_ctrls_mayAbort                   = [
         KPLIB_IDC_LOGISTICSMGR_BTN_MISSION_ABORT
     ];
 
@@ -144,7 +146,7 @@ if (hasInterface) then {
     KPLIB_logistics_telemetry_hashMap_timeRemaining     = "_timeRemaining";
     KPLIB_logistics_telemetry_hashMap_transportSpeed    = "_transportSpeed";
 
-    KPLIB_logisticsMgr_cboEndpointHashMap = [] call {
+    KPLIB_logisticsMgr_cboEndpointHashMap               = [] call {
         private _retval = createHashMap;
         _retval set ["ALPHA", "KPLIB_logisticsMgr_cboAlpha"];
         _retval set ["BRAVO", "KPLIB_logisticsMgr_cboBravo"];
@@ -152,7 +154,7 @@ if (hasInterface) then {
     };
 
     // TODO: TBD: there are no doubt FAR better ways to handle this...
-    KPLIB_logisticsMgr_edtEndpointHashMap = [] call {
+    KPLIB_logisticsMgr_edtEndpointHashMap               = [] call {
         private _retval = createHashMap;
 
         // Aligning the ENDPOINT with the RESOURCE in order to obtain a namespace resource key

@@ -188,7 +188,4 @@ class logisticsMgr {
 
     // ...
     class logisticsMgr_calculateToEnableOrDisable {};
-
-    // ...
-    class logisticsMgr_onEnableOrDisableCtrls {};
 };

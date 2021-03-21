@@ -40,6 +40,33 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_display", _display];
 // And announce to the server...
 [KPLIB_logisticsSM_onLogisticsMgrOpened, [clientOwner]] call CBA_fnc_serverEvent;
 
+[
+    {
+        ([] call KPLIB_fnc_logisticsMgr_calculateToEnableOrDisable) params [
+            ["_toEnable", [], [[]]]
+            , ["_toDisable", [], [[]]]
+        ];
+
+        { _x ctrlEnable true; } forEach (_toEnable apply { _display displayCtrl _x; });
+        { _x ctrlEnable false; } forEach (_toDisable apply { _display displayCtrl _x; });
+    }
+    , KPLIB_param_logisticsMgr_enableOrDisablePeriod
+    , []
+    , {}
+    , {}
+    , {
+        _display = uiNamespace getVariable ["KPLIB_logisticsMgr_display", displayNull];
+        !isNull _display;
+    }
+    , {
+        _display = uiNamespace getVariable ["KPLIB_logisticsMgr_display", displayNull];
+        isNull _display;
+    }
+    , [
+        "_display"
+    ]
+] call CBA_fnc_createPerFrameHandlerObject;
+
 if (_debug) then {
     ["[fn_logisticsMgr_onLoad] Fini", "LOGISTICSMGR", true] call KPLIB_fnc_common_log;
 };
