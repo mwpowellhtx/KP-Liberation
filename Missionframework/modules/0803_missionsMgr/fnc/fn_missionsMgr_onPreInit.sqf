@@ -37,6 +37,13 @@ if (hasInterface) then {
 
     MVAR(_enableOrDisablePeriod)            = 1;
 
+    // Overview, success, and failure colors in that order
+    MVAR(_ctBriefing_headerColors)          = [
+        [0.35, 0.35, 0.35, 0.85]
+        , [0, 0.4, 0.1333, 0.85]
+        , [0.7, 0.14, 0, 0.85]
+    ];
+
     // Assembly the row names and all of the control names
     MVAR(_ctBriefing_rowNames)              = [
         QMVAR(_ctBriefing_rowOverview)

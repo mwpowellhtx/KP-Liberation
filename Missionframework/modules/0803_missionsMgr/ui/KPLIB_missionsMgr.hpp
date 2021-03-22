@@ -89,19 +89,17 @@
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W    KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H    (KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + (2 * KPX_SPACING_H)))
 
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H                (KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H / 3)
-
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X          0
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W          (0.2 * KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W)
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_H          KPLIB_MISSIONSMGR_BTN_H
-
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_X    (KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X + KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W)
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_W    (0.2 * KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W)
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_H    KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_HEADER_H             KPLIB_MISSIONSMGR_BTN_H
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H                ((KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H / 3) - KPLIB_MISSIONSMGR_BTN_H)
 
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X             0
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W             KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_H             KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H
+
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X          KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W          KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W
+
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_X    KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_W    KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W
 
 class KPLIB_missionsMgr_btnButtonBase : XGUI_PRE_Button {
     h = KPLIB_MISSIONSMGR_BTN_H;
@@ -256,8 +254,7 @@ class KPLIB_missionsMgr {
             y = KPLIB_MISSIONSMGR_TITLE_Y;
             w = KPLIB_MISSIONSMGR_TITLE_W;
             h = KPLIB_MISSIONSMGR_TITLE_H;
-            //text = "$STR_KPLIB_DIALOG_LOGISTICSMGR_TITLE";
-            text = "title";
+            text = "$STR_KPLIB_DIALOG_MISSIONSMGR_TITLE";
         };
 
         class KPLIB_missionsMgr_dialogArea : XGUI_PRE_DialogBackgroundC {
@@ -285,7 +282,7 @@ class KPLIB_missionsMgr {
             rowHeight = KPX_TITLE_S_H;
 
             //          {_icon, _text, _isTemplateViewDatum, _isRunningViewDatum}
-            columns[] = {    0,   0.1,                  0.5,                 0.7};
+            columns[] = {    0,  0.12,                  0.5,                 0.7};
 
             onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbMissions_onLoadDummy";
             //onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoad";
@@ -296,8 +293,7 @@ class KPLIB_missionsMgr {
             idc = KPLIB_IDC_MISSIONSMGR_BTN_RUN;
             x = KPLIB_MISSIONSMGR_MISSIONS_BTN_RUN_X;
 
-            //text = "$STR_KPLIB_MISSIONSMGR_BTN_ADD";
-            text = "run";
+            text = "$STR_KPLIB_MISSIONSMGR_BTN_RUN";
 
             //onButtonClick = "_this spawn KPLIB_fnc_logisticsMgr_btnLineAdd_onButtonClick";
         };
@@ -306,8 +302,7 @@ class KPLIB_missionsMgr {
             idc = KPLIB_IDC_MISSIONSMGR_BTN_ABORT;
             x = KPLIB_MISSIONSMGR_MISSIONS_BTN_ABORT_X;
 
-            //text = "$STR_KPLIB_MISSIONSMGR_BTN_REMOVE";
-            text = "abort";
+            text = "$STR_KPLIB_MISSIONSMGR_BTN_ABORT";
 
             //onButtonClick = "_this spawn KPLIB_fnc_logisticsMgr_btnLineRemove_onButtonClick";
         };
@@ -321,7 +316,7 @@ class KPLIB_missionsMgr {
             y = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_Y;
             w = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W;
             h = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H;
-            text = "title";
+            text = "$STR_KPLIB_MISSIONSMGR_LBL_BRIEFING_TITLE_NA";
         };
 
         class KPLIB_missionsMgr_lnbTelemetry : XGUI_PRE_ListNBox {
@@ -335,7 +330,7 @@ class KPLIB_missionsMgr {
             rowHeight = KPX_TITLE_S_H;
 
             //          {_icon, _telemetry, _value}
-            columns[] = { 0.01,       0.11,   0.55};
+            columns[] = {    0,       0.12,   0.55};
 
             onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbTelemetry_onLoadDummy";
             //onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoad";
@@ -363,33 +358,28 @@ class KPLIB_missionsMgr {
             onLoad = "_this spawn KPLIB_fnc_missionsMgr_ctBriefing_onLoadDummy";
 
             rowHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
-            headerHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+            headerHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_HEADER_H;
 
             firstIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_FIRST;
             lastIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_LAST;
 
             // Template for headers (unlike rows, cannot be selected)
             class HeaderTemplate {
-                // class HeaderBackground {
-                //     controlBaseClassPath[] = {"RscText"};
-                //     columnX = 0;
-                //     columnW = 15 * GUI_GRID_W;
-                //     controlOffsetY = 0;
-                // };
-                // class Column1 {
-                //     controlBaseClassPath[] = {"RscText"};
-                //     columnX = 0;
-                //     columnW = 2 * GUI_GRID_W;
-                //     controlOffsetY = 0;
-                //     controlH = 1 * GUI_GRID_H;
-                // };
-                // class Column2 {
-                //     controlBaseClassPath[] = {"RscText"};
-                //     columnX = 2 * GUI_GRID_W;
-                //     columnW = 9 * GUI_GRID_W;
-                //     controlOffsetY = 0;
-                //     controlH = 1 * GUI_GRID_H;
-                // };
+                class HeaderBackground {
+                    controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
+                    columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X;
+                    columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_HEADER_H;
+                };
+
+                class KPLIB_missionsMgr_ctBriefing_rowTemplate_lblTitle {
+                    controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
+                    columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X;
+                    columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_HEADER_H;
+                };
             };
 
             // Template for selectable rows
@@ -401,25 +391,15 @@ class KPLIB_missionsMgr {
                     columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_X;
                     columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_W;
                     controlOffsetY = 0;
-                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_BG_H;
-                    colorBackground[] = {0, 0, 0, 0};
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
                 };
 
-                class KPLIB_missionsMgr_ctBriefing_rowTemplate_lblTitle {
-                    controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
-                    columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_X;
-                    columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_TITLE_W;
-                    colorBackground[] = {0, 0, 0, 0};
-                };
                 class KPLIB_missionsMgr_ctBriefing_rowTemplate_lblDescription {
                     controlBaseClassPath[] = {"KPLIB_missionsMgr_ctBriefing_RowLabel"};
                     columnX = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_X;
                     columnW = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_W;
                     controlOffsetY = 0;
-                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_LBL_DESCRIPTION_H;
-                    colorBackground[] = {0, 0, 0, 0};
+                    controlH = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
                 };
             };
         };

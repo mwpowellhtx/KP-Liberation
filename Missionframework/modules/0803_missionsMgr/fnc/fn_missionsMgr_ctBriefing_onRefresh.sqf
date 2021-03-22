@@ -45,9 +45,12 @@ private _briefingsToRefresh = [0, 1, 2] apply {
         [Q(_text), "", [""]]
         , [Q(_rowName), "", [""]]
     ];
-    private _ctrlFullName = [_rowName, Q(_lblTitle)] joinString "";
+
+    private _ctrlFullName = [_rowName, Q(_lblDescription)] joinString "";
     private _ctrl = uiNamespace getVariable [_ctrlFullName, controlNull];
+
     _ctrl ctrlSetText _text;
+
 } forEach _briefingsToRefresh;
 
 true;

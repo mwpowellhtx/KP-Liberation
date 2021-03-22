@@ -1250,6 +1250,21 @@
             <English>KP Logistics Manager</English>
         </Key>
 
+        <!-- MISSIONS MANAGER -->
+
+        <Key ID="STR_KPLIB_DIALOG_MISSIONSMGR_TITLE">
+            <English>KP Missions Manager</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_BTN_RUN">
+            <English>+RUN</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_BTN_ABORT">
+            <English>-ABORT</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LBL_BRIEFING_TITLE_NA">
+            <English>N/A</English>
+        </Key>
+
     </Package>
 
 
@@ -2492,6 +2507,15 @@
         </Key>
         <Key ID="STR_KPLIB_MISSIONSMGR_LNB_TELEMETRY_VALUE">
             <English>Value</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_OVERVIEW">
+            <English>Overview:</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_SUCCESS">
+            <English>Success:</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_FAILURE">
+            <English>Failure:</English>
         </Key>
 
         <!-- EXAMPLE MISSION -->

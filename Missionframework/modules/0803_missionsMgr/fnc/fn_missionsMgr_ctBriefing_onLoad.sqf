@@ -56,14 +56,22 @@ if ({ (!isNull _x) } count _ctrls == count _allCtrlNames) exitWith {
     private _text = _x;
     private _briefingIndex = _forEachIndex;
 
-    ([MVAR(_ctBriefing_titles), MVAR(_ctBriefing_rowNames)] apply { _x select _briefingIndex; }) params [
-        Q(_title)
+    ([
+        MVAR(_ctBriefing_headerColors)
+        , MVAR(_ctBriefing_titles)
+        , MVAR(_ctBriefing_rowNames)
+    ] apply { _x select _briefingIndex; }) params [
+        Q(_headerColor)
+        , Q(_title)
         , Q(_rowName)
     ];
 
+    ctAddHeader _ctBriefing params [Q(_headerIndex), Q(_header)];
+    _header params [Q(_headerBG), Q(_lblTitle)];
+
     // For bookkeeping later on...
     ctAddRow _ctBriefing params [Q(_rowIndex), Q(_row)];
-    _row params [Q(_ctrlBG), Q(_lblTitle), Q(_lblDescription)];
+    _row params [Q(_ctrlBG), Q(_lblDescription)];
 
     {
         _x params [
@@ -75,10 +83,15 @@ if ({ (!isNull _x) } count _ctrls == count _allCtrlNames) exitWith {
         uiNamespace setVariable [_ctrlFullName, _ctrl];
         _ctrl ctrlSetText _text;
     } forEach [
-        [Q(_ctrlBG), _ctrlBG]
+        [Q(_headerBG), _headerBG]
+        , [Q(_ctrlBG), _ctrlBG]
         , [Q(_lblTitle), _lblTitle, _title]
         , [Q(_lblDescription), _lblDescription, _text]
     ];
+
+    _lblTitle ctrlSetBackgroundColor _headerColor;
+    _lblTitle ctrlCommit 0;
+
 } forEach KPLIB_mission_zeroBriefing;
 
 true;
