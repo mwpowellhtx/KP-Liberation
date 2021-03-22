@@ -52,7 +52,8 @@ if (hasInterface) then {
     ];
 
     private _briefingCtrlNames              = [
-        Q(_ctrlBG)
+        Q(_headerBG)
+        , Q(_rowBG)
         , Q(_lblTitle)
         , Q(_lblDescription)
     ];

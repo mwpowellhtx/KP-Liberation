@@ -30,9 +30,13 @@ params [
     , [Q(_exitCode), 0, [0]]
 ];
 
-{
+private _onUnloadCtrlByName = {
     uiNamespace setVariable [_x, nil];
-} forEach [
+};
+
+_onUnloadCtrlByName forEach MVAR(_ctBriefing_allCtrlNames)
+
+_onUnloadCtrlByName forEach [
    QMVAR(_display)
     , QMVAR(_config)
     , QMVAR(_lnbMissions)
@@ -47,8 +51,8 @@ params [
     , QMVAR(_lnbTelemetry_config)
     , QMVAR(_imgBriefing)
     , QMVAR(_imgBriefing_config)
-    , QMVAR(_lnbBriefing)
-    , QMVAR(_lnbBriefing_config)
+    , QMVAR(_ctBriefing)
+    , QMVAR(_ctBriefing_config)
 ];
 
 true;

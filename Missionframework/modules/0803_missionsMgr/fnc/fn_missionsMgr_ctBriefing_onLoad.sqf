@@ -71,7 +71,7 @@ if ({ (!isNull _x) } count _ctrls == count _allCtrlNames) exitWith {
 
     // For bookkeeping later on...
     ctAddRow _ctBriefing params [Q(_rowIndex), Q(_row)];
-    _row params [Q(_ctrlBG), Q(_lblDescription)];
+    _row params [Q(_rowBG), Q(_lblDescription)];
 
     {
         _x params [
@@ -84,7 +84,7 @@ if ({ (!isNull _x) } count _ctrls == count _allCtrlNames) exitWith {
         _ctrl ctrlSetText _text;
     } forEach [
         [Q(_headerBG), _headerBG]
-        , [Q(_ctrlBG), _ctrlBG]
+        , [Q(_rowBG), _rowBG]
         , [Q(_lblTitle), _lblTitle, _title]
         , [Q(_lblDescription), _lblDescription, _text]
     ];
