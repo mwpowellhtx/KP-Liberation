@@ -27,50 +27,27 @@
 
 params [
     [Q(_ctBriefing), controlNull, [controlNull]]
-    , [Q(_config), configNull, [configNull]]
 ];
 
-// Does what the 'onLoad' event handler should do warming up the control first time
-[_ctBriefing, _config] call KPLIB_fnc_missionsMgr_ctBriefing_onLoad;
+// The view data breaks the norm somewhat in this instance...
+private _viewData = _ctBriefing getVariable [QMVAR(_viewData), KPLIB_mission_zeroBriefing];
 
-// Then we load with some dummy data...
-private _getSpam = {
-    params [
-        [Q(_text), "", [""]]
-        , [Q(_count), 99, [0]]
-    ];
-    private _bits = [];
-    _bits resize _count;
-    _bits apply { _text; } joinString " ";
+private _briefingsToRefresh = [0, 1, 2] apply {
+    private _briefingIndex = _x;
+    [
+        _viewData select _briefingIndex
+        , MVAR(_ctBriefing_rowNames) select _briefingIndex
+    ]
 };
 
-[
-    [Q(_overview)] call _getSpam
-    , [Q(_success)] call _getSpam
-    , [Q(_failure)] call _getSpam
-] params [
-    Q(_overview)
-    , Q(_success)
-    , Q(_failure)
-];
-
-// For purposes of dummy data...
-private _mission = +[
-    ""
-    , ""
-    , ""
-    , ""
-    , ""
-    , KPLIB_mission_status_standby
-    , KPLIB_zeroPos
-    , KPLIB_timers_default
-    , [_overview, _success, _failure]
-];
-
-private _viewData = [_mission] call MFUNC(_ctBriefing_toViewData);
-
-_ctBriefing setVariable [QMVAR(_viewData), _viewData];
-
-[_ctBriefing] call MFUNC(_ctBriefing_onRefresh);
+{
+    _x params [
+        [Q(_text), "", [""]]
+        , [Q(_rowName), "", [""]]
+    ];
+    private _ctrlFullName = [_rowName, Q(_lblTitle)] joinString "";
+    private _ctrl = uiNamespace getVariable [_ctrlFullName, controlNull];
+    _ctrl ctrlSetText _text;
+} forEach _briefingsToRefresh;
 
 true;

@@ -37,6 +37,34 @@ if (hasInterface) then {
 
     MVAR(_enableOrDisablePeriod)            = 1;
 
+    // Assembly the row names and all of the control names
+    MVAR(_ctBriefing_rowNames)              = [
+        QMVAR(_ctBriefing_rowOverview)
+        , QMVAR(_ctBriefing_rowSuccess)
+        , QMVAR(_ctBriefing_rowFailure)
+    ];
+
+    private _briefingCtrlNames              = [
+        Q(_ctrlBG)
+        , Q(_lblTitle)
+        , Q(_lblDescription)
+    ];
+
+    MVAR(_ctBriefing_allCtrlNames)          = [];
+
+    {
+        private _prefix = _x;
+        MVAR(_ctBriefing_allCtrlNames) append (_briefingCtrlNames apply {
+            [_prefix, _x] joinString "";
+        });
+    } forEach MVAR(_ctBriefing_rowNames);
+
+    MVAR(_ctBriefing_titles)                = [
+        localize "STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_OVERVIEW"
+        , localize "STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_SUCCESS"
+        , localize "STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_FAILURE"
+    ];
+
     MVAR(_onLoad_debug)                     = false;
     MVAR(_onUnload_debug)                   = false;
     MVAR(_lnbMissions_onLoad_debug)         = false;

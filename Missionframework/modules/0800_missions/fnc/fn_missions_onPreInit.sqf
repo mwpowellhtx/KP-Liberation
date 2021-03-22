@@ -52,7 +52,7 @@ MSTATUS(_success)                       = 16;
 MSTATUS(_aborting)                      = 32;
 
 // TODO: TBD: also consider which mission telemetry should be reported...
-MSVAR(_statusReports) = [
+MSVAR(_statusReports)                   = [
     [MSTATUS(_standby)      , localize "STR_KPLIB_MISSION_STATUS_STANDBY"   ]
     , [MSTATUS(_started)    , localize "STR_KPLIB_MISSION_STATUS_STARTED"   ]
     , [MSTATUS(_engaged)    , localize "STR_KPLIB_MISSION_STATUS_ENGAGED"   ]
@@ -61,6 +61,8 @@ MSVAR(_statusReports) = [
     , [MSTATUS(_success)    , localize "STR_KPLIB_MISSION_STATUS_SUCCESS"   ]
     , [MSTATUS(_aborting)   , localize "STR_KPLIB_MISSION_STATUS_ABORTING"  ]
 ];
+
+MVAR(_zeroBriefing)                     = ["", "", ""];
 
 MSPARAM(_debug)                         = false;
 
@@ -86,7 +88,7 @@ if (isServer) then {
         , [QMVAR(_icon)                 , ""                        ]
         , [QMVAR(_name)                 , ""                        ]
         , [QMVAR(_title)                , ""                        ]
-        , [QMVAR(_briefing)             , ["", "", ""]              ]
+        , [QMVAR(_briefing)             , MVAR(_zeroBriefing)       ]
         , [QMVAR(_imagePath)            , ""                        ]
         , [QMVAR(_args)                 , []                        ]
         , [QMVAR(_cost)                 , MVAR(_zeroDebit)          ]
@@ -144,7 +146,7 @@ if (isServer) then {
         , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_pos)          , KPLIB_zeroPos         ]
         , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefing)     , ["", "", ""]          ]
+        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
         , [QMVAR(_imagePath)    , ""                    ]
     ];
 

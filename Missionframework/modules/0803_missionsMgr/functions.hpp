@@ -108,22 +108,15 @@ class missionsMgr {
     //
     class missionsMgr_onMissionsPublished {};
 
-    // // // TODO: TBD: eventually landing on this one...
-    // //
-    // class missionsMgr_ctBriefing_onLoad {};
+    //
+    class missionsMgr_ctBriefing_onLoad {};
 
     //
     class missionsMgr_ctBriefing_onLoadDummy {};
 
     //
-    class missionsMgr_lnbBriefing_onLoad {};
+    class missionsMgr_ctBriefing_onLoadPrototype {};
 
     //
-    class missionsMgr_lnbBriefing_onLoadDummy {};
-
-    //
-    class missionsMgr_lnbBriefing_onRefresh {};
-
-    //
-    class missionsMgr_lnbBriefing_toViewData {};
+    class missionsMgr_ctBriefing_toViewData {};
 };

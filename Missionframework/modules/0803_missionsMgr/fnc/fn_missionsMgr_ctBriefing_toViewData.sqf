@@ -1,24 +1,23 @@
 #include "..\ui\defines.hpp"
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missionsMgr_txtBriefing_toViewData
+    KPLIB_fnc_missionsMgr_ctBriefing_toViewData
 
-    File: fn_missionsMgr_txtBriefing_toViewData.sqf
+    File: fn_missionsMgr_ctBriefing_toViewData.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 21:02:35
-    Last Update: 2021-03-20 21:33:58
+    Last Update: 2021-03-21 20:57:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Dissects the MISSION TUPLE for its current BRIEFING elements for
-        presentation through the BRIEFING LISTNBIX.
+        Dissects the MISSION TUPLE for its current BRIEFING CONTROL TABLE elements.
 
     Parameter(s):
         _mission - a MISSION TUPLE array [ARRAY, default: []]
 
     Returns:
-        The BRIEFING LISTNBOX view dat [ARRAY]
+        The BRIEFING CONTROL TABLE view dat [ARRAY]
  */
 
 params [
@@ -55,15 +54,5 @@ _mission params [
     , [Q(_briefing), ["", "", ""], [[]], 3]
 ];
 
-_briefing params [
-    [Q(_overview), "", [""]]
-    , [Q(_success), "", [""]]
-    , [Q(_failure), "", [""]]
-];
-
-// For presentation through the BRIEFING LISTNBOX
-[
-    [[Q(Overview), _overview], QMVAR(_overview)]
-    , [[Q(Success), _success], QMVAR(_success)]
-    , [[Q(Failure), _failure], QMVAR(_failure)]
-];
+// We just need the three part briefing itself
+_briefing;
