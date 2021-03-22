@@ -24,6 +24,44 @@
 class XGUI_PRE_ScrollBar : KPGUI_PRE_ScrollBar {
 };
 
+// Controls table with nominal default settings
+class XGUI_PRE_ControlTable {
+    idc = KPLIB_IDC_UNDEFINED;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
+
+    type = CT_CONTROLS_TABLE;
+    style = SL_TEXTURES;
+
+    lineSpacing = 0;
+    // TODO: TBD: may run with nominal defaults...
+    // rowHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+    // headerHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
+
+    // firstIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_FIRST;
+    // lastIDC = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING_IDC_LAST;
+
+    // Colors which are used for animation (i.e. change of colour) of the selected line
+    selectedRowColorFrom[]  = {0, 0, 0, 0};
+    selectedRowColorTo[]    = {0, 0, 0, 0};
+    // Length of the animation cycle in seconds
+    selectedRowAnimLength = 1;
+
+    class VScrollBar : XGUI_PRE_ScrollBar {
+        // width = 0.021;
+        // autoScrollEnabled = 0;
+        // autoScrollDelay = 1;
+        // autoScrollRewind = 1;
+        // autoScrollSpeed = 1;
+    };
+
+    class HScrollBar : XGUI_PRE_ScrollBar {
+        // height = 0.028;
+    };
+};
+
 // // TODO: TBD: could not seem to get this to work quite right
 // StructuredText
 class XGUI_PRE_StructuredText {
