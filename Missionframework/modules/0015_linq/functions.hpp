@@ -29,6 +29,9 @@ class linq {
     // Provides a LINQ style select function
     class linq_select {};
 
+    // Provides a LINQ style selectMany function
+    class linq_selectMany {};
+
     // Provides a LINQ style zip function
     class linq_zip {};
 
