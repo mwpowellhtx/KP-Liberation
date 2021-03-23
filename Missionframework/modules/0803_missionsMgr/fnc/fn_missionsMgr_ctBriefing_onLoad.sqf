@@ -33,7 +33,7 @@ params [
 {
     uiNamespace setVariable _x;
 } forEach [
-    [QMVAR(_ctBriefing), _ctrl]
+    [QMVAR(_ctBriefing), _ctBriefing]
     , [QMVAR(_ctBriefing_config), _config]
 ];
 

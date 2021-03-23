@@ -27,9 +27,20 @@
         https://cbateam.github.io/CBA_A3/docs/files/common/fnc_deletePerFrameHandlerObject-sqf.html
  */
 
+private _debug = [
+    [
+        {MPARAM(_onMissionsPublished)}
+    ]
+] call MFUNC(_debug);
+
 params [
     [Q(_missions), [], [[]]]
 ];
+
+if (_debug) then {
+    [format ["[fn_missionsMgr_onMissionsPublished] Entering: [count _missions, _missions]: %1"
+        , str [count _missions, _missions]], "MISSIONSMGR", true] call KPLIB_fnc_common_log;
+};
 
 private _lnbMissions = uiNamespace getVariable [QMVAR(_lnbMissions), controlNull];
 
@@ -37,5 +48,9 @@ uiNamespace setVariable [QMVAR(_missions), _missions];
 _lnbMissions setVariable [QMVAR(_viewData), [_missions] call MFUNC(_lnbMissions_toViewData)];
 
 [_lnbMissions] call MFUNC(_lnbMissions_onRefresh);
+
+if (_debug) then {
+    ["[fn_missionsMgr_onMissionsPublished] Fini", "MISSIONSMGR", true] call KPLIB_fnc_common_log;
+};
 
 true;

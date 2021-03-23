@@ -34,6 +34,9 @@ if (isServer) then {
 
 if (hasInterface) then {
     // Setup of actions available to players
+
+    [MVAR(_onMissionsPublished), MFUNC(_onMissionsPublished)] call CBA_fnc_addEventHandler;
+
     [] call MFUNC(_setupPlayerActions);
 };
 

@@ -64,31 +64,31 @@
 #define KPLIB_MISSIONSMGR_MISSIONS_BTN_RUN_X    KPLIB_MISSIONSMGR_LNB_MISSIONS_X
 #define KPLIB_MISSIONSMGR_MISSIONS_BTN_ABORT_X  (KPLIB_MISSIONSMGR_MISSIONS_BTN_RUN_X + KPLIB_MISSIONSMGR_BTN_MISSIONS_W + KPX_SPACING_W)
 
-#define KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_X  (KPLIB_MISSIONSMGR_LNB_MISSIONS_X + KPLIB_MISSIONSMGR_LNB_MISSIONS_W + KPX_SPACING_W)
-#define KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_Y  KPLIB_MISSIONSMGR_LNB_MISSIONS_Y
-#define KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W  (KPLIB_MISSIONSMGR_CTRLAREA_W - KPLIB_MISSIONSMGR_LNB_MISSIONS_W - KPX_SPACING_W)
-#define KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H  KPX_GETH_VHGS(KPLIB_MISSIONSMGR_CTRLAREA_H,1,19,KPX_SPACING_H)
+#define KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_X  (KPLIB_MISSIONSMGR_LNB_MISSIONS_X + KPLIB_MISSIONSMGR_LNB_MISSIONS_W + KPX_SPACING_W)
+#define KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_Y  KPLIB_MISSIONSMGR_LNB_MISSIONS_Y
+#define KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_W  (KPLIB_MISSIONSMGR_CTRLAREA_W - KPLIB_MISSIONSMGR_LNB_MISSIONS_W - KPX_SPACING_W)
+#define KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_H  KPX_GETH_VHGS(KPLIB_MISSIONSMGR_CTRLAREA_H,1,19,KPX_SPACING_H)
 
 // Four rows, three status rows plus one 'header' row
-#define KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X  KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_X
-#define KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y  (KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_Y + KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + KPX_SPACING_H)
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X  KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_X
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y  (KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_Y + KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_H + KPX_SPACING_H)
 #define KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_W  KPX_GETW_VWGS(KPLIB_MISSIONSMGR_CTRLAREA_W,7,32,KPX_SPACING_W)
 #define KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H  KPX_GETH_VHGS(KPLIB_MISSIONSMGR_CTRLAREA_H,6,19,KPX_SPACING_H)
 
 #define KPLIB_MISSIONSMGR_BRIEFING_IMG_X        (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_W + KPX_SPACING_W)
 #define KPLIB_MISSIONSMGR_BRIEFING_IMG_Y        KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y
-#define KPLIB_MISSIONSMGR_BRIEFING_IMG_W        (KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W - KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_W - KPX_SPACING_W)
+#define KPLIB_MISSIONSMGR_BRIEFING_IMG_W        (KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_W - KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_W - KPX_SPACING_W)
 #define KPLIB_MISSIONSMGR_BRIEFING_IMG_H        KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H
 
 #define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_X   KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X
 #define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_Y   (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPX_SPACING_H)
-#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_W   KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W
-#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_H   KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + (2 * KPX_SPACING_H))
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_W   KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_W
+#define KPLIB_MISSIONSMGR_BRIEFING_LNB_BRIEFING_H   KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_H + (2 * KPX_SPACING_H))
 
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_X    KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_X
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_Y    (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_Y + KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPX_SPACING_H)
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W    KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W
-#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H    (KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H + (2 * KPX_SPACING_H)))
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W    KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_W
+#define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H    (KPLIB_MISSIONSMGR_CTRLAREA_H - (KPLIB_MISSIONSMGR_BRIEFING_LNB_TELEMETRY_H + KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_H + (2 * KPX_SPACING_H)))
 
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_HEADER_H             KPLIB_MISSIONSMGR_BTN_H
 #define KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H                ((KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H / 3) - KPLIB_MISSIONSMGR_BTN_H)
@@ -157,13 +157,12 @@ class KPLIB_missionsMgr {
             sizeEx = KPX_TEXT_S;
             rowHeight = KPX_TITLE_S_H;
 
-            //          {_icon, _text, _isTemplateViewDatum, _isRunningViewDatum}
-            columns[] = {    0,  0.12,                  0.5,                 0.7};
+            //          {_icon, _title, _gridref, _timer, _statusReport}
+            columns[] = {    0,  0.12,      0.42,   0.52,           0.7};
 
-            onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbMissions_onLoadDummy";
-            // // TODO: TBD: eventually headed to proper onLoad, onLBSelChanged, etc...
-            //onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLoad";
-            //onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbLines_onLBSelChanged";
+            // onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbMissions_onLoadDummy";
+            onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbMissions_onLoad";
+            onLBSelChanged = "_this spawn KPLIB_fnc_missionsMgr_lnbMissions_onLBSelChanged";
         };
 
         class KPLIB_missionsMgr_btnRun : KPLIB_missionsMgr_btnButtonBase {
@@ -172,8 +171,8 @@ class KPLIB_missionsMgr {
 
             text = "$STR_KPLIB_MISSIONSMGR_BTN_RUN";
 
-            // // TODO: TBD: eventually headed to proper onButtonClick, etc...
-            //onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnRun_onButtonClick";
+            onLoad = "_this spawn KPLIB_fnc_missionsMgr_btnRun_onLoad";
+            onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnRun_onButtonClick";
         };
 
         class KPLIB_missionsMgr_btnAbort : KPLIB_missionsMgr_btnButtonBase {
@@ -182,18 +181,21 @@ class KPLIB_missionsMgr {
 
             text = "$STR_KPLIB_MISSIONSMGR_BTN_ABORT";
 
-            // // TODO: TBD: eventually headed to proper onButtonClick, etc...
-            //onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnAbort_onButtonClick";
+            onLoad = "_this spawn KPLIB_fnc_missionsMgr_btnAbort_onLoad";
+            onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnAbort_onButtonClick";
         };
 
         // This works, adding a group would be overkill at this point
-        class KPLIB_missionsMgr_lblBriefingTitle : XGUI_PRE_Label {
-            idc = KPLIB_IDC_MISSIONSMGR_LBL_TITLE;
-            x = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_X;
-            y = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_Y;
-            w = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_W;
-            h = KPLIB_MISSIONSMGR_BRIEFING_LBL_TITLE_H;
-            text = "$STR_KPLIB_MISSIONSMGR_LBL_BRIEFING_TITLE_NA";
+        class KPLIB_missionsMgr_lblMissionTitle : XGUI_PRE_Label {
+            idc = KPLIB_IDC_MISSIONSMGR_LBL_MISSION_TITLE;
+            x = KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_X;
+            y = KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_Y;
+            w = KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_W;
+            h = KPLIB_MISSIONSMGR_BRIEFING_LBL_MISSION_TITLE_H;
+
+            text = "$STR_KPLIB_MISSIONSMGR_LBL_MISSION_TITLE_NA";
+
+            onLoad = "_this call KPLIB_fnc_missionsMgr_lblMissionTitle_onLoad";
         };
 
         class KPLIB_missionsMgr_lnbTelemetry : XGUI_PRE_ListNBox {
@@ -209,10 +211,9 @@ class KPLIB_missionsMgr {
             //          {_icon, _telemetry, _value}
             columns[] = {    0,       0.12,   0.55};
 
-            onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbTelemetry_onLoadDummy";
-            // // TODO: TBD: eventually headed to proper onLoad, onLBSelChanged, etc...
-            //onLoad = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLoad";
-            //onLBSelChanged = "_this spawn KPLIB_fnc_logisticsMgr_lnbTelemetry_onLBSelChanged";
+            // onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbTelemetry_onLoad";
+            onLoad = "_this spawn KPLIB_fnc_missionsMgr_lnbTelemetry_onLoad";
+            onLBSelChanged = "_this spawn KPLIB_fnc_missionsMgr_lnbTelemetry_onLBSelChanged";
         };
 
         // TODO: TBD: likewise will have a briefing image
@@ -233,7 +234,7 @@ class KPLIB_missionsMgr {
             w = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_W;
             h = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_H;
 
-            onLoad = "_this spawn KPLIB_fnc_missionsMgr_ctBriefing_onLoadDummy";
+            onLoad = "_this spawn KPLIB_fnc_missionsMgr_ctBriefing_onLoad";
 
             rowHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_ROW_H;
             headerHeight = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_HEADER_H;

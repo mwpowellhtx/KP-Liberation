@@ -38,16 +38,23 @@ params [
 
 lnbClear _lnbMissions;
 
+/*
+    [
+        [
+            _icon
+            , toUpper _title
+            , _gridref
+            , _timer call KPLIB_fnc_timers_renderComponentString
+            , [_status] call KPLIB_fnc_missions_getStatusReport
+        ]
+        , _uuid
+    ];
+ */
+
 // Simulate some dummy data...
 for "_i" from 0 to 19 do {
-    private _rowIndex = _lnbMissions lnbAddRow [Q(_0), Q(_1), Q(_2), Q(_3)];
-    _lnbMissions lnbSetData [
-        [_rowIndex, 0]
-        , str [
-            [] call KPLIB_fnc_uuid_create_string
-            , [] call KPLIB_fnc_uuid_create_string
-        ]
-    ];
+    private _rowIndex = _lnbMissions lnbAddRow [Q(_0), Q(_1), Q(_2), Q(_3), Q(_4)];
+    _lnbMissions lnbSetData [[_rowIndex, 0], [] call KPLIB_fnc_uuid_create_string];
 };
 
 true;

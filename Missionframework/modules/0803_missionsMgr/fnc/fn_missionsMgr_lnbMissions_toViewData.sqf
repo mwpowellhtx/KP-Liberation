@@ -38,39 +38,62 @@ private _toBooleanViewDatum = {
     _falseText;
 };
 
-private _toMissionsViewDatum = {
+/*
+    // TODO: TBD: at least for now, this is the shape...
+    // Should track with the 'fn_missions_onPreInit' file
+    MVAR(_variableNamesToPublish) = +[
+        [QMVAR(_uuid)           , ""                    ]
+        , [QMVAR(_templateUuid) , ""                    ]
+        , [QMVAR(_icon)         , ""                    ]
+        , [QMVAR(_title)        , ""                    ]
+        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
+        , [QMVAR(_status)       , MSTATUS(_standby)     ]
+        , [QMVAR(_timer)        , KPLIB_timers_default  ]
+        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
+        , [QMVAR(_imagePath)    , ""                    ]
+        , [QMVAR(_telemetry)    , []                    ]
+    ];
+*/
+
+private _toMissionViewDatum = {
     params [
         [Q(_mission), [], [[]]]
     ];
 
+    // TEMPLATE UUID unused
     _mission params [
         [Q(_uuid), "", [""]]
-        , [Q(_templateUuid), "", [""]]
+        , Q(_1)                                             // _templateUuid - unused
         , [Q(_icon), "", [""]]
         , [Q(_title), "", [""]]
+        , [Q(_pos), +KPLIB_zeroPos, [[]], 3]
         , [Q(_status), KPLIB_mission_status_standby, [0]]
+        , [Q(_timer), +KPLIB_timers_default, [[]], 4]
     ];
 
-    [
-        _uuid isEqualTo ""
-        , _status == KPLIB_mission_status_standby
-    ] params [
-        Q(_template)
-        , Q(_standby)
-    ];
+    // TODO: TBD: should have a common function for this...
+    private _gridref = [mapGridPosition _pos] call {
+        params [
+            [Q(_gridref), KPLIB_zeroPosGridref, [""]]
+        ];
+        if (_gridref isEqualTo KPLIB_zeroPosGridref) exitWith {
+            KPLIB_zeroPosGridrefDash;
+        };
+        _gridref;
+    };
 
     [
-        [_template && _standby] call _toBooleanViewDatum
-        , [!(_template || _standby)] call _toBooleanViewDatum
-    ] params [
-        Q(_isTemplateViewDatum)
-        , Q(_isRunningViewDatum)
-    ];
-
-    [
-        [_icon, toUpper _text, _isTemplateViewDatum, _isRunningViewDatum]
-        , [_uuid, _templateUuid]
+        [
+            _icon
+            , toUpper _title
+            , _gridref
+            , _timer call KPLIB_fnc_timers_renderComponentString
+            // TODO: TBD: this is "all" of the status elements...
+            // TODO: TBD: may want to restrict that view...
+            , [_status] call KPLIB_fnc_missions_getStatusReport
+        ]
+        , _uuid
     ];
 };
 
-_missions apply { [_x] call _toMissionViewData; };
+_missions apply { [_x] call _toMissionViewDatum; };

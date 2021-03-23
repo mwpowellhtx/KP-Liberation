@@ -24,44 +24,44 @@ class missionsMgr {
         postInit = 1;
     };
 
+    // Returns whether the caller should perform debugging
+    class missionsMgr_debug {};
+
     // Initialization of actions available to players
     class missionsMgr_setupPlayerActions {};
 
     // Opens the missions manager dialog
     class missionsMgr_openDialog {};
 
-    //// Aborts the given mission
-    //class mission_abortMission {};
-
-    //// Selects which mission should be started/aborted and starts th next function
-    //class mission_buttonClick {};
-
-    //// Displays the information for the given mission
-    //class mission_displayMission {};
-
-    //// Deletes the mission from the running missions
-    //class mission_endMission {};
-
-    //// Checks the mission conditions on a changing selection and disables the button
-    //class mission_preCheck {};
-
-    //// Starts the given mission or selects one from the given array
-    //class mission_startMission {};
-
-    //
+    // Dialog 'onLoad' event handler
     class missionsMgr_onLoad {};
 
-    //
+    // Dialog 'onUnload' event handler
     class missionsMgr_onUnload {};
 
-    //
+    // ABORT CT_BUTTON 'onLoad' event handler
+    class missionsMgr_btnAbort_onLoad {};
+
+    // ABORT CT_BUTTON 'onButtonClick' event handler
     class missionsMgr_btnAbort_onButtonClick {};
 
-    //
+    // RUN CT_BUTTON 'onLoad' event handler
+    class missionsMgr_btnRun_onLoad {};
+
+    // RUN CT_BUTTON 'onButtonClick' event handler
     class missionsMgr_btnRun_onButtonClick {};
 
-    //
+    // Calculates which controls should be enabled or disabled
     class missionsMgr_calculateEnabledOrDisabled {};
+
+    // MISSION TITLE LBL 'onLoad' event handler
+    class missionsMgr_lblMissionTitle_onLoad {};
+
+    //
+    class missionsMgr_lblMissionTitle_onRefresh {};
+
+    //
+    class missionsMgr_lblMissionTitle_toViewData {};
 
     //
     class missionsMgr_imgBriefing_onLoad {};
@@ -75,7 +75,7 @@ class missionsMgr {
     // Reads the data backing the MISSIONS LISTNBOX selected row
     class missionsMgr_lnbMissions_getData {};
 
-    // !!
+    // MISSIONS LISTNBOX 'onLBSelChanged' event handler
     class missionsMgr_lnbMissions_onLBSelChanged {};
 
     //
@@ -102,6 +102,9 @@ class missionsMgr {
     //
     class missionsMgr_lnbTelemetry_onRefresh {};
 
+    // TELEMETRY LISTNBOX 'onLBSelChanged' event handler
+    class missionsMgr_lnbTelemetry_onLBSelChanged {};
+
     //
     class missionsMgr_lnbTelemetry_toViewData {};
 
@@ -116,6 +119,9 @@ class missionsMgr {
 
     //
     class missionsMgr_ctBriefing_onLoadPrototype {};
+
+    //
+    class missionsMgr_ctBriefing_onRefresh {};
 
     //
     class missionsMgr_ctBriefing_toViewData {};

@@ -26,7 +26,10 @@ if (isServer) then {
 
 MVAR(_permissionName)                       = "Mission";
 
-MVAR(_puslishMissions)                      = QMVAR(_puslishMissions);
+// // TODO: TBD: we may not need/want a refresh after all, so this one is probably unnecessary
+// MVAR(_puslishMissions)                      = QMVAR(_puslishMissions);
+MVAR(_onMissionsPublished)                  = QMVAR(_onMissionsPublished);
+
 
 if (isServer) then {
     // Server side initialization
@@ -73,10 +76,13 @@ if (hasInterface) then {
         , localize "STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_FAILURE"
     ];
 
-    MVAR(_onLoad_debug)                     = false;
-    MVAR(_onUnload_debug)                   = false;
-    MVAR(_lnbMissions_onLoad_debug)         = false;
-    MVAR(_lnbMissions_getData_debug)        = false;
+    MPARAM(_debug)                          = false;
+    MPARAM(_onMissionsPublished)            = true;
+    MPARAM(_onLoad_debug)                   = false;
+    MPARAM(_onUnload_debug)                 = false;
+    MPARAM(_lnbMissions_onLoad_debug)       = false;
+    MPARAM(_lnbMissions_onRefresh_debug)    = false;
+    MPARAM(_lnbMissions_getData_debug)      = false;
 
     MVAR(_allIdcs) = [
         KPLIB_IDC_MISSIONSMGR_LNB_MISSIONS

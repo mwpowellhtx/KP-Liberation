@@ -62,4 +62,7 @@ uiNamespace setVariable [QMVAR(_config), _config];
     , []
 ] call CBA_fnc_createPerFrameHandlerObject;
 
+// Announce to the server
+[KPLIB_missionsSM_missionsMgrOpened, [clientOwner]] call CBA_fnc_serverEvent;
+
 true;

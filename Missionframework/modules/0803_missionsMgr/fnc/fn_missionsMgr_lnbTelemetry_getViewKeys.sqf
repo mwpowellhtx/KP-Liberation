@@ -21,7 +21,7 @@
  */
 
 params [
-    [QMVAR(_lnbTelemetry), uiNamespace getVariable [QMVAR(_lnbTelemetry), controlNull], [controlNull]]
+    [Q(_lnbTelemetry), uiNamespace getVariable [QMVAR(_lnbTelemetry), controlNull], [controlNull]]
 ];
 
 private _keys = [];

@@ -18,7 +18,7 @@
 #define KPLIB_IDC_MISSIONSMGR_BTN_ABORT                         433120
 
 #define KPLIB_IDC_MISSIONSMGR_GRP_BRIEFING                      433200
-#define KPLIB_IDC_MISSIONSMGR_LBL_TITLE                         433210
+#define KPLIB_IDC_MISSIONSMGR_LBL_MISSION_TITLE                 433210
 #define KPLIB_IDC_MISSIONSMGR_LNB_TELEMETRY                     433220
 #define KPLIB_IDC_MISSIONSMGR_IMG_MISSION                       433230
 #define KPLIB_IDC_MISSIONSMGR_LNB_BRIEFING                      433240

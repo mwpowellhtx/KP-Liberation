@@ -31,17 +31,17 @@ params [
         [QMVAR(_uuid)           , ""                    ]
         , [QMVAR(_templateUuid) , ""                    ]
         , [QMVAR(_icon)         , ""                    ]
-        , [QMVAR(_name)         , ""                    ]
         , [QMVAR(_title)        , ""                    ]
-        , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_pos)          , KPLIB_zeroPos         ]
+        , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefing)     , ["", "", ""]          ]
+        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
         , [QMVAR(_imagePath)    , ""                    ]
         , [QMVAR(_telemetry)    , []                    ]
     ];
 */
 
+// All but BRIEFING are unused
 _mission params [
     Q(_0)
     , Q(_1)
@@ -50,7 +50,6 @@ _mission params [
     , Q(_4)
     , Q(_5)
     , Q(_6)
-    , Q(_7)
     , [Q(_briefing), ["", "", ""], [[]], 3]
 ];
 

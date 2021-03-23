@@ -54,15 +54,38 @@ private _getSpam = {
     , Q(_failure)
 ];
 
+["", "", "", ""] params [
+    Q(_uuid)
+    , Q(_templateUuid)
+    , Q(_icon)
+    , Q(_title)
+];
+
+/*
+    // TODO: TBD: at least for now, this is the shape...
+    // Should track with the 'fn_missions_onPreInit' file
+    MVAR(_variableNamesToPublish) = +[
+        [QMVAR(_uuid)           , ""                    ]
+        , [QMVAR(_templateUuid) , ""                    ]
+        , [QMVAR(_icon)         , ""                    ]
+        , [QMVAR(_title)        , ""                    ]
+        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
+        , [QMVAR(_status)       , MSTATUS(_standby)     ]
+        , [QMVAR(_timer)        , KPLIB_timers_default  ]
+        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
+        , [QMVAR(_imagePath)    , ""                    ]
+        , [QMVAR(_telemetry)    , []                    ]
+    ];
+*/
+
 // For purposes of dummy data...
 private _mission = +[
-    ""
-    , ""
-    , ""
-    , ""
-    , ""
-    , KPLIB_mission_status_standby
+    _uuid
+    , _templateUuid
+    , _icon
+    , _title
     , KPLIB_zeroPos
+    , KPLIB_mission_status_standby
     , KPLIB_timers_default
     , [_overview, _success, _failure]
 ];

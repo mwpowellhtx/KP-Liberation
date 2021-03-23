@@ -31,16 +31,38 @@ private _toDisable = [];
     , Q(_selectedMission)
 ];
 
-// TODO: TBD: do we really need to know anything else from the tuple?
+/*
+    MVAR(_variableNamesToPublish) = +[
+        [QMVAR(_uuid)           , ""                    ]
+        , [QMVAR(_templateUuid) , ""                    ]
+        , [QMVAR(_icon)         , ""                    ]
+        , [QMVAR(_title)        , ""                    ]
+        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
+        , [QMVAR(_status)       , MSTATUS(_standby)     ]
+        , [QMVAR(_timer)        , KPLIB_timers_default  ]
+        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
+        , [QMVAR(_imagePath)    , ""                    ]
+    ];
+ */
+
+// All but the STATUS are ignored at the moment...
 _selectedMission params [
-    [Q(_uuid), "", [""]]
-    , [Q(_templateUuid), "", [""]]
+    Q(_0)
+    , Q(_1)
+    , Q(_2)
+    , Q(_3)
+    , Q(_4)
+    , [Q(_status), KPLIB_mission_status_standby, [0]]
 ];
 
 [
-    _uuid isEqualTo ""
+    [_status] call KPLIB_fnc_missions_checkStatus
+    , [_status, KPLIB_mission_status_template] call KPLIB_fnc_missions_checkStatus
+    , [_status, KPLIB_mission_status_running] call KPLIB_fnc_missions_checkStatus
 ] params [
-    Q(_template)
+    Q(_standby)
+    , Q(_template)
+    , Q(_running)
 ];
 
 private _onAddDisabled = {
@@ -57,7 +79,7 @@ private _onAddDisabled = {
 
 // "Not" a TEMPLATE meaning it is a RUNNING MISSION
 [MVAR(_abortIdcs), { _template; }] call _onAddDisabled;
-[MVAR(_runIdcs), { !_template; }] call _onAddDisabled;
+[MVAR(_runIdcs), { _running; }] call _onAddDisabled;
 
 // Default assumes enable everything unless otherwise instructed
 private _allIdcs = +MVAR(_allIdcs);

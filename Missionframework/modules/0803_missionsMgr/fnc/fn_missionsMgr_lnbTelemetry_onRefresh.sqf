@@ -22,6 +22,9 @@
     Referencs:
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers
         https://community.bistudio.com/wiki/lnbAddRow
+        https://community.bistudio.com/wiki/lnbSetPicture
+        https://community.bistudio.com/wiki/lnbSetPictureColor
+        https://community.bistudio.com/wiki/Color
  */
 
 params [
@@ -38,22 +41,29 @@ if (!(_viewKeys isEqualTo _loadedViewKeys)) then {
     lnbClear _lnbTelemetry;
 
     private _rowIndex = _lnbTelemetry lnbAddRow [
-        ""
+        "" // _icon
         , toUpper (localize "STR_KPLIB_MISSIONSMGR_LNB_TELEMETRY_PARAM")
         , toUpper (localize "STR_KPLIB_MISSIONSMGR_LNB_TELEMETRY_VALUE")
     ];
 
     {
         _x params [
-            [Q(_name), "", [""]]
-            , Q(_datum)
+            [Q(_telemetryName), "", [""]]
+            , [Q(_displayName), "", [""]]
+            , [Q(_value), "", [""]]
             , [Q(_imagePath), "", [""]]
+            , [Q(_imageColor), [], [[]]] // (RGBA)
         ];
 
-        _rowIndex = _lnbTelemetry lnbAddRow ["", _name, ""];
+        _rowIndex = _lnbTelemetry lnbAddRow ["", _displayName, _value];
+        // For use with the view keys
+        _lnbTelemetry lnbSetData [[_rowIndex, 0], _telemetryName];
 
-        if (count _imagePath > 0) then {
+        if (!(_imagePath isEqualTo "")) then {
             _lnbTelemetry lnbSetPicture [[_rowIndex, 0], _imagePath];
+            if (count _imageColor == 4 /*RGBA*/) then {
+                _lnbTelemetry lnbSetPictureColor [[_rowIndex, 0], _imageColor];
+            };
         };
     } forEach _viewData;
 };
