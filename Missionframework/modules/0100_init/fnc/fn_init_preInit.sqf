@@ -64,6 +64,9 @@ KPLIB_sectors_spawn = [];
 KPLIB_sectors_tower = [];
 // Zero position shortcut
 KPLIB_zeroPos = [0,0,0];
+// For convenience used throughout user interface
+KPLIB_zeroPosGridref = mapGridPosition KPLIB_zeroPos;
+KPLIB_zeroPosGridrefDash = KPLIB_zeroPosGridref splitString "" apply { '-'; } joinString "";
 
 
 /*
