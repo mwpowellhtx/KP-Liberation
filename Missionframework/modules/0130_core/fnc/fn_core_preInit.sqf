@@ -30,6 +30,9 @@ KPLIB_param_core_onConfirmRepackageFob_debug    = false;
 // Process CBA Settings
 [] call KPLIB_fnc_core_settings;
 
+// Created for use along the same lines as objNull, locationNull, etc
+emptyHashMap = createHashMap;
+
 if (isServer) then {
 
     [
