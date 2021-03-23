@@ -42,32 +42,26 @@ if (_debug) then {
         , str [_targetUuid, _targetTemplateUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
 };
 
-private _runningMission = [_targetUuid, _targetTemplateUuid, KPLIB_missions_running] call KPLIB_fnc_missions_getMissionByUuid;
+private _runningMission = [_targetUuid, _targetTemplateUuid] call KPLIB_fnc_missions_getMissionByUuid;
+private _started = [_runningMission, KPLIB_mission_status_started] call KPLIB_fnc_mission_checkStatus;
 
+// May only ABORT a MISSION that is at least RUNNING
 [
-    KPLIB_mission_status_standby
-    , KPLIB_mission_status_running
+    _runningMission
     , KPLIB_mission_status_aborting
-] params [
-    Q(_standby)
-    , Q(_running)
-    , Q(_aborting)
-];
+    , { [(_this#0), KPLIB_mission_status_running
+] call KPLIB_fnc_mission_checkStatus}] call KPLIB_fnc_mission_setStatus;
 
-// Cannot ABORT a MISSION that is not already RUNNING
-[_runningMission, _aborting, { ((_this#0) getVariable [QMVAR(_status), _standby]) == _running; }] call KPLIB_fnc_missions_setStatus;
+private _verified = [_runningMission, KPLIB_mission_status_aborting] call KPLIB_fnc_mission_checkStatus;
 
-[
-    [_runningMission, _aborting] call KPLIB_fnc_missions_checkStatus
-] params [
-    Q(_verified)
-];
-
-// TODO: TBD: report back to the calling '_cid' as appropriate
-// TODO: TBD: i.e. when _cid is a player, and depending on _verified
+if (_cid > 0) then {
+    // TODO: TBD: include an appropriate notification in either direction
+    if (_verified) then {} else {};
+};
 
 if (_debug) then {
-    ["[fn_missionsCO_onRequestAbort] Fini", "MISSIONSCO", true] call KPLIB_fnc_common_log;
+    [format ["[fn_missionsCO_onRequestAbort] Fini: [_verified]: %1"
+        , str [_verified]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
 };
 
 true;

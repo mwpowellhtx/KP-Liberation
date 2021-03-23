@@ -23,10 +23,17 @@ if (isServer) then {
     ["Initializing...", "POST] [MISSIONSCO", true] call KPLIB_fnc_common_log;
 };
 
-
-
 if (isServer) then {
     // Server side init
+
+    // Arrange for the REQUEST handlers
+    [] call {
+        MVAR(_requestCallbacks) = createHashMap;
+        { MVAR(_requestCallbacks) set _x; } forEach [
+            [MVAR(_requestRun), MFUNC(_onRequestRun)]
+            , [MVAR(_requestAbort), MFUNC(_onRequestAbort)]
+        ];
+    }
 };
 
 if (hasInterface) then {
