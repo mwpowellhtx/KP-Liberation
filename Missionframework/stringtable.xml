@@ -2441,7 +2441,7 @@
             <English>Logistic Vehicle</English>
             <German>Logistik Fahrzeuge</German>
         </Key>
-        <Key ID="STR_KPLIB_PERMISSION_MISSION">
+        <Key ID="STR_KPLIB_PERMISSION_MISSIONS">
             <English>Missions</English>
             <German>Missionen</German>
         </Key>
@@ -2501,6 +2501,9 @@
         </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_COMPLETED">
             <English>Completed</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_SYSTEM">
+            <English>System</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_NA">
             <English>N/A</English>
