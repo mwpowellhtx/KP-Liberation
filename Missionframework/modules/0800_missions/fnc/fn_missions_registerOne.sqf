@@ -5,19 +5,21 @@
     File: fn_missions_registerOne.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 17:28:36
-    Last Update: 2021-03-20 17:28:38
+    Last Update: 2021-03-22 12:51:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Registers ONE MISSION TEMPLATE. Adds the TEMPLATE to the known MISSIONS if it was
-        not already there. Also sets the instance in the HASHMAP for faster lookup later on.
+        Registers ONE either MISSION TEMPLATE or RUNNING MISSION, it matters not which.
+        Uses the same UUID in either instance, but be careful to always also discern
+        the corresponding STATUS, and sometimes also TEMPLATE UUID, depending upon the
+        situation.
 
     Parameter(s):
-        _namespace - a CBA MISSION namespace to register [LOCATION, default: locationNull]
+        _mission - a CBA MISSION namespace to register [LOCATION, default: locationNull]
 
     Returns:
-        The index of the registered MISSION namespace [SCALAR]
+        Whether the MISSION was successfully registered [SCALAR]
 
     References:
         https://community.bistudio.com/wiki/in
@@ -28,41 +30,19 @@
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_mission), locationNull, [locationNull]]
 ];
 
-([_namespace, [
-    [QMVAR(_templateUuid), ""]
-]] call KPLIB_fnc_namespace_getVars) params [
-    Q(_targetUuid)
-];
+// Always register according to MISSION UUID
+private _targetUuid = _mission getVariable [QMVAR(_uuid), ""];
 
-private [Q(_namespaceIndex)];
-
-private _templates = MSVAR(_templates);
-private _templateKeys = keys _templates;
-private _registeredItems = _templates getOrDefault [QMVAR(_registeredItems), []];
-
-if (_targetUuid in _templateKeys) exitWith {
-
-    _namespaceIndex = _registeredItems findIf {
-
-        ([_x, [
-            [QMVAR(_templateUuid), ""]
-        ]] call KPLIB_fnc_namespace_getVars) params [
-            Q(_templateUuid)
-        ];
-
-        _targetUuid isEqualType _templateUuid;
-    };
-
-    _namespaceIndex;
+// Already registered so return early
+if (!isNull (MSVAR(_registry) getOrDefault [_targetUuid, locationNull])) exitWith {
+    true;
 };
 
-_templates set [_targetUuid, _namespace];
+// Or register when not already registered
+MSVAR(_registry) set [_targetUuid, _mission];
 
-_namespaceIndex = _registeredItems pushBack _namespace;
-
-_templates set [QMVAR(_registeredItems), _registeredItems];
-
-_namespaceIndex;
+// Verify afterwards
+_targetUuid in (keys MSVAR(_registry));

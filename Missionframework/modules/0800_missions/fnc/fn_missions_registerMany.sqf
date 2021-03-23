@@ -5,7 +5,7 @@
     File: fn_missions_registerMany.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 17:28:36
-    Last Update: 2021-03-20 17:42:44
+    Last Update: 2021-03-22 12:53:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,16 +13,16 @@
         Registers zero or more MISSION TEMPLATES.
 
     Parameter(s):
-        _namespaces - zero or more CBA MISSION namespaces to register [LOCATION, default: locationNull]
+        _missions - zero or more CBA MISSION namespaces to register [LOCATION, default: locationNull]
 
     Returns:
-        The indexes of the registered MISSION namespaces [SCALAR]
+        An ARRAY of each individual REGISTER ONE result [ARRAY of BOOL]
  */
 
 params [
-    [Q(_namespaces), [], [[]]]
+    [Q(_missions), [], [[]]]
 ];
 
-private _namespaceIndexes = _namespaces apply { [_x] call MFUNC(_registerOne); };
+private _retvals = _missions apply { [_x] call MFUNC(_registerOne); };
 
-_namespaceIndexes;
+_retvals;

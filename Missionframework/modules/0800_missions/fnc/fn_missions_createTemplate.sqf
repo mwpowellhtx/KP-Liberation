@@ -6,7 +6,7 @@
     File: fn_missions_createTemplate.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-19 18:53:28
-    Last Update: 2021-03-19 18:53:31
+    Last Update: 2021-03-22 11:34:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,43 +18,51 @@
         _onInit - [CODE, default: _defaultOnInit]
         _nameValuePairs - caller may specify any number of [_variableName, _value] pairs
             related to its purposes [ARRAY, default: []]
+        _uuid - a default UUID to use during creation [STRING, default: _defaultUuid]
 
     Returns:
         A created CBA MISSION TEMPLATE namespace [LOCATION]
+
+    References:
+        https://community.bistudio.com/wiki/serverTime
  */
 
 private _defaultOnInit = { (_this#0); };
+private _defaultUuid = [] call KPLIB_fnc_uuid_create_string;
 
 params [
     [Q(_onInit), _defaultOnInit, [{}]]
     , [Q(_nameValuePairs), [], [[]]]
+    , [Q(_uuid), _defaultUuid, [""]]
 ];
 
 private _onInitNominal = {
     params [
-        [Q(_namespace), locationNull, [locationNull]]
+        [Q(_mission), locationNull, [locationNull]]
         , [Q(_nameValuePairs), [], [[]]]
+        , [Q(_uuid), "", [""]]
     ];
 
     // Set the default defaults, then any user specified NVPs, finally the TEMPLATE UUID default
-    [_namespace, MVAR(_nameValuePairDefaults)] call KPLIB_fnc_namespace_setVars;
+    [_mission, MVAR(_nameValuePairDefaults)] call KPLIB_fnc_namespace_setVars;
 
     if (count _nameValuePairs > 0) then {
-        [_namespace, _nameValuePairs] call KPLIB_fnc_namespace_setVars;
+        [_mission, _nameValuePairs] call KPLIB_fnc_namespace_setVars;
     };
 
     // TODO: TBD: if we ever wanted to serialize templates, or their saved missions, then would need to statically identify UUID...
-    [_namespace, [
-        [QMVAR(_templateUuid), [] call KPLIB_fnc_uuid_create_string]
+    [_mission, [
+        [QMVAR(_uuid), _uuid]
+        , [QMVAR(_serverTime), serverTime]
     ]] call KPLIB_fnc_namespace_setVars;
 
-    _namespace;
+    _mission;
 };
 
 private _template = [] call KPLIB_fnc_namespace_create;
 
 [
-    [_template, _nameValuePairs] call _onInitNominal
+    [_template, _nameValuePairs, _uuid] call _onInitNominal
 ] call _onInit;
 
 _template;

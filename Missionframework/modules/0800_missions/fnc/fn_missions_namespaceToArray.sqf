@@ -13,7 +13,7 @@
         empty array (i.e. []) for locationNull arguments.
 
     Parameters:
-        _namespace - A CBA MISSION namespace [LOCATION, default: locationNull]
+        _mission - A CBA MISSION namespace [LOCATION, default: locationNull]
         _payloadSpecs - the bundle of variables and default values to lift from
             the namespace [ARRAY, default: KPLIB_missions_variableNamesToPublish]
 
@@ -22,7 +22,7 @@
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_mission), locationNull, [locationNull]]
     , [Q(_payloadSpecs), MVAR(_variableNamesToPublish), [[]]]
 ];
 
@@ -31,7 +31,7 @@ private _onExitWithTelemetry = {
         [Q(_payload), [], [[]]]
     ];
 
-    private _telemetry = [_namespace] call MSFUNC(_getArrayTelemetry);
+    private _telemetry = [_mission] call MSFUNC(_getArrayTelemetry);
 
     if (!isNil Q(_telemetry)) then {
         _payload pushBack _telemetry;
@@ -40,8 +40,8 @@ private _onExitWithTelemetry = {
     _payload;
 };
 
-if (isNull _namespace) exitWith {
+if (isNull _mission) exitWith {
     [_payloadSpecs apply { (_x#1); }] call _onExitWithTelemetry;
 };
 
-[[_namespace, _payloadSpecs] call KPLIB_fnc_namespace_getVars] call _onExitWithTelemetry;
+[[_mission, _payloadSpecs] call KPLIB_fnc_namespace_getVars] call _onExitWithTelemetry;

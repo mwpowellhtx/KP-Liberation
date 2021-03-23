@@ -4,14 +4,14 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-19 17:20:59
-    Last Update: 2021-03-19 17:21:02
+    Last Update: 2021-03-22 10:12:00
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Defines for all functions, which are brought by this module.
 */
 
-class mission {
+class missions {
     file = "modules\0800_missions\fnc";
 
     // Module initialization phase event handler
@@ -30,6 +30,9 @@ class mission {
     // CBA Settings initialization for this module
     class missions_settings {};
 
+    // Performs routine GARBAGE COLLECTION on the TARGET MISSION
+    class missions_onGC {};
+
     // Creates a CBA MISSION TEMPLATE namespace
     class missions_createTemplate {};
 
@@ -44,6 +47,12 @@ class mission {
 
     // Returns the configured REBATE VALUE
     class missions_getRebateValue {};
+
+    // Returns the MISSIONS LISTS, first one are MISSION TEMPLATES, second are the RUNNING MISSIONS
+    class missions_onGetLists {};
+
+    // Returns the MISSION corresponding to the 'uuid' and 'templateUuid'
+    class missions_getMissionByUuid {};
 
     // Returns a human readable status report based on the MISSION STATUS bit flags
     class missions_getStatusReport {};

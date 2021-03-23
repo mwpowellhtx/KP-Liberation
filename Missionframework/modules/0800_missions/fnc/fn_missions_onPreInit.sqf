@@ -43,23 +43,27 @@ MVAR(_zeroDebit)                        = [0, 0, 0, 0];
 MVAR(_rebateValue)                      = 0.5;
 
 // TODO: TBD: we may stand on "status"... maybe...
-MSTATUS(_standby)                       =  0;
-MSTATUS(_started)                       =  1;
-MSTATUS(_engaged)                       =  2;
-MSTATUS(_completed)                     =  4;
-MSTATUS(_failure)                       =  8;
-MSTATUS(_success)                       = 16;
-MSTATUS(_aborting)                      = 32;
+MSTATUS(_standby)                       =   0;
+MSTATUS(_template)                      =   1;
+MSTATUS(_running)                       =   2;
+MSTATUS(_started)                       =   4;
+MSTATUS(_engaged)                       =   8;
+MSTATUS(_aborting)                      =  16;
+MSTATUS(_success)                       =  32;
+MSTATUS(_failure)                       =  64;
+MSTATUS(_completed)                     = 128;
 
 // TODO: TBD: also consider which mission telemetry should be reported...
 MSVAR(_statusReports)                   = [
     [MSTATUS(_standby)      , localize "STR_KPLIB_MISSION_STATUS_STANDBY"   ]
+    , [MSTATUS(_template)   , localize "STR_KPLIB_MISSION_STATUS_TEMPLATE"  ]
+    , [MSTATUS(_running)    , localize "STR_KPLIB_MISSION_STATUS_RUNNING"   ]
     , [MSTATUS(_started)    , localize "STR_KPLIB_MISSION_STATUS_STARTED"   ]
     , [MSTATUS(_engaged)    , localize "STR_KPLIB_MISSION_STATUS_ENGAGED"   ]
-    , [MSTATUS(_completed)  , localize "STR_KPLIB_MISSION_STATUS_COMPLETED" ]
-    , [MSTATUS(_failure)    , localize "STR_KPLIB_MISSION_STATUS_FAILURE"   ]
-    , [MSTATUS(_success)    , localize "STR_KPLIB_MISSION_STATUS_SUCCESS"   ]
     , [MSTATUS(_aborting)   , localize "STR_KPLIB_MISSION_STATUS_ABORTING"  ]
+    , [MSTATUS(_success)    , localize "STR_KPLIB_MISSION_STATUS_SUCCESS"   ]
+    , [MSTATUS(_failure)    , localize "STR_KPLIB_MISSION_STATUS_FAILURE"   ]
+    , [MSTATUS(_completed)  , localize "STR_KPLIB_MISSION_STATUS_COMPLETED" ]
 ];
 
 MVAR(_zeroBriefing)                     = ["", "", ""];
@@ -69,8 +73,9 @@ MSPARAM(_debug)                         = false;
 if (isServer) then {
 
     /*
-     * KPLIB_mission_uuid - used to identify a running mission
-     * KPLIB_mission_templateUuid - templates are distinct from running missions
+     * KPLIB_mission_uuid - used to identify a mission
+     * KPLIB_mission_templateUuid - used as a reference for the template mission
+     * KPLIB_mission_serverTime - server time at which the instance was created
      * KPLIB_mission_icon - may inform enumerated missions in the list
      * KPLIB_mission_name - like a 'variable name' but uniquely identifying the mission
      * KPLIB_mission_title - human readable title
@@ -79,12 +84,14 @@ if (isServer) then {
      * KPLIB_mission_args - relay for arguments passed to running mission
      * KPLIB_mission_cost - [S, A, F, I]
      * KPLIB_mission_range - baseline range informs mission geometry
+     * KPLIB_mission_status - default status during registration, typically a MISSION TEMPLATE
      * KPLIB_mission_timer - for time sensitive missions
      * KPLIB_fnc_mission_* - callbacks regulating entry point and state machine states, transisions, etc
      */
     MVAR(_nameValuePairDefaults) = +[
         [QMVAR(_uuid)                   , ""                        ]
         , [QMVAR(_templateUuid)         , ""                        ]
+        , [QMVAR(_serverTime)           , -1                        ]
         , [QMVAR(_icon)                 , ""                        ]
         , [QMVAR(_name)                 , ""                        ]
         , [QMVAR(_title)                , ""                        ]
@@ -94,7 +101,7 @@ if (isServer) then {
         , [QMVAR(_cost)                 , MVAR(_zeroDebit)          ]
         , [QMVAR(_pos)                  , KPLIB_zeroPos             ]
         , [QMVAR(_range)                , KPLIB_param_sectorCapRange]
-        , [QMVAR(_status)               , MSTATUS(_standby)         ]
+        , [QMVAR(_status)               , MSTATUS(_template)        ]
         , [QMVAR(_timer)                , KPLIB_timers_default      ]
         , [QMFUNC(_onGetTelemetry)      , MSFUNC(_onNoTelemetry)    ]
         , [QMFUNC(_onEnterMission)      , MSFUNC(_onNoOp)           ]
@@ -107,8 +114,9 @@ if (isServer) then {
     ];
 
     MVAR(_variablesNamesToClone) = [
-        QMVAR(_templateUuid)
-        , QMVAR(_icon)
+        QMVAR(_icon)
+        , QMVAR(_templateUuid)
+        , QMVAR(_serverTime)
         , QMVAR(_name)
         , QMVAR(_title)
         , QMVAR(_briefing)
@@ -141,10 +149,9 @@ if (isServer) then {
         [QMVAR(_uuid)           , ""                    ]
         , [QMVAR(_templateUuid) , ""                    ]
         , [QMVAR(_icon)         , ""                    ]
-        , [QMVAR(_name)         , ""                    ]
         , [QMVAR(_title)        , ""                    ]
-        , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_pos)          , KPLIB_zeroPos         ]
+        , [QMVAR(_status)       , MSTATUS(_standby)     ]
         , [QMVAR(_timer)        , KPLIB_timers_default  ]
         , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
         , [QMVAR(_imagePath)    , ""                    ]
@@ -156,12 +163,19 @@ if (isServer) then {
 
     private _createRegistry = {
         private _map = createHashMap;
-        _map set [QMVAR(_registeredItems), []];
+        // TODO: TBD: actually, on second thought, do not need to mess with "registered items"
+        // TODO: TBD: we can work with keys, and select out a list of items from that
+        // TODO: TBD: then separate based on template/running, and order by server time
+        //_map set [QMVAR(_registeredItems), []];
         _map;
     };
 
-    MSVAR(_templates)       = [] call _createRegistry;
-    MSVAR(_running)         = [] call _createRegistry;
+    /* Captures both MISSION TEMPLATES as well as RUNNING MISSIONS. We gather them together
+     * in a single HASHMAP registry primarily for easier maintenance throughout the API, and
+     * so we must also be careful to discern based upon QMVAR(_status), but also be mindful
+     * of QMVAR(_uuid) as well as QMVAR(_templateUuid). */
+
+    MSVAR(_registry)            = [] call _createRegistry;
 };
 
 // Process CBA Settings

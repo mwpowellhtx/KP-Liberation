@@ -22,14 +22,16 @@
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]    
+    [Q(_mission), locationNull, [locationNull]]    
 ];
 
 private _retval = [];
 
-if (isNull _namespace) exitWith { _retval; };
+if (isNull _mission) exitWith {
+    _retval;
+};
 
-([_namespace, [
+([_mission, [
     [QMVAR(_uuid), ""]
     , [QMVAR(_onGetTelemetry), MSFUNC(_onNoTelemetry)]
 ]] call KPLIB_fnc_namespace_getVars) params [
@@ -39,7 +41,7 @@ if (isNull _namespace) exitWith { _retval; };
 
 [
     _uuid isEqualTo ""
-    , [_namespace, MSTATUS(_standby)] call MSFUNC(_checkStatus)
+    , [_mission, MSTATUS(_standby)] call MSFUNC(_checkStatus)
 ] params [
     Q(_running)
     , Q(_standby)
@@ -55,7 +57,7 @@ if (isNull _namespace) exitWith { _retval; };
 _retval = switch (true) do {
     case (_running): {
 
-        ([_namespace, +[
+        ([_mission, +[
             [QMVAR(_status), MSTATUS(_standby)]
             , [QMVAR(_timer), KPLIB_timers_default]
             , [QMVAR(_pos), KPLIB_zeroPos]
@@ -70,18 +72,18 @@ _retval = switch (true) do {
             , mapGridPosition _pos
         ] params [
             Q(_statusReport)
-            , Q(_gridRef)
+            , Q(_gridref)
         ];
 
         [
             [QMVAR(_statusReport), _statusReport]
             , [QMVAR(_timer), _timer]
-            , [QMVAR(_gridRef), _gridRef]
+            , [QMVAR(_gridref), _gridref]
         ];
     };
     default {
 
-        ([_namespace, +[
+        ([_mission, +[
             [QMVAR(_cost), MVAR(_zeroDebit)]
         ]] call KPLIB_fnc_namespace_getVars) params [
             Q(_cost)
@@ -95,23 +97,24 @@ _retval = switch (true) do {
         ];
 
         // De-con the paths
-        (KPLIB_resources_imagePaths + [KPLIB_common_intelPath]) params [
+        (KPLIB_resources_imagePaths + [KPLIB_common_intelPath, KPLIB_common_intelColor]) params [
             Q(_supplyPath)
             , Q(_ammoPath)
             , Q(_fuelPath)
             , Q(_intelPath)
+            , Q(_intelColor)
         ];
 
         [
-            [QMVAR(_supplyCost), _supplyCost, _supplyPath]
-            , [QMVAR(_ammoCost), _ammoCost, _ammoPath]
-            , [QMVAR(_fuelCost), _fuelCost, _fuelPath]
-            , [QMVAR(_intelCost), _intelCost, _intelPath]
+            [QMVAR(_supplyCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY", str _supplyCost, _supplyPath]
+            , [QMVAR(_ammoCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO", str _ammoCost, _ammoPath]
+            , [QMVAR(_fuelCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL", str _fuelCost, _fuelPath]
+            , [QMVAR(_intelCost), toUpper localize "STR_KPLIB_MISSIONSMGR_TELEMETRY_INTEL", str _intelCost, _intelPath, _intelColor]
         ];
     };
 };
 
 // Then append MISSION specific TELEMETRY
-_retval append ([_namespace] call _onGetTelemetry);
+_retval append ([_mission] call _onGetTelemetry);
 
 _retval;
