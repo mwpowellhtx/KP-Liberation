@@ -36,9 +36,9 @@ class KPLIB_missionsSM {
     skipNull = 1;
 
     class KPLIB_missionsSM_state_setup {
-        onStateEntered = "[_this, 'setup::onStateEntered'] call KPLIB_fnc_missionsSM_onNoOp";
+        onStateEntered = "[_this, 'KPLIB_fnc_mission_onSetupEntered'] call KPLIB_fnc_missionsSM_onSetupEntered";
         onState = "[_mission] call KPLIB_fnc_missionsSM_onSetup";
-        onStateLeaving = "[_this, 'setup::onStateLeaving'] call KPLIB_fnc_missionsSM_onNoOp";
+        onStateLeaving = "[_this, 'KPLIB_fnc_mission_onSetupLeaving'] call KPLIB_fnc_missionsSM_onSetupLeaving";
 
         class KPLIB_missionsSM_transit_toMission {
             targetState = "KPLIB_missionsSM_state_mission";
@@ -54,9 +54,9 @@ class KPLIB_missionsSM {
     };
 
     class KPLIB_missionsSM_state_mission {
-        onStateEntered = "[_this, 'mission::onStateEntered'] call KPLIB_fnc_missionsSM_onNoOp";
+        onStateEntered = "[_this] call KPLIB_fnc_missionsSM_onMissionEntered";
         onState = "[_this, 'KPLIB_fnc_mission_onMission', KPLIB_mission_status_successFailureAborting] call KPLIB_fnc_missionsSM_onMission";
-        onStateLeaving = "[_this, 'mission::onStateLeaving'] call KPLIB_fnc_missionsSM_onNoOp";
+        onStateLeaving = "[_this, 'KPLIB_fnc_mission_onMissionLeaving'] call KPLIB_fnc_missionsSM_onMissionLeaving";
 
         class KPLIB_missionsSM_transit_toTearDown {
             targetState = "KPLIB_missionsSM_state_tearDown";
@@ -66,9 +66,9 @@ class KPLIB_missionsSM {
     };
 
     class KPLIB_missionsSM_state_tearDown {
-        onStateEntered = "[_this, 'tearDown::onStateEntered'] call KPLIB_fnc_missionsSM_onNoOp";
+        onStateEntered = "[_this, 'KPLIB_fnc_mission_onTearDownEntered'] call KPLIB_fnc_missionsSM_onTearDownEntered";
         onState = "[_mission, 'KPLIB_fnc_mission_onTearDown', KPLIB_mission_status_completed] call KPLIB_fnc_missionsSM_onTearDown";
-        onStateLeaving = "[_this, 'tearDown::onStateLeaving'] call KPLIB_fnc_missionsSM_onNoOp";
+        onStateLeaving = "[_this, 'KPLIB_fnc_mission_onTearDownLeaving'] call KPLIB_fnc_missionsSM_onTearDownLeaving";
 
         class KPLIB_missionsSM_transit_toComplete {
             targetState = "KPLIB_missionsSM_state_complete";
@@ -77,9 +77,7 @@ class KPLIB_missionsSM {
         };
     };
 
-    // Report COMPLETE, TARGET STATUS MASK: COMPLETED is COMPLETED, one way or another, whether SUCCESS, FAILURE, or neither
     class KPLIB_missionsSM_state_complete {
-        // COMPLETED only occurs once, but it follows the same pattern
-        onStateEntered = "[_this, 'KPLIB_fnc_mission_onCompleteEntered', KPLIB_mission_status_standby] call KPLIB_fnc_missionsSM_onCompleteEntered";
+        onStateEntered = "[_this, 'KPLIB_fnc_mission_onCompleteEntered'] call KPLIB_fnc_missionsSM_onCompleteEntered";
     };
 };

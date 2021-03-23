@@ -51,6 +51,9 @@ class missionsSM {
     // Publishes the MISSIONS to one listening MISSION MANAGER player
     class missionsSM_onPublish {};
 
-    // A default CBA MISSIONS 'onState' or 'onStateEntered' facilitator: 'setup', 'mission', 'tearDown', 'complete'
+    // A default CBA MISSIONS 'onState' facilitator: 'setup', 'mission', 'tearDown'
     class missionsSM_onState {};
+
+    // A default CBA MISSIONS 'onStateEntered' or 'onStateLeaving' facilitator: 'setup', 'tearDown', 'complete'
+    class missionsSM_onTransition {};
 };

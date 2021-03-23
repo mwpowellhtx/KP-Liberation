@@ -39,6 +39,7 @@ if (isServer) then {
     MPARAM(_onBroadcast_debug)          = false;
     MPARAM(_onPublish_debug)            = false;
     MPARAM(_onState_debug)              = false;
+    MPARAM(_onTransition_debug)         = false;
     MPARAM(_onNoOp_debug)               = false;
 
     MVAR(_configClassNameDefault)       = "KPLIB_missionsSM";

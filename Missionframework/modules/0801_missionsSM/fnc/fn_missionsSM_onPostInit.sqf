@@ -37,7 +37,12 @@ if (isServer) then {
     MFUNC(_onSetup)             = MFUNC(_onState);
     MFUNC(_onMission)           = MFUNC(_onState);
     MFUNC(_onTearDown)          = MFUNC(_onState);
-    MFUNC(_onCompleteEntered)   = MFUNC(_onState);
+
+    MFUNC(_onSetupEntered)      = MFUNC(_onTransition);
+    MFUNC(_onSetupLeaving)      = MFUNC(_onTransition);
+    MFUNC(_onTearDownEntered)   = MFUNC(_onTransition);
+    MFUNC(_onTearDownLeaving)   = MFUNC(_onTransition);
+    MFUNC(_onCompleteEntered)   = MFUNC(_onTransition);
 
     // // TODO: TBD: not just yet, at least while we are working out initial client/server manager integration
     //[] call MFUNC(_createSM);

@@ -17,7 +17,7 @@
         _stateOrTransition - the STATE or TRANSITION being proxied [STRING, default: ""]
 
     Returns:
-        The callback has finished [ARRAY]
+        The callback has finished [BOOL]
  */
 
 // TODO: TBD: add logging, etc

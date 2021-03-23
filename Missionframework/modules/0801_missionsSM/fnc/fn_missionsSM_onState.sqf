@@ -55,7 +55,6 @@ if (!(_callbackName in [
     "KPLIB_fnc_mission_onSetup"
     , "KPLIB_fnc_mission_onMission"
     , "KPLIB_fnc_mission_onTearDown"
-    , "KPLIB_fnc_mission_onCompletedEntered"
 ])) exitWith {
     false;
 };
@@ -85,15 +84,20 @@ private _status = [_mission getVariable _callbackName] call {
     [_mission] call _callback;
 };
 
+// STANDBY is acceptable, was neither FAILURE nor SUCCESS, rather CONTINUE MISSION
+if (_status == KPLIB_mission_status_standby) exitWith {
+    true;
+};
+
 // Set and check TARGET STATUS when the conditions are met
 if ([_targetStatusMask, _status] call BIS_fnc_bitflagsCheck) then {
     [_mission, _status] call KPLIB_fnc_mission_setStatus;
 };
 
-// When expecting STANDBY then STATUS should be the same
-if (_targetStatusMask == KPLIB_mission_status_standby) exitWith {
-    [_mission] call KPLIB_fnc_mission_checkStatus;
-};
+// // When expecting STANDBY then STATUS should be the same
+// if (_targetStatusMask == KPLIB_mission_status_standby) exitWith {
+//     [_mission] call KPLIB_fnc_mission_checkStatus;
+// };
 
 // Otherwise verify the TARGET STATUS MASK
 [_mission, _targetStatusMask] call KPLIB_fnc_mission_checkStatus;
