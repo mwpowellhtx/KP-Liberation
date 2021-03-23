@@ -19,4 +19,8 @@
         The event handler finished [BOOL]
  */
 
+if (isServer) then {
+    MPARAM(_durationSeconds)                = 10 * KPLIB_uom_time_secondsPerMinute;
+};
+
 true;

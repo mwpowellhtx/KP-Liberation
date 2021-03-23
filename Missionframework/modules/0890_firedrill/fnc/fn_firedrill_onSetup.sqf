@@ -23,6 +23,9 @@ params [
     [Q(_mission), locationNull, [locationNull]]
 ];
 
-// TODO: TBD: do setup here...
+[_mission] call MFUNC(_onUpdate);
+
+// Sets up a timer for use throughout the mission
+_mission setVariable [QPVAR1(_timer), [MPARAM(_durationSeconds)] call KPLIB_fnc_timers_create];
 
 MSTATUS1(_started);

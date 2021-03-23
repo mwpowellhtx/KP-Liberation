@@ -34,6 +34,9 @@ class firedrill {
     class firedrill_onSetup {};
 
     //
+    class firedrill_onMissionEntered {};
+
+    //
     class firedrill_onMission {};
 
     //
@@ -41,6 +44,9 @@ class firedrill {
 
     //
     class firedrill_onCompleteEntered {};
+
+    //
+    class firedrill_onUpdate {};
 
     //
     class firedrill_onGetTelemetry {};

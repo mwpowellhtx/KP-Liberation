@@ -25,4 +25,35 @@ params [
     [Q(_mission), locationNull, [locationNull]]
 ];
 
-true;
+// And follow on with another update
+[_mission] call MFUNC(_onUpdate);
+
+[
+    [QPVAR1(_timer), +KPLIB_timers_default]
+    , [Q(_playersWithin), []]
+] apply {
+    _mission getVariable _x;
+} params [
+    Q(_timer)
+    , Q(_playersWithin)
+];
+
+[
+    _timer call KPLIB_fnc_timers_hasElapsed
+    , count _playersWithin
+] params [
+    Q(_elapsed)
+    , Q(_playerWithinCount)
+];
+
+switch (true) do {
+    case (_playerWithinCount > 0 && _elapsed): {
+        KPLIB_mission_status_failure;
+    };
+    case (_playerWithinCount == 0 && !_elapsed): {
+        KPLIB_mission_status_success;
+    };
+    default {
+        KPLIB_mission_status_standby;
+    };
+};

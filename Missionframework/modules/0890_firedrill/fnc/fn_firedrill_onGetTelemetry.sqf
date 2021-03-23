@@ -23,4 +23,23 @@ params [
     [Q(_mission), locationNull, [locationNull]]
 ];
 
-[];
+[
+    [QPVAR1(_players), []]
+    , [QPVAR1(_range), KPLIB_param_fobRage]
+    , [QMVAR(_fobs), KPLIB_sectors_fobs]
+    , [QMVAR(_playersWithin), []]
+] apply {
+    _mission getVariable _x;
+} params [
+    Q(_players)
+    , Q(_range)
+    , Q(_fobs)
+    , Q(_playersWithin)
+];
+
+[
+    [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_UNITS_TEXT", str (count _players)]
+    , [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_WITHIN_TEXT", str (count _playersWithin)]
+    , [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_FOBS_TEXT", str (count _fobs)]
+    , [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_RANGE_TEXT", str _range]
+];

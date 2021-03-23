@@ -20,7 +20,7 @@
  */
 
 params [
-    ["_additional", [], [[]]]
+    [Q(_additional), [], [[]]]
 ];
 
 _additional pushBackUnique {MPARAM(_debug)};

@@ -24,6 +24,9 @@ if (isServer) then {
     ["Initializing...", "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
 };
 
+// Call to setup some settings
+[] call MFUNC(_settings);
+
 if (isServer) then {
     // Server side init
 
@@ -40,12 +43,13 @@ if (isServer) then {
         , [QPVAR1(_title)                   , localize "STR_KPLIB_MISSION_FIREDRILL_TITLE"  ]
         , [
             QPVAR1(_briefing)               , [
-                localize "STR_KPLIB_MISSION_FIREDRILL_OVERVIEW_TEXT"
-                , localize "STR_KPLIB_MISSION_FIREDRILL_SUCCESS_TEXT"
-                , localize "STR_KPLIB_MISSION_FIREDRILL_FAILURE_TEXT"
+                localize "STR_KPLIB_MISSION_FIREDRILL_BRIEFING_OVERVIEW_TEXT"
+                , localize "STR_KPLIB_MISSION_FIREDRILL_BRIEFING_SUCCESS_TEXT"
+                , localize "STR_KPLIB_MISSION_FIREDRILL_BRIEFING_FAILURE_TEXT"
             ]
                                                                                             ]
         , [QPFUNC1(_onSetup)                , MFUNC(_onSetup)                               ]
+        , [QPFUNC1(_onMissionEntered)       , MFUNC(_onMissionEntered)                      ]
         , [QPFUNC1(_onMission)              , MFUNC(_onMission)                             ]
         , [QPFUNC1(_onTearDown)             , MFUNC(_onTearDown)                            ]
         , [QPFUNC1(_onCompleteEntered)      , MFUNC(_onCompleteEntered)                     ]
