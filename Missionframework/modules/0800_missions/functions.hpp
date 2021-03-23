@@ -93,6 +93,9 @@ class missions {
     // Transforms the CBA MISSION namespace to TUPLE ARRAY form factor useful for missions manager clients
     class mission_namespaceToArray {};
 
+    // Notifies specified players attached to the MISSION, or all players, but not the server
+    class mission_onNotify {};
+
     // Performs routine GARBAGE COLLECTION on the TARGET MISSION
     class mission_onGC {};
 };

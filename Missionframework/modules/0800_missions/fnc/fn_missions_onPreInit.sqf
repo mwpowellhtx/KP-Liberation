@@ -95,24 +95,31 @@ if (isServer) then {
      * KPLIB_fnc_mission_* - callbacks regulating entry point and state machine states, transisions, etc
      */
     MVAR1(_nameValuePairDefaults) = +[
-        [QMVAR1(_uuid)                      , ""                        ]
-        , [QMVAR1(_templateUuid)            , ""                        ]
-        , [QMVAR1(_serverTime)              , -1                        ]
-        , [QMVAR1(_icon)                    , ""                        ]
-        , [QMVAR1(_name)                    , ""                        ]
-        , [QMVAR1(_title)                   , ""                        ]
-        , [QMVAR1(_briefing)                , MVAR1(_zeroBriefing)      ]
-        , [QMVAR1(_imagePath)               , ""                        ]
-        , [QMVAR1(_args)                    , []                        ]
-        , [QMVAR1(_cost)                    , MVAR1(_zeroDebit)         ]
-        , [QMVAR1(_pos)                     , KPLIB_zeroPos             ]
-        , [QMVAR1(_range)                   , KPLIB_param_sectorCapRange]
-        , [QMVAR1(_status)                  , MSTATUS1(_template)       ]
-        , [QMVAR1(_timer)                   , KPLIB_timers_default      ]
-        , [QMFUNC1(_onGetTelemetry)         , MFUNC1(_onNoOpTelemetry)  ]
-        , [QMFUNC1(_onSetup)                , MFUNC1(_onNoOpSetup)      ]
-        , [QMFUNC1(_onMission)              , MFUNC1(_onNoOpMission)    ]
-        , [QMFUNC1(_onTearDown)             , MFUNC1(_onNoOpTearDown)   ]
+        [QMVAR1(_uuid)                      , ""                                ]
+        , [QMVAR1(_templateUuid)            , ""                                ]
+        , [QMVAR1(_serverTime)              , -1                                ]
+        , [QMVAR1(_icon)                    , ""                                ]
+        , [QMVAR1(_name)                    , ""                                ]
+        , [QMVAR1(_title)                   , ""                                ]
+        , [QMVAR1(_briefing)                , MVAR1(_zeroBriefing)              ]
+        , [QMVAR1(_imagePath)               , ""                                ]
+        , [QMVAR1(_args)                    , []                                ]
+        , [QMVAR1(_cost)                    , MVAR1(_zeroDebit)                 ]
+        , [QMVAR1(_pos)                     , KPLIB_zeroPos                     ]
+        , [QMVAR1(_range)                   , KPLIB_param_sectorCapRange        ]
+        , [QMVAR1(_status)                  , MSTATUS1(_template)               ]
+        , [QMVAR1(_timer)                   , KPLIB_timers_default              ]
+        , [QMFUNC1(_onGetTelemetry)         , MFUNC1(_onNoOpTelemetry)          ]
+        , [QMFUNC1(_onSetupEntered)         , MFUNC1(_onNoOp)                   ]
+        , [QMFUNC1(_onSetup)                , MFUNC1(_onNoOpSetup)              ]
+        , [QMFUNC1(_onSetupLeaving)         , MFUNC1(_onNoOpSetupLeaving)       ]
+        , [QMFUNC1(_onMissionEntered)       , MFUNC1(_onNoOp)                   ]
+        , [QMFUNC1(_onMission)              , MFUNC1(_onNoOpMission)            ]
+        , [QMFUNC1(_onMissionLeaving)       , MFUNC1(_onNoOp)                   ]
+        , [QMFUNC1(_onTearDownEntered)      , MFUNC1(_onNoOp)                   ]
+        , [QMFUNC1(_onTearDown)             , MFUNC1(_onNoOpTearDown)           ]
+        , [QMFUNC1(_onTearDownLeaving)      , MFUNC1(_onNoOp)                   ]
+        , [QMFUNC1(_onCompleteEntered)      , MFUNC1(_onNoOp)                   ]
     ];
 
     MVAR1(_variablesNamesToClone) = [
@@ -130,9 +137,16 @@ if (isServer) then {
         , QMVAR1(_status)
         , QMVAR1(_timer)
         , QMFUNC1(_onGetTelemetry)
+        , QMFUNC1(_onSetupEntered)
         , QMFUNC1(_onSetup)
+        , QMFUNC1(_onSetupLeaving)
+        , QMFUNC1(_onMissionEntered)
         , QMFUNC1(_onMission)
+        , QMFUNC1(_onMissionLeaving)
+        , QMFUNC1(_onTearDownEntered)
         , QMFUNC1(_onTearDown)
+        , QMFUNC1(_onTearDownLeaving)
+        , QMFUNC1(_onCompleteEntered)
     ];
 
     /* These are the core variables which get bundled together for publication to managers.
