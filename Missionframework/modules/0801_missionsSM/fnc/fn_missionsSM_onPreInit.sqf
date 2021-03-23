@@ -27,7 +27,7 @@ MVAR(_missionsMgrOpened)                = QMVAR(_missionsMgrOpened);
 MVAR(_missionsMgrClosed)                = QMVAR(_missionsMgrClosed);
 MVAR(_publishMissions)                  = QMVAR(_publishMissions);
 
-MPARAM(_broadcastPeriodSeconds)         = 10;
+MPARAM(_broadcastPeriodSeconds)         = 5;
 
 if (isServer) then {
 
@@ -38,6 +38,7 @@ if (isServer) then {
     MPARAM(_onGetList_debug)            = false;
     MPARAM(_onBroadcast_debug)          = false;
     MPARAM(_onPublish_debug)            = false;
+    MPARAM(_onState_debug)              = false;
     MPARAM(_onNoOp_debug)               = false;
 
     MVAR(_configClassNameDefault)       = "KPLIB_missionsSM";

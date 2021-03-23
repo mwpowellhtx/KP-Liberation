@@ -36,14 +36,14 @@ private _completed = KPLIB_mission_status_completed;
 
 // Identify the COMPLETED MISSIONS for subsequent GC
 private _completedMissions = _runningMissions select {
-    [_x, _completed] call KPLIB_fnc_missions_checkStatus;
+    [_x, _completed] call KPLIB_fnc_mission_checkStatus;
 };
 
 // Return with the STILL RUNNING MISSION, sans any COMPLETED MISSIONS
 private _stillRunningMissions = _runningMissions - _completedMissions;
 
 // GC the COMPLETED MISSIONS
-{ [_x] call KPLIB_fnc_missions_onGC; } forEach _completedMissions;
+{ [_x] call KPLIB_fnc_mission_onGC; } forEach _completedMissions;
 
 [(_missionTemplates + _stillRunningMissions)] call MFUNC(_onBroadcast);
 

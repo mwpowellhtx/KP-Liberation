@@ -30,8 +30,14 @@ if (isServer) then {
     // Server side init
 
     // Client announces to the server that the manager dialog opened/closed...
-    [MVAR(_missionsMgrOpened), MFUNC(_onMissionsMgrOpened)] call CBA_fnc_addEventHandler;
-    [MVAR(_missionsMgrClosed), MFUNC(_onMissionsMgrClosed)] call CBA_fnc_addEventHandler;
+    [MVAR(_missionsMgrOpened)   , MFUNC(_onMissionsMgrOpened)] call CBA_fnc_addEventHandler;
+    [MVAR(_missionsMgrClosed)   , MFUNC(_onMissionsMgrClosed)] call CBA_fnc_addEventHandler;
+
+    // For better readability
+    MFUNC(_onSetup)             = MFUNC(_onState);
+    MFUNC(_onMission)           = MFUNC(_onState);
+    MFUNC(_onTearDown)          = MFUNC(_onState);
+    MFUNC(_onCompleteEntered)   = MFUNC(_onState);
 
     // // TODO: TBD: not just yet, at least while we are working out initial client/server manager integration
     //[] call MFUNC(_createSM);

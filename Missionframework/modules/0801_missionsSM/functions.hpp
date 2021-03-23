@@ -33,21 +33,24 @@ class missionsSM {
     // Creates a CBA missions state machine
     class missionsSM_createSM {};
 
-    //
+    // Returns the array of RUNNING MISSIONS for use with the state machine
     class missionsSM_onGetList {};
 
-    //
+    // Default no-op state machine callback, used to help trace through the states and transitions
     class missionsSM_onNoOp {};
 
-    //
+    // Callback connects the dots with MISSION MANAGER when opened
     class missionsSM_onMissionsMgrOpened {};
 
-    //
+    // Callback disconnects the dots from MISSION MANAGER with closed
     class missionsSM_onMissionsMgrClosed {};
 
-    //
+    // Broadcasts the MISSIONS to listening MISSION MANAGER players
     class missionsSM_onBroadcast {};
 
-    //
+    // Publishes the MISSIONS to one listening MISSION MANAGER player
     class missionsSM_onPublish {};
+
+    // A default CBA MISSIONS 'onState' or 'onStateEntered' facilitator: 'setup', 'mission', 'tearDown', 'complete'
+    class missionsSM_onState {};
 };

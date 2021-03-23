@@ -72,7 +72,7 @@ private _onBroadcastToListeners = {
             private _published = [_cid, _tuplesToPublish] call KPLIB_fnc_logisticsSM_onPublish;
         };
 
-        private _missionTuples = _missions apply { [_x] call KPLIB_fnc_missions_namespaceToArray; };
+        private _missionTuples = _missions apply { [_x] call KPLIB_fnc_mission_namespaceToArray; };
 
         { [_x, _missionTuples] call _onPublish; } forEach _cids;
     };

@@ -54,7 +54,7 @@ if (count _payload > 0) then {
     _payload = switch (true) do {
         // Based strictly on a sniff of the first element
         case ((_payload#0) isEqualType locationNull): {
-            _payload apply { [_x] call KPLIB_fnc_missions_namespaceToArray; }
+            _payload apply { [_x] call KPLIB_fnc_mission_namespaceToArray; }
         };
         // Otherwise, assumes that the payload is ready to ship
         default { _payload; };
