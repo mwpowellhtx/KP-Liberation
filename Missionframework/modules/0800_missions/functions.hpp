@@ -30,9 +30,6 @@ class missions {
     // CBA Settings initialization for this module
     class missions_settings {};
 
-    // Performs routine GARBAGE COLLECTION on the TARGET MISSION
-    class missions_onGC {};
-
     // Creates a CBA MISSION TEMPLATE namespace
     class missions_createTemplate {};
 
@@ -54,46 +51,48 @@ class missions {
     // Returns the MISSION corresponding to the 'uuid' and 'templateUuid'
     class missions_getMissionByUuid {};
 
-    // Returns a human readable status report based on the MISSION STATUS bit flags
-    class missions_getStatusReport {};
-
-    // Checks the STATUS of either the raw target, or variable in the CBA MISSION namespace
-    class missions_checkStatus {};
-
-    // Sets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
-    class missions_setStatus {};
-
-    // Unsets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
-    class missions_unsetStatus {};
-
-    // Returns whether the raw or CBA MISSION namespace hosted TIMER has elapsed
-    class missions_timerHasElapsed {};
-
     // Module mission data serialization event handler
     class missions_onLoadData {};
 
     // Module mission data serialization event handler
     class missions_onSaveData {};
 
-    // // Registers one single mission namespace with the parent state machine object
-    // class missions_registerOne {};
+    // Returns a human readable status report based on the MISSION STATUS bit flags
+    class mission_getStatusReport {};
 
-    // // Registers zero or more mission namespaces with the parent state machine object
-    // class missions_registerMany {};
+    // Sets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
+    class mission_setStatus {};
 
-// TODO: TBD: next, bits to verify shape of namespace, tuple
-// TODO: TBD: and to convert between the shapes, if at all possible...
-// TODO: TBD: or at least with enough detail to convert namespace to tuple, for UI presentation...
+    // Unsets the conditional bitwise STATUS itself, or that of its host CBA MISSION namespace
+    class mission_unsetStatus {};
 
-    //
-    class missions_onNoOp {};
+    // Checks the STATUS of either the raw target, or variable in the CBA MISSION namespace
+    class mission_checkStatus {};
+
+    // Returns whether the raw or CBA MISSION namespace hosted TIMER has elapsed
+    class mission_timerHasElapsed {};
+
+    // A no-op placeholder callback used throughout the state machine and missions framework.
+    class mission_onNoOp {};
+
+    // No-op default setup callback, returns KPLIB_mission_status_started
+    class mission_onNoOpSetup {};
+
+    // No-op default mission callback, returns KPLIB_mission_status_standby
+    class mission_onNoOpMission {};
+
+    // No-op default tear down callback, returns KPLIB_mission_status_completed
+    class mission_onNoOpTearDown {};
 
     // Returns a default set of TELEMETRY, or as specified by the CBA MISSION namespace
-    class missions_onNoTelemetry {};
+    class mission_onNoOpTelemetry {};
 
     // Returns the TELEMETRY corresponding to the TUPLE ARRAY form factor
-    class missions_getArrayTelemetry {};
+    class mission_getArrayTelemetry {};
 
     // Transforms the CBA MISSION namespace to TUPLE ARRAY form factor useful for missions manager clients
-    class missions_namespaceToArray {};
+    class mission_namespaceToArray {};
+
+    // Performs routine GARBAGE COLLECTION on the TARGET MISSION
+    class mission_onGC {};
 };

@@ -34,15 +34,15 @@ params [
 ];
 
 // Always register according to MISSION UUID
-private _targetUuid = _mission getVariable [QMVAR(_uuid), ""];
+private _targetUuid = _mission getVariable [QMVAR1(_uuid), ""];
 
 // Already registered so return early
-if (!isNull (MSVAR(_registry) getOrDefault [_targetUuid, locationNull])) exitWith {
+if (!isNull (MVAR(_registry) getOrDefault [_targetUuid, locationNull])) exitWith {
     true;
 };
 
 // Or register when not already registered
-MSVAR(_registry) set [_targetUuid, _mission];
+MVAR(_registry) set [_targetUuid, _mission];
 
 // Verify afterwards
-_targetUuid in (keys MSVAR(_registry));
+_targetUuid in (keys MVAR(_registry));

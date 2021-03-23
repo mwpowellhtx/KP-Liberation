@@ -23,6 +23,6 @@ params [
     ["_additional", [], [[]]]
 ];
 
-_additional pushBackUnique {MSPARAM(_debug)};
+_additional pushBackUnique {MPARAM(_debug)};
 
 [_additional] call KPLIB_fnc_debug_debug;

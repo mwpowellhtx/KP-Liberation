@@ -23,8 +23,8 @@
  */
 
 [
-    MSTATUS(_template)
-    , MSTATUS(_running)
+    MSTATUS1(_template)
+    , MSTATUS1(_running)
 ] params [
     Q(_template)
     , Q(_running)
@@ -35,13 +35,13 @@ params [
 ];
 
 // Because we may "see" REGISTRY prior to its being created
-if (isNil "KPLIB_missions_registry") exitWith {
+if (isNil QMVAR(_registry)) exitWith {
     [];
 };
 
 [
-    MSVAR(_registry)
-    , keys MSVAR(_registry)
+    MVAR(_registry)
+    , keys MVAR(_registry)
 ] params [
     Q(_registry)
     , Q(_uuids)
@@ -51,16 +51,12 @@ if (isNil "KPLIB_missions_registry") exitWith {
 private _allMissions = _uuids apply { _registry getOrDefault [_x, locationNull]; };
 
 // Get the STATUS MISSIONS ordered by SERVERTIME
-private _statusMissions = _allMissions select {
-    !isNull _x
-        && [_x, _status] call KPLIB_fnc_missions_checkStatus;
-};
-
-private _sorted = [_statusMissions, [], { _x getVariable ["KPLIB_mission_serverTime", -1]; }] call BIS_fnc_sortBy;
+private _statusMissions = _allMissions select { !isNull _x && [_x, _status] call MFUNC1(_checkStatus); };
+private _sorted = [_statusMissions, [], { _x getVariable [QMVAR1(_serverTime), -1]; }] call BIS_fnc_sortBy;
 
 [
-    _sorted select { [_x, _template] call MSFUNC(_checkStatus); }
-    , _sorted select { [_x, _running] call MSFUNC(_checkStatus); }
+    _sorted select { [_x, _template] call MFUNC1(_checkStatus); }
+    , _sorted select { [_x, _running] call MFUNC1(_checkStatus); }
 ] params [
     Q(_missionTemplates)
     , Q(_runningMissions)

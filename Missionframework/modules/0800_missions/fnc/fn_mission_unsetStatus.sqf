@@ -1,9 +1,9 @@
 // So... the patterns may be similar with LOGISTICS, but the key is the included elements
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missions_unsetStatus
+    KPLIB_fnc_mission_unsetStatus
 
-    File: fn_missions_unsetStatus.sqf
+    File: fn_mission_unsetStatus.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 02:11:23
     Last Update: 2021-03-20 02:11:25
@@ -28,7 +28,7 @@
 
 [
     { true; }
-    , MSTATUS(_standby)
+    , MSTATUS1(_standby)
 ] params [
     Q(_always)
     , Q(_standby)
@@ -55,13 +55,13 @@ private _onUnsetStatusNamespace = {
     ];
 
     ([_namespace, [
-        [QMVAR(_status), _standby]
+        [QMVAR1(_status), _standby]
     ]] call KPLIB_fnc_namespace_getVars) params [
         Q(_status)
     ];
 
     [_namespace, [
-        [QMVAR(_status), [_status, _mask] call _onUnsetStatusRaw]
+        [QMVAR1(_status), [_status, _mask] call _onUnsetStatusRaw]
     ]] call KPLIB_fnc_namespace_setVars;
 
     _namespace;

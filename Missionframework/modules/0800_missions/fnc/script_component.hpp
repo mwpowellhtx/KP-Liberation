@@ -12,32 +12,35 @@
 
 // TODO: TBD: could potentially hike this up the include chain...
 #define LIB KPLIB
-#define MODULE mission
-#define MODULES MODULE##s
+#define MODULE1 mission
+#define MODULE missions
 
 //// Mission get var
 //#define MGVAR(var, defVal)      (KPLIB_mission_data getVariable [var, defVal])
 //// Mission set var
-//#define MSVAR(var, val)         (KPLIB_mission_data setVariable [var, val, true])
+//#define MVAR(var, val)         (KPLIB_mission_data setVariable [var, val, true])
 
 #ifndef Q
 #define Q(x) #x
 #endif // QUOTE
 
-#define MSPARAM(x) LIB##_param_##MODULES##x
+// Align variants for "one" and for the module
+#define MPARAM1(x) LIB##_param_##MODULE1##x
+#define QMPARAM1(x) Q(MPARAM1(x))
 
-#define QMSPARAM(x) Q(MSPARAM(x))
+#define MPARAM(x) LIB##_param_##MODULE##x
+#define QMPARAM(x) Q(MPARAM(x))
+
+#define MVAR1(var) LIB##_##MODULE1##var
+#define QMVAR1(var) Q(MVAR1(var))
 
 #define MVAR(var) LIB##_##MODULE##var
-#define MSVAR(var) LIB##_##MODULES##var
-
 #define QMVAR(var) Q(MVAR(var))
-#define QMSVAR(var) Q(MSVAR(var))
+
+#define MFUNC1(func) LIB##_fnc_##MODULE1##func
+#define QMFUNC1(func) Q(MFUNC1(func))
 
 #define MFUNC(func) LIB##_fnc_##MODULE##func
-#define MSFUNC(func) LIB##_fnc_##MODULES##func
-
 #define QMFUNC(func) Q(MFUNC(func))
-#define QMSFUNC(func) Q(MSFUNC(func))
 
-#define MSTATUS(stat) LIB##_##MODULE##_status##stat
+#define MSTATUS1(stat) LIB##_##MODULE1##_status##stat

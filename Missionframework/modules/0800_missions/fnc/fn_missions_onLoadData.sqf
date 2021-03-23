@@ -36,7 +36,7 @@
 //     if (KPLIB_param_debug) then {
 //         ["Mission module data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
 //     };
-//     MSVAR("timeCheck", _moduleData select 0);
+//     MVAR("timeCheck", _moduleData select 0);
 
 // };
 

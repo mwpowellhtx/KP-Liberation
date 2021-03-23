@@ -21,20 +21,21 @@
         https://community.bistudio.com/wiki/BIS_fnc_bitflagsCheck
  */
 
+private _standby = MSTATUS1(_standby);
 
 params [
-    [Q(_status), MSTATUS(_standby), [0]]
+    [Q(_status), _standby, [0]]
 ];
 
-if (_status < MSTATUS(_standby)) exitWith {
+if (_status < _standby) exitWith {
     toUpper (localize "STR_KPLIB_LOGISTICS_STATUS_NA");
 };
 
-if (_status == MSTATUS(_standby)) exitWith {
-    toUpper (MSVAR(_statusReports)#0#1);
+if (_status == _standby) exitWith {
+    toUpper (MVAR(_statusReports)#0#1);
 };
 
-private _reports = MSVAR(_statusReports) select {
+private _reports = MVAR(_statusReports) select {
     [_status, (_x#0)] call BIS_fnc_bitflagsCheck;
 };
 

@@ -44,7 +44,7 @@ private _onInitNominal = {
     ];
 
     // Set the default defaults, then any user specified NVPs, finally the TEMPLATE UUID default
-    [_mission, MVAR(_nameValuePairDefaults)] call KPLIB_fnc_namespace_setVars;
+    [_mission, MVAR1(_nameValuePairDefaults)] call KPLIB_fnc_namespace_setVars;
 
     if (count _nameValuePairs > 0) then {
         [_mission, _nameValuePairs] call KPLIB_fnc_namespace_setVars;
@@ -52,8 +52,8 @@ private _onInitNominal = {
 
     // TODO: TBD: if we ever wanted to serialize templates, or their saved missions, then would need to statically identify UUID...
     [_mission, [
-        [QMVAR(_uuid), _uuid]
-        , [QMVAR(_serverTime), serverTime]
+        [QMVAR1(_uuid), _uuid]
+        , [QMVAR1(_serverTime), serverTime]
     ]] call KPLIB_fnc_namespace_setVars;
 
     _mission;

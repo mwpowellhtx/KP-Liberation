@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missions_getArrayTelemetry
+    KPLIB_fnc_mission_getArrayTelemetry
 
-    File: fn_missions_getArrayTelemetry.sqf
+    File: fn_mission_getArrayTelemetry.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 00:58:26
     Last Update: 2021-03-20 00:58:28
@@ -21,6 +21,9 @@
         https://community.bistudio.com/wiki/BIS_fnc_bitflagsCheck
  */
 
+// TODO: TBD: need to arrange telem callbacks a bit better, it is too confusing...
+// TODO: TBD: be not afraid to intro a started versus running versus template individual functions...
+// TODO: TBD: plus whatever specific mission callbacks might exist...
 params [
     [Q(_mission), locationNull, [locationNull]]    
 ];
@@ -32,8 +35,8 @@ if (isNull _mission) exitWith {
 };
 
 ([_mission, [
-    [QMVAR(_uuid), ""]
-    , [QMVAR(_onGetTelemetry), MSFUNC(_onNoTelemetry)]
+    [QMVAR1(_uuid), ""]
+    , [QMVAR1(_onGetTelemetry), MFUNC1(_onNoOpTelemetry)]
 ]] call KPLIB_fnc_namespace_getVars) params [
     Q(_uuid)
     , Q(_onGetTelemetry)
@@ -41,7 +44,7 @@ if (isNull _mission) exitWith {
 
 [
     _uuid isEqualTo ""
-    , [_mission, MSTATUS(_standby)] call MSFUNC(_checkStatus)
+    , [_mission, MSTATUS1(_standby)] call MFUNC1(_checkStatus)
 ] params [
     Q(_running)
     , Q(_standby)
@@ -58,9 +61,9 @@ _retval = switch (true) do {
     case (_running): {
 
         ([_mission, +[
-            [QMVAR(_status), MSTATUS(_standby)]
-            , [QMVAR(_timer), KPLIB_timers_default]
-            , [QMVAR(_pos), KPLIB_zeroPos]
+            [QMVAR1(_status), MSTATUS1(_standby)]
+            , [QMVAR1(_timer), KPLIB_timers_default]
+            , [QMVAR1(_pos), KPLIB_zeroPos]
         ]] call KPLIB_fnc_namespace_getVars) params [
             Q(_status)
             , Q(_timer)
@@ -68,7 +71,7 @@ _retval = switch (true) do {
         ];
 
         [
-            [_status] call MSFUNC(_getStatusReport)
+            [_status] call MFUNC(_getStatusReport)
             , mapGridPosition _pos
         ] params [
             Q(_statusReport)
@@ -76,15 +79,15 @@ _retval = switch (true) do {
         ];
 
         [
-            [QMVAR(_statusReport), _statusReport]
-            , [QMVAR(_timer), _timer]
-            , [QMVAR(_gridref), _gridref]
+            [QMVAR1(_statusReport), _statusReport]
+            , [QMVAR1(_timer), _timer]
+            , [QMVAR1(_gridref), _gridref]
         ];
     };
     default {
 
         ([_mission, +[
-            [QMVAR(_cost), MVAR(_zeroDebit)]
+            [QMVAR1(_cost), MVAR1(_zeroDebit)]
         ]] call KPLIB_fnc_namespace_getVars) params [
             Q(_cost)
         ];
@@ -106,10 +109,10 @@ _retval = switch (true) do {
         ];
 
         [
-            [QMVAR(_supplyCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY", str _supplyCost, _supplyPath]
-            , [QMVAR(_ammoCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO", str _ammoCost, _ammoPath]
-            , [QMVAR(_fuelCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL", str _fuelCost, _fuelPath]
-            , [QMVAR(_intelCost), toUpper localize "STR_KPLIB_MISSIONSMGR_TELEMETRY_INTEL", str _intelCost, _intelPath, _intelColor]
+            [QMVAR1(_supplyCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY", str _supplyCost, _supplyPath]
+            , [QMVAR1(_ammoCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO", str _ammoCost, _ammoPath]
+            , [QMVAR1(_fuelCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL", str _fuelCost, _fuelPath]
+            , [QMVAR1(_intelCost), toUpper localize "STR_KPLIB_MISSIONSMGR_TELEMETRY_INTEL", str _intelCost, _intelPath, _intelColor]
         ];
     };
 };

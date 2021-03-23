@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missions_onGC
+    KPLIB_fnc_mission_onGC
 
-    File: fn_missions_onGC.sqf
+    File: fn_mission_onGC.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-22 13:48:51
     Last Update: 2021-03-22 13:48:54
@@ -28,9 +28,9 @@ if (isNull _mission) exitWith {
 };
 
 [
-    MSVAR(_registry)
-    , keys MSVAR(_registry)
-    , _mission getVariable [QMVAR(_uuid), ""]
+    MVAR(_registry)
+    , keys MVAR(_registry)
+    , _mission getVariable [QMVAR1(_uuid), ""]
 ] params [
     Q(_registry)
     , Q(_keys)

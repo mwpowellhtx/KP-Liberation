@@ -1,9 +1,9 @@
 // Ditto similar includes re: macro abstractions
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missions_timerHasElapsed
+    KPLIB_fnc_mission_timerHasElapsed
 
-    File: fn_missions_timerHasElapsed.sqf
+    File: fn_mission_timerHasElapsed.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 02:17:26
     Last Update: 2021-03-20 02:17:29
@@ -22,7 +22,7 @@
  */
 
 [
-    MSTATUS(_standby)
+    MSTATUS1(_standby)
     , +KPLIB_timers_default
 ] params [
     Q(_standby)
@@ -49,7 +49,7 @@ private _hasNamespaceTimerElapsed = {
     ];
 
     ([_target, [
-        [QMVAR(_timer), _defaultTimer]
+        [QMVAR1(_timer), _defaultTimer]
     ]] call KPLIB_fnc_namespace_getVars) params [
         Q(_timer)
     ];

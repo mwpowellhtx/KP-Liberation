@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_missions_namespaceToArray
+    KPLIB_fnc_mission_namespaceToArray
 
-    File: fn_missions_namespaceToArray.sqf
+    File: fn_mission_namespaceToArray.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-25 11:58:41
     Last Update: 2021-02-25 21:08:58
@@ -23,7 +23,7 @@
 
 params [
     [Q(_mission), locationNull, [locationNull]]
-    , [Q(_payloadSpecs), MVAR(_variableNamesToPublish), [[]]]
+    , [Q(_payloadSpecs), MVAR1(_variableNamesToPublish), [[]]]
 ];
 
 private _onExitWithTelemetry = {
@@ -31,7 +31,7 @@ private _onExitWithTelemetry = {
         [Q(_payload), [], [[]]]
     ];
 
-    private _telemetry = [_mission] call MSFUNC(_getArrayTelemetry);
+    private _telemetry = [_mission] call MFUNC1(_getArrayTelemetry);
 
     if (!isNil Q(_telemetry)) then {
         _payload pushBack _telemetry;

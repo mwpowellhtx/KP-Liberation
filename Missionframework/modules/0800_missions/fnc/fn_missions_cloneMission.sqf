@@ -20,7 +20,7 @@
     Parameter(s):
         _runningMissionOrTemplate - a CBA MISSION namespace, usually a MISSION TEMPLATE [LOCATION, default: locationNull]
         _variableNamesToClone - the variable names to clone [ARRAY, default: KPLIB_missions_variablesNamesToClone]
-        _targetStatus - a target STATUS in which to land [SCALAR, default: MSTATUS(_running)]
+        _targetStatus - a target STATUS in which to land [SCALAR, default: MSTATUS1(_running)]
 
     Returns:
         Clone of the CBA RUNNING MISSION or TEMPLATE namespace [LOCATION]
@@ -28,17 +28,17 @@
 
 params [
     [Q(_runningMissionOrTemplate), locationNull, [locationNull]]
-    , [Q(_variableNamesToClone), +MVAR(_variablesNamesToClone), [[]]]
-    , [Q(_targetStatus), MSTATUS(_running), [0]]
+    , [Q(_variableNamesToClone), +MVAR1(_variablesNamesToClone), [[]]]
+    , [Q(_targetStatus), MSTATUS1(_running), [0]]
 ];
 
 private _missionClone = [_runningMissionOrTemplate, _variableNamesToClone] call KPLIB_fnc_namespace_clone;
 
 // Requires a bit of additional effort when cloning to a RUNNING MISSION
-if (_targetStatus == MSTATUS(_running)) then {
+if (_targetStatus == MSTATUS1(_running)) then {
     [
-        _runningMissionOrTemplate getVariable [QMVAR(_uuid), ""]
-        , _runningMissionOrTemplate getVariable [QMVAR(_templateUuid), ""]
+        _runningMissionOrTemplate getVariable [QMVAR1(_uuid), ""]
+        , _runningMissionOrTemplate getVariable [QMVAR1(_templateUuid), ""]
     ] params [
         Q(_uuid)
         , Q(_templateUuid)
@@ -49,7 +49,7 @@ if (_targetStatus == MSTATUS(_running)) then {
         _templateUuid;
     };
     [_missionClone, [
-        [QMVAR(_templateUuid), _targetTemplateUuid]
+        [QMVAR1(_templateUuid), _targetTemplateUuid]
     ]] call KPLIB_fnc_namespace_setVars;
 };
 
@@ -58,9 +58,9 @@ if (_targetStatus == MSTATUS(_running)) then {
 
 // Otherwise, simply cloning a MISSION TEMPLATE is pretty straightforward
 [_missionClone, [
-    [QMVAR(_uuid), [] call KPLIB_fnc_uuid_create_string]
-    , [QMVAR(_status), _targetStatus]
-    , [QMVAR(_serverTime), serverTime]
+    [QMVAR1(_uuid), [] call KPLIB_fnc_uuid_create_string]
+    , [QMVAR1(_status), _targetStatus]
+    , [QMVAR1(_serverTime), serverTime]
 ]] call KPLIB_fnc_namespace_setVars;
 
 _missionClone;

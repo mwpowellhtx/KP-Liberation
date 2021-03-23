@@ -29,10 +29,10 @@ if (isServer) then {
 
 // TODO: TBD: should "missions" be supported as self-contained "namespaces" according to a "mission blueprint" (?)
 // TODO: TBD: and then how much of that is server side, how much of that interfaces with client side? dialog? etc...
-MVAR(_permissionName)                   = Q(Mission);
+MVAR(_permissionName)                   = Q(Missions);
 
 //                                        [S, A, F, I]
-MVAR(_zeroDebit)                        = [0, 0, 0, 0];
+MVAR1(_zeroDebit)                       = [0, 0, 0, 0];
 //                          _supplyDebit:  ^
 //                          _ammoDebit:       ^
 //                          _fuelDebit:          ^
@@ -40,35 +40,41 @@ MVAR(_zeroDebit)                        = [0, 0, 0, 0];
 
 // TODO: TBD: make this a proper CBA setting...
 // Indicative of a mission rebate value, percentage of the cost which may be recouped on abort
-MVAR(_rebateValue)                      = 0.5;
+MVAR1(_rebateValue)                     = 0.5;
 
 // TODO: TBD: we may stand on "status"... maybe...
-MSTATUS(_standby)                       =   0;
-MSTATUS(_template)                      =   1;
-MSTATUS(_running)                       =   2;
-MSTATUS(_started)                       =   4;
-MSTATUS(_engaged)                       =   8;
-MSTATUS(_aborting)                      =  16;
-MSTATUS(_success)                       =  32;
-MSTATUS(_failure)                       =  64;
-MSTATUS(_completed)                     = 128;
+MSTATUS1(_standby)                      =   0;
+MSTATUS1(_template)                     =   1;
+MSTATUS1(_running)                      =   2;
+MSTATUS1(_started)                      =   4;
+MSTATUS1(_engaged)                      =   8;
+MSTATUS1(_aborting)                     =  16;
+MSTATUS1(_success)                      =  32;
+MSTATUS1(_failure)                      =  64;
+MSTATUS1(_completed)                    = 128;
+/* System MISSIONS may not be aborted, they are typically triggered
+ * by internal conditions and must evaluate to completion */
+MSTATUS1(_system)                       = 256;
+
+MSTATUS1(_successFailureAborting)       = MSTATUS1(_success) + MSTATUS1(_failure) + MSTATUS1(_aborting);
 
 // TODO: TBD: also consider which mission telemetry should be reported...
-MSVAR(_statusReports)                   = [
-    [MSTATUS(_standby)      , localize "STR_KPLIB_MISSION_STATUS_STANDBY"   ]
-    , [MSTATUS(_template)   , localize "STR_KPLIB_MISSION_STATUS_TEMPLATE"  ]
-    , [MSTATUS(_running)    , localize "STR_KPLIB_MISSION_STATUS_RUNNING"   ]
-    , [MSTATUS(_started)    , localize "STR_KPLIB_MISSION_STATUS_STARTED"   ]
-    , [MSTATUS(_engaged)    , localize "STR_KPLIB_MISSION_STATUS_ENGAGED"   ]
-    , [MSTATUS(_aborting)   , localize "STR_KPLIB_MISSION_STATUS_ABORTING"  ]
-    , [MSTATUS(_success)    , localize "STR_KPLIB_MISSION_STATUS_SUCCESS"   ]
-    , [MSTATUS(_failure)    , localize "STR_KPLIB_MISSION_STATUS_FAILURE"   ]
-    , [MSTATUS(_completed)  , localize "STR_KPLIB_MISSION_STATUS_COMPLETED" ]
+MVAR(_statusReports)                   = [
+    [MSTATUS1(_standby)     , localize "STR_KPLIB_MISSION_STATUS_STANDBY"   ]
+    , [MSTATUS1(_template)  , localize "STR_KPLIB_MISSION_STATUS_TEMPLATE"  ]
+    , [MSTATUS1(_running)   , localize "STR_KPLIB_MISSION_STATUS_RUNNING"   ]
+    , [MSTATUS1(_started)   , localize "STR_KPLIB_MISSION_STATUS_STARTED"   ]
+    , [MSTATUS1(_engaged)   , localize "STR_KPLIB_MISSION_STATUS_ENGAGED"   ]
+    , [MSTATUS1(_aborting)  , localize "STR_KPLIB_MISSION_STATUS_ABORTING"  ]
+    , [MSTATUS1(_success)   , localize "STR_KPLIB_MISSION_STATUS_SUCCESS"   ]
+    , [MSTATUS1(_failure)   , localize "STR_KPLIB_MISSION_STATUS_FAILURE"   ]
+    , [MSTATUS1(_completed) , localize "STR_KPLIB_MISSION_STATUS_COMPLETED" ]
+    , [MSTATUS1(_system)    , localize "STR_KPLIB_MISSION_STATUS_SYSTEM"    ]
 ];
 
-MVAR(_zeroBriefing)                     = ["", "", ""];
+MVAR1(_zeroBriefing)                    = ["", "", ""];
 
-MSPARAM(_debug)                         = false;
+MPARAM(_debug)                          = false;
 
 if (isServer) then {
 
@@ -88,54 +94,45 @@ if (isServer) then {
      * KPLIB_mission_timer - for time sensitive missions
      * KPLIB_fnc_mission_* - callbacks regulating entry point and state machine states, transisions, etc
      */
-    MVAR(_nameValuePairDefaults) = +[
-        [QMVAR(_uuid)                   , ""                        ]
-        , [QMVAR(_templateUuid)         , ""                        ]
-        , [QMVAR(_serverTime)           , -1                        ]
-        , [QMVAR(_icon)                 , ""                        ]
-        , [QMVAR(_name)                 , ""                        ]
-        , [QMVAR(_title)                , ""                        ]
-        , [QMVAR(_briefing)             , MVAR(_zeroBriefing)       ]
-        , [QMVAR(_imagePath)            , ""                        ]
-        , [QMVAR(_args)                 , []                        ]
-        , [QMVAR(_cost)                 , MVAR(_zeroDebit)          ]
-        , [QMVAR(_pos)                  , KPLIB_zeroPos             ]
-        , [QMVAR(_range)                , KPLIB_param_sectorCapRange]
-        , [QMVAR(_status)               , MSTATUS(_template)        ]
-        , [QMVAR(_timer)                , KPLIB_timers_default      ]
-        , [QMFUNC(_onGetTelemetry)      , MSFUNC(_onNoTelemetry)    ]
-        , [QMFUNC(_onEnterMission)      , MSFUNC(_onNoOp)           ]
-        , [QMFUNC(_onAbortMission)      , MSFUNC(_onNoOp)           ]
-        , [QMFUNC(_onMissionSetup)      , MSFUNC(_onNoOp)           ]
-        , [QMFUNC(_onMissionEntered)    , MSFUNC(_onNoOp)           ]
-        , [QMFUNC(_onMission)           , MSFUNC(_onNoOp)           ]
-        , [QMFUNC(_onMissionLeaving)    , MSFUNC(_onNoOp)           ]
-        , [QMFUNC(_onMissionTearDown)   , MSFUNC(_onNoOp)           ]
+    MVAR1(_nameValuePairDefaults) = +[
+        [QMVAR1(_uuid)                      , ""                        ]
+        , [QMVAR1(_templateUuid)            , ""                        ]
+        , [QMVAR1(_serverTime)              , -1                        ]
+        , [QMVAR1(_icon)                    , ""                        ]
+        , [QMVAR1(_name)                    , ""                        ]
+        , [QMVAR1(_title)                   , ""                        ]
+        , [QMVAR1(_briefing)                , MVAR1(_zeroBriefing)      ]
+        , [QMVAR1(_imagePath)               , ""                        ]
+        , [QMVAR1(_args)                    , []                        ]
+        , [QMVAR1(_cost)                    , MVAR1(_zeroDebit)         ]
+        , [QMVAR1(_pos)                     , KPLIB_zeroPos             ]
+        , [QMVAR1(_range)                   , KPLIB_param_sectorCapRange]
+        , [QMVAR1(_status)                  , MSTATUS1(_template)       ]
+        , [QMVAR1(_timer)                   , KPLIB_timers_default      ]
+        , [QMFUNC1(_onGetTelemetry)         , MFUNC1(_onNoOpTelemetry)  ]
+        , [QMFUNC1(_onSetup)                , MFUNC1(_onNoOpSetup)      ]
+        , [QMFUNC1(_onMission)              , MFUNC1(_onNoOpMission)    ]
+        , [QMFUNC1(_onTearDown)             , MFUNC1(_onNoOpTearDown)   ]
     ];
 
-    MVAR(_variablesNamesToClone) = [
-        QMVAR(_icon)
-        , QMVAR(_templateUuid)
-        , QMVAR(_serverTime)
-        , QMVAR(_name)
-        , QMVAR(_title)
-        , QMVAR(_briefing)
-        , QMVAR(_imagePath)
-        , QMVAR(_args)
-        , QMVAR(_cost)
-        , QMVAR(_pos)
-        , QMVAR(_radius)
-        , QMVAR(_status)
-        , QMVAR(_timer)
-        , QMFUNC(_onIsComplete)
-        , QMFUNC(_onIsFailed)
-        , QMFUNC(_onEnterMission)
-        , QMFUNC(_onAbortMission)
-        , QMFUNC(_onMissionSetup)
-        , QMFUNC(_onMissionEntered)
-        , QMFUNC(_onMission)
-        , QMFUNC(_onMissionLeaving)
-        , QMFUNC(_onMissionTearDown)
+    MVAR1(_variablesNamesToClone) = [
+        QMVAR1(_templateUuid)
+        , QMVAR1(_serverTime)
+        , QMVAR1(_icon)
+        , QMVAR1(_name)
+        , QMVAR1(_title)
+        , QMVAR1(_briefing)
+        , QMVAR1(_imagePath)
+        , QMVAR1(_args)
+        , QMVAR1(_cost)
+        , QMVAR1(_pos)
+        , QMVAR1(_range)
+        , QMVAR1(_status)
+        , QMVAR1(_timer)
+        , QMFUNC1(_onGetTelemetry)
+        , QMFUNC1(_onSetup)
+        , QMFUNC1(_onMission)
+        , QMFUNC1(_onTearDown)
     ];
 
     /* These are the core variables which get bundled together for publication to managers.
@@ -145,41 +142,41 @@ if (isServer) then {
      * actual live code, callbacks, things of this nature. */
 
     // Rearranged a tiny bit to better accommodate the user interface
-    MVAR(_variableNamesToPublish) = +[
-        [QMVAR(_uuid)           , ""                    ]
-        , [QMVAR(_templateUuid) , ""                    ]
-        , [QMVAR(_icon)         , ""                    ]
-        , [QMVAR(_title)        , ""                    ]
-        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
-        , [QMVAR(_status)       , MSTATUS(_standby)     ]
-        , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
-        , [QMVAR(_imagePath)    , ""                    ]
+    MVAR1(_variableNamesToPublish) = +[
+        [QMVAR1(_uuid)          , ""                    ]
+        , [QMVAR1(_templateUuid), ""                    ]
+        , [QMVAR1(_icon)        , ""                    ]
+        , [QMVAR1(_title)       , ""                    ]
+        , [QMVAR1(_pos)         , KPLIB_zeroPos         ]
+        , [QMVAR1(_status)      , MSTATUS1(_standby)    ]
+        , [QMVAR1(_timer)       , KPLIB_timers_default  ]
+        , [QMVAR1(_briefing)    , MVAR1(_zeroBriefing)  ]
+        , [QMVAR1(_imagePath)   , ""                    ]
     ];
 
     // Register key event handlers
-    ["KPLIB_doLoad", {[] call MSFUNC(_onLoadData);}] call CBA_fnc_addEventHandler;
-    ["KPLIB_doSave", {[] call MSFUNC(_onSaveData);}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doLoad", {[] call MFUNC(_onLoadData);}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doSave", {[] call MFUNC(_onSaveData);}] call CBA_fnc_addEventHandler;
 
     private _createRegistry = {
         private _map = createHashMap;
         // TODO: TBD: actually, on second thought, do not need to mess with "registered items"
         // TODO: TBD: we can work with keys, and select out a list of items from that
         // TODO: TBD: then separate based on template/running, and order by server time
-        //_map set [QMVAR(_registeredItems), []];
+        //_map set [QMVAR1(_registeredItems), []];
         _map;
     };
 
     /* Captures both MISSION TEMPLATES as well as RUNNING MISSIONS. We gather them together
      * in a single HASHMAP registry primarily for easier maintenance throughout the API, and
-     * so we must also be careful to discern based upon QMVAR(_status), but also be mindful
-     * of QMVAR(_uuid) as well as QMVAR(_templateUuid). */
+     * so we must also be careful to discern based upon QMVAR1(_status), but also be mindful
+     * of QMVAR1(_uuid) as well as QMVAR1(_templateUuid). */
 
-    MSVAR(_registry)            = [] call _createRegistry;
+    MVAR(_registry)             = [] call _createRegistry;
 };
 
 // Process CBA Settings
-[] call MSFUNC(_settings);
+[] call MFUNC(_settings);
 
 if (isServer) then {
     ["Initialized", "PRE] [MISSIONS", true] call KPLIB_fnc_common_log;

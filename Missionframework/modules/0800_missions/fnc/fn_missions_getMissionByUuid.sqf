@@ -35,7 +35,7 @@ params [
 
 private _candidates = [_targetUuid, _targetTemplateUuid] apply {
     if (_x isEqualTo "") then { locationNull; } else {
-        MSVAR(_registry) getOrDefault [_x, locationNull];
+        MVAR(_registry) getOrDefault [_x, locationNull];
     };
 };
 
