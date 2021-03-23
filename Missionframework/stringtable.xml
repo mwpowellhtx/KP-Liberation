@@ -1261,7 +1261,7 @@
         <Key ID="STR_KPLIB_MISSIONSMGR_BTN_ABORT">
             <English>-ABORT</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSIONSMGR_LBL_BRIEFING_TITLE_NA">
+        <Key ID="STR_KPLIB_MISSIONSMGR_LBL_MISSION_TITLE_NA">
             <English>N/A</English>
         </Key>
 
@@ -2478,23 +2478,29 @@
         <Key ID="STR_KPLIB_MISSION_STATUS_STANDBY">
             <English>Standby</English>
         </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_TEMPLATE">
+            <English>Template</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_RUNNING">
+            <English>Running</English>
+        </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_STARTED">
             <English>Started</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_ENGAGED">
             <English>Engaged</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_STATUS_COMPLETED">
-            <English>Completed</English>
-        </Key>
-        <Key ID="STR_KPLIB_MISSION_STATUS_FAILURE">
-            <English>Failure</English>
+        <Key ID="STR_KPLIB_MISSION_STATUS_ABORTING">
+            <English>Aborting</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_SUCCESS">
             <English>Success</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_STATUS_ABORTING">
-            <English>Aborting</English>
+        <Key ID="STR_KPLIB_MISSION_STATUS_FAILURE">
+            <English>Failure</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_COMPLETED">
+            <English>Completed</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_NA">
             <English>N/A</English>
@@ -2516,6 +2522,10 @@
         </Key>
         <Key ID="STR_KPLIB_MISSIONSMGR_BRIEFING_TITLE_FAILURE">
             <English>Failure:</English>
+        </Key>
+        <!-- TODO: TBD: there are probably better default placements for this, i.e. HUD, let's say... -->
+        <Key ID="STR_KPLIB_MISSIONSMGR_TELEMETRY_INTEL">
+            <English>Intel</English>
         </Key>
 
         <!-- EXAMPLE MISSION -->
