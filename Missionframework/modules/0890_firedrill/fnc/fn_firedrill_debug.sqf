@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_exampleMission_debug
+    KPLIB_fnc_firedrill_debug
 
-    File: fn_exampleMission_debug.sqf
+    File: fn_firedrill_debug.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 01:57:24
     Last Update: 2021-03-20 01:57:27

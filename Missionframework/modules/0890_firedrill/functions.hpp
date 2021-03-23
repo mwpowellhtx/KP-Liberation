@@ -11,37 +11,37 @@
         Defines for all functions, which are brought by this module.
 */
 
-class exampleMission {
-    file = "modules\0800_missions\missions\999_exampleMission\fnc";
+class firedrill {
+    file = "modules\0890_firedrill\fnc";
 
     // Module initialization phase event handler
-    class exampleMission_onPreInit {
+    class firedrill_onPreInit {
         preInit = 1;
     };
 
     // Module initialization phase event handler
-    class exampleMission_onPostInit {
+    class firedrill_onPostInit {
         postInit = 1;
     };
 
     // Returns whether the caller should do some debugging
-    class exampleMission_debug {};
+    class firedrill_debug {};
 
     // CBA Settings initialization for this module
-    class exampleMission_settings {};
+    class firedrill_settings {};
 
     //
-    class exampleMission_onSetup {};
+    class firedrill_onSetup {};
 
     //
-    class exampleMission_onMission {};
+    class firedrill_onMission {};
 
     //
-    class exampleMission_onTearDown {};
+    class firedrill_onTearDown {};
 
     //
-    class exampleMission_onCompleteEntered {};
+    class firedrill_onCompleteEntered {};
 
     //
-    class exampleMission_onGetTelemetry {};
+    class firedrill_onGetTelemetry {};
 };

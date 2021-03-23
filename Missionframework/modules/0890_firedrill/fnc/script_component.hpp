@@ -14,7 +14,7 @@
 #define LIB KPLIB
 #define MODULEP1 mission
 #define MODULEP missions
-#define MODULE exampleMission
+#define MODULE firedrill
 
 //// Mission get var
 //#define MGVAR(var, defVal)      (KPLIB_mission_data getVariable [var, defVal])

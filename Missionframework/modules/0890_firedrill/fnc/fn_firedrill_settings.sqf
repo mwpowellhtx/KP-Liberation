@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_exampleMission_settings
+    KPLIB_fnc_firedrill_settings
 
-    File: fn_exampleMission_settings.sqf
+    File: fn_firedrill_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 16:42:28
     Last Update: 2021-03-20 16:42:31

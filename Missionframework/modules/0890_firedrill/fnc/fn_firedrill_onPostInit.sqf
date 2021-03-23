@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_exampleMission_onPostInit
+    KPLIB_fnc_firedrill_onPostInit
 
-    File: fn_exampleMission_onPostInit.sqf
+    File: fn_firedrill_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Date: 2021-03-20 16:44:51
     Last Update: 2021-03-20 16:44:55
@@ -20,7 +20,7 @@
 */
 
 if (isServer) then {
-    ["Initializing...", "POST] [EXAMPLEMISSION", true] call KPLIB_fnc_common_log;
+    ["Initializing...", "POST] [FIREDRILL", true] call KPLIB_fnc_common_log;
 };
 
 if (isServer) then {
@@ -36,7 +36,7 @@ if (hasInterface) then {
 };
 
 if (isServer) then {
-    ["Initialized", "POST] [EXAMPLEMISSION", true] call KPLIB_fnc_common_log;
+    ["Initialized", "POST] [FIREDRILL", true] call KPLIB_fnc_common_log;
 };
 
 true;

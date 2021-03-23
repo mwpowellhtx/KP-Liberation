@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_exampleMission_onCompleteEntered
+    KPLIB_fnc_firedrill_onCompleteEntered
 
-    File: fn_exampleMission_onCompleteEntered.sqf
+    File: fn_firedrill_onCompleteEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 16:42:28
     Last Update: 2021-03-20 17:03:39

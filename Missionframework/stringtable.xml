@@ -2531,23 +2531,22 @@
             <English>Intel</English>
         </Key>
 
-        <!-- EXAMPLE MISSION -->
+        <!-- FIREDRILL EXAMPLE MISSION -->
 
-        <Key ID="STR_KPLIB_MISSION_EXAMPLE_NAME">
-            <English>_missions_999_example</English>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_NAME">
+            <English>_0890_firedrill</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_EXAMPLE_TITLE">
-            <English>Example Mission</English>
-            <German>Beispiel Mission</German>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_TITLE">
+            <English>Fire Drill!</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_EXAMPLE_OVERVIEW_TEXT">
-            <English>Simple textual overview.</English>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_OVERVIEW_TEXT">
+            <English>It is a fire drill, soldiers! Every currently at an FOB is instructed to vacate the FOB zone as quickly as possible. Once everyone has vacated, then players must all return.</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_EXAMPLE_SUCCESS_TEXT">
-            <English>Simple textual success conditions.</English>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_SUCCESS_TEXT">
+            <English>Players successfully vacate their respective FOB zones in the time window.</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_EXAMPLE_FAILURE_TEXT">
-            <English>Simple textual failure conditions.</English>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_FAILURE_TEXT">
+            <English>Players have a limited time to vacate their respective FOB zones.</English>
         </Key>
 
     </Package>

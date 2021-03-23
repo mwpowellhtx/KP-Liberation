@@ -73,11 +73,11 @@ class KPLIB {
 
     //#include "modules\0800_mission\functions.hpp"
     #include "modules\0800_missions\functions.hpp"
-    #include "modules\0800_missions\missions\999_exampleMission\functions.hpp"
     #include "modules\0801_missionsSM\functions.hpp"
     #include "modules\0802_missionsCO\functions.hpp"
     #include "modules\0803_missionsMgr\functions.hpp"
     #include "modules\0810_captive\functions.hpp"
+    #include "modules\0890_firedrill\functions.hpp"
 
     //#include "modules\0900_missions\functions.hpp"
 };

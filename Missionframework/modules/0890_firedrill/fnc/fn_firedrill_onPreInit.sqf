@@ -1,9 +1,9 @@
 // Mind the shorthand throughout...
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_exampleMission_onPreInit
+    KPLIB_fnc_firedrill_onPreInit
 
-    File: fn_exampleMission_onPreInit.sqf
+    File: fn_firedrill_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 16:43:24
     Last Update: 2021-03-20 16:43:27
@@ -21,7 +21,7 @@
  */
 
 if (isServer) then {
-    ["Initializing...", "PRE] [EXAMPLEMISSION", true] call KPLIB_fnc_common_log;
+    ["Initializing...", "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
 };
 
 if (isServer) then {
@@ -36,13 +36,13 @@ if (isServer) then {
 
     // TODO: TBD: 'actual' missions would also fill in other bits, i.e. cost, etc
     MVAR(_variableNamesToInit) = +[
-        [QPVAR1(_name)                      , localize "STR_KPLIB_MISSION_EXAMPLE_NAME"     ]
-        , [QPVAR1(_title)                   , localize "STR_KPLIB_MISSION_EXAMPLE_TITLE"    ]
+        [QPVAR1(_name)                      , localize "STR_KPLIB_MISSION_FIREDRILL_NAME"   ]
+        , [QPVAR1(_title)                   , localize "STR_KPLIB_MISSION_FIREDRILL_TITLE"  ]
         , [
             QPVAR1(_briefing)               , [
-                localize "STR_KPLIB_MISSION_EXAMPLE_OVERVIEW_TEXT"
-                , localize "STR_KPLIB_MISSION_EXAMPLE_SUCCESS_TEXT"
-                , localize "STR_KPLIB_MISSION_EXAMPLE_FAILURE_TEXT"
+                localize "STR_KPLIB_MISSION_FIREDRILL_OVERVIEW_TEXT"
+                , localize "STR_KPLIB_MISSION_FIREDRILL_SUCCESS_TEXT"
+                , localize "STR_KPLIB_MISSION_FIREDRILL_FAILURE_TEXT"
             ]
                                                                                             ]
         , [QPFUNC1(_onSetup)                , MFUNC(_onSetup)                               ]
@@ -54,7 +54,7 @@ if (isServer) then {
 };
 
 if (isServer) then {
-    ["Initialized", "PRE] [EXAMPLEMISSION", true] call KPLIB_fnc_common_log;
+    ["Initialized", "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
 };
 
 true;
