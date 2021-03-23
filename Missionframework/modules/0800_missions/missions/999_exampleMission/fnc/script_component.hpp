@@ -12,8 +12,8 @@
 
 // TODO: TBD: could potentially hike this up the include chain...
 #define LIB KPLIB
-#define PARENT mission
-#define PARENTS missions
+#define MODULEP1 mission
+#define MODULEP missions
 #define MODULE exampleMission
 
 //// Mission get var
@@ -25,17 +25,21 @@
 #define Q(x) #x
 #endif // QUOTE
 
-#define PVAR(var) LIB##_##PARENT##var
+#define MSTATUS1(x) LIB##_##MODULEP1##_status_##x
+
+#define PVAR1(var) LIB##_##MODULEP1##var
+#define QPVAR1(var) Q(PVAR1(var))
+
+// TODO: TBD: probably want to be careful of these names...
+// Not to be confused with the PERMISSIONS module, for instance
+#define PVAR(var) LIB##_##MODULEP##var
 #define QPVAR(var) Q(PVAR(var))
 
-#define PSVAR(var) LIB##_##PARENTS##var
-#define QPSVAR(var) Q(PSVAR(var))
+#define PFUNC1(func) LIB##_fnc_##MODULEP1##func
+#define QPFUNC1(func) Q(PFUNC1(func))
 
-#define PFUNC(func) LIB##_fnc_##PARENT##func
+#define PFUNC(func) LIB##_fnc_##MODULEP##func
 #define QPFUNC(func) Q(PFUNC(func))
-
-#define PSFUNC(func) LIB##_fnc_##PARENTS##func
-#define QPSFUNC(func) Q(PSFUNC(func))
 
 #define MVAR(var) LIB##_##MODULE##var
 #define QMVAR(var) Q(MVAR(var))

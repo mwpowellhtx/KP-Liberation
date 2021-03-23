@@ -26,8 +26,9 @@ if (isServer) then {
 if (isServer) then {
     // Server side init
 
-    private _template = [nil, MVAR(_variableNamesToInit)] call PSFUNC(_createTemplate);
-    [_template] call PSFUNC(_registerOne)
+    [
+        [nil, MVAR(_variableNamesToInit)] call PFUNC(_createTemplate)
+    ] call PFUNC(_registerOne)
 };
 
 if (hasInterface) then {

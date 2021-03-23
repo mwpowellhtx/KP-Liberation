@@ -10,17 +10,19 @@
     Public: No
 
     Description:
-        Routine mission callback, analog to CBA state machine 'onState' event.
+        Routine CBA MISSION 'onState' state machine event handler, invoked during
+        the normal course of the mission running and as long as it has not been flagged
+        ABORTING, nor either of its terminal outcomes, SUCCESS or FAILURE, indicated.
 
     Parameter(s):
-        _namespace - a CBA MISSION namespace [LOCATION, default: locationNull]
+        _mission - a CBA MISSION namespace [LOCATION, default: locationNull]
 
     Returns:
         The event handler finished [BOOL]
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_mission), locationNull, [locationNull]]
 ];
 
 true;

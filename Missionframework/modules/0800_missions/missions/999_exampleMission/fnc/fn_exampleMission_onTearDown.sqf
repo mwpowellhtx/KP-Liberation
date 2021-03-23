@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_exampleMission_onAbortMission
+    KPLIB_fnc_exampleMission_onTearDown
 
-    File: fn_exampleMission_onAbortMission.sqf
+    File: fn_exampleMission_onTearDown.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-20 16:42:28
     Last Update: 2021-03-20 17:03:39
@@ -10,17 +10,18 @@
     Public: No
 
     Description:
-        Mission abort callback.
+        ...
 
     Parameter(s):
-        _namespace - a CBA MISSION namespace [LOCATION, default: locationNull]
+        _mission - a CBA MISSION namespace [LOCATION, default: locationNull]
 
     Returns:
-        The event handler finished [BOOL]
+        The event handler finished [STATUS]
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_mission), locationNull, [locationNull]]
 ];
 
-true;
+// TODO: TBD: do tear down here...
+MSTATUS1(_completed);

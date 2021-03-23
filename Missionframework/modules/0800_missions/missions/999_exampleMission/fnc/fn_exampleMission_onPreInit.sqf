@@ -27,35 +27,29 @@ if (isServer) then {
 if (isServer) then {
     // Server side init
 
-    MPARAM(_debug)                      = true;
-    MPARAM(_onAbortMission_debug)       = true;
-    MPARAM(_onEnterMission_debug)       = true;
-    MPARAM(_onGetTelemetry_debug)       = true;
-    MPARAM(_onMission_debug)            = true;
-    MPARAM(_onMissionEntered_debug)     = true;
-    MPARAM(_onMissionLeaving_debug)     = true;
-    MPARAM(_onMissionSetup_debug)       = true;
-    MPARAM(_onMissionTearDown_debug)    = true;
+    MPARAM(_debug)                          = true;
+    MPARAM(_onSetup_debug)                  = true;
+    MPARAM(_onMission_debug)                = true;
+    MPARAM(_onTearDown_debug)               = true;
+    MPARAM(_onCompleteEntered_debug)        = true;
+    MPARAM(_onGetTelemetry_debug)           = true;
 
     // TODO: TBD: 'actual' missions would also fill in other bits, i.e. cost, etc
     MVAR(_variableNamesToInit) = +[
-        [QPVAR(_name)                   , localize "STR_KPLIB_MISSION_EXAMPLE_NAME"             ]
-        , [QPVAR(_title)                , localize "STR_KPLIB_MISSION_EXAMPLE_TITLE"            ]
+        [QPVAR1(_name)                      , localize "STR_KPLIB_MISSION_EXAMPLE_NAME"     ]
+        , [QPVAR1(_title)                   , localize "STR_KPLIB_MISSION_EXAMPLE_TITLE"    ]
         , [
-            QPVAR(_briefing)            , [
+            QPVAR1(_briefing)               , [
                 localize "STR_KPLIB_MISSION_EXAMPLE_OVERVIEW_TEXT"
                 , localize "STR_KPLIB_MISSION_EXAMPLE_SUCCESS_TEXT"
                 , localize "STR_KPLIB_MISSION_EXAMPLE_FAILURE_TEXT"
             ]
-                                                                                                ]
-        , [QPFUNC(_onGetTelemetry)      , MFUNC(_onGetTelemetry)                                ]
-        , [QPFUNC(_onEnterMission)      , MFUNC(_onEnterMission)                                ]
-        , [QPFUNC(_onAbortMission)      , MFUNC(_onAbortMission)                                ]
-        , [QPFUNC(_onMissionSetup)      , MFUNC(_onMissionSetup)                                ]
-        , [QPFUNC(_onMissionEntered)    , MFUNC(_onMissionEntered)                              ]
-        , [QPFUNC(_onMission)           , MFUNC(_onMission)                                     ]
-        , [QPFUNC(_onMissionLeaving)    , MFUNC(_onMissionLeaving)                              ]
-        , [QPFUNC(_onMissionTearDown)   , MFUNC(_onMissionTearDown)                             ]
+                                                                                            ]
+        , [QPFUNC1(_onSetup)                , MFUNC(_onSetup)                               ]
+        , [QPFUNC1(_onMission)              , MFUNC(_onMission)                             ]
+        , [QPFUNC1(_onTearDown)             , MFUNC(_onTearDown)                            ]
+        , [QPFUNC1(_onCompleteEntered)      , MFUNC(_onCompleteEntered)                     ]
+        , [QPFUNC1(_onGetTelemetry)         , MFUNC(_onGetTelemetry)                        ]
     ];
 };
 

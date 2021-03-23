@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-19 17:20:59
-    Last Update: 2021-03-19 17:21:02
+    Last Update: 2021-03-22 23:20:56
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -31,26 +31,17 @@ class exampleMission {
     class exampleMission_settings {};
 
     //
-    class exampleMission_onAbortMission {};
-
-    //
-    class exampleMission_onEnterMission {};
-
-    //
-    class exampleMission_onGetTelemetry {};
+    class exampleMission_onSetup {};
 
     //
     class exampleMission_onMission {};
 
     //
-    class exampleMission_onMissionEntered {};
+    class exampleMission_onTearDown {};
 
     //
-    class exampleMission_onMissionLeaving {};
+    class exampleMission_onCompleteEntered {};
 
     //
-    class exampleMission_onMissionSetup {};
-
-    //
-    class exampleMission_onMissionTearDown {};
+    class exampleMission_onGetTelemetry {};
 };
