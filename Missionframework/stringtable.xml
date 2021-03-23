@@ -2539,14 +2539,38 @@
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_TITLE">
             <English>Fire Drill!</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_OVERVIEW_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_BRIEFING_OVERVIEW_TEXT">
             <English>It is a fire drill, soldiers! Every currently at an FOB is instructed to vacate the FOB zone as quickly as possible. Once everyone has vacated, then players must all return.</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_SUCCESS_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_BRIEFING_SUCCESS_TEXT">
             <English>Players successfully vacate their respective FOB zones in the time window.</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_FAILURE_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_BRIEFING_FAILURE_TEXT">
             <English>Players have a limited time to vacate their respective FOB zones.</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_ENTERED_TEXT">
+            <English>Fire drill! All players within a FOB zone, vacate immediately!</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_UNITS_TEXT">
+            <English>Units</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_WITHIN_TEXT">
+            <English>Within</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_FOBS_TEXT">
+            <English>FOBs</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_RANGE_TEXT">
+            <English>Range</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_SUCCESS_TEXT">
+            <English>Fire drill successful, nice job, soldiers!</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_FAILURE_TEXT">
+            <English>Fire drill failed, better luck next time!</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_ABORTED_TEXT">
+            <English>Fire drill aborted, please excuse the confusion!</English>
         </Key>
 
     </Package>
