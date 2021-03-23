@@ -15,10 +15,15 @@
     Returns:
 */
 
-if (!isServer) exitWith {true};
+if (isServer) then {
+    [format ["[fn_timers_onPostInit] Initializing..."], "POST] [TIMERS", true] call KPLIB_fnc_common_log;
+};
 
-[format ["[fn_timers_onPostInit] Initializing..."], "POST] [TIMERS", true] call KPLIB_fnc_common_log;
+// For convenience throughout
+KPLIB_timers_defaultComponentString = KPLIB_timers_default call KPLIB_fnc_timers_renderComponentString;
 
-[format ["[fn_timers_onPostInit] Initialized"], "POST] [TIMERS", true] call KPLIB_fnc_common_log;
+if (isServer) then {
+    [format ["[fn_timers_onPostInit] Initialized"], "POST] [TIMERS", true] call KPLIB_fnc_common_log;
+};
 
-true
+true;

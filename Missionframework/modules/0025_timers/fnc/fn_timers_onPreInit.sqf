@@ -17,12 +17,14 @@
     Reference:
 */
 
-if (!isServer) exitWith {true};
+if (isServer) then {
+    [format ["[fn_timers_onPreInit] Initializing..."], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
+};
 
-[format ["[fn_timers_onPreInit] Initializing..."], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
-
-// Probably dangerous to wait in such a tight loop
-while {serverTime <= 0} do {};
+if (isServer) then {
+    // Probably dangerous to wait in such a tight loop
+    while {serverTime <= 0} do {};
+};
 
 // Negative, or -1, when timer bits are considered inactive or disabled
 KPLIB_timers_disabled = -1;
@@ -42,12 +44,14 @@ private _default = [] call {
 // TODO: TBD: which informs things such as production, logistics timers...
 // TODO: TBD: little to none of which we think has anything to do with client side anything...
 // TODO: TBD: except perhaps rendering timer bits to dialogs, etc... so... consider carefully.
-KPLIB_timers_default = _default;
+KPLIB_timers_default = +_default;
 
 if (hasInterface) then {
     KPLIB_timers_renderedNotRunning = localize "STR_KPLIB_PRODUCTIONMGR_TXTTIMEREM_IDLE";
 };
 
-[format ["[fn_timers_onPreInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
+if (isServer) then {
+    [format ["[fn_timers_onPreInit] Initialized"], "PRE] [TIMERS", true] call KPLIB_fnc_common_log;
+};
 
 true
