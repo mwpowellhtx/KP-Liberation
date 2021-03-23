@@ -11,7 +11,7 @@
         Defines for all functions, which are brought by this module.
 */
 
-class missions {
+class missions2 {
     file = "modules\0900_missions\fnc";
 
     // Module post initialization
