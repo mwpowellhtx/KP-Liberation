@@ -39,7 +39,7 @@ params [
     _lnbMissions getVariable [QMVAR(_viewData), []]
     , KPLIB_zeroPosGridrefDash
     , KPLIB_timers_defaultComponentString
-    , [KPLIB_mission_status_standby] call KPLIB_fnc_missions_getStatusReport
+    , [KPLIB_mission_status_standby] call KPLIB_fnc_mission_getStatusReport
 ] params [
     Q(_viewData)
     , Q(_defaultGridref)

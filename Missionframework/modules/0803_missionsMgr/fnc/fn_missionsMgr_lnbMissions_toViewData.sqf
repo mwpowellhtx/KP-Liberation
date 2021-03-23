@@ -41,17 +41,17 @@ private _toBooleanViewDatum = {
 /*
     // TODO: TBD: at least for now, this is the shape...
     // Should track with the 'fn_missions_onPreInit' file
-    MVAR(_variableNamesToPublish) = +[
-        [QMVAR(_uuid)           , ""                    ]
-        , [QMVAR(_templateUuid) , ""                    ]
-        , [QMVAR(_icon)         , ""                    ]
-        , [QMVAR(_title)        , ""                    ]
-        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
-        , [QMVAR(_status)       , MSTATUS(_standby)     ]
-        , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
-        , [QMVAR(_imagePath)    , ""                    ]
-        , [QMVAR(_telemetry)    , []                    ]
+    MVAR1(_variableNamesToPublish) = +[
+        [QMVAR1(_uuid)          , ""                    ]
+        , [QMVAR1(_templateUuid), ""                    ]
+        , [QMVAR1(_icon)        , ""                    ]
+        , [QMVAR1(_title)       , ""                    ]
+        , [QMVAR1(_pos)         , KPLIB_zeroPos         ]
+        , [QMVAR1(_status)      , MSTATUS1(_standby)    ]
+        , [QMVAR1(_timer)       , KPLIB_timers_default  ]
+        , [QMVAR1(_briefing)    , MVAR1(_zeroBriefing)  ]
+        , [QMVAR1(_imagePath)   , ""                    ]
+        , [QMVAR1(_telemetry)   , []                    ]
     ];
 */
 
@@ -90,7 +90,7 @@ private _toMissionViewDatum = {
             , _timer call KPLIB_fnc_timers_renderComponentString
             // TODO: TBD: this is "all" of the status elements...
             // TODO: TBD: may want to restrict that view...
-            , [_status] call KPLIB_fnc_missions_getStatusReport
+            , [_status] call KPLIB_fnc_mission_getStatusReport
         ]
         , _uuid
     ];

@@ -77,12 +77,12 @@ if (hasInterface) then {
     ];
 
     MPARAM(_debug)                          = false;
-    MPARAM(_onMissionsPublished)            = true;
     MPARAM(_onLoad_debug)                   = false;
     MPARAM(_onUnload_debug)                 = false;
     MPARAM(_lnbMissions_onLoad_debug)       = false;
     MPARAM(_lnbMissions_onRefresh_debug)    = false;
     MPARAM(_lnbMissions_getData_debug)      = false;
+    MPARAM(_onMissionsPublished_debug)      = false;
 
     MVAR(_allIdcs) = [
         KPLIB_IDC_MISSIONSMGR_LNB_MISSIONS

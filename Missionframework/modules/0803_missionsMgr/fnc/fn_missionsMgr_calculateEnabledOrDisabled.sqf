@@ -32,16 +32,16 @@ private _toDisable = [];
 ];
 
 /*
-    MVAR(_variableNamesToPublish) = +[
-        [QMVAR(_uuid)           , ""                    ]
-        , [QMVAR(_templateUuid) , ""                    ]
-        , [QMVAR(_icon)         , ""                    ]
-        , [QMVAR(_title)        , ""                    ]
-        , [QMVAR(_pos)          , KPLIB_zeroPos         ]
-        , [QMVAR(_status)       , MSTATUS(_standby)     ]
-        , [QMVAR(_timer)        , KPLIB_timers_default  ]
-        , [QMVAR(_briefing)     , MVAR(_zeroBriefing)   ]
-        , [QMVAR(_imagePath)    , ""                    ]
+    MVAR1(_variableNamesToPublish) = +[
+        [QMVAR1(_uuid)          , ""                    ]
+        , [QMVAR1(_templateUuid), ""                    ]
+        , [QMVAR1(_icon)        , ""                    ]
+        , [QMVAR1(_title)       , ""                    ]
+        , [QMVAR1(_pos)         , KPLIB_zeroPos         ]
+        , [QMVAR1(_status)      , MSTATUS1(_standby)    ]
+        , [QMVAR1(_timer)       , KPLIB_timers_default  ]
+        , [QMVAR1(_briefing)    , MVAR1(_zeroBriefing)  ]
+        , [QMVAR1(_imagePath)   , ""                    ]
     ];
  */
 
@@ -56,13 +56,15 @@ _selectedMission params [
 ];
 
 [
-    [_status] call KPLIB_fnc_missions_checkStatus
-    , [_status, KPLIB_mission_status_template] call KPLIB_fnc_missions_checkStatus
-    , [_status, KPLIB_mission_status_running] call KPLIB_fnc_missions_checkStatus
+    [_status] call KPLIB_fnc_mission_checkStatus
+    , [_status, KPLIB_mission_status_template] call KPLIB_fnc_mission_checkStatus
+    , [_status, KPLIB_mission_status_running] call KPLIB_fnc_mission_checkStatus
+    , [_status, KPLIB_mission_status_system] call KPLIB_fnc_mission_checkStatus
 ] params [
     Q(_standby)
     , Q(_template)
     , Q(_running)
+    , Q(_system)
 ];
 
 private _onAddDisabled = {
@@ -77,8 +79,8 @@ private _onAddDisabled = {
     false;
 };
 
-// "Not" a TEMPLATE meaning it is a RUNNING MISSION
-[MVAR(_abortIdcs), { _template; }] call _onAddDisabled;
+// "Not" a TEMPLATE meaning it is a RUNNING MISSION, also considering SYSTEM MISSIONS
+[MVAR(_abortIdcs), { _template || _system; }] call _onAddDisabled;
 [MVAR(_runIdcs), { _running; }] call _onAddDisabled;
 
 // Default assumes enable everything unless otherwise instructed

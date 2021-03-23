@@ -26,7 +26,7 @@ if (isServer) then {
 if (isServer) then {
     // Mission permission
     [
-        MVAR(_permissionName)
+        KPLIB_missions_permissionName
         , {}
         , false
     ] call KPLIB_fnc_permission_addPermissionHandler;

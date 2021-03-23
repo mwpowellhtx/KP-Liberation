@@ -29,7 +29,7 @@
 
 private _debug = [
     [
-        {MPARAM(_onMissionsPublished)}
+        {MPARAM(_onMissionsPublished_debug)}
     ]
 ] call MFUNC(_debug);
 
