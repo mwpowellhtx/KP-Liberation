@@ -17,6 +17,10 @@
 
     Returns:
         Module preInit finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/Color
+        https://www.w3schools.com/colors/colors_picker.asp
 */
 
 if (isServer) then {
@@ -30,6 +34,8 @@ KPLIB_common_iconCache = [] call CBA_fnc_createNamespace;
 KPLIB_sectorInfo_default = ["", KPLIB_sectorType_nil, ""];
 
 KPLIB_common_intelPath   = "\A3\Ui_f\data\GUI\Cfg\Ranks\general_gs.paa";
+// was a bit too cyan: [0.2, 0.4, 1, 1]
+KPLIB_common_intelColor  = [0, 0.435, 0.922, 1];
 
 if (isServer) then {
     ["Module initialized", "PRE] [COMMON", true] call KPLIB_fnc_common_log;
