@@ -2509,6 +2509,15 @@
             <English>N/A</English>
         </Key>
 
+        <!-- MISSIONS CHANGE ORDERS -->
+
+        <Key ID="STR_KPLIB_MISSIONSCO_RUN_MISSION_ACK">
+            <English>'%1' mission running.</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSCO_RUN_MISSION_NAK">
+            <English>'%1' mission already running.</English>
+        </Key>
+
         <!-- MISSIONS MANAGER -->
 
         <Key ID="STR_KPLIB_MISSIONSMGR_LNB_TELEMETRY_PARAM">
