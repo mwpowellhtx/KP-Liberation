@@ -2567,7 +2567,7 @@
             <English>_0890_firedrill</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_TITLE">
-            <English>Fire Drill!</English>
+            <English>Fire Drill</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_BRIEFING_OVERVIEW_TEXT">
             <English>It is a fire drill, soldiers! Every currently at an FOB is instructed to vacate the FOB zone as quickly as possible. Once everyone has vacated, then players must all return.</English>
@@ -2601,6 +2601,15 @@
         </Key>
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_ABORTED_TEXT">
             <English>Fire drill aborted, please excuse the confusion!</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_MISSIONS_FIREDRILL">
+            <English>KPLIB - Missions - Fire Drill</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_MISSIONS_FIREDRILL_DURATION_SECONDS">
+            <English>Time Limit</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_MISSIONS_FIREDRILL_DURATION_SECONDS_TT">
+            <English>Duration of a running fire drill in seconds (default: 5 min)</English>
         </Key>
 
     </Package>
