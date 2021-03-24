@@ -46,8 +46,6 @@ if (_debug) then {
     , Q(_players)
 ];
 
-private _netids = _players apply { netId _x; };
-
 private _msg = localize (switch (true) do {
     case (_aborting && !(_success || _failure)): {
         "STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_ABORTED_TEXT";
@@ -63,8 +61,8 @@ private _msg = localize (switch (true) do {
 [_mission, _msg] call KPLIB_fnc_mission_onNotify;
 
 if (_debug) then {
-    [format ["[fn_firedrill_onCompleteEntered] Fini: [_success, _failure, _aborting, _netids, _msg]: %1"
-        , str [_success, _failure, _aborting, _netids, _msg]], "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
+    [format ["[fn_firedrill_onCompleteEntered] Fini: [_success, _failure, _aborting, _msg]: %1"
+        , str [_success, _failure, _aborting, _msg]], "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
 };
 
 true;
