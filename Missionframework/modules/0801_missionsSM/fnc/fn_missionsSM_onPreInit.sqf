@@ -23,11 +23,12 @@ if (isServer) then {
     ["Initializing...", "PRE] [MISSIONSSM", true] call KPLIB_fnc_common_log;
 };
 
+[] call MFUNC(_settings);
+
 MVAR(_missionsMgrOpened)                = QMVAR(_missionsMgrOpened);
 MVAR(_missionsMgrClosed)                = QMVAR(_missionsMgrClosed);
 MVAR(_publishMissions)                  = QMVAR(_publishMissions);
 
-MPARAM(_broadcastPeriodSeconds)         = 5;
 
 if (isServer) then {
 

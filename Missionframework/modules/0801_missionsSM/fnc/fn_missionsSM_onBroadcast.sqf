@@ -19,13 +19,17 @@
         The callback finished [BOOL]
  */
 
+if (isNil QMVAR(_objSM)) exitWith {
+    false;
+};
+
 private _debug = [
     [
         {MPARAM(_onBroadcast_debug)}
     ]
 ] call MFUNC(_debug);
 
-private _objSM = missionNamespace getVariable [QMVAR(_objSM), locationNull];
+private _objSM = MVAR(_objSM);
 
 params [
     [Q(_missions), [], [[]]]
@@ -46,35 +50,38 @@ if (_cids isEqualTo []) exitWith {
 
 private _onBroadcastToListeners = {
     params [
-        ["_missions", [], [[]]]
-        , ["_cids", [], [[]]]
-        , ["_forced", false, [false]]
+        [Q(_missions), [], [[]]]
+        , [Q(_cids), [], [[]]]
+        , [Q(_forced), false, [false]]
     ];
 
     [
         ({ (_x getVariable [KPLIB_namespace_changed, false]); } count _missions) > 0
     ] params [
-        "_changed"
+        Q(_changed)
     ];
+
+    // We want MISSION TEMPLATES before RUNNING MISSIONS
+    private _sorted = [_missions, [], {
+        // TODO: TBD: ...and then we may want other criteria as well...
+        private _template = [_x, KPLIB_mission_status_template] call KPLIB_fnc_mission_checkStatus;
+        if (_template) then {0} else {1};
+    }] call BIS_fnc_sortBy;
 
     // Publish only when a change has been detected during set variables
     if (_changed || _forced) then {
         if (_debug) then {
-            [format ["[fn_missionsSM_onBroadcast::_onBroadcastToListeners] Publishing: [count _missions, _cids]: %1"
-                , str [count _missions, _cids]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
+            [format ["[fn_missionsSM_onBroadcast::_onBroadcastToListeners] Publishing: [count _sorted, _cids]: %1"
+                , str [count _sorted, _cids]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
         };
 
-        private _onPublish = {
-            params [
-                [Q(_cid), -1, [0]]
-                , [Q(_tuplesToPublish), [], [[]]]
-            ];
-            private _published = [_cid, _tuplesToPublish] call KPLIB_fnc_logisticsSM_onPublish;
+        private _tuplesToPublish = _sorted apply {
+            [_x] call KPLIB_fnc_mission_namespaceToArray;
         };
 
-        private _missionTuples = _missions apply { [_x] call KPLIB_fnc_mission_namespaceToArray; };
-
-        { [_x, _missionTuples] call _onPublish; } forEach _cids;
+        {
+            [_x, _tuplesToPublish] call KPLIB_fnc_missionsSM_onPublish;
+        } forEach _cids;
     };
 };
 
@@ -85,28 +92,36 @@ private _onBroadcastToListeners = {
         , [Q(_cids), [], [[]]]
     ];
 
-    private _defaultTimer = [MVAR(_broadcastPeriodSeconds)] call KPLIB_fnc_timers_create;
+    private _defaultTimer = [MPARAM(_broadcastPeriodSeconds)] call KPLIB_fnc_timers_create;
 
     [
-        _objSM getVariable [KPLIB_namespace_changed, false]
-        , _objSM getVariable [QMVAR(_broadcastTimer), +_defaultTimer]
-    ] params [
+        [KPLIB_namespace_changed, false]
+        , [QMVAR(_publicationTimer), +_defaultTimer]
+    ] apply {
+        _objSM getVariable _x;
+    } params [
         Q(_changed)
         , Q(_timer)
     ];
 
     private _refreshedTimer = _timer call KPLIB_fnc_timers_refresh;
+    private _elapsed = _refreshedTimer call KPLIB_fnc_timers_hasElapsed;
 
-    if (_changed || (_refreshedTimer call KPLIB_fnc_timers_hasElapsed)) then {
+    if (_changed || _elapsed) then {
         private _missions = (keys _registry) apply { _registry get _x; };
-        [_missions, _cids, _changed] call _onBroadcastToListeners;
+        [_missions, _cids, _changed || _elapsed] call _onBroadcastToListeners;
         _refreshedTimer = +_defaultTimer;
     };
 
+    if (_debug) then {
+        [format ["[fn_missionsSM_onBroadcast::call] Fini: [_changed, _elapsed, _defaultTimer, _refreshedTimer]: %1"
+            , str [_changed, _elapsed, _defaultTimer, _refreshedTimer]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
+    };
+
     { _objSM setVariable _x; } forEach [
-        [QMVAR(_broadcastTimer), _refreshedTimer]
+        [QMVAR(_publicationTimer), _refreshedTimer]
         , [KPLIB_namespace_changed, false]
-    ]
+    ];
 };
 
 if (_debug) then {

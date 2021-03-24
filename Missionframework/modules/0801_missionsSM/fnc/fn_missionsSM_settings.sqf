@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_missionsSM_settings
 
@@ -17,5 +18,7 @@
     Returns:
         Function reached the end [BOOL]
  */
+
+MPARAM(_broadcastPeriodSeconds)         = 1;
 
 true;

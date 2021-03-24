@@ -81,7 +81,9 @@ if (_targetStatusMask == KPLIB_mission_status_standby) exitWith {
         // Assuming we have a valid timer
         private _refreshedTimer = _timer call KPLIB_fnc_timers_refresh;
         if (!(_refreshedTimer isEqualTo _timer)) then {
-            _mission setVariable ["KPLIB_mission_timer", _refreshedTimer];
+            [_mission, [
+                ["KPLIB_mission_timer", _refreshedTimer]
+            ]] call KPLIB_fnc_namespace_setVars;
         };
     };
 };
