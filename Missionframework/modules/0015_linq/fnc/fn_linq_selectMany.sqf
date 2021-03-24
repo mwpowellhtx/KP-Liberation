@@ -39,8 +39,6 @@ params [
 private _retval = [];
 
 {
-    private ["_z"];
-
     private _alpha = _x;
     // We do not care quite so much about the index of the SOURCE itself
     private _alphaIndex = _forEachIndex;
