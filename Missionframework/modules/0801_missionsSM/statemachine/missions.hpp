@@ -16,21 +16,6 @@
         NONE
  */
 
-// TODO: TBD: closing thoughts tonight:
-// we are thinking there are essentially four states:
-// 1. setup: does what it says, a constructor of sorts, raises STARTED 'onStateLeaving', always transitions MISSION
-// 2. mission: itself, enter/running/leaving, until SUCCESS/FAILURE, always transitions tear down
-// 3. aborting: may be raised at any time once at least RUNNING, handles its business, raises ABORTED 'onStateLeaving', always transitions tear down
-// 4. tear down: opposite of setup, for the most part, raises COMPLETED
-// and that's about it...
-// we can help the cause by doing the more mechanical protocol stuff internally
-// thereby freeing the mission author to focus on just those moving parts that make the mission what it is
-// it would also be helpful to identify common variables for internal bookkeeping purposes, i.e. a KPLIB_missionsSM_assets, let's say
-// and monitor for activities such as vehicle seizure, along these lines, crates are also a thing, or can be...
-// also need to be consciencious concerning telemetry, which can vary from mission to mission
-// and we should also identify and add API we discover that can help to automate things along the way
-// i.e. units, groups, elites, vehicles, compositions, etc...
-
 class KPLIB_missionsSM {
     list = "[] call KPLIB_fnc_missionsSM_onGetList";
     skipNull = 1;
