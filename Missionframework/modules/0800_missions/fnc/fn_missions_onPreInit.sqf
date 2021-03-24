@@ -116,7 +116,7 @@ if (isServer) then {
         , [QMFUNC1(_onGetTelemetry)         , MFUNC1(_onNoOpTelemetry)          ]
         , [QMFUNC1(_onSetupEntered)         , MFUNC1(_onNoOp)                   ]
         , [QMFUNC1(_onSetup)                , MFUNC1(_onNoOpSetup)              ]
-        , [QMFUNC1(_onSetupLeaving)         , MFUNC1(_onNoOpSetupLeaving)       ]
+        , [QMFUNC1(_onSetupLeaving)         , MFUNC1(_onNoOp)                   ]
         , [QMFUNC1(_onMissionEntered)       , MFUNC1(_onNoOp)                   ]
         , [QMFUNC1(_onMission)              , MFUNC1(_onNoOpMission)            ]
         , [QMFUNC1(_onMissionLeaving)       , MFUNC1(_onNoOp)                   ]
