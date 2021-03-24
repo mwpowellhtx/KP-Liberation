@@ -39,17 +39,14 @@ class missionsMgr {
     // Dialog 'onUnload' event handler
     class missionsMgr_onUnload {};
 
+    // RUN and ABORT CT_BUTTON 'onButtonClick' event handlers
+    class missionsMgr_btnRequest_onButtonClick {};
+
     // ABORT CT_BUTTON 'onLoad' event handler
     class missionsMgr_btnAbort_onLoad {};
 
-    // ABORT CT_BUTTON 'onButtonClick' event handler
-    class missionsMgr_btnAbort_onButtonClick {};
-
     // RUN CT_BUTTON 'onLoad' event handler
     class missionsMgr_btnRun_onLoad {};
-
-    // RUN CT_BUTTON 'onButtonClick' event handler
-    class missionsMgr_btnRun_onButtonClick {};
 
     // Calculates which controls should be enabled or disabled
     class missionsMgr_calculateEnabledOrDisabled {};

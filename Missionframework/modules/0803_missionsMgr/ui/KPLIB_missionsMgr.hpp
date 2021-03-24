@@ -172,7 +172,7 @@ class KPLIB_missionsMgr {
             text = "$STR_KPLIB_MISSIONSMGR_BTN_RUN";
 
             onLoad = "_this spawn KPLIB_fnc_missionsMgr_btnRun_onLoad";
-            onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnRun_onButtonClick";
+            onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnRequest_onButtonClick";
         };
 
         class KPLIB_missionsMgr_btnAbort : KPLIB_missionsMgr_btnButtonBase {
@@ -182,7 +182,7 @@ class KPLIB_missionsMgr {
             text = "$STR_KPLIB_MISSIONSMGR_BTN_ABORT";
 
             onLoad = "_this spawn KPLIB_fnc_missionsMgr_btnAbort_onLoad";
-            onButtonClick = "_this spawn KPLIB_fnc_missionsMgr_btnAbort_onButtonClick";
+            onButtonClick = "(_this + [KPLIB_missionsCO_requestAbort]) spawn KPLIB_fnc_missionsMgr_btnRequest_onButtonClick";
         };
 
         // This works, adding a group would be overkill at this point
