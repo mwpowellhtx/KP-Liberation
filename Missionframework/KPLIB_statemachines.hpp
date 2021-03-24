@@ -14,6 +14,5 @@
 class KPLIB {
     #include "modules\0412_productionSM\statemachine\production.hpp"
     #include "modules\0445_logisticsSM\statemachine\logistics.hpp"
-    //// TODO: TBD: fill this one in eventually...
-    //#include "modules\0801_missionsSM\statemachine\missions.hpp"
+    #include "modules\0801_missionsSM\statemachine\missions.hpp"
 };
