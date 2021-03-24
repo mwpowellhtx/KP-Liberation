@@ -37,7 +37,7 @@ class KPLIB_missionsSM {
 
     class KPLIB_missionsSM_state_setup {
         onStateEntered = "[_this, 'KPLIB_fnc_mission_onSetupEntered'] call KPLIB_fnc_missionsSM_onSetupEntered";
-        onState = "[_mission] call KPLIB_fnc_missionsSM_onSetup";
+        onState = "[_this, 'KPLIB_fnc_mission_onSetup'] call KPLIB_fnc_missionsSM_onSetup";
         onStateLeaving = "[_this, 'KPLIB_fnc_mission_onSetupLeaving'] call KPLIB_fnc_missionsSM_onSetupLeaving";
 
         class KPLIB_missionsSM_transit_toMission {
@@ -54,7 +54,7 @@ class KPLIB_missionsSM {
     };
 
     class KPLIB_missionsSM_state_mission {
-        onStateEntered = "[_this] call KPLIB_fnc_missionsSM_onMissionEntered";
+        onStateEntered = "[_this, 'KPLIB_fnc_mission_onMissionEntered'] call KPLIB_fnc_missionsSM_onMissionEntered";
         onState = "[_this, 'KPLIB_fnc_mission_onMission', KPLIB_mission_status_successFailureAborting] call KPLIB_fnc_missionsSM_onMission";
         onStateLeaving = "[_this, 'KPLIB_fnc_mission_onMissionLeaving'] call KPLIB_fnc_missionsSM_onMissionLeaving";
 
@@ -67,12 +67,12 @@ class KPLIB_missionsSM {
 
     class KPLIB_missionsSM_state_tearDown {
         onStateEntered = "[_this, 'KPLIB_fnc_mission_onTearDownEntered'] call KPLIB_fnc_missionsSM_onTearDownEntered";
-        onState = "[_mission, 'KPLIB_fnc_mission_onTearDown', KPLIB_mission_status_completed] call KPLIB_fnc_missionsSM_onTearDown";
+        onState = "[_this, 'KPLIB_fnc_mission_onTearDown', KPLIB_mission_status_completed] call KPLIB_fnc_missionsSM_onTearDown";
         onStateLeaving = "[_this, 'KPLIB_fnc_mission_onTearDownLeaving'] call KPLIB_fnc_missionsSM_onTearDownLeaving";
 
         class KPLIB_missionsSM_transit_toComplete {
             targetState = "KPLIB_missionsSM_state_complete";
-            condition = "[_this, KPLIB_mission_status_complete] call KPLIB_fnc_mission_checkStatus";
+            condition = "[_this, KPLIB_mission_status_completed] call KPLIB_fnc_mission_checkStatus";
             onTransition = "[_this, 'tearDown::transit::toComplete'] call KPLIB_fnc_missionsSM_onNoOp";
         };
     };

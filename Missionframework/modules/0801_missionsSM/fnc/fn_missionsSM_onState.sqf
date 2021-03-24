@@ -50,6 +50,12 @@ params [
     , [Q(_defaultCallback), KPLIP_fnc_mission_onNoOpSetup, [{}]]
 ];
 
+if (_debug) then {
+    private _statusMaskReport = [_targetStatusMask] call KPLIB_fnc_mission_getStatusReport;
+    [format ["[fn_missionsSM_onState] Entering: [_callbackName, isNull _mission, [_statusMaskReport]]: %1"
+        , str [_callbackName, isNull _mission, [_statusMaskReport]]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
+};
+
 // We do not care what TARGET STATUS or DEFAULT CALLBACK are, per se, but we do require the callback
 if (!(_callbackName in [
     "KPLIB_fnc_mission_onSetup"
@@ -67,6 +73,10 @@ if (_targetStatusMask == KPLIB_mission_status_standby) exitWith {
 // We also move the timer along when required to do so, PRIOR to CALLBACK
 [_mission getVariable "KPLIB_mission_timer"] call {
     params [Q(_timer)];
+    if (_debug) then {
+        [format ["[fn_missionsSM_onState:call] Refreshing timer: [_callbackName, isNil _timer]: %1"
+            , str [_callbackName, isNil Q(_timer)]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
+    };
     if (!isNil Q(_timer)) then {
         // Assuming we have a valid timer
         private _refreshedTimer = _timer call KPLIB_fnc_timers_refresh;
@@ -76,12 +86,24 @@ if (_targetStatusMask == KPLIB_mission_status_standby) exitWith {
     };
 };
 
+// Remember to broadcast during the state
+[] call MFUNC(_onBroadcast);
+
 // Evaluates the CALLBACK, only AFTER the MISSION TIMER is REFRESHED
 private _status = [_mission getVariable _callbackName] call {
     params [
         [Q(_callback), _defaultCallback, [{}]]
     ];
+    if (_debug) then {
+        [format ["[fn_missionsSM_onState:call] Invoking callback: [_callbackName, isNil _callback]: %1"
+            , str [_callbackName, isNil Q(_timer)]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
+    };
     [_mission] call _callback;
+};
+
+if (_debug) then {
+    [format ["[fn_missionsSM_onState] Verifying status: [_callbackName, _status]: %1"
+        , str [_callbackName, _status]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
 };
 
 // STANDBY is acceptable, was neither FAILURE nor SUCCESS, rather CONTINUE MISSION
@@ -100,4 +122,17 @@ if ([_targetStatusMask, _status] call BIS_fnc_bitflagsCheck) then {
 // };
 
 // Otherwise verify the TARGET STATUS MASK
-[_mission, _targetStatusMask] call KPLIB_fnc_mission_checkStatus;
+[
+    _mission getVariable ["KPLIB_mission_status", KPLIB_mission_status_stanbdy]
+    , [_mission, _targetStatusMask] call KPLIB_fnc_mission_checkStatus
+] params [
+    Q(_newStatus)
+    , Q(_checked)
+];
+
+if (_debug) then {
+    [format ["[fn_missionsSM_onState] Fini: [_callbackName, _status, _newStatus, _checked]: %1"
+        , str [_callbackName, _status, _newStatus, _checked]], "MISSIONSSM", true] call KPLIB_fnc_common_log;
+};
+
+_checked;

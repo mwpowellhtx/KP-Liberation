@@ -32,18 +32,18 @@ if (isNil "KPLIB_missions_registry") exitWith {
     , Q(_runningMissions)
 ];
 
-private _completed = KPLIB_mission_status_completed;
+private _gc = KPLIB_mission_status_gc;
 
-// Identify the COMPLETED MISSIONS for subsequent GC
-private _completedMissions = _runningMissions select {
-    [_x, _completed] call KPLIB_fnc_mission_checkStatus;
+// Identify the GC MISSIONS for subsequent GC
+private _gcMissions = _runningMissions select {
+    [_x, _gc] call KPLIB_fnc_mission_checkStatus;
 };
 
-// Return with the STILL RUNNING MISSION, sans any COMPLETED MISSIONS
-private _stillRunningMissions = _runningMissions - _completedMissions;
+// Return with the STILL RUNNING MISSION, sans any GC MISSIONS
+private _stillRunningMissions = _runningMissions - _gcMissions;
 
-// GC the COMPLETED MISSIONS
-{ [_x] call KPLIB_fnc_mission_onGC; } forEach _completedMissions;
+// GC the GC MISSIONS
+{ [_x] call KPLIB_fnc_mission_onGC; } forEach _gcMissions;
 
 [(_missionTemplates + _stillRunningMissions)] call MFUNC(_onBroadcast);
 
