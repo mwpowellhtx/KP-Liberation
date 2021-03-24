@@ -13,9 +13,8 @@
         Responds to client 'onRequest::run' server events given targetUUID and targetTemplateUUID.
 
     Parameter(s):
-        _targetUuid - a target UUID for which to RUN the corresponding MISSION [STRING, default: ""]
-        _targetTemplateUuid - a target TEMPLATE UUID for which to RUN the corresponding MISSION [STRING, default: ""]
-        _cid - the client identifier making the request, may be a player, but does not have to be [SCALAR, default: -1]
+        _targetUuid - a target MISSION UUID being requested [STRING, default: ""]
+        _cid - a client identifier originating the request [SCALAR, default: -1]
 
     Returns:
         The event handler finished [BOOL]
@@ -33,21 +32,32 @@ private _debug = [
 
 params [
     [Q(_targetUuid), "", [""]]
-    , [Q(_targetTemplateUuid), "", [""]]
     , [Q(_cid), -1, [0]]
 ];
 
 if (_debug) then {
-    [format ["[fn_missionsCO_onRequestRun] Entering: [_targetUuid, _targetTemplateUuid, _cid]: %1"
-        , str [_targetUuid, _targetTemplateUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
+    [format ["[fn_missionsCO_onRequestRun] Entering: [_targetUuid, _cid]: %1"
+        , str [_targetUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
 };
 
-private _sourceMission = [_targetUuid, _targetTemplateUuid] call KPLIB_fnc_missions_getMissionByUuid;
+private [Q(_title)];
+private _runningMission = ["", _targetUuid] call KPLIB_fnc_missions_getMissionByUuid;
+
+if (!isNull _runningMission) exitWith {
+    _title = _runningMission getVariable ["KPLIB_mission_title", ""];
+    [format [localize "STR_KPLIB_MISSIONSCO_RUN_MISSION_NAK", _title]] remoteExec ["KPLIB_fnc_notification_hint", _cid];
+    false;
+};
+
+private _sourceMission = [_targetUuid] call KPLIB_fnc_missions_getMissionByUuid;
 
 if (!isNull _sourceMission) then {
-    private _runningMission = [_sourceMission] call KPLIB_fnc_missions_cloneMission;
+    _runningMission = [_sourceMission] call KPLIB_fnc_missions_cloneMission;
     _runningMission setVariable [QMVAR(_cid), _cid];
     [_runningMission] call KPLIB_fnc_missions_registerOne;
+
+    _title = _runningMission getVariable ["KPLIB_mission_title", ""];
+    [format [localize "STR_KPLIB_MISSIONSCO_RUN_MISSION_ACK", _title]] remoteExec ["KPLIB_fnc_notification_hint", _cid];
 };
 
 // That is all, hands free, let the state machine pick up registered bits and run with them

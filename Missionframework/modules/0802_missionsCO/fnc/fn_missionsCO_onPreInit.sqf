@@ -31,10 +31,13 @@ MVAR(_request)                                  = QMVAR(_request);
 MVAR(_requestRun)                               = Q(run);
 MVAR(_requestAbort)                             = Q(abort);
 
+
 if (isServer) then {
     // Server side init
-    MPARAM(_debug)                              = true;
-    MPARAM(_onRequest_debug)                    = true;
+    MPARAM(_debug)                              = false;
+    MPARAM(_onRequest_debug)                    = false;
+    MPARAM(_onRequestRun_debug)                 = false;
+    MPARAM(_onRequestAbort_debug)               = false;
 };
 
 if (hasInterface) then {

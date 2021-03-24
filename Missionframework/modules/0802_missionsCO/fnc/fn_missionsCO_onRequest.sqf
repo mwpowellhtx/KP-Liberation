@@ -17,7 +17,6 @@
     Parameter(s):
         _requestName - the request name, either 'run' or 'abort', case insensitive [STRING, default: KPLIB_missionsCO_requestRun]
         _targetUuid - a target UUID being either run or aborted [STRING, default: ""]
-        _targetTemplateUuid - mostly extra baggage, but may be used to further clarify [STRING, default: ""]
         _cid - a client identifier making the request [SCALAR, default: -1]
 
     Returns:
@@ -37,26 +36,25 @@ private _debug = [
 params [
     [Q(_requestName), MVAR(_requestRun), [""]]
     , [Q(_targetUuid), "", [""]]
-    , [Q(_targetTemplateUuid), "", [""]]
     , [Q(_cid), -1, [0]]
 ];
 
 if (_debug) then {
-    [format ["[fn_missionsCO_onRequest] Entering: [_requestName, _targetUuid, _targetTemplateUuid, _cid]: %1"
-        , str [_requestName, _targetUuid, _targetTemplateUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
+    [format ["[fn_missionsCO_onRequest] Entering: [_requestName, _targetUuid, _cid]: %1"
+        , str [_requestName, _targetUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
 };
 
 private _onInvalidRequest = {
     if (_debug) then {
-        [format ["[fn_missionsCO_onRequest] Invalid request: [_requestName, _targetUuid, _targetTemplateUuid, _cid]: %1"
-            , str [_requestName, _targetUuid, _targetTemplateUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
+        [format ["[fn_missionsCO_onRequest] Invalid request: [_requestName, _targetUuid, _cid]: %1"
+            , str [_requestName, _targetUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
     };
     false;
 };
 
 // And route the REQUEST to the appropriate callback
 private _onRequest = MVAR(_requestCallbacks) getOrDefault [toLower _requestName, _onInvalidRequest];
-private _requested = [_targetUuid, _targetTemplateUuid, _cid] call _onRequest;
+private _requested = [_targetUuid, _cid] call _onRequest;
 
 if (_debug) then {
     [format ["[fn_missionsCO_onRequest] Fini: [_requested]: %1"

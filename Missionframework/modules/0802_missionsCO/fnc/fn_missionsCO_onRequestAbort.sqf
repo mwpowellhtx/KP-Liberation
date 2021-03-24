@@ -13,9 +13,8 @@
         Responds to client 'onRequest::abort' server events.
 
     Parameter(s):
-        _targetUuid - [STRING, default: ""]
-        _targetTemplateUuid - [STRING, default: ""]
-        _cid - [SCALAR, default: -1]
+        _targetUuid - a target MISSION UUID being requested [STRING, default: ""]
+        _cid - a client identifier originating the request [SCALAR, default: -1]
 
     Returns:
         The event handler finished [BOOL]
@@ -33,16 +32,15 @@ private _debug = [
 
 params [
     [Q(_targetUuid), "", [""]]
-    , [Q(_targetTemplateUuid), "", [""]]
     , [Q(_cid), -1, [0]]
 ];
 
 if (_debug) then {
-    [format ["[fn_missionsCO_onRequestAbort] Entering: [_targetUuid, _targetTemplateUuid, _cid]: %1"
-        , str [_targetUuid, _targetTemplateUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
+    [format ["[fn_missionsCO_onRequestAbort] Entering: [_targetUuid, _cid]: %1"
+        , str [_targetUuid, _cid]], "MISSIONSCO", true] call KPLIB_fnc_common_log;
 };
 
-private _runningMission = [_targetUuid, _targetTemplateUuid] call KPLIB_fnc_missions_getMissionByUuid;
+private _runningMission = [_targetUuid] call KPLIB_fnc_missions_getMissionByUuid;
 private _started = [_runningMission, KPLIB_mission_status_started] call KPLIB_fnc_mission_checkStatus;
 
 // May only ABORT a MISSION that is at least RUNNING
