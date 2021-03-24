@@ -34,29 +34,16 @@ if (isNull _mission) exitWith {
     _retval;
 };
 
-([_mission, [
-    [QMVAR1(_uuid), ""]
-    , [QMVAR1(_onGetTelemetry), MFUNC1(_onNoOpTelemetry)]
-]] call KPLIB_fnc_namespace_getVars) params [
-    Q(_uuid)
+[
+    [_mission, MSTATUS1(_template)] call MFUNC1(_checkStatus)
+    , [_mission, MSTATUS1(_running)] call MFUNC1(_checkStatus)
+    , _mission getVariable [QMVAR1(_onGetTelemetry), MFUNC1(_onNoOpTelemetry)]
+] params [
+    Q(_template)
+    , Q(_running)
     , Q(_onGetTelemetry)
 ];
 
-[
-    _uuid isEqualTo ""
-    , [_mission, MSTATUS1(_standby)] call MFUNC1(_checkStatus)
-] params [
-    Q(_running)
-    , Q(_standby)
-];
-
-/* Presents a different set of TELEMETRY depending on the circumstances:
- *      - (_running && _standby)
- *      - (_running && !_standby)
- *      - (!_running) - or template, the default case
- * We could probably structure this as a simple "running/not-running" if statement,
- * but we also want to allow for esoteric corner cases as needs arise.
- */
 _retval = switch (true) do {
     case (_running): {
 
@@ -71,7 +58,7 @@ _retval = switch (true) do {
         ];
 
         [
-            [_status] call MFUNC(_getStatusReport)
+            [_status] call MFUNC1(_getStatusReport)
             , mapGridPosition _pos
         ] params [
             Q(_statusReport)
@@ -79,9 +66,9 @@ _retval = switch (true) do {
         ];
 
         [
-            [QMVAR1(_statusReport), _statusReport]
-            , [QMVAR1(_timer), _timer]
-            , [QMVAR1(_gridref), _gridref]
+            [QMVAR1(_statusReport), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_STATUS_REPORT", _statusReport]
+            , [QMVAR1(_timer), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_TIMER", _timer call KPLIB_fnc_timers_renderComponentString]
+            , [QMVAR1(_gridref), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_GRIDREF", _gridref]
         ];
     };
     default {
@@ -109,15 +96,18 @@ _retval = switch (true) do {
         ];
 
         [
-            [QMVAR1(_supplyCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY", str _supplyCost, _supplyPath]
-            , [QMVAR1(_ammoCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO", str _ammoCost, _ammoPath]
-            , [QMVAR1(_fuelCost), toUpper localize "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL", str _fuelCost, _fuelPath]
-            , [QMVAR1(_intelCost), toUpper localize "STR_KPLIB_MISSIONSMGR_TELEMETRY_INTEL", str _intelCost, _intelPath, _intelColor]
+            [QMVAR1(_supplyCost), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_SUPPLY", str _supplyCost, _supplyPath]
+            , [QMVAR1(_ammoCost), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_AMMO", str _ammoCost, _ammoPath]
+            , [QMVAR1(_fuelCost), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_FUEL", str _fuelCost, _fuelPath]
+            , [QMVAR1(_intelCost), localize "STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_INTEL", str _intelCost, _intelPath, _intelColor]
         ];
     };
 };
 
 // Then append MISSION specific TELEMETRY
-_retval append ([_mission] call _onGetTelemetry);
+private _missionTelemetry = [_mission] call _onGetTelemetry;
+if (!(_missionTelemetry isEqualTo [])) then {
+    _retval append _missionTelemetry;
+};
 
 _retval;

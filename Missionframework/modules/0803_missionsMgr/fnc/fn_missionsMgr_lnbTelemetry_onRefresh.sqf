@@ -25,6 +25,7 @@
         https://community.bistudio.com/wiki/lnbSetPicture
         https://community.bistudio.com/wiki/lnbSetPictureColor
         https://community.bistudio.com/wiki/Color
+        https://community.bistudio.com/wiki/lnbSetTooltip
  */
 
 params [
@@ -50,14 +51,19 @@ if (!(_viewKeys isEqualTo _loadedViewKeys)) then {
         _x params [
             [Q(_telemetryName), "", [""]]
             , [Q(_displayName), "", [""]]
-            , [Q(_value), "", [""]]
+            , [Q(_datum), "", [""]]
             , [Q(_imagePath), "", [""]]
             , [Q(_imageColor), [], [[]]] // (RGBA)
         ];
 
-        _rowIndex = _lnbTelemetry lnbAddRow ["", _displayName, _value];
+        private _upperDisplayName = format ["%1:", toUpper _displayName];
+        private _upperDatum = toUpper _datum;
+
+        _rowIndex = _lnbTelemetry lnbAddRow ["", _upperDisplayName, _upperDatum];
+
         // For use with the view keys
         _lnbTelemetry lnbSetData [[_rowIndex, 0], _telemetryName];
+        _lnbTelemetry lnbSetTooltip [[_rowIndex, 0], _displayName];
 
         if (!(_imagePath isEqualTo "")) then {
             _lnbTelemetry lnbSetPicture [[_rowIndex, 0], _imagePath];
@@ -70,13 +76,18 @@ if (!(_viewKeys isEqualTo _loadedViewKeys)) then {
 
 {
     _x params [
-        Q(_name)
+        Q(_telemetryName)
+        , [Q(_displayName), "", [""]]
         , [Q(_datum), "", [""]]
     ];
 
+    private _upperDisplayName = format ["%1:", toUpper _displayName];
+    private _upperDatum = toUpper _datum;
+
     private _rowIndex = _forEachIndex + 1;
 
-    _lnbTelemetry lnbSetText [[_rowIndex, 1], _datum];
+    _lnbTelemetry lnbSetText [[_rowIndex, 1], _upperDisplayName];
+    _lnbTelemetry lnbSetText [[_rowIndex, 2], _upperDatum];
 
 } forEach _viewData;
 

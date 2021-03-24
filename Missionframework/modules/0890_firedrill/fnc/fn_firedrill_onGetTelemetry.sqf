@@ -38,8 +38,8 @@ params [
 ];
 
 [
-    [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_UNITS_TEXT", str (count _players)]
-    , [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_WITHIN_TEXT", str (count _playersWithin)]
-    , [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_FOBS_TEXT", str (count _fobs)]
-    , [localize "STR_KPLIB_MISSION_FIREDRILL_MISSION_RANGE_TEXT", str _range]
+    [QMVAR(_playerCount), localize "STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_UNITS", str (count _players)]
+    , [QMVAR(_playersWithinCount), localize "STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_WITHIN", str (count _playersWithin)]
+    , [QMVAR(_fobCount), localize "STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_FOB_COUNT", str (count _fobs)]
+    , [QMVAR(_range), localize "STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_RANGE", str _range]
 ];
