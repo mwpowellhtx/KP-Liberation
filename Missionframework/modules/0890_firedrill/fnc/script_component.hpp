@@ -25,7 +25,7 @@
 #define Q(x) #x
 #endif // QUOTE
 
-#define MSTATUS1(x) LIB##_##MODULEP1##_status_##x
+#define MSTATUS1(x) LIB##_##MODULEP1##_status##x
 
 #define PVAR1(var) LIB##_##MODULEP1##var
 #define QPVAR1(var) Q(PVAR1(var))

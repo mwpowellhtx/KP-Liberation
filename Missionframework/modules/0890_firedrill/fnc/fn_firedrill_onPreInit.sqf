@@ -30,12 +30,13 @@ if (isServer) then {
 if (isServer) then {
     // Server side init
 
-    MPARAM(_debug)                          = true;
-    MPARAM(_onSetup_debug)                  = true;
-    MPARAM(_onMission_debug)                = true;
-    MPARAM(_onTearDown_debug)               = true;
+    MPARAM(_debug)                          = false;
+    MPARAM(_onSetup_debug)                  = false;
+    MPARAM(_onMission_debug)                = false;
+    MPARAM(_onUpdate_debug)                 = false;
+    MPARAM(_onTearDown_debug)               = false;
     MPARAM(_onCompleteEntered_debug)        = true;
-    MPARAM(_onGetTelemetry_debug)           = true;
+    MPARAM(_onGetTelemetry_debug)           = false;
 
     // TODO: TBD: 'actual' missions would also fill in other bits, i.e. cost, etc
     MVAR(_variableNamesToInit) = +[

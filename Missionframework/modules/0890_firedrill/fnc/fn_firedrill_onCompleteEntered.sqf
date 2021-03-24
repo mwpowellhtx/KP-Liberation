@@ -19,34 +19,52 @@
         The event handler finished [STATUS]
  */
 
+private _debug = [
+    [
+        {MPARAM(_onCompleteEntered_debug)}
+    ]
+] call MFUNC(_debug);
+
 params [
     [Q(_mission), locationNull, [locationNull]]
 ];
+
+if (_debug) then {
+    [format ["[fn_firedrill_onCompleteEntered] Entering: [isNull _mission]: %1"
+        , str [_mission]], "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
+};
 
 [
     [_mission, KPLIB_mission_status_success] call KPLIB_fnc_mission_checkStatus
     , [_mission, KPLIB_mission_status_failure] call KPLIB_fnc_mission_checkStatus
     , [_mission, KPLIB_mission_status_aborting] call KPLIB_fnc_mission_checkStatus
-] apply {
-    _mission getVariable _x;
-} params [
+    , _mission getVariable ["KPLIB_mission_players", []]
+] params [
     Q(_success)
     , Q(_failure)
     , Q(_aborting)
+    , Q(_players)
 ];
+
+private _netids = _players apply { netId _x; };
 
 private _msg = localize (switch (true) do {
     case (_aborting && !(_success || _failure)): {
-        "STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_ABORTED_TEXT";
+        "STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_ABORTED_TEXT";
     };
     case (_failure): {
-        "STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_FAILURE_TEXT";
+        "STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_FAILURE_TEXT";
     };
     default {
-        "STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_SUCCESS_TEXT";
+        "STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_SUCCESS_TEXT";
     };
 });
 
 [_mission, _msg] call KPLIB_fnc_mission_onNotify;
+
+if (_debug) then {
+    [format ["[fn_firedrill_onCompleteEntered] Fini: [_success, _failure, _aborting, _netids, _msg]: %1"
+        , str [_success, _failure, _aborting, _netids, _msg]], "PRE] [FIREDRILL", true] call KPLIB_fnc_common_log;
+};
 
 true;

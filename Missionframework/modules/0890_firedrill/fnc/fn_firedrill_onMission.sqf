@@ -21,16 +21,27 @@
         The event handler finished [BOOL]
  */
 
+private _debug = [
+    [
+        {MPARAM(_onMission_debug)}
+    ]
+] call MFUNC(_debug);
+
 params [
     [Q(_mission), locationNull, [locationNull]]
 ];
+
+if (_debug) then {
+    [format ["[fn_firedrill_onMission] Entering: [isNull _mission]: %1"
+        , str [isNull _mission]], "FIREDRILL", true] call KPLIB_fnc_common_log;
+};
 
 // And follow on with another update
 [_mission] call MFUNC(_onUpdate);
 
 [
     [QPVAR1(_timer), +KPLIB_timers_default]
-    , [Q(_playersWithin), []]
+    , [QMVAR(_playersWithin), []]
 ] apply {
     _mission getVariable _x;
 } params [
@@ -46,7 +57,7 @@ params [
     , Q(_playerWithinCount)
 ];
 
-switch (true) do {
+private _status = switch (true) do {
     case (_playerWithinCount > 0 && _elapsed): {
         KPLIB_mission_status_failure;
     };
@@ -57,3 +68,10 @@ switch (true) do {
         KPLIB_mission_status_standby;
     };
 };
+
+if (_debug) then {
+    [format ["[fn_firedrill_onMission] Fini: [_timer, _elapsed, _playerWithinCount, _status]: %1"
+        , str [_timer, _elapsed, _playerWithinCount, _status]], "FIREDRILL", true] call KPLIB_fnc_common_log;
+};
+
+_status;

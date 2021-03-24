@@ -19,65 +19,63 @@
         The event handler finished [STATUS]
  */
 
+private _debug = [
+    [
+        {MPARAM(_onUpdate_debug)}
+    ]
+] call MFUNC(_debug);
+
 params [
     [Q(_mission), locationNull, [locationNull]]
 ];
 
+if (_debug) then {
+    [format ["[fn_firedrill_onUpdate] Entering: [isNull _mission]: %1"
+        , str [isNull _mission]], "FIREDRILL", true] call KPLIB_fnc_common_log;
+};
+
 [
     KPLIB_param_fobRange
     , +KPLIB_sectors_fobs
-    , []
-    , []
 ] params [
     Q(_range)
     , Q(_fobs)
-    , Q(_players)
-    , Q(_playersWithin)
 ];
 
 // May be updating, or seeing it for the first time, i.e. 'allPlayers'
 private _updating = toLower QPVAR(_players) in allVariables _mission;
 
-private _allPlayers = _mission getVariable [QPVAR1(_players), allPlayers];
+private _players = _mission getVariable [QPVAR1(_players), allPlayers];
 
 // Reads around disconnected players
-_allPlayers = _allPlayers select { _x in allPlayers; };
+_players = _players select { _x in allPlayers; };
 
-// Gather up all the PLAYERS across all FOBS and their distances
-private _playerDistances = [_allPlayers, {_fobs}, {
-    params [
-        [Q(_player), objNull, [objNull]]
-        , [Q(_fob), [], [[]]]
-    ];
-    _fob params [
-        Q(_0)
-        , Q(_1)
-        , Q(_2)
-        , Q(_3)
-        , [Q(_pos), +KPLIB_zeroPos, [[]], 3]
-    ];
-    [_player, _player distance2D _pos];
-}] call KPLIB_fnc_linq_selectMany;
-
-{
-    _players pushBackUnique (_x#0);
-} forEach (
-    _playerDistances select { (_x#1) <= _range; }
-);
+// Much smoother, which players are within range of any of the FOBs
+private _playersWithin = _players select {
+    private _player = _x;
+    { (_player distance2D (_x#4)) < _range } count _fobs > 0
+};
 
 private _toUpdate = if (_updating) then {
     [
-        [QPVAR1(_players), _allPlayers]
-        , [QMVAR(_playersWithin), _players]
+        [QPVAR1(_players), _players]
+        , [QMVAR(_playersWithin), _playersWithin]
     ];
 } else {
     [
         [QMVAR(_fobs), _fobs]
         , [QPVAR1(_range), _range]
         , [QPVAR1(_players), _players]
+        , [QMVAR(_playersWithin), _playersWithin]
     ];
 };
 
-{ _mission setVariable _x; } forEach _toUpdate;
+// So that we gain the benefit of CHANGED especially for publish purposes
+[_mission, _toUpdate] call KPLIB_fnc_namespace_setVars;
+
+if (_debug) then {
+    [format ["[fn_firedrill_onUpdate] Fini: [count _fobs, _range, count _players, count _playersWithin]: %1"
+        , str [count _fobs, _range, count _players, count _playersWithin]], "FIREDRILL", true] call KPLIB_fnc_common_log;
+};
 
 true;

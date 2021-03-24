@@ -19,13 +19,30 @@
         The event handler finished [STATUS]
  */
 
+private _debug = [
+    [
+        {MPARAM(_onSetup_debug)}
+    ]
+] call MFUNC(_debug);
+
 params [
     [Q(_mission), locationNull, [locationNull]]
 ];
 
-[_mission] call MFUNC(_onUpdate);
+if (_debug) then {
+    [format ["[fn_firedrill_onSetup] Entering: [isNull _mission]: %1"
+        , str [isNull _mission]], "FIREDRILL", true] call KPLIB_fnc_common_log;
+};
+
+private _updated = [_mission] call MFUNC(_onUpdate);
+private _timer = [MPARAM(_durationSeconds)] call KPLIB_fnc_timers_create;
 
 // Sets up a timer for use throughout the mission
-_mission setVariable [QPVAR1(_timer), [MPARAM(_durationSeconds)] call KPLIB_fnc_timers_create];
+_mission setVariable [QPVAR1(_timer), _timer];
+
+if (_debug) then {
+    [format ["[fn_firedrill_onSetup] Fini: [_updated, _timer]: %1"
+        , str [_updated, _timer]], "FIREDRILL", true] call KPLIB_fnc_common_log;
+};
 
 MSTATUS1(_started);

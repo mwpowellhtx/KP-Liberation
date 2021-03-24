@@ -25,7 +25,7 @@ params [
 
 [
     [QPVAR1(_players), []]
-    , [QPVAR1(_range), KPLIB_param_fobRage]
+    , [QPVAR1(_range), KPLIB_param_fobRange]
     , [QMVAR(_fobs), KPLIB_sectors_fobs]
     , [QMVAR(_playersWithin), []]
 ] apply {
