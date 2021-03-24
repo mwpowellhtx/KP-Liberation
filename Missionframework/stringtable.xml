@@ -2536,8 +2536,26 @@
             <English>Failure:</English>
         </Key>
         <!-- TODO: TBD: there are probably better default placements for this, i.e. HUD, let's say... -->
-        <Key ID="STR_KPLIB_MISSIONSMGR_TELEMETRY_INTEL">
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_SUPPLY">
+            <English>Supply</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_AMMO">
+            <English>Ammo</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_FUEL">
+            <English>Fuel</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_INTEL">
             <English>Intel</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_STATUS_REPORT">
+            <English>Status Report</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_TIMER">
+            <English>Timer</English>
+        </Key>
+        <Key ID="STR_KPLIB_MISSIONSMGR_LNBTELEMETRY_LBL_GRIDREF">
+            <English>Gridref</English>
         </Key>
 
         <!-- FIREDRILL EXAMPLE MISSION -->
@@ -2560,16 +2578,16 @@
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_ENTERED_TEXT">
             <English>Fire drill! All players within a FOB zone, vacate immediately!</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_UNITS_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_UNITS">
             <English>Units</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_WITHIN_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_WITHIN">
             <English>Within</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_FOBS_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_FOB_COUNT">
             <English>FOBs</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_RANGE_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_RANGE">
             <English>Range</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_SUCCESS_TEXT">
