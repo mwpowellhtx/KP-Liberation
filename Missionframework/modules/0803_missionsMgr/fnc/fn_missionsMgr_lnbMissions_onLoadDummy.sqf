@@ -45,7 +45,7 @@ lnbClear _lnbMissions;
             , toUpper _title
             , _gridref
             , _timer call KPLIB_fnc_timers_renderComponentString
-            , [_status] call KPLIB_fnc_missions_getStatusReport
+            , [_status] call KPLIB_fnc_mission_getStatusReport
         ]
         , _uuid
     ];
