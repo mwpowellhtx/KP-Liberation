@@ -2502,6 +2502,9 @@
         <Key ID="STR_KPLIB_MISSION_STATUS_COMPLETED">
             <English>Completed</English>
         </Key>
+        <Key ID="STR_KPLIB_MISSION_STATUS_GC">
+            <English>Gc</English>
+        </Key>
         <Key ID="STR_KPLIB_MISSION_STATUS_SYSTEM">
             <English>System</English>
         </Key>
@@ -2590,13 +2593,13 @@
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_LNBTELEMETRY_LBL_RANGE">
             <English>Range</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_SUCCESS_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_SUCCESS_TEXT">
             <English>Fire drill successful, nice job, soldiers!</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_FAILURE_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_FAILURE_TEXT">
             <English>Fire drill failed, better luck next time!</English>
         </Key>
-        <Key ID="STR_KPLIB_MISSION_FIREDRILL_MISSION_COMPLETED_ABORTED_TEXT">
+        <Key ID="STR_KPLIB_MISSION_FIREDRILL_COMPLETE_ENTERED_ABORTED_TEXT">
             <English>Fire drill aborted, please excuse the confusion!</English>
         </Key>
 
