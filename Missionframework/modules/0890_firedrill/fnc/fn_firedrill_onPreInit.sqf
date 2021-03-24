@@ -35,7 +35,7 @@ if (isServer) then {
     MPARAM(_onMission_debug)                = false;
     MPARAM(_onUpdate_debug)                 = false;
     MPARAM(_onTearDown_debug)               = false;
-    MPARAM(_onCompleteEntered_debug)        = true;
+    MPARAM(_onCompleteEntered_debug)        = false;
     MPARAM(_onGetTelemetry_debug)           = false;
 
     // TODO: TBD: 'actual' missions would also fill in other bits, i.e. cost, etc
