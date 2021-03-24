@@ -21,6 +21,12 @@
         https://community.bistudio.com/wiki/BIS_fnc_bitflagsCheck
  */
 
+private _debug = [
+    [
+        {MPARAM(_onGetArrayTelemetry_debug)}
+    ]
+] call MFUNC(_debug);
+
 // TODO: TBD: need to arrange telem callbacks a bit better, it is too confusing...
 // TODO: TBD: be not afraid to intro a started versus running versus template individual functions...
 // TODO: TBD: plus whatever specific mission callbacks might exist...
@@ -28,16 +34,27 @@ params [
     [Q(_mission), locationNull, [locationNull]]    
 ];
 
+if (_debug) then {
+    [format ["[fn_mission_getArrayTelemetry] Entering: [isNull _mission]: %1"
+        , str [isNull _mission]], "MISSIONS", true] call KPLIB_fnc_common_log;
+};
+
 private _retval = [];
 
 if (isNull _mission) exitWith {
     _retval;
 };
 
+/*
+_keys = keys kplib_missions_registry;
+_missions = _keys apply { kplib_missions_registry get _x };
+_get = _missions#0 getvariable "kplib_fnc_mission_ongettelemetry";
+[_missions#0] call _get
+*/
 [
     [_mission, MSTATUS1(_template)] call MFUNC1(_checkStatus)
     , [_mission, MSTATUS1(_running)] call MFUNC1(_checkStatus)
-    , _mission getVariable [QMVAR1(_onGetTelemetry), MFUNC1(_onNoOpTelemetry)]
+    , _mission getVariable [QMFUNC1(_onGetTelemetry), MFUNC1(_onNoOpTelemetry)]
 ] params [
     Q(_template)
     , Q(_running)
@@ -106,7 +123,13 @@ _retval = switch (true) do {
 
 // Then append MISSION specific TELEMETRY
 private _missionTelemetry = [_mission] call _onGetTelemetry;
-if (!(_missionTelemetry isEqualTo [])) then {
+
+if (_debug) then {
+    [format ["[fn_mission_getArrayTelemetry] Fini: [count _retval, count _missionTelemetry]: %1"
+        , str [count _retval, count _missionTelemetry]], "MISSIONS", true] call KPLIB_fnc_common_log;
+};
+
+if (_running && !(_missionTelemetry isEqualTo [])) then {
     _retval append _missionTelemetry;
 };
 

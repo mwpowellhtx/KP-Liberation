@@ -31,12 +31,7 @@ private _players = _mission getVariable [QMVAR1(_players), []];
 // Read around ALL PLAYERS one other time
 private _playersToNotify = _players select { _x in allPlayers; };
 
-private _cids = _playersToNotify apply { netId _x; };
-
-if (_playersToNotify isEqualTo []) then {
-    _cids append [-2];
-};
-
-{ [_message] remoteExec ["KPLIB_fnc_notification_hint", _x]; } forEach _cids;
+// Just notify each of the players
+[_msg] remoteExec ["KPLIB_fnc_notification_hint", _playersToNotify];
 
 true;

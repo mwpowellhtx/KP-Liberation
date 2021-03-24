@@ -54,7 +54,8 @@ MSTATUS1(_failure)                      =  64;
 MSTATUS1(_completed)                    = 128;
 /* System MISSIONS may not be aborted, they are typically triggered
  * by internal conditions and must evaluate to completion */
-MSTATUS1(_system)                       = 256;
+MSTATUS1(_gc)                           = 256;
+MSTATUS1(_system)                       = 512;
 
 MSTATUS1(_successFailureAborting)       = MSTATUS1(_success) + MSTATUS1(_failure) + MSTATUS1(_aborting);
 
@@ -69,6 +70,7 @@ MVAR(_statusReports)                   = [
     , [MSTATUS1(_success)   , localize "STR_KPLIB_MISSION_STATUS_SUCCESS"   ]
     , [MSTATUS1(_failure)   , localize "STR_KPLIB_MISSION_STATUS_FAILURE"   ]
     , [MSTATUS1(_completed) , localize "STR_KPLIB_MISSION_STATUS_COMPLETED" ]
+    , [MSTATUS1(_gc)        , localize "STR_KPLIB_MISSION_STATUS_GC"        ]
     , [MSTATUS1(_system)    , localize "STR_KPLIB_MISSION_STATUS_SYSTEM"    ]
 ];
 
@@ -77,6 +79,8 @@ MVAR1(_zeroBriefing)                    = ["", "", ""];
 MPARAM(_debug)                          = false;
 
 if (isServer) then {
+
+    MPARAM(_onGetArrayTelemetry_debug)  = false;
 
     /*
      * KPLIB_mission_uuid - used to identify a mission
