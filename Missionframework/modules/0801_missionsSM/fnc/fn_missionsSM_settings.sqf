@@ -19,6 +19,6 @@
         Function reached the end [BOOL]
  */
 
-MPARAM(_broadcastPeriodSeconds)         = 1;
+MPARAM(_broadcastPeriodSeconds)         = 3;
 
 true;

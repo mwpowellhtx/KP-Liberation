@@ -60,11 +60,13 @@ _selectedMission params [
     , [_status, KPLIB_mission_status_template] call KPLIB_fnc_mission_checkStatus
     , [_status, KPLIB_mission_status_running] call KPLIB_fnc_mission_checkStatus
     , [_status, KPLIB_mission_status_system] call KPLIB_fnc_mission_checkStatus
+    , lnbCurSelRow _lnbMissions
 ] params [
     Q(_standby)
     , Q(_template)
     , Q(_running)
     , Q(_system)
+    , [Q(_selectedIndex), -1, [0]]
 ];
 
 private _onAddDisabled = {
@@ -80,8 +82,8 @@ private _onAddDisabled = {
 };
 
 // "Not" a TEMPLATE meaning it is a RUNNING MISSION, also considering SYSTEM MISSIONS
-[MVAR(_abortIdcs), { _template || _system; }] call _onAddDisabled;
-[MVAR(_runIdcs), { _running; }] call _onAddDisabled;
+[MVAR(_abortIdcs), { _selectedIndex < 0 || _template || _system; }] call _onAddDisabled;
+[MVAR(_runIdcs), { _selectedIndex < 0 || _running; }] call _onAddDisabled;
 
 // Default assumes enable everything unless otherwise instructed
 private _allIdcs = +MVAR(_allIdcs);
