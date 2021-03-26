@@ -14,9 +14,9 @@
         result will be.
 
     Parameter(s):
-        _start - The starting value [ANY, default: any]
+        _start - The starting value [ANY, default: 0]
         _values - The array of values [ARRAY, default: []]
-        _callback - The callback to invoke for each of the elements [CODE, default: {}]
+        _callback - The callback to invoke for each of the elements [CODE, default: _onAggregateSum]
             - receives the arguments: [_g, _x, _i], where _g is the current aggregate, and _x is the element
 
     Returns:
@@ -29,15 +29,13 @@
 
 // TODO: TBD: ditto error handling for now...
 
-private _defaultCallback = {
-    params ["_g", "_x", "_i"];
-    // No-op in the default case.
-};
+// Assumes: params ["_g", "_x", "_i"], SUM is the default disposition
+private _onAggregateSum = { (_this#0) + (_this#1); };
 
 params [
-    ["_start", nil]
+    ["_start", 0]
     , ["_values", [], [[]]]
-    , ["_callback", _defaultCallback, [{}]]
+    , ["_callback", _onAggregateSum, [{}]]
 ];
 
 private ["_i"];

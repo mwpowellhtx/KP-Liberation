@@ -38,6 +38,9 @@ class linq {
     // Provides a LINQ style aggregate function
     class linq_aggregate {};
 
+    // Provides a LINQ style sum function
+    class linq_sum {};
+
     // Provides a LINQ style reverse function
     class linq_reverse {};
 
