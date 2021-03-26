@@ -30,6 +30,7 @@ class KPLIB {
     #include "modules\0003_debug\functions.hpp"
     #include "modules\0005_config\functions.hpp"
 
+    #include "modules\0009_string\functions.hpp"
     #include "modules\0010_math\functions.hpp"
     #include "modules\0012_unitsofmeasure\functions.hpp"
     #include "modules\0015_linq\functions.hpp"
@@ -70,6 +71,10 @@ class KPLIB {
     #include "modules\0445_logisticsSM\functions.hpp"
     #include "modules\0450_logisticsMgr\functions.hpp"
     #include "modules\0455_logisticsCO\functions.hpp"
+
+    #include "modules\0500_hud\functions.hpp"
+    #include "modules\0501_hudDispatchSM\functions.hpp"
+    #include "modules\0502_hudSM\functions.hpp"
 
     //#include "modules\0800_mission\functions.hpp"
     #include "modules\0800_missions\functions.hpp"

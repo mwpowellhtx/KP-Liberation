@@ -5,12 +5,21 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-03-19 17:33:05
+    Last Update: 2021-03-25 12:26:15
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Includes all ui defines, dialogs and elements from each module.
  */
+
+// Refactored here for convenience
+#ifndef KPLIB_IDD_UNDEFINED
+#define KPLIB_IDD_UNDEFINED         -1
+#endif // KPLIB_IDD_UNDEFINED
+
+#ifndef KPLIB_IDC_UNDEFINED
+#define KPLIB_IDC_UNDEFINED         -1
+#endif // KPLIB_IDC_UNDEFINED
 
 #include "CBA\defineCommonGrids.hpp"
 
@@ -21,7 +30,8 @@
 #include "KPGUI\KPGUI_defines.hpp"
 #include "KPGUI\KPGUI_classes.hpp"
 #include "modules\0100_init\ui.hpp"
-#include "modules\0130_core\ui.hpp"
+// // TODO: TBD: refactoring "titles", or HUD, aspects to an actual HUD module
+//#include "modules\0130_core\ui.hpp"
 #include "modules\0150_respawn\ui.hpp"
 #include "modules\0200_admin\ui.hpp"
 #include "modules\0220_permission\ui.hpp"
@@ -42,5 +52,9 @@
 #include "KPGUI\XGUI_classes.hpp"
 #include "modules\0415_productionMgr\ui.hpp"
 #include "modules\0450_logisticsMgr\ui.hpp"
-// TODO: TBD: draft work in progress...
+// TODO: TBD: probably could realign the module numbering...
+// TODO: TBD: i.e. HUD should probably come well before some other modules...
+// TODO: TBD: definitely well before UI includes, managers, dialogs, etc...
+// TODO: TBD: but this 'should' work for the time being...
+#include "modules\0500_hud\ui.hpp"
 #include "modules\0803_missionsMgr\ui.hpp"

@@ -2,7 +2,7 @@
     File: KPLIB_actionMenu.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-02 22:46:15
-    Last Update: 2021-02-12 08:23:32
+    Last Update: 2021-03-26 01:07:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,23 +23,25 @@
 #define KPLIB_ACTION_PRIORITY_MISSIONS              (-802)
 #define KPLIB_ACTION_PRIORITY_PERMISSIONS           (-803)
 
-#define KPLIB_ACTION_PRIORITY_DEPLOY_FOB            (-804)
-#define KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_BOX     (-805)
-#define KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_TRUCK   (-806)
+#define KPLIB_ACTION_PRIORITY_DEPLOY_FOB            (-810)
+#define KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_BOX     (-811)
+#define KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_TRUCK   (-812)
 
-#define KPLIB_ACTION_PRIORITY_BUILD                 (-811)
-#define KPLIB_ACTION_PRIORITY_BUILD_STORAGE         (-812)
-#define KPLIB_ACTION_PRIORITY_BUILD_CAPABILITY      (-813)
+#define KPLIB_ACTION_PRIORITY_REPORT_RESOURCES      (-820)
 
-#define KPLIB_ACTION_PRIORITY_MANAGE_PRODUCTION     (-821)
+#define KPLIB_ACTION_PRIORITY_BUILD                 (-870)
+#define KPLIB_ACTION_PRIORITY_BUILD_STORAGE         (-871)
+#define KPLIB_ACTION_PRIORITY_BUILD_CAPABILITY      (-872)
+
+#define KPLIB_ACTION_PRIORITY_MANAGE_PRODUCTION     (-880)
 // TODO: TBD: anticipating log, eventually, for future use...
-#define KPLIB_ACTION_PRIORITY_MANAGE_LOGISTICS      (-822)
-#define KPLIB_ACTION_PRIORITY_PLAYER_MANAGEMENT     (-823)
-#define KPLIB_ACTION_PRIORITY_GARRISON_MANAGEMENT   (-824)
+#define KPLIB_ACTION_PRIORITY_MANAGE_LOGISTICS      (-881)
+#define KPLIB_ACTION_PRIORITY_PLAYER_MANAGEMENT     (-882)
+#define KPLIB_ACTION_PRIORITY_GARRISON_MANAGEMENT   (-883)
 
-#define KPLIB_ACTION_PRIORITY_ADMIN                 (-831)
-#define KPLIB_ACTION_PRIORITY_FOBBOXMOVE            (-832)
-#define KPLIB_ACTION_PRIORITY_TELEPORT              (-833)
+#define KPLIB_ACTION_PRIORITY_ADMIN                 (-890)
+#define KPLIB_ACTION_PRIORITY_FOBBOXMOVE            (-891)
+#define KPLIB_ACTION_PRIORITY_TELEPORT              (-892)
 
 //#define KPLIB_ACTION_PRIORITY                       ()
 //#define KPLIB_ACTION_PRIORITY                       ()

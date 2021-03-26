@@ -2203,7 +2203,6 @@
         </Key>
     </Package>
 
-
     <!-- UNITS -->
 
     <Package name="Units">
@@ -2468,6 +2467,17 @@
         <Key ID="STR_KPLIB_PERMISSION_TRANSPORTVEHICLE">
             <English>Transport Vehicle</English>
             <German>Transportfahrzeug</German>
+        </Key>
+    </Package>
+
+    <!-- HUD OVERLAY -->
+
+    <Package name="HUD">
+        <Key ID="STR_KPLIB_HUD_ACTION_MENU_VIEW_FOB_RESOURCES">
+            <English>-- VIEW FOB RESOURCES --</English>
+        </Key>
+        <Key ID="STR_KPLIB_HUD_ACTION_MENU_VIEW_ALL_RESOURCES">
+            <English>-- VIEW ALL RESOURCES --</English>
         </Key>
     </Package>
 
