@@ -14,6 +14,7 @@ class KPLIB_hudDispatchSM {
         // When there is an update to report, then DISPATCH
         class KPLIB_hudDispatchSM_transit_toDispatch {
             targetState = "KPLIB_hudDispatchSM_dispatch";
+            // The condition is fine, ANY report, including NO REPORT, is acceptable
             condition = "([_this] call KPLIB_fnc_hud_hasPlayerTimerElapsed) && !([_this] call KPLIB_fnc_hud_checkPlayerStatus)";
             onTransition = "[_this] call KPLIB_fnc_hudDispatchSM_onCompileReport";
         };

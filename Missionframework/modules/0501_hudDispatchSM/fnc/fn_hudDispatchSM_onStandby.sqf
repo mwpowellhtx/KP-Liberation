@@ -22,11 +22,13 @@ if (_debug) then {
 [
     { [_player, (_x#4)] call KPLIB_fnc_hud_inRange; } count KPLIB_sectors_fobs
     , { [_player, _x] call KPLIB_fnc_hud_sectorInRange } count KPLIB_sectors_all
+    , KPLIB_hud_status_noReport
     , KPLIB_hud_status_fob
     , KPLIB_hud_status_sector
 ] params [
     Q(_fobCount)
     , Q(_sectorCount)
+    , Q(_noReport)
     , Q(_fob)
     , Q(_sector)
 ];
@@ -45,6 +47,10 @@ _standbyStatus = [_standbyStatus, _fob, { _fobCount == 0; }] call KPLIB_fnc_hud_
 
 _standbyStatus = [_standbyStatus, _sector, { _sectorCount > 0; }] call KPLIB_fnc_hud_setPlayerStatus;
 _standbyStatus = [_standbyStatus, _sector, { _sectorCount == 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
+
+// NO REPORT is still a report, so set that flag accordingly
+_standbyStatus = [_standbyStatus, _noReport, { (_fobCount + _sectorCount) == 0; }] call KPLIB_fnc_hud_setPlayerStatus;
+_standbyStatus = [_standbyStatus, _noReport, { (_fobCount + _sectorCount) > 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
 
 _player setVariable [QMVAR(_standbyStatus), _standbyStatus];
 

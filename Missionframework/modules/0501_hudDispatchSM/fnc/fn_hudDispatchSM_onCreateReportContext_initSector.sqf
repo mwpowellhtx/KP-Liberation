@@ -38,9 +38,18 @@ if (_debug) then {
 ];
 
 private _extendedRange = _rangeCoefficient * _targetRange;
+private _getDistance = { (markerPos _this) distance2D _playerPos; };
+
+/*
+// Along similar lines as with FOB initialization, this is the core question being asked:
+_range = KPLIB_param_sectorCapRange * KPLIB_param_hudDispatchSM_sectorReportRangeCoefficient;
+_pos = getPos player;
+_getDistance = { (markerPos _this) distance2D _pos; };
+KPLIB_sectors_all apply { [_x, _x call _getDistance]; } select { (_x#1) <= _range; };
+*/
 
 // TODO: TBD: could allow more or less with a CBA setting on the factor, i.e. (_factor*_targetRange)
-private _sectorRanges = _allSectors apply { [_x, (markerPos _x) distance2D _playerPos]; } select { (_x#1) <= _extendedRange; };
+private _sectorRanges = _allSectors apply { [_x, _x call _getDistance]; } select { (_x#1) <= _extendedRange; };
 
 // Select the 'best' SECTOR RANGE by INVERTED RANGE or defer to default
 private _markerRange = [_sectorRanges, { -(_x#1); }, ["", -1]] call CBA_fnc_selectBest;

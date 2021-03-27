@@ -55,11 +55,13 @@ if (_debug) then {
 [
     { [(_x#0), MVAR(_fobReportPrefix)] call KPLIB_fnc_string_startsWith; } count _compiledReport
     , { [(_x#0), MVAR(_sectorReportPrefix)] call KPLIB_fnc_string_startsWith; } count _compiledReport
+    , KPLIB_hud_status_noReport
     , KPLIB_hud_status_fob
     , KPLIB_hud_status_sector
 ] params [
     Q(_fobReportCount)
     , Q(_sectorReportCount)
+    , Q(_noReport)
     , Q(_fob)
     , Q(_sector)
 ];
@@ -73,11 +75,15 @@ if (_debug) then {
 private _compiledStatus = KPLIB_hud_status_standby;
 
 // Looks very similar to the STANDBY SNIFF, make it official with a REPRRT COUNT
-_compiledStatus = [_compiledStatus, _fob, { _fobReportCount > 0; }, QMVAR(_standbyStatus)] call KPLIB_fnc_hud_setPlayerStatus;
-_compiledStatus = [_compiledStatus, _fob, { _fobReportCount == 0; }, QMVAR(_standbyStatus)] call KPLIB_fnc_hud_unsetPlayerStatus;
+_compiledStatus = [_compiledStatus, _fob, { _fobReportCount > 0; }] call KPLIB_fnc_hud_setPlayerStatus;
+_compiledStatus = [_compiledStatus, _fob, { _fobReportCount == 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
 
-_compiledStatus = [_compiledStatus, _sector, { _sectorReportCount > 0; }, QMVAR(_standbyStatus)] call KPLIB_fnc_hud_setPlayerStatus;
-_compiledStatus = [_compiledStatus, _sector, { _sectorReportCount == 0; }, QMVAR(_standbyStatus)] call KPLIB_fnc_hud_unsetPlayerStatus;
+_compiledStatus = [_compiledStatus, _sector, { _sectorReportCount > 0; }] call KPLIB_fnc_hud_setPlayerStatus;
+_compiledStatus = [_compiledStatus, _sector, { _sectorReportCount == 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
+
+// Echoing the fact, NO REPORT is still a report, so flag it accordingly
+_compiledStatus = [_compiledStatus, _noReport, { (_fobReportCount + _sectorReportCount) == 0; }] call KPLIB_fnc_hud_setPlayerStatus;
+_compiledStatus = [_compiledStatus, _noReport, { (_fobReportCount + _sectorReportCount) > 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
 
 // Then relay the bits for DISPATCH consideration
 { _player setVariable _x; } forEach [
