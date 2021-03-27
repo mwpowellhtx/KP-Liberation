@@ -1,12 +1,13 @@
 #include "script_component.hpp"
 
+// ...
+
 private _debug = [
     [
-        {MPARAM(_onReportSector_captured_debug)}
+        {MPARAM(_onReportSector_debug)}
+        , {MPARAM(_onReportSector_captured_debug)}
     ]
 ] call MFUNC(_debug);
-
-// ...
 
 params [
     [Q(_player), objNull, [objNull]]
@@ -21,15 +22,25 @@ params [
 ] params [
     Q(_markerName)
     , Q(_bluforSectors)
-    , Q(_report)
+    , Q(_compiledReport)
 ];
 
+if (_debug) then {
+    [format ["[fn_hudDispatchSM_onReportSector_captured] Entering: [_markerName]: %1"
+        , str [_markerName]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
+
 if (!(_markerName isEqualTo "")) then {
-    _report append [
+    _compiledReport append [
         [QMVAR(_sectorReport_captured), _markerName in _bluforSectors]
     ];
 };
 
-_context setVariable [Q(_compiledReport), _report];
+_context setVariable [Q(_compiledReport), _compiledReport];
+
+if (_debug) then {
+    [format ["[fn_hudDispatchSM_onReportSector_captured] Fini: [count _compiledReport]: %1"
+        , str [count _compiledReport]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
 
 true;

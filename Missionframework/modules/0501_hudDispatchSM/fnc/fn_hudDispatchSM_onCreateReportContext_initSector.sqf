@@ -1,0 +1,68 @@
+#include "script_component.hpp"
+
+// ...
+
+// TODO: TBD: issue was likely that the CONFIG was not created, the function was not defined
+// TODO: TBD: when we have that, it clears up A LOT
+// TODO: TBD: sort out the context and I think we'll be okay...
+// TODO: TBD: getting ZERO FOBS up front, which does not seem right...
+// TODO: TBD: that and we will probably need to run profiler to see what is being called so much
+// https://community.bistudio.com/wiki/BIS_fnc_sortBy
+
+private _debug = [
+    [
+        {MPARAM(_createReportContext_debug)}
+        , {MPARAM(_onCreateReportContext_initSector_debug)}
+    ]
+] call MFUNC(_debug);
+
+params [
+    [Q(_player), objNull, [objNull]]
+    , [Q(_context), locationNull, [locationNull]]
+];
+
+if (_debug) then {
+    ["[fn_hudDispatchSM_onCreateReportContext_initSector] Entering...", "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
+
+[
+    getPos _player
+    , +KPLIB_sectors_all
+    , KPLIB_param_sectorCapRange
+    , MPARAM(_sectorReportRangeCoefficient)
+] params [
+    Q(_playerPos)
+    , Q(_allSectors)
+    , Q(_targetRange)
+    , Q(_rangeCoefficient)
+];
+
+private _extendedRange = _rangeCoefficient * _targetRange;
+
+// TODO: TBD: could allow more or less with a CBA setting on the factor, i.e. (_factor*_targetRange)
+private _sectorRanges = _allSectors apply { [_x, (markerPos _x) distance2D _playerPos]; } select { (_x#1) <= _extendedRange; };
+
+// Select the 'best' SECTOR RANGE by INVERTED RANGE or defer to default
+private _markerRange = [_sectorRanges, { -(_x#1); }, ["", -1]] call CBA_fnc_selectBest;
+//                       Inverted range: ^^^^^^^
+//                              Default:             ^^^^^^^^
+
+if (_debug) then {
+    [format ["[fn_hudDispatchSM_onCreateReportContext_initSector] Fini: [_markerRange, _targetRange, _rangeCoefficient]: %1"
+        , str [_markerRange, _targetRange, _rangeCoefficient]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
+
+// Valid range cannot be negative
+if ((_markerRange#1) >= 0) then {
+    // TODO: TBD: some of these elements might be interesting to have in hand approaching OVERLAY as well...
+    // TODO: TBD: i.e. ranges, etc, very much TBD... do we have the necessary comprehension, i.e. ENGAGED (?)
+    { _context setVariable _x; } forEach [
+        [Q(_markerName), (_markerRange#0)]
+        , [Q(_actualRange), (_markerRange#1)]
+        , [Q(_targetRange), _targetRange]
+        , [Q(_towerSectors), +KPLIB_sectors_tower]
+        , [Q(_bluforSectors), +KPLIB_sectors_blufor]
+    ];
+};
+
+true;

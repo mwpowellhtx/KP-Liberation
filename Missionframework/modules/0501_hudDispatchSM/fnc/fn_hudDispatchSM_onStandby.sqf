@@ -1,6 +1,8 @@
 #include "script_component.hpp"
 
 // Refresh the PLAYER DISPATCH TIMER and offer a hint of the STATUS only
+// ...
+// https://community.bistudio.com/wiki/setVariable#Alternative_Syntax
 
 private _debug = [
     [
@@ -8,12 +10,13 @@ private _debug = [
     ]
 ] call MFUNC(_debug);
 
-// ...
-// https://community.bistudio.com/wiki/setVariable#Alternative_Syntax
-
 params [
     [Q(_player), objNull, [objNull]]
 ];
+
+if (_debug) then {
+    ["[fn_hudDispatchSM_onStandby] Entering...", "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
 
 // Sniff for status bits, we will use to inform what we expect for status report
 [
@@ -21,26 +24,39 @@ params [
     , { [_player, _x] call KPLIB_fnc_hud_sectorInRange } count KPLIB_sectors_all
     , KPLIB_hud_status_fob
     , KPLIB_hud_status_sector
-    , MVAR(_standbyStatus)
 ] params [
     Q(_fobCount)
     , Q(_sectorCount)
     , Q(_fob)
     , Q(_sector)
-    , Q(_standbyStatus)
 ];
 
-// Just SET or UNSET the STATUS bits that we might expect from a STATUS REPORT
-[_player, _fob, { _fobCount > 0; }, _standbyStatus] call KPLIB_fnc_hud_setPlayerStatus;
-[_player, _fob, { _fobCount == 0; }, _standbyStatus] call KPLIB_fnc_hud_unsetPlayerStatus;
+if (_debug) then {
+    [format ["[fn_hudDispatchSM_onStandby] Evaluating: [_fobCount, _sectorCount]: %1"
+        , str [_fobCount, _sectorCount]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
 
-[_player, _sector, { _sectorCount > 0; }, _standbyStatus] call KPLIB_fnc_hud_setPlayerStatus;
-[_player, _sector, { _sectorCount == 0; }, _standbyStatus] call KPLIB_fnc_hud_unsetPlayerStatus;
+// Lift PLAYER STATUS, twiddle, and replace
+private _standbyStatus = _player getVariable [QMVAR(_standbyStatus), KPLIB_hud_status_standby];
+
+// Just SET or UNSET the STATUS bits that we might expect from a STATUS REPORT
+_standbyStatus = [_standbyStatus, _fob, { _fobCount > 0; }] call KPLIB_fnc_hud_setPlayerStatus;
+_standbyStatus = [_standbyStatus, _fob, { _fobCount == 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
+
+_standbyStatus = [_standbyStatus, _sector, { _sectorCount > 0; }] call KPLIB_fnc_hud_setPlayerStatus;
+_standbyStatus = [_standbyStatus, _sector, { _sectorCount == 0; }] call KPLIB_fnc_hud_unsetPlayerStatus;
+
+_player setVariable [QMVAR(_standbyStatus), _standbyStatus];
 
 /* Refresh the PLAYER DISPATCH TIMER with every STANDBY iteration. It is expected to keep on
  * refreshing the timer until such time as there is a STATUS to REPORT, so that we DISPATCH
  * to the client ASAP when there is anything to report. */
 
 [_player] call KPLIB_fnc_hud_onRefreshPlayerTimer;
+
+if (_debug) then {
+    [format ["[fn_hudDispatchSM_onStandby] Fini: [_standbyStatus]: %1"
+        , str [_standbyStatus]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+};
 
 true;

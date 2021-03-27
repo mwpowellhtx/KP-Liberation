@@ -16,8 +16,7 @@ params [
 // TODO: TBD: roll up a fresh status report and determine what the next STATUS should be...
 
 if (_debug) then {
-    [format ["[fn_hudDispatchSM_onDispatchEntered] Entering: [isNull _player]: %1"
-        , str [isNull _player]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+    ["[fn_hudDispatchSM_onDispatchEntered] Entering...", "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
 };
 
 // If we are here it is because STANDBY COMPILED a REPORT and kicked STATUS over to DISPATCH
@@ -47,13 +46,14 @@ if (!(_standbyReport isEqualTo _dispatchReport)) then {
     _player setVariable [MVAR(_dispatchStatus), _standbyStatus, _cid];
 };
 
-// Reset to STANDBY STATUS once DISPATCH fini, await next STANDBY REPORT
-_player setVariable [MVAR(_standbyStatus), _standby];
-//                        ^^^^^^^^^^^^^^
+// // // TODO: TBD: leave this one alone between STANDBY iterations
+// // Reset to STANDBY STATUS once DISPATCH fini, await next STANDBY REPORT
+// _player setVariable [MVAR(_standbyStatus), _standby];
+// //                        ^^^^^^^^^^^^^^
 
 if (_debug) then {
-    [format ["[fn_hudDispatchSM_onDispatchEntered] Fini: [_cid, _standbyStatus, _standbyReport, _dispatchStatus, _dispatchReport]: %1"
-        , str [_cid, _standbyStatus, _standbyReport, _dispatchStatus, _dispatchReport]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_hudDispatchSM_onDispatchEntered] Fini: [_cid, _standbyStatus, _dispatchStatus, count _standbyReport, count _dispatchReport]: %1"
+        , str [_cid, _standbyStatus, _dispatchStatus, count _standbyReport, count _dispatchReport]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

@@ -35,8 +35,23 @@ class hudDispatchSM {
     // Performs a no-op for use when tracing and troubleshooting the HUD DISPATCH statemachine
     class hudDispatchSM_onNoOp {};
 
+    //
+    class hudDispatchSM_onStandbyEntered {};
+
     // STANDBY 'onState' event handler, briefs PLAYER with next REPORT and STATUS
     class hudDispatchSM_onStandby {};
+
+    // Compiles the next STATUS REPORT 'onTransition' between STANDBY and DISPATCH
+    class hudDispatchSM_onCompileReport {};
+
+    // Creates a REPORT CONTEXT for use throughout the report callbacks
+    class hudDispatchSM_createReportContext {};
+
+    // Initializes a REPORT CONTEXT for FOB usage
+    class hudDispatchSM_onCreateReportContext_initFob {};
+
+    // Initializes a REPORT CONTEXT for SECTOR usage
+    class hudDispatchSM_onCreateReportContext_initSector {};
 
     // Dispatches the STANDBY REPORT to the target PLAYER when there is something different to report
     class hudDispatchSM_onDispatchEntered {};

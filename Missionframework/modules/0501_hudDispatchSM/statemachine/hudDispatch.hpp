@@ -7,7 +7,7 @@ class KPLIB_hudDispatchSM {
     skipNull = 1;
 
     class KPLIB_hudDispatchSM_standby {
-        onStateEntered = "[_this, 'KPLIB_hudDispatchSM_standby::onStateEntered'] call KPLIB_fnc_hudDispatchSM_onNoOp";
+        onStateEntered = "[_this] call KPLIB_fnc_hudDispatchSM_onStandbyEntered";
         onState = "[_this] call KPLIB_fnc_hudDispatchSM_onStandby";
         onStateLeaving = "[_this, 'KPLIB_hudDispatchSM_standby::onStateLeaving'] call KPLIB_fnc_hudDispatchSM_onNoOp";
 
@@ -24,10 +24,11 @@ class KPLIB_hudDispatchSM {
         onState = "[_this, 'KPLIB_hudDispatchSM_dispatch::onState'] call KPLIB_fnc_hudDispatchSM_onNoOp";
         onStateLeaving = "[_this, 'KPLIB_hudDispatchSM_dispatch::onStateLeaving'] call KPLIB_fnc_hudDispatchSM_onNoOp";
 
+        // DISPATCH then transit ALWAYS
         class KPLIB_hudDispatchSM_transit_toStandby {
             targetState = "KPLIB_hudDispatchSM_standby";
-            condition = "[_this] call KPLIB_fnc_hud_checkPlayerStatus";
-            onTransition = "[_this] call KPLIB_fnc_hudDispatchSM_onDispatchTransitToStandby";
+            condition = "true";
+            onStateEntered = "[_this, 'KPLIB_hudDispatchSM_transit_toStandby::onTransition'] call KPLIB_fnc_hudDispatchSM_onNoOp";
         };
     };
 };
