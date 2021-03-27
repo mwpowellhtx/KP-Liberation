@@ -13,8 +13,16 @@
         also reserved the name "hud" for use as the core KPLIB HUD API, of sorts, so this
         is what we are running with for purposes of defining and supporting the heads up
         display configuration, event handlers, and so on.
+
+    References:
+        https://community.bistudio.com/wiki/cutRsc
+        https://community.bistudio.com/wiki/Description.ext
+        https://community.bistudio.com/wiki/Arma:_GUI_Configuration
  */
 
+// TODO: TBD: should consider refactoring the RscTitles themselves...
+// TODO: TBD: along similar lines as with the functions, statemachine, etc...
+// TODO: TBD: which would allow for potentially multiple different layers supported by other modules
 class RscTitles {
 
     // // TODO: TBD: "Intro" cameras were an artifact of the legacy mod...
@@ -140,7 +148,7 @@ class RscTitles {
         // Duration of fade in/out effects when opening/closing in seconds
         fadeIn = 0;
         fadeOut = 0;
-        duration = 1e+011;
+        duration = 1e+011; // Must be a good long number, in seconds to expect it to stuck around
         movingEnable = true;
         controls[] = {};
     };

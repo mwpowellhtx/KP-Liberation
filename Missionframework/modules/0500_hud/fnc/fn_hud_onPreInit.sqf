@@ -2,17 +2,24 @@
 
 // ...
 
-if (isServer) then {
-    // TODO: TBD: add logging
+if (hasInterface) then {
+    ["[fn_hud_onPreInit] Initializing...", "PRE] [HUD", true] call KPLIB_fnc_common_log;
 };
+
+// Ensure settings are applied
+[] call MFUNC(_settings);
+
 
 // The view mode set on PLAYER variables [BOOL, default: false]
 MVAR(_reportAllResources)                   = QMVAR(_reportAllResources);
 
 // We use the flags to indicate which bits require an update
 MSTATUS(_standby)                           = 0;
-MSTATUS(_fob)                               = 1;
-MSTATUS(_sector)                            = 2;
+/* Meaning, no report is NO REPORT, nothing to report, which is
+ * still a REPORT, and which potentially blanks an overlay. */
+MSTATUS(_noReport)                          = 1;
+MSTATUS(_fob)                               = 2;
+MSTATUS(_sector)                            = 4;
 
 // Which signals to handle the HUD OVERLAY state
 MSTATUS(_overlay)                           = MSTATUS(_fob) + MSTATUS(_sector);
@@ -54,6 +61,10 @@ if (isServer) then {
 if (hasInterface) then {
     // Client side init
 
+    // The actions to which the HUD STATUS REPORT may respond
+    MVAR(_overlayBlank)                     = toLower Q(blank);
+    MVAR(_overlayReport)                    = toLower Q(report);
+
     // TODO: TBD: status should be sufficient to determine whether we have one report or another
     // TODO: TBD: but just in case, we bundle the report names for use throughout
 
@@ -86,8 +97,8 @@ if (hasInterface) then {
     MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
 };
 
-if (isServer) then {
-    // TODO: TBD: add logging
+if (hasInterface) then {
+    ["[fn_hud_onPreInit] Finished", "PRE] [HUD", true] call KPLIB_fnc_common_log;
 };
 
 true;

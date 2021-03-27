@@ -2,8 +2,8 @@
 
 // ...
 
-if (isServer) then {
-    // TODO: TBD: add logging
+if (hasInterface) then {
+    ["[fn_hud_onPostInit] Entering...", "POST] [HUD", true] call KPLIB_fnc_common_log;
 };
 
 if (isServer) then {
@@ -17,8 +17,8 @@ if (hasInterface) then {
     [] call MFUNC(_setupPlayerActions);
 };
 
-if (isServer) then {
-    // TODO: TBD: add logging
+if (hasInterface) then {
+    ["[fn_hud_onPostInit] Finished", "POST] [HUD", true] call KPLIB_fnc_common_log;
 };
 
 true;

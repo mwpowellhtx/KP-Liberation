@@ -1,5 +1,7 @@
 #include "script_component.hpp"
 
+// ...
+
 params [
     [Q(_rsc), displayNull, [displayNull]]
     , [Q(_config), configNull, [configNull]]

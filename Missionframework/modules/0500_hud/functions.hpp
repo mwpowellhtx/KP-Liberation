@@ -49,4 +49,7 @@ class hud {
 
     // SITREP overlay 'onUnload' event handler
     class hud_onSitrepUnload {};
+
+    // Responds when a STATUS REPORT occurs, or BLANK the overlay HUD
+    class hud_onStatusReport {};
 };
