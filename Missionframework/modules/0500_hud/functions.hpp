@@ -44,11 +44,11 @@ class hud {
     // Returns whether the PLAYER TIMER has elapsed; prefers DISPATCH, but may specify either
     class hud_hasPlayerTimerElapsed {};
 
-    // SITREP overlay 'onLoad' event handler
-    class hud_onSitrepLoad {};
+    // HUD overlay 'onLoad' event handler
+    class hud_onLoad {};
 
-    // SITREP overlay 'onUnload' event handler
-    class hud_onSitrepUnload {};
+    // HUD overlay 'onUnload' event handler
+    class hud_onUnload {};
 
     // Responds when a STATUS REPORT occurs, or BLANK the overlay HUD
     class hud_onStatusReport {};

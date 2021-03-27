@@ -61,6 +61,9 @@ if (isServer) then {
 if (hasInterface) then {
     // Client side init
 
+    MOVERLAY(_blank)                        = QMOVERLAY(_blank);
+    MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
+
     // The actions to which the HUD STATUS REPORT may respond
     MVAR(_overlayBlank)                     = toLower Q(blank);
     MVAR(_overlayReport)                    = toLower Q(report);
@@ -92,9 +95,6 @@ if (hasInterface) then {
         , MSECTOR(_civilianCount)
         , MSECTOR(_resistanceCount)
     ];
-
-    MOVERLAY(_blank)                        = QMOVERLAY(_blank);
-    MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
 };
 
 if (hasInterface) then {

@@ -24,8 +24,8 @@ if (_debug) then {
 };
 
 private _className = switch (toLower _action) do {
-    case (MVAR(_overlayBlank)): { "KPLIB_hud_blank"; };
-    case (MVAR(_overlayReport)): { "KPLIB_hud_overlay"; };
+    case (MVAR(_overlayBlank)): { MOVERLAY(_blank); };
+    case (MVAR(_overlayReport)): { MOVERLAY(_overlay); };
     default { ""; };
 };
 

@@ -156,16 +156,20 @@ class RscTitles {
     class KPLIB_hud_blank : KPLIB_hud {
         name = "KPLIB_hud_blank";
         idd = KPLIB_IDD_HUD_OVERLAY;
+
+        // Unfortunately cannot drop this on the base class and pickup a derived attribute
+        onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_blank')]) spawn KPLIB_fnc_hud_onLoad";
+        onUnload = "(_this + ['KPLIB_hud_blank']) spawn KPLIB_fnc_hud_onUnload";
     };
 
     // Separate key sitrep bits for use via a layered cutRsc approach
     class KPLIB_hud_overlay : KPLIB_hud {
-        name = "KPLIB_hud_overlay"
-        // Used to indicate which sitrep is being loaded
-        sitrep = "";
+        name = "KPLIB_hud_overlay";
+        idd = KPLIB_IDD_HUD_OVERLAY;
 
-        onLoad = "_this call KPLIB_fnc_hud_onLoad";
-        onUnload = "_this call KPLIB_fnc_hud_onUnload";
+        // Unfortunately cannot drop this on the base class and pickup a derived attribute
+        onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_overlay')]) spawn KPLIB_fnc_hud_onLoad";
+        onUnload = "(_this + ['KPLIB_hud_overlay']) spawn KPLIB_fnc_hud_onUnload";
     };
 
     // class KPLIB_hud_overlay_fobSitrep : KPLIB_hud_overlay_sitrep {
