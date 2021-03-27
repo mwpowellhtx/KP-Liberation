@@ -18,6 +18,4 @@ params [
     , [QMVAR(_overlayChanged), nil]
 ];
 
-systemChat "[fn_hudSM_onStandbyEntered] Fini";
-
 true;
