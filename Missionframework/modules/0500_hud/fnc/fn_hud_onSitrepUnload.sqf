@@ -5,3 +5,5 @@ params [
 ];
 
 // TODO: TBD: in the event we need to unregister anything, from the uiNamespace, etc...
+
+systemChat format ["[onUnload] [_rsc::idd]", str [ctrlIDD _rsc]];

@@ -13,13 +13,10 @@ MVAR(_reportAllResources)                   = QMVAR(_reportAllResources);
 MSTATUS(_standby)                           = 0;
 MSTATUS(_fob)                               = 1;
 MSTATUS(_sector)                            = 2;
-// AWAY status is just as important, when PLAYER steps "away from" FOB or SECTOR
-// Why, because HUD should fade out, i.e. negatively, those layers, respectively
-MSTATUS(_awayFob)                           = 4;
-MSTATUS(_awaySector)                        = 8;
 
 // Which signals to handle the HUD OVERLAY state
-MSTATUS(_fobSectorOrAway)                   = MSTATUS(_fob) + MSTATUS(_sector) + MSTATUS(_awayFob) + MSTATUS(_awaySector);
+MSTATUS(_overlay)                           = MSTATUS(_fob) + MSTATUS(_sector);
+
 
 // Setup some variables which reach across client and server for purposes of coordinating reports
 MFOB(_markerText)                           = QMFOB(_markerText);
@@ -42,6 +39,9 @@ MSECTOR(_bluforCount)                       = QMSECTOR(_bluforCount);
 MSECTOR(_opforCount)                        = QMSECTOR(_opforCount);
 MSECTOR(_civilianCount)                     = QMSECTOR(_civilianCount);
 MSECTOR(_resistanceCount)                   = QMSECTOR(_resistanceCount);
+
+MOVERLAY(_fobSitrep)                        = QMOVERLAY(_fobSitrep);
+MOVERLAY(_sectorSitrep)                     = QMOVERLAY(_sectorSitrep);
 
 
 // TODO: TBD: we could count more/other things as well, but this gets us parity, more or less, with legacy
@@ -81,6 +81,9 @@ if (hasInterface) then {
         , MSECTOR(_civilianCount)
         , MSECTOR(_resistanceCount)
     ];
+
+    MOVERLAY(_blank)                        = QMOVERLAY(_blank);
+    MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
 };
 
 if (isServer) then {

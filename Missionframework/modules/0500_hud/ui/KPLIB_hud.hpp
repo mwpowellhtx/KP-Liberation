@@ -135,51 +135,49 @@ class RscTitles {
     //     };
     // };
 
-    class Hud {
+    class KPLIB_hud {
         idd = KPLIB_HUD_IDD_UNDEFINED;
         // Duration of fade in/out effects when opening/closing in seconds
         fadeIn = 0;
         fadeOut = 0;
         duration = 1e+011;
         movingEnable = true;
-    };
-
-    // TODO: TBD: probably do not need a "Blank" after all, but will keep it here for now...
-    // TODO: TBD: especially if we are successful cutting resource layers in and out accordingly...
-    class Blank : Hud {
-        name = "Blank";
-        idd = KPLIB_HUD_IDD_RSCTITLE_BLANK;
-        // There are no controls in the blank config
         controls[] = {};
     };
 
+    class KPLIB_hud_blank : KPLIB_hud {
+        name = "KPLIB_hud_blank";
+        idd = KPLIB_IDD_HUD_OVERLAY;
+    };
+
     // Separate key sitrep bits for use via a layered cutRsc approach
-    class Sitrep : Hud {
+    class KPLIB_hud_overlay : KPLIB_hud {
+        name = "KPLIB_hud_overlay"
         // Used to indicate which sitrep is being loaded
         sitrep = "";
 
-        onLoad = "_this call KPLIB_fnc_hud_onSitrepLoad";
-        onUnload = "_this call KPLIB_fnc_hud_onSitrepUnload";
+        onLoad = "_this call KPLIB_fnc_hud_onLoad";
+        onUnload = "_this call KPLIB_fnc_hud_onUnload";
     };
 
-    class FobSitrep : Sitrep {
-        name = "FobSitrep";
-        idd = KPLIB_IDD_CORE_RSCTITLE_SITREP_FOB;
-        onLoad = "";
-        controls[] = {
-            // TODO: TBD: add control classes here...
-        };
-    };
+    // class KPLIB_hud_overlay_fobSitrep : KPLIB_hud_overlay_sitrep {
+    //     name = "KPLIB_hud_overlay_fobSitrep";
+    //     idd = KPLIB_IDD_HUD_OVERLAY;
+    //     onLoad = "";
+    //     controls[] = {
+    //         // TODO: TBD: add control classes here...
+    //     };
+    // };
 
-    class SectorSitrep : Sitrep {
-        name = "HaloSitrep";
-        idd = KPLIB_IDD_CORE_RSCTITLE_SITREP_HALO;
-        controls[] = {
-            // TODO: TBD: add control classes here...
-        };
-    };
+    // class KPLIB_hud_overlay_sectorSitrep : KPLIB_hud_overlay_sitrep {
+    //     name = "KPLIB_hud_overlay_sectorSitrep";
+    //     idd = KPLIB_IDD_HUD_OVERLAY_SITREP_SECTOR;
+    //     controls[] = {
+    //         // TODO: TBD: add control classes here...
+    //     };
+    // };
 
-    class HaloSitrep : Sitrep {
-
-    };
+    // // TODO: TBD: possibly for future use, but not right this moment...
+    // class KPLIB_hud_overlay_haloSitrep : KPLIB_hud_overlay_sitrep {
+    // };
 };

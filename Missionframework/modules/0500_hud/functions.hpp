@@ -23,14 +23,26 @@ class hud {
     // Setup player actions
     class hud_setupPlayerActions {};
 
-    // Checks the PLAYER HUD STATUS
+    // Checks the PLAYER HUD STATUS; prefers DISPATCH, but may specify either
     class hud_checkPlayerStatus {};
 
-    // Conditionally sets a HUD mask the PLAYER HUD STATUS
+    // Conditionally sets a HUD mask the PLAYER HUD STATUS; prefers DISPATCH, but may specify either
     class hud_setPlayerStatus {};
 
-    // Conditionally unsets a HUD mask the PLAYER HUD STATUS
+    // Conditionally unsets a HUD mask the PLAYER HUD STATUS; prefers DISPATCH, but may specify either
     class hud_unsetPlayerStatus {};
+
+    // Returns whether the elements are in range of each other; favors FOB elements by default
+    class hud_inRange {};
+
+    // Returns whether the SECTOR elements are in range of each other; designed specifically for SECTOR concerns
+    class hud_sectorInRange {};
+
+    // Refreshes the specified PLAYER TIMER; prefers DISPATCH, but may specify either
+    class hud_onRefreshPlayerTimer {};
+
+    // Returns whether the PLAYER TIMER has elapsed; prefers DISPATCH, but may specify either
+    class hud_hasPlayerTimerElapsed {};
 
     // SITREP overlay 'onLoad' event handler
     class hud_onSitrepLoad {};

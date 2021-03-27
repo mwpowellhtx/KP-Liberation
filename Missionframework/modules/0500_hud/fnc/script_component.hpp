@@ -22,3 +22,6 @@
 
 #define MSECTOR(rep) KPLIB_##MODULE##_sector##rep
 #define QMSECTOR(rep) Q(MSECTOR(rep))
+
+#define MOVERLAY(x) KPLIB_##MODULE##x
+#define QMOVERLAY(x) Q(MOVERLAY(x))

@@ -8,6 +8,7 @@ private _standby = MSTATUS(_standby);
 params [
     [Q(_target), _standby, [0, objNull]]
     , [Q(_mask), _standby, [0]]
+    , [Q(_variableName), KPLIB_hudDispatchSM_standbyStatus, [""]]
 ];
 
 private _onCheckRaw = {
@@ -25,7 +26,7 @@ private _onCheckPlayer = {
         [Q(_player), objNull, [objNull]]
         , [Q(_mask), _standby, [0]]
     ];
-    [_player getVariable [QMVAR(_status), _standby], _mask] call _onCheckRaw;
+    [_player getVariable [_variableName, _standby], _mask] call _onCheckRaw;
 };
 
 switch (true) do {

@@ -10,6 +10,7 @@ params [
     [Q(_target), _standby, [0, objNull]]
     , [Q(_mask), _standby, [0]]
     , [Q(_predicate), _always, [{}]]
+    , [Q(_variableName), KPLIB_hudDispatchSM_dispatchStatus, [""]]
 ];
 
 private _onSetStatusRaw = {
@@ -26,10 +27,10 @@ private _onSetStatusPlayer = {
         , [Q(_mask), _standby, [0]]
     ];
 
-    private _status = _player getVariable [QMVAR(_status), _standby];
+    private _status = _player getVariable [_variableName, _standby];
 
     [_player, [
-        [QMVAR(_status), ([_status, _mask] call _onSetStatusRaw)]
+        [_variableName, ([_status, _mask] call _onSetStatusRaw)]
     ]] call KPLIB_fnc_namespace_setVars;
 
     _player;
