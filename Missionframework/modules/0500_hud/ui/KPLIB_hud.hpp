@@ -159,7 +159,7 @@ class RscTitles {
 
         // Unfortunately cannot drop this on the base class and pickup a derived attribute
         onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_blank')]) spawn KPLIB_fnc_hud_onLoad";
-        onUnload = "(_this + ['KPLIB_hud_blank']) spawn KPLIB_fnc_hud_onUnload";
+        onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
     };
 
     // Separate key sitrep bits for use via a layered cutRsc approach
@@ -169,7 +169,7 @@ class RscTitles {
 
         // Unfortunately cannot drop this on the base class and pickup a derived attribute
         onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_overlay')]) spawn KPLIB_fnc_hud_onLoad";
-        onUnload = "(_this + ['KPLIB_hud_overlay']) spawn KPLIB_fnc_hud_onUnload";
+        onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
     };
 
     // class KPLIB_hud_overlay_fobSitrep : KPLIB_hud_overlay_sitrep {
