@@ -1,6 +1,9 @@
 
 // ...
 
+// TODO: TBD: a SM may be overkill for an always 1-element array: i.e. [player]
+// TODO: TBD: especially we need to sleep FPS resources back to the engine between waking up and redressing overlay
+
 // Always kick this back to STANDBY, awaiting next STATUS REPORT
 class KPLIB_hudSM_transit_toStandbyBase {
     targetState = "KPLIB_hudSM_state_standby";

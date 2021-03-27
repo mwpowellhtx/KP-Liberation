@@ -12,6 +12,6 @@ params [
     [Q(_player), objNull, [objNull]]
 ];
 
-[_player, MVAR(_overlayTimer), MPARAM(_overlayTimerPeriod)] call KPLIB_fnc_hud_onRefreshPlayerTimer;
+[_player, MVAR(_overlayTimer), MPARAM(_overlayPeriod)] call KPLIB_fnc_hud_onRefreshPlayerTimer;
 
 true;
