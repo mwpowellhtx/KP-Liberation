@@ -38,4 +38,7 @@ class hudSM {
 
     // Callback handles any transition to STANDBY
     class hudSM_onTransitToStandby {};
+
+    // Returns whether the DISPATCH REPORT changed, leaves OVERLAY REPORT ready to use
+    class hudSM_hasDispatchReportChanged {};
 };

@@ -34,7 +34,8 @@ class KPLIB_hudSM {
             targetState = "KPLIB_hudSM_state_overlay";
             condition = "!dialog \
                 && ([_this, KPLIB_hudSM_overlayTimer] call KPLIB_fnc_hud_hasPlayerTimerElapsed) \
-                && ([_this, KPLIB_hud_status_overlay, KPLIB_hudDispatchSM_dispatchStatus] call KPLIB_fnc_hud_checkPlayerStatus)";
+                && ([_this, KPLIB_hud_status_overlay, KPLIB_hudDispatchSM_dispatchStatus] call KPLIB_fnc_hud_checkPlayerStatus) \
+                && ([_this] call KPLIB_fnc_hudSM_hasDispatchReportChanged)";
             onTransition = "[_this, 'KPLIB_hudSM_transit_toOverlay::onTransition'] call KPLIB_fnc_hudSM_onNoOp";
         };
     };

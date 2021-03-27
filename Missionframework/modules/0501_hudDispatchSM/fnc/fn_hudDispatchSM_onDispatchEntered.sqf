@@ -39,11 +39,13 @@ private _standby = KPLIB_hud_status_standby;
     , Q(_dispatchReport)
 ];
 
-// When the REPORT has changed then relay to client
+// STATUS is too coarse a gauge, so we contrast the REPORT itself
 if (!(_standbyReport isEqualTo _dispatchReport)) then {
     // Set the REPORT first then the STATUS since the client SM will key on the STATUS
-    _player setVariable [MVAR(_dispatchReport), _standbyReport, _cid];
-    _player setVariable [MVAR(_dispatchStatus), _standbyStatus, _cid];
+    { _player setVariable _x; } forEach [
+        [MVAR(_dispatchReport), _standbyReport, _cid]
+        , [MVAR(_dispatchStatus), _standbyStatus, _cid]
+    ];
 };
 
 // // // TODO: TBD: leave this one alone between STANDBY iterations
