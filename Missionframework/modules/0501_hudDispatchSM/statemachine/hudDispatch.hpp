@@ -13,19 +13,21 @@ class KPLIB_hudDispatchSM {
 
         // When there is an update to report, then DISPATCH
         class KPLIB_hudDispatchSM_transit_toDispatch {
-            condition = "!([_this] call KPLIB_fnc_hud_checkPlayerStatus)";
-            onTransition = "[_this, 'KPLIB_hudDispatchSM_transit_toDispatch::onTransition'] call KPLIB_fnc_hudDispatchSM_onNoOp";
+            targetState = "KPLIB_hudDispatchSM_dispatch";
+            condition = "([_this] call KPLIB_fnc_hud_hasPlayerTimerElapsed) && !([_this] call KPLIB_fnc_hud_checkPlayerStatus)";
+            onTransition = "[_this] call KPLIB_fnc_hudDispatchSM_onCompileReport";
         };
     };
 
     class KPLIB_hudDispatchSM_dispatch {
-        onStateEntered = "[_this, 'KPLIB_hudDispatchSM_dispatch::onStateEntered'] call KPLIB_fnc_hudDispatchSM_onNoOp";
-        onState = "[_this] call KPLIB_fnc_hudDispatchSM_onDispatch";
+        onStateEntered = "[_this] call KPLIB_fnc_hudDispatchSM_onDispatchEntered";
+        onState = "[_this, 'KPLIB_hudDispatchSM_dispatch::onState'] call KPLIB_fnc_hudDispatchSM_onNoOp";
         onStateLeaving = "[_this, 'KPLIB_hudDispatchSM_dispatch::onStateLeaving'] call KPLIB_fnc_hudDispatchSM_onNoOp";
 
         class KPLIB_hudDispatchSM_transit_toStandby {
+            targetState = "KPLIB_hudDispatchSM_standby";
             condition = "[_this] call KPLIB_fnc_hud_checkPlayerStatus";
-            onTransition = "[_this, 'KPLIB_hudDispatchSM_transit_toStandby::onTransition'] call KPLIB_fnc_hudDispatchSM_onNoOp";
+            onTransition = "[_this] call KPLIB_fnc_hudDispatchSM_onDispatchTransitToStandby";
         };
     };
 };

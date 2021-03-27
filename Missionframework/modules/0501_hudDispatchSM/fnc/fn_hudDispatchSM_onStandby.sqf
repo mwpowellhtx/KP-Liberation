@@ -1,5 +1,7 @@
 #include "script_component.hpp"
 
+// Refresh the PLAYER DISPATCH TIMER and offer a hint of the STATUS only
+
 private _debug = [
     [
         {MPARAM(_onStandby_debug)}
@@ -13,72 +15,32 @@ params [
     [Q(_player), objNull, [objNull]]
 ];
 
-if (_debug) then {
-    [format ["[fn_hudDispatchSM_onStandby] Entering: [isNull _player]: %1"
-        , str [isNull _player]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
-};
-
-if (isNull _player) exitWith {
-    false;
-};
-
-// TODO: TBD: then it is a matter of connecting HUD report and status with the player
+// Sniff for status bits, we will use to inform what we expect for status report
 [
-    [_player] call MFUNC(_onReportFob)
-    , [_player] call MFUNC(_onReportSector)
-    , KPLIB_hud_status_standby
-    , []
+    { [_player, (_x#4)] call KPLIB_fnc_hud_inRange; } count KPLIB_sectors_fobs
+    , { [_player, _x] call KPLIB_fnc_hud_sectorInRange } count KPLIB_sectors_all
+    , KPLIB_hud_status_fob
+    , KPLIB_hud_status_sector
+    , MVAR(_standbyStatus)
 ] params [
-    Q(_fobReport)
-    , Q(_sectorReport)
-    , Q(_status)
-    , Q(_allReports)
+    Q(_fobCount)
+    , Q(_sectorCount)
+    , Q(_fob)
+    , Q(_sector)
+    , Q(_standbyStatus)
 ];
 
-if (_debug) then {
-    [format ["[fn_hudDispatchSM_onStandby] Compiling reports: [count _fobReport, count _sectorReport]: %1"
-        , str [count _fobReport, count _sectorReport]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
-};
+// Just SET or UNSET the STATUS bits that we might expect from a STATUS REPORT
+[_player, _fob, { _fobCount > 0; }, _standbyStatus] call KPLIB_fnc_hud_setPlayerStatus;
+[_player, _fob, { _fobCount == 0; }, _standbyStatus] call KPLIB_fnc_hud_unsetPlayerStatus;
 
-{
-    _x params [
-        [Q(_reportName), "", [""]]
-        , [Q(_report), [], [[]]]
-        , [Q(_reportStatus), KPLIB_hud_status_standby, [0]]
-        , [Q(_awayReportStatus), KPLIB_hud_status_standby, [0]]
-    ];
+[_player, _sector, { _sectorCount > 0; }, _standbyStatus] call KPLIB_fnc_hud_setPlayerStatus;
+[_player, _sector, { _sectorCount == 0; }, _standbyStatus] call KPLIB_fnc_hud_unsetPlayerStatus;
 
-    // When there is "no report" meaning "away report status
-    if (_report isEqualTo []) then {
-        _status = [_status, _awayReportStatus] call KPLIB_fnc_hud_setPlayerStatus;
-    } else {
-        _allReports append _report;
-        _status = [_status, _reportStatus] call KPLIB_fnc_hud_setPlayerStatus;
-    };
+/* Refresh the PLAYER DISPATCH TIMER with every STANDBY iteration. It is expected to keep on
+ * refreshing the timer until such time as there is a STATUS to REPORT, so that we DISPATCH
+ * to the client ASAP when there is anything to report. */
 
-} forEach [
-    [Q(_fobReport), _fobReport, KPLIB_hud_status_fob, KPLIB_hud_status_awayFob]
-    , [Q(_sectorReport), _sectorReport, KPLIB_hud_status_sector, KPLIB_hud_status_awaySector]
-];
-
-if (_debug) then {
-    [format ["[fn_hudDispatchSM_onStandby] Setting: [_status, count _allReports]: %1"
-        , str [_status, count _allReports]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
-};
-
-/* Remember:
- *      1. PLAYER is server side
- *      2. We also do not want to confuse public/shared variables across the wire
- * So we must stage with 'local' scope PLAYER variables for DISPATCH consideration
- */
-_player setVariable [QMVAR(_standbyStatus), _status];
-//                         ^^^^^^^^^^^^^^
-_player setVariable [QMVAR(_standbyReport), _allReports];
-//                         ^^^^^^^^^^^^^^
-
-if (_debug) then {
-    [format ["[fn_hudDispatchSM_onStandby] Fini: [_status, _allReports]: %1"
-        , str [_status, _allReports]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
-};
+[_player] call KPLIB_fnc_hud_onRefreshPlayerTimer;
 
 true;

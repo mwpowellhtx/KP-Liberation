@@ -38,7 +38,7 @@ class hudDispatchSM {
     // STANDBY 'onState' event handler, briefs PLAYER with next REPORT and STATUS
     class hudDispatchSM_onStandby {};
 
-    //
+    // Dispatches the STANDBY REPORT to the target PLAYER when there is something different to report
     class hudDispatchSM_onDispatch {};
 
     // Returns the ASSETS in RANGE of the FOBs that SHOULD be COUNTED
@@ -53,9 +53,39 @@ class hudDispatchSM {
     // Returns UNITS within RANGE of POSITION aligned to a given SIDE
     class hudDispatchSM_getSectorUnits {};
 
-    // Compiles a player specific FOB report for dispatch
-    class hudDispatchSM_onReportFob {};
+    // Compiles a FOB REPORT targeting ASSET counts [SCALARs]
+    class hudDispatchSM_onReportFob_assets {};
 
-    // Compiles a player specific SECTOR report for dispatch
-    class hudDispatchSM_onReportSector {};
+    // Compiles a FOB REPORT targeting ENEMY ratings [SCALARs]
+    class hudDispatchSM_onReportFob_enemy {};
+
+    // Compiles a FOB REPORT targeting INTEL [SCALAR]
+    class hudDispatchSM_onReportFob_intel {};
+
+    // Compiles a FOB REPORT targeting MARKER TEXT [STRING]
+    class hudDispatchSM_onReportFob_markerText {};
+
+    // Compiles a FOB REPORT targeting RESOURCE counts [SCALARs]
+    class hudDispatchSM_onReportFob_resources {};
+
+    // Compiles a FOB REPORT targeting non player UNIT count [SCALAR]
+    class hudDispatchSM_onReportFob_units {};
+
+    // Compiles a SECTOR REPORT targeting whether sector is CAPTURED [BOOL]
+    class hudDispatchSM_onReportSector_captured {};
+
+    // Compiles a SECTOR REPORT targeting whether sector is ENGAGED [BOOL]
+    class hudDispatchSM_onReportSector_engaged {};
+
+    // Compiles a SECTOR REPORT targeting GRIDREF [STRING]
+    class hudDispatchSM_onReportSector_gridref {};
+
+    // Compiles a SECTOR REPORT targeting MARKER TEXT [STRING]
+    class hudDispatchSM_onReportSector_markerText {};
+
+    // Compiles a SECTOR REPORT targeting whether marker is TOWER [BOOL]
+    class hudDispatchSM_onReportSector_tower {};
+
+    // Compiles a SECTOR REPORT targeting UNIT counts [SCALARs]
+    class hudDispatchSM_onReportSector_units {};
 };
