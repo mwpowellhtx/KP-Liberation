@@ -10,6 +10,7 @@ params [
 
 // TODO: TBD: in the event we need to register anything, in the uiNamespace, etc...
 
+// Lift the CLASS NAME back from the DISPLAY instance itself
 _display setVariable [QMVAR(_className), (configName _config)];
 private _className = _display getVariable [QMVAR(_className), ""];
 
