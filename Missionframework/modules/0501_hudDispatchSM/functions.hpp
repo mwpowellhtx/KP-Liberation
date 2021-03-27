@@ -39,7 +39,7 @@ class hudDispatchSM {
     class hudDispatchSM_onStandby {};
 
     // Dispatches the STANDBY REPORT to the target PLAYER when there is something different to report
-    class hudDispatchSM_onDispatch {};
+    class hudDispatchSM_onDispatchEntered {};
 
     // Returns the ASSETS in RANGE of the FOBs that SHOULD be COUNTED
     class hudDispatchSM_getFobAssets {};

@@ -43,9 +43,9 @@ if (!(_markerName isEqualTo "")) then {
 
     _report append [
         [QMVAR(_sectorReport_bluforUnitsCount), count _bluforUnits]
-        [QMVAR(_sectorReport_opforUnitsCount), count _opforUnits]
-        [QMVAR(_sectorReport_civilianUnitsCount), count _civilianUnits]
-        [QMVAR(_sectorReport_resistanceUnitsCount), count _resistanceUnits]
+        , [QMVAR(_sectorReport_opforUnitsCount), count _opforUnits]
+        , [QMVAR(_sectorReport_civilianUnitsCount), count _civilianUnits]
+        , [QMVAR(_sectorReport_resistanceUnitsCount), count _resistanceUnits]
     ];
 };
 
