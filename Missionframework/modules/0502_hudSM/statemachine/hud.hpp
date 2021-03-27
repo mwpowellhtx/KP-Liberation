@@ -8,7 +8,7 @@
 class KPLIB_hudSM_transit_toStandbyBase {
     targetState = "KPLIB_hudSM_state_standby";
     condition = "true";
-    onTransition = "[_this] call KPLIB_fnc_hudSM_onTransitToStandby";
+    onTransition = "[_this, 'KPLIB_hudSM_transit_toStandbyBase::onTransition'] call KPLIB_fnc_hudSM_onNoOp";
 };
 
 // Handles client side HUD related resource, object, or title aspects
@@ -17,7 +17,7 @@ class KPLIB_hudSM {
     skipNull = 1;
 
     class KPLIB_hudSM_state_standby {
-        onStateEntered = "[_this, 'KPLIB_hudSM_state_standby::onStateEntered'] call KPLIB_fnc_hudSM_onNoOp";
+        onStateEntered = "[_this] call KPLIB_fnc_hudSM_onStandbyEntered";
         onState = "[_this] call KPLIB_fnc_hudSM_onStandby";
         onStateLeaving = "[_this, 'KPLIB_hudSM_state_standby::onStateLeaving'] call KPLIB_fnc_hudSM_onNoOp";
 
@@ -30,6 +30,7 @@ class KPLIB_hudSM {
             onTransition = "[_this, 'KPLIB_hudSM_transit_toBlank::onTransition'] call KPLIB_fnc_hudSM_onNoOp";
         };
 
+        // Many CONDITION(s) here, but we only want to OVERLAY when there is something to overlay
         class KPLIB_hudSM_transit_toOverlay {
             targetState = "KPLIB_hudSM_state_overlay";
             condition = "!dialog \

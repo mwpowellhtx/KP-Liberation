@@ -4,7 +4,7 @@
 
 private _debug = [
     [
-        {MPARAM(_onTransitToStandby_debug)}
+        {MPARAM(_onStandbyEntered_debug)}
     ]
 ] call MFUNC(_debug);
 
@@ -13,8 +13,11 @@ params [
 ];
 
 // Clear out the OVERLAY TIMER anticipating the next refresh cycle
-_player setVariable [MVAR(_overlayTimer), nil];
+{ _player setVariable _x; } forEach [
+    [QMVAR(_overlayTimer), nil]
+    , [QMVAR(_overlayChanged), nil]
+];
 
-systemChat "[fn_hudSM_onTransitToStandby] Fini";
+systemChat "[fn_hudSM_onStandbyEntered] Fini";
 
 true;
