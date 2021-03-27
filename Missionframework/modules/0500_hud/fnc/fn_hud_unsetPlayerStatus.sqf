@@ -2,14 +2,19 @@
 
 // ...
 
-private _always = { true; };
-private _standby = MSTATUS(_standby)
+[
+    MSTATUS(_standby)
+    , { true; }
+] params [
+    Q(_standby)
+    , Q(_always)
+];
 
 params [
     [Q(_target), _standby, [0, objNull]]
     , [Q(_mask), _standby, [0]]
     , [Q(_predicate), _always, [{}]]
-    , [Q(_variableName), KPLIB_hudDispatchSM_dispatchStatus, [""]]
+    , [Q(_variableName), KPLIB_hudDispatchSM_standbyStatus, [""]]
 ];
 
 private _onUnsetStatusRaw = {
