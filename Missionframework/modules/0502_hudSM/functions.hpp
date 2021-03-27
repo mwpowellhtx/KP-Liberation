@@ -26,4 +26,16 @@ class hudSM {
 
     // Performs a no-op for use when tracing and troubleshooting the HUD statemachine
     class hudSM_onNoOp {};
+
+    // Awaits the next REFRESH cycle, a DIALOG to have opened, etc
+    class hudSM_onStandby {};
+
+    // Responds when the OVERLAY is expected to clear
+    class hudSM_onBlankEntered {};
+
+    // Responds when the OVERLAY is in a state that should present HUD elements
+    class hudSM_onOverlayEntered {};
+
+    // Callback handles any transition to STANDBY
+    class hudSM_onTransitToStandby {};
 };

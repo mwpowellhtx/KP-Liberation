@@ -4,7 +4,7 @@
 // https://cbateam.github.io/CBA_A3/docs/files/events/fnc_addEventHandler-sqf.html
 
 if (hasInterface) then {
-    // TODO: TBD: add logging
+    ["[fn_hudSM_onPreInit] Initializing...", "POST] [HUDSM", true] call KPLIB_fnc_common_log;
 };
 
 if (hasInterface) then {
@@ -18,7 +18,7 @@ if (hasInterface) then {
 };
 
 if (hasInterface) then {
-    // TODO: TBD: add logging
+    ["[fn_hudSM_onPreInit] Initialized", "POST] [HUDSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

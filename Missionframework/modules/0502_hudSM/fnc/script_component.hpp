@@ -17,3 +17,6 @@
 
 #define MSTATUS(var) KPLIB_##MODULE##_status##var
 #define QMSTATUS(var) Q(MSTATUS(var))
+
+#define MLAYER(x) KPLIB_##MODULE##_layer##x
+#define QMLAYER(x) Q(MLAYER(x))
