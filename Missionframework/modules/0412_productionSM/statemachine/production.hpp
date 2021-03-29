@@ -57,7 +57,7 @@ class KPLIB_productionSM {
 
         class KPLIB_productionSM_transit_standbyOrPending
             : KPLIB_productionSM_transit_standbyOrPending_template {
-            onTransition = "[_this] call KPLIB_fnc_productionSM_onStandbyOrPendingTransit"
+            onTransition = "[_this] call KPLIB_fnc_productionSM_onStandbyOrPendingTransit";
         };
     };
 };
