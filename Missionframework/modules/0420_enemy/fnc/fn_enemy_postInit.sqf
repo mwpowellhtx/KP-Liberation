@@ -3,8 +3,9 @@
 
     File: fn_enemy_postInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-02-02
-    Last Update: 2019-04-23
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-02-02
+    Last Update: 2021-03-28 10:15:35
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,29 +17,30 @@
         NONE
 
     Returns:
-        Module postInit finished [BOOL]
-*/
+        The event handler has finished [BOOL]
+ */
 
-if (isServer) then {["Module initializing...", "POST] [ENEMY", true] call KPLIB_fnc_common_log;};
-
-// Server section (dedicated and player hosted)
 if (isServer) then {
+    ["[fn_enemy_postInit] Initializing...", "POST] [ENEMY", true] call KPLIB_fnc_common_log;
+};
+
+if (isServer) then {
+    // Server section (dedicated and player hosted)
 
     // Start strength increase events
     [] call KPLIB_fnc_enemy_strengthInc;
-
 };
 
-// HC section
-if (!hasInterface && !isDedicated) then {
-
+if (!(hasInterface || isDedicated)) then {
+    // HC section
 };
 
-// Player section
 if (hasInterface) then {
-
+    // Player section
 };
 
-if (isServer) then {["Module initialized", "POST] [ENEMY", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["[fn_enemy_postInit] Initialized", "POST] [ENEMY", true] call KPLIB_fnc_common_log;
+};
 
-true
+true;

@@ -531,8 +531,8 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"(diag_tickTime - _time) >= 1" \n
                                          "&&" \n
                                          "{" \n
-                                         "    (KPLIB_enemy_awareness < 20)" \n
-                                         "    || (KPLIB_enemy_strength < 200)" \n
+                                         "    (KPLIB_enemy_awareness <= ([KPLIB_preset_enemy_awareness, KPLIB_preset_enemy_reinforce, KPLIB_preset_enemy_defend, KPLIB_preset_enemy_lessOrEqual] call KPLIB_fnc_enemy_getThreshold))" \n
+                                         "    || (KPLIB_enemy_strength <= ([KPLIB_preset_enemy_strength, KPLIB_preset_enemy_reinforce, KPLIB_preset_enemy_defend, KPLIB_preset_enemy_lessOrEqual] call KPLIB_fnc_enemy_getThreshold))" \n
                                          "}"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (KPLIB_param_enemyDebug) then {[""Switched from reinforcing to defending"", ""ENEMY FSM""] call KPLIB_fnc_common_log;};" \n
                                          "_time = diag_tickTime;"/*%FSM</ACTION""">*/;
@@ -548,8 +548,8 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"(diag_tickTime - _time) >= 1" \n
                                          "&&" \n
                                          "{" \n
-                                         "    (KPLIB_enemy_awareness > 50)" \n
-                                         "    && (KPLIB_enemy_strength > 500)" \n
+                                         "    (KPLIB_enemy_awareness >= ([KPLIB_preset_enemy_awareness, KPLIB_preset_enemy_reinforce, KPLIB_preset_enemy_skirmish] call KPLIB_fnc_enemy_getThreshold))" \n
+                                         "    && (KPLIB_enemy_strength >= ([KPLIB_preset_enemy_strength, KPLIB_preset_enemy_reinforce, KPLIB_preset_enemy_skirmish] call KPLIB_fnc_enemy_getThreshold))" \n
                                          "}"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (KPLIB_param_enemyDebug) then {[""Switched from reinforcing to skirmishing"", ""ENEMY FSM""] call KPLIB_fnc_common_log;};" \n
                                          "_time = diag_tickTime;"/*%FSM</ACTION""">*/;
@@ -666,7 +666,7 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"(diag_tickTime - _time) >= 1" \n
                                          "&&" \n
                                          "{" \n
-                                         "    (KPLIB_enemy_awareness < 65)" \n
+                                         "    (KPLIB_enemy_awareness <= ([KPLIB_preset_enemy_awareness, KPLIB_preset_enemy_counterattack, KPLIB_preset_enemy_skirmish, KPLIB_preset_enemy_lessOrEqual] call KPLIB_fnc_enemy_getThreshold))" \n
                                          "}"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (KPLIB_param_enemyDebug) then {[""Switched from counterattacking to skirmishing"", ""ENEMY FSM""] call KPLIB_fnc_common_log;};" \n
                                          "_time = diag_tickTime;"/*%FSM</ACTION""">*/;
@@ -794,8 +794,8 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"(diag_tickTime - _time) >= 1" \n
                                          "&&" \n
                                          "{" \n
-                                         "    (KPLIB_enemy_awareness > 35)" \n
-                                         "    && (KPLIB_enemy_strength > 350)" \n
+                                         "    (KPLIB_enemy_awareness >= ([KPLIB_preset_enemy_awareness, KPLIB_preset_enemy_defend, KPLIB_preset_enemy_reinforce] call KPLIB_fnc_enemy_getThreshold))" \n
+                                         "    && (KPLIB_enemy_strength >= ([KPLIB_preset_enemy_strength, KPLIB_preset_enemy_defend, KPLIB_preset_enemy_reinforce] call KPLIB_fnc_enemy_getThreshold))" \n
                                          "}"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (KPLIB_param_enemyDebug) then {[""Switched from defending to reinforcing"", ""ENEMY FSM""] call KPLIB_fnc_common_log;};" \n
                                          "_time = diag_tickTime;"/*%FSM</ACTION""">*/;
@@ -901,7 +901,7 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"(diag_tickTime - _time) >= 1" \n
                                          "&&" \n
                                          "{" \n
-                                         "    (KPLIB_enemy_awareness < 40)" \n
+                                         "    (KPLIB_enemy_awareness <= ([KPLIB_preset_enemy_awareness, KPLIB_preset_enemy_skirmish, KPLIB_preset_enemy_reinforce, KPLIB_preset_enemy_lessOrEqual] call KPLIB_fnc_enemy_getThreshold))" \n
                                          "}"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (KPLIB_param_enemyDebug) then {[""Switched from skirmishing to reinforcing"", ""ENEMY FSM""] call KPLIB_fnc_common_log;};" \n
                                          "_time = diag_tickTime;"/*%FSM</ACTION""">*/;
@@ -917,8 +917,8 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"(diag_tickTime - _time) >= 1" \n
                                          "&&" \n
                                          "{" \n
-                                         "    (KPLIB_enemy_awareness > 75)" \n
-                                         "    && (KPLIB_enemy_strength > 750)" \n
+                                         "    (KPLIB_enemy_awareness >= ([KPLIB_preset_enemy_awareness, KPLIB_preset_enemy_skirmish, KPLIB_preset_enemy_counterattack] call KPLIB_fnc_enemy_getThreshold))" \n
+                                         "    && (KPLIB_enemy_strength >= ([KPLIB_preset_enemy_strength, KPLIB_preset_enemy_skirmish, KPLIB_preset_enemy_counterattack] call KPLIB_fnc_enemy_getThreshold))" \n
                                          "}"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (KPLIB_param_enemyDebug) then {[""Switched from skirmishing to counterattacking"", ""ENEMY FSM""] call KPLIB_fnc_common_log;};" \n
                                          "_time = diag_tickTime;"/*%FSM</ACTION""">*/;

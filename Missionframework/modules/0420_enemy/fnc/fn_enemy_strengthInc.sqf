@@ -9,30 +9,35 @@
     Public: No
 
     Description:
-        CBA loop to increase the enemy strength in given interval depending on the remaining military bases.
+        CBA loop to increase the enemy strength in given interval depending
+        on the remaining military bases.
 
     Parameter(s):
         NONE
 
     Returns:
-        Function reached the end [BOOL]
-*/
+        The function has finished [BOOL]
 
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/common/fnc_waitAndExecute-sqf.html
+ */
+
+// TODO: TBD: this may or may not be necessary depending on the timing of the invocation during post init
+waitUntil {
+    KPLIB_campaignRunning;
+};
+
+// TODO: TBD: consider, is this the best formula? is there a better formula?
 // Increase strength by remaining enemy military bases
-private _increase = (count (KPLIB_sectors_military - KPLIB_sectors_blufor)) * 10;
-[_increase] call KPLIB_fnc_enemy_addStrength;
+[
+    (count (KPLIB_sectors_military - KPLIB_sectors_blufor)) * 10
+] call KPLIB_fnc_enemy_addStrength;
 
-// Enforce cap for strength
-if (KPLIB_enemy_strength > 1000) then {
-    KPLIB_enemy_strength = 1000;
-    if (KPLIB_param_enemyDebug) then {["Strength reached cap of 1000", "ENEMY"] call KPLIB_fnc_common_log;};
-} else {
-    if (KPLIB_param_enemyDebug) then {[format ["Strength increased from %1 to %2", KPLIB_enemy_strength - _increase, KPLIB_enemy_strength], "ENEMY"] call KPLIB_fnc_common_log;};
-};
+// (Re-)schedule the next call, by definition if we are here then CAMP RUNNING
+[
+    { [] call KPLIB_fnc_enemy_strengthInc; }
+    , []
+    , KPLIB_param_enemy_strengthDeltaPeriod
+] call CBA_fnc_waitAndExecute;
 
-// Schedule the next call
-if (KPLIB_campaignRunning) then {
-    [{[] call KPLIB_fnc_enemy_strengthInc;}, [], 1800] call CBA_fnc_waitAndExecute;
-};
-
-true
+true;
