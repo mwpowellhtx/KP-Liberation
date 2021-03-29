@@ -18,7 +18,53 @@
         https://community.bistudio.com/wiki/cutRsc
         https://community.bistudio.com/wiki/Description.ext
         https://community.bistudio.com/wiki/Arma:_GUI_Configuration
+        https://community.bistudio.com/wiki/CT_CONTROLS_GROUP
+
+    References:
+        https://community.bistudio.com/wiki/Arma:_GUI_Configuration
  */
+
+// TODO: TBD: these are really off the cuff...
+// TODO: TBD: might be better if we took a little time to lay it out in spreadsheet story board
+// TODO: TBD: they do not need to be exactly the same width...
+// TODO: TBD: in fact, the sector group should perhaps be wider...
+#define KPLIB_HUD_GRPFOB_W                  ((0.75 * KPX_DEFAULT_SIDEBAR_W) - (2 * KPX_SPACING_W))
+#define KPLIB_HUD_GRPFOB_X                  (KPX_DEFAULT_SIDEBAR_XR + KPX_SPACING_W + (KPX_DEFAULT_SIDEBAR_W - KPLIB_HUD_GRPFOB_W))
+#define KPLIB_HUD_GRPFOB_H                  (KPX_DEFAULT_SIDEBAR_H - (2 * KPX_SPACING_H))
+#define KPLIB_HUD_GRPFOB_Y                  KPX_DEFAULT_SIDEBAR_YB0
+
+// TODO: TBD: starting with this for height
+#define KPLIB_HUD_GRP_TITLE_H               KPX_BUTTON_L_H
+
+#define KPLIB_HUD_GRPFOB_LBLPICTURE_X       KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,12,16,KPX_SPACING_W)
+#define KPLIB_HUD_GRPFOB_LBLPICTURE_W       KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,4,16,KPX_SPACING_W)
+
+// Leaving enough geometry for the PICTURE
+#define KPLIB_HUD_GRPFOB_LBLTEXT_W          KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,11,16,KPX_SPACING_W)
+
+// Remember, as long as this is in a "group" then the coords are relative
+#define KPLIB_HUD_TEST_W            (0.5 * (KPLIB_HUD_GRPFOB_W - KPX_SPACING_W))
+#define KPLIB_HUD_TEST_X0           ((0.5 * KPLIB_HUD_TEST_W) + KPX_SPACING_W)
+
+
+#define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W     KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,4,16,KPX_SPACING_W)
+#define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_H     KPX_GETH_VHGS(KPLIB_HUD_GRPFOB_H,4,16,KPX_SPACING_H)
+#define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_X     (KPLIB_HUD_GRPFOB_X + KPLIB_HUD_GRPFOB_W - KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W)
+
+#define KPLIB_HUD_GRPFOB_LBLMARKERTEXT_H        KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_H
+#define KPLIB_HUD_GRPFOB_LBLMARKERTEXT_W        (KPLIB_HUD_GRPFOB_W - KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W - KPX_SPACING_W)
+
+
+#define KPLIB_HUD_GRPSECTOR_W               KPX_DEFAULT_SIDEBAR_W
+#define KPLIB_HUD_GRPSECTOR_X               KPX_DEFAULT_SIDEBAR_XR
+#define KPLIB_HUD_GRPSECTOR_H               KPX_DEFAULT_SIDEBAR_H
+#define KPLIB_HUD_GRPSECTOR_Y               KPX_DEFAULT_SIDEBAR_YB1
+
+// // TODO: TBD: using these as a basis, reference
+// KPX_DEFAULT_SIDEBAR_YB0
+// KPX_DEFAULT_SIDEBAR_YB1
+// KPX_DEFAULT_SIDEBAR_W
+// KPX_DEFAULT_SIDEBAR_H
 
 // TODO: TBD: should consider refactoring the RscTitles themselves...
 // TODO: TBD: along similar lines as with the functions, statemachine, etc...
@@ -30,7 +76,7 @@ class RscTitles {
     // class Intro1 {
     //     name = "Intro1";
     //     duration = 4;
-    //     idd = KPLIB_HUD_IDD_UNDEFINED;
+    //     idd = KPLIB_IDD_UNDEFINED;
     //     movingEnable = false;
     //     controls[]=
     //    {
@@ -38,30 +84,30 @@ class RscTitles {
     //     };
 
     //     class GenericLabel2 {
-    //         idc = KPLIB_HUD_IDC_UNDEFINED;
+    //         idc = KPLIB_IDC_UNDEFINED;
     //         type =  CT_STATIC;
     //         style = ST_CENTER;
     //         colorText[] = COLOR_WHITE;
     //         colorBackground[] = COLOR_NOALPHA;
-    //         font = FontM;
+    //         font = KPX_HUD_FONT_M;
     //         sizeEx = 0.035 * safezoneH;
     //         x = 0.3 * safezoneW + safezoneX;
     //         w = 0.4 * safezoneW;
     //         y = 0.65 * safezoneH + safezoneY;
     //         h = 0.1 * safezoneH;
     //         text = KPLIB_UIMANAGER_LBL_TEXT;
-    //         shadow = 1;
+    //         shadow = SH_NO_SHADOW;
     //     };
 
     //     class GenericLabelShadow : GenericLabel2 {
-    //         shadow = 2;
+    //         shadow = SH_STROKE;
     //     };
     // };
 
     // class Intro2 {
     //     name = "Intro2";
     //     duration = 7;
-    //     idd = KPLIB_HUD_IDD_UNDEFINED;
+    //     idd = KPLIB_IDD_UNDEFINED;
     //     movingEnable = false;
     //     controls[] =
     //    {
@@ -69,12 +115,12 @@ class RscTitles {
     //     };
 
     //     class Splash {
-    //         idc = KPLIB_HUD_IDC_UNDEFINED;
+    //         idc = KPLIB_IDC_UNDEFINED;
     //         type =  CT_STATIC ;
     //         style = ST_PICTURE;
     //         colorText[] = COLOR_WHITE;
     //         colorBackground[] = COLOR_NOALPHA;
-    //         font = FontM;
+    //         font = KPX_HUD_FONT_M;
     //         sizeEx = 0.1 * safezoneH;
     //         x = 0.325 * safezoneW + safezoneX;
     //         w = 0.35 * safezoneW;
@@ -84,13 +130,13 @@ class RscTitles {
     //     };
 
     //     class VersionLabel {
-    //         idc = KPLIB_HUD_IDD_UNDEFINED;
+    //         idc = KPLIB_IDC_UNDEFINED;
     //         type =  CT_STATIC;
     //         style = ST_CENTER;
-    //         shadow = 1;
+    //         shadow = SH_NO_SHADOW;
     //         colorText[] = COLOR_WHITE;
     //         colorBackground[] = COLOR_NOALPHA;
-    //         font = FontM;
+    //         font = KPX_HUD_FONT_M;
     //         sizeEx = 0.035 * safezoneH;
     //         x = 0.45 * safezoneW + safezoneX;
     //         w = 0.3 * safezoneW;
@@ -100,8 +146,8 @@ class RscTitles {
     //     };
 
     //     class VersionLabelShadow : VersionLabel {
-    //         shadow = 2;
-    //         font = FontM;
+    //         shadow = SH_STROKE;
+    //         font = KPX_HUD_FONT_M;
     //     };
     // };
 
@@ -122,7 +168,7 @@ class RscTitles {
     //         style = ST_LEFT;
     //         colorText[] = COLOR_BLACK;
     //         colorBackground[] = COLOR_BLACK;
-    //         font = FontM;
+    //         font = KPX_HUD_FONT_M;
     //         sizeEx = 0.023;
     //         x = -3; y = -3;
     //         w = 9;  h = 9;
@@ -135,7 +181,7 @@ class RscTitles {
     //         style = ST_CENTER;
     //         colorText[] = COLOR_WHITE;
     //         colorBackground[] = COLOR_NOALPHA;
-    //         font = FontM;
+    //         font = KPX_HUD_FONT_M;
     //         sizeEx = 0.03;
     //         x = 0; y = 0.75;
     //         w = 1.0;  h = 0.1;
@@ -144,7 +190,7 @@ class RscTitles {
     // };
 
     class KPLIB_hud {
-        idd = KPLIB_HUD_IDD_UNDEFINED;
+        idd = KPLIB_IDD_UNDEFINED;
         // Duration of fade in/out effects when opening/closing in seconds
         fadeIn = 0;
         fadeOut = 0;
@@ -159,7 +205,7 @@ class RscTitles {
 
         // Unfortunately cannot drop this on the base class and pickup a derived attribute
         onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_blank')]) spawn KPLIB_fnc_hud_onLoad";
-        onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
+        // onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
     };
 
     // Separate key sitrep bits for use via a layered cutRsc approach
@@ -169,7 +215,112 @@ class RscTitles {
 
         // Unfortunately cannot drop this on the base class and pickup a derived attribute
         onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_overlay')]) spawn KPLIB_fnc_hud_onLoad";
-        onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
+        // onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
+
+        controls[] = {
+            KPLIB_hud_grpSector
+            , KPLIB_hud_grpFob
+        };
+
+        class KPLIB_hud_grpCtrlsGroupBase {
+            idc = KPLIB_IDC_UNDEFINED;
+            type = CT_CONTROLS_GROUP;
+            style = ST_MULTI;
+            x = 0;
+            y = 0;
+            w = 0;
+            h = 0;
+            colorBackground[] = {0, 0, 0, 0.15};
+            // TODO: TBD: scroll bars are not really appropriate for this use, but they come with the territory
+            // TODO: TBD: can they be disabled at all? or hidden?
+            class VScrollbar : XGUI_PRE_ScrollBar {
+                // color[] = {1, 1, 1, 1};
+                // width = 0.021;
+                // autoScrollEnabled = 1;
+            };
+            class HScrollbar : XGUI_PRE_ScrollBar {
+                // color[] = {1, 1, 1, 1};
+                // height = 0.028;
+            };
+            lineHeight = 0;
+            controls[] = {};
+            // // TODO: TBD: what to do with scrollbars... really want to lay it out in such a way as to disable it
+            //class HScrollbar {};
+            //class VScrollbar {};
+            onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        };
+
+        class KPLIB_hud_lblTextBase : XGUI_PRE_Label {
+            type = CT_STATIC;
+            h = KPLIB_HUD_TEST_H;
+            style = ST_RIGHT + ST_SHADOW;
+            colorBackground[] = COLOR_NOALPHA;
+            font = KPX_HUD_FONT_M;
+            sizeEx = KPX_TITLE_L_H;
+            shadow = SH_STROKE;
+            onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+            // Report which HASHMAP keys are required for the 'text' and 'colorText' attributes
+            hashMapKey = "";
+            hashMapColorKey = "";
+        };
+
+        class KPLIB_hud_lblPictureBase : XGUI_PRE_PictureRatio {
+            h = KPLIB_HUD_TEST_H;
+            onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+            hashMapKey = "";
+            hashMapColorKey = "";
+        };
+
+        class KPLIB_hud_grpSector : KPLIB_hud_grpCtrlsGroupBase {
+            idc = KPLIB_IDC_HUD_GRPSECTOR;
+            x = KPLIB_HUD_GRPSECTOR_X;
+            y = KPLIB_HUD_GRPSECTOR_Y;
+            w = KPLIB_HUD_GRPSECTOR_W;
+            h = KPLIB_HUD_GRPSECTOR_H;
+
+            class controls {
+
+                // TODO: TBD: not counting sector image geometries, for the moment...
+                class KPLIB_hud_grpSector_lblMarkerText : KPLIB_hud_lblTextBase {
+                    idc = KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT;
+                    h = KPLIB_HUD_GRP_TITLE_H;
+                    hashMapKey = "KPLIB_hudDispatchSM_sectorReport_markerText";
+                    onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+                };
+            };
+        };
+
+        class KPLIB_hud_grpFob : KPLIB_hud_grpCtrlsGroupBase {
+            idc = KPLIB_IDC_HUD_GRPFOB;
+            x = KPLIB_HUD_GRPFOB_X;
+            y = KPLIB_HUD_GRPFOB_Y;
+            w = KPLIB_HUD_GRPFOB_W;
+            h = KPLIB_HUD_GRPFOB_H;
+
+            class controls {
+
+                // TODO: TBD: not counting FOB images, for the moment...
+                class KPLIB_hud_grpFob_lblMarkerText : KPLIB_hud_lblTextBase {
+                    idc = KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT;
+                    w = KPLIB_HUD_GRPFOB_LBLTEXT_W;
+                    h = KPLIB_HUD_GRP_TITLE_H;
+                    hashMapKey = "KPLIB_hudDispatchSM_fobReport_markerText";
+                    hashMapColorKey = "KPLIB_hudDispatchSM_fobReport_markerColor";
+                    //onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+                };
+
+                // With alignment on the RHS of the label: i.e. [ ---- MARKER TEXT [IMG] ]
+                class KPLIB_hud_grpFob_lblMarkerPicture : KPLIB_hud_lblPictureBase {
+                    idc = KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE;
+                    x = KPLIB_HUD_GRPFOB_LBLPICTURE_X;
+                    w = KPLIB_HUD_GRPFOB_LBLPICTURE_W;
+                    h = KPLIB_HUD_GRP_TITLE_H;
+                    hashMapKey = "KPLIB_hudDispatchSM_fobReport_markerPath";
+                    hashMapColorKey = "KPLIB_hudDispatchSM_fobReport_markerColor";
+                    //onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+                };
+            };
+        };
     };
 
     // class KPLIB_hud_overlay_fobSitrep : KPLIB_hud_overlay_sitrep {
