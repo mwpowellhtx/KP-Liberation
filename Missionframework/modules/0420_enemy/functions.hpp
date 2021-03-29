@@ -70,4 +70,7 @@ class enemy {
 
     // Transfer given troops from one sector to another
     class enemy_transferGarrison {};
+
+    // Returns the enemy THRESHOLD, adaptive depending on AWARENESS, STRENGTH, etc
+    class enemy_getThreshold {};
 };
