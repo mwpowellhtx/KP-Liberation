@@ -68,39 +68,48 @@ class hudDispatchSM {
     // Returns UNITS within RANGE of POSITION aligned to a given SIDE
     class hudDispatchSM_getSectorUnits {};
 
-    // Compiles a FOB REPORT targeting ASSET counts [SCALARs]
+    // Renders the SCALAR in a flexible manner
+    class hudDispatchSM_renderScalar {};
+
+    // Scans [CONDITION, COLOR] tuple array for the first CONDITION and returns its COLOR, default is BLACK
+    class hudDispatchSM_getThresholdColor {};
+
+    // Compiles a FOB REPORT targeting ASSET counts
     class hudDispatchSM_onReportFob_assets {};
 
-    // Compiles a FOB REPORT targeting ENEMY ratings [SCALARs]
+    // Compiles a FOB REPORT targeting enemy AWARENESS and STRENGTH ratings, includes rendered PERCENTAGE and COLOR
     class hudDispatchSM_onReportFob_enemy {};
 
-    // Compiles a FOB REPORT targeting INTEL [SCALAR]
+    // Compiles a FOB REPORT targeting CIVILIAN REPUTATION, includes COLOR
+    class hudDispatchSM_onReportFob_civRep {};
+
+    // Compiles a FOB REPORT targeting INTEL, includes COLOR
     class hudDispatchSM_onReportFob_intel {};
 
-    // Compiles a FOB REPORT targeting MARKER TEXT [STRING]
+    // Compiles a FOB REPORT targeting MARKER TEXT
     class hudDispatchSM_onReportFob_markerText {};
 
-    // Compiles a FOB REPORT targeting RESOURCE counts [SCALARs]
+    // Compiles a FOB REPORT targeting RESOURCE counts
     class hudDispatchSM_onReportFob_resources {};
 
-    // Compiles a FOB REPORT targeting non player UNIT count [SCALAR]
+    // Compiles a FOB REPORT targeting non player UNIT count
     class hudDispatchSM_onReportFob_units {};
 
-    // Compiles a SECTOR REPORT targeting whether sector is CAPTURED [BOOL]
+    // Compiles a SECTOR REPORT targeting whether sector is CAPTURED
     class hudDispatchSM_onReportSector_captured {};
 
-    // Compiles a SECTOR REPORT targeting whether sector is ENGAGED [BOOL]
+    // Compiles a SECTOR REPORT targeting whether sector is ENGAGED
     class hudDispatchSM_onReportSector_engaged {};
 
-    // Compiles a SECTOR REPORT targeting GRIDREF [STRING]
+    // Compiles a SECTOR REPORT targeting GRIDREF
     class hudDispatchSM_onReportSector_gridref {};
 
-    // Compiles a SECTOR REPORT targeting MARKER TEXT [STRING]
+    // Compiles a SECTOR REPORT targeting MARKER TEXT
     class hudDispatchSM_onReportSector_markerText {};
 
-    // Compiles a SECTOR REPORT targeting whether marker is TOWER [BOOL]
+    // Compiles a SECTOR REPORT targeting whether marker is TOWER
     class hudDispatchSM_onReportSector_tower {};
 
-    // Compiles a SECTOR REPORT targeting UNIT counts [SCALARs]
+    // Compiles a SECTOR REPORT targeting UNIT counts
     class hudDispatchSM_onReportSector_units {};
 };

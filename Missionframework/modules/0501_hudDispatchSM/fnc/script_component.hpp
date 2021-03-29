@@ -5,8 +5,11 @@
 
 #define Q(x) #x
 
-#define MPARAM(arg) KPLIB_param_##MODULE##arg
-#define QMPARAM(arg) Q(MPARAM(arg))
+#define MPRESET(x) KPLIB_preset_##MODULE##x
+#define QMPRESET(x) Q(MPRESET(x))
+
+#define MPARAM(x) KPLIB_param_##MODULE##x
+#define QMPARAM(x) Q(MPARAM(x))
 
 #define MVAR(var) KPLIB_##MODULE##var
 #define QMVAR(var) Q(MVAR(var))

@@ -27,22 +27,20 @@ if (_debug) then {
         , str [count _fobs]], "HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
 };
 
-// Having already deduced whether PLAYER requesting ONE or ALL FOB zones
-switch (count _fobs) do {
-    case 0: {
-        // No-op, nothing to report
-    };
-    case 1: {
-        _compiledReport append [
-            [QMVAR(_fobReport_markerText), (_fobs#0#1)]
-        ];
-    };
-    default {
-        // TODO: TBD: relay through string table...
-        _compiledReport append [
-            [QMVAR(_fobReport_markerText), "All FOBs"]
-        ];
-    };
+// Deduced player requesting ONE or ALL, 0) no report, 1) ONE FOB, 2+) ALL FOBS
+private _markerText = switch (count _fobs) do {
+    case 0: { ""; };
+    case 1: { (_fobs#0#1); };
+    default { "All FOBs"; };
+};
+
+// Now report MARKER TEXT and corresponding COLOR
+if (!(_markerText isEqualTo "")) then {
+    _compiledReport append [
+        [QMVAR(_fobReport_markerText), _markerText]
+        , [QMVAR(_fobReport_markerColor), KPLIB_core_fobColor]
+        , [QMVAR(_fobReport_markerPath), KPLIB_core_fobMarkerPath]
+    ];
 };
 
 _context setVariable [Q(_compiledReport), _compiledReport];

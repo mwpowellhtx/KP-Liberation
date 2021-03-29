@@ -22,6 +22,7 @@ MPARAM(_onPlayerConnected_debug)                = false;
 MPARAM(_onPlayerDisonnected_debug)              = false;
 MPARAM(_onReportFob_debug)                      = false;
 MPARAM(_onReportFob_assets_debug)               = false;
+MPARAM(_onReportFob_civReputation_debug)        = false;
 MPARAM(_onReportFob_enemy_debug)                = false;
 MPARAM(_onReportFob_intel_debug)                = false;
 MPARAM(_onReportFob_markerText_debug)           = false;
@@ -36,5 +37,6 @@ MPARAM(_onReportSector_tower_debug)             = false;
 MPARAM(_onReportSector_units_debug)             = false;
 MPARAM(_onStandby_debug)                        = false;
 MPARAM(_onStandbyEntered_debug)                 = false;
+MPARAM(_renderScalar_debug)                     = false;
 
 true;
