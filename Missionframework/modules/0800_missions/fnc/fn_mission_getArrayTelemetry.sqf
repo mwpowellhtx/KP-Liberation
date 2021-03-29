@@ -104,7 +104,7 @@ _retval = switch (true) do {
         ];
 
         // De-con the paths
-        (KPLIB_resources_imagePaths + [KPLIB_common_intelPath, KPLIB_common_intelColor]) params [
+        (KPLIB_resources_imagePaths + [KPLIB_preset_common_intelPath, KPLIB_preset_common_intelColor]) params [
             Q(_supplyPath)
             , Q(_ammoPath)
             , Q(_fuelPath)
