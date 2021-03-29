@@ -33,6 +33,12 @@
 #define KPX_COLOR_LBBACKGROUND          {0, 0, 0, 0.95}
 #define KPX_COLOR_LBFOCUSED             {0, 0, 0, 0.9}
 
+// Carry over from the legacy code
+#define KPX_HUD_FONT_B                  "puristaBold"
+#define KPX_HUD_FONT_L                  "puristaLight"
+#define KPX_HUD_FONT_M                  "puristaMedium"
+#define KPX_HUD_FONT_SB                 "puristaSemiBold"
+
 /*
     --- CBA assumptions ---
 
@@ -122,6 +128,10 @@
 #define KPX_SPACING_H2                  (0.5   * KPX_SPACING_H)
 #define KPX_SPACING_H4                  (0.25  * KPX_SPACING_H)
 #define KPX_SPACING_H8                  (0.125 * KPX_SPACING_H)
+
+// Defines the "hard right" and "bottom" coordinate: work LEFT and UP from there
+#define KPX_HUD_HARD_R                  (safeZoneX + safeZoneW)
+#define KPX_HUD_HARD_B                  (safeZoneY + safeZoneH)
 
 /*
     --- Colors ---
@@ -245,11 +255,24 @@
 #define KPX_DEFAULT_DIALOG_WC       (0.5 * safeZoneW)
 #define KPX_DEFAULT_DIALOG_HC       (0.5 * safeZoneH)
 
+// Assuming we have halves, then we want half of the remainder for sidebar
+#define KPX_DEFAULT_SIDEBAR_W       (0.5 * (safeZoneW - KPX_DEFAULT_DIALOG_WC))
+// TODO: TBD: "sidebar height" is a work in progress, experiment with it
+#define KPX_DEFAULT_SIDEBAR_H       (0.5 * (safeZoneH - KPX_DEFAULT_DIALOG_HC))
+
 #define KPX_DEFAULT_DIALOG_WC2      (0.65 * safeZoneW)
 #define KPX_DEFAULT_DIALOG_HC2      (0.65 * safeZoneH)
 
 #define KPX_DEFAULT_DIALOG_XC       KPX_GETXC_W(KPX_DEFAULT_DIALOG_WC)
 #define KPX_DEFAULT_DIALOG_YC       KPX_GETYC_H(KPX_DEFAULT_DIALOG_HC)
+
+// Working "left" from the far right hand side
+#define KPX_DEFAULT_SIDEBAR_XR      (safeZoneX + safeZoneW - KPX_DEFAULT_SIDEBAR_W)
+// TODO: TBD: not unlike its horizontal counterpart, experiment with the vertical components
+#define KPX_DEFAULT_SIDEBAR_YB0     (safeZoneY + safeZoneH - (2 * KPX_DEFAULT_SIDEBAR_H))
+#define KPX_DEFAULT_SIDEBAR_YB1     (safeZoneY + safeZoneH - (3 * KPX_DEFAULT_SIDEBAR_H))
+
+
 
 /*
     We could just use dialog and title XY coordinates, but we define them here. This serves
@@ -302,10 +325,12 @@
     it to be included in the final response.
 
     Example:
-            [           W          ]
+            [          VW          ]
             [GS|GS|GS|GS|GS|GS|GS|G]
-            [        X        ]
+            [        W       ]
         =>  [GS|GS|GS|GS|GS|G]
+
+    The same calculations hold true in the VERTICAL as they do in the HORIZONTAL.
  */
 
 #define KPX_GETW_VWGS(VW,W,G,S)     ((W * ((VW + S) / G)) - S)

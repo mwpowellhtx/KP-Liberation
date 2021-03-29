@@ -10,7 +10,7 @@
     Description:
         We define general use identifiers in this file.
         Leave the module specific ones in their module specific place.
-*/
+ */
 
 #define KPGUI_IDC_MAPCTRL       51
 

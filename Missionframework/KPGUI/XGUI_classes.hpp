@@ -4,7 +4,7 @@
     File: XGUI_classes.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-07 17:16:37
-    Last Update: 2021-02-21 22:19:33
+    Last Update: 2021-03-28 21:57:15
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -13,6 +13,7 @@
     References:
         https://community.bistudio.com/wiki/CT_BUTTON#soundClick
         https://community.bistudio.com/wiki/CT_BUTTON#soundEnter
+        https://community.bistudio.com/wiki/CT_CONTROLS_GROUP
         https://community.bistudio.com/wiki/Arma:_GUI_Configuration#Control_Styles
  */
 
@@ -155,4 +156,27 @@ class XGUI_PRE_ListNBox : KPGUI_PRE_ListNBox {
 };
 
 class XGUI_PRE_MapControl : KPGUI_PRE_MapControl {
+};
+
+class XGUI_PRE_ControlsGroup {
+    idc = KPLIB_IDC_UNDEFINED;
+    deletable = 0;
+    type = CT_CONTROLS_GROUP;
+    style = ST_MULTI;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
+    class VScrollbar : XGUI_PRE_ScrollBar {
+        color[] = {1, 1, 1, 1};
+        width = 0.021;
+        autoScrollEnabled = 1;
+    };
+    class HScrollbar : XGUI_PRE_ScrollBar {
+        color[] = {1, 1, 1, 1};
+        height = 0.028;
+    };
+    class controls {};
+    fade = 0;
+    shadow = 0;
 };

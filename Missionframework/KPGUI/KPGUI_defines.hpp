@@ -9,7 +9,10 @@
 
     Description:
         UI defines and functions used in mods and missions from the Killah Potatoes Gaming Community.
-*/
+
+   References:
+        https://community.bistudio.com/wiki/FXY_File_Format#Available_Fonts
+ */
 
 // Prefix for this use case to avoid issues with duplicated definitions
 #define KPGUI_PRE                       KPLIB
@@ -19,11 +22,11 @@
 */
 
 // Text sizes
-#define KP_TEXT_XS                      safeZoneH * 0.016
-#define KP_TEXT_S                       safeZoneH * 0.018
-#define KP_TEXT_M                       safeZoneH * 0.02
-#define KP_TEXT_L                       safeZoneH * 0.025
-#define KP_TEXT_XL                      safeZoneH * 0.03
+#define KP_TEXT_XS                      (safeZoneH * 0.016)
+#define KP_TEXT_S                       (safeZoneH * 0.018)
+#define KP_TEXT_M                       (safeZoneH * 0.02)
+#define KP_TEXT_L                       (safeZoneH * 0.025)
+#define KP_TEXT_XL                      (safeZoneH * 0.03)
 
 // Constant values for calculation
 #define KP_SPACING_X                    0.002
