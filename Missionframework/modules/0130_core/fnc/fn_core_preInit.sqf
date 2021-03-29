@@ -47,9 +47,11 @@ if (isServer) then {
         ] call CBA_fnc_addEventHandler;
     };
 
-    KPLIB_core_fobMarkerType = "b_hq";
-    KPLIB_core_fobMarkerSize = [1.5, 1.5];
-    KPLIB_core_fobMarkerColor = "ColorYellow";
+    KPLIB_core_fobMarkerType    = "b_hq";
+    KPLIB_core_fobMarkerSize    = [1.5, 1.5];
+    KPLIB_core_fobMarkerColor   = "ColorYellow";
+    KPLIB_core_fobColor         = [0.85, 0.85, 0, 1];
+    KPLIB_core_fobMarkerPath    = "\A3\ui_f\data\map\markers\handdrawn\flag_CA.paa";
 };
 
 /*
