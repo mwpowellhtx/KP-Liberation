@@ -33,9 +33,9 @@ KPLIB_common_iconCache = [] call CBA_fnc_createNamespace;
 // Useful when evaluating player proximity to points of interest sectors.
 KPLIB_sectorInfo_default = ["", KPLIB_sectorType_nil, ""];
 
-KPLIB_common_intelPath   = "\A3\Ui_f\data\GUI\Cfg\Ranks\general_gs.paa";
+KPLIB_preset_common_intelPath   = "\A3\Ui_f\data\GUI\Cfg\Ranks\general_gs.paa";
 // was a bit too cyan: [0.2, 0.4, 1, 1]
-KPLIB_common_intelColor  = [0, 0.435, 0.922, 1];
+KPLIB_preset_common_intelColor  = [0, 0.435, 0.922, 1];
 
 if (isServer) then {
     ["Module initialized", "PRE] [COMMON", true] call KPLIB_fnc_common_log;
