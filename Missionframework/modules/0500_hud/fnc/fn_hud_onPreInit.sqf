@@ -1,3 +1,4 @@
+#include "..\ui\defines.hpp"
 #include "script_component.hpp"
 
 // ...
@@ -65,8 +66,8 @@ if (hasInterface) then {
     MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
 
     // The actions to which the HUD STATUS REPORT may respond
-    MVAR(_overlayBlank)                     = toLower Q(blank);
-    MVAR(_overlayReport)                    = toLower Q(report);
+    MVAR(_action_overlayBlank)              = Q(blank);
+    MVAR(_action_overlayReport)             = Q(report);
 
     // TODO: TBD: status should be sufficient to determine whether we have one report or another
     // TODO: TBD: but just in case, we bundle the report names for use throughout
@@ -94,6 +95,17 @@ if (hasInterface) then {
         , MSECTOR(_opforCount)
         , MSECTOR(_civilianCount)
         , MSECTOR(_resistanceCount)
+    ];
+
+    // TODO: TBD: starting small baby steps, get these couple of scenarios working first
+    // TODO: TBD: work out the wrinkles, achieve a seamless rinse and repeat approach...
+    MVAR(_sectorOverlayIdcsToSet)           = [
+        KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT
+    ];
+
+    MVAR(_fobOverlayIdcsToSet)              = [
+        KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT
+        , KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE
     ];
 };
 

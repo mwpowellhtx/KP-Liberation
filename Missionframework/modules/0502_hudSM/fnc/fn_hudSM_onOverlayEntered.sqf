@@ -28,14 +28,14 @@ if (_debug) then {
 ];
 
 // // Seems to work okay from "on site" to "no report", i.e. FOB+SECTOR versus NOREPORT
-// systemChat format ["[fn_hudSM_onOverlayEntered]: [KPLIB_hud_overlayReport, _overlayStatus, count _overlayReport]: %1"
-//     , str [KPLIB_hud_overlayReport, _overlayStatus, count _overlayReport]];
+// systemChat format ["[fn_hudSM_onOverlayEntered]: [KPLIB_hud_action_overlayReport, _overlayStatus, count _overlayReport]: %1"
+//     , str [KPLIB_hud_action_overlayReport, _overlayStatus, count _overlayReport]];
 
-[_player, KPLIB_hud_overlayReport, _overlayReport] call KPLIB_fnc_hud_onStatusReport;
+[_player, KPLIB_hud_action_overlayReport, _overlayReport] call KPLIB_fnc_hud_onStatusReport;
 
 if (_debug) then {
-    [format ["[fn_hudSM_onOverlayEntered] Fini: [KPLIB_hud_overlayReport, count _overlayReport]: %1"
-        , str [KPLIB_hud_overlayReport, count _overlayReport]], "HUDSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_hudSM_onOverlayEntered] Fini: [KPLIB_hud_action_overlayReport, count _overlayReport]: %1"
+        , str [KPLIB_hud_action_overlayReport, count _overlayReport]], "HUDSM", true] call KPLIB_fnc_common_log;
 };
 
 true;
