@@ -102,7 +102,6 @@ class RscTitles {
 
         // Unfortunately cannot drop this on the base class and pickup a derived attribute
         onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_blank')]) spawn KPLIB_fnc_hud_onLoad";
-        // onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
     };
 
     // Separate key sitrep bits for use via a layered cutRsc approach
@@ -112,7 +111,6 @@ class RscTitles {
 
         // Unfortunately cannot drop this on the base class and pickup a derived attribute
         onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hud_overlay')]) spawn KPLIB_fnc_hud_onLoad";
-        // onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
 
         controls[] = {
             KPLIB_hud_lnbFob
@@ -176,86 +174,6 @@ class RscTitles {
             colorShadow[] = {0.2, 0.2, 0.2, 0.9};
 
             onLoad = "_this spawn KPLIB_fnc_hud_lnbFob_onLoad";
-        };
-
-        class KPLIB_hud_ctFob : XGUI_PRE_ControlsTable {
-            idc = KPLIB_IDC_HUD_CT_FOB;
-
-            x = KPLIB_HUD_CT_FOB_X;
-            y = KPLIB_HUD_CT_FOB_Y;
-            w = KPLIB_HUD_CT_FOB_W;
-            h = KPLIB_HUD_CT_FOB_H;
-
-            // TODO: TBD: connect the dots, load header/rows on load
-            // TODO: TBD: also relay expected report names at that time
-            onLoad = "_this spawn KPLIB_fnc_hud_ctFob_onLoad";
-
-            // Between each of the rows
-            colorBackground[] = {0.25, 0.25, 0.25, 0.75};
-            // TODO: TBD: can this, or maybe the BG header/rows contain a gradient images background (?)
-
-            headerHeight = KPLIB_HUD_CT_FOB_HEADER_H;
-            rowHeight = KPLIB_HUD_CT_FOB_ROW_H;
-            lineSpacing = KPLIB_HUD_CT_FOB_LINE_SPACING;
-
-            firstIDC = KPLIB_IDC_HUD_CT_FOB_IDC_FIRST;
-            lastIDC = KPLIB_IDC_HUD_CT_FOB_IDC_LAST;
-
-            // Template for headers (unlike rows, cannot be selected)
-            class HeaderTemplate {
-                class HeaderBackground {
-                    // TODO: TBD: make it transparent, or transluscent, or with a background image (?)
-                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblCtBackground"};
-                    columnX = KPLIB_HUD_CT_FOB_HEADERBG_X;
-                    columnW = KPLIB_HUD_CT_FOB_HEADERBG_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_HUD_CT_FOB_HEADER_H;
-                };
-
-                class KPLIB_hud_ctFob_headerTemplate_lblReport {
-                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblHeaderReportBase"};
-                    columnX = KPLIB_HUD_CT_FOB_HEADER_REPORT_X;
-                    columnW = KPLIB_HUD_CT_FOB_HEADER_REPORT_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_HUD_CT_FOB_HEADER_H;
-                };
-
-                class KPLIB_hud_ctFob_headerTemplate_lblPicture {
-                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblPictureBase"};
-                    columnX = KPLIB_HUD_CT_FOB_HEADER_PICTURE_X;
-                    columnW = KPLIB_HUD_CT_FOB_HEADER_PICTURE_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_HUD_CT_FOB_HEADER_H;
-                };
-            };
-
-            // For the most part, rinse and repeat HEADER TEMPLATE except for a few minor details
-            class RowTemplate {
-                class RowBackground {
-                    // TODO: TBD: make it transparent, or transluscent, or with a background image (?)
-                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblCtBackground"};
-                    columnX = KPLIB_HUD_CT_FOB_ROWBG_X;
-                    columnW = KPLIB_HUD_CT_FOB_ROWBG_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_HUD_CT_FOB_ROW_H;
-                };
-
-                class KPLIB_hud_ctFob_rowTemplate_lblReport {
-                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblReportBase"};
-                    columnX = KPLIB_HUD_CT_FOB_ROW_REPORT_X;
-                    columnW = KPLIB_HUD_CT_FOB_ROW_REPORT_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_HUD_CT_FOB_ROW_H;
-                };
-
-                class KPLIB_hud_ctFob_rowTemplate_lblPicture {
-                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblPictureBase"};
-                    columnX = KPLIB_HUD_CT_FOB_ROW_PICTURE_X;
-                    columnW = KPLIB_HUD_CT_FOB_ROW_PICTURE_W;
-                    controlOffsetY = 0;
-                    controlH = KPLIB_HUD_CT_FOB_ROW_H;
-                };
-            };
         };
     };
 };
