@@ -47,6 +47,15 @@ class hud {
     // HUD overlay 'onLoad' event handler
     class hud_onLoad {};
 
+    // FOB CT_LISTNBOX 'onLoad' event handler
+    class hud_lnbFob_onLoad {};
+
+    // FOB CT_CONTROLS_TABLE 'onLoad' event handler
+    class hud_ctFob_onLoad {};
+
+    // FOB CT_CONTROLS_TABLE control 'onLoad' event handler
+    class hud_ctFob_ctrl_onLoad {};
+
     // // HUD overlay 'onUnload' event handler
     // class hud_onUnload {};
 

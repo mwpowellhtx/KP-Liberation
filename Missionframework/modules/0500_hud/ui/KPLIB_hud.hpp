@@ -22,43 +22,91 @@
 
     References:
         https://community.bistudio.com/wiki/Arma:_GUI_Configuration
+        https://community.bistudio.com/wiki/CT_CONTROLS_TABLE
+        https://community.bistudio.com/wiki/Arma:_GUI_Configuration#Common_Properties
  */
 
 // TODO: TBD: these are really off the cuff...
 // TODO: TBD: might be better if we took a little time to lay it out in spreadsheet story board
 // TODO: TBD: they do not need to be exactly the same width...
 // TODO: TBD: in fact, the sector group should perhaps be wider...
-#define KPLIB_HUD_GRPFOB_W                  ((0.75 * KPX_DEFAULT_SIDEBAR_W) - (2 * KPX_SPACING_W))
-#define KPLIB_HUD_GRPFOB_X                  (KPX_DEFAULT_SIDEBAR_XR + KPX_SPACING_W + (KPX_DEFAULT_SIDEBAR_W - KPLIB_HUD_GRPFOB_W))
-#define KPLIB_HUD_GRPFOB_H                  (KPX_DEFAULT_SIDEBAR_H - (2 * KPX_SPACING_H))
-#define KPLIB_HUD_GRPFOB_Y                  KPX_DEFAULT_SIDEBAR_YB0
 
-// TODO: TBD: starting with this for height
-#define KPLIB_HUD_GRP_TITLE_H               KPX_BUTTON_L_H
+// #define KPLIB_HUD_GRPFOB_W                  ((0.75 * KPX_DEFAULT_SIDEBAR_W) - (2 * KPX_SPACING_W))
+// #define KPLIB_HUD_GRPFOB_X                  (KPX_DEFAULT_SIDEBAR_XR + KPX_SPACING_W + (KPX_DEFAULT_SIDEBAR_W - KPLIB_HUD_GRPFOB_W))
+// #define KPLIB_HUD_GRPFOB_H                  (KPX_DEFAULT_SIDEBAR_H - (2 * KPX_SPACING_H))
+// #define KPLIB_HUD_GRPFOB_Y                  KPX_DEFAULT_SIDEBAR_YB0
 
-#define KPLIB_HUD_GRPFOB_LBLPICTURE_X       KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,12,16,KPX_SPACING_W)
-#define KPLIB_HUD_GRPFOB_LBLPICTURE_W       KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,4,16,KPX_SPACING_W)
+// // TODO: TBD: starting with this for height
+// #define KPLIB_HUD_GRP_TITLE_H               KPX_BUTTON_L_H
 
-// Leaving enough geometry for the PICTURE
-#define KPLIB_HUD_GRPFOB_LBLTEXT_W          KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,11,16,KPX_SPACING_W)
+// #define KPLIB_HUD_GRPFOB_LBLPICTURE_X       KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,12,16,KPX_SPACING_W)
+// #define KPLIB_HUD_GRPFOB_LBLPICTURE_W       KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,4,16,KPX_SPACING_W)
 
-// Remember, as long as this is in a "group" then the coords are relative
-#define KPLIB_HUD_TEST_W            (0.5 * (KPLIB_HUD_GRPFOB_W - KPX_SPACING_W))
-#define KPLIB_HUD_TEST_X0           ((0.5 * KPLIB_HUD_TEST_W) + KPX_SPACING_W)
+// // Leaving enough geometry for the PICTURE
+// #define KPLIB_HUD_GRPFOB_LBLTEXT_W          KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,11,16,KPX_SPACING_W)
+
+// // Remember, as long as this is in a "group" then the coords are relative
+// #define KPLIB_HUD_TEST_W            (0.5 * (KPLIB_HUD_GRPFOB_W - KPX_SPACING_W))
+// #define KPLIB_HUD_TEST_X0           ((0.5 * KPLIB_HUD_TEST_W) + KPX_SPACING_W)
+
+// #define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W     KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,4,16,KPX_SPACING_W)
+// #define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_H     KPX_GETH_VHGS(KPLIB_HUD_GRPFOB_H,4,16,KPX_SPACING_H)
+// #define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_X     (KPLIB_HUD_GRPFOB_X + KPLIB_HUD_GRPFOB_W - KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W)
+
+// #define KPLIB_HUD_GRPFOB_LBLMARKERTEXT_H        KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_H
+// #define KPLIB_HUD_GRPFOB_LBLMARKERTEXT_W        (KPLIB_HUD_GRPFOB_W - KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W - KPX_SPACING_W)
+
+// #define KPLIB_HUD_GRPSECTOR_W               KPX_DEFAULT_SIDEBAR_W
+// #define KPLIB_HUD_GRPSECTOR_X               KPX_DEFAULT_SIDEBAR_XR
+// #define KPLIB_HUD_GRPSECTOR_H               KPX_DEFAULT_SIDEBAR_H
+// #define KPLIB_HUD_GRPSECTOR_Y               KPX_DEFAULT_SIDEBAR_YB1
 
 
-#define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W     KPX_GETW_VWGS(KPLIB_HUD_GRPFOB_W,4,16,KPX_SPACING_W)
-#define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_H     KPX_GETH_VHGS(KPLIB_HUD_GRPFOB_H,4,16,KPX_SPACING_H)
-#define KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_X     (KPLIB_HUD_GRPFOB_X + KPLIB_HUD_GRPFOB_W - KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W)
-
-#define KPLIB_HUD_GRPFOB_LBLMARKERTEXT_H        KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_H
-#define KPLIB_HUD_GRPFOB_LBLMARKERTEXT_W        (KPLIB_HUD_GRPFOB_W - KPLIB_HUD_GRPFOB_LBLMARKERPICTURE_W - KPX_SPACING_W)
+/*
+    --- FOB CT_CONTROLS_TABLE geometry ---
+ */
 
 
-#define KPLIB_HUD_GRPSECTOR_W               KPX_DEFAULT_SIDEBAR_W
-#define KPLIB_HUD_GRPSECTOR_X               KPX_DEFAULT_SIDEBAR_XR
-#define KPLIB_HUD_GRPSECTOR_H               KPX_DEFAULT_SIDEBAR_H
-#define KPLIB_HUD_GRPSECTOR_Y               KPX_DEFAULT_SIDEBAR_YB1
+
+
+#define KPLIB_HUD_LNB_FOB_W                 (0.3 * KPX_DEFAULT_SIDEBAR_CTRLAREA_W)
+#define KPLIB_HUD_LNB_FOB_X                 (KPX_DEFAULT_SIDEBAR_CTRLAREA_XR + (KPX_DEFAULT_SIDEBAR_CTRLAREA_W - KPLIB_HUD_LNB_FOB_W))
+#define KPLIB_HUD_LNB_FOB_Y                 KPX_DEFAULT_SIDEBAR_CTRLAREA_YB
+#define KPLIB_HUD_LNB_FOB_H                 (KPX_BUTTON_L_H + (10 * (KPX_SPACING_H + KPX_BUTTON_M_H)))
+
+// Offset by just a little bit, plus using a shadow color, gives the impression of a raised, shadow effect
+#define KPLIB_HUD_LNB_FOB_X_SHADOW          (KPLIB_HUD_LNB_FOB_X + (0.75 * KPX_SPACING_W))
+#define KPLIB_HUD_LNB_FOB_Y_SHADOW          (KPLIB_HUD_LNB_FOB_Y + (0.75 * KPX_SPACING_H));
+
+// In either HORIZONTAL or VERTICAL directions we assume
+#define KPLIB_HUD_LNB_FOB_PADDING           KPX_SPACING_H
+
+#define KPLIB_HUD_CT_FOB_W                  KPX_DEFAULT_SIDEBAR_CTRLAREA_W
+#define KPLIB_HUD_CT_FOB_X                  KPX_DEFAULT_SIDEBAR_CTRLAREA_XR
+#define KPLIB_HUD_CT_FOB_Y                  KPX_DEFAULT_SIDEBAR_CTRLAREA_YB
+                                            // Using forward knowledge of the known FOB REPORT items
+#define KPLIB_HUD_CT_FOB_H                  (KPX_BUTTON_L_H + (10 * (KPX_SPACING_H + KPX_BUTTON_M_H)))
+
+#define KPLIB_HUD_CT_FOB_LINE_SPACING       KPX_SPACING_H
+
+#define KPLIB_HUD_CT_FOB_ROWBG_W            KPLIB_HUD_CT_FOB_W
+#define KPLIB_HUD_CT_FOB_ROWBG_X            0
+
+#define KPLIB_HUD_CT_FOB_HEADERBG_W         KPLIB_HUD_CT_FOB_ROWBG_W
+#define KPLIB_HUD_CT_FOB_HEADERBG_X         KPLIB_HUD_CT_FOB_ROWBG_X
+
+#define KPLIB_HUD_CT_FOB_ROW_REPORT_W       KPX_GETW_VWGS(KPLIB_HUD_CT_FOB_ROWBG_W,4,5,KPX_SPACING_W)
+#define KPLIB_HUD_CT_FOB_ROW_REPORT_X       0
+#define KPLIB_HUD_CT_FOB_ROW_PICTURE_W      (KPLIB_HUD_CT_FOB_ROWBG_W - KPLIB_HUD_CT_FOB_ROW_REPORT_W - KPX_SPACING_W)
+#define KPLIB_HUD_CT_FOB_ROW_PICTURE_X      (KPLIB_HUD_CT_FOB_ROW_REPORT_W + KPX_SPACING_W)
+#define KPLIB_HUD_CT_FOB_ROW_H              KPX_BUTTON_M_H
+
+#define KPLIB_HUD_CT_FOB_HEADER_REPORT_W    KPLIB_HUD_CT_FOB_ROW_REPORT_W
+#define KPLIB_HUD_CT_FOB_HEADER_REPORT_X    KPLIB_HUD_CT_FOB_ROW_REPORT_X
+#define KPLIB_HUD_CT_FOB_HEADER_PICTURE_W   KPLIB_HUD_CT_FOB_ROW_PICTURE_W
+#define KPLIB_HUD_CT_FOB_HEADER_PICTURE_X   KPLIB_HUD_CT_FOB_ROW_PICTURE_X
+#define KPLIB_HUD_CT_FOB_HEADER_H           KPX_BUTTON_L_H
+
 
 // // TODO: TBD: using these as a basis, reference
 // KPX_DEFAULT_SIDEBAR_YB0
@@ -218,109 +266,249 @@ class RscTitles {
         // onUnload = "_this spawn KPLIB_fnc_hud_onUnload";
 
         controls[] = {
-            KPLIB_hud_grpSector
-            , KPLIB_hud_grpFob
+            // KPLIB_hud_ctSector
+            //KPLIB_hud_ctFob
+            KPLIB_hud_lnbFob
+            , KPLIB_hud_lnbFobShadow
         };
 
-        class KPLIB_hud_grpCtrlsGroupBase {
-            idc = KPLIB_IDC_UNDEFINED;
-            type = CT_CONTROLS_GROUP;
-            style = ST_MULTI;
-            x = 0;
-            y = 0;
-            w = 0;
-            h = 0;
-            colorBackground[] = {0, 0, 0, 0.15};
-            // TODO: TBD: scroll bars are not really appropriate for this use, but they come with the territory
-            // TODO: TBD: can they be disabled at all? or hidden?
-            class VScrollbar : XGUI_PRE_ScrollBar {
-                // color[] = {1, 1, 1, 1};
-                // width = 0.021;
-                // autoScrollEnabled = 1;
-            };
-            class HScrollbar : XGUI_PRE_ScrollBar {
-                // color[] = {1, 1, 1, 1};
-                // height = 0.028;
-            };
-            lineHeight = 0;
-            controls[] = {};
-            // // TODO: TBD: what to do with scrollbars... really want to lay it out in such a way as to disable it
-            //class HScrollbar {};
-            //class VScrollbar {};
-            onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
-        };
+        // class KPLIB_hud_grpCtrlsGroupBase {
+        //     idc = KPLIB_IDC_UNDEFINED;
+        //     type = CT_CONTROLS_GROUP;
+        //     style = ST_MULTI;
+        //     x = 0;
+        //     y = 0;
+        //     w = 0;
+        //     h = 0;
+        //     colorBackground[] = {0, 0, 0, 0.15};
+        //     // TODO: TBD: scroll bars are not really appropriate for this use, but they come with the territory
+        //     // TODO: TBD: can they be disabled at all? or hidden?
+        //     class VScrollbar : XGUI_PRE_ScrollBar {
+        //         // color[] = {1, 1, 1, 1};
+        //         // width = 0.021;
+        //         // autoScrollEnabled = 1;
+        //     };
+        //     class HScrollbar : XGUI_PRE_ScrollBar {
+        //         // color[] = {1, 1, 1, 1};
+        //         // height = 0.028;
+        //     };
+        //     lineHeight = 0;
+        //     controls[] = {};
+        //     // // TODO: TBD: what to do with scrollbars... really want to lay it out in such a way as to disable it
+        //     //class HScrollbar {};
+        //     //class VScrollbar {};
+        //     onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        // };
 
-        class KPLIB_hud_lblTextBase : XGUI_PRE_Label {
-            type = CT_STATIC;
-            h = KPLIB_HUD_TEST_H;
-            style = ST_RIGHT + ST_SHADOW;
+        class KPLIB_hud_ctFob_lblBase : XGUI_PRE_Label {
             colorBackground[] = COLOR_NOALPHA;
             font = KPX_HUD_FONT_M;
-            sizeEx = KPX_TITLE_L_H;
+            style = ST_RIGHT + ST_SHADOW;
+            sizeEx = KPX_TITLE_M_H;
             shadow = SH_STROKE;
-            onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
-            // Report which HASHMAP keys are required for the 'text' and 'colorText' attributes
-            hashMapKey = "";
-            hashMapColorKey = "";
+            onLoad = "_this spawn KPLIB_fnc_hud_ctFob_ctrl_onLoad";
         };
 
-        class KPLIB_hud_lblPictureBase : XGUI_PRE_PictureRatio {
-            h = KPLIB_HUD_TEST_H;
-            onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
-            hashMapKey = "";
-            hashMapColorKey = "";
+        class KPLIB_hud_ctFob_lblCtBackground : KPLIB_hud_ctFob_lblBase {
         };
 
-        class KPLIB_hud_grpSector : KPLIB_hud_grpCtrlsGroupBase {
-            idc = KPLIB_IDC_HUD_GRPSECTOR;
-            x = KPLIB_HUD_GRPSECTOR_X;
-            y = KPLIB_HUD_GRPSECTOR_Y;
-            w = KPLIB_HUD_GRPSECTOR_W;
-            h = KPLIB_HUD_GRPSECTOR_H;
+        class KPLIB_hud_ctFob_lblReportBase : KPLIB_hud_ctFob_lblBase {
+        };
 
-            class controls {
+        class KPLIB_hud_ctFob_lblHeaderReportBase : KPLIB_hud_ctFob_lblReportBase {
+            sizeEx = KPX_TITLE_L_H;
+        };
 
-                // TODO: TBD: not counting sector image geometries, for the moment...
-                class KPLIB_hud_grpSector_lblMarkerText : KPLIB_hud_lblTextBase {
-                    idc = KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT;
-                    h = KPLIB_HUD_GRP_TITLE_H;
-                    hashMapKey = "KPLIB_hudDispatchSM_sectorReport_markerText";
-                    onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        class KPLIB_hud_ctFob_lblPictureBase : XGUI_PRE_PictureRatio {
+            shadow = SH_STROKE;
+            onLoad = "_this spawn KPLIB_fnc_hud_ctFob_ctrl_onLoad";
+        };
+
+        // class KPLIB_hud_lblTextBase : XGUI_PRE_Label {
+        //     h = KPLIB_HUD_TEST_H;
+        //     style = ST_RIGHT + ST_SHADOW;
+        //     colorBackground[] = COLOR_NOALPHA;
+        //     font = KPX_HUD_FONT_M;
+        //     sizeEx = KPX_TITLE_L_H;
+        //     shadow = SH_STROKE;
+        //     onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        //     // Report which HASHMAP keys are required for the 'text' and 'colorText' attributes
+        //     hashMapKey = "";
+        //     hashMapColorKey = "";
+        // };
+
+        // class KPLIB_hud_lblPictureBase : XGUI_PRE_PictureRatio {
+        //     h = KPLIB_HUD_TEST_H;
+        //     onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        //     hashMapKey = "";
+        //     hashMapColorKey = "";
+        // };
+
+        // // TODO: TBD: have not crossed the SECTOR bridge yet...
+        // class KPLIB_hud_grpSector : KPLIB_hud_grpCtrlsGroupBase {
+        //     idc = KPLIB_IDC_HUD_GRPSECTOR;
+        //     x = KPLIB_HUD_GRPSECTOR_X;
+        //     y = KPLIB_HUD_GRPSECTOR_Y;
+        //     w = KPLIB_HUD_GRPSECTOR_W;
+        //     h = KPLIB_HUD_GRPSECTOR_H;
+
+        //     class controls {
+
+        //         // TODO: TBD: not counting sector image geometries, for the moment...
+        //         class KPLIB_hud_grpSector_lblMarkerText : KPLIB_hud_lblTextBase {
+        //             idc = KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT;
+        //             h = KPLIB_HUD_GRP_TITLE_H;
+        //             hashMapKey = "KPLIB_hudDispatchSM_sectorReport_markerText";
+        //             onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        //         };
+        //     };
+        // };
+
+        class KPLIB_hud_lnbFob : XGUI_PRE_ListNBox {
+            idc = KPLIB_IDC_HUD_LNB_FOB;
+
+            x = KPLIB_HUD_LNB_FOB_X;
+            y = KPLIB_HUD_LNB_FOB_Y;
+            w = KPLIB_HUD_LNB_FOB_W;
+            h = KPLIB_HUD_LNB_FOB_H;
+
+            colorBackground[] = {0.2, 0.2, 0.2, 0.5};
+
+            font = KPX_HUD_FONT_M;
+            padding = KPLIB_HUD_LNB_FOB_PADDING;
+            text = "res\hud-gradient.paa";
+
+            //          {_report, _picture}
+            columns[] = {      0,      0.65};
+
+            onLoad = "_this spawn KPLIB_fnc_hud_lnbFob_onLoad";
+        };
+
+        class KPLIB_hud_lnbFobShadow : KPLIB_hud_lnbFob {
+            idc = KPLIB_IDC_HUD_LNB_FOB;
+
+            x = KPLIB_HUD_LNB_FOB_X_SHADOW;
+            y = KPLIB_HUD_LNB_FOB_X_SHADOW;
+
+            colorShadow[] = {0.2, 0.2, 0.2, 0.9};
+
+            onLoad = "_this spawn KPLIB_fnc_hud_lnbFob_onLoad";
+        };
+
+        class KPLIB_hud_ctFob : XGUI_PRE_ControlsTable {
+            idc = KPLIB_IDC_HUD_CT_FOB;
+
+            x = KPLIB_HUD_CT_FOB_X;
+            y = KPLIB_HUD_CT_FOB_Y;
+            w = KPLIB_HUD_CT_FOB_W;
+            h = KPLIB_HUD_CT_FOB_H;
+
+            // TODO: TBD: connect the dots, load header/rows on load
+            // TODO: TBD: also relay expected report names at that time
+            onLoad = "_this spawn KPLIB_fnc_hud_ctFob_onLoad";
+
+            // Between each of the rows
+            colorBackground[] = {0.25, 0.25, 0.25, 0.75};
+            // TODO: TBD: can this, or maybe the BG header/rows contain a gradient images background (?)
+
+            headerHeight = KPLIB_HUD_CT_FOB_HEADER_H;
+            rowHeight = KPLIB_HUD_CT_FOB_ROW_H;
+            lineSpacing = KPLIB_HUD_CT_FOB_LINE_SPACING;
+
+            firstIDC = KPLIB_IDC_HUD_CT_FOB_IDC_FIRST;
+            lastIDC = KPLIB_IDC_HUD_CT_FOB_IDC_LAST;
+
+            // Template for headers (unlike rows, cannot be selected)
+            class HeaderTemplate {
+                class HeaderBackground {
+                    // TODO: TBD: make it transparent, or transluscent, or with a background image (?)
+                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblCtBackground"};
+                    columnX = KPLIB_HUD_CT_FOB_HEADERBG_X;
+                    columnW = KPLIB_HUD_CT_FOB_HEADERBG_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_HUD_CT_FOB_HEADER_H;
+                };
+
+                class KPLIB_hud_ctFob_headerTemplate_lblReport {
+                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblHeaderReportBase"};
+                    columnX = KPLIB_HUD_CT_FOB_HEADER_REPORT_X;
+                    columnW = KPLIB_HUD_CT_FOB_HEADER_REPORT_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_HUD_CT_FOB_HEADER_H;
+                };
+
+                class KPLIB_hud_ctFob_headerTemplate_lblPicture {
+                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblPictureBase"};
+                    columnX = KPLIB_HUD_CT_FOB_HEADER_PICTURE_X;
+                    columnW = KPLIB_HUD_CT_FOB_HEADER_PICTURE_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_HUD_CT_FOB_HEADER_H;
+                };
+            };
+
+            // For the most part, rinse and repeat HEADER TEMPLATE except for a few minor details
+            class RowTemplate {
+                class RowBackground {
+                    // TODO: TBD: make it transparent, or transluscent, or with a background image (?)
+                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblCtBackground"};
+                    columnX = KPLIB_HUD_CT_FOB_ROWBG_X;
+                    columnW = KPLIB_HUD_CT_FOB_ROWBG_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_HUD_CT_FOB_ROW_H;
+                };
+
+                class KPLIB_hud_ctFob_rowTemplate_lblReport {
+                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblReportBase"};
+                    columnX = KPLIB_HUD_CT_FOB_ROW_REPORT_X;
+                    columnW = KPLIB_HUD_CT_FOB_ROW_REPORT_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_HUD_CT_FOB_ROW_H;
+                };
+
+                class KPLIB_hud_ctFob_rowTemplate_lblPicture {
+                    controlBaseClassPath[] = {"KPLIB_hud_ctFob_lblPictureBase"};
+                    columnX = KPLIB_HUD_CT_FOB_ROW_PICTURE_X;
+                    columnW = KPLIB_HUD_CT_FOB_ROW_PICTURE_W;
+                    controlOffsetY = 0;
+                    controlH = KPLIB_HUD_CT_FOB_ROW_H;
                 };
             };
         };
 
-        class KPLIB_hud_grpFob : KPLIB_hud_grpCtrlsGroupBase {
-            idc = KPLIB_IDC_HUD_GRPFOB;
-            x = KPLIB_HUD_GRPFOB_X;
-            y = KPLIB_HUD_GRPFOB_Y;
-            w = KPLIB_HUD_GRPFOB_W;
-            h = KPLIB_HUD_GRPFOB_H;
+        // // TODO: TBD: draft starting with control group well enough
+        // // TODO: TBD: however, there is too much to rinse and repeat do not want to get caut up in this
+        // // TODO: TBD: controls table isn't perfect either, but we can iterate some loops in its onLoad event
+        // class KPLIB_hud_grpFob : KPLIB_hud_grpCtrlsGroupBase {
+        //     idc = KPLIB_IDC_HUD_GRPFOB;
+        //     x = KPLIB_HUD_GRPFOB_X;
+        //     y = KPLIB_HUD_GRPFOB_Y;
+        //     w = KPLIB_HUD_GRPFOB_W;
+        //     h = KPLIB_HUD_GRPFOB_H;
 
-            class controls {
+        //     class controls {
 
-                // TODO: TBD: not counting FOB images, for the moment...
-                class KPLIB_hud_grpFob_lblMarkerText : KPLIB_hud_lblTextBase {
-                    idc = KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT;
-                    w = KPLIB_HUD_GRPFOB_LBLTEXT_W;
-                    h = KPLIB_HUD_GRP_TITLE_H;
-                    hashMapKey = "KPLIB_hudDispatchSM_fobReport_markerText";
-                    hashMapColorKey = "KPLIB_hudDispatchSM_fobReport_markerColor";
-                    //onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
-                };
+        //         // TODO: TBD: not counting FOB images, for the moment...
+        //         class KPLIB_hud_grpFob_lblMarkerText : KPLIB_hud_lblTextBase {
+        //             idc = KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT;
+        //             w = KPLIB_HUD_GRPFOB_LBLTEXT_W;
+        //             h = KPLIB_HUD_GRP_TITLE_H;
+        //             hashMapKey = "KPLIB_hudDispatchSM_fobReport_markerText";
+        //             hashMapColorKey = "KPLIB_hudDispatchSM_fobReport_markerColor";
+        //             //onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        //         };
 
-                // With alignment on the RHS of the label: i.e. [ ---- MARKER TEXT [IMG] ]
-                class KPLIB_hud_grpFob_lblMarkerPicture : KPLIB_hud_lblPictureBase {
-                    idc = KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE;
-                    x = KPLIB_HUD_GRPFOB_LBLPICTURE_X;
-                    w = KPLIB_HUD_GRPFOB_LBLPICTURE_W;
-                    h = KPLIB_HUD_GRP_TITLE_H;
-                    hashMapKey = "KPLIB_hudDispatchSM_fobReport_markerPath";
-                    hashMapColorKey = "KPLIB_hudDispatchSM_fobReport_markerColor";
-                    //onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
-                };
-            };
-        };
+        //         // With alignment on the RHS of the label: i.e. [ ---- MARKER TEXT [IMG] ]
+        //         class KPLIB_hud_grpFob_lblMarkerPicture : KPLIB_hud_lblPictureBase {
+        //             idc = KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE;
+        //             x = KPLIB_HUD_GRPFOB_LBLPICTURE_X;
+        //             w = KPLIB_HUD_GRPFOB_LBLPICTURE_W;
+        //             h = KPLIB_HUD_GRP_TITLE_H;
+        //             hashMapKey = "KPLIB_hudDispatchSM_fobReport_markerPath";
+        //             hashMapColorKey = "KPLIB_hudDispatchSM_fobReport_markerColor";
+        //             //onLoad = "_this spawn KPLIB_fnc_hud_ctrlBase_onLoad";
+        //         };
+        //     };
+        // };
     };
 
     // class KPLIB_hud_overlay_fobSitrep : KPLIB_hud_overlay_sitrep {

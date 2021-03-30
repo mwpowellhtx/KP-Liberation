@@ -53,6 +53,87 @@ if (isServer) then {
     MVAR(_reportSector)                 = QMVAR(_reportSector);
 };
 
+if (hasInterface) then {
+
+    // TODO: TBD: this is a tighter view data form factor we think...
+    // TODO: TBD: the only rub appears to be, we cannot get right aligned text to work quite right
+    MVAR(_lnbViewDataKeys)              = [
+        [QMVAR(_fobReport_markerText)       , QMVAR(_fobReport_markerPath)          , QMVAR(_fobReport_markerColor)     ]
+        , [QMVAR(_fobReport_supply)         , QMVAR(_fobReport_supplyPath)          , QMVAR(_fobReport_supplyColor)     ]
+        , [QMVAR(_fobReport_ammo)           , QMVAR(_fobReport_ammoPath)            , QMVAR(_fobReport_ammoColor)       ]
+        , [QMVAR(_fobReport_fuel)           , QMVAR(_fobReport_fuelPath)            , QMVAR(_fobReport_fuelColor)       ]
+        , [QMVAR(_fobReport_intel)          , QMVAR(_fobReport_intelPath)           , QMVAR(_fobReport_intelColor)      ]
+        , [QMVAR(_fobReport_unitsCount)     , QMVAR(_fobReport_unitsCountPath)                                          ]
+        , [QMVAR(_fobReport_rotaryCount)    , QMVAR(_fobReport_rotaryCountPath)                                         ]
+        , [QMVAR(_fobReport_fixedWingCount) , QMVAR(_fobReport_fixedWingCountPath)                                      ]
+        , [QMVAR(_fobReport_awareness)      , QMVAR(_fobReport_awarenessPath)       , QMVAR(_fobReport_awarenessColor)  ]
+        , [QMVAR(_fobReport_strength)       , QMVAR(_fobReport_strengthPath)        , QMVAR(_fobReport_strengthColor)   ]
+        , [QMVAR(_fobReport_civRep)         , QMVAR(_fobReport_civRepPath)          , QMVAR(_fobReport_civRepColor)     ]
+    ];
+
+    // /* Empty arrays herein are not a mistake, because remember, added
+    //  * CT_CONTROLS_TABLE HEADER/ROW sets include a BACKGROUND CTRL,
+    //  * in the form: ['_lblBg', '_lblReport', '_lblPicture'] */
+
+    // MVAR(_ctrlHashMapKeys)              = [
+    //     // [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_markerText), QMVAR(_fobReport_markerColor)]
+    //     //     , [QMVAR(_fobReport_markerPath), QMVAR(_fobReport_markerColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_supply), QMVAR(_fobReport_supplyColor)]
+    //     //     , [QMVAR(_fobReport_supplyPath), QMVAR(_fobReport_supplyColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_ammo), QMVAR(_fobReport_ammoColor)]
+    //     //     , [QMVAR(_fobReport_ammoPath), QMVAR(_fobReport_ammoColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_fuel), QMVAR(_fobReport_fuelColor)]
+    //     //     , [QMVAR(_fobReport_fuelPath), QMVAR(_fobReport_fuelColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_unitsCount)]
+    //     //     , [QMVAR(_fobReport_unitsCountPath)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_rotaryCount)]
+    //     //     , [QMVAR(_fobReport_rotaryCountPath)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_fixedWingCount)]
+    //     //     , [QMVAR(_fobReport_fixedWingCountPath)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_awareness), QMVAR(_fobReport_awarenessColor)]
+    //     //     , [QMVAR(_fobReport_awarenessPath), QMVAR(_fobReport_awarenessColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_strength), QMVAR(_fobReport_strengthColor)]
+    //     //     , [QMVAR(_fobReport_strengthPath), QMVAR(_fobReport_strengthColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_civRep), QMVAR(_fobReport_civRepColor)]
+    //     //     , [QMVAR(_fobReport_civRepPath), QMVAR(_fobReport_civRepColor)]
+    //     // ]
+    //     // , [
+    //     //     []
+    //     //     , [QMVAR(_fobReport_intel), QMVAR(_fobReport_intelColor)]
+    //     //     , [QMVAR(_fobReport_intelPath), QMVAR(_fobReport_intelColor)]
+    //     // ]
+    // ];
+};
+
 if (isServer) then {
     ["[fn_hudDispatchSM_onPreInit] Initialized", "PRE] [HUDDISPATCHSM", true] call KPLIB_fnc_common_log;
 };
