@@ -48,7 +48,7 @@ class KPLIB_hudSM {
         onStateLeaving = "[_this, 'KPLIB_hudSM_state_blank::onStateLeaving'] call KPLIB_fnc_hudSM_onNoOp";
 
         class KPLIB_hudSM_transit_toStandby : KPLIB_hudSM_transit_toStandbyBase {
-            // Just always do this
+            condition = "!dialog && (_this isEqualTo vehicle _this)";
         };
     };
 

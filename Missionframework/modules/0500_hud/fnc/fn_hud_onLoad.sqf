@@ -41,7 +41,7 @@ if (_debug) then {
 ];
 
 if (_debug) then {
-    [format ["[fn_hud_onLoad] Fini: [ctrlIDD _display, _className]"
+    [format ["[fn_hud_onLoad] Fini: [ctrlIDD _display, _className]: %1"
         , str [ctrlIDD _display, _className]], "HUD", true] call KPLIB_fnc_common_log;
 };
 

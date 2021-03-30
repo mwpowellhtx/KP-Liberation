@@ -26,27 +26,30 @@ MSTATUS(_sector)                            = 4;
 MSTATUS(_overlay)                           = MSTATUS(_fob) + MSTATUS(_sector);
 
 
-// Setup some variables which reach across client and server for purposes of coordinating reports
-MFOB(_markerText)                           = QMFOB(_markerText);
-MFOB(_supply)                               = QMFOB(_supply);
-MFOB(_ammo)                                 = QMFOB(_ammo);
-MFOB(_fuel)                                 = QMFOB(_fuel);
-MFOB(_intel)                                = QMFOB(_intel);
-MFOB(_enemyAwareness)                       = QMFOB(_enemyAwareness);
-MFOB(_enemyStrength)                        = QMFOB(_enemyStrength);
-MFOB(_unitCount)                            = QMFOB(_unitCount);
-MFOB(_rotaryCount)                          = QMFOB(_rotaryCount);
-MFOB(_fixedWingCount)                       = QMFOB(_fixedWingCount);
+// // // TODO: TBD: This module does not have to do much lifting when it comes to presenting us with useful UI bits
+// // // TODO: TBD: Instead the HUDDISPATCHSM module itself tell us what it intends to report
+// // // TODO: TBD: And we will simply roll with that meta data in order to populate the control tables
+// // Setup some variables which reach across client and server for purposes of coordinating reports
+// MFOB(_markerText)                           = QMFOB(_markerText);
+// MFOB(_supply)                               = QMFOB(_supply);
+// MFOB(_ammo)                                 = QMFOB(_ammo);
+// MFOB(_fuel)                                 = QMFOB(_fuel);
+// MFOB(_intel)                                = QMFOB(_intel);
+// MFOB(_enemyAwareness)                       = QMFOB(_enemyAwareness);
+// MFOB(_enemyStrength)                        = QMFOB(_enemyStrength);
+// MFOB(_unitCount)                            = QMFOB(_unitCount);
+// MFOB(_rotaryCount)                          = QMFOB(_rotaryCount);
+// MFOB(_fixedWingCount)                       = QMFOB(_fixedWingCount);
 
-MSECTOR(_markerText)                        = QMSECTOR(_markerText);
-MSECTOR(_gridref)                           = QMSECTOR(_gridref);
-MSECTOR(_captured)                          = QMSECTOR(_captured);
-MSECTOR(_engaged)                           = QMSECTOR(_engaged);
-MSECTOR(_tower)                             = QMSECTOR(_tower);
-MSECTOR(_bluforCount)                       = QMSECTOR(_bluforCount);
-MSECTOR(_opforCount)                        = QMSECTOR(_opforCount);
-MSECTOR(_civilianCount)                     = QMSECTOR(_civilianCount);
-MSECTOR(_resistanceCount)                   = QMSECTOR(_resistanceCount);
+// MSECTOR(_markerText)                        = QMSECTOR(_markerText);
+// MSECTOR(_gridref)                           = QMSECTOR(_gridref);
+// MSECTOR(_captured)                          = QMSECTOR(_captured);
+// MSECTOR(_engaged)                           = QMSECTOR(_engaged);
+// MSECTOR(_tower)                             = QMSECTOR(_tower);
+// MSECTOR(_bluforCount)                       = QMSECTOR(_bluforCount);
+// MSECTOR(_opforCount)                        = QMSECTOR(_opforCount);
+// MSECTOR(_civilianCount)                     = QMSECTOR(_civilianCount);
+// MSECTOR(_resistanceCount)                   = QMSECTOR(_resistanceCount);
 
 MOVERLAY(_fobSitrep)                        = QMOVERLAY(_fobSitrep);
 MOVERLAY(_sectorSitrep)                     = QMOVERLAY(_sectorSitrep);
@@ -62,6 +65,9 @@ if (isServer) then {
 if (hasInterface) then {
     // Client side init
 
+    MVAR(_ctSector_ctrlIdcs)                = [];
+    MVAR(_ctFob_ctrlIdcs)                   = [];
+
     MOVERLAY(_blank)                        = QMOVERLAY(_blank);
     MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
 
@@ -72,41 +78,44 @@ if (hasInterface) then {
     // TODO: TBD: status should be sufficient to determine whether we have one report or another
     // TODO: TBD: but just in case, we bundle the report names for use throughout
 
-    // Which can be useful when determining whether report include FOB
-    MFOB(_variableNames)                    = [
-        MFOB(_markerText)
-        , MFOB(_supply)
-        , MFOB(_ammo)
-        , MFOB(_fuel)
-        , MFOB(_intel)
-        , MFOB(_unitCount)
-        , MFOB(_rotaryCount)
-        , MFOB(_fixedWingCount)
-    ];
+    // // Which can be useful when determining whether report include FOB
+    // MFOB(_variableNames)                    = [
+    //     MFOB(_markerText)
+    //     , MFOB(_supply)
+    //     , MFOB(_ammo)
+    //     , MFOB(_fuel)
+    //     , MFOB(_unitCount)
+    //     , MFOB(_rotaryCount)
+    //     , MFOB(_fixedWingCount)
+    //     , MFOB(_awareness)
+    //     , MFOB(_strength)
+    //     , MFOB(_civRep)
+    //     , MFOB(_intel)
+    // ];
 
-    // Ditto including SECTOR bits
-    MSECTOR(_variableNames)                 = [
-        MSECTOR(_markerText)
-        , MSECTOR(_gridref)
-        , MSECTOR(_captured)
-        , MSECTOR(_engaged)
-        , MSECTOR(_tower)
-        , MSECTOR(_bluforCount)
-        , MSECTOR(_opforCount)
-        , MSECTOR(_civilianCount)
-        , MSECTOR(_resistanceCount)
-    ];
+    // // Ditto including SECTOR bits
+    // MSECTOR(_variableNames)                 = [
+    //     MSECTOR(_markerText)
+    //     , MSECTOR(_gridref)
+    //     , MSECTOR(_captured)
+    //     , MSECTOR(_engaged)
+    //     , MSECTOR(_tower)
+    //     , MSECTOR(_bluforCount)
+    //     , MSECTOR(_opforCount)
+    //     , MSECTOR(_civilianCount)
+    //     , MSECTOR(_resistanceCount)
+    // ];
 
-    // TODO: TBD: starting small baby steps, get these couple of scenarios working first
-    // TODO: TBD: work out the wrinkles, achieve a seamless rinse and repeat approach...
-    MVAR(_sectorOverlayIdcsToSet)           = [
-        KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT
-    ];
+    // // TODO: TBD: starting small baby steps, get these couple of scenarios working first
+    // // TODO: TBD: work out the wrinkles, achieve a seamless rinse and repeat approach...
+    // MVAR(_sectorOverlayIdcsToSet)           = [
+    //     KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT
+    // ];
 
-    MVAR(_fobOverlayIdcsToSet)              = [
-        KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT
-        , KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE
-    ];
+    // MVAR(_fobOverlayIdcsToSet)              = [
+    //     KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT
+    //     , KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE
+    // ];
 };
 
 if (hasInterface) then {

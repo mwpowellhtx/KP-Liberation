@@ -133,8 +133,8 @@ if (_action isEqualTo MVAR(_action_overlayReport)) then {
     ];
 
     if (_debug) then {
-        [format ["[fn_hud_onStatusReport] Status report: [_sector, _fob, _sectorOverlayIdcsToSet, _fobOverlayIdcsToSet]: %1"
-            , str [_sector, _fob, MVAR(_sectorOverlayIdcsToSet), MVAR(_fobOverlayIdcsToSet)]], "HUD", true] call KPLIB_fnc_common_log;
+        [format ["[fn_hud_onStatusReport] Status report: [_sector, _fob]: %1"
+            , str [_sector, _fob]], "HUD", true] call KPLIB_fnc_common_log;
     };
 
     // // TODO: TBD: see if this would work, or do we need to touch ALL of the controls individually?
