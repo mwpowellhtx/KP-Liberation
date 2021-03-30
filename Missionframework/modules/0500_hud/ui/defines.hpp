@@ -9,11 +9,9 @@
 #define KPLIB_IDC_HUD_GRPSECTOR                         90100
 #define KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT           90110
 
-#define KPLIB_IDC_HUD_GRPFOB                            90200
-#define KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT              90210
-#define KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE           90220
-
-#define KPLIB_IDC_HUD_LNB_FOB                           90230
+// As along as SHADOW controls are in the controlsBackground[], Z order is good to go
+#define KPLIB_IDC_HUD_LNB_FOB                           90200
+#define KPLIB_IDC_HUD_LNB_FOB_SHADOW                    90210
 
 #define KPLIB_IDC_HUD_CT_FOB                            90300
 

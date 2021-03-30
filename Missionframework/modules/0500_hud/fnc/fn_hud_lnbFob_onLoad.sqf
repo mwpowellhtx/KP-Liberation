@@ -14,38 +14,49 @@ params [
     , [Q(_config), configNull, [configNull]]
 ];
 
-private _colorShadow = getArray (_config >> Q(colorShadow));
-if (count _colorShadow == 4) then { _lnbFob setVariable [QMVAR(_colorShadow), _colorShadow]; };
-// _lnbFob setVariable [QMVAR(_colorShadow), ]
-
 if (_debug) then {
-    [format ["[fn_hud_lnbFob_onLoad] Entering: [ctrlIDC _lnbFob, _colorShadow, idcLeft, idcRight, isNull _lnbFob, isNull _config]: %1"
-        , str [ctrlIDC _lnbFob, _colorShadow, getNumber (_config >> 'idcLeft'), getNumber (_config >> 'idcRight')
-            , isNull _lnbFob, isNull _config]], "HUD", true] call KPLIB_fnc_common_log;
+    [format ["[fn_hud_lnbFob_onLoad] Entering: [isNull _lnbFob, isNull _config, idcLeft, idcRight]: %1"
+        , str [isNull _lnbFob, isNull _config
+            , getNumber (_config >> 'idcLeft'), getNumber (_config >> 'idcRight')]]
+            , "HUD", true] call KPLIB_fnc_common_log;
 };
 
-// TODO: TBD: with bits sketched in...
-{
-    _x params [
-        [Q(_report), "", [""]]
-        , [Q(_imagePath), "", [""]]
-        , [Q(_color), [], [[]]]
+// Configure the namespace bits and prepare to register
+private _registerArgs = [getArray (_config >> Q(colorShadow))] call {
+    params [
+        [Q(_colorShadow), [], [[]]]
     ];
 
-    private _rowIndex = _lnbFob lnbAddRow [_report, ""];
-    _lnbFob lnbSetTextRight [[_rowIndex, 0], _report];
-    _lnbFob lnbSetPicture [[_rowIndex, 1], _imagePath];
-
-    // Color with either the SHADOW attribute or with the given COLOR
-    _color = _lnbFob getVariable [QMVAR(_colorShadow), _color];
-
-    if (count _color == 4) then {
-        _lnbFob lnbSetColor [[_rowIndex, 0], _color];
-        _lnbFob lnbSetColorRight [[_rowIndex, 0], _color];
-        _lnbFob lnbSetPictureColor [[_rowIndex, 1], _color];
+    if (_debug) then {
+        [format ["[fn_hud_lnbFob_onLoad] Prepare: [_colorShadow]: %1"
+            , str [_colorShadow]], "HUD", true] call KPLIB_fnc_common_log;
     };
 
-} forEach MVAR(_fobReport_sampleViewData);
+    /* Set for purposes of STATUS REPORT later on. If the instance is around when a
+     * next REPORT happens, then we attempt to use it. And if not, then we do not. */
+
+    if (count _colorShadow == 4) exitWith {
+        _lnbFob setVariable [QMVAR(_colorShadow), _colorShadow];
+        [
+            [QMVAR(_lnbFobShadow), _lnbFob]
+            , [QMVAR(_lnbFobShadowConfig), _config]
+        ];
+    };
+
+    [
+        [QMVAR(_lnbFob), _lnbFob]
+        , [QMVAR(_lnbFobConfig), _config]
+    ];
+};
+
+{ uiNamespace setVariable _x; } forEach _registerArgs;
+
+if (_debug) then {
+    [format ["[fn_hud_lnbFob_onLoad] Refreshing: [ctrlIDC _lnbFob]: %1"
+        , str [ctrlIDC _lnbFob]], "HUD", true] call KPLIB_fnc_common_log;
+};
+
+[_lnbFob, _config] call MFUNC(_lnbFob_onRefresh);
 
 if (_debug) then {
     ["[fn_hud_lnbFob_onLoad] Fini", "HUD", true] call KPLIB_fnc_common_log;

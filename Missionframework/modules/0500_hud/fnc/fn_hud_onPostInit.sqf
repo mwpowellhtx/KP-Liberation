@@ -1,6 +1,7 @@
 #include "script_component.hpp"
 
 // ...
+// https://cbateam.github.io/CBA_A3/docs/files/common/fnc_waitUntilAndExecute-sqf.html
 
 if (hasInterface) then {
     ["[fn_hud_onPostInit] Entering...", "POST] [HUD", true] call KPLIB_fnc_common_log;
@@ -59,6 +60,13 @@ if (hasInterface) then {
 
     // Because ^^ can be an expensive operation, reserve it only as needed
     MVAR(_fobReport_sampleViewData) = [] call _getViewData;
+
+    [
+        {KPLIB_campaignRunning}
+        , MFUNC(_onShow)
+        , [player]
+        , MPARAM(_showPeriod)
+    ] call CBA_fnc_waitUntilAndExecute;
 };
 
 if (hasInterface) then {

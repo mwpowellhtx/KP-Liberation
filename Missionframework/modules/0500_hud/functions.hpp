@@ -50,6 +50,9 @@ class hud {
     // FOB CT_LISTNBOX 'onLoad' event handler
     class hud_lnbFob_onLoad {};
 
+    // FOB CT_LISTNBOX 'onRefresh' event handler
+    class hud_lnbFob_onRefresh {};
+
     // FOB CT_CONTROLS_TABLE 'onLoad' event handler
     class hud_ctFob_onLoad {};
 
@@ -94,4 +97,19 @@ class hud {
 
     // PLAYER centric change to a DISPLAY or CTRL 'when' a condition has been satisfied
     class hud_ctrlChangeWhen {};
+
+    // Responds to CBA waited callback
+    class hud_onShow {};
+
+    // Responds to FOB show CBA waited callbacks
+    class hud_onShowFob {};
+
+    // Responds to FOB show CBA waited callbacks
+    class hud_onShowSector {};
+
+    // Reconciles OVERLAY HASHMAP with an incoming DISPATCH REPORT
+    class hud_onReconcileOverlayMap {};
+
+    // Gets the OVERLAY VALUES corresponding to the known HUDDISPATCHSM view data keys
+    class hud_getFobViewData {};
 };

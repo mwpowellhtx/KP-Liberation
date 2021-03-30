@@ -72,6 +72,7 @@ if (hasInterface) then {
     MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
 
     // The actions to which the HUD STATUS REPORT may respond
+    // TODO: TBD: For now we'll go with report/blank... however, I think we wnat to separate FOB from SECTOR...
     MVAR(_action_overlayBlank)              = Q(blank);
     MVAR(_action_overlayReport)             = Q(report);
 

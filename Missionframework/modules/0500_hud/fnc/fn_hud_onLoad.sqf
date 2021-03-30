@@ -2,6 +2,7 @@
 
 // ...
 // TODO: TBD: using cutRsc, no opportunity for onUnload...
+// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
 // https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
 
 private _debug = [
@@ -27,20 +28,23 @@ if (_debug) then {
 _display setVariable [QMVAR(_className), (configName _config)];
 private _className = _display getVariable [QMVAR(_className), ""];
 
-if (_debug) then {
-    // Worked around a config issue
-    systemChat format ["[fn_hud_onLoad] [ctrlIDD _display, _className]: %1"
-        , str [ctrlIDD _display, _className]];
+// TODO: TBD: may need to separate SECTOR from FOB overlays...
+// Clear off FOB, SECTOR and SHADOW elements when BLANK
+if (toLower _className find MVAR(_action_overlayBlank) > 0) then {
+    { uiNamespace setVariable [_x, nil]; } forEach [
+        QMVAR(_grpSector)
+        , QMVAR(_grpSectorShadow)
+        , QMVAR(_lnbFob)
+        , QMVAR(_lnbFobShadow)
+    ];
+    true;
 };
 
-// Set the DISPLAY and CONFIG in the appropriate namespace for later bookkeeping
-{ uiNamespace setVariable _x; } forEach [
-    [QMVAR(_display), _display]
-    , [QMVAR(_config), _config]
-    , [QMVAR(_className), _className]
-];
-
 if (_debug) then {
+
+    systemChat format ["[fn_hud_onLoad] [ctrlIDD _display, _className]: %1"
+        , str [ctrlIDD _display, _className]];
+
     [format ["[fn_hud_onLoad] Fini: [ctrlIDD _display, _className]: %1"
         , str [ctrlIDD _display, _className]], "HUD", true] call KPLIB_fnc_common_log;
 };
