@@ -26,7 +26,7 @@ class XGUI_PRE_ScrollBar : KPGUI_PRE_ScrollBar {
 };
 
 // Controls table with nominal default settings
-class XGUI_PRE_ControlTable {
+class XGUI_PRE_ControlsTable {
     idc = KPLIB_IDC_UNDEFINED;
     x = 0;
     y = 0;
@@ -156,27 +156,4 @@ class XGUI_PRE_ListNBox : KPGUI_PRE_ListNBox {
 };
 
 class XGUI_PRE_MapControl : KPGUI_PRE_MapControl {
-};
-
-class XGUI_PRE_ControlsGroup {
-    idc = KPLIB_IDC_UNDEFINED;
-    deletable = 0;
-    type = CT_CONTROLS_GROUP;
-    style = ST_MULTI;
-    x = 0;
-    y = 0;
-    w = 0;
-    h = 0;
-    class VScrollbar : XGUI_PRE_ScrollBar {
-        color[] = {1, 1, 1, 1};
-        width = 0.021;
-        autoScrollEnabled = 1;
-    };
-    class HScrollbar : XGUI_PRE_ScrollBar {
-        color[] = {1, 1, 1, 1};
-        height = 0.028;
-    };
-    class controls {};
-    fade = 0;
-    shadow = 0;
 };

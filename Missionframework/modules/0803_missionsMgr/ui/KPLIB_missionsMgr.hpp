@@ -226,7 +226,7 @@ class KPLIB_missionsMgr {
             //text = "img";
         };
 
-        class KPLIB_missionsMgr_ctBriefing : XGUI_PRE_ControlTable {
+        class KPLIB_missionsMgr_ctBriefing : XGUI_PRE_ControlsTable {
             idc = KPLIB_IDC_MISSIONSMGR_CT_BRIEFING;
 
             x = KPLIB_MISSIONSMGR_BRIEFING_CT_BRIEFING_X;
