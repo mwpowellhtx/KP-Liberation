@@ -13,8 +13,9 @@ if (hasInterface) then {
     // // TODO: TBD: doubtful we need any special events beyond the setVariable features...
     // [QMVAR(_updatePlayer), MFUNC(_onUpdatePlayer)] call CBA_fnc_addEventHandler;
 
-    // Warm up the client side HUD SM
-    [] call MFUNC(_createSM);
+    // // // TODO: TBD: we do not 
+    // // Warm up the client side HUD SM
+    // [] call MFUNC(_createSM);
 };
 
 if (hasInterface) then {
