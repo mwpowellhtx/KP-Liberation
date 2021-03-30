@@ -32,12 +32,12 @@ if (count _fobs > 0) then {
 
     [
         KPLIB_resources_intel
-        , +KPLIB_preset_common_intelColor
         , KPLIB_preset_common_intelPath
+        , +KPLIB_preset_common_intelColor
     ] params [
         Q(_intel)
-        , Q(_intelColor)
         , Q(_intelPath)
+        , Q(_intelColor)
     ];
 
     _compiledReport append [

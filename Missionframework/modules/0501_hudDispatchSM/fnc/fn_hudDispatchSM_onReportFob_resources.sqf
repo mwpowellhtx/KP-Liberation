@@ -58,10 +58,19 @@ if (count _fobs > 0) then {
         , Q(_renderedFuel)
     ];
 
+    KPLIB_resources_imagePaths params [
+        Q(_supplyPath)
+        , Q(_ammoPath)
+        , Q(_fuelPath)
+    ];
+
     _compiledReport append [
         [QMVAR(_fobReport_supply), _renderedSupply]
         , [QMVAR(_fobReport_ammo), _renderedAmmo]
         , [QMVAR(_fobReport_fuel), _renderedFuel]
+        , [QMVAR(_fobReport_supplyPath), _supplyPath]
+        , [QMVAR(_fobReport_ammoPath), _ammoPath]
+        , [QMVAR(_fobReport_fuelPath), _fuelPath]
         , [QMVAR(_fobReport_supplyColor), [0, 0.95, 0, 1]]
         , [QMVAR(_fobReport_ammoColor), [0.95, 0, 0, 1]]
         , [QMVAR(_fobReport_fuelColor), [0.95, 0.95, 0, 1]]

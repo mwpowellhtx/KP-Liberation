@@ -51,25 +51,38 @@ if (isServer) then {
 
     MVAR(_reportFob)                    = QMVAR(_reportFob);
     MVAR(_reportSector)                 = QMVAR(_reportSector);
+
+    MVAR(_unitsPath)                    = "\A3\Ui_F_Curator\Data\Displays\RscDisplayCurator\modeGroups_CA.paa";
+
+    MVAR(_rotaryPath)                   = "\A3\air_f_beta\Heli_Transport_01\Data\UI\Map_Heli_Transport_01_base_CA.paa";
+    MVAR(_fixedWingPath)                = "\A3\Air_F_EPC\Plane_CAS_01\Data\UI\Map_Plane_CAS_01_CA.paa";
+
+    MVAR(_civRepPath)                   = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
+
+    MVAR(_awarenessRatioPath)           = "\A3\ui_f\data\map\markers\handdrawn\unknown_CA.paa";
+    MVAR(_strengthRatioPath)            = "\A3\ui_f\data\map\markers\handdrawn\warning_CA.paa";
 };
 
 if (hasInterface) then {
 
     // TODO: TBD: this is a tighter view data form factor we think...
     // TODO: TBD: the only rub appears to be, we cannot get right aligned text to work quite right
-    MVAR(_lnbViewDataKeys)              = [
+    MVAR(_lnbFob_viewDataKeys)              = [
         [QMVAR(_fobReport_markerText)       , QMVAR(_fobReport_markerPath)          , QMVAR(_fobReport_markerColor)     ]
         , [QMVAR(_fobReport_supply)         , QMVAR(_fobReport_supplyPath)          , QMVAR(_fobReport_supplyColor)     ]
         , [QMVAR(_fobReport_ammo)           , QMVAR(_fobReport_ammoPath)            , QMVAR(_fobReport_ammoColor)       ]
         , [QMVAR(_fobReport_fuel)           , QMVAR(_fobReport_fuelPath)            , QMVAR(_fobReport_fuelColor)       ]
         , [QMVAR(_fobReport_intel)          , QMVAR(_fobReport_intelPath)           , QMVAR(_fobReport_intelColor)      ]
-        , [QMVAR(_fobReport_unitsCount)     , QMVAR(_fobReport_unitsCountPath)                                          ]
-        , [QMVAR(_fobReport_rotaryCount)    , QMVAR(_fobReport_rotaryCountPath)                                         ]
-        , [QMVAR(_fobReport_fixedWingCount) , QMVAR(_fobReport_fixedWingCountPath)                                      ]
+        , [QMVAR(_fobReport_unitsCount)     , QMVAR(_fobReport_unitsPath)                                               ]
+        , [QMVAR(_fobReport_rotaryCount)    , QMVAR(_fobReport_rotaryPath)                                              ]
+        , [QMVAR(_fobReport_fixedWingCount) , QMVAR(_fobReport_fixedWingPath)                                           ]
+        , [QMVAR(_fobReport_civRep)         , QMVAR(_fobReport_civRepPath)          , QMVAR(_fobReport_civRepColor)     ]
         , [QMVAR(_fobReport_awareness)      , QMVAR(_fobReport_awarenessPath)       , QMVAR(_fobReport_awarenessColor)  ]
         , [QMVAR(_fobReport_strength)       , QMVAR(_fobReport_strengthPath)        , QMVAR(_fobReport_strengthColor)   ]
-        , [QMVAR(_fobReport_civRep)         , QMVAR(_fobReport_civRepPath)          , QMVAR(_fobReport_civRepColor)     ]
     ];
+
+    // Aggregate 'flattens' the keys
+    MVAR(_fobReportKeys)                    = [[], MVAR(_lnbFob_viewDataKeys)] call KPLIB_fnc_linq_aggregate;
 
     // /* Empty arrays herein are not a mistake, because remember, added
     //  * CT_CONTROLS_TABLE HEADER/ROW sets include a BACKGROUND CTRL,

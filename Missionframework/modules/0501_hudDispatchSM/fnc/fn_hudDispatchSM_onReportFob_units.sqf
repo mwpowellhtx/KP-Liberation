@@ -29,9 +29,30 @@ if (_debug) then {
 
 // FOBs being the key ingredient
 if (count _fobs > 0) then {
-    private _units = _fobs apply { [(_x#4)] call MFUNC(_getUnits); };
+
+    [
+        _fobs apply { [(_x#4)] call MFUNC(_getUnits); }
+    ] params [
+        Q(_units)
+    ];
+
+    [
+        [_units apply { count _x; }, { (_this#0); }] call KPLIB_fnc_linq_sum
+    ] params [
+        Q(_unitsCount)
+    ];
+
+    [
+        [_unitsCount] call MFUNC(_renderScalar)
+        , MVAR(_unitsPath)
+    ] params [
+        Q(_renderedUnitsCount)
+        , Q(_unitsPath)
+    ];
+
     _compiledReport append [
-        [QMVAR(_fobReport_units), [_units apply { count _x; }] call KPLIB_fnc_linq_sum]
+        [QMVAR(_fobReport_unitsCount), _renderedUnitsCount]
+        , [QMVAR(_fobReport_unitsPath), _unitsPath]
     ];
 };
 

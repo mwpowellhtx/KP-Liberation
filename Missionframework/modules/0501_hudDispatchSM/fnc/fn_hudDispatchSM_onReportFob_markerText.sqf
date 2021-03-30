@@ -37,7 +37,7 @@ private _markerText = switch (count _fobs) do {
 // Now report MARKER TEXT and corresponding COLOR
 if (!(_markerText isEqualTo "")) then {
     _compiledReport append [
-        [QMVAR(_fobReport_markerText), _markerText]
+        [QMVAR(_fobReport_markerText), toUpper _markerText]
         , [QMVAR(_fobReport_markerColor), KPLIB_core_fobColor]
         , [QMVAR(_fobReport_markerPath), KPLIB_core_fobMarkerPath]
     ];

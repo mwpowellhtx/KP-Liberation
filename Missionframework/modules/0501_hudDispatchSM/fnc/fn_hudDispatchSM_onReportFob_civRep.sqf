@@ -32,7 +32,10 @@ if (count _fobs > 0) then {
 
     // TODO: TBD: may want to refactor in terms of uniform preset settings...
     [
-        KPLIB_civilian_civRep
+        (-KPLIB_param_civilian_maxCivRep max (
+                KPLIB_civilian_civRep min KPLIB_param_civilian_maxCivRep
+            )
+        )
         , KPLIB_param_civilian_maxCivRep
         , -(3.4 * abs KPLIB_civilian_civRepBaseThreshold)
         , -(2.6 * abs KPLIB_civilian_civRepBaseThreshold)
@@ -74,7 +77,8 @@ if (count _fobs > 0) then {
     // TODO: TBD: would be interesting if CIV REP were to 'block' logistics running, even for 'BLUFOR' sectors
     [
         // Yes, 'render' a 'positive' CIV REP, but we will color according to the ACTUAL ratio
-        [(abs _civRep), _maxCivRep, _suffix] call MFUNC(_renderScalar)
+        [_civRep, _maxCivRep, _suffix] call MFUNC(_renderScalar)
+        , MVAR(_civRepPath)
         , [_civRepRatio, [
             [_favoredThreshold, _greenColor]
             , [_likeThreshold, _blueColor]
@@ -83,11 +87,13 @@ if (count _fobs > 0) then {
             , [_hostileThreshold, _orangeColor]], _redColor] call MFUNC(_getThresholdColor)
     ] params [
         Q(_renderedCivRep)
+        , Q(_civRepPath)
         , Q(_civRepColor)
     ];
 
     _compiledReport append [
         [QMVAR(_fobReport_civRep), _renderedCivRep]
+        , [QMVAR(_fobReport_civRepPath), _civRepPath]
         , [QMVAR(_fobReport_civRepColor), _civRepColor]
     ];
 };

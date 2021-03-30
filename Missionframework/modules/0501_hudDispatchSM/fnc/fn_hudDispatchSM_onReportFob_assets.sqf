@@ -28,16 +28,40 @@ if (_debug) then {
 };
 
 if (count _fobs > 0) then {
+
     [
-        _fobs apply { [_x] call MFUNC(_getFobAssets); }
-        , _fobs apply { [_x, Q(Helicopter)] call MFUNC(_getFobAssets); }
+        _fobs apply { [_x, Q(Helicopter)] call MFUNC(_getFobAssets); }
+        , _fobs apply { [_x] call MFUNC(_getFobAssets); }
     ] params [
-        Q(_fixedWingAssets)
-        , Q(_rotaryAssets)
+        Q(_fobRotaryAssets)
+        , Q(_fobFixedWingAssets)
     ];
+
+    [
+        [_fobRotaryAssets apply { count _x; }] call KPLIB_fnc_linq_sum
+        , [_fobFixedWingAssets apply { count _x; }] call KPLIB_fnc_linq_sum
+    ] params [
+        Q(_rotaryCount)
+        , Q(_fixedWingCount)
+    ];
+
+    [
+        [_rotaryCount] call MFUNC(_renderScalar)
+        , [_fixedWingCount] call MFUNC(_renderScalar)
+        , MVAR(_rotaryPath)
+        , MVAR(_fixedWingPath)
+    ] params [
+        Q(_renderedRotaryCount)
+        , Q(_renderedFixedWingCount)
+        , Q(_rotaryPath)
+        , Q(_fixedWingPath)
+    ];
+
     _compiledReport append [
-        [QMVAR(_fobReport_rotaryWingCount), [_rotaryAssets apply { count _x; }] call KPLIB_fnc_linq_sum]
-        , [QMVAR(_fobReport_fixedWingCount), [_fixedWingAssets apply { count _x; }] call KPLIB_fnc_linq_sum]
+        [QMVAR(_fobReport_rotaryCount), _renderedRotaryCount]
+        , [QMVAR(_fobReport_fixedWingCount), _renderedFixedWingCount]
+        , [QMVAR(_fobReport_rotaryPath), _rotaryPath]
+        , [QMVAR(_fobReport_fixedWingPath), _fixedWingPath]
     ];
 };
 
