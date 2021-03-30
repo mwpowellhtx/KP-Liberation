@@ -47,10 +47,24 @@ if (count _fobs > 0) then {
         , Q(_fuelSlice)
     ];
 
+    // Sum each of the SLICES then RENDER each of them
+    [_supplySlice, _ammoSlice, _fuelSlice] apply {
+        [_x] call KPLIB_fnc_linq_sum;
+    } apply {
+        [_x] call MFUNC(_renderScalar);
+    } params [
+        Q(_renderedSupply)
+        , Q(_renderedAmmo)
+        , Q(_renderedFuel)
+    ];
+
     _compiledReport append [
-        [QMVAR(_fobReport_supply), [_supplySlice] call KPLIB_fnc_linq_sum]
-        , [QMVAR(_fobReport_ammo), [_ammoSlice] call KPLIB_fnc_linq_sum]
-        , [QMVAR(_fobReport_fuel), [_fuelSlice] call KPLIB_fnc_linq_sum]
+        [QMVAR(_fobReport_supply), _renderedSupply]
+        , [QMVAR(_fobReport_ammo), _renderedAmmo]
+        , [QMVAR(_fobReport_fuel), _renderedFuel]
+        , [QMVAR(_fobReport_supplyColor), [0, 0.95, 0, 1]]
+        , [QMVAR(_fobReport_ammoColor), [0.95, 0, 0, 1]]
+        , [QMVAR(_fobReport_fuelColor), [0.95, 0.95, 0, 1]]
     ];
 };
 

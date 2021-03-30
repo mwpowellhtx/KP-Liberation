@@ -40,16 +40,10 @@ if (count _fobs > 0) then {
         , Q(_intelPath)
     ];
 
-    [
-        [_intel] call KPLIB_fnc_hudDispatch_renderScalar
-    ] params [
-        Q(_renderedIntel)
-    ];
-
     _compiledReport append [
-        [QMVAR(_fobReport_intel), _renderedIntel]
-        , [QMVAR(_fobReport_intelPath), KPLIB_preset_common_intelPath]
-        , [QMVAR(_fobReport_intelColor), +KPLIB_preset_common_intelColor]
+        [QMVAR(_fobReport_intel), [_intel] call MFUNC(_renderScalar)]
+        , [QMVAR(_fobReport_intelPath), _intelPath]
+        , [QMVAR(_fobReport_intelColor), +_intelColor]
     ];
 };
 
