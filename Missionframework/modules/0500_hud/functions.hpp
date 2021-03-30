@@ -53,51 +53,6 @@ class hud {
     // FOB CT_LISTNBOX 'onRefresh' event handler
     class hud_lnbFob_onRefresh {};
 
-    // FOB CT_CONTROLS_TABLE 'onLoad' event handler
-    class hud_ctFob_onLoad {};
-
-    // FOB CT_CONTROLS_TABLE control 'onLoad' event handler
-    class hud_ctFob_ctrl_onLoad {};
-
-    // // HUD overlay 'onUnload' event handler
-    // class hud_onUnload {};
-
-    // Responds when a STATUS REPORT occurs, or BLANK the overlay HUD
-    class hud_onStatusReport {};
-
-    // // Reports SECTOR elements to the HUD overlay
-    // class hud_onReportSector {};
-
-    // // Reports FOB elements to the HUD overlay
-    // class hud_onReportFob {};
-
-    // grpBase CT_CONTROLS_GROUP onLoad event handler
-    class hud_grpBase_onLoad {};
-
-    // Base CTRL onLoad event handler
-    class hud_ctrlBase_onLoad {};
-
-    // General use lblMarkerText CT_STATIC onLoad event handler
-    class hud_lblMarkerText_onLoad {};
-
-    // // grpSector CT_CONTROLS_GROUP onLoad event handler
-    // class hud_grpSector_onLoad {};
-
-    // // grpSector::lblMarkerText CT_STATIC onLoad event handler
-    // class hud_grpSector_lblMarkerText_onLoad {};
-
-    // // grpFob CT_CONTROLS_GROUP onLoad event handler
-    // class hud_grpFob_onLoad {};
-
-    // // grpFob::lblMarkerText CT_STATIC onLoad event handler
-    // class hud_grpFob_lblMarkerText_onLoad {};
-
-    // PLAYER centric HUD oriented set of CTRL value; may render anything, prefers STRING
-    class hud_ctrlSetText {};
-
-    // PLAYER centric change to a DISPLAY or CTRL 'when' a condition has been satisfied
-    class hud_ctrlChangeWhen {};
-
     // Responds to CBA waited callback
     class hud_onShow {};
 

@@ -121,30 +121,6 @@ class RscTitles {
             KPLIB_hud_lnbFobShadow
         };
 
-        class KPLIB_hud_ctFob_lblBase : XGUI_PRE_Label {
-            colorBackground[] = COLOR_NOALPHA;
-            font = KPX_HUD_FONT_M;
-            style = ST_RIGHT + ST_SHADOW;
-            sizeEx = KPX_TITLE_M_H;
-            shadow = SH_STROKE;
-            onLoad = "_this spawn KPLIB_fnc_hud_ctFob_ctrl_onLoad";
-        };
-
-        class KPLIB_hud_ctFob_lblCtBackground : KPLIB_hud_ctFob_lblBase {
-        };
-
-        class KPLIB_hud_ctFob_lblReportBase : KPLIB_hud_ctFob_lblBase {
-        };
-
-        class KPLIB_hud_ctFob_lblHeaderReportBase : KPLIB_hud_ctFob_lblReportBase {
-            sizeEx = KPX_TITLE_L_H;
-        };
-
-        class KPLIB_hud_ctFob_lblPictureBase : XGUI_PRE_PictureRatio {
-            shadow = SH_STROKE;
-            onLoad = "_this spawn KPLIB_fnc_hud_ctFob_ctrl_onLoad";
-        };
-
         class KPLIB_hud_lnbFob : XGUI_PRE_ListNBox {
             idc = KPLIB_IDC_HUD_LNB_FOB;
 
