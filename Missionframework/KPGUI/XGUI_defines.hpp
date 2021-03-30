@@ -255,23 +255,49 @@
 #define KPX_DEFAULT_DIALOG_WC       (0.5 * safeZoneW)
 #define KPX_DEFAULT_DIALOG_HC       (0.5 * safeZoneH)
 
-// Assuming we have halves, then we want half of the remainder for sidebar
-#define KPX_DEFAULT_SIDEBAR_W       (0.5 * (safeZoneW - KPX_DEFAULT_DIALOG_WC))
-// TODO: TBD: "sidebar height" is a work in progress, experiment with it
-#define KPX_DEFAULT_SIDEBAR_H       (0.5 * (safeZoneH - KPX_DEFAULT_DIALOG_HC))
-
 #define KPX_DEFAULT_DIALOG_WC2      (0.65 * safeZoneW)
 #define KPX_DEFAULT_DIALOG_HC2      (0.65 * safeZoneH)
 
 #define KPX_DEFAULT_DIALOG_XC       KPX_GETXC_W(KPX_DEFAULT_DIALOG_WC)
 #define KPX_DEFAULT_DIALOG_YC       KPX_GETYC_H(KPX_DEFAULT_DIALOG_HC)
 
+
+/*
+    --- Sidebar defaults ---
+
+    Description:
+        That quarter of the usable screen area on the right hand side. The textual
+        geometry is imprecise, of course, and only there to offer a hint as to the
+        relationship between that and the DIALOG AREA, for instance.
+
+        DIALOG AREA ] [      SIDEBAR AREA      ]
+        ============= ##########################
+              [x] === ##                      ##
+        ============= ##                      ##
+        ------------- ##                      ##
+                  --- ##                      ##
+                  --- ##                      ##
+                  --- ##                      ##
+        ------------- ##         ....         ##
+ */
+
+// Assuming we have halves, then we want half of the remainder for sidebar
+#define KPX_DEFAULT_SIDEBAR_W       (0.5 * (safeZoneW - KPX_DEFAULT_DIALOG_WC))
+// Because being a SIDEBAR, on either side, has no bearing concerning the DIALOG alignment
+#define KPX_DEFAULT_SIDEBAR_H       (0.5 * safeZoneH)
+
+#define KPX_DEFAULT_SIDEBAR_CTRLAREA_W  (KPX_DEFAULT_SIDEBAR_W - (2 * KPX_SPACING_W))
+#define KPX_DEFAULT_SIDEBAR_CTRLAREA_H  (KPX_DEFAULT_SIDEBAR_H - (2 * KPX_SPACING_H))
+
 // Working "left" from the far right hand side
 #define KPX_DEFAULT_SIDEBAR_XR      (safeZoneX + safeZoneW - KPX_DEFAULT_SIDEBAR_W)
 // TODO: TBD: not unlike its horizontal counterpart, experiment with the vertical components
-#define KPX_DEFAULT_SIDEBAR_YB0     (safeZoneY + safeZoneH - (2 * KPX_DEFAULT_SIDEBAR_H))
-#define KPX_DEFAULT_SIDEBAR_YB1     (safeZoneY + safeZoneH - (3 * KPX_DEFAULT_SIDEBAR_H))
+#define KPX_DEFAULT_SIDEBAR_YB      (safeZoneY + safeZoneH - KPX_DEFAULT_SIDEBAR_H)
+// #define KPX_DEFAULT_SIDEBAR_YB0     (safeZoneY + safeZoneH - (2 * KPX_DEFAULT_SIDEBAR_H))
+// #define KPX_DEFAULT_SIDEBAR_YB1     (safeZoneY + safeZoneH - (3 * KPX_DEFAULT_SIDEBAR_H))
 
+#define KPX_DEFAULT_SIDEBAR_CTRLAREA_XR (KPX_DEFAULT_SIDEBAR_XR + KPX_SPACING_W)
+#define KPX_DEFAULT_SIDEBAR_CTRLAREA_YB (KPX_DEFAULT_SIDEBAR_YB + KPX_SPACING_H)
 
 
 /*
