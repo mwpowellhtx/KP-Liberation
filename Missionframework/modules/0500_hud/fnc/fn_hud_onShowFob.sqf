@@ -82,12 +82,12 @@ if (_debug) then {
 // TODO: TBD: "''" or BLANK cuts? layers?
 switch (true) do {
 
-    case ((_dialog || _display || !(_fob || _playerIsPlayer)) && _ctrlCount == 2): {
+    case ((_dialog || _display || !(_fob && _playerIsPlayer)) && _ctrlCount == 2): {
         if (_debug) then {
             [format ["[fn_hud_onShowFob] Cutting: [_className]: %1"
                 , str [QMVAR(_blank)]], "HUD", true] call KPLIB_fnc_common_log;
         };
-        cutRsc [QMVAR(_blank), _effect, _speed, _showInMap];
+        MLAYER2(FOB,_overlay) cutRsc [QMVAR(_blank), _effect, _speed, _showInMap];
     };
 
     // And allow the resource control onLoad events to do the heavy lifting
@@ -96,7 +96,7 @@ switch (true) do {
             [format ["[fn_hud_onShowFob] Cutting: [_className]: %1"
                 , str [QMVAR(_overlay)]], "HUD", true] call KPLIB_fnc_common_log;
         };
-        cutRsc [QMVAR(_overlay), _effect, _speed, _showInMap];
+        MLAYER2(FOB,_overlay) cutRsc [QMVAR(_overlay), _effect, _speed, _showInMap];
     };
 
     // RESOURCE already CUT, refresh BOTH sets of controls, PRIMARY and SHADOW

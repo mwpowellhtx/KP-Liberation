@@ -3,7 +3,8 @@
 // ...
 
 // As a function of cap range times coefficient
-private _defaultRange = MPARAM(_sectorReportRangeCoefficient) * KPLIB_param_sectorCapRange;
+// TODO: TBD: use the sector activation range instead of any notion of coefficient
+private _defaultRange = KPLIB_param_hudDispatchSM_sectorReportRangeCoefficient * KPLIB_param_sectorCapRange;
 
 // TODO: TBD: factoring on this one could possibly be better, seems more generic than just HUD
 params [

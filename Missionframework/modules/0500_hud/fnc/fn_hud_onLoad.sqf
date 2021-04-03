@@ -18,7 +18,7 @@ params [
 ];
 
 if (_debug) then {
-    [format ["[fn_hud_onLoad] Entering: [isNull _display, isNull _config]"
+    [format ["[fn_hud_onLoad] Entering: [isNull _display, isNull _config]: %1"
         , str [isNull _display, isNull _config]], "HUD", true] call KPLIB_fnc_common_log;
 };
 
@@ -30,11 +30,9 @@ private _className = _display getVariable [QMVAR(_className), ""];
 
 // TODO: TBD: may need to separate SECTOR from FOB overlays...
 // Clear off FOB, SECTOR and SHADOW elements when BLANK
-if (toLower _className find MVAR(_action_overlayBlank) > 0) then {
+if (toLower _className find MVAR(_action_blank) > 0) then {
     { uiNamespace setVariable [_x, nil]; } forEach [
-        QMVAR(_grpSector)
-        , QMVAR(_grpSectorShadow)
-        , QMVAR(_lnbFob)
+        QMVAR(_lnbFob)
         , QMVAR(_lnbFobShadow)
     ];
     true;

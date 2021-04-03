@@ -2,6 +2,7 @@
 #include "script_component.hpp"
 
 // ...
+// https://community.bistudio.com/wiki/BIS_fnc_rscLayer
 
 if (hasInterface) then {
     ["[fn_hud_onPreInit] Initializing...", "PRE] [HUD", true] call KPLIB_fnc_common_log;
@@ -65,22 +66,31 @@ if (isServer) then {
 if (hasInterface) then {
     // Client side init
 
-    MVAR(_ctSector_ctrlIdcs)                = [];
-    MVAR(_ctFob_ctrlIdcs)                   = [];
+    MVAR(_ctSector_ctrlIdcs)                    = [];
+    MVAR(_ctFob_ctrlIdcs)                       = [];
 
-    MOVERLAY(_blank)                        = QMOVERLAY(_blank);
-    MOVERLAY(_overlay)                      = QMOVERLAY(_overlay);
+    MOVERLAY(_blank)                            = QMOVERLAY(_blank);
+    MOVERLAY(_overlay)                          = QMOVERLAY(_overlay);
 
     // The actions to which the HUD STATUS REPORT may respond
     // TODO: TBD: For now we'll go with report/blank... however, I think we wnat to separate FOB from SECTOR...
-    MVAR(_action_overlayBlank)              = Q(blank);
-    MVAR(_action_overlayReport)             = Q(report);
+    MVAR(_action_blank)                         = Q(blank);
+    MVAR(_action_overlay)                       = Q(overlay);
+
+    MLAYER2(FOB,_overlay)                       = QMLAYER2(FOB,_overlay) call BIS_fnc_rscLayer;
+    MLAYER2(Sector,_overlay)                    = QMLAYER2(Sector,_overlay) call BIS_fnc_rscLayer;
+
+    MVAR2(Sector,_action_blank)                 = Q(blank);
+    MVAR2(Sector,_action_overlay)               = Q(overlay);
+
+    MVAR2(Sector,_pbSide_blufor)                = "blufor";
+    MVAR2(Sector,_pbSide_opfor)                 = "opfor";
 
     // TODO: TBD: status should be sufficient to determine whether we have one report or another
     // TODO: TBD: but just in case, we bundle the report names for use throughout
 
     // // Which can be useful when determining whether report include FOB
-    // MFOB(_variableNames)                    = [
+    // MFOB(_variableNames)                        = [
     //     MFOB(_markerText)
     //     , MFOB(_supply)
     //     , MFOB(_ammo)
@@ -95,7 +105,7 @@ if (hasInterface) then {
     // ];
 
     // // Ditto including SECTOR bits
-    // MSECTOR(_variableNames)                 = [
+    // MSECTOR(_variableNames)                     = [
     //     MSECTOR(_markerText)
     //     , MSECTOR(_gridref)
     //     , MSECTOR(_captured)
@@ -109,11 +119,11 @@ if (hasInterface) then {
 
     // // TODO: TBD: starting small baby steps, get these couple of scenarios working first
     // // TODO: TBD: work out the wrinkles, achieve a seamless rinse and repeat approach...
-    // MVAR(_sectorOverlayIdcsToSet)           = [
+    // MVAR(_sectorOverlayIdcsToSet)               = [
     //     KPLIB_IDC_HUD_GRPSECTOR_LBLMARKERTEXT
     // ];
 
-    // MVAR(_fobOverlayIdcsToSet)              = [
+    // MVAR(_fobOverlayIdcsToSet)                  = [
     //     KPLIB_IDC_HUD_GRPFOB_LBLMARKERTEXT
     //     , KPLIB_IDC_HUD_GRPFOB_LBLMARKERPICTURE
     // ];

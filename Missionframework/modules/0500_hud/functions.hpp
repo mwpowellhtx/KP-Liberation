@@ -67,4 +67,31 @@ class hud {
 
     // Gets the OVERLAY VALUES corresponding to the known HUDDISPATCHSM view data keys
     class hud_getFobViewData {};
+
+    // SECTOR HUD overlay 'onLoad' event handler
+    class hudSector_onLoad {};
+
+    // Gets the VIEW DATA for the caller, very generic, and focused for SECTOR REPORT bits
+    class hudSector_getViewData {};
+
+    //
+    class hudSector_ctrlsGrpSector_lblProgressBar_onLoad {};
+
+    //
+    class hudSector_ctrlsGrpSector_lblProgressBar_onRefresh {};
+
+    //
+    class hudSector_ctrlsGrpSector_lblSectorText_onLoad {};
+
+    //
+    class hudSector_ctrlsGrpSector_lblSectorText_onRefresh {};
+
+    //
+    class hudSector_ctrlsGrpSector_lblTimer_onLoad {};
+
+    //
+    class hudSector_ctrlsGrpSector_lblTimer_onRefresh {};
+
+    // SECTOR HUD progressSetPosition API, similar to the primitive
+    class hudSector_ctrlsGrpSector_progressSetPosition {};
 };

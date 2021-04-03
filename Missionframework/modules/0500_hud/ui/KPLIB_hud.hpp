@@ -19,12 +19,43 @@
         https://community.bistudio.com/wiki/Description.ext
         https://community.bistudio.com/wiki/Arma:_GUI_Configuration
         https://community.bistudio.com/wiki/CT_CONTROLS_GROUP
-
-    References:
-        https://community.bistudio.com/wiki/Arma:_GUI_Configuration
         https://community.bistudio.com/wiki/CT_CONTROLS_TABLE
+        https://community.bistudio.com/wiki/CT_PROGRESS
         https://community.bistudio.com/wiki/Arma:_GUI_Configuration#Common_Properties
  */
+
+
+/*
+    --- SECTOR CT_CONTROLS_GROUP geometry ---
+ */
+
+#define KPX_SPACING_W_SHADOW                (0.75 * KPX_SPACING_W)
+#define KPX_SPACING_H_SHADOW                (0.75 * KPX_SPACING_H)
+
+#define KPLIB_HUD_SHADOW_COLOR              {0.2, 0.2, 0.2, 0.9}
+
+#define KPLIB_HUD_SIDEBAR_H_2               (0.5 * KPX_DEFAULT_SIDEBAR_CTRLAREA_H)
+
+// TODO: TBD: kind of experimental at this stage... tinker with the widths etc
+#define KPLIB_HUD_GRP_SECTOR_W              (0.75 * KPX_DEFAULT_SIDEBAR_CTRLAREA_W)
+#define KPLIB_HUD_GRP_SECTOR_H              (KPX_SPACING_H + (2 * KPX_BUTTON_L_H))
+#define KPLIB_HUD_GRP_SECTOR_X              (KPX_DEFAULT_SIDEBAR_CTRLAREA_XR + (KPX_DEFAULT_SIDEBAR_CTRLAREA_W - KPLIB_HUD_GRP_SECTOR_W))
+#define KPLIB_HUD_GRP_SECTOR_Y              (KPX_DEFAULT_SIDEBAR_CTRLAREA_YB - KPLIB_HUD_SIDEBAR_H_2)
+
+// Y coord is 0 meaning very top-most of the group
+#define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W  KPX_GETW_VWGS(KPLIB_HUD_GRP_SECTOR_W,7,10,KPX_SPACING_W)
+#define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H  KPX_BUTTON_L_H
+#define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_X  (KPLIB_HUD_GRP_SECTOR_W - KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W)
+
+// XY coordinates are both 0, very left-most, top-most of the group
+#define KPLIB_HUD_GRP_SECTOR_LBL_TIMER_W    (KPLIB_HUD_GRP_SECTOR_W - (KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W + KPX_SPACING_W))
+#define KPLIB_HUD_GRP_SECTOR_LBL_TIMER_H    KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H
+
+// X coordinate is 0 meaning left-most of the group
+#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_X  KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_X
+#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_Y  (KPX_BUTTON_L_H + KPX_SPACING_H)
+#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_W  KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W
+#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_H  KPX_BUTTON_L_H
 
 
 /*
@@ -44,8 +75,8 @@
 #define KPLIB_HUD_LNB_FOB_H                 (KPX_BUTTON_L_H + (10 * (KPX_SPACING_H + KPX_BUTTON_M_H)))
 
 // Offset by just a little bit, plus using a shadow color, gives the impression of a raised, shadow effect
-#define KPLIB_HUD_LNB_FOB_X_SHADOW          (KPLIB_HUD_LNB_FOB_X + (0.75 * KPX_SPACING_W))
-#define KPLIB_HUD_LNB_FOB_Y_SHADOW          (KPLIB_HUD_LNB_FOB_Y + (0.75 * KPX_SPACING_H))
+#define KPLIB_HUD_LNB_FOB_X_SHADOW          (KPLIB_HUD_LNB_FOB_X + KPX_SPACING_W_SHADOW)
+#define KPLIB_HUD_LNB_FOB_Y_SHADOW          (KPLIB_HUD_LNB_FOB_Y + KPX_SPACING_H_SHADOW)
 
 // In either HORIZONTAL or VERTICAL directions we assume
 #define KPLIB_HUD_LNB_FOB_PADDING           KPX_SPACING_H
@@ -91,6 +122,114 @@ class RscTitles {
         controls[] = {};
     };
 
+    class KPLIB_hudSector_blank : KPLIB_hud {
+        name = "KPLIB_hudSector_blank";
+        idd = KPLIB_IDD_HUD_SECTOR_OVERLAY;
+
+        onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hudSector_blank')]) spawn KPLIB_fnc_hudSector_onLoad";
+    };
+
+    class KPLIB_hudSector_overlay : KPLIB_hud {
+        name = "KPLIB_hudSector_overlay";
+        idd = KPLIB_IDD_HUD_SECTOR_OVERLAY;
+
+        controls[] = {
+            KPLIB_hudSector_ctrlsGrpSector
+        };
+
+        /* Which is not for shadow purposes in this instance, but rather so that the BG
+         * half of the poor man's 'progress bar' is always in the background. BG serves
+         * as the back drop color behind the pseudo progress bar, and also informs the
+         * total available width of the foreground for percentage and X coordinate reasons. */
+
+        controlsBackground[] = {
+            KPLIB_hudSector_ctrlsGrpSectorBackground
+        };
+
+        onLoad = "(_this + [(missionConfigFile >> 'RscTitles' >> 'KPLIB_hudSector_overlay')]) spawn KPLIB_fnc_hudSector_onLoad";
+
+        class KPLIB_hudSector_ctrlsGrpSector_lblProgressBarBase : XGUI_PRE_Label {
+            x = KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_X;
+            y = KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_Y;
+            w = KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_W;
+            h = KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_H;
+            onLoad = "_this spawn KPLIB_fnc_hudSector_ctrlsGrpSector_lblProgressBar_onLoad";
+        };
+
+        class KPLIB_hudSector_ctrlsGrpSectorBase : XGUI_PRE_ControlsGroup {
+            x = KPLIB_HUD_GRP_SECTOR_X;
+            y = KPLIB_HUD_GRP_SECTOR_Y;
+            w = KPLIB_HUD_GRP_SECTOR_W;
+            h = KPLIB_HUD_GRP_SECTOR_H;
+
+            // Zero the V+H scrollbars, i.e. no scroll bars
+            class VScrollbar: XGUI_PRE_ScrollBar {
+                width = 0;
+            };
+
+            class HScrollbar: XGUI_PRE_ScrollBar {
+                height = 0;
+            };
+        };
+
+        class KPLIB_hudSector_ctrlsGrpSectorBackground : KPLIB_hudSector_ctrlsGrpSectorBase {
+            idc = KPLIB_IDD_HUD_SECTOR_CTRLS_GRP_SECTOR_BG;
+
+            class controls {
+                class KPLIB_hudSector_ctrlsGrpSector_lblPbBlufor : KPLIB_hudSector_ctrlsGrpSector_lblProgressBarBase {
+                    idc = KPLIB_IDD_HUD_SECTOR_CTRLS_GRP_SECTOR_LBL_PB_BLUFOR;
+                    colorBackground[] = {0, 0, 0.85, 1};
+                    progressBarSide = "blufor";
+                };
+            };
+        };
+
+        class KPLIB_hudSector_ctrlsGrpSector : KPLIB_hudSector_ctrlsGrpSectorBase {
+            idc = KPLIB_IDD_HUD_SECTOR_CTRLS_GRP_SECTOR;
+
+            x = KPLIB_HUD_GRP_SECTOR_X;
+            y = KPLIB_HUD_GRP_SECTOR_Y;
+            w = KPLIB_HUD_GRP_SECTOR_W;
+            h = KPLIB_HUD_GRP_SECTOR_H;
+
+            // Zero the V+H scrollbars, i.e. no scroll bars
+            class VScrollbar : XGUI_PRE_ScrollBar {
+                width = 0;
+            };
+
+            class HScrollbar : XGUI_PRE_ScrollBar {
+                height = 0;
+            };
+
+            // TODO: TBD: "forward" controls i.e. the PB
+            class controls {
+                class KPLIB_hudSector_ctrlsGrpSector_lblTimer : XGUI_PRE_Label {
+                    idc = KPLIB_IDD_HUD_SECTOR_CTRLS_GRP_SECTOR_LBL_TIMER;
+                    w = KPLIB_HUD_GRP_SECTOR_LBL_TIMER_W;
+                    h = KPLIB_HUD_GRP_SECTOR_LBL_TIMER_H;
+                    colorText[] = {0.85, 0.85, 0, 1};
+                    sizeEx = KPX_TITLE_S_H;
+                    onLoad = "_this spawn KPLIB_fnc_hudSector_ctrlsGrpSector_lblTimer_onLoad";
+                };
+                class KPLIB_hudSector_ctrlsGrpSector_lblSectorText : XGUI_PRE_Label {
+                    idc = KPLIB_IDD_HUD_SECTOR_CTRLS_GRP_SECTOR_LBL_SECTOR_TEXT;
+                    x = KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_X;
+                    w = KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W;
+                    h = KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H;
+                    sizeEx = KPX_TITLE_L_H;
+                    colorText[] = {1, 1, 1, 1};
+                    onLoad = "_this spawn KPLIB_fnc_hudSector_ctrlsGrpSector_lblSectorText_onLoad";
+                };
+                // Whereas progress bar always aligns with side OPFOR the sector
+                class KPLIB_hudSector_ctrlsGrpSector_lblPbOpfor : KPLIB_hudSector_ctrlsGrpSector_lblProgressBarBase {
+                    idc = KPLIB_IDD_HUD_SECTOR_CTRLS_GRP_SECTOR_LBL_PB_OPFOR;
+                    colorBackground[] = {0.85, 0, 0, 1};
+                    progressBarSide = "opfor";
+                };
+            };
+        };
+    };
+
     // TODO: TBD: 1) separate SECTOR HUD from FOB HUD
     // TODO: TBD: 2) wake up and capture HUD dispatch report to HASHMAP
     // TODO: TBD: 3) respond by cutting in the appropriate resources
@@ -121,6 +260,57 @@ class RscTitles {
             KPLIB_hud_lnbFobShadow
         };
 
+        // // https://community.bistudio.com/wiki/CT_PROGRESS
+        // class KPLIB_hudSector_ctrlsGrpSector : XGUI_PRE_ControlsGroup {
+        //     // 1. marker text
+        //     // 2. progress bar
+        //     // 3. 'timer'
+        // };
+
+// // TODO: TBD: this is how the "progress bar" was done in the legacy...
+// class CaptureFrameStandard {
+//     idc = -1;
+//     type =  CT_STATIC;
+//     font = FontM;
+//     sizeEx = 0.023;
+//     text = "";
+// };
+
+// class CaptureFrame : CaptureFrameStandard {
+//     idc = KPLIB_IDC_UIMANAGER_SECTOR_PB_FRAME;
+//     style = ST_FRAME;
+//     colorText[] = COLOR_BLACK;
+//     colorBackground[] = COLOR_OPFOR_NOALPHA;
+//     x = 0.9125 * safezoneW + safezoneX;
+//     w = 0.085 * safezoneW;
+//     y = 0.358 * safezoneH + safezoneY;
+//     h = 0.012 * safezoneH;
+// };
+
+// class CaptureFrame_OPFOR : CaptureFrameStandard {
+//     idc = KPLIB_IDC_UIMANAGER_SECTOR_PB_OPFOR;
+//     style = ST_TYPE;
+//     colorText[] = {0.6, 0, 0, 1};
+//     colorBackground[] = {0.6, 0, 0, 1};
+//     x = 0.9125 * safezoneW + safezoneX;
+//     w = KPLIB_TITLES_CAPTURE_FRAME_W;
+//     y = 0.358 * safezoneH + safezoneY;
+//     h = KPLIB_TITLES_CAPTURE_FRAME_H;
+
+// };
+
+// class CaptureFrame_BLUFOR : CaptureFrameStandard {
+//     idc = KPLIB_IDC_UIMANAGER_SECTOR_PB_BLUFOR;
+//     style = ST_TYPE;
+//     colorText[] = {0, 0.2, 0.6, 1};
+//     colorBackground[] = {0, 0.2, 0.6, 1};
+//     x = 0.9125 * safezoneW + safezoneX;
+//     w = KPLIB_TITLES_CAPTURE_FRAME_W;
+//     y = 0.358 * safezoneH + safezoneY;
+//     h = KPLIB_TITLES_CAPTURE_FRAME_H;
+// };
+
+
         class KPLIB_hud_lnbFob : XGUI_PRE_ListNBox {
             idc = KPLIB_IDC_HUD_LNB_FOB;
 
@@ -147,7 +337,7 @@ class RscTitles {
             x = KPLIB_HUD_LNB_FOB_X_SHADOW;
             y = KPLIB_HUD_LNB_FOB_Y_SHADOW;
 
-            colorShadow[] = {0.2, 0.2, 0.2, 0.9};
+            colorShadow[] = KPLIB_HUD_SHADOW_COLOR;
 
             onLoad = "_this spawn KPLIB_fnc_hud_lnbFob_onLoad";
         };

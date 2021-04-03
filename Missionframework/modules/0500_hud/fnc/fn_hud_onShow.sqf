@@ -33,6 +33,7 @@ if (_debug) then {
 
 [_player, _dispatchStatus, +_dispatchReport] call MFUNC(_onReconcileOverlayMap);
 
+// TODO: TBD: in the process of connecting some dots between SECTOR REPORT and its respective controls...
 [_player] call MFUNC(_onShowSector);
 
 [_player] call MFUNC(_onShowFob);
