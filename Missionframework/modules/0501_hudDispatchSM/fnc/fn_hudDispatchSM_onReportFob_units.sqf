@@ -31,7 +31,7 @@ if (_debug) then {
 if (count _fobs > 0) then {
 
     [
-        _fobs apply { [(_x#4)] call MFUNC(_getUnits); }
+        _fobs apply { [(_x#4)] call MFUNC(_getFobUnits); }
     ] params [
         Q(_units)
     ];

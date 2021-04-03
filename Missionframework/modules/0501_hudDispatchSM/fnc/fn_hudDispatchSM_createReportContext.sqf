@@ -28,8 +28,8 @@ private _context = [] call KPLIB_fnc_namespace_create;
 _context setVariable [QMVAR(_reportUuid), [] call KPLIB_fnc_uuid_create_string];
 
 // Initialize the CONTEXT with bits that inform FOB and SECTOR reports
-[_player, _context] call KPLIB_fnc_hudDispatchSM_onCreateReportContext_initFob;
-[_player, _context] call KPLIB_fnc_hudDispatchSM_onCreateReportContext_initSector;
+[_player, _context] call MFUNC(_onCreateReportContext_initFob);
+[_player, _context] call MFUNC(_onCreateReportContext_initSector);
 
 // Reset for a fresh compiled report
 _context setVariable [Q(_compiledReport), []];

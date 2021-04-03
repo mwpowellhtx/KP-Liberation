@@ -65,6 +65,9 @@ class hudDispatchSM {
     // Returns UNITS within RANGE of a POSITION; default scenario is in range of FOB
     class hudDispatchSM_getUnits {};
 
+    //
+    class hudDispatchSM_getFobUnits {};
+
     // Returns UNITS within RANGE of POSITION aligned to a given SIDE
     class hudDispatchSM_getSectorUnits {};
 
@@ -95,11 +98,8 @@ class hudDispatchSM {
     // Compiles a FOB REPORT targeting non player UNIT count
     class hudDispatchSM_onReportFob_units {};
 
-    // Compiles a SECTOR REPORT targeting whether sector is CAPTURED
-    class hudDispatchSM_onReportSector_captured {};
-
-    // Compiles a SECTOR REPORT targeting whether sector is ENGAGED
-    class hudDispatchSM_onReportSector_engaged {};
+    //
+    class hudDispatchSM_onReportSector_colors {};
 
     // Compiles a SECTOR REPORT targeting GRIDREF
     class hudDispatchSM_onReportSector_gridref {};
@@ -107,9 +107,9 @@ class hudDispatchSM {
     // Compiles a SECTOR REPORT targeting MARKER TEXT
     class hudDispatchSM_onReportSector_markerText {};
 
-    // Compiles a SECTOR REPORT targeting whether marker is TOWER
-    class hudDispatchSM_onReportSector_tower {};
+    // Compiles a SECTOR REPORT tarting PROGRESS BAR POSITION
+    class hudDispatchSM_onReportSector_progressBar {};
 
-    // Compiles a SECTOR REPORT targeting UNIT counts
-    class hudDispatchSM_onReportSector_units {};
+    //
+    class hudDispatchSM_onReportSector_timer {};
 };

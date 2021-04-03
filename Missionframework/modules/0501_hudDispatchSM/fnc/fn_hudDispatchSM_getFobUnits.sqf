@@ -8,10 +8,7 @@ params [
     , [Q(_range), KPLIB_param_fobRange, [0]]
 ];
 
-private _units = nearestObjects [_pos, [Q(CAManBase)], _range];
+private _units = [_pos, _side, _range] call MFUNC(_getUnits);
 
-// Select ALIVE units that are ALIGNED
-_units select {
-    alive _x
-        && side _x == _side;
-};
+// Selecting around PLAYER in this instance
+_units select { !isPlayer _x; };

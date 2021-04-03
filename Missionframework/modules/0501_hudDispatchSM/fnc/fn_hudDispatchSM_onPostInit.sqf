@@ -40,16 +40,16 @@ if (isServer) then {
     // [MVAR(_reportSector), MFUNC(_onReportSector_engaged)] call CBA_fnc_addEventHandler;
     // [MVAR(_reportSector), MFUNC(_onReportSector_gridref)] call CBA_fnc_addEventHandler;
     // [MVAR(_reportSector), MFUNC(_onReportSector_markerText)] call CBA_fnc_addEventHandler;
-    // [MVAR(_reportSector), MFUNC(_onReportSector_tower)] call CBA_fnc_addEventHandler;
-    // [MVAR(_reportSector), MFUNC(_onReportSector_units)] call CBA_fnc_addEventHandler;
+    // [MVAR(_reportSector), MFUNC(_onReportSector_progressBar)] call CBA_fnc_addEventHandler;
  
+    // TODO: TBD: there are probably other nuances we can identify based on proximity
+    // TODO: TBD: still showing some sort of sector indicator, etc...
     MVAR(_reportSector_callbacks) = [
-        MFUNC(_onReportSector_captured)
-        , MFUNC(_onReportSector_engaged)
+        MFUNC(_onReportSector_colors)
         , MFUNC(_onReportSector_gridref)
         , MFUNC(_onReportSector_markerText)
-        , MFUNC(_onReportSector_tower)
-        , MFUNC(_onReportSector_units)
+        , MFUNC(_onReportSector_progressBar)
+        , MFUNC(_onReportSector_timer)
     ];
 
     // TODO: TBD: and any other reports we may need to deliver...

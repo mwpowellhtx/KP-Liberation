@@ -29,8 +29,15 @@ if (_debug) then {
 };
 
 if (!(_markerName isEqualTo "")) then {
+
+    [
+        mapGridPosition (markerPos _markerName)
+    ] params [
+        Q(_gridref)
+    ];
+
     _compiledReport append [
-        [QMVAR(_sectorReport_gridref), mapGridPosition (markerPos _markerName)]
+        [QMVAR(_sectorReport_gridref), _gridref]
     ];
 };
 

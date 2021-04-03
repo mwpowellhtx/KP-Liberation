@@ -9,4 +9,6 @@ params [
     // Key:       ^^^^^^^^^^^^^^^^^^^^^^^^^^
 ];
 
-[_pos, _side, _range] call MFUNC(_getUnits);
+private _units = [_pos, _side, _range] call MFUNC(_getUnits);
+
+_units;

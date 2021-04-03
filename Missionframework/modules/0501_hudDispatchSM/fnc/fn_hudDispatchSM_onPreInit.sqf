@@ -81,6 +81,23 @@ if (hasInterface) then {
         , [QMVAR(_fobReport_strength)       , QMVAR(_fobReport_strengthPath)        , QMVAR(_fobReport_strengthColor)   ]
     ];
 
+    MVAR(_sectorReport_lnbTimerText_viewDataKeys)       = [
+        QMVAR(_sectorReport_timer)
+        , QMVAR(_sectorReport_timerColor)
+    ];
+
+    // Does not care about the PROGRESS BAR, but rather we need to know DEFENDING COLOR
+    MVAR(_sectorReport_lnbSectorText_viewDataKeys)      = [
+        QMVAR(_sectorReport_markerText)
+        , QMVAR(_sectorReport_gridref)
+        , QMVAR(_sectorReport_defendingColor)
+    ];
+
+    MVAR(_sectorReport_progressBar_viewDataKeys)        = [
+        QMVAR(_sectorReport_lblPbOpfor_widthCoefficient)
+    ];
+
+
     // Aggregate 'flattens' the keys
     MVAR(_fobReportKeys)                    = [[], MVAR(_lnbFob_viewDataKeys)] call KPLIB_fnc_linq_aggregate;
 

@@ -4,7 +4,7 @@
 
 // TODO: TBD: stand up proper CBA settings instead...
 MPARAM(_dispatchPeriod)                         = 2;
-MPARAM(_sectorReportRangeCoefficient)           = 1.5;
+MPARAM(_sectorReportRangeCoefficient)           = 5; // 1.25; // TODO: TBD: extended to 5 for now in order to test
 
 MPARAM(_debug)                                  = false;
 MPARAM(_createReportContext_debug)              = false;
@@ -29,12 +29,10 @@ MPARAM(_onReportFob_markerText_debug)           = false;
 MPARAM(_onReportFob_resources_debug)            = false;
 MPARAM(_onReportFob_units_debug)                = false;
 MPARAM(_onReportSector_debug)                   = false;
-MPARAM(_onReportSector_captured_debug)          = false;
-MPARAM(_onReportSector_engaged_debug)           = false;
 MPARAM(_onReportSector_gridref_debug)           = false;
 MPARAM(_onReportSector_markerText_debug)        = false;
-MPARAM(_onReportSector_tower_debug)             = false;
-MPARAM(_onReportSector_units_debug)             = false;
+MPARAM(_onReportSector_progressBar_debug)       = true;
+MPARAM(_onReportSector_timer_debug)             = false;
 MPARAM(_onStandby_debug)                        = false;
 MPARAM(_onStandbyEntered_debug)                 = false;
 MPARAM(_renderScalar_debug)                     = false;
