@@ -1,7 +1,27 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudDispatchSM_getThresholdColor
 
-// ...
-// By default selects the FIRST available color for GE POSITIVE or GT NEGATIVE threshold
+    File: fn_hudDispatchSM_getThresholdColor.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        By default selects the FIRST available color for GE POSITIVE or
+        GT NEGATIVE threshold.
+
+    Parameters:
+        _target - the target threshold [SCALAR, default: 0]
+        _thresholds - an array of thresholds to consider [ARRAY, default: []]
+        _default - a default RGBA color to use [RGBA, default: [1, 1, 1, 1]]
+        _comparison - a comparison function to use [CODE, default: _defaultComparison]
+
+    Returns:
+        The color meeting the threshold predicate [RGBA]
+ */
 
 private _defaultComparison = {
     params [

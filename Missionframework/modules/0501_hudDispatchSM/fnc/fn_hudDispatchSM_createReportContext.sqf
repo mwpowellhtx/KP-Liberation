@@ -1,12 +1,24 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudDispatchSM_createReportContext
 
-// ...
+    File: fn_hudDispatchSM_createReportContext.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
 
-// TODO: TBD: issue was likely that the CONFIG was not created, the function was not defined
-// TODO: TBD: when we have that, it clears up A LOT
-// TODO: TBD: sort out the context and I think we'll be okay...
-// TODO: TBD: getting ZERO FOBS up front, which does not seem right...
-// TODO: TBD: that and we will probably need to run profiler to see what is being called so much
+    Description:
+        Returns a newly created DISPATCH REPORT context. Will be populated with
+        the required HUD elements for FOB, SECTOR, etc.
+
+    Parameters:
+        _player - the player for whom to obtain the context [OBJECT, default: objNull]
+
+    Returns:
+        The DISPATCH REPORT context [LOCATION]
+ */
 
 private _debug = [
     [
@@ -18,9 +30,6 @@ params [
     [Q(_player), objNull, [objNull]]
 ];
 
-// TODO: TBD: must connect dots through report in some manner
-// TODO: TBD: then potentially client side HUD watches for UUID change as filter whether to actually update control
-// TODO: TBD: especially when there are multiple attributes piling up
 // For use throughout, caller assumes responsibility for deletion
 private _context = [] call KPLIB_fnc_namespace_create;
 

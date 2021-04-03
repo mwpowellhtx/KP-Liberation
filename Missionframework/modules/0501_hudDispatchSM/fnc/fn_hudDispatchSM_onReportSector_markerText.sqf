@@ -1,8 +1,28 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudDispatchSM_onReportSector_markerText
 
-// ...
-// https://community.bistudio.com/wiki/splitString
-// https://community.bistudio.com/wiki/trim
+    File: fn_hudDispatchSM_onReportSector_markerText.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Compiles the specific SECTOR elements of the DISPATCH REPORT.
+
+    Parameters:
+        _player - player for whom SECTOR report is compiled [OBJECT, default: objNull]
+        _context - the DISPATCH REPORT context [LOCATION, locationNull]
+
+    Returns:
+        The event handler has finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/splitString
+        https://community.bistudio.com/wiki/trim
+ */
 
 private _debug = [
     [

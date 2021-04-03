@@ -1,13 +1,28 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudDispatchSM_onCreateReportContext_initFob
 
-// ...
+    File: fn_hudDispatchSM_onCreateReportContext_initFob.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
 
-// TODO: TBD: issue was likely that the CONFIG was not created, the function was not defined
-// TODO: TBD: when we have that, it clears up A LOT
-// TODO: TBD: sort out the context and I think we'll be okay...
-// TODO: TBD: getting ZERO FOBS up front, which does not seem right...
-// TODO: TBD: that and we will probably need to run profiler to see what is being called so much
-// https://community.bistudio.com/wiki/BIS_fnc_sortBy
+    Description:
+        Initializes the dispatch report being created with FOB REPORT elements.
+
+    Parameters:
+        _player - player for whom context is being initialized [OBJECT, default: objNull]
+        _context - a dispatch report context [LOCATION, default: locationNull]
+
+    Returns:
+        The event handler has finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/BIS_fnc_sortBy
+ */
+
 
 private _debug = [
     [

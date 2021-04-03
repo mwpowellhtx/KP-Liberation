@@ -1,6 +1,17 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudDispatchSM_settings
 
-// ...
+    File: fn_hudDispatchSM_settings.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Arranges for some nominal module settings.
+ */
 
 // TODO: TBD: stand up proper CBA settings instead...
 MPARAM(_dispatchPeriod)                         = 2;

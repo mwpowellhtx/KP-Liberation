@@ -1,7 +1,29 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudDispatchSM_renderScalar
 
-// ...
-// https://community.bistudio.com/wiki/toFixed#Syntax
+    File: fn_hudDispatchSM_renderScalar.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Renders a scalar value given nominal parameters.
+
+    Parameters:
+        _value - a value being rendered [SCALAR, default: 0]
+        _maxValue - a maximum value to use, i.e. as a percentage [SCALAR, default: 1]
+        _suffix - optional suffix to use [STRING, default: ""]
+        _places - places to use formatting fixed [SCALAR, default: 0]
+
+    Returns:
+        The rendered value [STRING]
+
+    References:
+        https://community.bistudio.com/wiki/toFixed#Syntax
+ */
 
 private _debug = [
     [
