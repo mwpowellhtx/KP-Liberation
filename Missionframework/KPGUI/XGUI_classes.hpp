@@ -155,5 +155,8 @@ class XGUI_PRE_ListNBox : KPGUI_PRE_ListNBox {
     disableOverflow = 1;
 };
 
+class XGUI_PRE_ProgressBar : KPGUI_PRE_ProgressBar {
+};
+
 class XGUI_PRE_MapControl : KPGUI_PRE_MapControl {
 };

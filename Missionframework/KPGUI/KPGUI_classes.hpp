@@ -395,8 +395,16 @@ class KPGUI_PRE_InlineButton: KPGUI_PRE_Button {
 
 // Controls group
 class KPGUI_PRE_ControlsGroup {
+    idc = KPLIB_IDC_UNDEFINED;
+    type = CT_CONTROLS_GROUP;
+    style = ST_MULTI;
     deletable = 0;
+    shadow = 0;
     fade = 0;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
     class VScrollbar: KPGUI_PRE_ScrollBar {
         color[] = {1, 1, 1, 1};
         width = 0.021;
@@ -406,15 +414,8 @@ class KPGUI_PRE_ControlsGroup {
         color[] = {1, 1, 1, 1};
         height = 0.028;
     };
-    class Controls {};
-    type = 15;
-    idc = KPLIB_IDC_UNDEFINED;
-    x = 0;
-    y = 0;
-    w = 0;
-    h = 0;
-    shadow = 0;
-    style = ST_MULTI;
+    class controls {};
+    class controlsBackground {};
 };
 
 // Controls group no scrollbars
@@ -705,11 +706,14 @@ class KPGUI_PRE_EditBox {
 };
 
 // Progress bar
-class KPGUI_PRE_ProgressBar
-{
-    type = 8;
+class KPGUI_PRE_ProgressBar {
+    type = CT_PROGRESS;
     style = ST_HORIZONTAL;
-    colorFrame[] = {1,1,1,1};
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
+    colorFrame[] = {1, 1, 1, 1};
     colorBar[] = KP_COLOR_PLAYERDEFINE;
     texture = "";
 };
