@@ -50,7 +50,7 @@ if (isServer) then {
     ["KPLIB_sector_activated", {[_this select 0] call KPLIB_fnc_garrison_spawn;}] call CBA_fnc_addEventHandler;
 
     // Register sector captured event handler
-    ["KPLIB_sector_captured", {[_this select 0] call KPLIB_fnc_garrison_changeOwner;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_sector_captured", { _this call KPLIB_fnc_garrison_changeOwner; }] call CBA_fnc_addEventHandler;
 
     // Register sector deactivation event handler
     ["KPLIB_sector_deactivated", {[_this select 0] call KPLIB_fnc_garrison_despawn;}] call CBA_fnc_addEventHandler;
