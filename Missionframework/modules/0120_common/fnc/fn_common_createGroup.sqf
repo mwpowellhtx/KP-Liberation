@@ -3,8 +3,9 @@
 
     File: fn_common_createGroup.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-10-24
-    Last Update: 2019-03-31
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-02 14:40:23
+    Last Update: 2021-04-02 14:40:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -21,12 +22,23 @@
         Created group [GROUP]
 */
 
+private _debug = [
+    [
+        {KPLIB_param_common_createGroup_debug}
+    ]
+] call KPLIB_fnc_common_debug;
+
 params [
-    ["_units", [], [[]]],
-    ["_spawnPos", [KPLIB_zeroPos], [[]], [3]],
-    ["_side", KPLIB_preset_sideE, [sideEmpty]],
-    ["_addition", "NONE", [""]]
+    ["_units", [], [[]]]
+    , ["_spawnPos", KPLIB_zeroPos, [[]], 3]
+    , ["_side", KPLIB_preset_sideE, [sideEmpty]]
+    , ["_addition", "NONE", [""]]
 ];
+
+if (_debug) then {
+    [format ["[fn_common_createGroup] Entering: [count _units, _spawnPos, _side, _addition]: %1"
+        , str [count _units, _spawnPos, _side, _addition]], "COMMON", true] call KPLIB_fnc_common_log;
+};
 
 private _grp = createGroup [_side, true];
 
@@ -36,4 +48,8 @@ private _grp = createGroup [_side, true];
 
 ["KPLIB_group_created", [_grp]] call CBA_fnc_globalEvent;
 
-_grp
+if (_debug) then {
+    ["[fn_common_createGroup] Fini", "COMMON", true] call KPLIB_fnc_common_log;
+};
+
+_grp;

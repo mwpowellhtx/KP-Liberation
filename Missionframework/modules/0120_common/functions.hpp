@@ -3,8 +3,9 @@
 
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-09-15
-    Last Update: 2019-06-08
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-09-15
+    Last Update: 2021-04-02 15:13:46
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -13,6 +14,22 @@
 
 class common {
     file = "modules\0120_common\fnc";
+
+    // Initialization phase event handler
+    class common_onPreInit {
+        preInit = 1;
+    };
+
+    // Initialization phase event handler
+    class common_onPostInit {
+        postInit = 1;
+    };
+
+    // Returns whether caller should debug
+    class common_debug {};
+
+    // Returns whether caller should debug
+    class common_settings {};
 
     // Adds action to object with correct localized title
     class common_addAction {};
@@ -37,6 +54,16 @@ class common {
 
     // Creates a vehicle at given position with given direction
     class common_createVehicle {};
+
+    //
+    class common_onGroupCreated {};
+
+    //
+    class common_onUnitCreated {};
+
+    // // // TODO: TBD: probable also vic created, eventually...
+    // //
+    // class common_onVehicleCreated {};
 
     // Check current FPS or if they are higher or equal than given number
     class common_fps {};
@@ -87,9 +114,4 @@ class common {
 
     // Checks if player occupies a slot
     class common_isSlot {};
-
-    // Initialize common module
-    class common_preInit {
-        preInit = 1;
-    };
 };
