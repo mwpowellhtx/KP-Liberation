@@ -24,13 +24,14 @@ params [
 
 // Create sector handler PFH Object
 private _handler = [
+    // Handler
     {
         // Per Tick
         _this getVariable "params" params ["_sector", "_sectorPos"];
 
-        // If the enemy units within capture range are outnumbered and there are no enemy tanks
-        // capture the sector
-        // ToDo: optimize
+        // TODO: TBD:: optimize
+
+        // If the enemy units within capture range are outnumbered and there are no enemy tanks capture the sector
         if (
             (
                 ({side _x isEqualTo KPLIB_preset_sideF} count (_sectorPos nearEntities ["AllVehicles", KPLIB_param_sectorCapRange])) >
@@ -41,11 +42,12 @@ private _handler = [
                 isEqualTo 0
             }
         ) then {
+            // TODO: TBD: which, being if this is a condition, then it should probably also inform the SECTOR OVERLAY conditions...
             [format ["Sector %1 (%2) captured", markerText _sector, _sector], "CORE", true] call KPLIB_fnc_common_log;
-
             _this setVariable ["KPLIB_sectorActive", false];
+            // TODO: TBD: so... the sector only ever changes to "player" control?
+            // TODO: TBD: this is probably either an oversight ...
             [_sector] call KPLIB_fnc_core_changeSectorOwner;
-            ["KPLIB_sector_captured", [_sector]] call CBA_fnc_globalEvent;
         }
         else {
             // If there are no friendly units in activation range, deactivate the sector
@@ -53,32 +55,49 @@ private _handler = [
                 _this setVariable ["KPLIB_sectorActive", false];
             }
         }
-    }, // Handler
-    (15 + random 5), // Delay
-    [_sectorMarkerName, getMarkerPos _sectorMarkerName], // Args
-    {
+    }
+    // Delay
+    , (15 + random 5)
+    // Args
+    , [_sectorMarkerName, getMarkerPos _sectorMarkerName]
+    , {
+        // Start func
         _this getVariable "params" params ["_sector"];
 
         [format ["----- Sector %1 (%2) activated -----", markerText _sector, _sector], "CORE", true] call KPLIB_fnc_common_log;
 
         _this setVariable ["KPLIB_sectorActive", true];
 
+        // TODO: TBD: ditto here as for the end func...
+        // TODO: TBD: actually "handle sector" is this more of a state machine?
+        // TODO: TBD: with the actual states, set of sectors, etc, falling in and out of the SM accordingly...
+        // TODO: TBD: and with sector "wrapper" name spaces for purposes of keeping tabs on their activities...
+        // TODO: TBD: which might also be useful when tapping in during HUD overlay activities
+        // TODO: TBD: and so forth...
         KPLIB_sectors_active pushBack _sector;
         publicVariable "KPLIB_sectors_active";
         ["KPLIB_sector_activated", [_sector]] call CBA_fnc_globalEvent;
-
-    }, // Start func
-    {
+    }
+    , {
+        // End func
         _this getVariable "params" params ["_sector"];
 
+        // TODO: TBD: which should probably be refactored to the trigger function to begin with...
+        // TODO: TBD: which may fire off global events from there as needed...
         KPLIB_sectors_active = KPLIB_sectors_active - [_sector];
         publicVariable "KPLIB_sectors_active";
         ["KPLIB_sector_deactivated", [_sector]] call CBA_fnc_globalEvent;
 
         [format ["----- Sector %1 (%2) deactivated -----", markerText _sector, _sector], "CORE", true] call KPLIB_fnc_common_log;
-    }, // End func
-    {true}, // Run condition
-    {!(_this getVariable ["KPLIB_sectorActive", true])} // End condition
+    }
+    , {
+        // Run condition
+        true
+    }
+    , {
+        // End condition
+        !(_this getVariable ["KPLIB_sectorActive", true])
+    } 
 ] call CBA_fnc_createPerFrameHandlerObject;
 
 true

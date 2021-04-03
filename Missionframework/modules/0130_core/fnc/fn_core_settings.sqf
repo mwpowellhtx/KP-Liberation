@@ -22,6 +22,8 @@
     ----- SECTOR SETTINGS -----
 */
 
+// TODO: TBD: sector "cap" range and sector "act" range?
+// TODO: TBD: could probably also refactor from 'core' to something more appropriate like 'sector' ...
 // KPLIB_param_sectorActRange
 // Radius in meters around the sector center to activate the sector.
 // Default: 1200 meters
@@ -30,7 +32,7 @@
     "SLIDER",
     [localize "STR_KPLIB_SETTINGS_SECTOR_SECACT", localize "STR_KPLIB_SETTINGS_SECTOR_SECACT_TT"],
     localize "STR_KPLIB_SETTINGS_SECTOR",
-    [600, 1800, 1200, 0],
+    [250, 2000, 1000, 0],
     1,
     {}
 ] call CBA_Settings_fnc_init;

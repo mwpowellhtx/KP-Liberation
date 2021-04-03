@@ -63,6 +63,29 @@ if (isServer) then {
 
     [KPLIB_core_tearDownFob, _onTearDownFob] call CBA_fnc_addEventHandler;
 
+    // TODO: TBD: captured, yes, partially...
+    // TODO: TBD: could refactor this as a first class config function...
+    ["KPLIB_sector_captured", {
+        params [
+            ["_markerName", "", [""]]
+            , ["_toPlayerSide", true, [false]]
+        ];
+
+        // Save, update markers, and notify once change is reported
+        [] call KPLIB_fnc_init_save;
+
+        ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
+
+        private _sideText = if (_toPlayerSide) then { "blufor"; } else { "opfor"; };
+
+        // TODO: TBD: could normalize names, factory suffixes, radio tower prefixes, introduce gridrefs, etc...
+        [
+            format [localize "STR_KPLIB_SETTINGS_SECTOR_SEC_CAP_FORMAT"
+                , markerText _markerName, toUpper _sideText]
+        ] remoteExec ["KPLIB_fnc_notification_hint", 0];
+
+    }] call CBA_fnc_addEventHandler;
+
     //// TODO: TBD: refactored to 'KPLIB_updateMarkers' event handler
     //[] call KPLIB_fnc_core_updateSectorMarkers;
     execVM "modules\0130_core\scripts\server\sectorMonitor.sqf";
