@@ -4,7 +4,6 @@
 
 // TODO: TBD: stand up proper CBA settings instead...
 MPARAM(_dispatchPeriod)                         = 2;
-MPARAM(_sectorReportRangeCoefficient)           = 5; // 1.25; // TODO: TBD: extended to 5 for now in order to test
 
 MPARAM(_debug)                                  = false;
 MPARAM(_createReportContext_debug)              = false;
