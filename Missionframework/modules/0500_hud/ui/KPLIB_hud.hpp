@@ -38,24 +38,24 @@
 
 // TODO: TBD: kind of experimental at this stage... tinker with the widths etc
 #define KPLIB_HUD_GRP_SECTOR_W              (0.75 * KPX_DEFAULT_SIDEBAR_CTRLAREA_W)
-#define KPLIB_HUD_GRP_SECTOR_H              (KPX_SPACING_H + (2 * KPX_BUTTON_L_H))
 #define KPLIB_HUD_GRP_SECTOR_X              (KPX_DEFAULT_SIDEBAR_CTRLAREA_XR + (KPX_DEFAULT_SIDEBAR_CTRLAREA_W - KPLIB_HUD_GRP_SECTOR_W))
 #define KPLIB_HUD_GRP_SECTOR_Y              (KPX_DEFAULT_SIDEBAR_CTRLAREA_YB - KPLIB_HUD_SIDEBAR_H_2)
 
 // Y coord is 0 meaning very top-most of the group
 #define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W  KPX_GETW_VWGS(KPLIB_HUD_GRP_SECTOR_W,7,10,KPX_SPACING_W)
-#define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H  KPX_BUTTON_L_H
+#define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H  KPX_BUTTON_M_H
 #define KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_X  (KPLIB_HUD_GRP_SECTOR_W - KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W)
 
 // XY coordinates are both 0, very left-most, top-most of the group
 #define KPLIB_HUD_GRP_SECTOR_LBL_TIMER_W    (KPLIB_HUD_GRP_SECTOR_W - (KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W + KPX_SPACING_W))
-#define KPLIB_HUD_GRP_SECTOR_LBL_TIMER_H    KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H
+#define KPLIB_HUD_GRP_SECTOR_LBL_TIMER_H    KPX_BUTTON_S_H
 
-// X coordinate is 0 meaning left-most of the group
 #define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_X  KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_X
-#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_Y  (KPX_BUTTON_L_H + KPX_SPACING_H)
+#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_Y  (KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H + KPX_SPACING_H)
 #define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_W  KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W
-#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_H  KPX_BUTTON_L_H
+#define KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_H  KPX_BUTTON_S_H
+
+#define KPLIB_HUD_GRP_SECTOR_H              (KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H + KPLIB_HUD_GRP_SECTOR_PROGRESSBAR_H + KPX_SPACING_H)
 
 
 /*
@@ -208,7 +208,7 @@ class RscTitles {
                     w = KPLIB_HUD_GRP_SECTOR_LBL_TIMER_W;
                     h = KPLIB_HUD_GRP_SECTOR_LBL_TIMER_H;
                     colorText[] = {0.85, 0.85, 0, 1};
-                    sizeEx = KPX_TITLE_S_H;
+                    sizeEx = KPX_TITLE_XS_H;
                     onLoad = "_this spawn KPLIB_fnc_hudSector_ctrlsGrpSector_lblTimer_onLoad";
                 };
                 class KPLIB_hudSector_ctrlsGrpSector_lblSectorText : XGUI_PRE_Label {
@@ -216,7 +216,7 @@ class RscTitles {
                     x = KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_X;
                     w = KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_W;
                     h = KPLIB_HUD_GRP_SECTOR_LBL_SECTOR_TEXT_H;
-                    sizeEx = KPX_TITLE_L_H;
+                    sizeEx = KPX_TITLE_M_H;
                     colorText[] = {1, 1, 1, 1};
                     onLoad = "_this spawn KPLIB_fnc_hudSector_ctrlsGrpSector_lblSectorText_onLoad";
                 };
