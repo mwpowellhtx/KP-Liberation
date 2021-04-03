@@ -22,8 +22,8 @@
         https://www.w3schools.com/colors/colors_picker.asp
 */
 
-KPLIB_param_common_debug = false;
-KPLIB_param_common_createGroup_debug = true;
-KPLIB_param_common_createUnit_debug = true;
+KPLIB_param_common_debug                    = false;
+KPLIB_param_common_createGroup_debug        = false;
+KPLIB_param_common_createUnit_debug         = false;
 
 true;
