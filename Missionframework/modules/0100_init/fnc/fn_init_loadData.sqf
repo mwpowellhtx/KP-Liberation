@@ -101,6 +101,8 @@ if (_moduleData isEqualTo []) then {
     publicVariable "KPLIB_sectors_lockedVeh";
 
     // TODO: TBD: which we will likely need to run through a similar round of wipe/transformations for sectors/factories as well...
+    // TODO: TBD: ditto changing sector owners... do we really need to see this public after all?
+    // TODO: TBD: especially now that we effectively target CID(s) with appropriate events, messages, etc...
     // Publish blufor sectors
     KPLIB_sectors_blufor = +_blufor;
     publicVariable "KPLIB_sectors_blufor";
