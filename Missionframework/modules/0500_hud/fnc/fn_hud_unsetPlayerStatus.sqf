@@ -1,6 +1,30 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hud_unsetPlayerStatus
 
-// ...
+    File: fn_hud_unsetPlayerStatus.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Conditionally unsets the masked bitflags from the target and returns
+        with the target in its changed condition.
+
+    Parameters:
+        _target - a target SCALAR bitmask, or OBJECT hosting the same
+            [SCALAR, OBJECT; default: _standby]
+        _mask - a bitflags mask used to unset [SCALAR, default: _standby]
+        _predicate - the condition used to check prior to fulfilling the request
+            [CODE, default: _always]
+        _variableName - optional variable name used to lift the bitmask from a target
+            OBJECT [STRING, default: KPLIB_hudDispatchSM_standbyStatus]
+
+    Returns:
+        The target element in its changed state [SCALAR, OBJECT]
+ */
 
 [
     MSTATUS(_standby)

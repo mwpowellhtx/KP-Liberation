@@ -1,9 +1,30 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudSector_ctrlsGrpSector_lblTimer_onLoad
 
-// ...
-// TODO: TBD: using cutRsc, no opportunity for onUnload...
-// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
-// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
+    File: fn_hudSector_ctrlsGrpSector_lblTimer_onLoad.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        SECTOR HUD TIMER control 'onLoad' event handler. Mainly responds by
+        cataloging the control and configuration with the name space, followed
+        by potentially refreshing the control.
+
+    Parameters:
+        _lblTimer - the timer control [CONTROL, default: controlNull]
+        _config - a corresponding config [CONFIG, default: configNull]
+
+    Returns:
+        The event handler finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
+ */
 
 private _debug = [
     [

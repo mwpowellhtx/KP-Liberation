@@ -1,10 +1,33 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hud_onReconcileOverlayMap
 
-// ...
-// https://community.bistudio.com/wiki/createHashMapFromArray
-// https://community.bistudio.com/wiki/deleteAt
-// https://community.bistudio.com/wiki/keys
-// https://community.bistudio.com/wiki/allVariables
+    File: fn_hud_onReconcileOverlayMap.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Reconciles the OVERLAP HASHMAP with an incoming DISPATCH STATUS REPORT.
+        Removes keys that were not in the current report, adds or updates keys
+        that were included in the incoming report.
+
+    Parameters:
+        _player - player for whom reconciliation shall occur [OBJECT, default: objNull]
+        _dispatchStatus - the DISPATCH STATUS bitmask flags [SCALAR, default: MSTATUS(_standby)]
+        _dispatchReport - the DISPATCH REPORT key value pair array [ARRAY, default: []]
+
+    Returns:
+        The event handler finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/createHashMapFromArray
+        https://community.bistudio.com/wiki/deleteAt
+        https://community.bistudio.com/wiki/keys
+        https://community.bistudio.com/wiki/allVariables
+ */
 
 private _debug = [
     [

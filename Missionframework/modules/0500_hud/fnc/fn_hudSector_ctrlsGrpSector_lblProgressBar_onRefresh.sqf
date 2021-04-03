@@ -1,17 +1,35 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudSector_ctrlsGrpSector_lblProgressBar_onRefresh
 
-// ...
-// TODO: TBD: using cutRsc, no opportunity for onUnload...
-// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
-// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
-// https://community.bistudio.com/wiki/progressPosition
-// https://community.bistudio.com/wiki/progressSetPosition
-// https://community.bistudio.com/wiki/ctrlSetPositionW
-// https://community.bistudio.com/wiki/ctrlSetPositionX
-// https://community.bistudio.com/wiki/GUI_Tutorial#BIS_fnc_initDisplay
-// https://community.bistudio.com/wiki/GUI_Tutorial#createDialog_vs_createDisplay_vs_cutRsc
-// https://community.bistudio.com/wiki/CT_CONTROLS_GROUP
-// https://community.bistudio.com/wiki/CT_PROGRESS
+    File: fn_hudSector_ctrlsGrpSector_lblProgressBar_onRefresh.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Refreshes the SECTOR HUD OPFOR progress bar label control.
+
+    Parameters:
+        _lblPbOpfor - the OPFOR progress bar label control [CONTROL, default: controlNull]
+
+    Returns:
+        The event handler finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
+        https://community.bistudio.com/wiki/progressPosition
+        https://community.bistudio.com/wiki/progressSetPosition
+        https://community.bistudio.com/wiki/ctrlSetPositionW
+        https://community.bistudio.com/wiki/ctrlSetPositionX
+        https://community.bistudio.com/wiki/GUI_Tutorial#BIS_fnc_initDisplay
+        https://community.bistudio.com/wiki/GUI_Tutorial#createDialog_vs_createDisplay_vs_cutRsc
+        https://community.bistudio.com/wiki/CT_CONTROLS_GROUP
+        https://community.bistudio.com/wiki/CT_PROGRESS
+ */
 
 private _debug = [
     [

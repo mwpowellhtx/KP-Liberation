@@ -1,7 +1,25 @@
 #include "..\ui\defines.hpp"
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hud_lnbFob_onLoad
 
-// ...
+    File: fn_hud_lnbFob_onLoad.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        FOB HUD LISTNBOX 'onLoad' event handler.
+
+    Parameters:
+        _lnbFob - a FOB LISTNBOX control [CONTROL, default: controlNull]
+        _config - a corresponding config [CONFIG, default: configNull]
+
+    Returns:
+        The event handler finished [BOOL]
+ */
 
 private _debug = [
     [

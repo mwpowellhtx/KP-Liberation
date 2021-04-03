@@ -1,6 +1,4 @@
 /*
-    KPLIB HUD CONFIG
-
     File: KPLIB_hud.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-25 13:00:39
@@ -23,7 +21,6 @@
         https://community.bistudio.com/wiki/CT_PROGRESS
         https://community.bistudio.com/wiki/Arma:_GUI_Configuration#Common_Properties
  */
-
 
 /*
     --- SECTOR CT_CONTROLS_GROUP geometry ---

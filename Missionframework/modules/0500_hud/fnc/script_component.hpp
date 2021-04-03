@@ -1,5 +1,19 @@
+/*
+    File: script_component.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
 
-// ...
+    Description:
+        Defines some helpful preprocessor macro tricks to make life a little easier.
+
+    Remarks:
+        One caveat, there are trade offs in virtually every walk of life, and this is
+        no exception. The trade off is that we sacrifice log readability for coding
+        convenience. We think the returns are about 25% improved efficiency.
+ */
 
 #define MODULE hud
 

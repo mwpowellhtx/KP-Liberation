@@ -1,16 +1,38 @@
 #include "script_component.hpp"
+/*
+    KPLIB_fnc_hudSector_ctrlsGrpSector_progressSetPosition
 
-// ...
-// TODO: TBD: using cutRsc, no opportunity for onUnload...
-// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
-// https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
-// https://community.bistudio.com/wiki/progressSetPosition
-// https://community.bistudio.com/wiki/ctrlPosition
-// https://community.bistudio.com/wiki/ctrlSetPosition
-// https://community.bistudio.com/wiki/ctrlSetPositionW
-// https://community.bistudio.com/wiki/ctrlSetPositionX
-// https://community.bistudio.com/wiki/random
-// https://community.bistudio.com/wiki/ctrlCommit
+    File: fn_hudSector_ctrlsGrpSector_progressSetPosition.sqf
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-03 00:31:59
+    Last Update: 2021-04-03 00:32:05
+    License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    Public: No
+
+    Description:
+        Aligns the OPFOR front facing progress meter either LEFT or RIGHT depending
+        on the server driven sector alignment.
+
+    Parameters:
+        _widthCoefficient - a width coefficient to use during alignment; positive aligns LEFT
+            and reflects OPFOR control of a sector, whereas negative aligns RIGHT and reflects
+            BLUFOR control of the sector [SCALAR, default: nil]
+        _commitPeriod - a commit period [SCALAR, default: 0]
+
+    Returns:
+        The event handler finished [BOOL]
+
+    References:
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
+        https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
+        https://community.bistudio.com/wiki/progressSetPosition
+        https://community.bistudio.com/wiki/ctrlPosition
+        https://community.bistudio.com/wiki/ctrlSetPosition
+        https://community.bistudio.com/wiki/ctrlSetPositionW
+        https://community.bistudio.com/wiki/ctrlSetPositionX
+        https://community.bistudio.com/wiki/random
+        https://community.bistudio.com/wiki/ctrlCommit
+ */
 
 private _debug = [
     [
