@@ -47,7 +47,6 @@ _getDistance = { (markerPos _this) distance2D _pos; };
 KPLIB_sectors_all apply { [_x, _x call _getDistance]; } select { (_x#1) <= _range; };
 */
 
-// TODO: TBD: could allow more or less with a CBA setting on the factor, i.e. (_factor*_targetRange)
 private _sectorRanges = _allSectors apply { [_x, _x call _getDistance]; } select { (_x#1) <= _sectorActRange; };
 
 // Select the 'best' SECTOR RANGE by INVERTED RANGE or defer to default
