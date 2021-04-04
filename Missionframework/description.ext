@@ -3,8 +3,9 @@
 
     File: description.ext
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-10-16
-    Last Update: 2018-12-19
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-10-16
+    Last Update: 2021-04-04 15:27:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -14,11 +15,11 @@
     Reference from where most descriptions are from:
         https://community.bistudio.com/wiki/Description.ext
 
-*/
+ */
 
 /*
     ----- General -----
-*/
+ */
 
 // Gametype and min/max players
 class Header {
@@ -33,7 +34,7 @@ author = "KP Liberation Dev Team";
 
 /*
     ----- Mission Selection Screen -----
-*/
+ */
 
 // Mission name displayed in the mission selection menu.
 briefingName = $STR_KPLIB_TITLE;
@@ -48,7 +49,7 @@ overviewText = "www.killahpotatoes.de";
 
 /*
     ----- Mission Loading Screen -----
-*/
+ */
 
 // String (usually mission name) shown during mission loading.
 // The string is shown in a slightly larger font above the loadScreen.
@@ -64,7 +65,7 @@ onLoadMission = "www.killahpotatoes.de";
 
 /*
     ----- Respawn -----
-*/
+ */
 
 // Enable or disable the respawn button in the menu for INSTANT and BASE respawn types.
 respawnButton = 1;
@@ -107,7 +108,7 @@ respawnOnStart = 1;
 
 /*
     ----- Corpse & Wreck Management -----
-*/
+ */
 
 // Sets the mode for corpse removal manager.
 // 0 = None                 - None of the units are managed by the manager
@@ -147,7 +148,7 @@ minPlayerDistance = 1000;
 
 /*
     ----- Mission Settings -----
-*/
+ */
 
 // Allows functions to log to the RPT file.
 allowFunctionsLog = 0;
@@ -194,7 +195,7 @@ showMap = 1;
 
 /*
     ----- Task Settings -----
-*/
+ */
 
 // Use new 2D markers on the map.
 taskManagement_markers2D = 1;
@@ -212,7 +213,7 @@ taskManagement_drawDist = 5000;
 
 /*
     ----- Config Includes -----
-*/
+ */
 
 class CfgDebriefing {
     #include "KPLIB_debriefs.hpp"
@@ -224,6 +225,10 @@ class CfgFunctions {
 
 class CfgStateMachines {
     #include "KPLIB_statemachines.hpp"
+};
+
+class CfgNotifications {
+    #include "KPLIB_notifications.hpp"
 };
 
 class CfgRespawnTemplates

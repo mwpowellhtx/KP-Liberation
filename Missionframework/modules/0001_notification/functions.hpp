@@ -16,16 +16,19 @@
 class notification {
     file = "modules\0001_notification\fnc";
 
-    // Offers a hint to the player for a few moments
-    class notification_hint {};
-
-    // Initialize time module
-    class notification_preInit {
+    // Initialization phase event handler
+    class notification_onPreInit {
         preInit = 1;
     };
 
-    // Initialize time module
-    class notification_postInit {
+    // Initialization phase event handler
+    class notification_onPostInit {
         postInit = 1;
     };
+
+    // Offers a hint to the player for a few moments
+    class notification_hint {};
+
+    // Shows a notification using the BIS function
+    class notification_show {};
 };
