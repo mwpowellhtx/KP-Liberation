@@ -18,8 +18,12 @@
         Module preInit finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [ADMIN", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["[fn_admin_preInit] Initializing...", "PRE] [ADMIN", true] call KPLIB_fnc_common_log;
+};
 
-if (isServer) then {["Module initialized", "PRE] [ADMIN", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["[fn_admin_preInit] Initialized", "PRE] [ADMIN", true] call KPLIB_fnc_common_log;
+};
 
 true

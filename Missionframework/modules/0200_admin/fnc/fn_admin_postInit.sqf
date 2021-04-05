@@ -18,28 +18,12 @@
 
     Returns:
         Module postInit finished [BOOL]
-*/
+ */
 
 ["Module initializing...", "POST] [ADMIN", true] call KPLIB_fnc_common_log;
 
 // Player section
 if (hasInterface) then {
-    // Action to open the dialog
-    private _actionArray = [
-        "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_ADMIN" + "</t>"
-        , {[] call KPLIB_fnc_admin_openDialog;}
-        , nil
-        , KPLIB_ACTION_PRIORITY_ADMIN
-        , false
-        , true
-        , ""
-        , '
-            _target isEqualTo _originalTarget
-                && ([] call KPLIB_fnc_permission_hasAdminPermission)
-        '
-        , -1
-    ];
-    [_actionArray] call CBA_fnc_addPlayerAction;
 
     // TODO: TBD: these are a really shorthand, short term helper
     KPLIB_fnc_admin_respawnOnFobBox = {
@@ -140,64 +124,7 @@ if (hasInterface) then {
         };
     };
 
-    addMissionEventHandler ["MapSingleClick", {
-        params ["_units", "_pos", "_alt", "_shift"];
-        if (isNil "KPLIB_fnc_map_onMapSingleClick") exitWith {
-            true;
-        };
-        private _callback = KPLIB_fnc_map_onMapSingleClick;
-        KPLIB_fnc_map_onMapSingleClick = nil;
-        private _retval = [_pos, _alt, _shift] call _callback;
-        if (_alt) then {
-            [] call KPLIB_fnc_admin_respawnOnFobBox;
-        };
-        _retval;
-    }];
-
-    // TODO: TBD: potentially with its own blend of an FSM... i.e. watches the callback, when not nil, opens the map...
-    private _moveFobBoxActionArray = [
-        "== MOVE FOB BOX TO MAP =="
-        , {
-            KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onMoveFobBoxToMap;
-            [] spawn {
-                openMap true;
-            };
-        }
-        , nil
-        , KPLIB_ACTION_PRIORITY_FOBBOXMOVE
-        , false
-        , true
-        , ""
-        , '
-            _target isEqualTo _originalTarget
-                && ([] call KPLIB_fnc_permission_hasAdminPermission)
-        '
-        , -1
-    ];
-
-    [_moveFobBoxActionArray] call CBA_fnc_addPlayerAction;
-
-    private _teleportActionArray = [
-        "== TELEPORT =="
-        , {
-            KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onTeleportPlayer;
-            [] spawn {
-                openMap true;
-            };
-        }
-        , nil
-        , KPLIB_ACTION_PRIORITY_TELEPORT
-        , false
-        , true
-        , ""
-        , '
-            _target isEqualTo _originalTarget
-                && ([] call KPLIB_fnc_permission_hasAdminPermission)
-        '
-        , -1
-    ];
-
-    [_teleportActionArray] call CBA_fnc_addPlayerAction;
+    [] call KPLIB_fnc_admin_setupPlayerActions;
 };
 
 ["Module initialized", "POST] [ADMIN", true] call KPLIB_fnc_common_log;

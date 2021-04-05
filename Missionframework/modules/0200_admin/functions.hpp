@@ -3,8 +3,9 @@
 
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-08-02
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-08-02
+    Last Update: 2021-04-04 22:21:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -13,6 +14,19 @@
 
 class adm {
     file = "modules\0200_admin\fnc";
+
+    // Module pre initialization
+    class admin_preInit {
+        preInit = 1;
+    };
+
+    // Module post initialization
+    class admin_postInit {
+        postInit = 1;
+    };
+
+    // Sets up the player actions for the module
+    class admin_setupPlayerActions {};
 
     // Deletes exported data in the players profile
     class admin_deleteExport {};
@@ -28,16 +42,6 @@ class adm {
 
     // Opens the admin menu dialog
     class admin_openDialog {};
-
-    // Module post initialization
-    class admin_postInit {
-        postInit = 1;
-    };
-
-    // Module pre initialization
-    class admin_preInit {
-        preInit = 1;
-    };
 
     // Export current campaign to admins profile and requests server to wipe the saved campaign
     class admin_wipe {};
