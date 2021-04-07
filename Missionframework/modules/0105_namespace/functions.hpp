@@ -36,6 +36,15 @@ class namespace {
     // Gets a bundle of variables from the provided CBA namespace
     class namespace_getVars {};
 
+    // Checks the bitflags status for the given target
+    class namespace_checkStatus {};
+
+    // Conditionally sets the bitflags mask for the given target
+    class namespace_setStatus {};
+
+    // Conditionally unsets the bitflags mask for the given target
+    class namespace_unsetStatus {};
+
     // Does routine GC on the CBA namespace
     class namespace_onGC {};
 };
