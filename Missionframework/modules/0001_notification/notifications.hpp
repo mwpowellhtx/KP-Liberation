@@ -11,25 +11,39 @@
     References:
         https://community.bistudio.com/wiki/Arma_3:_Notification
         https://community.bistudio.com/wiki/BIS_fnc_showNotification
+        https://community.bistudio.com/wiki/Structured_Text
 */
 
+// Description and such will support structured text elements
 class Default {
     title = "KP LIBERATION";
-    iconPicture = "";
-    description = "%1";
+    iconPicture = "%1";
+    description = "%2";
     color[] = {1, 1, 1, 1};
     duration = 5;
     priority = 0;
     difficulty[] = {};
 };
 
-class KPLIB_defaultNotification : Default {
+class KPLIB_notification_default : Default {
+    duration = 7;
 };
 
-// Verified yes, can replace based on the arguments given
-class KPLIB_notification_TestParams : KPLIB_defaultNotification {
-    description = "%1 - %2 (%3)";
-    duration = 10;
+class KPLIB_notification_blufor : Default {
+    color[] = {0, 0.3, 0.6, 1};
 };
 
-// i.e. ["KPLIB_notification_TestParams", [mapGridPosition getPos player, "This is a test", 10]] call BIS_fnc_showNotification;
+class KPLIB_notification_opfor : Default {
+    color[] = {0.5, 0, 0, 1};
+};
+
+class KPLIB_notification_civilian : Default {
+    color[] = {0.4, 0, 0.5, 1};
+};
+
+class KPLIB_notification_resistance : Default {
+    color[] = {0, 0.5, 0, 1};
+};
+
+// i.e. ["KPLIB_notification_default", ["\A3\ui_f\data\map\markers\handdrawn\warning_CA.paa", "<img color='#ffffff' image='res\StatusWarning_exp_16x_gs.paa'/> This is a test"]] call BIS_fnc_showNotification;
+// i.e. ["KPLIB_notification_resistance", ["\a3\ui_f\data\map\markers\nato\n_service.paa", "<t color='#ffffff'><img image='res\StatusWarning_exp_16x_gs.paa'/> This is a test</t>"]] call BIS_fnc_showNotification;
