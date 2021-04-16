@@ -5,7 +5,7 @@
     File: fn_namespace_unsetStatus.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 11:44:49
-    Last Update: 2021-04-05 11:44:52
+    Last Update: 2021-04-16 08:27:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -21,6 +21,9 @@
 
     Returns:
         The target element in its changed state [SCALAR, OBJECT]
+
+    References:
+        https://community.bistudio.com/wiki/BIS_fnc_bitflagsUnset
  */
 
 private _zed = 0;
@@ -49,7 +52,7 @@ private _onUnsetTargetStatus = {
     private _status = _target getVariable [_variableName, _zed];
 
     [_target, [
-        [_variableName, [_status, _mask] call _onUnsetStatus]
+        [_variableName, ([_status, _mask] call _onUnsetStatus)]
     ]] call KPLIB_fnc_namespace_setVars;
 
     _target;
@@ -63,7 +66,7 @@ if ([_target, _mask] call _predicate) then {
             [_target, _mask] call _onUnsetStatus;
         };
 
-        case (_target isEqualType locationull);
+        case (_target isEqualType locationNull);
         case (_target isEqualType objNull): {
             [_target, _mask] call _onUnsetTargetStatus;
         };

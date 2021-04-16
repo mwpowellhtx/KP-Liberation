@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-05 22:11:43
-    Last Update: 2021-03-05 22:11:46
+    Last Update: 2021-04-16 08:28:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -44,6 +44,9 @@ class namespace {
 
     // Conditionally unsets the bitflags mask for the given target
     class namespace_unsetStatus {};
+
+    // Returns whether the CBA namespace TIMER has elapsed
+    class namespace_timerHasElapsed {};
 
     // Does routine GC on the CBA namespace
     class namespace_onGC {};
