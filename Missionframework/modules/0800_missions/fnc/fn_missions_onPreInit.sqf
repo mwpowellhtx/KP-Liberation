@@ -6,7 +6,7 @@
     File: fn_missions_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-19 17:42:23
-    Last Update: 2021-03-19 17:42:26
+    Last Update: 2021-04-16 09:13:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -82,6 +82,8 @@ if (isServer) then {
 
     MPARAM(_onGetArrayTelemetry_debug)  = false;
 
+    // TODO: TBD: may reconsider 'defaults' in this sense in favor of a more functional approach
+    // TODO: TBD: in that way settings may be 'set' and missions may keep on rolling normally
     /*
      * KPLIB_mission_uuid - used to identify a mission
      * KPLIB_mission_templateUuid - used as a reference for the template mission
@@ -110,7 +112,7 @@ if (isServer) then {
         , [QMVAR1(_args)                    , []                                ]
         , [QMVAR1(_cost)                    , MVAR1(_zeroDebit)                 ]
         , [QMVAR1(_pos)                     , KPLIB_zeroPos                     ]
-        , [QMVAR1(_range)                   , KPLIB_param_sectorCapRange        ]
+        , [QMVAR1(_range)                   , KPLIB_param_sectors_capRange      ]
         , [QMVAR1(_status)                  , MSTATUS1(_template)               ]
         , [QMVAR1(_timer)                   , KPLIB_timers_default              ]
         , [QMFUNC1(_onGetTelemetry)         , MFUNC1(_onNoOpTelemetry)          ]

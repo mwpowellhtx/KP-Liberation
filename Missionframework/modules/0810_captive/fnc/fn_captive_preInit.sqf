@@ -3,33 +3,41 @@
 
     File: fn_captive_preInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-10
-    Last Update: 2019-09-29
+    Last Update: 2021-04-16 09:14:38
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The preInit function defines global variables, adds event handlers and set some vital settings which are used in this module.
+        The preInit function defines global variables, adds event handlers and
+        set some vital settings which are used in this module.
 
     Parameter(s):
         NONE
 
     Returns:
         Module preInit finished [BOOL]
-*/
+ */
 
+// TODO: TBD: may refactor 'captive' instead to 'units'
+// TODO: TBD: also, some of this seems more like a proper 'mission' in the missions framework
 if (isServer) then {
-    ["Module initializing...", "PRE] [CAPTIVE", true] call KPLIB_fnc_common_log;
+    ["[fn_captive_preInit] Initializing...", "PRE] [CAPTIVE", true] call KPLIB_fnc_common_log;
+};
 
 /*
     ----- Module Initialization -----
 */
 
-    // Process CBA Settings
-    [] call KPLIB_fnc_captive_settings;
+// Process CBA Settings
+[] call KPLIB_fnc_captive_settings;
+
+if (isServer) then {
+    ["[fn_captive_preInit] Initializing...", "PRE] [CAPTIVE", true] call KPLIB_fnc_common_log;
 
     // Units surrender on sector capture
-    ["KPLIB_sector_captured", {[_this select 0] call KPLIB_fnc_captive_checkSector;}] call CBA_fnc_addEventHandler;
+    [KPLIB_sector_captured, { _this call KPLIB_fnc_captive_checkSector; }] call CBA_fnc_addEventHandler;
 
     // Unit animation on arrest
     ["KPLIB_captive_arrested", {
@@ -119,6 +127,8 @@ if (hasInterface) then {
     }] call CBA_fnc_addEventHandler;
 };
 
-if (isServer) then {["Module initialized", "PRE] [CAPTIVE", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["[fn_captive_preInit] Initialized", "PRE] [CAPTIVE", true] call KPLIB_fnc_common_log;
+};
 
-true
+true;
