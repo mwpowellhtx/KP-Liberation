@@ -17,6 +17,7 @@
  * See: https://flaviocopes.com/vscode-language-specific-settings */
 
 #define KPLIB_ACTION_PRIORITY_ASSETMOVE             (-700)
+#define KPLIB_ACTION_PRIORITY_TERMINATE_TARGET      (-710)
 
 #define KPLIB_ACTION_PRIORITY_REDEPLOY              (-800)
 #define KPLIB_ACTION_PRIORITY_ARSENAL               (-801)

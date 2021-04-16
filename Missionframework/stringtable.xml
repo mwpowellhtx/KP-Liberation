@@ -1802,15 +1802,11 @@
             <Chinese>在戰區中心半徑公尺內啟動戰區</Chinese>
             <German>Radius in Metern vom Sektor aus, um ihn zu aktivieren.</German>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_SECTOR_SECCAP">
-            <English>Sector Cap</English>
-            <Chinese>戰區上限</Chinese>
-            <German>Sektorlimit</German>
+        <Key ID="STR_KPLIB_SETTINGS_SECTOR_MAX_SECTOR_ACT">
+            <English>Maximum Active Sectors</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_SECTOR_SECCAP_TT">
-            <English>The amount of sectors which can be active at the same time (default: 6).</English>
-            <Chinese>可以同時被啟動的戰區數量</Chinese>
-            <German>Maximalzahl der gleichzeitig aktiven Sektoren.</German>
+        <Key ID="STR_KPLIB_SETTINGS_SECTOR_MAX_SECTOR_ACT_TT">
+            <English>The number of sectors which may be active at any one time (default: 6).</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_SECTOR_SECRANGE">
             <English>Sector Capture Distance</English>
