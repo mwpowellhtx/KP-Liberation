@@ -39,7 +39,7 @@ _billValue params [
 ];
 
 private _range = if (_markerName in KPLIB_sectors_factory) then {
-    KPLIB_param_sectorCapRange;
+    KPLIB_param_sectors_capRange;
 } else {
     KPLIB_param_fobRange;
 };

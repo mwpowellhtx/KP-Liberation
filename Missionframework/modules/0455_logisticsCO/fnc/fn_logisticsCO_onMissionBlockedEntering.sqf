@@ -66,7 +66,7 @@ _timer params [
 
 [
     [] call KPLIB_fnc_logistics_calculateFobRangeSeconds
-    , { ((markerPos _x) distance2D _estimatedPos) < KPLIB_param_sectorCapRange; } count _opforSectors
+    , { ((markerPos _x) distance2D _estimatedPos) < KPLIB_param_sectors_capRange; } count _opforSectors
 ] params [
     "_fobRangeSeconds"
     , "_blockedByCount"
