@@ -4,8 +4,9 @@
 
     File: fn_admin_postInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2019-04-22
+    Last Update: 2021-04-16 08:43:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -76,7 +77,7 @@ if (hasInterface) then {
     KPLIB_fnc_admin_setFactoryStorageMarker = {
         params [
             ["_target", player, [objNull]]
-            , ["_range", KPLIB_param_sectorCapRange, [0]]
+            , ["_range", KPLIB_param_sectors_capRange, [0]]
         ];
         private _sectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
         private _targetMarker = [_target, _range, _sectors] call KPLIB_fnc_common_getTargetMarkerIfInRange;
@@ -100,7 +101,7 @@ if (hasInterface) then {
             , _x getVariable ["KPLIB_asset_isMovable", false]
             , _x getVariable ["KPLIB_sector_markerName", ""]
             , _x getVariable ["KPLIB_fob_originalUuid", ""]
-            , [_x, KPLIB_param_sectorCapRange, KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; }] call KPLIB_fnc_common_getTargetMarkerIfInRange
+            , [_x, KPLIB_param_sectors_capRange, KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; }] call KPLIB_fnc_common_getTargetMarkerIfInRange
         ]};
         [count _sum, _sum];
     };
