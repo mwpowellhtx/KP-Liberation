@@ -3,8 +3,9 @@
 
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-10-28
-    Last Update: 2018-12-11
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-10-28
+    Last Update: 2021-04-08 19:56:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -14,8 +15,22 @@
 class core {
     file = "modules\0130_core\fnc";
 
-    // Check if units are near a position
-    class core_areUnitsNear {};
+    // Initialization phase event handler
+    class core_preInit {
+        preInit = 1;
+    };
+
+    // Initialization phase event handler
+    class core_postInit {
+        postInit = 1;
+    };
+
+    // // // TODO: TBD: refactoring to units module
+    // // Check if units are near a position
+    // class core_areUnitsNear {};
+
+    // // Change the owner of a sector
+    // class core_changeSectorOwner {};
 
     // Build fob and register it
     class core_buildFob {};
@@ -25,9 +40,6 @@ class core {
 
     // Checks if player can build fob
     class core_canBuildFob {};
-
-    // Change the owner of a sector
-    class core_changeSectorOwner {};
 
     // Check if win conditions are met
     class core_checkWinCond {};
@@ -62,16 +74,6 @@ class core {
     // Handle vehicle spawn event
     class core_handleVehicleSpawn {};
 
-    // Module post initialization
-    class core_postInit {
-        postInit = 1;
-    };
-
-    // Module pre initialization
-    class core_preInit {
-        preInit = 1;
-    };
-
     // Initialize BIS revive
     class core_reviveInit {};
 
@@ -93,6 +95,6 @@ class core {
     // Spawning of the start vehicles
     class core_spawnStartVeh {};
 
-    // Updates the sector marker colors
-    class core_updateSectorMarkers {};
+    // // Updates the sector marker colors
+    // class core_updateSectorMarkers {};
 };

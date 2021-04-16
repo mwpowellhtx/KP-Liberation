@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-05-11
-    Last Update: 2021-01-27 14:22:23
+    Last Update: 2021-04-16 08:35:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -28,11 +28,11 @@ params [
 ];
 
 // Take the maximum of either of these two values in order that either does not overlap
-private _minSectorDist = KPLIB_param_fobRange max KPLIB_param_sectorCapRange;
+private _minSectorDist = KPLIB_param_fobRange max KPLIB_param_sectors_capRange;
 
 if (_debug) then {
-    [format ["[fn_core_canBuildFob] Entering: [isNull _boxOrTruck, typeOf _boxOrTruck, typeOf _player, KPLIB_param_fobRange, KPLIB_param_sectorCapRange]: %1"
-        , str [isNull _boxOrTruck, typeOf _boxOrTruck, typeOf _player, KPLIB_param_fobRange, KPLIB_param_sectorCapRange]], "BUILD", true] call KPLIB_fnc_common_log;
+    [format ["[fn_core_canBuildFob] Entering: [isNull _boxOrTruck, typeOf _boxOrTruck, typeOf _player, KPLIB_param_fobRange, KPLIB_param_sectors_capRange]: %1"
+        , str [isNull _boxOrTruck, typeOf _boxOrTruck, typeOf _player, KPLIB_param_fobRange, KPLIB_param_sectors_capRange]], "BUILD", true] call KPLIB_fnc_common_log;
 };
 
 /* Keep it simple, REALLY simple... Whether '_boxOrTruck' is...

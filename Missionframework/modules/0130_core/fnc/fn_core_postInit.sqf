@@ -3,24 +3,26 @@
 
     File: fn_core_postInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2019-04-22
+    Last Update: 2021-04-16 08:37:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The postInit function of a module takes care of starting/executing the modules functions or scripts.
-        Basically it starts/initializes the module functionality to make all provided features usable.
+        The postInit function of a module takes care of starting/executing the modules
+        functions or scripts. Basically it starts/initializes the module functionality
+        to make all provided features usable.
 
     Parameter(s):
         NONE
 
     Returns:
-        Module postInit finished [BOOL]
+        The event handler has finished [BOOL]
 */
 
 if (isServer) then {
-    ["Module initializing...", "POST] [CORE", true] call KPLIB_fnc_common_log;
+    ["[fn_core_postInit] Initializing...", "POST] [CORE", true] call KPLIB_fnc_common_log;
 };
 
 // Initialize BIS Revive
@@ -63,36 +65,10 @@ if (isServer) then {
 
     [KPLIB_core_tearDownFob, _onTearDownFob] call CBA_fnc_addEventHandler;
 
-    // TODO: TBD: captured, yes, partially...
-    // TODO: TBD: could refactor this as a first class config function...
-    ["KPLIB_sector_captured", {
-        params [
-            ["_markerName", "", [""]]
-            , ["_toPlayerSide", true, [false]]
-        ];
-
-        // Save, update markers, and notify once change is reported
-        [] call KPLIB_fnc_init_save;
-
-        ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
-
-        private _sideText = if (_toPlayerSide) then { "blufor"; } else { "opfor"; };
-
-        // TODO: TBD: could normalize names, factory suffixes, radio tower prefixes, introduce gridrefs, etc...
-        [
-            format [localize "STR_KPLIB_SETTINGS_SECTOR_SEC_CAP_FORMAT"
-                , markerText _markerName, toUpper _sideText]
-        ] remoteExec ["KPLIB_fnc_notification_hint", 0];
-
-    }] call CBA_fnc_addEventHandler;
-
-    //// TODO: TBD: refactored to 'KPLIB_updateMarkers' event handler
-    //[] call KPLIB_fnc_core_updateSectorMarkers;
-    execVM "modules\0130_core\scripts\server\sectorMonitor.sqf";
     execVM "modules\0130_core\scripts\server\eventLoop.sqf";
 };
 
-if (!hasInterface && !isDedicated) then {
+if (!(hasInterface || isDedicated)) then {
     // HC section
 };
 
@@ -101,7 +77,7 @@ if (hasInterface) then {
 };
 
 if (isServer) then {
-    ["Module initialized", "POST] [CORE", true] call KPLIB_fnc_common_log;
+    ["[fn_core_postInit] Initialized", "POST] [CORE", true] call KPLIB_fnc_common_log;
 };
 
 true;

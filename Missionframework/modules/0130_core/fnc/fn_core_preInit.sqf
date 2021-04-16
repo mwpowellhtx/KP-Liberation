@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2018-10-18
-    Last Update: 2021-03-12 18:41:04
+    Last Update: 2021-04-06 23:23:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -51,7 +51,7 @@ if (isServer) then {
     KPLIB_core_fobMarkerSize    = [1.5, 1.5];
     KPLIB_core_fobMarkerColor   = "ColorYellow";
     KPLIB_core_fobColor         = [0.85, 0.85, 0, 1];
-    KPLIB_core_fobMarkerPath    = "\A3\ui_f\data\map\markers\handdrawn\flag_CA.paa";
+    KPLIB_core_fobMarkerPath    = "\a3\ui_f\data\map\markers\handdrawn\flag_CA.paa";
 };
 
 /*
@@ -82,9 +82,6 @@ if (isServer) then {
 
     //// TODO: TBD: not sure quite what the thought process was that included factory markers... these are simple 'sectors'
     //["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_updateFactoryMarkers;}] call CBA_fnc_addEventHandler;
-
-    // TODO: TBD: additionally, 'sector markers' should probably be defined...
-    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_updateSectorMarkers;}] call CBA_fnc_addEventHandler;
 
     ["KPLIB_updateMarkers", {[] call KPLIB_fnc_core_onUpdateMobileRespawnMarkers;}] call CBA_fnc_addEventHandler;
 };

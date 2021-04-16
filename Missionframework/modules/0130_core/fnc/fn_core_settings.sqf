@@ -3,8 +3,9 @@
 
     File: fn_core_settings.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-11-11
-    Last Update: 2019-09-10
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-11-11
+    Last Update: 2021-04-06 15:31:51
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -15,67 +16,8 @@
         NONE
 
     Returns:
-        Function reached the end [BOOL]
-*/
-
-/*
-    ----- SECTOR SETTINGS -----
-*/
-
-// TODO: TBD: sector "cap" range and sector "act" range?
-// TODO: TBD: could probably also refactor from 'core' to something more appropriate like 'sector' ...
-// KPLIB_param_sectorActRange
-// Radius in meters around the sector center to activate the sector.
-// Default: 1200 meters
-[
-    "KPLIB_param_sectorActRange",
-    "SLIDER",
-    [localize "STR_KPLIB_SETTINGS_SECTOR_SECACT", localize "STR_KPLIB_SETTINGS_SECTOR_SECACT_TT"],
-    localize "STR_KPLIB_SETTINGS_SECTOR",
-    [250, 2000, 1000, 0],
-    1,
-    {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_sectorCap
-// The amount of sectors which can be active at the same time.
-// Default: 6
-[
-    "KPLIB_param_sectorCap",
-    "SLIDER",
-    [localize "STR_KPLIB_SETTINGS_SECTOR_SECCAP", localize "STR_KPLIB_SETTINGS_SECTOR_SECCAP_TT"],
-    localize "STR_KPLIB_SETTINGS_SECTOR",
-    [1, 12, 6, 0],
-    1,
-    {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_sectorCapRange
-// Radius in meters around the sector center a unit has to be to being able to capture the sector.
-// Default: 150 meters
-[
-    "KPLIB_param_sectorCapRange",
-    "SLIDER",
-    [localize "STR_KPLIB_SETTINGS_SECTOR_SECRANGE", localize "STR_KPLIB_SETTINGS_SECTOR_SECRANGE_TT"],
-    localize "STR_KPLIB_SETTINGS_SECTOR",
-    [100, 200, 150, 0],
-    1,
-    {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_sectorCapRatio
-// Ratio of enemy units to friendly units, which is needed to capture a sector.
-// Default: 1.5
-[
-    "KPLIB_param_sectorCapRatio",
-    "SLIDER",
-    [localize "STR_KPLIB_SETTINGS_SECTOR_SECRATIO", localize "STR_KPLIB_SETTINGS_SECTOR_SECRATIO_TT"],
-    localize "STR_KPLIB_SETTINGS_SECTOR",
-    [1, 10, 1.5, 1],
-    1,
-    {}
-] call CBA_Settings_fnc_init;
-
+        The callback has finished [BOOL]
+ */
 
 /*
     ----- BI REVIVE SETTINGS -----
@@ -230,4 +172,4 @@
     {}
 ] call CBA_Settings_fnc_init;
 
-true
+true;
