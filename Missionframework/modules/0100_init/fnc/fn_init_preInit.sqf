@@ -5,18 +5,19 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2021-01-28 15:11:48
+    Last Update: 2021-04-16 08:25:11
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The preInit function defines global variables, adds event handlers and set some vital settings which are used in this module.
+        The preInit function defines global variables, adds event handlers and set some
+        vital settings which are used in this module.
 
     Parameter(s):
         NONE
 
     Returns:
-        Module preInit finished [BOOL]
+        The event handler finished [BOOL]
 */
 
 // TODO: TBD: "init" and its pre- and post-init handlers is probably the correct timing in all of this...
@@ -38,14 +39,17 @@ KPLIB_campaignRunning = true;
 KPLIB_resetPos = [99999,99999,0];
 // Indicator if the saved data is fully loaded
 KPLIB_save_loaded = false;
+// TODO: TBD: sector bits should be refactored to the SECTORS module...
 // Spawnpoints for air vehicles
 KPLIB_sectors_airspawn = [];
 // All capturable sectors
 KPLIB_sectors_all = [];
 // All active sectors
 KPLIB_sectors_active = [];
-// Sectors which are captured by blufor
+// Sectors which are captured by BLUFOR
 KPLIB_sectors_blufor = [];
+// Sectors which are considered OPFOR
+KPLIB_sectors_opfor = [];
 // All city sectors
 KPLIB_sectors_city = [];
 // All factory sectors
