@@ -4,7 +4,7 @@
     File: fn_resources_getFactoryStorages.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-15 20:44:04
-    Last Update: 2021-02-15 20:44:06
+    Last Update: 2021-04-16 08:44:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -23,7 +23,7 @@
 params [
     ["_markerName", "", [""]]
     , ["_classNames", [KPLIB_preset_storageSmallF], [[]]]
-    , ["_range", KPLIB_param_sectorCapRange, [0]]
+    , ["_range", KPLIB_param_sectors_capRange, [0]]
 ];
 
 private _retval = [];
