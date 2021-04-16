@@ -5,7 +5,7 @@
     File: fn_hudDispatchSM_onCreateReportContext_initSector.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-04-03 00:32:05
+    Last Update: 2021-04-16 09:05:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -43,8 +43,8 @@ if (_debug) then {
 [
     getPos _player
     , +KPLIB_sectors_all
-    , KPLIB_param_sectorCapRange
-    , KPLIB_param_sectorActRange
+    , KPLIB_param_sectors_capRange
+    , KPLIB_param_sectors_actRange
 ] params [
     Q(_playerPos)
     , Q(_allSectors)
@@ -56,7 +56,7 @@ private _getDistance = { (markerPos _this) distance2D _playerPos; };
 
 /*
 // Along similar lines as with FOB initialization, this is the core question being asked:
-_range = KPLIB_param_sectorActRange;
+_range = KPLIB_param_sectors_actRange;
 _pos = getPos player;
 _getDistance = { (markerPos _this) distance2D _pos; };
 KPLIB_sectors_all apply { [_x, _x call _getDistance]; } select { (_x#1) <= _range; };
