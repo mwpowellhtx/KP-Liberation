@@ -4,7 +4,7 @@
     File: fn_productionCO_tryDebitCap.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 11:32:55
-    Last Update: 2021-03-17 07:54:31
+    Last Update: 2021-04-16 08:47:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -98,7 +98,7 @@ if (_candidate isEqualTo _cap) exitWith {
 
 // Marker name of the designated source from which to debit the cost
 private _sourceName = _markerName;
-private _range = KPLIB_param_sectorCapRange;
+private _range = KPLIB_param_sectors_capRange;
 
 if (_debit isEqualTo (_debit apply {0})) exitWith {
     [nil, "[fn_productionCO_tryDebitCap] Nothing to debit, zero cost"] call _onExitWith;

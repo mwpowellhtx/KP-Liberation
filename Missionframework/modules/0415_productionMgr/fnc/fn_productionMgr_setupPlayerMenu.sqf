@@ -5,7 +5,7 @@
     File: fn_productionMgr_setupPlayerMenu.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:36:06
-    Last Update: 2021-02-06 12:36:08
+    Last Update: 2021-04-16 08:47:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -34,7 +34,7 @@ if (hasInterface) then {
     // TODO: TBD: work out proximity conditions: i.e. to Eden, to FOB, to Factory sector(s) ...
     //// condition was:
     //    _target == _originalTarget
-    //    && [_target, KPLIB_param_sectorCapRange
+    //    && [_target, KPLIB_param_sectors_capRange
     //        , KPLIB_fnc_production_callback_onWithoutStorageContainers] call KPLIB_fnc_production_isNearCapturedFactory
 
     private _manageProductionCondition = '

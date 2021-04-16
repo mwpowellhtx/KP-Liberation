@@ -4,7 +4,7 @@
     File: fn_production_callback_onWithoutStorageContainer.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 00:22:39
-    Last Update: 2021-02-17 12:27:19
+    Last Update: 2021-04-16 08:47:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,7 +13,7 @@
 
     Parameter(s):
         _target - a target object to consider near the '_markerName' [OBJECT, default: player]
-        _range - the range about which to consider near the '_markerName' [SCALAR, default: KPLIB_param_sectorCapRange]
+        _range - the range about which to consider near the '_markerName' [SCALAR, default: KPLIB_param_sectors_capRange]
         _markerName - the marker name at which to consider [STRING, default: ""]
         _classNames - the class names being considered [ARRAY, default: KPLIB_resources_factoryStorageClasses]
 
@@ -26,7 +26,7 @@
 
 params [
     ["_target", player, [objNull]]
-    , ["_range", KPLIB_param_sectorCapRange, [0]]
+    , ["_range", KPLIB_param_sectors_capRange, [0]]
     , ["_markerName", "", [""]]
     , ["_classNames", KPLIB_resources_factoryStorageClasses, [[]]]
 ];

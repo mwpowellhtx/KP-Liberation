@@ -4,7 +4,7 @@
     File: fn_productionSM_tryResourceProduction.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-17 17:48:54
-    Last Update: 2021-03-17 17:48:57
+    Last Update: 2021-04-16 08:47:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -24,7 +24,7 @@ private _objSM = KPLIB_productionSM_objSM;
 
 params [
     ["_namespace", locationNull, [locationNull]]
-    , ["_range", KPLIB_param_sectorCapRange, [0]]
+    , ["_range", KPLIB_param_sectors_capRange, [0]]
 ];
 
 // TODO: TBD: may also want to align specific storage objects along debug...

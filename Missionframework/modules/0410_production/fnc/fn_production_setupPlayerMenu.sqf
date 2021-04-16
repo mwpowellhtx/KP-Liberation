@@ -5,7 +5,7 @@
     File: fn_production_setupPlayerMenu.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-04 14:03:08
-    Last Update: 2021-02-13 09:24:28
+    Last Update: 2021-04-16 08:47:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -59,7 +59,7 @@ if (hasInterface) then {
     private _addCapConditionFormatString = '
         _target == _originalTarget
         && ["Build"] call KPLIB_fnc_permission_checkPermission
-        && [_target, KPLIB_param_sectorCapRange
+        && [_target, KPLIB_param_sectors_capRange
             , KPLIB_fnc_production_callback_onWithoutCapability, [%1]] call KPLIB_fnc_production_isNearCapturedFactory
     ';
     //                                                  1. _cap:  ^^ to be injected via 'format'
@@ -84,7 +84,7 @@ if (hasInterface) then {
         // TODO: TBD: to know definitively we could assume the storage objects are there with an attribute name aligned to the sector...
         // TODO: TBD: but we would also want to revise the action condition itself to be certain...
         // TODO: TBD: so conditions would need to be: nearest factory sector to player within sector cap range NOT having aligned storage...
-        private _targetMarker = [KPLIB_param_sectorCapRange, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
+        private _targetMarker = [KPLIB_param_sectors_capRange, getPos _target, KPLIB_sectors_factory] call KPLIB_fnc_core_getNearestMarker;
 
         // Raise the event server side adding factory sector production capability
         [KPLIB_productionCO_requestAddCapability, [_targetMarker, _targetCap, clientOwner]] call CBA_fnc_serverEvent;
