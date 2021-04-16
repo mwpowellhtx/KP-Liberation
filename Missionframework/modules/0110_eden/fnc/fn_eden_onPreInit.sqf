@@ -1,41 +1,32 @@
+#include "script_component.hpp"
 /*
-    KPLIB_fnc_eden_preInit
+    KPLIB_fnc_eden_onPreInit
 
-    File: fn_eden_preInit.sqf
+    File: fn_eden_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 11:20:25
-    Last Update: 2021-01-28 11:20:27
+    Last Update: 2021-04-15 11:10:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
+        Initialization phase event handler.
 
     Parameter(s):
+        NONE
 
     Returns:
+        The event handler has finished [BOOL]
+ */
 
-    Reference:
-*/
-
-private _debug = [] call KPLIB_fnc_debug_debug;
+private _debug = MPARAM(_onPreInit_debug);
 
 if (_debug) then {
-    ["Module initializing...", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
+    ["[fn_eden_onPreInit] Initializing...", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
 };
 
-//// TODO: TBD: assumes only one such marker...
-//// TODO: TBD: what happens when there are several mobile respawn assets in play?
-//// TODO: TBD: should at least be a function, possibly returning an array (?)
-//// TODO: TBD: will have to investigate usage...
-// Respawn position shortcut
-KPLIB_eden_respawnPos = getMarkerPos "respawn";
-
-/*
- The Eden markerType is the mil_start icon.
- 23. Start / "mil_start"
- https://community.bistudio.com/wiki/CfgMarkers#Arma_3
-*/
-KPLIB_eden_markerType = "mil_start";
+// Apply some module settings
+[] call MFUNC(_settings);
 
 //// TODO: TBD: we think this is unnecessary after all...
 //// TODO: TBD: our aim then is to make a best, good faith effort to utilize the markers with maximum effect...
@@ -74,11 +65,11 @@ KPLIB_eden_markerType = "mil_start";
 
 if (isServer) then {
     // Server side init
-    ["KPLIB_updateMarkers", KPLIB_fnc_eden_onUpdateMarkers] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_updateMarkers), MFUNC(_onUpdateMarkers)] call CBA_fnc_addEventHandler;
 };
 
 if (_debug) then {
-    ["Module initialized", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
+    ["[fn_eden_onPreInit] Initialized", "PRE] [EDEN", true] call KPLIB_fnc_common_log;
 };
 
 true;
