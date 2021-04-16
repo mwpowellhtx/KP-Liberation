@@ -1,10 +1,12 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_enemy_strengthInc
 
     File: fn_enemy_strengthInc.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-02-18
-    Last Update: 2019-06-15
+    Last Update: 2021-04-16 09:19:56
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 

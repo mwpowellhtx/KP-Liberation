@@ -1,10 +1,12 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_enemy_getTransportClasses
 
     File: fn_enemy_getTransportClasses.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-02-18
-    Last Update: 2019-04-23
+    Last Update: 2021-04-16 09:19:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -17,7 +19,7 @@
 
     Returns:
         Array of valid vehicle classnames [ARRAY]
-*/
+ */
 
 params [
     ["_amount", 0, [0]],
