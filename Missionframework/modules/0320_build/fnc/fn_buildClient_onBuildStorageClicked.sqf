@@ -4,7 +4,7 @@
     File: fn_buildClient_onBuildStorageClicked.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-15 11:47:15
-    Last Update: 2021-02-15 11:47:18
+    Last Update: 2021-04-16 08:45:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -31,7 +31,7 @@ params [
 ];
 
 private _className = KPLIB_preset_storageSmallF;
-private _range = KPLIB_param_sectorCapRange;
+private _range = KPLIB_param_sectors_capRange;
 private _candidateSectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
 
 // Do not need to re-ask the condition question, we are "there" now...
