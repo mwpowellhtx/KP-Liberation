@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2018-10-18
-    Last Update: 2021-04-06 23:23:58
+    Last Update: 2021-04-22 14:43:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -29,9 +29,6 @@ KPLIB_param_core_onConfirmRepackageFob_debug    = false;
 
 // Process CBA Settings
 [] call KPLIB_fnc_core_settings;
-
-// Created for use along the same lines as objNull, locationNull, etc
-emptyHashMap = createHashMap;
 
 if (isServer) then {
 
