@@ -3,28 +3,33 @@
 
     File: fn_init_loadPresets.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2017-10-16
-    Last Update: 2019-04-22
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2017-10-16
+    Last Update: 2021-04-17 13:34:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Loads the configured preset files, checks if classnames are available with current modset and initialize global arrays which are dependent on the presets.
-        Distributes the cleaned arrays to the clients.
+        Loads the configured preset files, checks if classnames are available with current
+        modset and initialize global arrays which are dependent on the presets. Distributes
+        the cleaned arrays to the clients.
 
     Parameter(s):
         NONE
 
     Returns:
-        Function reached the end [BOOL]
+        The callback has finished [BOOL]
 
-    NOTE:
+    Remarks:
         Still not sure about this whole publicVariable method in the preset initialization.
-        Idea was that the server will first initialize all vital stuff and distribute it to the clients.
-        This would avoid that clients check all arrays for mods etc. to ensure equality in these arrays.
-        As it would catch errors if a client has for example RHS loaded but not the server (due to verifySignatures 0 for example).
+        Idea was that the server will first initialize all vital stuff and distribute it to
+        the clients. This would avoid that clients check all arrays for mods, etc, to ensure
+        equity, validity, etc, in these arrays. As it would catch errors if a client has for
+        example RHS loaded but not the server, "due to verifySignatures 0", for example.
 */
 
+// TODO: TBD: we should consider mapping these during init phases...
+// TODO: TBD: then also potentially reporting whether the preset has compiled and is 'ready'
 // Load friendly (player side) preset
 switch (KPLIB_param_presetF) do {
     case 0: {[true] call compile preprocessFileLineNumbers "presets\armies\customEast.sqf";};
@@ -57,33 +62,50 @@ switch (KPLIB_param_presetC) do {
     default {[] call compile preprocessFileLineNumbers "presets\civilians\custom.sqf";};
 };
 
-// Prepare preset packages
-KPLIB_preset_packageF = [
-    ["KPLIB_preset_nameF", KPLIB_preset_nameF],
-    ["KPLIB_preset_alphabetF", KPLIB_preset_alphabetF]
+// TODO: TBD: why does alphabet need to be any different?
+// Prepare preset packages, refactored with highly leveraged meta data
+private _packageSpecs = [
+    ["F", ["KPLIB_preset_name", "KPLIB_preset_alphabet"]]
+    , ["E", ["KPLIB_preset_name", "KPLIB_preset_alphabet"]]
+    , ["R", ["KPLIB_preset_name"]]
+    , ["C", ["KPLIB_preset_name"]]
 ];
-KPLIB_preset_packageE = [
-    ["KPLIB_preset_nameE", KPLIB_preset_nameE],
-    ["KPLIB_preset_alphabetE", KPLIB_preset_alphabetE]
-];
-KPLIB_preset_packageR = [
-    ["KPLIB_preset_nameR", KPLIB_preset_nameR]
-];
-KPLIB_preset_packageC = [
-    ["KPLIB_preset_nameC", KPLIB_preset_nameC]
-];
+// We will also refer to the SUFFIXES in order to process
+private _suffixes = _packageSpecs apply { (_x#0); };
 
-// Process all preset variables
-private _suffix = "";
 {
-    _suffix = _x;
+    _x params [
+        ["_suffix", "", [""]]
+        , ["_variableNames", [], [[]]]
+    ];
+
+    private _package = _variableNames apply {
+        [_x + _suffix, missionNamespace getVariable _x + _suffix];
+    };
+
+    private _packageKey = "KPLIB_preset_package" + _suffix;
+
+    missionNamespace setVariable [_packageKey, _package];
+
+} forEach _packageSpecs;
+
+{
+    // Process all preset variables
+    private _suffix = _x;
+
     {
-        [_x, _suffix] call KPLIB_fnc_init_processPresetVar;
+        private _variableName = _x;
+        [_variableName, _suffix] call KPLIB_fnc_init_processPresetVar;
     } forEach KPLIB_preset_allVariables;
-} forEach ["F", "E", "R", "C"];
+
+} forEach _suffixes;
 
 // Pack all preset packages and publish them to the clients
-KPLIB_preset_allData = [KPLIB_preset_packageF, KPLIB_preset_packageE, KPLIB_preset_packageR, KPLIB_preset_packageC];
+KPLIB_preset_allData = _suffixes apply {
+    missionNamespace getVariable ("KPLIB_preset_package" + _x);
+};
+
+// TODO: TBD: let's figure out whether this is necessary...
 publicVariable "KPLIB_preset_allData";
 
-true
+true;
