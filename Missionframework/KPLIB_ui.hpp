@@ -39,7 +39,7 @@
 #include "modules\0300_plm\ui.hpp"
 #include "modules\0310_virtual\ui.hpp"
 #include "modules\0320_build\ui.hpp"
-#include "modules\0330_garrison\ui.hpp"
+#include "modules\0335_garrisonUI\ui.hpp"
 #include "modules\0400_logistic\ui.hpp"
 #include "modules\0430_cratefiller\ui.hpp"
 // // TODO: TBD: definitely moving away from this level of tight integration...

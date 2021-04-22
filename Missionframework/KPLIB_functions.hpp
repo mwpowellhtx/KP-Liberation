@@ -58,6 +58,7 @@ class KPLIB {
     #include "modules\0310_virtual\functions.hpp"
     #include "modules\0320_build\functions.hpp"
     #include "modules\0330_garrison\functions.hpp"
+    #include "modules\0335_garrisonUI\functions.hpp"
     #include "modules\0340_markers\functions.hpp"
 
     #include "modules\0400_logistic\functions.hpp"
