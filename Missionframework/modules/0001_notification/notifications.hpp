@@ -16,9 +16,9 @@
 
 // Description and such will support structured text elements
 class Default {
-    title = "KP LIBERATION";
-    iconPicture = "%1";
-    description = "%2";
+    title = "%1";
+    iconPicture = "%2";
+    description = "%3";
     color[] = {1, 1, 1, 1};
     duration = 5;
     priority = 0;
