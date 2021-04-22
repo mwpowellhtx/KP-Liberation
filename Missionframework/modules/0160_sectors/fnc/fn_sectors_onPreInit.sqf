@@ -5,7 +5,7 @@
     File: fn_sectors_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-21 15:40:36
+    Last Update: 2021-04-22 17:15:53
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -99,31 +99,6 @@ if (isServer) then {
         , QMSTATUS(_patrol)         , QMSTATUS(_antiAir)
         , QMSTATUS(_closeAirSupport), QMSTATUS(_combatAirPatrol)
         , QMSTATUS(_counterAttack)
-    ];
-
-    // For use compiling an enumerated STATUS REPORT
-    MVAR(_statusReportTable)            = [
-        [MSTATUS(_garrisoning)      , Q(garrisoning)        ]
-        , [MSTATUS(_garrisoned)     , Q(garrisoned)         ]
-        , [MSTATUS(_capturing)      , Q(capturing)          ]
-        , [MSTATUS(_captured)       , Q(captured)           ]
-        , [MSTATUS(_deactivating)   , Q(deactivating)       ]
-        , [MSTATUS(_deactivated)    , Q(deactivated)        ]
-        , [MSTATUS(_resisting)      , Q(resisting)          ]
-        , [MSTATUS(_resisted)       , Q(resisted)           ]
-        , [MSTATUS(_reinforcing)    , Q(reinforcing)        ]
-        , [MSTATUS(_reinforced)     , Q(reinforced)         ]
-        , [MSTATUS(_infantry)       , Q(infantry)           ]
-        , [MSTATUS(_paratrooper)    , Q(paratrooper)        ]
-        , [MSTATUS(_lightArmor)     , Q(lightArmor)         ]
-        , [MSTATUS(_heavyArmor)     , Q(heavyArmor)         ]
-        , [MSTATUS(_mission)        , Q(mission)            ]
-        , [MSTATUS(_complete)       , Q(complete)           ]
-        , [MSTATUS(_patrol)         , Q(patrol)             ]
-        , [MSTATUS(_antiAir)        , Q(antiAir)            ]
-        , [MSTATUS(_closeAirSupport), Q(closeAirSupport)    ]
-        , [MSTATUS(_combatAirPatrol), Q(combatAirPatrol)    ]
-        , [MSTATUS(_counterAttack)  , Q(counterAttack)      ]
     ];
 
     // Align some combinations
