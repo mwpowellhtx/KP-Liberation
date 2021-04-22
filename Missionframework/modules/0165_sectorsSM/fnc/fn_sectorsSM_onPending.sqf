@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onPending.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 00:01:05
-    Last Update: 2021-04-22 15:04:52
+    Last Update: 2021-04-22 16:15:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -72,7 +72,11 @@ switch (true) do {
         // However nothing to be timed so clear TIMER
         _namespace setVariable [QMVAR(_timer), nil];
     };
-    case (_canCapture || _canDeactivate): {
+    case (_canDeactivate): {
+        private _defaultTimer = [MPARAMSM(_deactivationPeriod)] call KPLIB_fnc_timers_create;
+        [_namespace, QMVAR(_timer), _defaultTimer] call KPLIB_fnc_namespace_timerHasElapsed;
+    };
+    case (_canCapture): {
         private _defaultTimer = [MPARAMSM(_pendingPeriod)] call KPLIB_fnc_timers_create;
         [_namespace, QMVAR(_timer), _defaultTimer] call KPLIB_fnc_namespace_timerHasElapsed;
     };
