@@ -5,7 +5,7 @@
     File: fn_hudDispatchSM_onReportFob_civRep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-04-16 09:05:40
+    Last Update: 2021-04-21 10:15:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -48,27 +48,26 @@ if (_debug) then {
 // FOBs being the key ingredient
 if (count _fobs > 0) then {
 
+    private _civRepThresholdBase = abs KPLIB_param_enemy_civRepBaseThreshold;
+
     // TODO: TBD: may want to refactor in terms of uniform preset settings...
     [
-        (-KPLIB_param_civilian_maxCivRep max (
-                KPLIB_civilian_civRep min KPLIB_param_civilian_maxCivRep
-            )
-        )
-        , KPLIB_param_civilian_maxCivRep
-        , -(3.4 * abs KPLIB_param_civilian_civRepBaseThreshold)
-        , -(2.6 * abs KPLIB_param_civilian_civRepBaseThreshold)
-        , -(abs KPLIB_param_civilian_civRepBaseThreshold)
-        , (abs KPLIB_param_civilian_civRepBaseThreshold)
-        , (2 * abs KPLIB_param_civilian_civRepBaseThreshold)
+        [] call KPLIB_fnc_enemy_getCivRepBounded
+        , KPLIB_param_enemy_maxCivRep
+        , -(3.4 * _civRepThresholdBase)
+        , -(2.6 * _civRepThresholdBase)
+        , -_civRepThresholdBase
+        , _civRepThresholdBase
+        , (2 * _civRepThresholdBase)
         , "%"
     ] params [
         Q(_civRep)
         , Q(_maxCivRep)
-        , Q(_hostileThreshold)
-        , Q(_disfavorThreshold)
-        , Q(_dislikeThreshold)
-        , Q(_likeThreshold)
-        , Q(_favoredThreshold)
+        , Q(_civRepThresholdHostile)
+        , Q(_civRepThresholdDisfavor)
+        , Q(_civRepThresholdDislike)
+        , Q(_civRepThresholdLike)
+        , Q(_civRepThresholdFavored)
         , Q(_suffix)
     ];
 
@@ -98,11 +97,11 @@ if (count _fobs > 0) then {
         [_civRep, _maxCivRep, _suffix] call MFUNC(_renderScalar)
         , MVAR(_civRepPath)
         , [_civRepRatio, [
-            [_favoredThreshold, _greenColor]
-            , [_likeThreshold, _blueColor]
-            , [_dislikeThreshold, _whiteColor]
-            , [_disfavorThreshold, _yellowColor]
-            , [_hostileThreshold, _orangeColor]], _redColor] call MFUNC(_getThresholdColor)
+            [_civRepThresholdFavored, _greenColor]
+            , [_civRepThresholdLike, _blueColor]
+            , [_civRepThresholdDislike, _whiteColor]
+            , [_civRepThresholdDisfavor, _yellowColor]
+            , [_civRepThresholdHostile, _orangeColor]], _redColor] call MFUNC(_getThresholdColor)
     ] params [
         Q(_renderedCivRep)
         , Q(_civRepPath)

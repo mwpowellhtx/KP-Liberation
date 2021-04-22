@@ -5,7 +5,7 @@
     File: fn_hudDispatchSM_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-04-16 09:05:25
+    Last Update: 2021-04-22 15:21:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -37,18 +37,6 @@ MVAR(_dispatchTimer)                    = QMVAR(_dispatchTimer);
 
 if (isServer) then {
     // Server side init
-
-    // TODO: TBD: this is a placeholder...
-    // TODO: TBD: really deserves its own module dedicated to the problem of civilian reputation
-    // TODO: TBD: but for purposes of HUD, we will pencil it in here, for now...
-    // TODO: TBD: while we are there we also need to define some limits, threhsolds, etc
-    KPLIB_civilian_civRep                       =    0;
-    // TODO: TBD: will also need to slot that in for persistence load/save...
-    KPLIB_param_civilian_maxCivRep              = 1000;
-    // TODO: TBD: we double it, and triple it, depending on the circumstance, and desired game effect...
-    // TODO: TBD: therefore, should be bounded to something like 30-33 ...
-    KPLIB_param_civilian_civRepBaseThreshold    = 0.25;
-    KPLIB_civilian_killedPenalty                =    0;
 
     MPRESET(_enemy_low)                         = 0.25;
     MPRESET(_enemy_medium)                      = 0.65;
