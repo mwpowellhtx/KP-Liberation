@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 02:38:56
-    Last Update: 2021-04-16 08:31:53
+    Last Update: 2021-04-22 14:48:07
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -27,9 +27,6 @@ class eden {
 
     //
     class eden_settings {};
-
-    // Returns the icon image path corresponding to the given SECTOR marker name
-    class eden_getSectorIcon {};
 
     // Returns a formatted name corresponding to a given base name and optional index
     class eden_getNameAtIndex {};
