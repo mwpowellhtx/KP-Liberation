@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-24
-    Last Update: 2021-04-03 19:58:46
+    Last Update: 2021-04-22 15:16:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -20,7 +20,7 @@
         The function has finished [BOOL]
  */
 
-private _debug = KPLIB_param_enemyDebug;
+private _debug = MPARAM(_addAwareness_debug);
 
 waitUntil {
     !isNil QMVAR(_awareness)

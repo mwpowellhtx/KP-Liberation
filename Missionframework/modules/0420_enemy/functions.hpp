@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-03 15:57:27
+    Last Update: 2021-04-18 23:44:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -78,4 +78,16 @@ class enemy {
     // class enemy_commanderLogic {
     //     ext = ".fsm";
     // };
+
+    // Returns the ratio of ENEMY STRENGTH over MAX STRENGTH
+    class enemy_getStrengthRatio {};
+
+    // Returns the ratio of ENEMY AWARENESS over MAX AWARENESS
+    class enemy_getAwarenessRatio {};
+
+    // Returns the CIVILIAN REPUTATION bounded by plus and minus MAXIMUM CIVILIAN REPUTATION
+    class enemy_getCivRepBounded {};
+
+    // Returns the CIVILIAN REPUTATION in terms of HOSTILITY
+    class enemy_getCivRepHostility {};
 };

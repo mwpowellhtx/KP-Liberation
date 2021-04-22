@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-05 15:48:10
+    Last Update: 2021-04-22 15:17:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -52,21 +52,33 @@ if (isServer) then {
     // Strength of the enemy (0-1000)
     MVAR(_strength)                                                 = MPARAM(_defaultStrength);
 
+    // TODO: TBD: leaning toward refactoring civilian reputation into the ENEMY module...
+    // TODO: TBD: even though it isn't really 'enemy' I cannot think of a better place to put it
+    // TODO: TBD: and unless there is more of a civilian module, which is possible, do not want to intro a new module just for this just yet
+
+    // TODO: TBD: really deserves its own module dedicated to the problem of civilian reputation
+    // TODO: TBD: but for purposes of HUD, we will pencil it in here, for now...
+    // TODO: TBD: while we are there we also need to define some limits, threhsolds, etc
+    MVAR(_civRep)                               =    0;
+
     // Register load event handler
-    ["KPLIB_doLoad", {[] call KPLIB_fnc_enemy_loadData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doLoad", { [] call KPLIB_fnc_enemy_loadData; }] call CBA_fnc_addEventHandler;
 
     // Register save event handler
-    ["KPLIB_doSave", {[] call KPLIB_fnc_enemy_saveData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doSave", { [] call KPLIB_fnc_enemy_saveData; }] call CBA_fnc_addEventHandler;
 
-    // Register sector activation event handler
-    [KPLIB_sector_activated, {[_this select 0] call KPLIB_fnc_enemy_sectorAct;}] call CBA_fnc_addEventHandler;
+    // // // TODO: TBD: these more than likely really need to be refactored in terms of at least garrison
+    // // // TODO: TBD: but probably most likely in terms of sector
+    // // Register sector activation event handler
+    // [KPLIB_sector_activated, { _this call KPLIB_fnc_enemy_sectorAct; }] call CBA_fnc_addEventHandler;
 
-    // Register sector captured event handler
-    [KPLIB_sector_captured, {[_this select 0] call KPLIB_fnc_enemy_sectorCapture;}] call CBA_fnc_addEventHandler;
+    // // Register sector captured event handler
+    // [KPLIB_sector_captured, { _this call KPLIB_fnc_enemy_sectorCapture; }] call CBA_fnc_addEventHandler;
 
-    // Register sector deactivation event handler
-    [KPLIB_sector_deactivated, {[_this select 0] call KPLIB_fnc_enemy_sectorDeact;}] call CBA_fnc_addEventHandler;
+    // // Register sector deactivation event handler
+    // [KPLIB_sector_deactivated, { _this call KPLIB_fnc_enemy_sectorDeact; }] call CBA_fnc_addEventHandler;
 
+    // TODO: TBD: actually "transferring" spawned in assets (?) should be a 'mission' on its own I think...
     // Register convoy arrival event handler
     [Q(KPLIB_transferConvoy_end), { _this call KPLIB_fnc_enemy_onTransferConvoyEnd; }] call CBA_fnc_addEventHandler;
 
