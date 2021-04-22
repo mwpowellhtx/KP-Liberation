@@ -3,8 +3,9 @@
 
     File: fn_captive_addCaptiveAction.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-09-11
-    Last Update: 2019-09-25
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-09-11
+    Last Update: 2021-04-22 15:23:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,7 +17,7 @@
 
     Returns:
         Function reached the end [BOOL]
-*/
+ */
 
 params [
     ["_unit", objNull, [objNull]]
@@ -27,7 +28,9 @@ if (isNull _unit) exitWith {
     false
 };
 
-if !(KPLIB_ace_enabled) then {
+// TODO: TBD: only when "ace not enabled" (?)
+// TODO: TBD: no, we think that the action menu should be there regardless
+if (!(KPLIB_ace_enabled)) then {
     // Add arrest action
     [
         _unit,

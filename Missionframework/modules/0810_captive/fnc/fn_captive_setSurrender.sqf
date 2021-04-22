@@ -3,8 +3,9 @@
 
     File: fn_captive_setSurrender.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-09-11
-    Last Update: 2019-09-25
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-09-11
+    Last Update: 2021-04-22 15:24:21
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,7 +17,7 @@
 
     Returns:
         Unit surrendered [BOOL]
-*/
+ */
 
 params [
     ["_unit", objNull, [objNull]]
@@ -24,15 +25,17 @@ params [
 
 // Exit on missing object
 if (isNull _unit) exitWith {
-    false
+    false;
 };
 
-if !(vehicle _unit isEqualTo _unit) then {
+if (!(vehicle _unit isEqualTo _unit)) then {
     moveOut _unit;
 };
 
+// TODO: TBD: no, "surrendered" units are not automatically "captured"...
 // Set variable on unit
 _unit setVariable ["KPLIB_surrender", true, true];
+// TODO: TBD: may have something to do with despawn bits cleaning up for resources
 _unit setVariable ["KPLIB_captured", true, true];
 
 // Remove some equipment of the unit
@@ -60,7 +63,7 @@ _unit addMPEventHandler ["MPKilled", {
 
     // Remove the unload action from the vehicle if the unit is in a vehicle
     private _vehicle = objectParent (_this select 0);
-    if !(isNull _vehicle) then {
+    if (!(isNull _vehicle)) then {
         _vehicle removeAction ((_this select 0) getVariable ["KPLIB_captive_unloadID", 9000]);
     };
 }];
@@ -68,4 +71,4 @@ _unit addMPEventHandler ["MPKilled", {
 // Emit global event
 ["KPLIB_captive_surrendered", [_unit]] call CBA_fnc_globalEvent;
 
-true
+true;
