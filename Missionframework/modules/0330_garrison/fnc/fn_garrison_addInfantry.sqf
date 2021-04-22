@@ -1,10 +1,12 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_garrison_addInfantry
 
     File: fn_garrison_addInfantry.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-12-21
-    Last Update: 2019-03-31
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-12-21
+    Last Update: 2021-04-16 15:00:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -12,22 +14,33 @@
         Adds given amount of infantry units to the garrison of given sector.
 
     Parameter(s):
-        _sector - Markername of the sector                                  [STRING, defaults to ""]
-        _amount - Amount of infantry to add (can be negative to substract)  [NUMBER, defaults to 0]
+        _sector - a SECTOR marker name [STRING, default: ""]
+        _amount - the number of infantry to add or subtract when positive or negative, respectively
+            [NUMBER, default: 0]
 
     Returns:
-        Function reached the end [BOOL]
-*/
+        The callback has finished [BOOL]
+ */
 
 params [
-    ["_sector", "", [""]],
-    ["_amount", 0, [0]]
+    [Q(_sector), "", [""]]
+    , [Q(_amount), 0, [0]]
+];
+
+[
+    _sector in KPLIB_sectors_all
+    , _sector in MVAR(_active)
+] params [
+    Q(_all)
+    , Q(_active)
 ];
 
 // Exit, if no valid or an active sector is given
-if (!(_sector in KPLIB_sectors_all) || (_sector in KPLIB_garrison_active)) exitWith {false};
+if (!_all || _active) exitWith {
+    false;
+};
 
-private _garrisonRef = [_sector] call KPLIB_fnc_garrison_getGarrison;
+private _garrisonRef = [_sector] call MFUNC(_getGarrison);
 
 // Prevent values below 0
 private _curAmount = _garrisonRef select 2;
@@ -37,6 +50,6 @@ _amount = (_curAmount + _amount) max 0;
 _garrisonRef set [2, _amount];
 
 // Publish changes to other machines
-publicVariable "KPLIB_garrison_array";
+publicVariable QMVAR(_array);
 
-true
+true;

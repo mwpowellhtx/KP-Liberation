@@ -1,18 +1,74 @@
 /*
-    KP LIBERATION MODULE FUNCTIONS
-
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-10-18
-    Last Update: 2019-05-04
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-10-18
+    Last Update: 2021-04-21 13:11:40
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Defines for all functions, which are brought by this module.
-*/
+ */
 
 class garrison {
     file = "modules\0330_garrison\fnc";
+
+    // Initialization phase event handler
+    class garrison_onPreInit {
+        preInit = 1;
+    };
+
+    // Initialization phase event handler
+    class garrison_onPostInit {
+        postInit = 1;
+    };
+
+    // Loads module specific data from the save
+    class garrison_onLoadData {};
+
+    // Saves module specific data for the save
+    class garrison_onSaveData {};
+
+    // Prepares the module settings
+    class garrison_settings {};
+
+    // // // TODO: TBD: no need to create any GARRISON namespaces
+    // // // TODO: TBD: for now we will build on the CBA SECTOR namespace and manage GARRISON variables there
+    // // Returns a newly created CBA GARRISON namespace
+    // class garrison_createNamespace {};
+
+    // Performs GARRISON specific things during CBA namespace GC
+    class garrison_onGC {};
+
+    // Specifies the GARRISON for the CBA SECTOR namespace when necessary
+    class garrison_onGarrisoning {};
+
+    // Returns the desired filter approaching the GARRISON spec calculations
+    class garrison_onGarrisoningGetFilter {};
+
+    // Calculates each count given a set of repeatable parameters, i.e. UNITS, LIGHT VEHICLES, HEAVY VEHICLES, GRPS
+    class garrison_onGarrisoningCalculateEachCount {};
+
+    // Calculates the GARRISON counts given the specified blue print
+    class garrison_onGarrisoningCalculateCounts {};
+
+    // Calculates the BITS for use during GARRISON, applies for INTEL for military bases, also IED scenarios
+    class garrison_onGarrisoningCalculateBits {};
+
+    //
+    class garrison_onGarrisoningMakeIntelArgs {};
+
+    //
+    class garrison_onGarrisoningMakeIedArgs {};
+
+    // Converts the CBA GARRISON namespace to a serialization consistent TUPLE ARRAY
+    class garrison_namespaceToArray {};
+
+    // Converts the serialization consistent TUPLE ARRAY to CBA GARRISON namespace
+    class garrison_arrayToNamespace {};
+
+    // Clears the CBA SECTOR namespaces when SIDE(s) changed
+    class garrison_onSideChangedClearSectorNamespaces {};
 
     // Add infantry to sector garrison
     class garrison_addInfantry {};
@@ -20,67 +76,37 @@ class garrison {
     // Add light vehicle to sector garrison
     class garrison_addVeh {};
 
-    // Changes the owner of a sector garrison
-    class garrison_changeOwner {};
-
     // Remove given vehicle from sector garrison
     class garrison_delVeh {};
-
-    // Despawns the sector garrison and updates the garrison array with actual data
-    class garrison_despawn {};
-
-    // Handle button click for unit/group adding
-    class garrison_dialogAdd {};
-
-    // Handle button click of infantry/vehicle removal
-    class garrison_dialogRemove {};
-
-    // Handle group selection in garrison dialog
-    class garrison_dialogSelectGroup {};
-
-    // Handle new selection in garrison dialog
-    class garrison_dialogSelectSector {};
-
-    // Handle unit selection in garrison dialog
-    class garrison_dialogSelectUnit {};
-
-    // Gets the specific garrison array
-    class garrison_getGarrison {};
 
     // Finds empty position suitable for vehicle spawn
     class garrison_getVehSpawnPos {};
 
-    // Initializes a sector garrison
-    class garrison_initSector {};
+    // // Gets the specific CBA GARRISON namespace
+    // class garrison_getNamespace {};
 
-    // Loads module specific data from the save
-    class garrison_loadData {};
+    // Gets the specific GARRISON tuple
+    class garrison_getGarrison {};
 
-    // Opens the garrison dialog
-    class garrison_openDialog {};
+    // // Spawns the garrison upon sector activation
+    // class garrison_onSpawn {};
 
-    // Module post initialization
-    class garrison_postInit {
-        postInit = 1;
-    };
-
-    // Module pre initialization
-    class garrison_preInit {
-        preInit = 1;
-    };
-
-    // Reinitializes sectors
-    class garrison_reInitSectors {};
-
-    // Saves module specific data for the save
-    class garrison_saveData {};
-
-    // Spawns the garrison upon sector activation
-    class garrison_spawn {};
+    // Event handler responding to SECTOR ACTIVATED event
+    class garrison_onSectorActivated {};
 
     // Spawns garrison infantry at a sector
-    class garrison_spawnSectorInfantry {};
+    class garrison_onSpawnSectorInfantry {};
 
     // Spawns a vehicle at a sector
-    class garrison_spawnSectorVehicle {};
+    class garrison_onSpawnSectorVehicle {};
+
+    // Event handler responding to SECTOR DEACTIVATED event
+    class garrison_onSectorDeactivated {};
+
+    // // // TODO: TBD: instead consider these bits, and transfer what makes sense into SECTOR module tryDeactivate
+    // // Despawns the sector garrison and updates the garrison array with actual data
+    // class garrison_onDespawn {};
+
+    // // Event handler responds when SECTOR has been CAPTURED
+    // class garrison_onSectorCaptured {};
 };
