@@ -19,10 +19,15 @@
         The callback has finished [BOOL]
  */
 
+if (isServer) then {
+    KPLIB_param_core_minPlayerStrength = 0.25;
+    KPLIB_param_core_maxPlayerStrength = 0.75;
+};
+
 /*
     ----- BI REVIVE SETTINGS -----
     Ref: https://community.bistudio.com/wiki/Arma_3_Revive
-*/
+ */
 
 // KPLIB_param_reviveMode
 // Enables/Disables the BI Revive System. (Automatically disabled if using ACE medical)

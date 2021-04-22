@@ -42,10 +42,6 @@ So this is the core gameplay where all other modules are inject their functional
 
   *Get the marker from array of markers.*
 
-* KPLIB_fnc_core_handleSector
-
-  *Handle an activated sector.*
-
 * KPLIB_fnc_core_handleVehicleSpawn
 
   *Handle vehicle spawn event.*

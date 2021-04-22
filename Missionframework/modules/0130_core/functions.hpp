@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-28
-    Last Update: 2021-04-08 19:56:37
+    Last Update: 2021-04-21 14:54:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -68,9 +68,6 @@ class core {
     // Get the nearest marker from array of markers
     class core_getNearestMarker {};
 
-    // Handle an activated sector
-    class core_handleSector {};
-
     // Handle vehicle spawn event
     class core_handleVehicleSpawn {};
 
@@ -97,4 +94,7 @@ class core {
 
     // // Updates the sector marker colors
     // class core_updateSectorMarkers {};
+
+    // Returns the player strength as a ratio of connected players to playable slots
+    class core_getPlayerStrength {};
 };
