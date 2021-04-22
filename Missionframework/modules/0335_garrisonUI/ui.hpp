@@ -1,10 +1,8 @@
 /*
-    KP LIBERATION MODULE UI FILE
-
     File: ui.hpp
-    Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-10-18
-    Last Update: 2019-03-31
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-16 15:14:26
+    Last Update: 2021-04-16 15:14:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:

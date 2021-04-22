@@ -2,18 +2,19 @@
     KP Liberation Garrison Dialog
 
     File: KPLIB_garrison.hpp
-    Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-03-19
-    Last Update: 2019-04-30
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-04-16 14:30:34
+    Last Update: 2021-04-16 14:30:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Dialog for the commander to manage blufor sector garrisons.
-*/
+ */
 
-class KPLIB_garrison {
-    idd = KPLIB_IDC_GARRISON_DIALOG;
+class KPLIB_garrisonUI {
+    idd = KPLIB_IDD_GARRISON_DIALOG;
     movingEnable = 0;
+    // TODO: TBD: review for best possible geometry, controls, event handlers, etc...
     onLoad = "KPLIB_garrison_dialogGroups = []; KPLIB_garrison_dialogSelGroup = grpNull; KPLIB_garrison_dialogSelUnit = objNull;";
     onUnload = "KPLIB_garrison_dialogGroups = nil; KPLIB_garrison_dialogSelGroup = nil; KPLIB_garrison_dialogSelUnit = nil; deleteMarkerLocal 'grpMarker'";
 
@@ -38,7 +39,7 @@ class KPLIB_garrison {
 
         class KPLIB_GarrisonList: KPGUI_PRE_Listbox {
             idc = KPLIB_IDC_GARRISON_GARRISONLIST;
-            onLBSelChanged = "[_this select 1] call KPLIB_fnc_garrison_dialogSelectSector";
+            onLBSelChanged = "_this call KPLIB_fnc_garrisonUI_dialogSelectSector";
             x = KP_GETCX(KP_X_VAL,KP_WIDTH_VAL,0,1);
             y = KP_GETCY(KP_Y_VAL,KP_HEIGHT_VAL,1,16);
             w = KP_GETW(KP_WIDTH_VAL,4);
@@ -96,7 +97,7 @@ class KPLIB_garrison {
             idc = KPLIB_IDC_GARRISON_INFANTRYBUTTON;
             text = ">>";
             tooltip = "$STR_KPLIB_DIALOG_GARRISON_REMOVE_TT";
-            onButtonClick = "_this call KPLIB_fnc_garrison_dialogRemove";
+            onButtonClick = "_this call KPLIB_fnc_garrisonUI_dialogRemove";
             x = KP_GETCX(KP_X_VAL,KP_WIDTH_VAL,11,16);
             y = KP_GETCY(KP_Y_VAL,KP_HEIGHT_VAL,2,16);
             w = KP_GETW(KP_WIDTH_VAL,16);
@@ -182,7 +183,7 @@ class KPLIB_garrison {
 
         class KPLIB_GarrisonGroupList: KPGUI_PRE_Listbox {
             idc = KPLIB_IDC_GARRISON_GROUPLIST;
-            onLBSelChanged = "[_this select 1] call KPLIB_fnc_garrison_dialogSelectGroup";
+            onLBSelChanged = "_this call KPLIB_fnc_garrisonUI_dialogSelectGroup";
             x = KP_GETCX(KP_X_VAL,KP_WIDTH_VAL,3,4);
             y = KP_GETCY(KP_Y_VAL,KP_HEIGHT_VAL,2,16);
             w = KP_GETW(KP_WIDTH_VAL,4);
@@ -194,7 +195,7 @@ class KPLIB_garrison {
             idc = KPLIB_IDC_GARRISON_GROUPBUTTON;
             text = "$STR_KPLIB_DIALOG_GARRISON_GROUPBUTTON";
             tooltip = "$STR_KPLIB_DIALOG_GARRISON_GROUPBUTTON_TT";
-            onButtonClick = "_this call KPLIB_fnc_garrison_dialogAdd";
+            onButtonClick = "_this call KPLIB_fnc_garrisonUI_dialogAdd";
             x = KP_GETCX(KP_X_VAL,KP_WIDTH_VAL,3,4);
             y = KP_GETCY(KP_Y_VAL,KP_HEIGHT_VAL,7,16);
             w = KP_GETW(KP_WIDTH_VAL,4);
@@ -214,7 +215,7 @@ class KPLIB_garrison {
 
         class KPLIB_GarrisonUnitList: KPGUI_PRE_Listbox {
             idc = KPLIB_IDC_GARRISON_UNITLIST;
-            onLBSelChanged = "[_this select 1] call KPLIB_fnc_garrison_dialogSelectUnit";
+            onLBSelChanged = "_this call KPLIB_fnc_garrisonUI_dialogSelectUnit";
             x = KP_GETCX(KP_X_VAL,KP_WIDTH_VAL,3,4);
             y = KP_GETCY(KP_Y_VAL,KP_HEIGHT_VAL,9,16);
             w = KP_GETW(KP_WIDTH_VAL,4);
