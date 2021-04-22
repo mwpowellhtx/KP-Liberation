@@ -1,11 +1,9 @@
 /*
-    KP LIBERATION MODULE FUNCTIONS
-
     File: functions.hpp
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-03-10 15:05:00
+    Last Update: 2021-04-21 10:42:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -14,6 +12,16 @@
 
 class res {
     file = "modules\0210_resources\fnc";
+
+    // Initialization phase event handler
+    class resources_preInit {
+        preInit = 1;
+    };
+
+    // Initialization phase event handler
+    class resources_postInit {
+        postInit = 1;
+    };
 
     // Adds actions to spawned crates
     class resources_addActions {};
@@ -74,16 +82,6 @@ class res {
 
     // Removes given amount of resources from given location
     class resources_pay {};
-
-    // Module post initialization
-    class resources_postInit {
-        postInit = 1;
-    };
-
-    // Module pre initialization
-    class resources_preInit {
-        preInit = 1;
-    };
 
     // Push crate
     class resources_pushCrate {};

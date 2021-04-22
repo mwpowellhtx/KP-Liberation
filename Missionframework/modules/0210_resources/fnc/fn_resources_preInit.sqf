@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_resources_preInit
 
@@ -5,57 +6,55 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-02-17 12:22:17
+    Last Update: 2021-04-21 10:50:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The preInit function defines global variables, adds event handlers and set some vital settings which are used in this module.
+        Initialization phase event handler.
 
     Parameter(s):
         NONE
 
     Returns:
-        Module preInit finished [BOOL]
-*/
+        The event handler has finished [BOOL]
+ */
 
 if (isServer) then {
     ["Module initializing...", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
 };
 
+
 /*
     ----- Module Globals -----
-*/
+ */
 
-KPLIB_resources_resourceKind_sup = "Supply";
-KPLIB_resources_resourceKind_amm = "Ammo";
-KPLIB_resources_resourceKind_fue = "Fuel";
+MVAR(_resourceKind_sup) = "Supply";
+MVAR(_resourceKind_amm) = "Ammo";
+MVAR(_resourceKind_fue) = "Fuel";
 
-KPLIB_resources_resourceKinds = [
-    KPLIB_resources_resourceKind_sup
-    , KPLIB_resources_resourceKind_amm
-    , KPLIB_resources_resourceKind_fue
+MVAR(_resourceKinds) = [
+    MVAR(_resourceKind_sup)
+    , MVAR(_resourceKind_amm)
+    , MVAR(_resourceKind_fue)
 ];
-
-// Intel currency resource amount
-KPLIB_resources_intel = 0;
 
 // TODO: TBD: is a Z offset even necessary? when we have different offsets for different crate class names...
 // TODO: TBD: or perhaps would be better to establish a base offset, then the crate offset is an offset from the offset...
-KPLIB_resources_storageOffsetZ = 0.6;
+MVAR(_storageOffsetZ)                       = 0.6;
 
 // TODO: TBD: there's got to be a better way to align these than a hard-coded table...
 // TODO: TBD: i.e. never heard of a matrix for loop?
-// Large storage area placement position offsets.
 
 // TODO: TBD: we can probably rinse and repeat this same thing assembling transport vehicle configs as well...
-KPLIB_resources_storageOffsetsLarge = [
+// Large storage area placement position offsets
+MVAR(_storageOffsetsLarge)                  = [
     [-5.59961, -3.99902, -2.39941, -0.799805, 0.800781, 2.40039, 4.00098, 5.60059]
     , [3.60938, 1.80859, 0.00976563, -1.79102, -3.58984]
 ] call KPLIB_fnc_resources_registerStoragePositions;
 
-// Small storage area placement position offsets.
-KPLIB_resources_storageOffsetsSmall = [
+// Small storage area placement position offsets
+MVAR(_storageOffsetsSmall)                  = [
     [-2.34961, -0.75, 0.850586, 2.4502]
     , [1.80078, 0, -1.79883]
 ] call KPLIB_fnc_resources_registerStoragePositions;
@@ -63,7 +62,12 @@ KPLIB_resources_storageOffsetsSmall = [
 // Configuration settings for crates transported by vehicles ["classname", distance from vehicle center to unload crate, attachTo positions for each box].
 // Set and filtered on the server
 if (isServer) then {
-    KPLIB_resources_transportConfigs = [[
+
+    // Intel currency resource amount
+    MVAR(_intel)                            = 0;
+
+
+    MVAR(_transportConfigs)                 = [[
         ["B_Heli_Transport_03_F",                        7.5, [[0.00,  2.20, -1.00], [0.00,  0.50, -1.00], [0.00, -1.20, -1.00]                                            ]],
         ["B_Heli_Transport_03_unarmed_F",                7.5, [[0.00,  2.20, -1.00], [0.00,  0.50, -1.00], [0.00, -1.20, -1.00]                                            ]],
         ["B_T_Truck_01_covered_F",                       6.5, [[0.00, -0.40,  0.40], [0.00, -2.10,  0.40], [0.00, -3.80,  0.40]                                            ]],
@@ -120,7 +124,7 @@ if (isServer) then {
     ]] call KPLIB_fnc_init_filterMods;
 
     // Plain transport vehicle classnames array
-    KPLIB_resources_transportVehicles = KPLIB_resources_transportConfigs apply {_x select 0};
+    MVAR(_transportVehicles)                = MVAR(_transportConfigs) apply { _x select 0; };
 
     // Send filtered lists to clients
     publicVariable "KPLIB_resources_transportConfigs";
@@ -130,43 +134,43 @@ if (isServer) then {
 
 /*
     ----- Module Initialization -----
-*/
+ */
 
 // Process CBA Settings
-[] call KPLIB_fnc_resources_settings;
+[] call MFUNC(_settings);
 
 // TODO: TBD: may capture in terms of CBA settings...
-KPLIB_param_resources_loadRange = 20;
+MPARAM(_loadRange)                          = 20;
 
-KPLIB_resources_i_sup = 0;
-KPLIB_resources_i_amm = 1;
-KPLIB_resources_i_fue = 2;
+MVAR(_i_sup)                                = 0;
+MVAR(_i_amm)                                = 1;
+MVAR(_i_fue)                                = 2;
 
-KPLIB_resources_indexes = [
-    KPLIB_resources_i_sup
-    , KPLIB_resources_i_amm
-    , KPLIB_resources_i_fue
+MVAR(_indexes)                              = [
+    MVAR(_i_sup)
+    , MVAR(_i_amm)
+    , MVAR(_i_fue)
 ];
 
-KPLIB_resources_capDefault = KPLIB_resources_indexes apply {false};
-KPLIB_resources_storageValueDefault = KPLIB_resources_indexes apply {0};
+MVAR(_capDefault)                           = MVAR(_indexes) apply { false; };
+MVAR(_storageValueDefault)                  = MVAR(_indexes) apply { 0; };
 
 /* We will require these when we begin coordinating with proper transactional
-    * based accounting. Especially to align indices with their types. */
-KPLIB_resources_crateClassesF = [
+ * based accounting. Especially to align indices with their types. */
+MVAR(_crateClassesF)                        = [
     KPLIB_preset_crateSupplyF
     , KPLIB_preset_crateAmmoF
     , KPLIB_preset_crateFuelF
 ];
 
-KPLIB_resources_storageClassesF = [
+MVAR(_storageClassesF)                      = [
     KPLIB_preset_storageSmallF
     , KPLIB_preset_storageLargeF
 ];
 
 // Some globals defined here on the server as the used preset variables aren't present on the clients yet but needed in initial loading
 // All valid crate classnames
-KPLIB_resources_crateClasses = [
+MVAR(_crateClasses)                         = [
     KPLIB_preset_crateSupplyF
     , KPLIB_preset_crateAmmoF
     , KPLIB_preset_crateFuelF
@@ -176,7 +180,7 @@ KPLIB_resources_crateClasses = [
 ];
 
 // All valid storage classnames
-KPLIB_resources_storageClasses = [
+MVAR(_storageClasses)                       = [
     KPLIB_preset_storageSmallE
     , KPLIB_preset_storageSmallF
     , KPLIB_preset_storageLargeE
@@ -184,30 +188,36 @@ KPLIB_resources_storageClasses = [
 ];
 
 // Storage classnames concerning factory sectors
-KPLIB_resources_factoryStorageClasses = [
+MVAR(_factoryStorageClasses)                = [
     KPLIB_preset_storageSmallE
     , KPLIB_preset_storageSmallF
 ];
 
 if (isServer) then {
-
     // Arrange some debug flags
-    KPLIB_param_resources_pay_debug             = false;
+    MPARAM(_pay_debug)                      = false;
 };
 
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
-    KPLIB_param_resources_refreshStorageValuePeriodSeconds = 5;
+    // Specify in biggest to smallest order
+    MPRESET(_intelClassNames)               = [
+        Q(Land_MobilePhone_smart_F)         // Mobile smart phone
+        , Q(Land_Laptop_F)                  // Laptop
+        , Q(Land_Document_01_F)             // Top secret documents
+    ];
+
+    MPARAM(_refreshStorageValuePeriodSeconds) = 5;
 
     // Register load event handler
-    ["KPLIB_doLoad", {[] call KPLIB_fnc_resources_loadData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doLoad", { [] call MFUNC(_loadData); }] call CBA_fnc_addEventHandler;
 
     // Register save event handler
-    ["KPLIB_doSave", {[] call KPLIB_fnc_resources_saveData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doSave", { [] call MFUNC(_saveData); }] call CBA_fnc_addEventHandler;
 
     // Adding actions to spawned crates and storages
-    ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_resources_addActions}] call CBA_fnc_addEventHandler;
+    ["KPLIB_vehicle_spawned", { _this call MFUNC(_addActions); }] call CBA_fnc_addEventHandler;
 
     // TOOD: TBD: may not neecd to public anything as long as these are defined for all...
     publicVariable "KPLIB_resources_crateClassesF";
@@ -218,20 +228,26 @@ if (isServer) then {
     publicVariable "KPLIB_resources_storageClasses";
 
     // Array for all spawned resource crates
-    KPLIB_resources_allCrates = [];
+    MVAR(_allCrates) = [];
 
     // Array for all storages
-    KPLIB_resources_allStorages = [];
+    MVAR(_allStorages) = [];
 };
 
 if (!(hasInterface || isDedicated)) then {
     // HC section
 };
 
-KPLIB_resources_imagePaths = [
+MVAR(_imagePaths) = [
     "res\ui_supplies.paa"
     , "res\ui_ammo.paa"
     , "res\ui_fuel.paa"
+];
+
+MVAR(_capabilityKeys) = [
+    "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY"
+    , "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO"
+    , "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"
 ];
 
 if (hasInterface) then {
@@ -241,11 +257,5 @@ if (hasInterface) then {
 if (isServer) then {
     ["Module initialized", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
 };
-
-KPLIB_resources_capabilityKeys = [
-    "STR_KPLIB_PRODUCTION_CAPABILITY_SUPPLY"
-    , "STR_KPLIB_PRODUCTION_CAPABILITY_AMMO"
-    , "STR_KPLIB_PRODUCTION_CAPABILITY_FUEL"
-];
 
 true;
