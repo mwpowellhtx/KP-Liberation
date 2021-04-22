@@ -5,7 +5,7 @@
     File: fn_sectors_getOpforSectors.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 20:32:37
-    Last Update: 2021-04-15 12:44:25
+    Last Update: 2021-04-22 14:57:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,4 +23,3 @@
 MVAR(_opfor) = MVAR(_all) - MVAR(_blufor);
 
 MVAR(_opfor);
-

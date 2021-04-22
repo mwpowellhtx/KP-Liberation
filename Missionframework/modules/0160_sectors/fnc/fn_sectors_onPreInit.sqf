@@ -5,7 +5,7 @@
     File: fn_sectors_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-13 22:49:12
+    Last Update: 2021-04-21 15:40:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -43,6 +43,18 @@ if (isServer) then {
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
+    MVAR(_namespaces)                                               = [];
+
+    // For use informing the state machine
+    MVAR(_activeNamespaces)                                         = [];
+
+    MVAR(_serializationRegistry) = [QMVAR(_markerName)] call KPLIB_fnc_namespace_createSerializationRegistry;
+
+    // TODO: TBD: may register other variable names...
+    [MVAR(_serializationRegistry), [
+            QMVAR(_markerPos)
+        ]] call KPLIB_fnc_namespace_registerSerializationVars;
+
     MVAR(_activated)                                                = QMVAR(_activated);
     MVAR(_captured)                                                 = QMVAR(_captured);
     MVAR(_deactivated)                                              = QMVAR(_deactivated);
@@ -76,7 +88,7 @@ if (isServer) then {
         missionNamespace setVariable [_variableName, _flag];
     } forEach [
         QMSTATUS(_standby)
-        , QMSTATUS(_garrison)       , QMSTATUS(_garrisoned)
+        , QMSTATUS(_garrisoning)    , QMSTATUS(_garrisoned)
         , QMSTATUS(_capturing)      , QMSTATUS(_captured)
         , QMSTATUS(_deactivating)   , QMSTATUS(_deactivated)
         , QMSTATUS(_resisting)      , QMSTATUS(_resisted)
@@ -89,7 +101,35 @@ if (isServer) then {
         , QMSTATUS(_counterAttack)
     ];
 
+    // For use compiling an enumerated STATUS REPORT
+    MVAR(_statusReportTable)            = [
+        [MSTATUS(_garrisoning)      , Q(garrisoning)        ]
+        , [MSTATUS(_garrisoned)     , Q(garrisoned)         ]
+        , [MSTATUS(_capturing)      , Q(capturing)          ]
+        , [MSTATUS(_captured)       , Q(captured)           ]
+        , [MSTATUS(_deactivating)   , Q(deactivating)       ]
+        , [MSTATUS(_deactivated)    , Q(deactivated)        ]
+        , [MSTATUS(_resisting)      , Q(resisting)          ]
+        , [MSTATUS(_resisted)       , Q(resisted)           ]
+        , [MSTATUS(_reinforcing)    , Q(reinforcing)        ]
+        , [MSTATUS(_reinforced)     , Q(reinforced)         ]
+        , [MSTATUS(_infantry)       , Q(infantry)           ]
+        , [MSTATUS(_paratrooper)    , Q(paratrooper)        ]
+        , [MSTATUS(_lightArmor)     , Q(lightArmor)         ]
+        , [MSTATUS(_heavyArmor)     , Q(heavyArmor)         ]
+        , [MSTATUS(_mission)        , Q(mission)            ]
+        , [MSTATUS(_complete)       , Q(complete)           ]
+        , [MSTATUS(_patrol)         , Q(patrol)             ]
+        , [MSTATUS(_antiAir)        , Q(antiAir)            ]
+        , [MSTATUS(_closeAirSupport), Q(closeAirSupport)    ]
+        , [MSTATUS(_combatAirPatrol), Q(combatAirPatrol)    ]
+        , [MSTATUS(_counterAttack)  , Q(counterAttack)      ]
+    ];
+
     // Align some combinations
+    MSTATUS(_capturingCaptured)         = MSTATUS(_capturing)       + MSTATUS(_captured);
+    MSTATUS(_deactivatingDeactivated)   = MSTATUS(_deactivating)    + MSTATUS(_deactivated);
+
     MSTATUS(_resistingResisted)         = MSTATUS(_resisting)       + MSTATUS(_resisted);
     MSTATUS(_reinforcingReinforced)     = MSTATUS(_reinforcing)     + MSTATUS(_reinforced);
 
@@ -169,6 +209,22 @@ if (isServer) then {
         , MVAR(_activated)
         , MVAR(_deactivated)
     ];
+
+    [Q(KPLIB_doLoad), { [] call MFUNC(_onLoadData); }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_doSave), { [] call MFUNC(_onSaveData); }] call CBA_fnc_addEventHandler;
+
+    // Define the SECTOR prefixes, we use this for easy identification and classification
+    MPRESET(_towerPrefix)                                           = Q(KPLIB_eden_t); // -ower
+    MPRESET(_factoryPrefix)                                         = Q(KPLIB_eden_f); // -actory
+    MPRESET(_basePrefix)                                            = Q(KPLIB_eden_b); // -ase
+    MPRESET(_cityPrefix)                                            = Q(KPLIB_eden_c); // -ity
+    MPRESET(_metropolisPrefix)                                      = Q(KPLIB_eden_m); // -etropolis
+
+    MPRESET(_towerIcon)                                             = "\a3\ui_f\data\map\mapcontrol\transmitter_ca.paa";
+    MPRESET(_factoryIcon)                                           = "\a3\ui_f\data\map\mapcontrol\fuelstation_ca.paa";
+    MPRESET(_baseIcon)                                              = "\a3\ui_f\data\map\markers\nato\o_support.paa";
+    MPRESET(_cityIcon)                                              = "\a3\ui_f\data\map\markers\nato\n_art.paa";
+    MPRESET(_metropolisIcon)                                        = "\a3\ui_f\data\map\markers\nato\n_service.paa";
 };
 
 if (!(hasInterface || isDedicated)) then {

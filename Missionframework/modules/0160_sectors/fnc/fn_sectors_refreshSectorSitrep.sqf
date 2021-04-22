@@ -5,7 +5,7 @@
     File: fn_sectors_refreshSectorSitrep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-06 11:53:02
-    Last Update: 2021-04-10 15:44:34
+    Last Update: 2021-04-22 14:56:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -40,7 +40,7 @@ private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
 // So as not to miss this later on amid the noise
 [
     markerPos _markerName
-    , [_markerName] call KPLIB_fnc_eden_getSectorIcon
+    , [_markerName] call MFUNC(_getSectorIcon)
 ] params [
     Q(_markerPos)
     , Q(_sectorIcon)
