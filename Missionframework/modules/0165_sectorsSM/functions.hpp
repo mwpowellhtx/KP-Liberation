@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-04-13 22:57:04
+    Last Update: 2021-04-22 15:06:41
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -38,7 +38,10 @@ class sectorsSM {
     class sectorsSM_onAntiAirMissionEntered {};
 
     //
-    class sectorsSM_onCapturingEntered {};
+    class sectorsSM_onCapturing {};
+
+    //
+    class sectorsSM_onCapturedEntered {};
 
     //
     class sectorsSM_onCloseAirSupportMissionEntered {};
@@ -47,10 +50,13 @@ class sectorsSM {
     class sectorsSM_onCombatAirPatrolMissionEntered {};
 
     //
-    class sectorsSM_onCounterAttackMissionTransit {};
+    class sectorsSM_onCounterAttackMissionTriggered {};
 
     //
-    class sectorsSM_onDeactivatingEntered {};
+    class sectorsSM_onDeactivating {};
+
+    //
+    class sectorsSM_onDeactivatedEntered {};
 
     //
     class sectorsSM_onGameOver {};

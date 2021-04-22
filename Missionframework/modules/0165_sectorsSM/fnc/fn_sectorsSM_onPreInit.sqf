@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-13 22:43:36
+    Last Update: 2021-04-20 18:38:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -40,12 +40,12 @@ if (isServer) then {
 // Process CBA Settings, must be processed first
 [] call MFUNCSM(_settings);
 
-// Server section (dedicated and player hosted)
 if (isServer) then {
+    // Server section (dedicated and player hosted)
 
-    // For use informing the state machine
-    MVARSM(_sectors)                                                = [];
-
+    // Anticipating STATE MACHINE config and the object itself
+    MVARSM(_configSM)                                               = configNull;
+    MVARSM(_objSM)                                                  = locationNull;
     MVARSM(_defaultConfigClassName)                                 = Q(KPLIB_sectorsSM);
 };
 

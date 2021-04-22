@@ -5,7 +5,7 @@
     File: fn_sectorsSM_getSectorsList.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 21:09:35
-    Last Update: 2021-04-13 13:43:51
+    Last Update: 2021-04-20 18:24:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -40,24 +40,25 @@ private _objSM = missionNamespace getVariable [QMVARSM(_objSM), locationNull];
 // Refresh the OPFOR SECTORS, will be useful during the SECTOR REFRESH
 [] call MFUNC(_getOpforSectors);
 
-// GC the ACTIVE SECTORS that may be
-private _sectors = MVARSM(_sectors) select { !([_x] call MFUNC(_tryGC)); };
-
-if (_debug) then {
-    [format ["[fn_sectorsSM_getSectorsList] GC Sectors: [count MVARSM(_sectors), count _sectors]: %1"
-        , str [count MVARSM(_sectors), count _sectors]], "SECTORS", true] call KPLIB_fnc_common_log;
+// ACTIVE SECTORS are literally any sector with a STATUS better than STANDBY
+private _active = MVAR(_activeNamespaces) select {
+    private _status = _x getVariable [QMVAR(_status), MSTATUS(_standby)];
+    _status > MSTATUS(_standby);
 };
 
-private _activatingSectors = [] call MFUNC(_getActivatingSectors);
+if (_debug) then {
+    [format ["[fn_sectorsSM_getSectorsList] Deactivated: [count _active, count MVAR(_activeNamespaces)]: %1"
+        , str [count _active, count MVAR(_activeNamespaces)]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+};
 
-private _sectorsToAppend = _activatingSectors apply { [_x] call MFUNC(_createSector); };
+private _activating = [] call MFUNC(_getActivatingNamespaces);
 
-_sectors append _sectorsToAppend;
+_active append _activating;
 
 // TODO: TBD: may zero the state machine sitrep beforehand...
 [_objSM] call MFUNCSM(_zeroSitrep);
 
-{ [_x, _objSM] call MFUNC(_refreshSectorSitrep); } forEach _sectors;
+{ [_x, _objSM] call MFUNC(_refreshSectorSitrep); } forEach _active;
 
 // Now make key summarization of the REFRESHED SECTORS
 private _algoMergeStatus = { [_this#0, _this#1] call KPLIB_fnc_namespace_setStatus; };
@@ -66,18 +67,18 @@ private _algoMergeBooleanOr = { _this#0 || _this#1; };
 [
     [
         MSTATUS(_standby)
-        , _sectors apply { _x getVariable [QMVAR(_status), MSTATUS(_standby)]; }
+        , _active apply { _x getVariable [QMVAR(_status), MSTATUS(_standby)]; }
         , { params [Q(_a), Q(_b)]; [_a, _b] call KPLIB_fnc_namespace_setStatus }
     ] call KPLIB_fnc_linq_aggregate
-    , { _x getVariable [QMVAR(_towerBlufor), false]; } count _sectors
-    , { _x getVariable [QMVAR(_towerOpfor), false]; } count _sectors
-    , { _x getVariable [QMVAR(_militaryBlufor), false]; } count _sectors
-    , { _x getVariable [QMVAR(_militaryOpfor), false]; } count _sectors
-    , { (_x getVariable [QMVAR(_bluforUnitCountCap), 0]) >= (_x getVariable [QMVAR(_opforUnitCountCap), 0]); } count _sectors
-    , { (_x getVariable [QMVAR(_bluforTankCountCap), 0]) >= (_x getVariable [QMVAR(_opforTankCountCap), 0]); } count _sectors
-    , { (_x getVariable [QMVAR(_opforUnitCountCap), 0]) >= (_x getVariable [QMVAR(_bluforUnitCountCap), 0]); } count _sectors
-    , { (_x getVariable [QMVAR(_opforTankCountCap), 0]) >= (_x getVariable [QMVAR(_bluforTankCountCap), 0]); } count _sectors
-    , { (_x getVariable [QMVAR(_resistanceUnitCountCap), 0]) > 0; } count _sectors
+    , { _x getVariable [QMVAR(_towerBlufor), false]; } count _active
+    , { _x getVariable [QMVAR(_towerOpfor), false]; } count _active
+    , { _x getVariable [QMVAR(_militaryBlufor), false]; } count _active
+    , { _x getVariable [QMVAR(_militaryOpfor), false]; } count _active
+    , { (_x getVariable [QMVAR(_bluforUnitCountCap), 0]) >= (_x getVariable [QMVAR(_opforUnitCountCap), 0]); } count _active
+    , { (_x getVariable [QMVAR(_bluforTankCountCap), 0]) >= (_x getVariable [QMVAR(_opforTankCountCap), 0]); } count _active
+    , { (_x getVariable [QMVAR(_opforUnitCountCap), 0]) >= (_x getVariable [QMVAR(_bluforUnitCountCap), 0]); } count _active
+    , { (_x getVariable [QMVAR(_opforTankCountCap), 0]) >= (_x getVariable [QMVAR(_bluforTankCountCap), 0]); } count _active
+    , { (_x getVariable [QMVAR(_resistanceUnitCountCap), 0]) > 0; } count _active
 ] params [
     Q(_statusSummary)
     , Q(_towerBluforSectorCount)
@@ -104,14 +105,21 @@ private _algoMergeBooleanOr = { _this#0 || _this#1; };
     , [QMVARSM(_resistance), _resistanceSectorCount > 0]
 ];
 
-// TODO: TBD: we may also determine which sector(s) will call for which missions...
+// Finally relay the still active appended namespaces to the module variable
+MVAR(_activeNamespaces) = _active;
 
-MVARSM(_sectors) = _sectors;
+// And extrapolate the ACTIVE SECTORS array based on what we now know
+MVAR(_active) = _active apply { _x getVariable [QMVAR(_markerName), ""]; };
 
-MVAR(_active) = MVARSM(_sectors) apply { _x getVariable [QMVAR(_markerName), ""]; };
+MVAR(_inactive) = MVAR(_all) - MVAR(_active);
 
 // Then UPDATE MARKERS once we have identified ACTIVE SECTORS
 [Q(KPLIB_updateMarkers)] call CBA_fnc_serverEvent;
 
+if (_debug) then {
+    [format ["[fn_sectorsSM_getSectorsList] Fini: [count _active, count MVAR(_active), count MVAR(_inactive)]: %1"
+        , str [count _active, count MVAR(_active), count MVAR(_inactive)]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+};
+
 // For use with the CBA state machine
-_sectors;
+_active;

@@ -5,7 +5,7 @@
     File: fn_sectorsSM_createSM.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-08 20:57:07
-    Last Update: 2021-04-08 20:57:10
+    Last Update: 2021-04-22 14:59:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -34,7 +34,7 @@ if (_debug) then {
 };
 
 // Only load the configuration once when required to do so
-MVARSM(_configSM) = missionConfigFile >> "CfgStateMachines" >> "KPLIB" >> _className;
+MVARSM(_configSM) = missionConfigFile >> Q(CfgStateMachines) >> Q(KPLIB) >> _className;
 
 // TODO: TBD: we may want to test for the config path...
 MVARSM(_objSM) = [MVARSM(_configSM)] call CBA_statemachine_fnc_createFromConfig;

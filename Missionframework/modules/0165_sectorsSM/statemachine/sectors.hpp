@@ -4,7 +4,7 @@
     File: sectors.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 14:52:19
-    Last Update: 2021-04-13 23:04:00
+    Last Update: 2021-04-22 15:07:02
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -53,33 +53,33 @@ class KPLIB_sectorsSM {
 
         // Garrison hundred percent of the time when the flag is raised
         class KPLIB_sectorsSM_transit_toGarrison {
-            targetState = "KPLIB_sectorsSM_state_onGarrison";
+            targetState = "KPLIB_sectorsSM_state_garrison";
             condition = " \
                 !([_this, KPLIB_sectors_status_garrisoned, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
             ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_transit_toGarrison', 'onTransition', 'KPLIB_sectorsSM_state_onGarrison']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_transit_toGarrison', 'onTransition', 'KPLIB_sectorsSM_state_garrison']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
 
         class KPLIB_sectorsSM_transit_toCapturing {
-            targetState = "KPLIB_sectorsSM_state_onCapturing";
+            targetState = "KPLIB_sectorsSM_state_capturing";
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
                     && ([_this, KPLIB_sectors_status_capturing, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
                     && !([_this, KPLIB_sectors_status_captured, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
             ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_state_onCapturing']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_state_capturing']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
 
         // TODO: TBD: we use simple stochastic triggering throughout here...
         // TODO: TBD: perhaps we also (re-)introduce awareness/strength/civrep biases along similar lines with the initial FSM sketch...
         class KPLIB_sectorsSM_transit_toDeactivating {
-            targetState = "KPLIB_sectorsSM_state_onDeactivating";
+            targetState = "KPLIB_sectorsSM_state_deactivating";
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
                     && ([_this, KPLIB_sectors_status_deactivating, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
                     && !([_this, KPLIB_sectors_status_deactivated, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
             ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_state_onDeactivating']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_state_deactivating']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
 
         // Call in resistance, reinforce, etc, when the corresponding flag was raised
@@ -88,7 +88,7 @@ class KPLIB_sectorsSM {
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
                     && !([_this, KPLIB_sectors_status_resistingResisted, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, abs KPLIB_civilian_civRep, KPLIB_param_civilian_maxCivRep, KPLIB_sectors_arity_resistance] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                    && ([_this, abs KPLIB_enemy_civRep, KPLIB_param_enemy_maxCivRep, KPLIB_param_sectors_arity_resistance] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
             onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_event_onResistance']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
@@ -98,7 +98,7 @@ class KPLIB_sectorsSM {
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
                     && !([_this, KPLIB_sectors_status_reinforcingReinforced, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, KPLIB_enemy_strength, KPLIB_param_enemy_maxStrength, KPLIB_sectors_arity_reinforce] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                    && ([_this, KPLIB_enemy_strength, KPLIB_param_enemy_maxStrength, KPLIB_param_sectors_arity_reinforce] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
             onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_event_onReinforce']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
@@ -108,7 +108,7 @@ class KPLIB_sectorsSM {
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
                     && !([_this, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, KPLIB_enemy_awareness, KPLIB_param_enemy_maxAwareness, KPLIB_sectors_arity_patrol] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                    && ([_this, KPLIB_enemy_awareness, KPLIB_param_enemy_maxAwareness, KPLIB_param_sectors_arity_patrol] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
             onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_event_onPatrolMission']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
@@ -117,8 +117,8 @@ class KPLIB_sectorsSM {
             targetState = "KPLIB_sectorsSM_event_onAntiAirMission";
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
-                    && !([_this, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, KPLIB_enemy_awareness, KPLIB_param_enemy_maxAwareness, KPLIB_sectors_arity_antiAir] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                    && !([KPLIB_sectorsSM_objSM, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                    && ([_this, KPLIB_enemy_awareness, KPLIB_param_enemy_maxAwareness, KPLIB_param_sectors_arity_antiAir] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
             onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_event_onAntiAirMission']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
@@ -129,8 +129,8 @@ class KPLIB_sectorsSM {
             targetState = "KPLIB_sectorsSM_event_onCloseAirSupportMission";
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
-                    && !([_this, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, KPLIB_enemy_strength, KPLIB_param_enemy_maxStrength, KPLIB_sectors_arity_closeAirSupport] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                    && !([KPLIB_sectorsSM_objSM, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                    && ([_this, KPLIB_enemy_strength, KPLIB_param_enemy_maxStrength, KPLIB_param_sectors_arity_closeAirSupport] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
             onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_event_onCloseAirSupportMission']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
@@ -139,78 +139,99 @@ class KPLIB_sectorsSM {
             targetState = "KPLIB_sectorsSM_event_onCombatAirPatrolMission";
             condition = " \
                 ([_this] call KPLIB_fnc_sectorsSM_timerHasElapsed) \
-                    && !([_this, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, KPLIB_enemy_awareness, KPLIB_param_enemy_maxAwareness, KPLIB_sectors_arity_combatAirPatrol] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                    && !([KPLIB_sectorsSM_objSM, KPLIB_sectors_status_mission, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                    && ([_this, KPLIB_enemy_awareness, KPLIB_param_enemy_maxAwareness, KPLIB_param_sectors_arity_combatAirPatrol] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
             onTransition = "[_this, ['KPLIB_sectorsSM_state_pending', 'onTransition', 'KPLIB_sectorsSM_event_onCombatAirPatrolMission']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
     };
 
     // Garrison one and always hop back to consider the next event, trigger, etc
-    class KPLIB_sectorsSM_state_onGarrison {
+    class KPLIB_sectorsSM_state_garrison {
         onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onGarrisonEntered";
         onState = "[_this] call KPLIB_fnc_sectorsSM_onGarrison";
-        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_onGarrison', 'onStateLeaving', 'KPLIB_sectorsSM_state_onGarrison']] call KPLIB_fnc_sectorsSM_onNoOp";
+        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_garrison', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
 
         // Hang out during GARRISON state until considered complete
         class KPLIB_sectorsSM_transit_toPending : KPLIB_sectorsSM_transit_toPending_base {
             condition = " \
                 [_this, KPLIB_sectors_status_garrisoned, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus \
             ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_state_onGarrison', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_garrison', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
     };
 
-    class KPLIB_sectorsSM_state_onCapturing {
-        onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onCapturingEntered";
-        onState = "[_this, ['KPLIB_sectorsSM_state_onCapturing', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
-        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_onCapturing', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
+    class KPLIB_sectorsSM_state_capturing {
+        onStateEntered = "[_this, ['KPLIB_sectorsSM_state_capturing', 'onStateEntered']] call KPLIB_fnc_sectorsSM_onNoOp";
+        onState = "[_this] call KPLIB_fnc_sectorsSM_onCapturing";
+        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_capturing', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
+
+        // Identify when the sector is CAPTURED and transition
+        class KPLIB_sectorsSM_transit_toCaptured {
+            targetState = "KPLIB_sectorsSM_state_captured";
+            condition = " \
+                ([_this, KPLIB_sectors_status_capturing, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                    && ([_this, KPLIB_sectors_status_captured, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+            ";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_capturing', 'onTransition', 'KPLIB_sectorsSM_state_captured']] call KPLIB_fnc_sectorsSM_onNoOp";
+        };
+
+        // Fall back to PENDING when CAPTURING status has dropped
+        class KPLIB_sectorsSM_transit_toPending : KPLIB_sectorsSM_transit_toPending_base {
+            condition = " \
+                !([_this, KPLIB_sectors_status_capturing, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+            ";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_capturing', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
+        };
+    };
+
+    class KPLIB_sectorsSM_state_captured {
+        onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onCapturedEntered";
+        onState = "[_this, ['KPLIB_sectorsSM_state_captured', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
+        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_captured', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
 
         class KPLIB_sectorsSM_trigger_counterAttackMission : KPLIB_sectorsSM_transit_toPending_base {
             condition = " \
-                ([_this, KPLIB_sectors_status_captured, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && !([_this, KPLIB_sectors_status_counterAttack, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
-                    && ([_this, KPLIB_enemy_strength, KPLIB_param_enemy_maxStrength, KPLIB_sectors_arity_counterAttack] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
+                !([_this, KPLIB_sectors_status_counterAttack, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                    && ([_this, KPLIB_enemy_strength, KPLIB_param_enemy_maxStrength, KPLIB_param_sectors_arity_counterAttack] call KPLIB_fnc_sectorsSM_getStochasticTrigger) \
             ";
-            onTransition = "[_this] call KPLIB_fnc_sectorsSM_onCounterAttackMissionTransit";
+            onTransition = "[_this] call KPLIB_fnc_sectorsSM_onCounterAttackMissionTriggered";
         };
 
         // May toggle whether CAPTURING considering defender proximity etc
         class KPLIB_sectorsSM_transit_toPending : KPLIB_sectorsSM_transit_toPending_base {
-            condition = " \
-                [_this, KPLIB_sectors_status_captured, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus \
-            ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_state_onCapturing', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_captured', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
     };
 
     // Perform deactivation, does all but actually GC the namespace itself
-    class KPLIB_sectorsSM_state_onDeactivating {
-        onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onDeactivatingEntered";
-        onState = "[_this, ['KPLIB_sectorsSM_state_onDeactivating', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
-        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_onDeactivating', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
+    class KPLIB_sectorsSM_state_deactivating {
+        onStateEntered = "[_this, ['KPLIB_sectorsSM_state_deactivating', 'onStateEntered']] call KPLIB_fnc_sectorsSM_onNoOp";
+        onState = "[_this] call KPLIB_fnc_sectorsSM_onDeactivating";
+        onStateLeaving = "[_this, ['KPLIB_sectorsSM_state_deactivating', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
 
         class KPLIB_sectorsSM_transit_toDeactivated {
-            targetState = "KPLIB_sectorsSM_state_onDeactivated";
+            targetState = "KPLIB_sectorsSM_state_deactivated";
             condition = " \
-                [_this, KPLIB_sectors_status_deactivated, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus \
+                ([_this, KPLIB_sectors_status_deactivating, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                    && ([_this, KPLIB_sectors_status_deactivated, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
             ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_state_onDeactivating', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_deactivating', 'onTransition', 'KPLIB_sectorsSM_state_deactivated']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
 
         // May toggle whether DEACTIVATING considering attacker proximity etc
         class KPLIB_sectorsSM_transit_toPending : KPLIB_sectorsSM_transit_toPending_base {
             condition = " \
-                !([_this, KPLIB_sectors_status_deactivated, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
+                !([_this, KPLIB_sectors_status_deactivating, 'KPLIB_sectors_status'] call KPLIB_fnc_namespace_checkStatus) \
             ";
-            onTransition = "[_this, ['KPLIB_sectorsSM_state_onDeactivating', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
+            onTransition = "[_this, ['KPLIB_sectorsSM_state_deactivating', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
         };
     };
 
     // Deactivation complete, hang out here until GC can occur
-    class KPLIB_sectorsSM_state_onDeactivated {
-        onStateEntered = "[_this, ['KPLIB_sectorsSM_state_onDeactivated', 'onStateEntered']] call KPLIB_fnc_sectorsSM_onNoOp";
-        onState = "[_this, ['KPLIB_sectorsSM_state_onDeactivated', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
+    class KPLIB_sectorsSM_state_deactivated {
+        onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onDeactivatedEntered";
+        onState = "[_this, ['KPLIB_sectorsSM_state_deactivated', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
     };
 
     // May spawn and which side alignment is regulated by other bits
@@ -283,15 +304,15 @@ class KPLIB_sectorsSM {
         };
     };
 
-    class KPLIB_sectorsSM_event_onCounterAttackMission {
-        onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onCounterAttackMission";
-        onState = "[_this, ['KPLIB_sectorsSM_event_onCounterAttackMission', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
-        onStateLeaving = "[_this, ['KPLIB_sectorsSM_event_onCounterAttackMission', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
-
-        class KPLIB_sectorsSM_transit_toPending : KPLIB_sectorsSM_transit_toPending_base {
-            onTransition = "[_this, ['KPLIB_sectorsSM_event_onCounterAttackMission', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
-        };
-    };
+    // // TODO: TBD: a 'trigger' is sufficient, and we can kick off a mission object...
+    // class KPLIB_sectorsSM_event_counterAttackMission {
+    //     onStateEntered = "[_this] call KPLIB_fnc_sectorsSM_onCounterAttackMissionEntered";
+    //     onState = "[_this, ['KPLIB_sectorsSM_event_counterAttackMission', 'onState']] call KPLIB_fnc_sectorsSM_onNoOp";
+    //     onStateLeaving = "[_this, ['KPLIB_sectorsSM_event_counterAttackMission', 'onStateLeaving']] call KPLIB_fnc_sectorsSM_onNoOp";
+    //     class KPLIB_sectorsSM_transit_toPending : KPLIB_sectorsSM_transit_toPending_base {
+    //         onTransition = "[_this, ['KPLIB_sectorsSM_event_counterAttackMission', 'onTransition', 'KPLIB_sectorsSM_state_pending']] call KPLIB_fnc_sectorsSM_onNoOp";
+    //     };
+    // };
 
     // GAME OVER is considered 'terminal', may enjoy scrolling credits, etc; admin should re-set to next mission
     class KPLIB_sectorsSM_event_onGameOver {

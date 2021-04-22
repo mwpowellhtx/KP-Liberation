@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onPendingEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 00:01:05
-    Last Update: 2021-04-14 00:01:09
+    Last Update: 2021-04-22 11:00:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -25,24 +25,40 @@ params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
 
-private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
+[
+    _namespace getVariable [QMVAR(_markerName), ""]
+    , _namespace getVariable [QMVAR(_timer), []]
+    , [_namespace] call MFUNC(_getStatusReport)
+    , [_namespace, MSTATUS(_garrisoned), QMVAR(_status)] call KPLIB_fnc_namespace_checkStatus
+] params [
+    Q(_markerName)
+    , Q(_timer)
+    , Q(_statusReport)
+    , Q(_garrisoned)
+];
 
 if (isServer) then {
-    [format ["[fn_sectorsSM_onPendingEntered] Entering: [_markerName]: %1"
-        , str [_markerName]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectorsSM_onPendingEntered] Entering: [_markerName, _timer, _garrisoned, _statusReport]: %1"
+        , str [_markerName, _timer, _garrisoned, _statusReport]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
-// Ensures that a default timer is properly installed
-if ([_namespace, MSTATUS(_garrisoned), QMVAR(_status)] call KPLIB_fnc_namespace_checkStatus) then {
-    // We do not care about ELAPSED apart from installing the TIMER
-    [_namespace, QMVAR(_timer), [MPARAM(_pendingPeriod)] call KPLIB_fnc_timers_create] call KPLIB_fnc_namespace_timerHasElapsed;
+/*
+ *  !!! THIS IS SUPER CRTITICAL !!!
+ */
+// (Re-)set the SECTOR namespace TIMER when we know that it has been GARRISONED
+if (_garrisoned) then {
+    // Otherwise we do not know vis-a-vis the state machine conditions when to transition
+    private _defaultTimer = [MPARAMSM(_pendingPeriod)] call KPLIB_fnc_timers_create;
+    [_namespace, QMVAR(_timer), _defaultTimer] call KPLIB_fnc_namespace_timerHasElapsed;
 };
 
-// TODO: TBD: fill in the gaps...
+_timer = _namespace getVariable [QMVAR(_timer), []];
+_statusReport = [_namespace] call MFUNC(_getStatusReport);
 
+// We do not have the necessary knowledge to reset any timers at this phase
 if (isServer) then {
-    [format ["[fn_sectorsSM_onPendingEntered] Fini: [_markerName]: %1"
-        , str [_markerName]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectorsSM_onPendingEntered] Fini: [_markerName, _timer, _statusReport]: %1"
+        , str [_markerName, _timer, _statusReport]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;
