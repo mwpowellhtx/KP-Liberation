@@ -4,7 +4,7 @@
     File: fn_config_presets.sqf
     Author: Michael W. Powell [22nd MEU SOD]
     Created: 2021-01-28 15:24:28
-    Last Update: 2021-01-28 15:24:30
+    Last Update: 2021-04-23 19:51:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -36,13 +36,20 @@ KPLIB_preset_colorActF = "ColorBlue";
 KPLIB_preset_colorR = "ColorGUER";
 // Resistance side color (active)
 KPLIB_preset_colorActR = "ColorGreen";
-// Civilian side
-KPLIB_preset_sideC = civilian;
-// Enemy side
-KPLIB_preset_sideE = east;
 // Player side
 KPLIB_preset_sideF = west;
+// Enemy side
+KPLIB_preset_sideE = east;
+// Civilian side
+KPLIB_preset_sideC = civilian;
 // Resistance side
 KPLIB_preset_sideR = resistance;
 
-true
+KPLIB_preset_sides = [
+    KPLIB_preset_sideF
+    , KPLIB_preset_sideE
+    , KPLIB_preset_sideC
+    , KPLIB_preset_sideR
+];
+
+true;
