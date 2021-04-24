@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-22 15:18:19
+    Last Update: 2021-04-24 11:28:21
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -28,8 +28,12 @@ if (isServer) then {
 
     MPARAM(_addAwareness_debug)                                     = false;
     MPARAM(_addStrength_debug)                                      = false;
+    MPARAM(_addCivRep_debug)                                        = false;
     MPARAM(_getStrengthRatio_debug)                                 = false;
     MPARAM(_getCivRepBounded_debug)                                 = false;
+    MPARAM(_onSectorActivating_debug)                               = false;
+    MPARAM(_onSectorCaptured_debug)                                 = false;
+    MPARAM(_allowBuildingDestruction_debug)                         = false;
 
     // TODO: TBD: could wire this up in terms of settings
     MPARAM(_strengthDeltaPeriod)                                    = 1800;
@@ -46,6 +50,10 @@ if (isServer) then {
     // TODO: TBD: therefore, should be bounded to something like 30-33 ...
     MPARAM(_civRepBaseThreshold)                = 0.25;
     MPARAM(_civKilledPenalty)                   =    0;
+
+    // TODO: TBD: add as a proper CBA settings
+    MPARAM(_buildingDamageMaxPenalty)           = 4;
+    MPARAM(_assessPartialBuildingDamage)        = false;
 
     // // TODO: TBD: refactoring to SECTORS module...
     // MPARAM(_patrolDuration)                                         =   30;

@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-18 23:44:30
+    Last Update: 2021-04-24 11:29:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -42,6 +42,9 @@ class enemy {
 
     // Strength increase event function
     class enemy_strengthInc {};
+
+    // Adds a delta to CIVILIAN REPUTATION along with optional notification
+    class enemy_addCivRep {};
 
     // Updates the DISPOSITION between factions according to AWARENESS, STRENGTH, CIVILIAN REPUTATION
     class enemy_onUpdateDisposition {};
@@ -90,4 +93,13 @@ class enemy {
 
     // Returns the CIVILIAN REPUTATION in terms of HOSTILITY
     class enemy_getCivRepHostility {};
+
+    // SECTOR ACTIVATING event handler responds by collating buildings within CAPTURE RANGE
+    class enemy_onSectorActivating {};
+
+    // SECTOR CAPTURED event handler assesses ENEMY module BATTLE DAMAGE ASSESSMENT
+    class enemy_onSectorCaptured {};
+
+    // Returns whether BUILDING DESTRUCTION is allowed
+    class enemy_allowBuildingDestruction {};
 };
