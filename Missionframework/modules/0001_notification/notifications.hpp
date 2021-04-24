@@ -2,7 +2,7 @@
     File: notifications.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-04 13:10:46
-    Last Update: 2021-04-06 23:07:34
+    Last Update: 2021-04-24 10:58:32
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -30,19 +30,23 @@ class KPLIB_notification_default : Default {
 };
 
 class KPLIB_notification_blufor : KPLIB_notification_default {
-    color[] = {0, 0.3, 0.6, 1};
+    color[] = {0, 0.6, 0.9, 1};
+    // color[] = {0, 0.3, 0.6, 1};
 };
 
 class KPLIB_notification_opfor : KPLIB_notification_default {
-    color[] = {0.5, 0, 0, 1};
+    color[] = {0.8, 0, 0, 1};
+    // color[] = {0.5, 0, 0, 1};
 };
 
 class KPLIB_notification_civilian : KPLIB_notification_default {
-    color[] = {0.4, 0, 0.5, 1};
+    color[] = {0.7, 0, 0.8, 1};
+    // color[] = {0.4, 0, 0.5, 1};
 };
 
 class KPLIB_notification_resistance : KPLIB_notification_default {
-    color[] = {0, 0.5, 0, 1};
+    color[] = {0, 0.8, 0, 1};
+    // color[] = {0, 0.5, 0, 1};
 };
 
 // i.e. ["KPLIB_notification_default", ["\A3\ui_f\data\map\markers\handdrawn\warning_CA.paa", "<img color='#ffffff' image='res\StatusWarning_exp_16x_gs.paa'/> This is a test"]] call BIS_fnc_showNotification;
