@@ -5,7 +5,7 @@
     File: fn_admin_setupPlayerActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-04 22:17:52
-    Last Update: 2021-04-04 22:17:54
+    Last Update: 2021-04-22 19:28:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -134,6 +134,86 @@ if (hasInterface) then {
         , false
         , ""
         , "[_target] call KPLIB_fnc_admin_canTerminateTargets"
+        , -1
+    ]] call CBA_fnc_addPlayerAction;
+
+    KPLIB_fnc_admin_canOpforCaptureSector = { count KPLIB_sectors_blufor > 1; };
+
+    KPLIB_fnc_admin_onOpforSectorCapture = {
+        private _sectors = KPLIB_sectors_namespaces select {
+            private _markerName = _x getVariable ["KPLIB_sectors_markerName", ""];
+            _markerName in KPLIB_sectors_blufor;
+        };
+        private _sector = selectRandom _sectors;
+        private _blufor = true;
+        _sector setVariable ["KPLIB_sectors_blufor", _blufor];
+        _sector setVariable ["KPLIB_sectors_opfor", !_blufor];
+        [_sector] call kplib_fnc_sectors_onSectorCaptured;
+    };
+
+    // Allowing admin testing for OPFOR conversion of BLUFOR sectors
+    [[
+        "== OPFOR SECTOR CAPTURE =="
+        , { _this call KPLIB_fnc_admin_onOpforSectorCapture; }
+        , nil
+        , KPLIB_ACTION_PRIORITY_OPFOR_CAPTURE
+        , false
+        , false
+        , ""
+        , "[_target] call KPLIB_fnc_admin_canOpforCaptureSector"
+        , -1
+    ]] call CBA_fnc_addPlayerAction;
+
+    [[
+        "-- CIVILIAN NOTIFICATION --"
+        , {
+            private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
+            ["KPLIB_notification_civilian", ["KP LIBERATION - CIVILIAN", _image, "A civilian event occurred."]] call KPLIB_fnc_notification_show;
+        }
+        , nil
+        , KPLIB_ACTION_PRIORITY_CIVILIAN_EVENT
+        , false
+        , false
+        , ""
+        , "true"
+        , -1
+    ]] call CBA_fnc_addPlayerAction;
+
+    [[
+        "-- RESISTANCE NOTIFICATION --"
+        , {
+            private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
+            ["KPLIB_notification_resistance", ["KP LIBERATION - RESISTANCE", _image, "A resistance event occurred."]] call KPLIB_fnc_notification_show;
+        }
+        , nil
+        , KPLIB_ACTION_PRIORITY_RESISTANCE_EVENT
+        , false
+        , false
+        , ""
+        , "true"
+        , -1
+    ]] call CBA_fnc_addPlayerAction;
+
+    [[
+        "-- DESTROY BUILDINGS --"
+        , {
+            [] spawn {
+                private _buildings = nearestObjects [getPos player, ["Building"], (KPLIB_param_sectors_capRange/2)];
+                private _toDestroy = 10;
+                private _count = count _buildings;
+                while { (count _buildings > 0) && (count _buildings > _count - _toDestroy); } do {
+                    _buildings = _buildings select { alive _x; };
+                    private _building = selectRandom _buildings;
+                    _building setDamage 1;
+                };
+            };
+        }
+        , nil
+        , KPLIB_ACTION_PRIORITY_DESTROY_BUILDINGS
+        , false
+        , false
+        , ""
+        , "true"
         , -1
     ]] call CBA_fnc_addPlayerAction;
 };
