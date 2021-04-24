@@ -5,7 +5,7 @@
     File: fn_sectors_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-22 17:15:53
+    Last Update: 2021-04-24 11:11:20
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -55,7 +55,8 @@ if (isServer) then {
             QMVAR(_markerPos)
         ]] call KPLIB_fnc_namespace_registerSerializationVars;
 
-    MVAR(_activated)                                                = QMVAR(_activated);
+    MVAR(_activating)                                               = QMVAR(_activating);
+    // MVAR(_activated)                                                = QMVAR(_activated);
     MVAR(_captured)                                                 = QMVAR(_captured);
     MVAR(_deactivated)                                              = QMVAR(_deactivated);
 
@@ -178,15 +179,14 @@ if (isServer) then {
     //     ];
     // };
 
-    // Update sector markers every time sector state was changed
-    { [_x, { [] call MFUNC(_onUpdateMarkers); }] call CBA_fnc_addEventHandler; } forEach [
-        Q(KPLIB_updateMarkers)
-        , MVAR(_activated)
-        , MVAR(_deactivated)
-    ];
-
+    // Add event handlers
     [Q(KPLIB_doLoad), { [] call MFUNC(_onLoadData); }] call CBA_fnc_addEventHandler;
     [Q(KPLIB_doSave), { [] call MFUNC(_onSaveData); }] call CBA_fnc_addEventHandler;
+
+    [MVAR(_activating), { _this call MFUNC(_onSectorActivating); }] call CBA_fnc_addEventHandler;
+    [MVAR(_captured), { _this call MFUNC(_onSectorCaptured); }] call CBA_fnc_addEventHandler;
+
+    [Q(KPLIB_updateMarkers), { [] call MFUNC(_onUpdateMarkers); }] call CBA_fnc_addEventHandler;
 
     // Define the SECTOR prefixes, we use this for easy identification and classification
     MPRESET(_towerPrefix)                                           = Q(KPLIB_eden_t); // -ower

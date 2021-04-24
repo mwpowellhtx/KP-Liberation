@@ -37,6 +37,7 @@ private _namespace = [false, {
     { _namespace setVariable _x; } forEach [
         [QMVAR(_markerName), _markerName]
         , [QMVAR(_markerPos), markerPos _markerName]
+        , [QMVAR(_sectorIcon), [_markerName] call MFUNC(_getSectorIcon)]
         , [QMVAR(_status), MSTATUS(_standby)]
     ];
 }] call KPLIB_fnc_namespace_create;

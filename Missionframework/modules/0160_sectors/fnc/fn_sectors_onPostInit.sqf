@@ -5,7 +5,7 @@
     File: fn_sectors_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:51
-    Last Update: 2021-04-22 14:57:07
+    Last Update: 2021-04-24 11:10:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -28,9 +28,6 @@ if (isServer) then {
 
 if (isServer) then {
     // Server section (dedicated and player hosted)
-
-    // Add event handlers
-    [MVAR(_captured), { _this call MFUNC(_onSectorCaptured); }] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

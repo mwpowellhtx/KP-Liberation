@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-04-21 14:35:14
+    Last Update: 2021-04-24 11:13:41
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -58,6 +58,9 @@ class sectors {
     // Returns the set of OPFOR MARKERS
     class sectors_getOpforSectors {};
 
+    // SECTOR ACTIVATING event handler
+    class sectors_onSectorActivating {};
+
     // SECTOR ACTIVATED event handler
     class sectors_onSectorActivated {};
 
@@ -79,6 +82,7 @@ class sectors {
     //
     class sectors_onUpdateMarkers {};
 
-    //
-    class sectors_refreshSectorSitrep {};
+    // // TODO: TBD: reserved for a later sprint...
+    // // TODO: TBD: intention is to relay to sector report HUD via client/server events...
+    // class sectors_onUpdateMarkers_dispatchSectorHud {};
 };

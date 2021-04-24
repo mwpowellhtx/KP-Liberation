@@ -5,7 +5,7 @@
     File: fn_sectors_getSectorCapturing.sqf
     Author: Michael W. Powell [22nd MSU SOC]
     Created: 2021-04-21 16:20:50
-    Last Update: 2021-04-21 16:20:53
+    Last Update: 2021-04-24 11:09:16
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -31,30 +31,33 @@ params [
     , _namespace getVariable [QMVAR(_blufor), false]
     , _namespace getVariable [QMVAR(_opfor), false]
     , _namespace getVariable [QMVAR(_opforUnitCountAct), 0]
-    , _namespace getVariable [QMVAR(_opforTankCountAct), 0]
-    , _namespace getVariable [QMVAR(_bluforUnitCountAct), 0]
-    , _namespace getVariable [QMVAR(_bluforTankCountAct), 0]
     , _namespace getVariable [QMVAR(_opforUnitCountCap), 0]
+    , _namespace getVariable [QMVAR(_opforTankCountAct), 0]
     , _namespace getVariable [QMVAR(_opforTankCountCap), 0]
+    , _namespace getVariable [QMVAR(_bluforUnitCountAct), 0]
     , _namespace getVariable [QMVAR(_bluforUnitCountCap), 0]
+    , _namespace getVariable [QMVAR(_bluforTankCountAct), 0]
     , _namespace getVariable [QMVAR(_bluforTankCountCap), 0]
 ] params [
     Q(_markerName)
     , Q(_blufor)
     , Q(_opfor)
     , Q(_opforUnitCountAct)
-    , Q(_opforTankCountAct)
-    , Q(_bluforUnitCountAct)
-    , Q(_bluforTankCountAct)
     , Q(_opforUnitCountCap)
+    , Q(_opforTankCountAct)
     , Q(_opforTankCountCap)
+    , Q(_bluforUnitCountAct)
     , Q(_bluforUnitCountCap)
+    , Q(_bluforTankCountAct)
     , Q(_bluforTankCountCap)
 ];
 
+// // TODO: TBD: investigating the adoption of capture ratios, bias, etc
+// private _unitRatio = _bluforUnitCountCap / _opforUnitCountCap;
+
 if (_debug) then {
-    [format ["[fn_sectors_getSectorCapturing] Entering: [_markerName, _blufor, _opfor]: %1"
-        , str [_markerName, _blufor, _opfor]], "SECTORS", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectors_getSectorCapturing] Entering: [_markerName, markerText _markerName, _blufor, _opfor]: %1"
+        , str [_markerName, markerText _markerName, _blufor, _opfor]], "SECTORS", true] call KPLIB_fnc_common_log;
 };
 
 private _retval = switch (true) do {

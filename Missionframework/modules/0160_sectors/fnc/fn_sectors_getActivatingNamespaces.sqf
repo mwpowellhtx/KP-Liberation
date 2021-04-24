@@ -5,7 +5,7 @@
     File: fn_sectors_getActivatingNamespaces.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-07 16:57:12
-    Last Update: 2021-04-21 17:28:09
+    Last Update: 2021-04-24 11:09:40
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -78,22 +78,30 @@ private _getMinimumUnitRange = {
 private _ranges = _inactive apply { [_x, [_x] call _getMinimumUnitRange]; } select { (_x#1) >= 0; };
 
 if (_debug) then {
-    [format ["[fn_sectors_getActivatingNamespaces] Activating: [count _ranges, _ranges]: %1"
-        , str [count _ranges, _ranges]], "SECTORS", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectors_getActivatingNamespaces] Activating: [count _ranges]: %1"
+        , str [count _ranges]], "SECTORS", true] call KPLIB_fnc_common_log;
 };
 
 // Order those SECTORS in ASCENDING order and splice just the first several i.e. to target count
 private _sorted = [_ranges, [], { _x#1; }] call BIS_fnc_sortBy;
 private _selected = _sorted select [0, (count _sorted) min _targetActivatingCount];
 
-if (_debug) then {
-    [format ["[fn_sectors_getActivatingNamespaces] Fini: [_targetActivatingCount, count _selected]: %1"
-        , str [_targetActivatingCount, count _selected]], "SECTORS", true] call KPLIB_fnc_common_log;
-};
-
 // Filter just the ACTIVATING NAMESPACES and relay those SERVER EVENTS
 _activating = _selected apply { (_x#0); };
 
-{ [KPLIB_sectors_activating, [_x]] call CBA_fnc_serverEvent;  } forEach _activating;
+if (_debug) then {
+
+    {
+        private _namespace = _x;
+        private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
+        private _markerText = markerText _markerName;
+        private _statusReport = [_x] call MFUNC(_getStatusReport);
+        [format ["[fn_sectors_getActivatingNamespaces] Status report: [_markerName, _markerText, _statusReport]: %1"
+            , str [_markerName, _markerText, _statusReport]], "SECTORS", true] call KPLIB_fnc_common_log;
+    } forEach _activating;
+
+    [format ["[fn_sectors_getActivatingNamespaces] Fini: [_targetActivatingCount, count _selected]: %1"
+        , str [_targetActivatingCount, count _selected]], "SECTORS", true] call KPLIB_fnc_common_log;
+};
 
 _activating;

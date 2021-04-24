@@ -5,7 +5,7 @@
     File: fn_sectors_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 15:49:28
-    Last Update: 2021-04-20 16:39:09
+    Last Update: 2021-04-24 11:13:20
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -26,17 +26,18 @@
 MPARAM(_onLoadData_debug)                                           = false;
 MPARAM(_onReconcileSectors_debug)                                   = false;
 MPARAM(_onSaveData_debug)                                           = false;
-MPARAM(_onSectorActivated_debug)                                    = true;
-MPARAM(_onSectorDeactivated_debug)                                  = true;
-MPARAM(_onSectorCaptured_debug)                                     = true;
+MPARAM(_onSectorActivating_debug)                                   = false;
+MPARAM(_onSectorActivated_debug)                                    = false;
+MPARAM(_onSectorDeactivated_debug)                                  = false;
+MPARAM(_onSectorCaptured_debug)                                     = false;
 MPARAM(_onUpdateMarkers_debug)                                      = false;
-MPARAM(_onNotifyCapture_debug)                                      = true;
+MPARAM(_onNotifyCapture_debug)                                      = false;
 MPARAM(_getActivatingNamespaces_debug)                              = false;
-MPARAM(_onSectorCapturing_debug)                                    = true;
+MPARAM(_onSectorCapturing_debug)                                    = false;
 MPARAM(_createSector_debug)                                         = false;
-MPARAM(_onRefreshSector_debug)                                      = true;
-MPARAM(_getSectorIcon_debug)                                        = true;
-MPARAM(_getStatusReport_debug)                                      = true;
+MPARAM(_onRefreshSector_debug)                                      = false;
+MPARAM(_getSectorIcon_debug)                                        = false;
+MPARAM(_getStatusReport_debug)                                      = false;
 
 // TODO: TBD: determine patrol count params, etc...
 

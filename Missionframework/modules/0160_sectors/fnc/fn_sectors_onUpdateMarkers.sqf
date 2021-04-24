@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-27
-    Last Update: 2021-04-08 11:18:37
+    Last Update: 2021-04-24 11:11:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -48,6 +48,7 @@ if (_debug) then {
 
 // Identify INACTIVE SECTORS
 private _inactiveSectors = MVAR(_all) - MVAR(_active);
+// These are not 'literal' vehicle objects, but rather the build blueprints
 private _lockedVehicleMarkers = +(MVAR(_lockedVehMarkers));
 
 // Then identify ACTIVE+INACTIVE, OPFOR+BLUFOR SECTORS, respectively
