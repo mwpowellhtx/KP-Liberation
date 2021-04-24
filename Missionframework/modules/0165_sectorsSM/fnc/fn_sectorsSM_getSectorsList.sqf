@@ -5,7 +5,7 @@
     File: fn_sectorsSM_getSectorsList.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 21:09:35
-    Last Update: 2021-04-20 18:24:19
+    Last Update: 2021-04-24 11:17:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -25,9 +25,6 @@ private _debug = MPARAMSM(_onGetContextList_debug);
 if (!KPLIB_campaignRunning) exitWith {
     [];
 };
-
-// There should already be a CBA SECTOR state machine running but allow for null
-private _objSM = missionNamespace getVariable [QMVARSM(_objSM), locationNull];
 
 // TODO: TBD: actually, the question needs to be broader than that...
 // TODO: TBD: counts for both OPFOR as well as BLUFOR, for reasons:
@@ -51,75 +48,52 @@ if (_debug) then {
         , str [count _active, count MVAR(_activeNamespaces)]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
+if (_debug) then {
+    {
+        private _namespace = _x;
+        private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
+        private _markerText = markerText _markerName;
+        private _statusReport = [_x] call MFUNC(_getStatusReport);
+        [format ["[fn_sectorsSM_getSectorsList] Before activating: [_markerName, _markerText, _statusReport]: %1"
+            , str [_markerName, _markerText, _statusReport]], "SECTORS", true] call KPLIB_fnc_common_log;
+    } forEach _active;
+};
+
 private _activating = [] call MFUNC(_getActivatingNamespaces);
 
-_active append _activating;
+// Unset the DEACTIVATING conditions on the way back in just in case we got stuck there
+{
+    [_x, MSTATUS(_deactivatingDeactivated), { true; }, QMVAR(_status)] call KPLIB_fnc_namespace_unsetVar;
+} forEach _activating;
 
-// TODO: TBD: may zero the state machine sitrep beforehand...
-[_objSM] call MFUNCSM(_zeroSitrep);
+// Relay the still active appended namespaces to the module variable
+MVAR(_activeNamespaces) = _active + _activating;
 
-{ [_x, _objSM] call MFUNC(_refreshSectorSitrep); } forEach _active;
-
-// Now make key summarization of the REFRESHED SECTORS
-private _algoMergeStatus = { [_this#0, _this#1] call KPLIB_fnc_namespace_setStatus; };
-private _algoMergeBooleanOr = { _this#0 || _this#1; };
-
-[
-    [
-        MSTATUS(_standby)
-        , _active apply { _x getVariable [QMVAR(_status), MSTATUS(_standby)]; }
-        , { params [Q(_a), Q(_b)]; [_a, _b] call KPLIB_fnc_namespace_setStatus }
-    ] call KPLIB_fnc_linq_aggregate
-    , { _x getVariable [QMVAR(_towerBlufor), false]; } count _active
-    , { _x getVariable [QMVAR(_towerOpfor), false]; } count _active
-    , { _x getVariable [QMVAR(_militaryBlufor), false]; } count _active
-    , { _x getVariable [QMVAR(_militaryOpfor), false]; } count _active
-    , { (_x getVariable [QMVAR(_bluforUnitCountCap), 0]) >= (_x getVariable [QMVAR(_opforUnitCountCap), 0]); } count _active
-    , { (_x getVariable [QMVAR(_bluforTankCountCap), 0]) >= (_x getVariable [QMVAR(_opforTankCountCap), 0]); } count _active
-    , { (_x getVariable [QMVAR(_opforUnitCountCap), 0]) >= (_x getVariable [QMVAR(_bluforUnitCountCap), 0]); } count _active
-    , { (_x getVariable [QMVAR(_opforTankCountCap), 0]) >= (_x getVariable [QMVAR(_bluforTankCountCap), 0]); } count _active
-    , { (_x getVariable [QMVAR(_resistanceUnitCountCap), 0]) > 0; } count _active
-] params [
-    Q(_statusSummary)
-    , Q(_towerBluforSectorCount)
-    , Q(_towerOpforSectorCount)
-    , Q(_militaryBluforSectorCount)
-    , Q(_militaryOpforSectorCount)
-    , Q(_bluforUnitSectorCountGte)
-    , Q(_bluforTankSectorCountGte)
-    , Q(_opforUnitSectorCountGte)
-    , Q(_opforTankSectorCountGte)
-    , Q(_resistanceSectorCount)
-];
-
-{ _objSM setVariable _x; } forEach [
-    [QMVARSM(_status), _statusSummary]
-    , [QMVARSM(_towerBlufor), _towerBluforSectorCount > 0]
-    , [QMVARSM(_towerOpfor), _towerOpforSectorCount > 0]
-    , [QMVARSM(_militaryBlufor), _militaryBluforSectorCount > 0]
-    , [QMVARSM(_militaryOpfor), _militaryOpforSectorCount > 0]
-    , [QMVARSM(_bluforUnitsGte), _bluforUnitSectorCountGte > 0]
-    , [QMVARSM(_bluforTanksGte), _bluforTankSectorCountGte > 0]
-    , [QMVARSM(_opforUnitsGte), _opforUnitSectorCountGte > 0]
-    , [QMVARSM(_opforTanksGte), _opforTankSectorCountGte > 0]
-    , [QMVARSM(_resistance), _resistanceSectorCount > 0]
-];
-
-// Finally relay the still active appended namespaces to the module variable
-MVAR(_activeNamespaces) = _active;
+if (_debug) then {
+    {
+        private _namespace = _x;
+        private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
+        private _markerText = markerText _markerName;
+        private _statusReport = [_x] call MFUNC(_getStatusReport);
+        [format ["[fn_sectorsSM_getSectorsList] After activating: [_markerName, _markerText, _statusReport]: %1"
+            , str [_markerName, _markerText, _statusReport]], "SECTORS", true] call KPLIB_fnc_common_log;
+    } forEach (_active + _activating);
+};
 
 // And extrapolate the ACTIVE SECTORS array based on what we now know
-MVAR(_active) = _active apply { _x getVariable [QMVAR(_markerName), ""]; };
-
+MVAR(_active) = MVAR(_activeNamespaces) apply { _x getVariable [QMVAR(_markerName), ""]; };
 MVAR(_inactive) = MVAR(_all) - MVAR(_active);
+MVAR(_opfor) = MVAR(_all) - MVAR(_blufor);
+
+{ [MVAR(_activating), [_x]] call CBA_fnc_serverEvent; } forEach MVAR(_activeNamespaces);
 
 // Then UPDATE MARKERS once we have identified ACTIVE SECTORS
 [Q(KPLIB_updateMarkers)] call CBA_fnc_serverEvent;
 
 if (_debug) then {
-    [format ["[fn_sectorsSM_getSectorsList] Fini: [count _active, count MVAR(_active), count MVAR(_inactive)]: %1"
-        , str [count _active, count MVAR(_active), count MVAR(_inactive)]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectorsSM_getSectorsList] Fini: [count MVAR(_activeNamespaces), count MVAR(_active), count MVAR(_inactive)]: %1"
+        , str [count MVAR(_activeNamespaces), count MVAR(_active), count MVAR(_inactive)]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
-// For use with the CBA state machine
-_active;
+// For use with the CBA state machine list attribute
+MVAR(_activeNamespaces);

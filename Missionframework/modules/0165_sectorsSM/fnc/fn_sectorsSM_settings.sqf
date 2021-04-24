@@ -5,7 +5,7 @@
     File: fn_sectorsSM_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 15:49:28
-    Last Update: 2021-04-22 16:15:49
+    Last Update: 2021-04-24 11:22:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,38 +23,38 @@
         https://en.wikipedia.org/wiki/Arity
  */
 
-MPARAMSM(_onContext_debug)                                          = true;
+MPARAMSM(_onContext_debug)                                          = false;
 
-MPARAMSM(_createSM_debug)                                           = true;
-MPARAMSM(_onGarrisonPending_debug)                                  = true;
-MPARAMSM(_onDeactivatingEntered_debug)                              = true;
-MPARAMSM(_onDeactivated_debug)                                      = true;
-MPARAMSM(_onGetContextList_debug)                                   = false;
-MPARAMSM(_onIterating_debug)                                        = true;
-MPARAMSM(_onCapturing_debug)                                        = true;
-MPARAMSM(_onCapturedEntered_debug)                                  = true;
+MPARAMSM(_createSM_debug)                                           = false;
+MPARAMSM(_onGarrisonPending_debug)                                  = false;
+MPARAMSM(_onDeactivatingEntered_debug)                              = false;
 MPARAMSM(_onDeactivating_debug)                                     = false;
+MPARAMSM(_onDeactivated_debug)                                      = false;
+MPARAMSM(_onGetContextList_debug)                                   = false;
+MPARAMSM(_onIterating_debug)                                        = false;
+MPARAMSM(_onCapturing_debug)                                        = false;
+MPARAMSM(_onCapturedEntered_debug)                                  = false;
 MPARAMSM(_onDeactivatedEntered_debug)                               = false;
 MPARAMSM(_timerHasElapsed_debug)                                    = false;
-MPARAMSM(_onNoOp_debug)                                             = true;
-MPARAMSM(_onGC_debug)                                               = true;
-MPARAMSM(_zeroSitrep_debug)                                         = true;
+MPARAMSM(_onNoOp_debug)                                             = false;
+MPARAMSM(_onGC_debug)                                               = false;
+MPARAMSM(_zeroSitrep_debug)                                         = false;
 
 MPARAMSM(_getStochasticTrigger_debug)                               = false;
-MPARAMSM(_onPendingEntered_debug)                                   = true;
-MPARAMSM(_onPending_debug)                                          = true;
-MPARAMSM(_onGarrisonEntered_debug)                                  = true;
-MPARAMSM(_onGarrison_debug)                                         = true;
-MPARAMSM(_onGarrisonLeaving_debug)                                  = true;
-MPARAMSM(_onResistanceEntered_debug)                                = true;
-MPARAMSM(_onResistance_debug)                                       = true;
-MPARAMSM(_onReinforceEntered_debug)                                 = true;
-MPARAMSM(_onReinforce_debug)                                        = true;
-MPARAMSM(_onPatrolMissionEntered_debug)                             = true;
-MPARAMSM(_onAntiAirMissionEntered_debug)                            = true;
-MPARAMSM(_onCloseAirSupportMissionEntered_debug)                    = true;
-MPARAMSM(_onCombatAirPatrolMissionEntered_debug)                    = true;
-MPARAMSM(_onCounterAttackMissionTransit_debug)                      = true;
+MPARAMSM(_onPendingEntered_debug)                                   = false;
+MPARAMSM(_onPending_debug)                                          = false;
+MPARAMSM(_onGarrisonEntered_debug)                                  = false;
+MPARAMSM(_onGarrison_debug)                                         = false;
+MPARAMSM(_onGarrisonLeaving_debug)                                  = false;
+MPARAMSM(_onResistanceEntered_debug)                                = false;
+MPARAMSM(_onResistance_debug)                                       = false;
+MPARAMSM(_onReinforceEntered_debug)                                 = false;
+MPARAMSM(_onReinforce_debug)                                        = false;
+MPARAMSM(_onPatrolMissionEntered_debug)                             = false;
+MPARAMSM(_onAntiAirMissionEntered_debug)                            = false;
+MPARAMSM(_onCloseAirSupportMissionEntered_debug)                    = false;
+MPARAMSM(_onCombatAirPatrolMissionEntered_debug)                    = false;
+MPARAMSM(_onCounterAttackMissionTransit_debug)                      = false;
 
 if (isServer) then {
 

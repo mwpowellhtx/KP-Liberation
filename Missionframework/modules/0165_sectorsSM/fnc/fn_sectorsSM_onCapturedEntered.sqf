@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onCapturedEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-21 20:48:40
-    Last Update: 2021-04-21 20:48:43
+    Last Update: 2021-04-24 11:21:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -27,6 +27,13 @@ params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
 
+private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
+
+if (_debug) then {
+    [format ["[fn_sectorsSM_onCapturedEntered] Entering: [_markerName, markerText _markerName]: %1"
+        , str [_markerName, markerText _markerName]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+};
+
 // Captured is captured always clear the flags
 [_namespace, MSTATUS(_capturingCaptured), { true; }, QMVAR(_status)] call KPLIB_fnc_namespace_unsetStatus;
 
@@ -34,8 +41,8 @@ params [
 _namespace setVariable [QMVAR(_timer), nil];
 
 if (_debug) then {
-    [format ["[fn_sectorsSM_onCapturedEntered] Fini: [_markerName]: %1"
-        , str [_markerName]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectorsSM_onCapturedEntered] Fini: [_markerName, markerText _markerName]: %1"
+        , str [_markerName, markerText _markerName]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

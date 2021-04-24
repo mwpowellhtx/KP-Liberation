@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onPending.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 00:01:05
-    Last Update: 2021-04-22 16:15:55
+    Last Update: 2021-04-24 11:22:07
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -55,8 +55,8 @@ private _objSM = missionNamespace getVariable [QMVARSM(_objSM), locationNull];
 ];
 
 if (_debug) then {
-    [format ["[fn_sectorsSM_onPending] Entering: [_markerName, isNull _objSM, _blufor, _opfor, _namespaceStatus, _timer, _canCapture, _canDeactivate]: %1"
-        , str [_markerName, isNull _objSM, _blufor, _opfor, _namespaceStatus, _timer, _canCapture, _canDeactivate]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectorsSM_onPending] Entering: [_markerName, markerText _markerName, isNull _objSM, _blufor, _opfor, _namespaceStatus, _timer, _canCapture, _canDeactivate]: %1"
+        , str [_markerName, markerText _markerName, isNull _objSM, _blufor, _opfor, _namespaceStatus, _timer, _canCapture, _canDeactivate]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
 // After SECTOR captures first time round, may clear the flags
