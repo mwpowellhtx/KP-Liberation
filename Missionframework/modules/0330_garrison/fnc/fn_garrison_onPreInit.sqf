@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-04-21 12:39:57
+    Last Update: 2021-04-24 11:24:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -66,7 +66,7 @@ if (isServer) then {
 
     // TODO: TBD: are these "garrison" events? or "sector" events?
     // Register SECTOR event handlers
-    [KPLIB_sector_activated, { _this call MFUNC(_onSectorActivated); }] call CBA_fnc_addEventHandler;
+    // [KPLIB_sector_activated, { _this call MFUNC(_onSectorActivated); }] call CBA_fnc_addEventHandler;
     // [KPLIB_sector_captured, { _this call MFUNC(_onSectorCaptured); }] call CBA_fnc_addEventHandler;
     [KPLIB_sector_deactivated, { _this call MFUNC(_onSectorDeactivated); }] call CBA_fnc_addEventHandler;
 };
