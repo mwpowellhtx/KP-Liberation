@@ -54,13 +54,16 @@ if (isServer) then {
         , MFUNC(_onReportFob_enemy)
     ];
 
+    // // // TODO: TBD: reconsider this approach in favor of the sector state machine
+    // // // TODO: TBD: which should have the counts readily available...
+    // // // TODO: TBD: the only missing part then would be to align players with the nearest sectors
     // // Rinse and repeat, register several SECTOR report callbacks
     // [MVAR(_reportSector), MFUNC(_onReportSector_captured)] call CBA_fnc_addEventHandler;
     // [MVAR(_reportSector), MFUNC(_onReportSector_engaged)] call CBA_fnc_addEventHandler;
     // [MVAR(_reportSector), MFUNC(_onReportSector_gridref)] call CBA_fnc_addEventHandler;
     // [MVAR(_reportSector), MFUNC(_onReportSector_markerText)] call CBA_fnc_addEventHandler;
     // [MVAR(_reportSector), MFUNC(_onReportSector_progressBar)] call CBA_fnc_addEventHandler;
- 
+
     // TODO: TBD: there are probably other nuances we can identify based on proximity
     // TODO: TBD: still showing some sort of sector indicator, etc...
     MVAR(_reportSector_callbacks) = [
