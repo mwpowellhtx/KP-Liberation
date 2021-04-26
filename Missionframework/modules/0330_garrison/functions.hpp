@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-04-24 11:24:54
+    Last Update: 2021-04-25 20:11:00
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -100,8 +100,11 @@ class garrison {
     // Spawns a vehicle at a sector
     class garrison_onSpawnSectorVehicle {};
 
-    // Event handler responding to SECTOR DEACTIVATED event
-    class garrison_onSectorDeactivated {};
+    // Event handler responding to SECTOR DEACTIVATING event
+    class garrison_onSectorDeactivating {};
+
+    // // Event handler responding to SECTOR DEACTIVATED event
+    // class garrison_onSectorDeactivated {};
 
     // // // TODO: TBD: instead consider these bits, and transfer what makes sense into SECTOR module tryDeactivate
     // // Despawns the sector garrison and updates the garrison array with actual data
