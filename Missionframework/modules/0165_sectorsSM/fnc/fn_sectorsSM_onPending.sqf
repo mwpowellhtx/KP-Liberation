@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onPending.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 00:01:05
-    Last Update: 2021-04-24 11:22:07
+    Last Update: 2021-04-25 20:06:32
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,17 +22,21 @@
         https://dictionary.com/browse/antithetical
  */
 
-private _debug = MPARAMSM(_onPending_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
+
+private _debug = MPARAMSM(_onPending_debug)
+    || (_namespace getVariable [QMVARSM(_onPending_debug), false]);
 
 /* We will relay mission status via the STATE MACHINE object itself. This is because
  * each SECTOR namespace lacks the context, perspective, necessary in order to make
  * the appropriate decision.
  */
 private _objSM = missionNamespace getVariable [QMVARSM(_objSM), locationNull];
+
+// Must also REFRESH the sector during PENDING especially
+[MVAR(_refresh), [_namespace]] call CBA_fnc_serverEvent;
 
 [
     _objSM getVariable [QMVAR(_status), MSTATUS(_standby)]
@@ -63,7 +67,7 @@ if (_debug) then {
 [_namespace, MSTATUS(_capturingCaptured), { !_canCapture; }, QMVAR(_status)] call KPLIB_fnc_namespace_unsetStatus;
 [_namespace, MSTATUS(_capturing), { _canCapture; }, QMVAR(_status)] call KPLIB_fnc_namespace_setStatus;
 
-[_namespace, MSTATUS(_deactivatingDeactivated), { !_canDeactivate; }, QMVAR(_status)] call KPLIB_fnc_namespace_unsetStatus;
+[_namespace, MSTATUS(_deactivating), { !_canDeactivate; }, QMVAR(_status)] call KPLIB_fnc_namespace_unsetStatus;
 [_namespace, MSTATUS(_deactivating), { _canDeactivate; }, QMVAR(_status)] call KPLIB_fnc_namespace_setStatus;
 
 switch (true) do {

@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onNoOp.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 21:09:35
-    Last Update: 2021-04-22 15:04:33
+    Last Update: 2021-04-25 20:06:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,12 +20,13 @@
         The event handler finished [BOOL]
  */
 
-private _debug = MPARAMSM(_onNoOp_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
     , [Q(_context), [], [[]]]
 ];
+
+private _debug = MPARAMSM(_onNoOp_debug)
+    || (_namespace getVariable [QMVAR(_onNoOp_debug), false]);
 
 [
     _namespace getVariable [QMVAR(_markerName), ""]

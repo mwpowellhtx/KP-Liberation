@@ -2,7 +2,7 @@
     File: script_component.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 15:43:27
-    Last Update: 2021-04-13 22:39:15
+    Last Update: 2021-04-25 20:08:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -15,10 +15,10 @@
 
 #define Q(x) #x
 
-#define MPRESET(x) KPLIB_preset##MODULE##x
+#define MPRESET(x) KPLIB_preset_##MODULE##x
 #define QMPRESET(x) Q(MPRESET(x))
 
-#define MPARAM(x) KPLIB_preset##MODULE##x
+#define MPARAM(x) KPLIB_param_##MODULE##x
 #define QMPARAM(x) Q(MPARAM(x))
 
 #define MSTATUS(x) KPLIB_##MODULE##_status##x

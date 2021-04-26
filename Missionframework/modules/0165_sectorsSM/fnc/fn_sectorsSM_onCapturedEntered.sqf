@@ -5,7 +5,7 @@
     File: fn_sectorsSM_onCapturedEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-21 20:48:40
-    Last Update: 2021-04-24 11:21:19
+    Last Update: 2021-04-25 20:07:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -21,11 +21,12 @@
         The event handler has finished [BOOL]
  */
 
-private _debug = MPARAMSM(_onCapturedEntered_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
+
+private _debug = MPARAMSM(_onCapturedEntered_debug)
+    || (_namespace getVariable [QMVARSM(_onCapturedEntered_debug), false]);
 
 private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
 
@@ -34,7 +35,9 @@ if (_debug) then {
         , str [_markerName, markerText _markerName]], "SECTORSSM", true] call KPLIB_fnc_common_log;
 };
 
-// Captured is captured always clear the flags
+[MVAR(_captured), [_namespace]] call CBA_fnc_serverEvent;
+
+// Captured is CAPTURED, once complete, clear the flags, they should not be required again
 [_namespace, MSTATUS(_capturingCaptured), { true; }, QMVAR(_status)] call KPLIB_fnc_namespace_unsetStatus;
 
 // Reset the timer anticipating the next PENDING iteration which should restart the counter again
