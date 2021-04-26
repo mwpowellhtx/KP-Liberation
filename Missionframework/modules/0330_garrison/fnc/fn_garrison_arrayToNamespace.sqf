@@ -24,7 +24,7 @@
         A CBA namespace corresponding to the TUPLE [LOCATION]
  */
 
-private _defaultSide = (MPRESET(_sides)#0);
+private _defaultSide = (MPRESET(_allSides)#0);
 
 params [
     [Q(_markerName), "", [""]]
@@ -37,7 +37,7 @@ params [
 
 // Normalize side to SIDE type
 if (_side isEqualType 0) then {
-    _side = MPRESET(_sides) select _side;
+    _side = MPRESET(_allSides) select _side;
 };
 
 // Building upon the SECTORS module with GARRISON specific API

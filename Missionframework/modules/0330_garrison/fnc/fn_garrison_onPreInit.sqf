@@ -43,10 +43,12 @@ if (isServer) then {
     // // Array which contains all garrisons
     // MVAR(_array) = [];
 
+    // TODO: TBD: indexing matters here... not including civilian?
     // For use when serializing to/from client UI, during module data serialization, etc
-    MPRESET(_sides)                         = [
+    MPRESET(_allSides)                         = [
         KPLIB_preset_sideE
         , KPLIB_preset_sideF
+        , KPLIB_preset_sideC
         , KPLIB_preset_sideR
     ];
 

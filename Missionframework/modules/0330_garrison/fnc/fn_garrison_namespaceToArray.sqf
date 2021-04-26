@@ -43,6 +43,6 @@ private _sideIndex = 1;
 private _side = _tuples select _sideIndex;
 
 // Must translate in terms of 'index' for the time being
-_tuple set [_sideIndex, MPRESET(_sides) findIf { _x isEqualTo _side; }];
+_tuple set [_sideIndex, MPRESET(_allSides) findIf { _x isEqualTo _side; }];
 
 _tuple;

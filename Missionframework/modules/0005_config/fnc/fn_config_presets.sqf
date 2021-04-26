@@ -45,7 +45,7 @@ KPLIB_preset_sideC = civilian;
 // Resistance side
 KPLIB_preset_sideR = resistance;
 
-KPLIB_preset_sides = [
+KPLIB_preset_allSides = [
     KPLIB_preset_sideF
     , KPLIB_preset_sideE
     , KPLIB_preset_sideC
