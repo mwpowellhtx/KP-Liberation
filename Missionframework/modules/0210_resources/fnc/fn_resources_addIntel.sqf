@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-16
-    Last Update: 2021-04-26 12:09:03
+    Last Update: 2021-04-26 14:18:51
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -22,13 +22,14 @@
  */
 
 params [
-    ["_delta", 0, [0]]
+    [Q(_delta), 0, [0]]
 ];
 
-// Sets the new intel resource value bounded by ZERO and the MAX
-MVAR(_intel) =  0 max ((MVAR(_intel) + _delta) min MPARAM(_maxIntel));
+if (_delta != 0) then {
+    // Sets the new intel resource value bounded by ZERO and the MAX
+    MVAR(_intel) =  0 max ((MVAR(_intel) + _delta) min MPARAM(_maxIntel));
 
-// // TODO: TBD: we do not need to publish anything here
-// publicVariable "KPLIB_resources_intel";
+    [] spawn KPLIB_fnc_init_save;
+};
 
 true;
