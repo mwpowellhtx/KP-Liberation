@@ -6,12 +6,12 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-24 11:28:21
+    Last Update: 2021-04-26 12:24:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        CBA Settings initialization for this module
+        Initializes the module settings.
 
     Parameter(s):
         NONE
@@ -46,6 +46,7 @@ if (isServer) then {
 
     // TODO: TBD: will also need to slot that in for persistence load/save...
     MPARAM(_maxCivRep)                          = 1000;
+    MPARAM(_defaultCivRep)                      =    0;
     // TODO: TBD: we double it, and triple it, depending on the circumstance, and desired game effect...
     // TODO: TBD: therefore, should be bounded to something like 30-33 ...
     MPARAM(_civRepBaseThreshold)                = 0.25;
@@ -102,4 +103,4 @@ private _enemy = [
     [_x, _forEachIndex] call KPLIB_fnc_config_onRegisterSettings;
 } forEach [_enemy];
 
-true
+true;

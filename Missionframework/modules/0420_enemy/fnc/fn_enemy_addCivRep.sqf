@@ -5,12 +5,13 @@
     File: fn_enemy_addCivRep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 16:19:31
-    Last Update: 2021-04-23 16:19:35
+    Last Update: 2021-04-26 12:38:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Adds CIVILIAN REPUTATION along with an optional message.
+        Adds CIVILIAN REPUTATION along with an optional message. Returns the new value.
+        This is also a save-worthy moment.
 
     Parameter(s):
         _delta - a positive or negative change [SCALAR, default: 0]
@@ -18,7 +19,7 @@
         _markerName - an optional MARKER NAME for use to furnish an icon [STRING, default: ""]
 
     Returns:
-        The function has finished [BOOL]
+        The new CIVILIAN REPUTATION value [SCALAR]
 
     References:
         https://community.bistudio.com/wiki/remoteExec
@@ -32,7 +33,8 @@ params [
     , [Q(_markerName), "", [""]]
 ];
 
-MVAR(_civRep) = MVAR(_civRep) + _delta;
+// Sets the CIVILIAN REPUTATION bounded by the MIN and the MAX
+MVAR(_civRep) = -MPARAM(_maxCivRep) max ((MVAR(_civRep) + _delta) min MPARAM(_maxCivRep));
 
 if (count _message > 0) then {
     private _sectorIcon = [_markerName] call KPLIB_fnc_sectors_getSectorIcon;

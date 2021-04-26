@@ -6,12 +6,12 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-05 21:17:38
+    Last Update: 2021-04-26 11:56:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Loads data which is bound to this module from the given save data or initializes needed data for a new campaign.
+        Loads the bundle of module data.
 
     Parameter(s):
         NONE
@@ -23,41 +23,38 @@
 private _debug = KPLIB_param_debug;
 
 if (_debug) then {
-    ["Enemy module loading...", "SAVE"] call KPLIB_fnc_common_log;
+    ["[fn_enemy_loadData] Loading...", "SAVE"] call KPLIB_fnc_common_log;
 };
 
 private _moduleData = ["enemy"] call KPLIB_fnc_init_getSaveData;
-// TODO: TBD: if we were going to work with STATE at all...
-// TODO: TBD: would be better to connect via de-con local var default values...
-private _state = Q(unaware);
 
 // Check if there is a new campaign
 if (_moduleData isEqualTo []) then {
     if (_debug) then {
-        ["Enemy module data empty, creating new data...", "SAVE"] call KPLIB_fnc_common_log;
+        ["[fn_enemy_loadData] Initializing data...", "SAVE"] call KPLIB_fnc_common_log;
     };
+    MVAR(_strength) = MPARAM(_defaultStrength);
+    MVAR(_awareness) = MPARAM(_defaultAwareness);
+    MVAR(_civRep) = MPARAM(_defaultCivRep);
 } else {
     // Otherwise start applying the saved data
     if (_debug) then {
-        ["Enemy module data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
+        ["[fn_enemy_loadData] Applying data...", "SAVE"] call KPLIB_fnc_common_log;
     };
 
     _moduleData params [
         [Q(_strength), MPARAM(_defaultStrength)]
         , [Q(_awareness), MPARAM(_defaultAwareness)]
-        , [Q(_stateModuleDatum), Q(unaware)]
+        , [Q(_civRep), MPARAM(_defaultCivRep)]
     ];
 
     MVAR(_strength) = _strength;
     MVAR(_awareness) = _awareness;
-
-    // // TODO: TBD: we are walking away from this one...
-    // // TODO: TBD: and toward sector-specific CBA state machine
-    _state = _stateModuleDatum;
+    MVAR(_civRep) = _civRep;
 };
 
-// // // TODO: TBD: transitioning to proper SECTORS based CBA state machine
-// // Start commander FSM
-// [_state] call MFUNC(_commanderLogic);
+if (_debug) then {
+    ["[fn_enemy_loadData] Loaded", "SAVE"] call KPLIB_fnc_common_log;
+};
 
 true;

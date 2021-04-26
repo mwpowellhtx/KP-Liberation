@@ -6,18 +6,19 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-02-24
-    Last Update: 2021-04-22 15:17:13
+    Last Update: 2021-04-26 12:39:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Adds a given delta to the enemy strength.
+        Adds the DELTA value to the current ENEMY STRENGTH, bounded by ZERO and the MAX.
+        Returns the new value. This is also a save worthy moment.
 
     Parameter(s):
         _delta - a positive or negative change [SCALAR, default: 0]
 
     Returns:
-        The function has finished [BOOL]
+        The new ENEMY STRENGTH value [SCALAR]
  */
 
 private _debug = MPARAM(_addStrength_debug);
@@ -26,35 +27,13 @@ waitUntil {
     !isNil QMVAR(_strength)
 };
 
-// TODO: TBD: the commander logic FSM will need a serious review as well...
 params [
     [Q(_delta), 0, [0]]
 ];
 
-// // // TODO: TBD: we do not 
-// // Exit, if not enough strength available
-// if (_amount < 0 && _amount > KPLIB_enemy_strength) exitWith {false};
+// Sets the STRENGTH bounded by ZERO and the MAX
+MVAR(_strength) = 0 max ((MVAR(_strength) + _delta) min MPARAM(_maxStrength));
 
-[
-    MVAR(_strength)
-    , MPARAM(_maxStrength)
-] params [
-    Q(_oldStrength)
-    , Q(_maxStrength)
-];
+[] spawn KPLIB_fnc_init_save;
 
-// Ensures that we have appropriate boundaries enforced, MIN the max and MAX the min
-private _newStrength = 0 max ((_oldStrength + _delta) min _maxStrength);
-
-if (_debug) then {
-    [format ["[fn_enemy_addStrength] Enemy strength: [_delta, _oldStrength, _newStrength, _maxStrength]: %1"
-        , str [_delta, _oldStrength, _newStrength, _maxStrength]], "ENEMY"] call KPLIB_fnc_common_log;
-};
-
-MVAR(_strength) = _newStrength;
-
-// // // TODO: TBD: and a similar story to AWARENESS, no other reference made except server side
-// // TODO: TBD: why is this one "public" (?) for HUD purposes? if so, we do not need it...
-// publicVariable "KPLIB_enemy_strength";
-
-true;
+MVAR(_strength);

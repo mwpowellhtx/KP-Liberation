@@ -6,18 +6,19 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-24
-    Last Update: 2021-04-22 15:16:55
+    Last Update: 2021-04-26 12:36:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Add the delta to enemy awareness.
+        Adds the DELTA score to the current ENEMY AWARENESS, bounded by ZERO and the MAX
+        value. Returns the new value. This is also a save-worthy moment.
 
     Parameter(s):
-        _delta - a positive or negative change [SCALAR, default: 0]
+        _delta - adds the value to the awareness [SCALAR, default: 0]
 
     Returns:
-        The function has finished [BOOL]
+        The new ENEMY AWARENESS value [SCALAR]
  */
 
 private _debug = MPARAM(_addAwareness_debug);
@@ -26,26 +27,13 @@ waitUntil {
     !isNil QMVAR(_awareness)
 };
 
-// TODO: TBD: the commander logic FSM will need a serious review as well...
 params [
     [Q(_delta), 0, [0]]
 ];
 
-[
-    MVAR(_awareness)
-    , MPARAM(_maxAwareness)
-] params [
-    Q(_oldAwareness)
-    , Q(_maxAwareness)
-];
+// Set the AWARENESS bounded by the ZERO and the MAX
+MVAR(_awareness) = 0 max ((MVAR(_awareness) + _delta) min MPARAM(_maxAwareness));
 
-// With properly bounded values, MIN the max, MAX the min
-private _newAwareness = 0 max ((_oldAwareness + _delta) min _maxAwareness);
+[] spawn KPLIB_fnc_init_save;
 
-MVAR(_awareness) = _newAwareness;
-
-// // // TODO: TBD: no other reference is made to AWARENESS except server side
-// // TODO: TBD: ditto public variable? if for HUD purposes, then we do not need to...
-// publicVariable "KPLIB_enemy_awareness";
-
-true;
+MVAR(_awareness);
