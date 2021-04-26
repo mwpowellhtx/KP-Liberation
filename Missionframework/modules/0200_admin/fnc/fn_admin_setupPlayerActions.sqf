@@ -203,8 +203,10 @@ if (hasInterface) then {
                 private _count = count _buildings;
                 while { (count _buildings > 0) && (count _buildings > _count - _toDestroy); } do {
                     _buildings = _buildings select { alive _x; };
-                    private _building = selectRandom _buildings;
-                    _building setDamage 1;
+                    if (count _buildings > 0) then {
+                        private _building = selectRandom _buildings;
+                        _building setDamage 1;
+                    };
                 };
             };
         }
