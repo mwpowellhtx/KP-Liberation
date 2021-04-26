@@ -5,7 +5,7 @@
     File: fn_enemy_addCivRep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 16:19:31
-    Last Update: 2021-04-26 12:38:12
+    Last Update: 2021-04-26 13:27:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -33,15 +33,17 @@ params [
     , [Q(_markerName), "", [""]]
 ];
 
-// Sets the CIVILIAN REPUTATION bounded by the MIN and the MAX
-MVAR(_civRep) = -MPARAM(_maxCivRep) max ((MVAR(_civRep) + _delta) min MPARAM(_maxCivRep));
+if (_delta != 0) then {
+    // Sets the CIVILIAN REPUTATION bounded by the MIN and the MAX
+    MVAR(_civRep) = -MPARAM(_maxCivRep) max ((MVAR(_civRep) + _delta) min MPARAM(_maxCivRep));
 
-if (count _message > 0) then {
-    private _sectorIcon = [_markerName] call KPLIB_fnc_sectors_getSectorIcon;
-    private _args = ["KP LIBERATION - ENEMY", _sectorIcon, _message];
-    [Q(KPLIB_notification_civilian), _args, allPlayers] spawn KPLIB_fnc_notification_show;
+    if (count _message > 0) then {
+        private _sectorIcon = [_markerName] call KPLIB_fnc_sectors_getSectorIcon;
+        private _args = ["KP LIBERATION - ENEMY", _sectorIcon, _message];
+        [Q(KPLIB_notification_civilian), _args, allPlayers] spawn KPLIB_fnc_notification_show;
+    };
+
+    [] spawn KPLIB_fnc_init_save;
 };
-
-[] spawn KPLIB_fnc_init_save;
 
 MVAR(_civRep);

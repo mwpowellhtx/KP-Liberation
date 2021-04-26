@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-26 12:24:29
+    Last Update: 2021-04-26 13:27:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -31,8 +31,9 @@ if (isServer) then {
     MPARAM(_addCivRep_debug)                                        = false;
     MPARAM(_getStrengthRatio_debug)                                 = false;
     MPARAM(_getCivRepBounded_debug)                                 = false;
-    MPARAM(_onSectorActivating_debug)                               = false;
+    MPARAM(_onRegisterBuildings_debug)                              = false;
     MPARAM(_onSectorCaptured_debug)                                 = false;
+    MPARAM(_onBuildingsDestroyed_debug)                             = false;
     MPARAM(_allowBuildingDestruction_debug)                         = false;
 
     // TODO: TBD: could wire this up in terms of settings
@@ -43,6 +44,11 @@ if (isServer) then {
     // TODO: TBD: not sure yet what will happen with 'chance' ...
     MPARAM(_strengthLightVehicleChance)                             =   50;
     MPARAM(_strengthHeavyVehicleChance)                             =   25;
+
+    // CITY CIVILIAN REPUTATION capture points
+    MPARAM(_cityCaptureReward)                  =    7;
+    // METROPOLIS capture coefficient, times the CITY capture reward
+    MPARAM(_metropolisCaptureCoef)              =  1.5;
 
     // TODO: TBD: will also need to slot that in for persistence load/save...
     MPARAM(_maxCivRep)                          = 1000;

@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-24
-    Last Update: 2021-04-26 12:36:55
+    Last Update: 2021-04-26 13:27:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -31,9 +31,11 @@ params [
     [Q(_delta), 0, [0]]
 ];
 
-// Set the AWARENESS bounded by the ZERO and the MAX
-MVAR(_awareness) = 0 max ((MVAR(_awareness) + _delta) min MPARAM(_maxAwareness));
+if (_delta != 0) then {
+    // Set the AWARENESS bounded by the ZERO and the MAX
+    MVAR(_awareness) = 0 max ((MVAR(_awareness) + _delta) min MPARAM(_maxAwareness));
 
-[] spawn KPLIB_fnc_init_save;
+    [] spawn KPLIB_fnc_init_save;
+};
 
 MVAR(_awareness);

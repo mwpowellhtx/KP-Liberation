@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-24 11:29:12
+    Last Update: 2021-04-26 14:20:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -94,12 +94,21 @@ class enemy {
     // Returns the CIVILIAN REPUTATION in terms of HOSTILITY
     class enemy_getCivRepHostility {};
 
-    // SECTOR ACTIVATING event handler responds by collating buildings within CAPTURE RANGE
+    // SECTOR ACTIVATING event handler
     class enemy_onSectorActivating {};
+
+    // REGISTER the BUILDINGS for each sector when it activates
+    class enemy_onRegisterBuildings {};
 
     // SECTOR CAPTURED event handler assesses ENEMY module BATTLE DAMAGE ASSESSMENT
     class enemy_onSectorCaptured {};
 
+    // SECTOR CAPTURED event handler evaluating BUILDINGS DESTROYED issues
+    class enemy_onBuildingsDestroyed {};
+
     // Returns whether BUILDING DESTRUCTION is allowed
     class enemy_allowBuildingDestruction {};
+
+    // Returns the SECTOR CAPTURE REWARD accordingly
+    class enemy_getSectorCaptureReward {};
 };

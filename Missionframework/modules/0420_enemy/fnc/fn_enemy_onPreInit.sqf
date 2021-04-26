@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-24 11:27:52
+    Last Update: 2021-04-26 13:28:08
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -62,10 +62,10 @@ if (isServer) then {
     MVAR(_civRep)                               =    0;
 
     // Register load event handler
-    ["KPLIB_doLoad", { [] call KPLIB_fnc_enemy_loadData; }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_doLoad), { [] call KPLIB_fnc_enemy_loadData; }] call CBA_fnc_addEventHandler;
 
     // Register save event handler
-    ["KPLIB_doSave", { [] call KPLIB_fnc_enemy_saveData; }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_doSave), { [] call KPLIB_fnc_enemy_saveData; }] call CBA_fnc_addEventHandler;
 
     // // // TODO: TBD: these more than likely really need to be refactored in terms of at least garrison
     // // // TODO: TBD: but probably most likely in terms of sector
@@ -84,60 +84,19 @@ if (isServer) then {
 
     // Handle things ENEMY module related, assessing BDA, adding scores, etc
     [KPLIB_sectors_activating, { _this call MFUNC(_onSectorActivating); }] call CBA_fnc_addEventHandler;
+    [KPLIB_sectors_activating, { _this call MFUNC(_onRegisterBuildings); }] call CBA_fnc_addEventHandler;
+
+    // Register both SECTOR CAPTURED for the sector itself
     [KPLIB_sectors_captured, { _this call MFUNC(_onSectorCaptured); } ] call CBA_fnc_addEventHandler;
+    // Also register BUILDINGS DESTROYED for cases when we must evaluate such
+    [KPLIB_sectors_captured, { _this call MFUNC(_onBuildingsDestroyed); } ] call CBA_fnc_addEventHandler;
 
-    // TODO: TBD: for follow up later: https://github.com/mwpowellhtx/KP-Liberation/issues/78
-    // TODO: TBD: for now, making a best possible effort to minimize the shake up in order to accomplish HUD overlays
-    // TODO: TBD: we think these only ever need to be defined server side...
+    // TODO: TBD: add "help the civilians" event as a proper 'mission'
+    // TODO: TBD: CBA event handlers are assumed to occur in a guaranteed stacked order...
+    // TODO: TBD: so we can depend on capture values being there when we evaluate for civilian helps
 
-    MPRESET(_awareness)                                             = Q(awareness);
-    MPRESET(_strength)                                              = Q(strength);
-    MPRESET(_defend)                                                = Q(defend);
-    MPRESET(_skirmish)                                              = Q(skirmish);
-    MPRESET(_reinforce)                                             = Q(reinforce);
-    MPRESET(_counterattack)                                         = Q(counterattack);
-
-    // For use with getting awareness threshold
-    MPRESET(_lessOrEqual)                                           = Q(le);
-    MPRESET(_greaterOrEqual)                                        = Q(ge);
-    MPRESET(_thresholdDelim)                                        = Q(:);
-
-    // TODO: TBD: the approach is penciled in for now, will want to revise it later...
-    MPRESET(_thresholdMap)                                          = [
-            MPRESET(_awareness)
-            , MPRESET(_strength)
-            , MPRESET(_defend)
-            , MPRESET(_skirmish)
-            , MPRESET(_reinforce)
-            , MPRESET(_counterattack)
-            , MPRESET(_thresholdDelim)
-        ] call {
-        params [
-            Q(_awareness)
-            , Q(_strength)
-            , Q(_defend)
-            , Q(_skirmish)
-            , Q(_reinforce)
-            , Q(_counterattack)
-            , Q(_delim)
-        ];
-        createHashMapFromArray [
-            // Setup the AWARENESS based thresholds
-            [[_awareness, _reinforce, _defend] joinString _delim        , MPARAM(_awarenessThresholdReinforceDefend)        ]
-            , [[_awareness, _defend, _reinforce] joinString _delim      , MPARAM(_awarenessThresholdDefendReinforce)        ]
-            //  ^^^^^^^^^^
-            , [[_awareness, _reinforce, _skirmish] joinString _delim    , MPARAM(_awarenessThresholdReinforceSkirmish)      ]
-            , [[_awareness, _counterattack, _skirmish] joinString _delim, MPARAM(_awarenessThresholdCounterattackSkirmish)  ]
-            , [[_awareness, _skirmish, _reinforce] joinString _delim    , MPARAM(_awarenessThresholdSkirmishReinforce)      ]
-            , [[_awareness, _skirmish, _counterattack] joinString _delim, MPARAM(_awarenessThresholdSkirmishCounterattack)  ]
-            // Setup some STRENGTH based thresholds
-            , [[_strength, _reinforce, _defend] joinString _delim       , MPARAM(_strengthThresholdReinforceDefend)         ]
-            //  ^^^^^^^^^
-            , [[_strength, _defend, _reinforce] joinString _delim       , MPARAM(_strengthThresholdDefendReinforce)         ]
-            , [[_strength, _reinforce, _skirmish] joinString _delim     , MPARAM(_strengthThresholdReinforceSkirmish)       ]
-            , [[_strength, _skirmish, _counterattack] joinString _delim , MPARAM(_strengthThresholdSkirmishCounterattack)   ]
-        ];
-    };
+    // TODO: TBD: review this issue, so much of the old FSM 'states' no longer applicable (????)
+    // TODO: TBD: https://github.com/mwpowellhtx/KP-Liberation/issues/78
 
     // Add building class names to ignore durign the SECTOR CAPTURED BDA phase
     IGNORE_BUILDINGS(_ignoredBuildingClassNames);
