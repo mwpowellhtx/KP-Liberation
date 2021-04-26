@@ -36,6 +36,8 @@ if (isNull _namespace) exitWith {
     false;
 };
 
+// TODO: TBD: only refresh what we have to while idle, i.e. activation range blufor+opfor, etc
+
 private _markerName = _namespace getVariable [QMVAR(_markerName), ""];
 private _markerPos = markerPos _markerName;
 private _gridref = mapGridPosition _markerPos;
