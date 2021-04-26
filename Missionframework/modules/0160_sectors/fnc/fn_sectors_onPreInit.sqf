@@ -43,6 +43,8 @@ if (isServer) then {
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
+    MPRESET(_defaultUnitRange)                                      = -1;
+
     MVAR(_namespaces)                                               = [];
 
     // For use informing the state machine

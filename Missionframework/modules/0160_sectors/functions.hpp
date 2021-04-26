@@ -64,6 +64,15 @@ class sectors {
     // Refreshes key aspects of the CBA SECTOR namespace
     class sectors_onRefresh {};
 
+    // Returns the count of units matching side and class name criteria
+    class sectors_getUnitCount {};
+
+    // Returns the minimum range to the target CBA SECTOR namespace from among the units
+    class sectors_getUnitMinRange {};
+
+    // Returns whether the unit matches the side and class name criteria
+    class sectors_whereUnitMatches {};
+
     // // SECTOR ACTIVATING event handler
     // class sectors_onSectorActivating {};
 
