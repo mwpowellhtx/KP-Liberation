@@ -5,7 +5,7 @@
     File: fn_sectors_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-24 11:11:20
+    Last Update: 2021-04-25 19:58:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -55,10 +55,12 @@ if (isServer) then {
             QMVAR(_markerPos)
         ]] call KPLIB_fnc_namespace_registerSerializationVars;
 
+    MVAR(_refresh)                                                  = QMVAR(_refresh);
     MVAR(_activating)                                               = QMVAR(_activating);
     // MVAR(_activated)                                                = QMVAR(_activated);
     MVAR(_captured)                                                 = QMVAR(_captured);
-    MVAR(_deactivated)                                              = QMVAR(_deactivated);
+    MVAR(_deactivating)                                             = QMVAR(_deactivating);
+    // MVAR(_deactivated)                                              = QMVAR(_deactivated);
 
     /* Bits like ENEMY 'defending', etc, will be regulated differently than SECTOR state machine,
      * because this has more to do with 'friendliness' between sides, which also involves civilian,
@@ -88,10 +90,11 @@ if (isServer) then {
         // Such that we get each of the BITWIZE flags aligned in a predictable position
         missionNamespace setVariable [_variableName, _flag];
     } forEach [
-        QMSTATUS(_standby)
+        QMSTATUS(_standby)          , QMSTATUS(_active)
         , QMSTATUS(_garrisoning)    , QMSTATUS(_garrisoned)
         , QMSTATUS(_capturing)      , QMSTATUS(_captured)
-        , QMSTATUS(_deactivating)   , QMSTATUS(_deactivated)
+        // From DEACTIVATING to 'deactivated', or rather to drop the ACTIVE flag
+        , QMSTATUS(_deactivating)
         , QMSTATUS(_resisting)      , QMSTATUS(_resisted)
         , QMSTATUS(_reinforcing)    , QMSTATUS(_reinforced)
         , QMSTATUS(_infantry)       , QMSTATUS(_paratrooper)
@@ -183,6 +186,7 @@ if (isServer) then {
     [Q(KPLIB_doLoad), { [] call MFUNC(_onLoadData); }] call CBA_fnc_addEventHandler;
     [Q(KPLIB_doSave), { [] call MFUNC(_onSaveData); }] call CBA_fnc_addEventHandler;
 
+    [MVAR(_refresh), { _this call MFUNC(_onRefresh); }] call CBA_fnc_addEventHandler;
     [MVAR(_activating), { _this call MFUNC(_onSectorActivating); }] call CBA_fnc_addEventHandler;
     [MVAR(_captured), { _this call MFUNC(_onSectorCaptured); }] call CBA_fnc_addEventHandler;
 

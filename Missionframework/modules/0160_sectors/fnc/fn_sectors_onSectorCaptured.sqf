@@ -5,7 +5,7 @@
     File: fn_sectors_onSectorCaptured.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-21 13:26:43
-    Last Update: 2021-04-21 13:26:45
+    Last Update: 2021-04-25 19:58:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -52,6 +52,8 @@ if (_opfor) then {
 };
 
 [] call {
+    [] call MFUNC(_getOpforSectors);
+
     // Save, update markers, and notify once change is reported
     [] call KPLIB_fnc_init_save;
 };

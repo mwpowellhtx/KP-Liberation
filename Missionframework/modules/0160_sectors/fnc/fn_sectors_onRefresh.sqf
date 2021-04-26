@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_sectors_onSectorActivating
+    KPLIB_fnc_sectors_onRefresh
 
-    File: fn_sectors_onSectorActivating.sqf
+    File: fn_sectors_onRefresh.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 11:27:01
-    Last Update: 2021-04-23 11:27:04
+    Last Update: 2021-04-24 13:44:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,16 +22,16 @@
         The callback has finished [BOOL]
  */
 
-// TODO: TBD: refactor in terms of event: OnSectorActivating, which is our moment of opportunity to roll up namespace sitrep
-private _debug = MPARAM(_onSectorActivating_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
 
+private _debug = MPARAM(_onRefresh_debug)
+    || (_namespace getVariable [QMVAR(_onRefresh_debug), false]);
+
 if (isNull _namespace) exitWith {
     if (_debug) exitWith {
-        ["[fn_sectors_onSectorActivating] Null", "SECTORS", true] call KPLIB_fnc_common_log;
+        ["[fn_sectors_onRefresh] Null", "SECTORS", true] call KPLIB_fnc_common_log;
     };
     false;
 };
@@ -41,9 +41,11 @@ private _markerPos = markerPos _markerName;
 private _gridref = mapGridPosition _markerPos;
 
 if (_debug) then {
-    [format ["[fn_sectors_onSectorActivating] Entering: [_markerName, _markerPos, markerText _markerName]"
+    [format ["[fn_sectors_onRefresh] Entering: [_markerName, _markerPos, markerText _markerName]: %1"
         , str [_markerName, _markerPos, markerText _markerName]], "SECTORS", true] call KPLIB_fnc_common_log;
 };
+
+[] call MFUNC(_getOpforSectors);
 
 private _fobs = missionNamespace getVariable [QMVAR(_fobs), []];
 
@@ -88,6 +90,7 @@ private _allUnitsAct = [_markerPos, _actRange, KPLIB_preset_sides] call KPLIB_fn
 private _allUnitsCap = _allUnitsAct select { (_x distance2D _markerPos) <= _capRange; };
 // Identify all units within ACTIVATION and CAPTURE RANGE of the SECTOR
 
+// 'Friendly' is the default SIDE, and 'Man' is the default class name
 private _getUnitCount = {
     params [
         [Q(_units), _allUnitsAct, [[]]]
@@ -98,6 +101,41 @@ private _getUnitCount = {
         side _x isEqualTo _side
             && _x isKindOf _className;
     } count _units;
+};
+
+private _getMinRange = {
+    params [
+        [Q(_units), _allUnitsAct, [[]]]
+        , [Q(_side), KPLIB_preset_sideF, [sideEmpty]]
+        , [Q(_className), _manClassName, [""]]
+    ];
+    private _selected = _units select {
+        side _x isEqualTo _side
+            && _x isKindOf _className;
+    };
+    if (count _selected == 0) then { -1; } else {
+        private _ranges = _selected apply { _x distance2D _markerPos; };
+        selectMin _ranges;
+    };
+};
+
+// By UNIT TRIGGER RANGE, we mean units that would trigger sector activation
+[
+    [_allUnitsAct, KPLIB_preset_sideE] call _getMinRange
+    , [_allUnitsAct, KPLIB_preset_sideF] call _getMinRange
+] params [
+    Q(_opforTriggerMinRange)
+    , Q(_bluforTriggerMinRange)
+];
+
+private _triggerMinRange = switch (true) do {
+    // -1 when BOTH indicate nothing in range (i.e. -1)
+    case (_opforTriggerMinRange < 0 && _bluforTriggerMinRange < 0): { -1; };
+    // Either of them nothing in range (-1)
+    case (_opforTriggerMinRange < 0): { _bluforTriggerMinRange; };
+    case (_bluforTriggerMinRange < 0): { _opforTriggerMinRange; };
+    // Or MIN of each other
+    default { _opforTriggerMinRange min _bluforTriggerMinRange; };
 };
 
 // Fill in the dashboard of raw CBA SECTOR namespace bits here
@@ -115,6 +153,10 @@ private _getUnitCount = {
     , [QMVAR(_nearestTower), _nearestTower]
     , [QMVAR(_nearestTowerOpfor), _nearestTowerOpfor]
     , [QMVAR(_nearestTowerBlufor), _nearestTowerBlufor]
+    // Arrange OPFOR+BLUFOR+UNIT triggering minimum ranges, default: -1
+    , [QMVAR(_triggerMinRange), _triggerMinRange]
+    , [QMVAR(_opforTriggerMinRange), _opforTriggerMinRange]
+    , [QMVAR(_bluforTriggerMinRange), _bluforTriggerMinRange]
     // Arrange OPFOR+UNIT+TANK+ACT+CAP counts
     , [QMVAR(_opforUnitCountAct), [_allUnitsAct, KPLIB_preset_sideE, _manClassName] call _getUnitCount]
     , [QMVAR(_opforUnitCountCap), [_allUnitsCap, KPLIB_preset_sideE, _manClassName] call _getUnitCount]
@@ -137,7 +179,7 @@ if (_debug) then {
     {
         private _variableName = _x;
         private _value = _namespace getVariable _variableName;
-        [format ["[fn_sectors_onSectorActivating] Set: [_variableName, _value]: %1"
+        [format ["[fn_sectors_onRefresh] Set: [_variableName, _value]: %1"
             , str [_variableName, _value]], "SECTORS", true] call KPLIB_fnc_common_log;
     } forEach [
         QMVAR(_markerName)
@@ -152,6 +194,9 @@ if (_debug) then {
         , QMVAR(_nearestTower)
         , QMVAR(_nearestTowerOpfor)
         , QMVAR(_nearestTowerBlufor)
+        , QMVAR(_triggerMinRange)
+        , QMVAR(_opforTriggerMinRange)
+        , QMVAR(_bluforTriggerMinRange)
         , QMVAR(_opforUnitCountAct)
         , QMVAR(_opforUnitCountCap)
         , QMVAR(_opforTankCountAct)
@@ -168,8 +213,8 @@ if (_debug) then {
 };
 
 if (_debug) then {
-    [format ["[fn_sectors_onSectorActivating] Fini: [count allVariables _namespace, allVariables _namespace]: %1"
-        , str [count allVariables _namespace, allVariables _namespace]], "SECTORS", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectors_onRefresh] Fini: [_markerName, markerText _markerName, count allVariables _namespace]: %1"
+        , str [_markerName, markerText _markerName, count allVariables _namespace]], "SECTORS", true] call KPLIB_fnc_common_log;
 };
 
 true;

@@ -5,7 +5,7 @@
     File: fn_sectors_getStatusReport.sqf
     Author: Michael W. Powell [22nd MSU SOC]
     Created: 2021-04-22 12:30:29
-    Last Update: 2021-04-22 17:15:48
+    Last Update: 2021-04-25 19:59:14
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -30,12 +30,12 @@ private _status = _namespace getVariable [QMVAR(_status), MSTATUS(_standby)];
 
 // Construct them on demand, trade off between the global variable and performance
 private _reportTable = [
-    [MSTATUS(_garrisoning)      , Q(garrisoning)        ]
+    [MSTATUS(_active)           , Q(active)             ]
+    , [MSTATUS(_garrisoning)    , Q(garrisoning)        ]
     , [MSTATUS(_garrisoned)     , Q(garrisoned)         ]
     , [MSTATUS(_capturing)      , Q(capturing)          ]
     , [MSTATUS(_captured)       , Q(captured)           ]
     , [MSTATUS(_deactivating)   , Q(deactivating)       ]
-    , [MSTATUS(_deactivated)    , Q(deactivated)        ]
     , [MSTATUS(_resisting)      , Q(resisting)          ]
     , [MSTATUS(_resisted)       , Q(resisted)           ]
     , [MSTATUS(_reinforcing)    , Q(reinforcing)        ]

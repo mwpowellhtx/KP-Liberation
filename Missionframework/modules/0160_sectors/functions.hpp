@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-04-24 11:13:41
+    Last Update: 2021-04-25 19:57:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -46,11 +46,14 @@ class sectors {
     // Returns the STATUS decomposed into human readable versions of the flags
     class sectors_getStatusReport {};
 
-    // Returns the ACTIVATING SECTOR NAMESPACES between state machine cycles
-    class sectors_getActivatingNamespaces {};
+    // // Returns the ACTIVATING SECTOR NAMESPACES between state machine cycles
+    // class sectors_getActivatingNamespaces {};
 
     // Returns the NEAREST SECTOR to the given MARKER NAME and a set of CANDIDATE MARKERS
     class sectors_getNearestSector {};
+
+    // Returns the set of ACTIVE MARKERS
+    class sectors_getActiveSectors {};
 
     // Returns the set of INACTIVE MARKERS
     class sectors_getInactiveSectors {};
@@ -58,8 +61,11 @@ class sectors {
     // Returns the set of OPFOR MARKERS
     class sectors_getOpforSectors {};
 
-    // SECTOR ACTIVATING event handler
-    class sectors_onSectorActivating {};
+    // Refreshes key aspects of the CBA SECTOR namespace
+    class sectors_onRefresh {};
+
+    // // SECTOR ACTIVATING event handler
+    // class sectors_onSectorActivating {};
 
     // SECTOR ACTIVATED event handler
     class sectors_onSectorActivated {};

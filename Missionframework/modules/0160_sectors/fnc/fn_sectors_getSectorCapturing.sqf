@@ -5,7 +5,7 @@
     File: fn_sectors_getSectorCapturing.sqf
     Author: Michael W. Powell [22nd MSU SOC]
     Created: 2021-04-21 16:20:50
-    Last Update: 2021-04-24 11:09:16
+    Last Update: 2021-04-25 19:59:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -20,11 +20,12 @@
         Whether SECTOR may begin CAPTURING process [BOOL]
  */
 
-private _debug = MPARAM(_onSectorCapturing_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
+
+private _debug = MPARAM(_getSectorCapturing_debug)
+    || (_namespace getVariable [QMVAR(_getSectorCapturing_debug), false]);
 
 [
     _namespace getVariable [QMVAR(_markerName), ""]
@@ -82,8 +83,8 @@ private _retval = switch (true) do {
 };
 
 if (_debug) then {
-    [format ["[fn_sectors_getSectorCapturing] Fini: [_markerName, _retval]: %1"
-        , str [_markerName, _retval]], "SECTORS", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectors_getSectorCapturing] Fini: [_markerName, markerText _markerName, _retval]: %1"
+        , str [_markerName, markerText _markerName, _retval]], "SECTORS", true] call KPLIB_fnc_common_log;
 };
 
 _retval;
