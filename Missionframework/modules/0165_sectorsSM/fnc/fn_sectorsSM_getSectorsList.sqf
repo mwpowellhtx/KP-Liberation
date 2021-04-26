@@ -41,6 +41,9 @@ private _activeNamespaces = _namespaces select {
     [_x, MSTATUS(_active), QMVAR(_status)] call KPLIB_fnc_namespace_checkStatus;
 };
 
+// Do this once per iteration only
+[] call MFUNC(_getOpforSectors);
+
 private _inactiveNamespaces = _namespaces - _activeNamespaces;
 
 if (_debug) then {
