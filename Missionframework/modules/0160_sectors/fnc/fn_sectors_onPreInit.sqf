@@ -5,7 +5,7 @@
     File: fn_sectors_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-25 19:58:58
+    Last Update: 2021-04-26 14:18:08
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -134,55 +134,6 @@ if (isServer) then {
     // // TODO: TBD: for follow up later: https://github.com/mwpowellhtx/KP-Liberation/issues/78
     // // TODO: TBD: for now, making a best possible effort to minimize the shake up in order to accomplish HUD overlays
     // // TODO: TBD: we think these only ever need to be defined server side...
-
-    // MPRESET(_awareness)                                             = Q(awareness);
-    // MPRESET(_strength)                                              = Q(strength);
-    // MPRESET(_defend)                                                = Q(defend);
-    // MPRESET(_skirmish)                                              = Q(skirmish);
-    // MPRESET(_reinforce)                                             = Q(reinforce);
-    // MPRESET(_counterattack)                                         = Q(counterattack);
-
-    // // For use with getting awareness threshold
-    // MPRESET(_lessOrEqual)                                           = Q(le);
-    // MPRESET(_greaterOrEqual)                                        = Q(ge);
-    // MPRESET(_thresholdDelim)                                        = Q(:);
-
-    // // TODO: TBD: the approach is penciled in for now, will want to revise it later...
-    // MPRESET(_thresholdMap)                                          = [
-    //         MPRESET(_awareness)
-    //         , MPRESET(_strength)
-    //         , MPRESET(_defend)
-    //         , MPRESET(_skirmish)
-    //         , MPRESET(_reinforce)
-    //         , MPRESET(_counterattack)
-    //         , MPRESET(_thresholdDelim)
-    // ] call {
-    //     params [
-    //         Q(_awareness)
-    //         , Q(_strength)
-    //         , Q(_defend)
-    //         , Q(_skirmish)
-    //         , Q(_reinforce)
-    //         , Q(_counterattack)
-    //         , Q(_delim)
-    //     ];
-    //     createHashMapFromArray [
-    //         // Setup the AWARENESS based thresholds
-    //         [[_awareness, _reinforce, _defend] joinString _delim        , MPARAM(_awarenessThresholdReinforceDefend)        ]
-    //         , [[_awareness, _defend, _reinforce] joinString _delim      , MPARAM(_awarenessThresholdDefendReinforce)        ]
-    //         //  ^^^^^^^^^^
-    //         , [[_awareness, _reinforce, _skirmish] joinString _delim    , MPARAM(_awarenessThresholdReinforceSkirmish)      ]
-    //         , [[_awareness, _counterattack, _skirmish] joinString _delim, MPARAM(_awarenessThresholdCounterattackSkirmish)  ]
-    //         , [[_awareness, _skirmish, _reinforce] joinString _delim    , MPARAM(_awarenessThresholdSkirmishReinforce)      ]
-    //         , [[_awareness, _skirmish, _counterattack] joinString _delim, MPARAM(_awarenessThresholdSkirmishCounterattack)  ]
-    //         // Setup some STRENGTH based thresholds
-    //         , [[_strength, _reinforce, _defend] joinString _delim       , MPARAM(_strengthThresholdReinforceDefend)         ]
-    //         //  ^^^^^^^^^
-    //         , [[_strength, _defend, _reinforce] joinString _delim       , MPARAM(_strengthThresholdDefendReinforce)         ]
-    //         , [[_strength, _reinforce, _skirmish] joinString _delim     , MPARAM(_strengthThresholdReinforceSkirmish)       ]
-    //         , [[_strength, _skirmish, _counterattack] joinString _delim , MPARAM(_strengthThresholdSkirmishCounterattack)   ]
-    //     ];
-    // };
 
     // Add event handlers
     [Q(KPLIB_doLoad), { [] call MFUNC(_onLoadData); }] call CBA_fnc_addEventHandler;

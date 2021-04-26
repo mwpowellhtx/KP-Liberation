@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-04-25 19:57:23
+    Last Update: 2021-04-26 14:22:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -72,12 +72,6 @@ class sectors {
 
     // Returns whether the unit matches the side and class name criteria
     class sectors_whereUnitMatches {};
-
-    // // SECTOR ACTIVATING event handler
-    // class sectors_onSectorActivating {};
-
-    // SECTOR ACTIVATED event handler
-    class sectors_onSectorActivated {};
 
     // Returns whether the SECTOR may begin the CAPTURING process
     class sectors_getSectorCapturing {};
