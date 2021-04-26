@@ -4,7 +4,7 @@
     File: fn_resources_getFactoryStorages.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-15 20:44:04
-    Last Update: 2021-04-16 08:44:37
+    Last Update: 2021-04-25 20:09:49
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -28,7 +28,7 @@ params [
 
 private _retval = [];
 
-if (!(_markerName in allMapMarkers)) exitWith {
+if (!(_markerName in KPLIB_sectors_factory)) exitWith {
     _retval;
 };
 
