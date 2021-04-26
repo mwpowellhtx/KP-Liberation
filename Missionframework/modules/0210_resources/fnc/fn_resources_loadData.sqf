@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_resources_loadData
 
@@ -5,22 +6,22 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-02-15 23:20:11
+    Last Update: 2021-04-26 12:18:56
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Loads data which is bound to this module from the given save data or initializes needed data for a new campaign.
+        Loads module data from the saved bundle.
 
     Parameter(s):
         NONE
 
     Returns:
-        Function reached the end [BOOL]
+        The event handler has finished [BOOL]
  */
 
 // TODO: TBD: refactor to proper 'KPLIP_fnc_resources_debug' function...
-private _debug = KPLIB_param_debug;
+private _debug = MPARAM(_loadData_debug);
 
 if (_debug) then {
     ["[fn_resources_loadData] Loading...", "SAVE"] call KPLIB_fnc_common_log;
@@ -31,16 +32,24 @@ private _moduleData = ["resources"] call KPLIB_fnc_init_getSaveData;
 // Check if there is a new campaign
 if (_moduleData isEqualTo []) then {
     if (_debug) then {
-        ["[fn_resources_loadData] Data empty, creating new data...", "SAVE"] call KPLIB_fnc_common_log;
+        ["[fn_resources_loadData] Initializing data...", "SAVE"] call KPLIB_fnc_common_log;
     };
-    // Nothing to do here
+    MVAR(_intel) = MPARAM(_defaultIntel);
 } else {
     // Otherwise start applying the saved data
     if (_debug) then {
-        ["[fn_resources_loadData] Data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
+        ["[fn_resources_loadData] Applying data...", "SAVE"] call KPLIB_fnc_common_log;
     };
 
-    private _storageSums = _moduleData#0;
+    // See saveData event handler for details concerning storage sum obsolete
+    _moduleData params [
+        [Q(_storageSums), [], [[]]]
+        , [Q(_intel), MPARAM(_defaultIntel)]
+    ];
+
+    // TODO: TBD: intel? are we tracking alertness? aggression? civilian rep?
+    // Apply the intel points
+    MVAR(_intel) = _intel;
 
     // From previously loaded data...
     KPLIB_sectors_fobs select {
@@ -64,10 +73,10 @@ if (_moduleData isEqualTo []) then {
         [format ["[fn_resources_loadData] [KPLIB_sectors_fobs, KPLIB_sectors_blufor]: %1"
             , str [KPLIB_sectors_fobs, KPLIB_sectors_blufor]], "SAVE"] call KPLIB_fnc_common_log;
     };
+};
 
-    // TODO: TBD: intel? are we tracking alertness? aggression? civilian rep?
-    // Apply the intel points
-    KPLIB_resources_intel = _moduleData#1;
+if (_debug) then {
+    ["[fn_resources_loadData] Loaded", "SAVE"] call KPLIB_fnc_common_log;
 };
 
 true;
