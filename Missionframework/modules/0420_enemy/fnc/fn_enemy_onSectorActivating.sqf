@@ -5,7 +5,7 @@
     File: fn_enemy_onSectorActivating.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 15:54:21
-    Last Update: 2021-04-23 15:54:25
+    Last Update: 2021-04-25 20:11:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,11 +23,12 @@
         https://community.bistudio.com/wiki/configOf
  */
 
-private _debug = MPARAM(_onSectorActivating_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
+
+private _debug = MPARAM(_onSectorActivating_debug)
+    || (_namespace getVariable [QMVAR(_onSectorActivating_debug), false]);
 
 [
     _namespace getVariable [Q(KPLIB_sectors_markerName), ""]

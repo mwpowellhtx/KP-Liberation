@@ -5,7 +5,7 @@
     File: fn_enemy_onSectorCaptured.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 15:50:12
-    Last Update: 2021-04-23 15:50:14
+    Last Update: 2021-04-25 20:12:05
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,11 +22,12 @@
         The event handler finished [BOOL]
  */
 
-private _debug = MPARAM(_onSectorCaptured_debug);
-
 params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
+
+private _debug = MPARAM(_onSectorCaptured_debug)
+    || (_namespace getVariable [QMVAR(_onSectorCaptured_debug), false]);
 
 [
     _namespace getVariable [QMVAR(_buildings), []]
