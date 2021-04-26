@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-04-24 10:58:05
+    Last Update: 2021-04-26 15:43:16
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -85,6 +85,7 @@ class KPLIB {
     #include "modules\0801_missionsSM\functions.hpp"
     #include "modules\0802_missionsCO\functions.hpp"
     #include "modules\0803_missionsMgr\functions.hpp"
+    #include "modules\0805_aidWoundedCivs\functions.hpp"
     #include "modules\0810_captive\functions.hpp"
     #include "modules\0890_firedrill\functions.hpp"
 
