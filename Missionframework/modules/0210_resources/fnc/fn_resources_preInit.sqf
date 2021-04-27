@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-04-21 10:50:19
+    Last Update: 2021-04-27 13:45:05
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -25,7 +25,7 @@
  */
 
 if (isServer) then {
-    ["Module initializing...", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
+    ["[fn_resources_preInit] Initializing...", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
 };
 
 
@@ -33,11 +33,11 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
-MVAR(_resourceKind_sup) = "Supply";
-MVAR(_resourceKind_amm) = "Ammo";
-MVAR(_resourceKind_fue) = "Fuel";
+MVAR(_resourceKind_sup)                     = "Supply";
+MVAR(_resourceKind_amm)                     = "Ammo";
+MVAR(_resourceKind_fue)                     = "Fuel";
 
-MVAR(_resourceKinds) = [
+MVAR(_resourceKinds)                        = [
     MVAR(_resourceKind_sup)
     , MVAR(_resourceKind_amm)
     , MVAR(_resourceKind_fue)
@@ -143,37 +143,37 @@ if (isServer) then {
 [] call MFUNC(_settings);
 
 // TODO: TBD: may capture in terms of CBA settings...
-MPARAM(_loadRange)                          = 20;
+MPARAM(_loadRange)                              = 20;
 
-MVAR(_i_sup)                                = 0;
-MVAR(_i_amm)                                = 1;
-MVAR(_i_fue)                                = 2;
+MVAR(_i_sup)                                    = 0;
+MVAR(_i_amm)                                    = 1;
+MVAR(_i_fue)                                    = 2;
 
-MVAR(_indexes)                              = [
+MVAR(_indexes)                                  = [
     MVAR(_i_sup)
     , MVAR(_i_amm)
     , MVAR(_i_fue)
 ];
 
-MVAR(_capDefault)                           = MVAR(_indexes) apply { false; };
-MVAR(_storageValueDefault)                  = MVAR(_indexes) apply { 0; };
+MVAR(_capDefault)                               = MVAR(_indexes) apply { false; };
+MVAR(_storageValueDefault)                      = MVAR(_indexes) apply { 0; };
 
 /* We will require these when we begin coordinating with proper transactional
  * based accounting. Especially to align indices with their types. */
-MVAR(_crateClassesF)                        = [
+MVAR(_crateClassesF)                            = [
     KPLIB_preset_crateSupplyF
     , KPLIB_preset_crateAmmoF
     , KPLIB_preset_crateFuelF
 ];
 
-MVAR(_storageClassesF)                      = [
+MVAR(_storageClassesF)                          = [
     KPLIB_preset_storageSmallF
     , KPLIB_preset_storageLargeF
 ];
 
 // Some globals defined here on the server as the used preset variables aren't present on the clients yet but needed in initial loading
 // All valid crate classnames
-MVAR(_crateClasses)                         = [
+MVAR(_crateClasses)                             = [
     KPLIB_preset_crateSupplyF
     , KPLIB_preset_crateAmmoF
     , KPLIB_preset_crateFuelF
@@ -183,7 +183,7 @@ MVAR(_crateClasses)                         = [
 ];
 
 // All valid storage classnames
-MVAR(_storageClasses)                       = [
+MVAR(_storageClasses)                           = [
     KPLIB_preset_storageSmallE
     , KPLIB_preset_storageSmallF
     , KPLIB_preset_storageLargeE
@@ -191,41 +191,41 @@ MVAR(_storageClasses)                       = [
 ];
 
 // Storage classnames concerning factory sectors
-MVAR(_factoryStorageClasses)                = [
+MVAR(_factoryStorageClasses)                    = [
     KPLIB_preset_storageSmallE
     , KPLIB_preset_storageSmallF
 ];
 
 if (isServer) then {
     // Arrange some debug flags
-    MPARAM(_pay_debug)                      = false;
+    MPARAM(_pay_debug)                          = false;
 };
 
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
     // HASHMAP associating INTEL class names and number of N+(NxD4) intel value
-    MPRESET(_intelMap) = createHashMapFromArray [
-        [Q(Land_File1_F)                , 1]
-        , [Q(Land_Document_01_F)        , 1]
-        , [Q(Land_MobilePhone_smart_F)  , 2]
-        , [Q(Land_SatellitePhone_F)     , 2]
-        , [Q(Land_Tablet_02_F)          , 3]
-        , [Q(Land_Laptop_F)             , 4]
-        , [Q(Land_Laptop_device_F)      , 4]
-        , [Q(Land_Laptop_unfolded_F)    , 4]
+    MPRESET(_intelMap)                          = createHashMapFromArray [
+        [Q(Land_File1_F)                        , 1]
+        , [Q(Land_Document_01_F)                , 1]
+        , [Q(Land_MobilePhone_smart_F)          , 2]
+        , [Q(Land_SatellitePhone_F)             , 2]
+        , [Q(Land_Tablet_02_F)                  , 3]
+        , [Q(Land_Laptop_F)                     , 4]
+        , [Q(Land_Laptop_device_F)              , 4]
+        , [Q(Land_Laptop_unfolded_F)            , 4]
     ];
 
-    MPRESET(_intelClassNames) = keys MPRESET(_intelMap);
+    MPRESET(_intelClassNames)                   = keys MPRESET(_intelMap);
 
-    MPARAM(_gatherIntelRange)               = 10;
+    MPARAM(_gatherIntelRange)                   = 10;
 
     {
         private _className = _x;
         [_className, Q(init), MFUNC(_onIntelInit), true, [], true] call CBA_fnc_addClassEventHandler;
     } forEach MPRESET(_intelClassNames);
 
-    MPARAM(_refreshStorageValuePeriodSeconds) = 5;
+    MPARAM(_refreshStorageValuePeriodSeconds)   = 5;
 
     // Register load event handler
     ["KPLIB_doLoad", { [] call MFUNC(_loadData); }] call CBA_fnc_addEventHandler;
@@ -245,10 +245,10 @@ if (isServer) then {
     publicVariable "KPLIB_resources_storageClasses";
 
     // Array for all spawned resource crates
-    MVAR(_allCrates) = [];
+    MVAR(_allCrates)                            = [];
 
     // Array for all storages
-    MVAR(_allStorages) = [];
+    MVAR(_allStorages)                          = [];
 };
 
 if (!(hasInterface || isDedicated)) then {
@@ -272,7 +272,7 @@ if (hasInterface) then {
 };
 
 if (isServer) then {
-    ["Module initialized", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
+    ["[fn_resources_preInit] Initialized", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
 };
 
 true;

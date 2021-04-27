@@ -6,7 +6,7 @@
     File: fn_resources_onIntelInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-26 18:55:49
-    Last Update: 2021-04-26 18:55:51
+    Last Update: 2021-04-27 16:42:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -14,7 +14,7 @@
         Adds ability to GATHER INTEL resource from the target object.
 
     Parameter(s):
-        _target - the TARGET object for which INTEL may be gathered [OBJECT, default: objNull]
+        _targetObj - the TARGET OBJECT for which INTEL may be gathered [OBJECT, default: objNull]
 
     Returns:
         The event handler completed [BOOL]
@@ -25,12 +25,12 @@
  */
 
 params [
-    [Q(_target), objNull, [objNull]]
+    [Q(_targetObj), objNull, [objNull]]
 ];
 
-if (typeOf _target in MPRESET(_intelMap)) then {
+if (typeOf _targetObj in MPRESET(_intelMap)) then {
 
-    _target setVariable [QMVAR(_intel), [_target] call MFUNC(_getIntelValue)];
+    _targetObj setVariable [QMVAR(_intel), [_targetObj] call MFUNC(_getIntelValue)];
 
     // TODO: TBD: should consider issuing this on player machine...
     // TODO: TBD: why because of localize...
@@ -45,7 +45,7 @@ if (typeOf _target in MPRESET(_intelMap)) then {
 
         // TODO: TBD: may localize this to string table...
         // TODO: TBD: may also capture colors a bit differently...
-        [_target, "STR_KPLIB_RESOURCES_ACTION_GATHER_INTEL", [
+        [_targetObj, "STR_KPLIB_RESOURCES_ACTION_GATHER_INTEL", [
             { _this call MFUNC(_onGatherIntel); }
             , []
             , KPLIB_ACTION_PRIORITY_GATHER_INTEL

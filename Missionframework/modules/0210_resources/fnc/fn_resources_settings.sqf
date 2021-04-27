@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-14
-    Last Update: 2021-04-26 12:04:46
+    Last Update: 2021-04-27 14:08:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -26,28 +26,29 @@
 
 if (isServer) then {
 
-    MPARAM(_loadData_debug)                   = false;
-    MPARAM(_saveData_debug)                   = false;
+    MPARAM(_loadData_debug)                 =   false;
+    MPARAM(_saveData_debug)                 =   false;
 
-    MPARAM(_onGatherIntel_debug)              = false;
+    MPARAM(_onGatherIntel_debug)            =   false;
+    MPARAM(_onIntelGC_debug)                =   false;
 
     MPARAM(_defaultIntel)                   =       0;
     MPARAM(_maxIntel)                       =  100000;
 };
 
 // Thresholds, CHANCE of seeing the respective INTEL
-MPARAM(_intelThresholdS)                    = 10;
-MPARAM(_intelRewardMinS)                    =  1;
-MPARAM(_intelRewardRangeS)                  =  5;
+MPARAM(_intelThresholdS)                    =      10;
+MPARAM(_intelRewardMinS)                    =       1;
+MPARAM(_intelRewardRangeS)                  =       5;
 
 // REWARD MIN, RANGE, what it says: MIN+RANGE, RANGE range: [0,RANGE)
-MPARAM(_intelThresholdM)                    = 60;
-MPARAM(_intelRewardMinM)                    =  3;
-MPARAM(_intelRewardRangeM)                  = 10;
+MPARAM(_intelThresholdM)                    =      60;
+MPARAM(_intelRewardMinM)                    =       3;
+MPARAM(_intelRewardRangeM)                  =      10;
 
-MPARAM(_intelThresholdL)                    = 85;
-MPARAM(_intelRewardMinL)                    =  5;
-MPARAM(_intelRewardRangeL)                  = 15;
+MPARAM(_intelThresholdL)                    =      85;
+MPARAM(_intelRewardMinL)                    =       5;
+MPARAM(_intelRewardRangeL)                  =      15;
 
 // KPLIB_param_crateVolume
 // The amount of resources which can be stored in a crate.
