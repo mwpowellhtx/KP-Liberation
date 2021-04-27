@@ -28,11 +28,9 @@ params [
     [Q(_target), objNull, [objNull]]
 ];
 
-private _targetClassName = typeOf _target;
+if (typeOf _target in MPRESET(_intelMap)) then {
 
-if (_targetClassName in MPRESET(_intelClassNames)) then {
-
-    _target setVariable [QMVAR(_intel), [_targetClassName] call MFUNC(_getIntelValue)];
+    _target setVariable [QMVAR(_intel), [_target] call MFUNC(_getIntelValue)];
 
     // TODO: TBD: should consider issuing this on player machine...
     // TODO: TBD: why because of localize...

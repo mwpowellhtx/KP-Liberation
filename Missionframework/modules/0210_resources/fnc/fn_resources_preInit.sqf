@@ -21,6 +21,7 @@
 
     References:
         https://cbateam.github.io/CBA_A3/docs/files/xeh/fnc_addClassEventHandler-sqf.html
+        https://community.bistudio.com/wiki/createHashMapFromArray
  */
 
 if (isServer) then {
@@ -203,12 +204,19 @@ if (isServer) then {
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
-    // Specify in biggest to smallest order
-    MPRESET(_intelClassNames)               = [
-        Q(Land_MobilePhone_smart_F)         // Mobile smart phone
-        , Q(Land_Laptop_F)                  // Laptop
-        , Q(Land_Document_01_F)             // Top secret documents
+    // HASHMAP associating INTEL class names and number of N+(NxD4) intel value
+    MPRESET(_intelMap) = createHashMapFromArray [
+        [Q(Land_File1_F)                , 1]
+        , [Q(Land_Document_01_F)        , 1]
+        , [Q(Land_MobilePhone_smart_F)  , 2]
+        , [Q(Land_SatellitePhone_F)     , 2]
+        , [Q(Land_Tablet_02_F)          , 3]
+        , [Q(Land_Laptop_F)             , 4]
+        , [Q(Land_Laptop_device_F)      , 4]
+        , [Q(Land_Laptop_unfolded_F)    , 4]
     ];
+
+    MPRESET(_intelClassNames) = keys MPRESET(_intelMap);
 
     MPARAM(_gatherIntelRange)               = 10;
 

@@ -39,7 +39,23 @@ private _intel = _target getVariable [QMVAR(_intel), 0];
 private _markerName = [KPLIB_param_sectors_capRange, getPos _target, KPLIB_sectors_military] call KPLIB_fnc_core_getNearestMarker;
 //                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^                  ^^^^^^^^^^^^^^^^^^^^^^
 
-systemChat format ["[%1, %2] '%3' gathered %4 intel", typeOf _target, typeOf _caller, markerText _markerName, _intel];
+/*
+// TODO: TBD: this is a plausible strategy for intel placement during garrison...
+// TODO: TBD: should not leave this here obviously, this is a scratch pad with a snippet that might be useful
+_type = selectrandom keys KPLIB_preset_resources_intelMap;
+_pos = getPos player;
+_obj = createvehicle [_type, [_pos#0, _pos#1, 0.25], [], 1, 'none'];
+// https://community.bistudio.com/wiki/buildingPos
+// this is key, returns the positions available in the building
+// not all buildings may have such a geometry
+_buildings = (nearestobjects [player, ["Building"], 100]) select { count (_x buildingpos -1) > 0; };
+_building = selectrandom _buildings;
+_pos = selectrandom (_building buildingpos -1);
+_obj setposatl [_pos#0, _pos#1, _pos#2+0.1];
+[_building, _obj];
+ */
+
+// systemChat format ["[%1, %2] '%3' gathered %4 intel", typeOf _target, typeOf _caller, markerText _markerName, _intel];
 
 [_intel, format ["'%1' gathered %2 intel", markerText _markerName, _intel], _markerName] call MFUNC(_addIntel);
 

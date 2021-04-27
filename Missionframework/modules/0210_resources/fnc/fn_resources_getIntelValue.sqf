@@ -10,24 +10,33 @@
     Public: No
 
     Description:
-        Returns the INTEL value corresponding to the class name.
+        Returns the INTEL value corresponding to the target OBJECT or its class name.
 
     Parameter(s):
-        _className - class name for the INTEL object [STRING, default: ""]
+        _targetOrClassName - class name for the INTEL object, or the OBJECT itself [STRING|OBJECT, default: ""]
 
     Returns:
         The INTEL value for the class name [SCALAR]
  */
 
 params [
-    [Q(_className), "", [""]]
+    [Q(_targetOrClassName), "", [objNull, ""]]
 ];
+
+private _className = switch (true) do {
+    case (_targetOrClassName isEqualType objNull): {
+        typeOf _targetOrClassName;
+    };
+    case (_targetOrClassName isEqualType ""): {
+        _targetOrClassName;
+    };
+    default { ""; }; 
+};
 
 private _zed = 0;
 
-if (_className in MPRESET(_intelClassNames)) exitWith {
-    private _intelIndex = MPRESET(_intelClassNames) findIf { _x isEqualTo _className; };
-    private _offset = _intelIndex + 1;
+if (_className in MPRESET(_intelMap)) exitWith {
+    private _offset = MPRESET(_intelMap) get _className;
     _offset + ([4, _offset] call KPLIB_fnc_linq_roll);
 };
 
