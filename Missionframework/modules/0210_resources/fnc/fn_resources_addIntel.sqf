@@ -16,6 +16,8 @@
 
     Parameter(s):
         _delta - quantity of intel to add [SCALAR, default: 0]
+        _message - an optional notification message [STRING, default: ""]
+        _markerName - a SECTOR marker about which notification shall occur [STRING, default: ""]
 
     Returns:
         The new intel value [BOOL]
@@ -23,11 +25,21 @@
 
 params [
     [Q(_delta), 0, [0]]
+    , [Q(_message), "", [""]]
+    , [Q(_markerName), "", [""]]
 ];
 
 if (_delta != 0) then {
     // Sets the new intel resource value bounded by ZERO and the MAX
-    MVAR(_intel) =  0 max ((MVAR(_intel) + _delta) min MPARAM(_maxIntel));
+    MVAR(_intel) = 0 max ((MVAR(_intel) + _delta) min MPARAM(_maxIntel));
+
+    if (count _message > 0) then {
+        private _sectorIcon = [_markerName] call KPLIB_fnc_sectors_getSectorIcon;
+        private _args = ["KP LIBERATION - RESOURCES", _sectorIcon, _message];
+        private _notification = if (_markerName in KPLIB_sectors_blufor) then { "blufor"; } else { "opfor"; };
+        private _template = format ["KPLIB_notification_%1", _notification];
+        [_template, _args, allPlayers] spawn KPLIB_fnc_notification_show;
+    };
 
     [] spawn KPLIB_fnc_init_save;
 };

@@ -29,6 +29,8 @@ if (isServer) then {
     MPARAM(_loadData_debug)                   = false;
     MPARAM(_saveData_debug)                   = false;
 
+    MPARAM(_onGatherIntel_debug)              = false;
+
     MPARAM(_defaultIntel)                   =       0;
     MPARAM(_maxIntel)                       =  100000;
 };

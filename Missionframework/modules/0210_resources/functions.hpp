@@ -35,6 +35,15 @@ class res {
     // Estimates the number of crates necessary to support the volume
     class resources_estimateCrates {};
 
+    // Responds to the INTEL object 'init' event
+    class resources_onIntelInit {};
+
+    // Returns the randomized INTEL value for the target object
+    class resources_getIntelValue {};
+
+    // GATHER INTEL action menu event handler
+    class resources_onGatherIntel {};
+
     // Adds value to intel resource
     class resources_addIntel {};
 

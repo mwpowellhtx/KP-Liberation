@@ -16,6 +16,8 @@
 /* Treating '.hpp' files as first class citizens in the code base...
  * See: https://flaviocopes.com/vscode-language-specific-settings */
 
+#define KPLIB_ACTION_PRIORITY_GATHER_INTEL          (-601)
+
 #define KPLIB_ACTION_PRIORITY_ASSETMOVE             (-700)
 #define KPLIB_ACTION_PRIORITY_TERMINATE_TARGET      (-710)
 #define KPLIB_ACTION_PRIORITY_OPFOR_CAPTURE         (-720)

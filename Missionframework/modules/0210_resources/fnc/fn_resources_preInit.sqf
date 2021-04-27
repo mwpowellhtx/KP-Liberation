@@ -18,6 +18,9 @@
 
     Returns:
         The event handler has finished [BOOL]
+
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/xeh/fnc_addClassEventHandler-sqf.html
  */
 
 if (isServer) then {
@@ -65,7 +68,6 @@ if (isServer) then {
 
     // Intel currency resource amount
     MVAR(_intel)                            = 0;
-
 
     MVAR(_transportConfigs)                 = [[
         ["B_Heli_Transport_03_F",                        7.5, [[0.00,  2.20, -1.00], [0.00,  0.50, -1.00], [0.00, -1.20, -1.00]                                            ]],
@@ -207,6 +209,13 @@ if (isServer) then {
         , Q(Land_Laptop_F)                  // Laptop
         , Q(Land_Document_01_F)             // Top secret documents
     ];
+
+    MPARAM(_gatherIntelRange)               = 10;
+
+    {
+        private _className = _x;
+        [_className, Q(init), MFUNC(_onIntelInit), true, [], true] call CBA_fnc_addClassEventHandler;
+    } forEach MPRESET(_intelClassNames);
 
     MPARAM(_refreshStorageValuePeriodSeconds) = 5;
 

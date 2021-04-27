@@ -2469,6 +2469,14 @@
         </Key>
     </Package>
 
+    <!-- RESOURCES OVERLAY -->
+
+    <Package name="Resources">
+        <Key ID="STR_KPLIB_RESOURCES_ACTION_GATHER_INTEL">
+            <English>-- GATHER INTEL --</English>
+        </Key>
+    </Package>
+
     <!-- HUD OVERLAY -->
 
     <Package name="HUD">
