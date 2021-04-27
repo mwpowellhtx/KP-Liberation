@@ -27,6 +27,9 @@ class linq {
     // Returns just the target HASHMAP values themselves
     class linq_getHashMapValues {};
 
+    // Rolls the SIDES TIMES numbers of times optionally SUM
+    class linq_roll {};
+
     // Identifies the minimum element from a given array
     class linq_min {};
 
