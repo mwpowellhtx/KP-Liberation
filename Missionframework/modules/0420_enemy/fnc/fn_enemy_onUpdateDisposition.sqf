@@ -67,7 +67,7 @@
 ];
 
 // We bundle this in a CALL because it does not make sense to separate the logic
-private _resValues = [_neutralDis, _civRepRatio, _civRepBaseThreshold] call {
+private _resValues = [_neutralDis, _civRepRatio, PCT(_civRepBaseThreshold)] call {
     params [
         [Q(_neutral), 0, [0]]
         , [Q(_civRep), 0, [0]]

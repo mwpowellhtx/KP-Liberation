@@ -2,7 +2,7 @@
     File: script_component.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 15:43:27
-    Last Update: 2021-04-24 11:28:41
+    Last Update: 2021-04-27 21:01:20
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -29,6 +29,8 @@
 
 #define MFUNC(var) KPLIB_fnc##MODULE##var
 #define QMFUNC(var) Q(MFUNC(var))
+
+#define PCT(x) (x/100)
 
 #define IGNORE_BUILDINGS(var) MPRESET(var) = []
 #define ADD_IGNORED_BUILDING(var,x) MPRESET(var) pushBackUnique #x
