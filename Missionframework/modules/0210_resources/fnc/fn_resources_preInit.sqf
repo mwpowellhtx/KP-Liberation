@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-04-27 13:45:05
+    Last Update: 2021-04-27 18:23:14
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -201,19 +201,21 @@ if (isServer) then {
     MPARAM(_pay_debug)                          = false;
 };
 
+MVAR(_intelLevelChanged)                        = QMVAR(_intelLevelChanged);
+
 // Server section (dedicated and player hosted)
 if (isServer) then {
 
     // HASHMAP associating INTEL class names and number of N+(NxD4) intel value
     MPRESET(_intelMap)                          = createHashMapFromArray [
-        [Q(Land_File1_F)                        , 1]
-        , [Q(Land_Document_01_F)                , 1]
-        , [Q(Land_MobilePhone_smart_F)          , 2]
-        , [Q(Land_SatellitePhone_F)             , 2]
-        , [Q(Land_Tablet_02_F)                  , 3]
-        , [Q(Land_Laptop_F)                     , 4]
-        , [Q(Land_Laptop_device_F)              , 4]
-        , [Q(Land_Laptop_unfolded_F)            , 4]
+        [Q(Land_File1_F)                        , round MPARAM(_intelLevelA)]
+        , [Q(Land_Document_01_F)                , round MPARAM(_intelLevelA)]
+        , [Q(Land_MobilePhone_smart_F)          , round MPARAM(_intelLevelB)]
+        , [Q(Land_SatellitePhone_F)             , round MPARAM(_intelLevelB)]
+        , [Q(Land_Tablet_02_F)                  , round MPARAM(_intelLevelC)]
+        , [Q(Land_Laptop_F)                     , round MPARAM(_intelLevelD)]
+        , [Q(Land_Laptop_device_F)              , round MPARAM(_intelLevelD)]
+        , [Q(Land_Laptop_unfolded_F)            , round MPARAM(_intelLevelD)]
     ];
 
     MPRESET(_intelClassNames)                   = keys MPRESET(_intelMap);
@@ -224,6 +226,8 @@ if (isServer) then {
         private _className = _x;
         [_className, Q(init), MFUNC(_onIntelInit), true, [], true] call CBA_fnc_addClassEventHandler;
     } forEach MPRESET(_intelClassNames);
+
+    [MVAR(_intelLevelChanged), { _this call MFUNC(_onIntelLevelChanged); }] call CBA_fnc_addEventHandler;
 
     MPARAM(_refreshStorageValuePeriodSeconds)   = 5;
 

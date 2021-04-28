@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-04-27 13:45:29
+    Last Update: 2021-04-27 18:23:07
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -49,6 +49,9 @@ class res {
 
     // Perform GC duties on the TARGET INTEL OBJECT
     class resources_onIntelGC {};
+
+    // Event handler responds when INTEL LEVEL settings have changed
+    class resources_onIntelLevelChanged {};
 
     // Displays amount of resources in crate
     class resources_checkCrate {};
