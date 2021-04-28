@@ -1540,8 +1540,80 @@
 
         <!-- ENEMY CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_ENEMY">
-            <English>KPLIB - Enemy Commander</English>
-            <German>KPLIB - Feindlicher Kommandant</German>
+            <English>KPLIB - Enemy</English>
+            <German>KPLIB - Feindlicher</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_STRENGTH_MAX">
+            <English>Maximum Enemy Strength</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_STRENGTH_MAX_TT">
+            <English>The maximum level of Enemy Strength.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_STRENGTH_DEFAULT">
+            <English>Default Enemy Strength</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_STRENGTH_DEFAULT_TT">
+            <English>The default level of Enemy Strength.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_AWARENESS_MAX">
+            <English>Maximum Enemy Awareness</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_AWARENESS_MAX_TT">
+            <English>The maximum level of Enemy Awareness.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_AWARENESS_DEFAULT">
+            <English>Default Enemy Awareness</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_AWARENESS_DEFAULT_TT">
+            <English>The default level of Enemy Awareness.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CAPTURE_REWARD_CITY">
+            <English>City Capture Reward</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CAPTURE_REWARD_CITY_TT">
+            <English>Civilian reputation reward when a city sector has been captured.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CAPTURE_COEFFICIENT_METROPOLIS">
+            <English>Metropolis Capture Coefficient</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CAPTURE_COEFFICIENT_METROPOLIS_TT">
+            <English>Coefficient times City Capture Reward is the Metropolis Capture Reward.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_REP_MAX">
+            <English>Maximum Civilian Reputation</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_REP_MAX_TT">
+            <English>The maximum amount of Civilian Reputation, positively (N), and negatively (-N).</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_REP_DEFAULT">
+            <English>Default Civilian Reputation</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_REP_DEFAULT_TT">
+            <English>The default amount of Civilian Reputation, positively (N), or negatively (-N).</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_KILLED_PENALTY">
+            <English>Civilian Killed Penalty</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_KILLED_PENALTY_TT">
+            <English>Amount of Civilian Reputation penalized for civilian fatalities.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_REP_BASE_THRESHOLD">
+            <English>Civilian Reputation Base Threshold</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_CIV_REP_BASE_THRESHOLD_TT">
+            <English>Civilian Reputation threshold, positively or negatively, before civilians favor or disfavor BLUFOR, respectively.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_BUILDING_DAMAGE_MAX_PENALTY">
+            <English>Building Damage Maximum Penalty</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_BUILDING_DAMAGE_MAX_PENALTY_TT">
+            <English>The amount of Civilian Reputation to penalize per building damaged or destroyed during a city or metropolis sector engagement.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_ASSESS_PARTIAL_BUILDING_DAMAGE">
+            <English>Assess Partial Building Damage</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_ENEMY_ASSESS_PARTIAL_BUILDING_DAMAGE_TT">
+            <English>Whether to assess partial building damage during the Civilian Reputation assessment during sector engagement.</English>
         </Key>
 
         <!-- GENERAL CATEGORY -->
@@ -1737,6 +1809,24 @@
         <Key ID="STR_KPLIB_SETTINGS_RESOURCES_CRATEVOLUME_TT">
             <English>The maximum amount of resources which can be stored in a crate.</English>
             <German>Das maximal mögliche Menge an Ressourcen in den Ressourcenkisten.</German>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_LEVEL">
+            <English>Intel Level %1</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_LEVEL_TT">
+            <English>How intel value is calculated, N+Nd4, N times rolling four sided die.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_MAX">
+            <English>Maximum Intel</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_MAX_TT">
+            <English>The maximum amount of Intel that may be collected.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_DEFAULT">
+            <English>Default Intel</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_DEFAULT_TT">
+            <English>The default amount of Intel the campaign starts with.</English>
         </Key>
 
         <!-- BI REVIVE CATEGORY -->
