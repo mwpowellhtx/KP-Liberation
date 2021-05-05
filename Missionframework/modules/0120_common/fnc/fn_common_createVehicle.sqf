@@ -3,38 +3,47 @@
 
     File: fn_common_createVehicle.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-05-03
-    Last Update: 2019-03-31
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-05-03
+    Last Update: 2021-05-03 17:00:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Spawning of a vehicle at given position with given direction.
-        Supports spawning of air vehicles or paradrop vehicles, when z is > 10.
+        Returns a newly spawned vehicle at the given position and direction. Supports
+        spawning air vehicles or paradrop vehicles, when z > KPLIB_param_common_airSpawnDeck.
+        Raises the 'KPLIB_vehicle_spawned' event upon successful creation.
 
     Parameter(s):
-        _classname  - Classname of the vehicle which should be spawned                                              [STRING, defaults to ""]
-        _spawnPos   - Position ATL where the vehicle should be spawned. Paradropped when z > 10 and no air vehicle  [POSITION ATL, defaults to KPLIB_zeroPos]
-        _spawnDir   - Heading for the vehicle from 0 to 360                                                         [NUMBER, defaults to (random 360)]
-        _justSpawn  - True to skip all paradrop or air vehicle detection, even if z > 10                            [BOOL, defaults to false]
-        _withCrew   - True to spawn crew for the vehicle                                                            [BOOL, defaults to false]
-        _side       - Side to which this vehicle should belong, when _withCrew == true                              [SIDE, defaults to KPLIB_preset_sideE]
+        _className - class sname of the vehicle which should be spawned [STRING, default: ""]
+        _spawnPos - position ATL where the vehicle should be spawned, paradropped
+            when z > KPLIB_param_common_airSpawnDeck and no air vehicle
+            [POSITION ATL, default: KPLIB_zeroPos]
+        _spawnDir - heading for the vehicle from 0 to 360 [NUMBER, default: (random 360)]
+        _justSpawn - true to skip all paradrop or air vehicle detection, even
+            if z > KPLIB_param_common_airSpawnDeck [BOOL, default: false]
+        _withCrew - true to spawn crew for the vehicle [BOOL, default: false]
+        _side - side to which this vehicle should belong, when _withCrew == true [SIDE, default: KPLIB_preset_sideE]
 
     Returns:
-        Created vehicle [OBJECT]
-*/
+        A created vehicle [OBJECT]
+ */
 
 params [
-    ["_classname", "", [""]],
-    ["_spawnPos", KPLIB_zeroPos, [[]], [3]],
-    ["_spawnDir", random 360, [0]],
-    ["_justSpawn", false, [true]],
-    ["_withCrew", false, [true]],
-    ["_side", KPLIB_preset_sideE, [sideEmpty]]
+    ["_className", "", [""]]
+    , ["_spawnPos", KPLIB_zeroPos, [[]], [3]]
+    , ["_spawnDir", random 360, [0]]
+    , ["_justSpawn", false, [false]]
+    , ["_withCrew", false, [false]]
+    , ["_side", KPLIB_preset_sideE, [sideEmpty]]
 ];
 
+private _vehicle = objNull;
+
 // Exit if arguments are missing
-if (_classname isEqualTo "" || _spawnPos isEqualTo []) exitWith {objNull};
+if (_className isEqualTo "" || _spawnPos isEqualTo []) exitWith {
+    _vehicle;
+};
 
 // Local variables initialization
 private _specialAttr = "NONE";
@@ -45,14 +54,14 @@ private _reposition = true;
 private _velocity = 0;
 
 // Make sure the z value is taken into account, if it shouldn't be skipped
-if ((_spawnPos select 2) > 10 && !_justSpawn) then {
-    if ((_classname isKindOf "Air") && _withCrew) then {
+if ((_spawnPos#2) >= KPLIB_param_common_airSpawnDeck && !_justSpawn) then {
+    if ((_className isKindOf "Air") && _withCrew) then {
         // Fly for any air vehicle
         _specialAttr = "FLY";
 
         // Planes spawning mid air are needing a suitable velocity at start
-        if (_classname isKindOf "Plane") then {
-            _velocity = 140;
+        if (_className isKindOf "Plane") then {
+            _velocity = KPLIB_param_common_defaultFixedWingVelocity;
         };
     } else {
         // As it's no air vehicle and/or has no crew, the high z index should execute a paradrop
@@ -65,7 +74,7 @@ if ((_spawnPos select 2) > 10 && !_justSpawn) then {
 };
 
 // Vehicle initially created at the zero position (if not flying). This is faster then create the vehicle at the desired position.
-private _vehicle = createVehicle [_classname, _firstPos, [], 0, _specialAttr];
+_vehicle = createVehicle [_className, _firstPos, [], 0, _specialAttr];
 
 // Reposition the vehicle only, if we've placed it at the zeroPosition
 if (_reposition) then {
@@ -104,4 +113,4 @@ if (_paradrop) then {
 ["KPLIB_vehicle_spawned", [_vehicle]] call CBA_fnc_globalEvent;
 
 // Return created vehicle
-_vehicle
+_vehicle;

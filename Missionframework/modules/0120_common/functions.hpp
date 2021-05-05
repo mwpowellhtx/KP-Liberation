@@ -2,10 +2,9 @@
     KP LIBERATION COMMON FUNCTIONS
 
     File: functions.hpp
-    Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-            Michael W. Powell [22nd MEU SOC]
-    Created: 2018-09-15
-    Last Update: 2021-04-02 15:13:46
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-05-03 11:56:20
+    Last Update: 2021-05-03 13:39:56
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -114,4 +113,13 @@ class common {
 
     // Checks if player occupies a slot
     class common_isSlot {};
+
+    // Returns the calculated radial positions
+    class common_calculateRadialPositions {};
+
+    // Returns the NEAREST BUILDINGS which support at least ONE position
+    class common_getNearestSpawnBuildings {};
+
+    // Returns the NEAREST SPAWN POSITIONS to the target position
+    class common_getNearestSpawnPositions {};
 };

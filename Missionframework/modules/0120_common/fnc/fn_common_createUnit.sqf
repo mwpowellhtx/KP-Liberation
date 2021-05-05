@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-02 14:40:46
-    Last Update: 2021-04-02 14:40:48
+    Last Update: 2021-05-03 16:43:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -13,14 +13,14 @@
         Creates a unit of given classnames and fires the Liberation unit created event.
 
     Parameter(s):
-        _grp        - Group for the unit to join            [GROUP, defaults to grpNull]
-        _classname  - Classname of the unit to spawn        [STRING, defaults to ""]
-        _spawnPos   - Position to spawn the unit            [POSITION, defaults to KPLIB_zeroPos]
-        _addition   - Additional argument for unit creation [STRING, defaults to "NONE"]
+        _grp - a GROUP for the unit to join [GROUP, default: grpNull]
+        _className - a classname of the unit to spawn [STRING, default: ""]
+        _spawnPos - position to spawn the unit [POSITION, default: KPLIB_zeroPos]
+        _special - the SPECIAL argument for unit creation [STRING, default: "NONE"]
 
     Returns:
-        Created unit [OBJECT]
-*/
+        A created UNIT [OBJECT]
+ */
 
 private _debug = [
     [
@@ -29,15 +29,15 @@ private _debug = [
 ] call KPLIB_fnc_common_debug;
 
 params [
-    ["_grp", grpNull, [grpNull]],
-    ["_className", "", [""]],
-    ["_spawnPos", KPLIB_zeroPos, [[]], [3]],
-    ["_addition", "NONE", [""]]
+    ["_grp", grpNull, [grpNull]]
+    , ["_className", "", [""]]
+    , ["_spawnPos", KPLIB_zeroPos, [[]], [3]]
+    , ["_special", "NONE", [""]]
 ];
 
 if (_debug) then {
-    [format ["[fn_common_createUnit] Entering: [isNull _grp, _className, _spawnPos, _addition]: %1"
-        , str [isNull _grp, _className, _spawnPos, _addition]], "COMMON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_common_createUnit] Entering: [isNull _grp, _className, _spawnPos, _special]: %1"
+        , str [isNull _grp, _className, _spawnPos, _special]], "COMMON", true] call KPLIB_fnc_common_log;
 };
 
 if (_grp isEqualTo grpNull || _className isEqualTo "") exitWith {
@@ -49,7 +49,7 @@ if (_grp isEqualTo grpNull || _className isEqualTo "") exitWith {
 private _grpTemp = createGroup [civilian, true];
 
 // Create unit in temp group
-private _unit = _grpTemp createUnit [_className, _spawnPos, [], 10, _addition];
+private _unit = _grpTemp createUnit [_className, _spawnPos, [], 10, _special];
 
 // Let unit join the "correct side group"
 [_unit] joinSilent _grp;

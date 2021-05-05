@@ -3,8 +3,9 @@
 
     File: fn_common_createCrew.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2018-10-25
-    Last Update: 2019-03-30
+    Last Update: 2021-05-03 16:33:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -12,22 +13,24 @@
         Spawns a full crew for given vehicle. Currently only implemented for empty vehicles.
 
     Parameter(s):
-        _vehicle    - Vehicle object which should get a crew    [OBJECT, defaults to objNull]
-        _side       - Side of the crew                          [SIDE, defaults to KPLIB_preset_sideE]
+        _vehicle - a vehicle object which should get a crew [OBJECT, default: objNull]
+        _side - the side of the crew [SIDE, default: KPLIB_preset_sideE]
 
     Returns:
-        Created crew [GROUP]
-*/
+        A GRP constituted by the units and vehicle [GROUP]
+ */
 
 params [
-    ["_vehicle", objNull, [objNull]],
-    ["_side", KPLIB_preset_sideE, [sideEmpty]]
+    ["_vehicle", objNull, [objNull]]
+    , ["_side", KPLIB_preset_sideE, [sideEmpty]]
 ];
 
-// Exit when no or destroyed vehicle was given
-if ((isNull _vehicle) || !(alive _vehicle)) exitWith {grpNull};
+private _grp = grpNull;
 
-private _turrets = (allTurrets _vehicle);
+// Exit when no or destroyed vehicle was given
+if (isNull _vehicle || !alive _vehicle) exitWith {
+    _grp;
+};
 
 // Get driver class depending on vehicle type
 private _driverType = switch (true) do {
@@ -38,7 +41,9 @@ private _driverType = switch (true) do {
     default {"rsCrewmanVeh"};
 };
 
-private _driverClass = [[_driverType, _side] call KPLIB_fnc_common_getPresetClass];
+private _unitClasses = [
+    [_driverType, _side] call KPLIB_fnc_common_getPresetClass
+];
 
 // Get crew class depending on vehicle type
 private _crewType = switch (true) do {
@@ -49,12 +54,17 @@ private _crewType = switch (true) do {
     default {"rsCrewmanVeh"};
 };
 
-private _crewClasses = _turrets apply {
+private _turrets = allTurrets _vehicle;
+
+_unitClasses append (_turrets apply {
     [_crewType, _side] call KPLIB_fnc_common_getPresetClass;
-};
+});
 
 // Spawn group and move into to vehicle
-private _grp = [_driverClass + _crewClasses, getPos _vehicle, _side] call KPLIB_fnc_common_createGroup;
+_grp = [_driverClass + _crewClasses, getPos _vehicle, _side] call KPLIB_fnc_common_createGroup;
+_turrets insert [0, -1];
+//         Ignored: ^^
+
 // Move the units into the vehicle, -1 indicates driver
 {
     if (_forEachIndex isEqualTo 0) then {
@@ -62,18 +72,15 @@ private _grp = [_driverClass + _crewClasses, getPos _vehicle, _side] call KPLIB_
     } else {
         ((units _grp) select _forEachIndex) moveInTurret [_vehicle, _x];
     }
-} forEach [-1] + _turrets;
+} forEach _turrets;
 
 // Remove excess units from group
-{
-    if (isNull objectParent _x) then {
-        deleteVehicle _x;
-    };
-} foreach (units _grp);
+private _unitsToDelete = units _grp select { isNull objectParent _x; };
+{ deleteVehicle _x; } foreach _unitsToDelete;
 
 // Assign vehicle to group and make sure the commander is group leader
 _grp addVehicle _vehicle;
 _grp selectLeader (commander _vehicle);
 
 // Return created crew
-_grp
+_grp;
