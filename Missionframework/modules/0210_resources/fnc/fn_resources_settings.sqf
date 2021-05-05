@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-14
-    Last Update: 2021-04-27 17:40:03
+    Last Update: 2021-05-03 19:45:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -103,6 +103,40 @@ for Q(_intelLevel) from 0 to 3 do {
         , {}
     ] call CBA_fnc_addSetting;
 };
+
+[
+    QMPARAM(_maxSpawnCount)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_RESOURCES_MAX_SPAWN_COUNT"
+        , localize "STR_KPLIB_SETTINGS_RESOURCES_MAX_SPAWN_COUNT_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_RESOURCES"
+    , [0, 7, 3, 0] // range: [0, 7], default: 3
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+{
+    private _sectorType = _x;
+
+    [
+        format ["KPLIB_param_resources_%1ResourceSpawnBias", toLower _sectorType]
+        , Q(SLIDER)
+        , [
+            format [localize "STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_SPAWN_BIAS_FORMAT", _sectorType]
+            , localize "STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_SPAWN_BIAS_TT"
+        ]
+        , localize "STR_KPLIB_SETTINGS_RESOURCES"
+        , [0, 100, 25, 0] // range: [0, 100], default: 25
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+} forEach [
+    Q(City)
+    , Q(Factory)
+];
 
 // The amount of resources which can be stored in a crate.
 [

@@ -5,7 +5,7 @@
     File: fn_resources_getIntelValue.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-26 18:55:49
-    Last Update: 2021-04-26 18:58:37
+    Last Update: 2021-04-28 20:28:21
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -36,8 +36,10 @@ private _className = switch (true) do {
 private _zed = 0;
 
 if (_className in MPRESET(_intelMap)) exitWith {
-    private _offset = MPRESET(_intelMap) get _className;
-    _offset + ([4, _offset] call KPLIB_fnc_linq_roll);
+    private _timesOrOffset = MPRESET(_intelMap) get _className;
+    // TODO: TBD: "sides" may be better defined...
+    private _sides = 4;
+    [_sides, _timesOrOffset, true, _timesOrOffset] call KPLIB_fnc_linq_roll;
 };
 
 _zed;

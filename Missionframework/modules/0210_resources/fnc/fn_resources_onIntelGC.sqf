@@ -5,7 +5,7 @@
     File: fn_resources_onIntelGC.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-27 12:39:44
-    Last Update: 2021-04-27 14:10:48
+    Last Update: 2021-05-05 11:14:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -16,7 +16,7 @@
         _targetObj - a garrisoned INTEL OBJECT [OBJECT, default: objNull]
 
     Returns:
-        The number of INTEL bits actually created [SCALAR]
+        The function has returned [BOOL]
 
     References:
         https://community.bistudio.com/wiki/buildingPos
@@ -37,7 +37,7 @@ private _debug = MPARAM(_onIntelGC_debug)
 
 [
     _targetObj getVariable [Q(_targetNamespace), locationNull]
-    , _targetObj getVariable [Q(KPLI_garrison_uuid), ""]
+    , _targetObj getVariable [Q(KPLIB_garrison_uuid), ""]
 ] params [
     Q(_namespace)
     , Q(_targetUuid)
@@ -48,10 +48,10 @@ if (isNull _targetObj || !(typeOf _targetObj in KPLIB_preset_resources_intelMap)
     false;
 };
 
-private _intelObjs = _namespace getVariable [Q(KPLIB_garrison_intelObjs), []];
+private _intel = _namespace getVariable [Q(KPLIB_garrison_intel), []];
 
 // Select remaining INTEL OBJECTS minus the TARGET one
-_namespace setVariable [Q(KPLIB_garrison_intelObjs), _intelObjs select {
+_namespace setVariable [Q(KPLIB_garrison_intel), _intel select {
     private _intelUuid = _x getVariable [Q(KPLIB_garrison_uuid), ""];
     !(_intelUuid isEqualTo _targetUuid);
 }];
