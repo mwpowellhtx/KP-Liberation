@@ -1968,17 +1968,23 @@
         <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_DEFAULT_TT">
             <English>The default amount of Intel the campaign starts with.</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_MAX_SPAWN_COUNT">
-            <English>Maximum Spawn Count</English>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_CIVREP_BIAS_FORMAT">
+            <English>%1 Resource Civilian Reputation Die Bias</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_MAX_SPAWN_COUNT_TT">
-            <English>Maximum number of crates that spawn at a sector.</English>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_CIVREP_BIAS_TT">
+            <English>Biases the resource die bits selection for the sector type.\n[Adjusts the CIVILIAN REPUTATION INDEX RATIO accordingly.]</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_SPAWN_BIAS_FORMAT">
-            <English>%1 Resource Spawn Bias</English>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_SIDES_FORMAT">
+            <English>%1 Resource Die Sides</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_SPAWN_BIAS_TT">
-            <English>Biases the resource spawn chance for the sector type.</English>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_TIMES_FORMAT">
+            <English>%1 Resource Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_OFFSETS_FORMAT">
+            <English>%1 Resource Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_TT">
+            <English>Die sides, times, offsets, rolled when determining resource counts\n[COMMA DELIMITED, evenly distributed over POSITIVE CIVILIAN REPUTATION]\n[Roll evaluated in terms of HERO GAMES KILLING DAMAGE for counts]</English>
         </Key>
 
         <!-- BI REVIVE CATEGORY -->
