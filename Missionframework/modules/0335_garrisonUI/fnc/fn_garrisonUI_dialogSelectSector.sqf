@@ -91,6 +91,7 @@ private _ctrlsToHide = [
 private _sector = _ctrlLbSectors lbData _selectedIndex;
 private _sectorPos = [_sector] call KPLIB_fnc_common_getPos;
 private _garrison = [_sector] call MFUNC(_getGarrison);
+// TODO: TBD: ditto client/server
 private _alert = !(([_sector, true] call MFUNC(_getGarrison)) isEqualTo []);
 
 // Reset group and unit selection

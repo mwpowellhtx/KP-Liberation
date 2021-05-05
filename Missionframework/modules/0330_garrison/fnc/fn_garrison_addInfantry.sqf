@@ -40,6 +40,7 @@ if (!_all || _active) exitWith {
     false;
 };
 
+// TODO: TBD: ditto client/server
 private _garrisonRef = [_sector] call MFUNC(_getGarrison);
 
 // Prevent values below 0

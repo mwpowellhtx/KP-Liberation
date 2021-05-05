@@ -1,11 +1,12 @@
 #include "script_component.hpp"
+#include "defines.hpp"
 /*
     KPLIB_fnc_garrison_settings
 
     File: fn_garrison_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 21:47:20
-    Last Update: 2021-04-27 13:46:03
+    Last Update: 2021-05-04 14:12:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -17,21 +18,467 @@
 
     Returns:
         The event handler has finished [BOOL]
+
+    References:
+        https://cbateam.github.io/CBA_A3/docs/files/settings/fnc_addSetting-sqf.html
  */
+
+// This bundles several of the cross-cutting GARRISON CBA settings across SECTOR TYPE vectors
+{
+    _x params [
+        [Q(_sectorType), "", [""]]
+        , [Q(_unitDieSides), "", [""]]
+        , [Q(_unitDieTimes), "", [""]]
+        , [Q(_unitDieOffsets), "", [""]]
+        , [Q(_iedDieSides), "", [""]]
+        , [Q(_iedDieTimes), "", [""]]
+        , [Q(_iedDieOffsets), "", [""]]
+        , [Q(_grpDieSides), "6,4,3", [""]]
+        , [Q(_grpDieTimes), "1,2", [""]]
+        , [Q(_grpDieOffsets), "1,2", [""]]
+        , [Q(_lightVehicleDieSides), "10,8,6", [""]]
+        , [Q(_lightVehicleDieTimes), "3,4", [""]]
+        , [Q(_lightVehicleDieOffsets), "4,5", [""]]
+        , [Q(_heavyVehicleDieSides), "12,10,8", [""]]
+        , [Q(_heavyVehicleDieTimes), "2,3", [""]]
+        , [Q(_heavyVehicleDieOffsets), "3,4", [""]]
+    ];
+
+    // MIN+MAX+GRPS+LIGHT+HEAVY+VEHICLES, inform a hard number, throttled by PLAYER+ENEMY+STRENGTH ratios
+    private _categoryKey = format [KPLIB_GARRISON_SETTINGS_GARRISON_ENEMY_FORMAT, toUpper _sectorType];
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_UNIT_DIE_SIDES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_UNIT_DIE_SIDES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _unitDieSides
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_UNIT_DIE_TIMES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_UNIT_DIE_TIMES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _unitDieTimes
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_UNIT_DIE_OFFSETS,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_UNIT_DIE_OFFSETS"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _unitDieOffsets
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_GRP_DIE_SIDES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_GRP_DIE_SIDES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _grpDieSides
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_GRP_DIE_TIMES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_GRP_DIE_TIMES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _grpDieTimes
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_GRP_DIE_OFFSETS,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_GRP_DIE_OFFSETS"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _grpDieOffsets
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_LIGHT_VEHICLE_DIE_SIDES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_LIGHT_VEHICLE_DIE_SIDES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _lightVehicleDieSides
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_LIGHT_VEHICLE_DIE_TIMES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_LIGHT_VEHICLE_DIE_TIMES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _lightVehicleDieTimes
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_LIGHT_VEHICLE_DIE_OFFSETS,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_LIGHT_VEHICLE_DIE_OFFSETS"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _lightVehicleDieOffsets
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_HEAVY_VEHICLE_DIE_SIDES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_HEAVY_VEHICLE_DIE_SIDES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _heavyVehicleDieSides
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_HEAVY_VEHICLE_DIE_TIMES,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_HEAVY_VEHICLE_DIE_TIMES"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _heavyVehicleDieTimes
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_HEAVY_VEHICLE_DIE_OFFSETS,_sectorType)
+        , Q(EDITBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_HEAVY_VEHICLE_DIE_OFFSETS"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT"
+        ]
+        , localize _categoryKey
+        , _heavyVehicleDieOffsets
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+    // Not applicable when any one of the IED arguments is empty
+    if (!(_iedDieSides isEqualTo "" || _iedDieTimes isEqualTo "" || _iedDieOffsets isEqualTo "")) then {
+        [
+            QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_IED_DIE_SIDES,_sectorType)
+            , Q(EDITBOX)
+            , [
+                localize "STR_KPLIB_SETTINGS_GARRISON_IED_DIE_SIDES"
+                , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_NEGATIVE_CIV_REP_TT"
+            ]
+            , localize _categoryKey
+            , _iedDieSides
+            , 1
+            , {}
+        ] call CBA_fnc_addSetting;
+
+        [
+            QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_IED_DIE_TIMES,_sectorType)
+            , Q(EDITBOX)
+            , [
+                localize "STR_KPLIB_SETTINGS_GARRISON_IED_DIE_TIMES"
+                , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_NEGATIVE_CIV_REP_TT"
+            ]
+            , localize _categoryKey
+            , _iedDieTimes
+            , 1
+            , {}
+        ] call CBA_fnc_addSetting;
+
+        [
+            QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_IED_DIE_OFFSETS,_sectorType)
+            , Q(EDITBOX)
+            , [
+                localize "STR_KPLIB_SETTINGS_GARRISON_IED_DIE_OFFSETS"
+                , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_NEGATIVE_CIV_REP_TT"
+            ]
+            , localize _categoryKey
+            , _iedDieOffsets
+            , 1
+            , {}
+        ] call CBA_fnc_addSetting;
+    };
+
+} forEach [
+    [Q(city), "10,8,6", "8,12,16", "2,3,4", "4,3", "2,3", "2,3,4"]
+    , [Q(metropolis), "10,8,6", "8,12,16", "2,3,4", "5,4", "3,4", "3,4,5"]
+    , [Q(factory), "10,8,6", "8,12,16", "2,3,4", "3,2", "2,3", "1,2,3"]
+    , [Q(base), "10,8,6", "8,12,16", "2,3,4"]
+    , [Q(tower), "10,8,6", "8,12,16", "2,3,4"]
+];
+
+// Another set of bundled cross-cutting GARRISON CBA settings
+{
+    _x params [
+        [Q(_sectorType), "", [""]]
+        , [Q(_defaultGarrisonApcs), false, [false]]
+    ];
+
+    // Supporting several SECTOR specific flags
+    private _categoryKey = format [KPLIB_GARRISON_SETTINGS_GARRISON_ENEMY_FORMAT, toUpper _sectorType];
+
+    [
+        QSECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_GARRISON_APCS,_sectorType)
+        , Q(CHECKBOX)
+        , [
+            localize "STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS"
+            , localize "STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS_TT"
+        ]
+        , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_FACTORY"
+        , true
+        , 1
+        , {}
+    ] call CBA_fnc_addSetting;
+
+} forEach [
+    [Q(city), true]
+    , [Q(metropolis), true]
+    , [Q(factory)]
+    , [Q(base), true]
+    , [Q(tower)]
+];
+
+// Plus a handful of INTEL bits
+[
+    QMPARAM(_baseIntelDieSides)
+    , Q(EDITBOX)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_DIE_SIDES"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_INVERSE_ENEMY_AWARENESS_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+    , "8,6,4"
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_baseIntelDieTimes)
+    , Q(EDITBOX)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_DIE_TIMES"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_INVERSE_ENEMY_AWARENESS_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+    , "4,3,2"
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_baseIntelDieOffsets)
+    , Q(EDITBOX)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_DIE_OFFSETS"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_INVERSE_ENEMY_AWARENESS_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+    , "3,2,1"
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+// [
+//     QMPARAM(_intelMin)
+//     , Q(SLIDER)
+//     , [
+//         localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_MIN"
+//         , localize "STR_KPLIB_SETTINGS_GARRISON_MIN_INVERSE_ENEMY_AWARENESS_TT"
+//     ]
+//     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+//     , [0, 100, 20, 0] // range: [0, 100], default: 20
+//     , 1
+//     , {}
+// ] call CBA_fnc_addSetting;
+
+// [
+//     QMPARAM(_intelMax)
+//     , Q(SLIDER)
+//     , [
+//         localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_MAX"
+//         , localize "STR_KPLIB_SETTINGS_GARRISON_MAX_INVERSE_ENEMY_AWARENESS_TT"
+//     ]
+//     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+//     , [0, 100, 40, 0] // range: [0, 100], default: 40
+//     , 1
+//     , {}
+// ] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_intelLockedVehicleCoef)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_LOCKED_COEF"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_LOCKED_COEF_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+    , [0, 200, 100, 0] // range: [0, 200], default: 100
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_intelBuildingDamageThreshold)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_BUILDING_DAMAGE_THRESHOLD"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_INTEL_BUILDING_DAMAGE_THRESHOLD_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
+    , [25, 75, 50, 0] // range: [25, 75], default: 50
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+// TODO: TBD: need to think through the whole BIAS question...
+// TODO: TBD: i.e. is it a THROTTLE throttle?
+// TODO: TBD: thinking "biases" more for mission spawns, i.e. garrison for missions like S+R, HTV, HVT, etc
+// Also arrange for overall BIAS settings
+[
+    QMPARAM(_lightVehicleStrengthBias)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_LIGHT_VEHICLE"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
+    , [0, 100, 30, 0] // range: [0, 100], default: 30
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_heavyVehicleStrengthBias)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_HEAVY_VEHICLE"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
+    , [0, 100, 45, 0] // range: [0, 100], default: 45
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_rotaryStrengthBias)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_ROTARY"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
+    , [0, 100, 65, 0] // range: [0, 100], default: 65
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_fixedWingStrengthBias)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_FIXED_WING"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
+    , [0, 100, 85, 0] // range: [0, 100], default: 85
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_unitCivRepBias)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_UNIT"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
+    , [0, 100, 40, 0] // range: [0, 100], default: 40
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_iedCivRepBias)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_IED"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
+    , [0, 100, 60, 0] // range: [0, 100], default: 60
+    , 1
+    , {}
+] call CBA_fnc_addSetting;
+
+// TODO: TBD: also pending, CBA settings 
 
 if (isServer) then {
     
     MPARAM(_onLoadData_debug)                       = false;
     MPARAM(_onSaveData_debug)                       = false;
-    MPARAM(_onGarrisoning_debug)                    = false;
+    MPARAM(_onGarrisoning_debug)                    = true;
+    MPARAM(_onGarrisonIntel_debug)                  = true;
     MPARAM(_onGarrisoningCalculateBits_debug)       = false;
     MPARAM(_onSpawn_debug)                          = true;
     MPARAM(_onSpawnSectorInfantry_debug)            = true;
     MPARAM(_onSpawnSectorVehicle_debug)             = true;
     MPARAM(_onSpawnSectorResistance_debug)          = true;
+    MPARAM(_getGarrison_debug)                      = false;
+    MPARAM(_getOpforSectorCounts_debug)             = true;
+    MPARAM(_getOpforGarrison_debug)                 = true;
 
     MPARAM(_defaultInfantryCount)                   =  6;
 
+    // TODO: TBD: (re-)consider which incidental params should be proper CBA settings...
+    // TODO: TBD: especially as we seek to address the garrison question by closing the gap
     // TODO: TBD: may defer some of these to actual CBA settings...
     MPARAM(_minRange)                               = 50;
     MPARAM(_nearEntityRange)                        = 20;
@@ -44,228 +491,6 @@ if (isServer) then {
     // Patrol chance used when creating units
     MPARAM(_patrolChance)                           = 15;
     MPARAM(_waypointCount)                          =  4;
-
-    // Biases, as whole number percentage, range: [0, 100]
-    // Setup the ENEMY STRENGTH bias for the following kinds of assets
-    MPARAM(_biasStrength_lightVehicle)              = 30;
-    MPARAM(_biasStrength_heavyVehicle)              = 45;
-    MPARAM(_biasStrength_rotary)                    = 65;
-    MPARAM(_biasStrength_fixedWing)                 = 85;
-
-    // Rinse and repeat for CIVILIAN REPUTATION units and IEDs, respectively
-    MPARAM(_biasCivRep_units)                       = 40;
-    MPARAM(_biasCivRep_ieds)                        = 60;
-    // TODO: TBD: need to think through the whole bias question...
-
-    // TODO: TBD: add to "KPLIP - Garrison - Base"
-    /*
-        BASE CONFIGURATION
-     */
-    MPARAM(_baseGrpMin)                             = 3;
-    MPARAM(_baseGrpCount)                           = 3;
-    MPARAM(_baseGrpCeil)                            = true;
-
-    MPARAM(_baseUnitMin)                            = 2;
-    MPARAM(_baseUnitCount)                          = 2;
-    MPARAM(_baseUnitCeil)                           = true;
-    MPARAM(_baseUnitCoef)                           = 5;
-
-    MPARAM(_baseLightVehicleMin)                    = 3;
-    MPARAM(_baseLightVehicleCount)                  = 4;
-    MPARAM(_baseLightVehicleCeil)                   = false;
-    MPARAM(_baseLightVehicleCoef)                   = 1;
-
-    MPARAM(_baseHeavyVehicleMin)                    = 2;
-    MPARAM(_baseHeavyVehicleCount)                  = 3;
-    MPARAM(_baseHeavyVehicleCeil)                   = true;
-    MPARAM(_baseHeavyVehicleCoef)                   = 1;
-
-    // Influence the COUNT of assets as well as the CHANCE
-    MPARAM(_baseUnitThrottleMin)                    = 0;
-    MPARAM(_baseUnitThrottle)                       = 0;
-    MPARAM(_baseUnitBias)                           = 0;
-
-    MPARAM(_baseLightVehicleThrottleMin)            = 0;
-    MPARAM(_baseLightVehicleThrottle)               = 0;
-    MPARAM(_baseLightVehicleBias)                   = 0;
-
-    MPARAM(_baseHeavyVehicleThrottle)               = 0;
-    MPARAM(_baseHeavyVehicleThrottleMin)            = 0;
-    MPARAM(_baseHeavyVehicleBias)                   = 0;
-
-    // Yes, INTEL is BASE or MILITARY specific, however it is also a special case
-    MPARAM(_baseIntelMin)                           = 2;
-    MPARAM(_baseIntelCount)                         = 5;
-    MPARAM(_baseIntelCeil)                          = true;
-    MPARAM(_baseIntelCoef)                          = 1;
-
-    MPARAM(_baseIntelBuildingDamageThreshold)       = 0.5;
-
-    /*
-        CITY CONFIGURATION
-     */
-    MPARAM(_cityGrpMin)                             = 2;
-    MPARAM(_cityGrpCount)                           = 2;
-    MPARAM(_cityGrpCeil)                            = true;
-
-    MPARAM(_cityUnitMin)                            = 3;
-    MPARAM(_cityUnitCount)                          = 3;
-    MPARAM(_cityUnitCeil)                           = true;
-    MPARAM(_cityUnitCoef)                           = 3;
-
-    MPARAM(_cityLightVehicleMin)                    = 1;
-    MPARAM(_cityLightVehicleCount)                  = 3;
-    MPARAM(_cityLightVehicleCeil)                   = false;
-    MPARAM(_cityLightVehicleCoef)                   = 1;
-
-    MPARAM(_cityHeavyVehicleMin)                    = 1;
-    MPARAM(_cityHeavyVehicleCount)                  = 2;
-    MPARAM(_cityHeavyVehicleCeil)                   = true;
-    MPARAM(_cityHeavyVehicleCoef)                   = 1;
-
-    MPARAM(_cityIedMin)                             = 3;
-    MPARAM(_cityIedCount)                           = 2;
-    MPARAM(_cityIedCeil)                            = false;
-    MPARAM(_cityIedCoef)                            = 2;
-
-    MPARAM(_cityUnitThrottleMin)                    = 0;
-    MPARAM(_cityUnitThrottle)                       = 0;
-    MPARAM(_cityUnitBias)                           = 0;
-
-    MPARAM(_cityLightVehicleThrottleMin)            = 0;
-    MPARAM(_cityLightVehicleThrottle)               = 0;
-    MPARAM(_cityLightVehicleBias)                   = 0;
-
-    MPARAM(_cityHeavyVehicleThrottleMin)            = 0;
-    MPARAM(_cityHeavyVehicleThrottle)               = 0;
-    MPARAM(_cityHeavyVehicleBias)                   = 0;
-
-    MPARAM(_cityIedThrottleMin)                     = 0;
-    MPARAM(_cityIedThrottle)                        = 0;
-    MPARAM(_cityIedBias)                            = 0;
-
-
-    /*
-        FACTORY CONFIGURATION
-     */
-    MPARAM(_factoryGrpMin)                          = 2;
-    MPARAM(_factoryGrpCount)                        = 2;
-    MPARAM(_factoryGrpCeil)                         = true;
-
-    MPARAM(_factoryUnitMin)                         = 3;
-    MPARAM(_factoryUnitCount)                       = 3;
-    MPARAM(_factoryUnitCeil)                        = true;
-    MPARAM(_factoryUnitCoef)                        = 2;
-
-    MPARAM(_factoryLightVehicleMin)                 = 2;
-    MPARAM(_factoryLightVehicleCount)               = 2;
-    MPARAM(_factoryLightVehicleCeil)                = false;
-    MPARAM(_factoryLightVehicleCoef)                = 1;
-
-    MPARAM(_factoryHeavyVehicleMin)                 = 1;
-    MPARAM(_factoryHeavyVehicleCount)               = 2;
-    MPARAM(_factoryHeavyVehicleCeil)                = true;
-    MPARAM(_factoryHeavyVehicleCoef)                = 1;
-
-    MPARAM(_factoryIedMin)                          = 2;
-    MPARAM(_factoryIedCount)                        = 2;
-    MPARAM(_factoryIedCeil)                         = true;
-    MPARAM(_factoryIedCoef)                         = 2;
-
-    MPARAM(_factoryUnitThrottleMin)                 = 0;
-    MPARAM(_factoryUnitThrottle)                    = 0;
-    MPARAM(_factoryUnitBias)                        = 0;
-
-    MPARAM(_factoryLightVehicleThrottleMin)         = 0;
-    MPARAM(_factoryLightVehicleThrottle)            = 0;
-    MPARAM(_factoryLightVehicleBias)                = 0;
-
-    MPARAM(_factoryHeavyVehicleThrottleMin)         = 0;
-    MPARAM(_factoryHeavyVehicleThrottle)            = 0;
-    MPARAM(_factoryHeavyVehicleBias)                = 0;
-
-    MPARAM(_factoryIedThrottleMin)                  = 0;
-    MPARAM(_factoryIedThrottle)                     = 0;
-    MPARAM(_factoryIedBias)                         = 0;
-
-
-    /*
-        METROPOLIS CONFIGURATION
-     */
-    MPARAM(_metropolisGrpMin)                       = 4;
-    MPARAM(_metropolisGrpCount)                     = 4;
-    MPARAM(_metropolisGrpCeil)                      = true;
-
-    MPARAM(_metropolisUnitMin)                      = 3;
-    MPARAM(_metropolisUnitCount)                    = 3;
-    MPARAM(_metropolisUnitCeil)                     = true;
-    MPARAM(_metropolisUnitCoef)                     = 8;
-
-    MPARAM(_metropolisLightVehicleMin)              = 2;
-    MPARAM(_metropolisLightVehicleCount)            = 2;
-    MPARAM(_metropolisLightVehicleCeil)             = true;
-    MPARAM(_metropolisLightVehicleCoef)             = 2;
-
-    MPARAM(_metropolisHeavyVehicleMin)              = 1;
-    MPARAM(_metropolisHeavyVehicleCount)            = 2;
-    MPARAM(_metropolisHeavyVehicleCeil)             = true;
-    MPARAM(_metropolisHeavyVehicleCoef)             = 2;
-
-    MPARAM(_metropolisIedMin)                       = 2;
-    MPARAM(_metropolisIedCount)                     = 2;
-    MPARAM(_metropolisIedCeil)                      = true;
-    MPARAM(_metropolisIedCoef)                      = 2;
-
-    MPARAM(_metropolisUnitThrottleMin)              = 0;
-    MPARAM(_metropolisUnitThrottle)                 = 0;
-    MPARAM(_metropolisUnitBias)                     = 0;
-
-    MPARAM(_metropolisLightVehicleThrottleMin)      = 0;
-    MPARAM(_metropolisLightVehicleThrottle)         = 0;
-    MPARAM(_metropolisLightVehicleBias)             = 0;
-
-    MPARAM(_metropolisHeavyVehicleThrottleMin)      = 0;
-    MPARAM(_metropolisHeavyVehicleThrottle)         = 0;
-    MPARAM(_metropolisHeavyVehicleBias)             = 0;
-
-    MPARAM(_metropolisIedThrottleMin)               = 0;
-    MPARAM(_metropolisIedThrottle)                  = 0;
-    MPARAM(_metropolisIedBias)                      = 0;
-
-
-    /*
-        TOWER CONFIGURATION
-     */
-    MPARAM(_towerGrpMin)                            = 2;
-    MPARAM(_towerGrpCount)                          = 2;
-    MPARAM(_towerGrpCeil)                           = true;
-
-    MPARAM(_towerUnitMin)                           = 3;
-    MPARAM(_towerUnitCount)                         = 3;
-    MPARAM(_towerUnitCeil)                          = true;
-    MPARAM(_towerUnitCoef)                          = 2;
-
-    MPARAM(_towerLightVehicleMin)                   = 0;
-    MPARAM(_towerLightVehicleCount)                 = 3;
-    MPARAM(_towerLightVehicleCeil)                  = false;
-    MPARAM(_towerLightVehicleCoef)                  = 0;
-
-    MPARAM(_towerHeavyVehicleMin)                   = 0;
-    MPARAM(_towerHeavyVehicleCount)                 = 2;
-    MPARAM(_towerHeavyVehicleCeil)                  = false;
-    MPARAM(_towerHeavyVehicleCoef)                  = 0;
-
-    MPARAM(_towerUnitThrottleMin)                   = 20;
-    MPARAM(_towerUnitThrottle)                      = 100;
-    MPARAM(_towerUnitBias)                          = 100;
-
-    MPARAM(_towerLightVehicleThrottleMin)           = 0;
-    MPARAM(_towerLightVehicleThrottle)              = 0;
-    MPARAM(_towerLightVehicleBias)                  = 0;
-
-    MPARAM(_towerHeavyVehicleThrottleMin)           = 0;
-    MPARAM(_towerHeavyVehicleThrottle)              = 0;
-    MPARAM(_towerHeavyVehicleBias)                  = 0;
 
     // Remember also the several IED thresholds, however counts are SECTOR specific
     MPARAM(_iedThresholdXL)                         = 90; // +20

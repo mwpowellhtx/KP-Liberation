@@ -57,6 +57,7 @@ private _markerPos = markerPos _markerName;
 private _spawnPos = [];
 private _soldierArray = [];
 private _classNames = [];
+// TODO: TBD: ditto client/server
 private _activeGarrisonRef = ([_markerName, true] call MFUNC(_getGarrison)) select 2;
 
 // Avoid spawn position on water

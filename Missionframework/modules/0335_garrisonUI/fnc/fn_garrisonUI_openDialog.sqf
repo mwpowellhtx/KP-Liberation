@@ -99,6 +99,7 @@ _sectors sort true;
 lbClear _ctrlLbSectors;
 {
     _ctrlLbSectors lbSetData [_ctrlLbSectors lbAdd (_x select 0), _x select 1];
+    // TODO: TBD: this whole thing is going to change in the direction of client/server
     if !(([_x select 1, true] call MFUNC(_getGarrison)) isEqualTo []) then {
         _ctrlLbSectors lbSetColor [_forEachIndex, [0.8, 0, 0, 1]];
     };

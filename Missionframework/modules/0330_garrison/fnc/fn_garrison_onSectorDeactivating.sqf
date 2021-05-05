@@ -5,7 +5,7 @@
     File: fn_garrison_onSectorDeactivating.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-24 12:26:04
-    Last Update: 2021-04-27 12:54:18
+    Last Update: 2021-05-05 11:22:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -14,15 +14,21 @@
 
     Parameter(s):
         _namespace - a CBA SECTOR namespace [LOCATION, default: locationNull]
-        _variableNames - the variable names to consider being un-GARRISONED [ARRAY, default: []]
+        _variableNames - the variable names to consider being un-GARRISONED [ARRAY, default: _defaultVariableNames]
 
     Returns:
         The event handler has finished [BOOL]
  */
 
+private _defaultVariableNames = [
+    QMVAR(_units)
+    , QMVAR(_vehicles)
+    , QMVAR(_resources)
+];
+
 params [
     [Q(_namespace), locationNull, [locationNull]]
-    , [Q(_variableNames), [], [[]]]
+    , [Q(_variableNames), _defaultVariableNames, [[]]]
 ];
 
 private _trySectorDeactivating = {
@@ -48,25 +54,23 @@ private _trySectorDeactivating = {
         Q(_obj)
     ];
 
-    private _found = !isNil Q(_obj);
-
-    if (_found) then {
+    if (!isNil { _obj; }) then {
         _objs = _objs - [_obj];
         _namespace setVariable [_variableName, _objs];
         deleteVehicle _obj;
     };
 
-    _found;
+    true;
 };
 
-_variableNames select { [_x] call _trySectorDeactivating; };
+{ [_x] call _trySectorDeactivating; } forEach _variableNames;
 
 // Peels off the next available INTEL OBJECT and performs its GC effects
-(_namespace getVariable [QMVAR(_intelObjs), []]) call {
+(_namespace getVariable [QMVAR(_intel), []]) call {
     params [
-        [Q(_intelObj), objNull, [objNull]]
+        [Q(_targetObj), objNull, [objNull]]
     ];
-    [_intelObj] call KPLIB_fnc_resources_onIntelGC;
+    [_targetObj] call KPLIB_fnc_resources_onIntelGC;
 };
 
 true;

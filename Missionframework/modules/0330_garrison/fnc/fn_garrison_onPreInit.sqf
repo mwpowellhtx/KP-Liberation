@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-04-25 20:10:29
+    Last Update: 2021-05-05 11:22:11
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -35,6 +35,13 @@ if (isServer) then {
  */
 
 if (isServer) then {
+
+    // Include BLUFOR bits during mission serialization
+    [KPLIB_sectors_serializationRegistry, [
+            QMVAR(_bluforUnits), QMVAR(_bluforGrps)
+            , QMVAR(_bluforLightVehicles), QMVAR(_bluforHeavyVehicles)
+        ]
+    ] call KPLIB_fnc_namespace_registerSerializationVars;
 
     // // // TODO: TBD: 
     // // Array to collect active garrison units

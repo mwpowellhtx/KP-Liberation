@@ -45,6 +45,7 @@ if (!_all || _active || _empty) exitWith {
     false;
 };
 
+// TODO: TBD: ditto client/server
 private _garrisonRef = [_sector] call MFUNC(_getGarrison);
 
 // Remove the first occurance of the classname

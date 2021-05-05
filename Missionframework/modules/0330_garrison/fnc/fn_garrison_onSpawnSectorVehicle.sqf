@@ -49,6 +49,7 @@ private _waypointCount = MPARAM(_waypointCount);
 // Initialize local variables
 private _markerPos = markerPos _markerName;
 private _spawnPos = [_markerPos] call MFUNC(_getVehSpawnPos);
+// TODO: TBD: ditto client/server
 private _activeGarrisonRef = [_markerName, true] call MFUNC(_getGarrison);
 
 // Spawn vehicle

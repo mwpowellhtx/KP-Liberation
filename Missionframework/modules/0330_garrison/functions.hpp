@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-04-27 13:46:19
+    Last Update: 2021-05-04 15:56:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -44,25 +44,25 @@ class garrison {
     class garrison_onGarrisoning {};
 
     // Creates a specified number of INTEL bits at a target SECTOR marker
-    class garrison_onGarrisoningIntel {};
+    class garrison_onGarrisonIntel {};
 
-    // Returns the desired filter approaching the GARRISON spec calculations
-    class garrison_onGarrisoningGetFilter {};
+    // // Returns the desired filter approaching the GARRISON spec calculations
+    //class garrison_onGarrisoningGetFilter {};
 
-    // Calculates each count given a set of repeatable parameters, i.e. UNITS, LIGHT VEHICLES, HEAVY VEHICLES, GRPS
-    class garrison_onGarrisoningCalculateEachCount {};
+    // // Calculates each count given a set of repeatable parameters, i.e. UNITS, LIGHT VEHICLES, HEAVY VEHICLES, GRPS
+    // class garrison_onGarrisoningCalculateEachCount {};
 
-    // Calculates the GARRISON counts given the specified blue print
-    class garrison_onGarrisoningCalculateCounts {};
+    // // Calculates the GARRISON counts given the specified blue print
+    // class garrison_onGarrisoningCalculateCounts {};
 
-    // Calculates the BITS for use during GARRISON, applies for INTEL for military bases, also IED scenarios
-    class garrison_onGarrisoningCalculateBits {};
+    // // Calculates the BITS for use during GARRISON, applies for INTEL for military bases, also IED scenarios
+    // class garrison_onGarrisoningCalculateBits {};
 
-    //
-    class garrison_onGarrisoningMakeIntelArgs {};
+    // //
+    // class garrison_onGarrisoningMakeIntelArgs {};
 
-    //
-    class garrison_onGarrisoningMakeIedArgs {};
+    // //
+    // class garrison_onGarrisoningMakeIedArgs {};
 
     // Converts the CBA GARRISON namespace to a serialization consistent TUPLE ARRAY
     class garrison_namespaceToArray {};
@@ -91,6 +91,9 @@ class garrison {
     // Gets the specific GARRISON tuple
     class garrison_getGarrison {};
 
+    // // Returns the SECTOR COUNTS
+    // class garrison_getSectorCounts {};
+
     // // Spawns the garrison upon sector activation
     // class garrison_onSpawn {};
 
@@ -115,4 +118,28 @@ class garrison {
 
     // // Event handler responds when SECTOR has been CAPTURED
     // class garrison_onSectorCaptured {};
+
+    //
+    class garrison_selectParsedDieComponent {};
+
+    //
+    class garrison_getLightVehiclePresets {};
+
+    //
+    class garrison_getHeavyVehiclePresets {};
+
+    // Returns the BLUFOR SECTOR COUNTS
+    class garrison_getBluforSectorCounts {};
+
+    // Returns the OPFOR SECTOR COUNTS
+    class garrison_getOpforSectorCounts {};
+
+    //
+    class garrison_getOpforGarrison {};
+
+    //
+    class garrison_getBluforGarrison {};
+
+    //
+    class garrison_getRatioBundle {};
 };

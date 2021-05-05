@@ -41,6 +41,7 @@ private _ctrlHeavyButton = _dialog displayCtrl KPLIB_IDC_GARRISON_HEAVYBUTTON;
 // Initialize needed local variables
 private _sector = _ctrlLbSectors lbData (lbCurSel _ctrlLbSectors);
 private _sectorPos = [_sector] call KPLIB_fnc_common_getPos;
+// TODO: TBD: ditto client/server
 private _garrison = [_sector] call MFUNC(_getGarrison);
 private _side = KPLIB_preset_sideF;
 
