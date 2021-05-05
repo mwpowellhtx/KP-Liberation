@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-28
-    Last Update: 2021-04-21 14:54:45
+    Last Update: 2021-05-03 10:00:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -97,4 +97,7 @@ class core {
 
     // Returns the player strength as a ratio of connected players to playable slots
     class core_getPlayerStrength {};
+
+    // Returns the COUNT of all GRPS
+    class core_getGroupCount {};
 };
