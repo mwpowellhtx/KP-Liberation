@@ -6,7 +6,7 @@
     File: fn_garrison_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 21:47:20
-    Last Update: 2021-05-04 14:12:23
+    Last Update: 2021-05-05 14:25:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -270,8 +270,8 @@
             localize "STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS"
             , localize "STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS_TT"
         ]
-        , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_FACTORY"
-        , true
+        , localize _categoryKey
+        , _defaultGarrisonApcs
         , 1
         , {}
     ] call CBA_fnc_addSetting;

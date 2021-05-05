@@ -2,7 +2,7 @@
     File: defines.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-29 11:10:38
-    Last Update: 2021-05-04 17:14:30
+    Last Update: 2021-05-05 14:11:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -38,5 +38,14 @@
 
 #define KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_GARRISON_APCS "KPLIB_param_garrison_%1GarrisonApcs"
 
+#ifndef QSECTORTYPE_PARAM
 #define QSECTORTYPE_PARAM(f,x) format [f, toLower x]
+#endif // QSECTORTYPE_PARAM
+
+#ifndef SECTORTYPE_PARAM
 #define SECTORTYPE_PARAM(f,x) missionNamespace getVariable [QSECTORTYPE_PARAM(f,x), ""]
+#endif // SECTORTYPE_PARAM
+
+#ifndef SECTORTYPE_PARAM_DEF
+#define SECTORTYPE_PARAM_DEF(f,x,y) missionNamespace getVariable [QSECTORTYPE_PARAM(f,x), y]
+#endif // SECTORTYPE_PARAM_DEF

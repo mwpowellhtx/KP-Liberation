@@ -5,7 +5,7 @@
     File: fn_garrison_getOpforGarrison.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-01 15:58:17
-    Last Update: 2021-05-04 14:36:26
+    Last Update: 2021-05-05 14:12:16
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -39,6 +39,7 @@ if (_debug) then {
         , str [_markerName, markerText _markerName]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
+// Remember GRP COUNT shall have already been properly normalized
 ([_namespace] call MFUNC(_getOpforSectorCounts)) params [
     [Q(_unitCount), 0, [0]]
     , [Q(_grpCount), 0, [0]]
@@ -47,25 +48,12 @@ if (_debug) then {
     , [Q(_intelCount), 0, [0]]
     , [Q(_iedCount), 0, [0]]
     , [Q(_resourceCount), 0, [0]]
-    , [Q(_resourceSpawnBias), 0, [0]]
-];
-
-([] call MFUNC(_getRatioBundle)) params [
-    [Q(_civRepRatio), 0, [0]]
-    , [Q(_opforStrengthRatio), 0, [0]]
-    , [Q(_opforAwarenessRatio), 0, [0]]
-    , [Q(_bluforStrengthRatio), 0, [0]]
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_getOpforGarrison] Counts: [_markerName, markerText _markerName, _unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount, _resourceSpawnBias]: %1"
-        , str [_markerName, markerText _markerName, _unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount, _resourceSpawnBias]], "GARRISON", true] call KPLIB_fnc_common_log;
-
-    [format ["[fn_garrison_getOpforGarrison] Ratios: [_markerName, markerText _markerName, _civRepRatio, _opforStrengthRatio, _opforAwarenessRatio, _bluforStrengthRatio]: %1"
-        , str [_markerName, markerText _markerName, _civRepRatio, _opforStrengthRatio, _opforAwarenessRatio, _bluforStrengthRatio]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforGarrison] Counts: [_markerName, markerText _markerName, [_unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount]]: %1"
+        , str [_markerName, markerText _markerName, [_unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount]]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
-
-_grpCount = _grpCount max 1;
 
 private _side = [_namespace] call KPLIB_fnc_sectors_getSide;
 private _presetUnitClassNames = ([_side] call KPLIB_fnc_common_getSoldierArray) call BIS_fnc_arrayShuffle;
@@ -89,28 +77,6 @@ if (_debug) then {
         , str [_markerName, markerText _markerName, _side, count _presetUnitClassNames, _presetUnitClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
-// TODO: TBD: we may decide whether/how to generalize this
-// TODO: TBD: i.e. apart from SECTOR garrison...
-// TODO: TBD: i.e. which may also support MISSION GARRISON ...
-// TODO: TBD: probably also need to take into account BIAS...
-
-[
-    _bluforStrengthRatio * _opforStrengthRatio
-    , _bluforStrengthRatio * (1 - _opforAwarenessRatio)
-    , _bluforStrengthRatio * (abs (_civRepRatio min 0))
-    , (0 max _civRepRatio) - _resourceSpawnBias
-] params [
-    Q(_thresholdBluforByOpfor)
-    , Q(_thresholdBluforByInverseAwareness)
-    , Q(_thresholdBluforByHostileCivRep)
-    , Q(_thresholdBiasedCivRep)
-];
-
-if (_debug) then {
-    [format ["[fn_garrison_getOpforGarrison] Thresholds: [_markerName, markerText _markerName, _thresholdBluforByOpfor, _thresholdBluforByInverseAwareness, _thresholdBluforByHostileCivRep, _thresholdBiasedCivRep]: %1"
-        , str [_markerName, markerText _markerName, _thresholdBluforByOpfor, _thresholdBluforByInverseAwareness, _thresholdBluforByHostileCivRep, _thresholdBiasedCivRep]], "GARRISON", true] call KPLIB_fnc_common_log;
-};
-
 /* Create the INTEL which will serve as a DEFEND objective. Increasing levels of ENEMY
  * AWARENESS also means not only fewer INTEL opportunities, but also increasingly
  * stringent opportunities when they do occur. The opposite is also true when ENEMY
@@ -120,22 +86,21 @@ if (_debug) then {
 
 // TODO: TBD: may tweak the class selection filter, for now selecting random...
 private _garrison = [
-    [_unitCount, _thresholdBluforByOpfor, _presetUnitClassNames]
-    , [_lightVehicleCount, _thresholdBluforByOpfor, _presetLightVehicleClassNames]
-    , [_heavyVehicleCount, _thresholdBluforByOpfor, _presetHeavyVehicleClassNames]
-    , [_intelCount, _thresholdBluforByInverseAwareness, _presetIntelClassNames]
-    , [_iedCount, _thresholdBluforByHostileCivRep, _presetIedClassNames]
-    , [_resourceCount, _thresholdBiasedCivRep, _presetResourceClassNames]
+    [_unitCount, _presetUnitClassNames]
+    , [_lightVehicleCount, _presetLightVehicleClassNames]
+    , [_heavyVehicleCount, _presetHeavyVehicleClassNames]
+    , [_intelCount, _presetIntelClassNames]
+    , [_iedCount, _presetIedClassNames]
+    , [_resourceCount, _presetResourceClassNames]
 ] apply {
     _x params [
         [Q(_count), 0, [0]]
-        , [Q(_threshold), 0, [0]]
         , [Q(_classNames), [], [[]]]
     ];
     private _retval = [];
     if (_count == 0) then { _retval; } else {
         _retval resize _count;
-        _retval select { random 1 <= _threshold; } apply { selectRandom _classNames; };
+        _retval apply { selectRandom _classNames; };
     };
 };
 

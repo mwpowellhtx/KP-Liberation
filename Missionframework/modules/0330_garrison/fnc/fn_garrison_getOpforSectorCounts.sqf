@@ -1,27 +1,33 @@
 #include "script_component.hpp"
 #include "defines.hpp"
+#include "..\..\0210_resources\fnc\defines.hpp"
 /*
     KPLIB_fnc_garrison_getOpforSectorCounts
 
     File: fn_garrison_getOpforSectorCounts.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-29 11:33:46
-    Last Update: 2021-05-04 13:32:02
+    Last Update: 2021-05-05 15:32:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Returns the OPFOR SECTOR counts.
+        Returns several counts that inform a OPFOR SECTOR garrison.
 
     Parameter(s):
         _namespace - a CBA SECTOR namespace [LOCATION, default: locationNull]
-        _civRepRatio - the CIVILIAN REPUTATION ratio, from which we derive HOSTILE [SCALAR, default: 0]
-        _opforStrengthRatio - the OPFOR STRENGTH ratio, we use in its natural form [SCALAR, default: 0]
-        _opforAwarenessRatio - the OPFOR AWARENESS ratio, from which we derive its INVERSE [SCALAR, default: 0]
-        _bluforStrengtRatio - the BLUFOR STRENGTH ratio, unused [SCALAR, default: 0]
 
     Returns:
         The OPFOR SECTOR counts [ARRAY]
+            [
+                _unitCount
+                , _grpCount
+                , _lightVehicleCount
+                , _heavyVehicleCount
+                , _intelCount
+                , _iedCount
+                , _resourceCount
+            ]
 
     Remarks:
         REGEX support would be incredibly useful for sector use cases. But unfortunately
@@ -99,14 +105,10 @@ if (_debug) then {
     , SECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_IED_DIE_TIMES,_sectorType)
     , SECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_IED_DIE_OFFSETS,_sectorType)
     // RESOURCE
-    , if (!(_sectorType in [Q(city), Q(factory)])) then { 0; } else {
-        KPLIB_param_resources_maxSpawnCount;
-    }
-    , switch (_sectorType) do {
-        case (Q(city)): { KPLIB_param_resources_cityResourceSpawnBias; };
-        case (Q(factory)): { KPLIB_param_resources_factoryResourceSpawnBias; };
-        default { 0; };
-    }
+    , SECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_SIDES,_sectorType)
+    , SECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_TIMES,_sectorType)
+    , SECTORTYPE_PARAM(KPLIB_GARRISON_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_OFFSETS,_sectorType)
+    , SECTORTYPE_PARAM_DEF(KPLIB_RESOURCES_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_BIAS,_sectorType,0)
 ] params [
     Q(_inverseOpforAwarenessRatio)
     , Q(_hostileCivRepRatio)
@@ -128,8 +130,10 @@ if (_debug) then {
     , Q(_iedDieSides)
     , Q(_iedDieTimes)
     , Q(_iedDieOffsets)
-    , Q(_resourceCount)
-    , Q(_resourceSpawnBias)
+    , Q(_resourceDieSides)
+    , Q(_resourceDieTimes)
+    , Q(_resourceDieOffsets)
+    , Q(_resourceBias)
 ];
 
 if (_debug) then {
@@ -154,49 +158,65 @@ if (_debug) then {
     [format ["[fn_garrison_getOpforSectorCounts] Components: [_markerName, markerText _markerName, _iedDieSides, _iedDieTimes, _iedDieOffsets]: %1"
         , str [_markerName, markerText _markerName, _iedDieSides, _iedDieTimes, _iedDieOffsets]], "GARRISON", true] call KPLIB_fnc_common_log;
 
-    [format ["[fn_garrison_getOpforSectorCounts] Components: [_markerName, markerText _markerName, _resourceCount, _resourceSpawnBias]: %1"
-        , str [_markerName, markerText _markerName, _resourceCount, _resourceSpawnBias]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforSectorCounts] Components: [_markerName, markerText _markerName, _resourceDieSides, _resourceDieTimes, _resourceDieOffsets, _resourceBias]: %1"
+        , str [_markerName, markerText _markerName, _resourceDieSides, _resourceDieTimes, _resourceDieOffsets, _resourceBias]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 private _sum = true;
 
+[
+    _bluforStrengtRatio * _opforStrengthRatio
+    , _bluforStrengtRatio * _inverseOpforAwarenessRatio
+    , _civRepRatio + PCT(_resourceBias)
+] params [
+    Q(_adjustedOpforStrengthRatio)
+    , Q(_adjustedOpforAwarenessRatio)
+    , Q(_adjustedCivRepRatio)
+];
+
 // With roll components influences by both OPFOR_STRENTGH/OPFOR_AWARENESS/CIVREP+BLUFOR_STRENGTH
 [
     [
-        [_unitDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
-        , [_unitDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        [_unitDieSides, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_unitDieTimes, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_unitDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_unitDieOffsets, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_grpDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
-        , [_grpDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        [_grpDieSides, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_grpDieTimes, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_grpDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_grpDieOffsets, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_lightVehicleDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
-        , [_lightVehicleDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        [_lightVehicleDieSides, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_lightVehicleDieTimes, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_lightVehicleDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_lightVehicleDieOffsets, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_heavyVehicleDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
-        , [_heavyVehicleDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        [_heavyVehicleDieSides, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_heavyVehicleDieTimes, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_heavyVehicleDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_heavyVehicleDieOffsets, _adjustedOpforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_intelDieSides, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
-        , [_intelDieTimes, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
+        [_intelDieSides, _adjustedOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_intelDieTimes, _adjustedOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_intelDieOffsets, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_intelDieOffsets, _adjustedOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
         [_iedDieSides, _hostileCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
         , [_iedDieTimes, _hostileCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
         , [_iedDieOffsets, _hostileCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
+    ]
+    , [
+        [_resourceDieSides, _adjustedCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_resourceDieTimes, _adjustedCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
+        , _sum
+        , [_resourceDieOffsets, _adjustedCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
 ] params [
     Q(_unitDice)
@@ -205,11 +225,12 @@ private _sum = true;
     , Q(_heavyVehicleDice)
     , Q(_intelDice)
     , Q(_iedDice)
+    , Q(_resourceDice)
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_getOpforSectorCounts] Dice: [_markerName, markerText _markerName, _unitDice, _grpDice, _lightVehicleDice, _heavyVehicleDice, _intelDice, _iedDice]: %1"
-        , str [_markerName, markerText _markerName, _unitDice, _grpDice, _lightVehicleDice, _heavyVehicleDice, _intelDice, _iedDice]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforSectorCounts] Dice: [_markerName, markerText _markerName, _unitDice, _grpDice, _lightVehicleDice, _heavyVehicleDice, _intelDice, _iedDice, _resourceDice]: %1"
+        , str [_markerName, markerText _markerName, _unitDice, _grpDice, _lightVehicleDice, _heavyVehicleDice, _intelDice, _iedDice, _resourceDice]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 [
@@ -219,6 +240,7 @@ if (_debug) then {
     , _heavyVehicleDice call KPLIB_fnc_linq_heroSystemKillingRoll
     , _intelDice call KPLIB_fnc_linq_heroSystemKillingRoll
     , _iedDice call KPLIB_fnc_linq_heroSystemKillingRoll
+    , _resourceDice call KPLIB_fnc_linq_heroSystemKillingRoll
 ] params [
     Q(_unitCount)
     , Q(_grpCount)
@@ -226,6 +248,7 @@ if (_debug) then {
     , Q(_heavyVehicleCount)
     , Q(_intelCount)
     , Q(_iedCount)
+    , Q(_resourceCount)
 ];
 
 // At least ONE GRP
@@ -237,12 +260,11 @@ private _retval = [
     , _intelCount
     , _iedCount
     , _resourceCount
-    , _resourceSpawnBias
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_getOpforSectorCounts] Fini: [_markerName, markerText _markerName, _unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount, _resourceSpawnBias]: %1"
-        , str [_markerName, markerText _markerName, _unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount, _resourceSpawnBias]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforSectorCounts] Fini: [_markerName, markerText _markerName, _unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount]: %1"
+        , str [_markerName, markerText _markerName, _unitCount, _grpCount, _lightVehicleCount, _heavyVehicleCount, _intelCount, _iedCount, _resourceCount]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 _retval;
