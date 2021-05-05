@@ -163,40 +163,40 @@ private _sum = true;
 // With roll components influences by both OPFOR_STRENTGH/OPFOR_AWARENESS/CIVREP+BLUFOR_STRENGTH
 [
     [
-        [_unitDieSides, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
-        , [_unitDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        [_unitDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_unitDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_unitDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        , [_unitDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_grpDieSides, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
-        , [_grpDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        [_grpDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_grpDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_grpDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        , [_grpDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_lightVehicleDieSides, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
-        , [_lightVehicleDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        [_lightVehicleDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_lightVehicleDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_lightVehicleDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        , [_lightVehicleDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_heavyVehicleDieSides, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
-        , [_heavyVehicleDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        [_heavyVehicleDieSides, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_heavyVehicleDieTimes, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_heavyVehicleDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call MFUNC(_selectParsedDieComponent)
+        , [_heavyVehicleDieOffsets, _bluforStrengtRatio * _opforStrengthRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_intelDieSides, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call MFUNC(_selectParsedDieComponent)
-        , [_intelDieTimes, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call MFUNC(_selectParsedDieComponent)
+        [_intelDieSides, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_intelDieTimes, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_intelDieOffsets, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call MFUNC(_selectParsedDieComponent)
+        , [_intelDieOffsets, _bluforStrengtRatio * _inverseOpforAwarenessRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
     , [
-        [_iedDieSides, _hostileCivRepRatio] call MFUNC(_selectParsedDieComponent)
-        , [_iedDieTimes, _hostileCivRepRatio] call MFUNC(_selectParsedDieComponent)
+        [_iedDieSides, _hostileCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
+        , [_iedDieTimes, _hostileCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
         , _sum
-        , [_iedDieOffsets, _hostileCivRepRatio] call MFUNC(_selectParsedDieComponent)
+        , [_iedDieOffsets, _hostileCivRepRatio] call KPLIB_fnc_core_getIndexedNumber
     ]
 ] params [
     Q(_unitDice)

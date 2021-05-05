@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-05-04 15:56:31
+    Last Update: 2021-05-05 11:31:15
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -118,9 +118,6 @@ class garrison {
 
     // // Event handler responds when SECTOR has been CAPTURED
     // class garrison_onSectorCaptured {};
-
-    //
-    class garrison_selectParsedDieComponent {};
 
     //
     class garrison_getLightVehiclePresets {};

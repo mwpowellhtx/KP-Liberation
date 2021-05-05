@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-14
-    Last Update: 2021-05-03 19:45:25
+    Last Update: 2021-05-05 11:19:01
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -104,6 +104,7 @@ for Q(_intelLevel) from 0 to 3 do {
     ] call CBA_fnc_addSetting;
 };
 
+// TODO: TBD: reconsider in terms of proper killing die roll + offsets...
 [
     QMPARAM(_maxSpawnCount)
     , Q(SLIDER)

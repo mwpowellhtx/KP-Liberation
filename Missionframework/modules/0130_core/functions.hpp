@@ -100,4 +100,7 @@ class core {
 
     // Returns the COUNT of all GRPS
     class core_getGroupCount {};
+
+    // Returns the NUMBER corresponding to an INDEX RATIO from a set of delimited values
+    class core_getIndexedNumber {};
 };
