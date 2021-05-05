@@ -5,7 +5,7 @@
     File: fn_enemy_allowBuildingDestruction.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 22:37:28
-    Last Update: 2021-04-23 22:37:30
+    Last Update: 2021-05-05 10:46:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -28,8 +28,8 @@ params [
 private _markerName = _namespace getVariable [Q(KPLIB_sectors_markerName), ""];
 
 private _allowedPrefixes = [
-    KPLIB_preset_sectors_cityPrefix
-    , KPLIB_preset_sectors_metropolisPrefix
+    KPLIB_preset_eden_cityPrefix
+    , KPLIB_preset_eden_metropolisPrefix
 ];
 
 private _markerPrefix = _markerName select [

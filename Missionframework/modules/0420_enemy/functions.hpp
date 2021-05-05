@@ -91,8 +91,11 @@ class enemy {
     // Returns the CIVILIAN REPUTATION bounded by plus and minus MAXIMUM CIVILIAN REPUTATION
     class enemy_getCivRepBounded {};
 
-    // Returns the CIVILIAN REPUTATION in terms of HOSTILITY
-    class enemy_getCivRepHostility {};
+    // Returns the CIVILIAN REPUTATION expressed in terms of a RATIO
+    class enemy_getCivRepRatio {};
+
+    // Returns the CIVILIAN REPUTATION ratio in terms of HOSTILITY
+    class enemy_getCivRepHostilityRatio {};
 
     // SECTOR ACTIVATING event handler
     class enemy_onSectorActivating {};

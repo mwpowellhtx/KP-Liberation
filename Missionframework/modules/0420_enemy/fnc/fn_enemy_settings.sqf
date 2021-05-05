@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-27 19:58:23
+    Last Update: 2021-05-05 10:44:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -152,10 +152,13 @@ if (isServer) then {
     MPARAM(_addCivRep_debug)                                        = false;
     MPARAM(_getStrengthRatio_debug)                                 = false;
     MPARAM(_getCivRepBounded_debug)                                 = false;
+    MPARAM(_getCivRepRatio_debug)                                   = false;
+    MPARAM(_getCivRepHostilityRatio_debug)                          = false;
     MPARAM(_onRegisterBuildings_debug)                              = false;
     MPARAM(_onSectorCaptured_debug)                                 = false;
     MPARAM(_onBuildingsDestroyed_debug)                             = false;
     MPARAM(_allowBuildingDestruction_debug)                         = false;
+    MPARAM(_getSectorCaptureReward_debug)                           = false;
 
     // TODO: TBD: could wire this up in terms of settings
     MPARAM(_strengthDeltaPeriod)                                    = 1800;
