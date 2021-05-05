@@ -1538,6 +1538,146 @@
             <German>ACE Arsenal</German>
         </Key>
 
+        <!-- GARRISON CATEGORY -->
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON">
+            <English>KPLIB - Garrison</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_ENEMY_CITY">
+            <English>KPLIB - Garrison - Enemy - City</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_ENEMY_METROPOLIS">
+            <English>KPLIB - Garrison - Enemy - Metropolis</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE">
+            <English>KPLIB - Garrison - Enemy - Base</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_ENEMY_FACTORY">
+            <English>KPLIB - Garrison - Enemy - Factory</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_ENEMY_TOWER">
+            <English>KPLIB - Garrison - Enemy - Tower</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS">
+            <English>KPLIB - Garrison - Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_UNIT_DIE_SIDES">
+            <English>Units Die Sides</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_UNIT_DIE_TIMES">
+            <English>Units Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_UNIT_DIE_OFFSETS">
+            <English>Units Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_IED_DIE_SIDES">
+            <English>IEDs Die Sides</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_IED_DIE_TIMES">
+            <English>IEDs Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_IED_DIE_OFFSETS">
+            <English>IEDs Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_GRP_DIE_SIDES">
+            <English>Groups Die Sides</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_GRP_DIE_TIMES">
+            <English>Groups Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_GRP_DIE_OFFSETS">
+            <English>Groups Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_LIGHT_VEHICLE_DIE_SIDES">
+            <English>Light Vehicles Die Sides</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_LIGHT_VEHICLE_DIE_TIMES">
+            <English>Light Vehicles Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_LIGHT_VEHICLE_DIE_OFFSETS">
+            <English>Light Vehicles Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_HEAVY_VEHICLE_DIE_SIDES">
+            <English>Heavy Vehicles Die Sides</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_HEAVY_VEHICLE_DIE_TIMES">
+            <English>Heavy Vehicles Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_HEAVY_VEHICLE_DIE_OFFSETS">
+            <English>Heavy Vehicles Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_ENEMY_STRENGTH_TT">
+            <English>Die sides, times, offsets, rolled when determining garrison counts\n[COMMA DELIMITED, evenly distributed over ENEMY STRENGTH]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_NEGATIVE_CIV_REP_TT">
+            <English>Die sides, times, offsets, rolled when determining IED counts\n[COMMA DELIMITED, evenly distributed over negative CIVILIAN REPUTATION]</English>
+        </Key>
+        <!-- <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_MIN">
+            <English>Minimum Intel Count</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_MAX">
+            <English>Maximum Intel Count</English>
+        </Key> -->
+        <!-- <Key ID="STR_KPLIB_SETTINGS_GARRISON_MIN_INVERSE_ENEMY_AWARENESS_TT">
+            <English>Minimum count\n[Throttled by inverse ENEMY AWARENESS]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_MAX_INVERSE_ENEMY_AWARENESS_TT">
+            <English>Maximum count\n[Throttled by inverse ENEMY AWARENESS]</English>
+        </Key> -->
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_DIE_SIDES">
+            <English>Intel Die Sides</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_DIE_TIMES">
+            <English>Intel Die Times</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_DIE_OFFSETS">
+            <English>Intel Die Offsets</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_DIE_BITS_INVERSE_ENEMY_AWARENESS_TT">
+            <English>Die sides, times, offsets, rolled when determining Intel counts\n[COMMA DELIMITED, evenly distributed over inverse ENEMY AWARENESS]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_BUILDING_DAMAGE_THRESHOLD">
+            <English>Intel Building Damage Threshold</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_BUILDING_DAMAGE_THRESHOLD_TT">
+            <English>Damage percentage threshold at which buildings may host Intel bits</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_LOCKED_COEF">
+            <English>Locked Vehicle Coefficient</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_INTEL_LOCKED_COEF_TT">
+            <English>Coefficient by which to multiply Minimum and Maximum Intel Counts</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_LIGHT_VEHICLE">
+            <English>Light Vehicle Enemy Strength Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_HEAVY_VEHICLE">
+            <English>Heavy Vehicle Enemy Strength Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_ROTARY">
+            <English>Rotary Enemy Strength Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_FIXED_WING">
+            <English>Fixed Wing Enemy Strength Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_UNIT">
+            <English>Unit Civilian Reputation Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_IED">
+            <English>IED Civilian Reputation Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_STRENGTH_TT">
+            <English>Bias applied to ENEMY STRENGTH used when calculating garrison counts.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BIAS_CIV_REP_TT">
+            <English>Bias applied to CIVILIAN REPUTATION used when calculating garrison counts.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS">
+            <English>Sector Garrisons APC Vehicles</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS_TT">
+            <English>The sector may garrison APC vehicles.</English>
+        </Key>
+
         <!-- ENEMY CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_ENEMY">
             <English>KPLIB - Enemy</English>
@@ -1827,6 +1967,18 @@
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_RESOURCES_INTEL_DEFAULT_TT">
             <English>The default amount of Intel the campaign starts with.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_MAX_SPAWN_COUNT">
+            <English>Maximum Spawn Count</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_MAX_SPAWN_COUNT_TT">
+            <English>Maximum number of crates that spawn at a sector.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_SPAWN_BIAS_FORMAT">
+            <English>%1 Resource Spawn Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_SPAWN_BIAS_TT">
+            <English>Biases the resource spawn chance for the sector type.</English>
         </Key>
 
         <!-- BI REVIVE CATEGORY -->
