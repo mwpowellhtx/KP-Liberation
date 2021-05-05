@@ -5,7 +5,7 @@
     File: fn_eden_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 11:20:25
-    Last Update: 2021-04-15 11:10:28
+    Last Update: 2021-05-04 12:42:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -64,6 +64,44 @@ if (_debug) then {
 //// TODO: TBD: and then I think we simply identify a UUID variable on these assets indicating it is "respawn" and get the ID...
 
 if (isServer) then {
+
+    // Define SECTOR TYPE, SECTOR ICON, SECTOR PREFIX for each of the types
+    [] call {
+        {
+            _x params [
+                [Q(_sectorType), "", [""]]
+                , [Q(_mapIconPath), "", [""]]
+            ];
+            _sectorType = toLower _sectorType;
+            private _mapIconBase = "\a3\ui_f\data\map\";
+            // Which simply seeds a PRESET with an UNDERSCORE, i.e. PREFIX
+            private _variableNamePrefix = QMPRESET(_); // i.e. 'KPLIB_presets_sectors_'
+            //                                      Just an underscore, that is all: ^
+            private _edenPrefix = Q(KPLIB_eden_); 
+            private _sectorTypePrefix = _sectorType select [0, 1];
+            { missionNamespace setVariable _x; } forEach [
+                // i.e. 'KPLIB_preset_sectors_metropolisType', etc
+                [format ["%1%2Type", _variableNamePrefix, _sectorType]      , _sectorType                                       ]
+                , [format ["%1%2Icon", _variableNamePrefix, _sectorType]    , format ["%1%2", _mapIconBase, _mapIconPath]       ]
+                , [format ["%1%2Prefix", _variableNamePrefix, _sectorType]  , format ["%1%2", _edenPrefix, _sectorTypePrefix]   ]
+            ]
+        } forEach [
+            [Q(city)        , "markers\nato\n_art.paa"          ]
+            , [Q(metropolis), "markers\nato\n_service.paa"      ]
+            , [Q(factory)   , "mapcontrol\fuelstation_ca.paa"   ]
+            , [Q(tower)     , "mapcontrol\transmitter_ca.paa"   ]
+            , [Q(base)      , "markers\nato\o_support.paa"      ]
+        ];
+
+        MPRESET(_sectorTypes)                                       = [
+            MPRESET(_cityType)
+            , MPRESET(_metropolisType)
+            , MPRESET(_factoryType)
+            , MPRESET(_towerType)
+            , MPRESET(_baseType)
+        ];
+    };
+
     // Server side init
     [Q(KPLIB_updateMarkers), MFUNC(_onUpdateMarkers)] call CBA_fnc_addEventHandler;
 };

@@ -5,7 +5,7 @@
     File: fn_eden_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-15 10:45:23
-    Last Update: 2021-04-21 21:53:41
+    Last Update: 2021-04-30 18:53:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -38,6 +38,7 @@ if (isServer) then {
 
     MPARAM(_onPreInit_debug)                = true;
     MPARAM(_onPostInit_debug)               = true;
+    MPARAM(_getSectorIcon_debug)            = false;
 };
 
 true;
