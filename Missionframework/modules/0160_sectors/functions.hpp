@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-04-26 14:22:54
+    Last Update: 2021-05-03 13:26:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -36,9 +36,6 @@ class sectors {
 
     // Reconciles deserialized SECTOR NAMESPACES with available sector markers
     class sectors_onReconcileSectors {};
-
-    // Returns the icon image path corresponding to the given SECTOR marker name
-    class sectors_getSectorIcon {};
 
     // Returns the CBA SECTOR namespace corresponding to the target MARKER NAME
     class sectors_getNamespace {};
@@ -94,4 +91,7 @@ class sectors {
     // // TODO: TBD: reserved for a later sprint...
     // // TODO: TBD: intention is to relay to sector report HUD via client/server events...
     // class sectors_onUpdateMarkers_dispatchSectorHud {};
+
+    // Returns the SIDE corresponding with the SECTOR defender
+    class sectors_getSide {};
 };

@@ -5,7 +5,7 @@
     File: fn_sectors_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 15:49:28
-    Last Update: 2021-04-25 19:58:15
+    Last Update: 2021-05-03 13:25:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -36,8 +36,8 @@ MPARAM(_onNotifyCapture_debug)                                      = false;
 MPARAM(_getActivatingNamespaces_debug)                              = false;
 MPARAM(_getSectorCapturing_debug)                                   = false;
 MPARAM(_createSector_debug)                                         = false;
-MPARAM(_getSectorIcon_debug)                                        = false;
 MPARAM(_getStatusReport_debug)                                      = false;
+MPARAM(_getSide_debug)                                              = false;
 
 // TODO: TBD: determine patrol count params, etc...
 

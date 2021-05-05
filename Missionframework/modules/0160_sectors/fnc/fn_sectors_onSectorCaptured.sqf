@@ -5,7 +5,7 @@
     File: fn_sectors_onSectorCaptured.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-21 13:26:43
-    Last Update: 2021-04-25 19:58:34
+    Last Update: 2021-05-05 11:12:53
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -30,10 +30,12 @@ params [
 
 [
     _namespace getVariable [QMVAR(_markerName), ""]
+    , _namespace getVariable [QMVAR(_sectorIcon), ""]
     , _namespace getVariable [QMVAR(_blufor), false]
     , _namespace getVariable [QMVAR(_opfor), false]
 ] params [
     Q(_markerName)
+    , Q(_sectorIcon)
     , Q(_blufor)
     , Q(_opfor)
 ];
@@ -66,9 +68,10 @@ if (_opfor) then {
 private _sideText = if (_blufor) then { "opfor"; } else { "blufor"; };
 
 // Now perform the notification
-[_markerName, _sideText] call {
+[_markerName, _sectorIcon, _sideText] call {
     params [
         [Q(_markerName), "", [""]]
+        , [Q(_sectorIcon), "", [""]]
         , [Q(_sideText), "", [""]]
     ];
     private _players = allPlayers select { !isNull _x; };
@@ -76,7 +79,7 @@ private _sideText = if (_blufor) then { "opfor"; } else { "blufor"; };
         format ["KPLIB_notification_%1", _sideText]
         , [
             "KP LIBERATION - SECTOR"
-            , [_markerName] call MFUNC(_getSectorIcon)
+            , _sectorIcon
             , format [localize "STR_KPLIB_SETTINGS_SECTOR_SEC_CAP_FORMAT", markerText _markerName, toUpper _sideText]
         ]
     ] remoteExec ["KPLIB_fnc_notification_show", _players];

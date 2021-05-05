@@ -5,7 +5,7 @@
     File: fn_sectors_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-26 14:18:08
+    Last Update: 2021-05-05 11:12:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -144,19 +144,6 @@ if (isServer) then {
     [MVAR(_captured), { _this call MFUNC(_onSectorCaptured); }] call CBA_fnc_addEventHandler;
 
     [Q(KPLIB_updateMarkers), { [] call MFUNC(_onUpdateMarkers); }] call CBA_fnc_addEventHandler;
-
-    // Define the SECTOR prefixes, we use this for easy identification and classification
-    MPRESET(_towerPrefix)                                           = Q(KPLIB_eden_t); // -ower
-    MPRESET(_factoryPrefix)                                         = Q(KPLIB_eden_f); // -actory
-    MPRESET(_basePrefix)                                            = Q(KPLIB_eden_b); // -ase
-    MPRESET(_cityPrefix)                                            = Q(KPLIB_eden_c); // -ity
-    MPRESET(_metropolisPrefix)                                      = Q(KPLIB_eden_m); // -etropolis
-
-    MPRESET(_towerIcon)                                             = "\a3\ui_f\data\map\mapcontrol\transmitter_ca.paa";
-    MPRESET(_factoryIcon)                                           = "\a3\ui_f\data\map\mapcontrol\fuelstation_ca.paa";
-    MPRESET(_baseIcon)                                              = "\a3\ui_f\data\map\markers\nato\o_support.paa";
-    MPRESET(_cityIcon)                                              = "\a3\ui_f\data\map\markers\nato\n_art.paa";
-    MPRESET(_metropolisIcon)                                        = "\a3\ui_f\data\map\markers\nato\n_service.paa";
 };
 
 if (!(hasInterface || isDedicated)) then {

@@ -5,7 +5,7 @@
     File: fn_sectors_createSector.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-07 17:40:29
-    Last Update: 2021-04-11 13:14:50
+    Last Update: 2021-04-30 19:04:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -37,7 +37,7 @@ private _namespace = [false, {
     { _namespace setVariable _x; } forEach [
         [QMVAR(_markerName), _markerName]
         , [QMVAR(_markerPos), markerPos _markerName]
-        , [QMVAR(_sectorIcon), [_markerName] call MFUNC(_getSectorIcon)]
+        , [QMVAR(_sectorIcon), [_markerName] call KPLIB_fnc_eden_getSectorIcon]
         , [QMVAR(_status), MSTATUS(_standby)]
     ];
 }] call KPLIB_fnc_namespace_create;
