@@ -465,7 +465,7 @@ if (isServer) then {
     MPARAM(_onLoadData_debug)                       = false;
     MPARAM(_onSaveData_debug)                       = false;
     MPARAM(_onGarrisoning_debug)                    = true;
-    MPARAM(_onGarrisonIntel_debug)                  = true;
+    MPARAM(_onGarrisoningSpawnIntel_debug)          = true;
     MPARAM(_onGarrisoningCalculateBits_debug)       = false;
     MPARAM(_onSpawn_debug)                          = true;
     MPARAM(_onSpawnSectorInfantry_debug)            = true;

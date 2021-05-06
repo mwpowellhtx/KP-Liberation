@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-05-05 11:31:15
+    Last Update: 2021-05-05 18:29:44
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -43,8 +43,8 @@ class garrison {
     // Specifies the GARRISON for the CBA SECTOR namespace when necessary
     class garrison_onGarrisoning {};
 
-    // Creates a specified number of INTEL bits at a target SECTOR marker
-    class garrison_onGarrisonIntel {};
+    // Spawns the INTEL bits during GARRISONING phase
+    class garrison_onGarrisoningSpawnIntel {};
 
     // // Returns the desired filter approaching the GARRISON spec calculations
     //class garrison_onGarrisoningGetFilter {};

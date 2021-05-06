@@ -5,7 +5,7 @@
     File: fn_garrison_onGarrisoning.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-16 16:33:22
-    Last Update: 2021-05-04 13:02:18
+    Last Update: 2021-05-05 18:30:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -32,7 +32,7 @@ params [
 ];
 
 private _debug = MPARAM(_onGarrisoning_debug)
-    || (_namespace getVariable [QMVAR(_onGarrison_debug), false]);
+    || (_namespace getVariable [QMVAR(_onGarrisoning_debug), false]);
 
 [
     _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
@@ -87,20 +87,44 @@ _namespace setVariable [QMVAR(_garrison), _garrison];
 
 _garrison params [
     [Q(_groupedUnitClassNames), [], [[]]]
-    , [Q(_lightVehiclesClassNames), [], [[]]]
-    , [Q(_heavyVehiclesClassNames), [], [[]]]
+    , [Q(_lightVehicleClassNames), [], [[]]]
+    , [Q(_heavyVehicleClassNames), [], [[]]]
     , [Q(_intelClassNames), [], [[]]]
     , [Q(_iedsClassNames), [], [[]]]
     , [Q(_resourceClassNames), [], [[]]]
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_onGarrisoning] Garrisoning: [_markerName, markerText _markerName, count _garrison, count _groupedUnitClassNames, count _lightVehiclesClassNames, count _heavyVehiclesClassNames, count _intelClassNames, count _iedsClassNames, count _resourceClassNames]: %1"
-        , str [_markerName, markerText _markerName, count _garrison, count _groupedUnitClassNames, count _lightVehiclesClassNames, count _heavyVehiclesClassNames, count _intelClassNames, count _iedsClassNames, count _resourceClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_onGarrisoning] Garrisoning: [_markerName, markerText _markerName, count _garrison, count _groupedUnitClassNames, count _lightVehicleClassNames, count _heavyVehicleClassNames, count _intelClassNames, count _iedsClassNames, count _resourceClassNames]: %1"
+        , str [_markerName, markerText _markerName, count _garrison, count _groupedUnitClassNames, count _lightVehicleClassNames, count _heavyVehicleClassNames, count _intelClassNames, count _iedsClassNames, count _resourceClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
-// TODO: TBD: starting with something relatively benign, let's make sure this works...
-[_namespace] call MFUNC(_onGarrisonIntel);
+private _garrisonCallbacks = [
+    [_resourceClassNames, MFUNC(_onGarrisoningSpawnResources)]
+    , [_iedsClassNames, MFUNC(_onGarrisoningSpawnIeds)]
+    , [_intelClassNames, MFUNC(_onGarrisoningSpawnIntel)]
+    , [_groupedUnitClassNames, MFUNC(_onGarrisoningSpawnUnits)]
+    , [_lightVehicleClassNames, MFUNC(_onGarrisoningSpawnLightVehicles)]
+    , [_heavyVehicleClassNames, MFUNC(_onGarrisoningSpawnHeavyVehicles)]
+];
+
+private _garrisonedObjs = _garrisonCallbacks apply {
+    _x params [
+        [Q(_classNames), [], [[]]]
+        , [Q(_callback), {[]}, [{}]]
+    ];
+    [_namespace, _classNames] call _callback;
+};
+
+_garrisonedObjs params [
+    Q(_resourceObjs)
+    , Q(_iedObjs)
+    , Q(_intelObjs)
+    , Q(_unitObjs)
+    , Q(_lightVehicleObjs)
+    , Q(_heavyVehicleObjs)
+];
+// TODO: TBD: do something with the objects, set them on the name space, etc...
 
 if (_debug) then {
     ["[fn_garrison_onGarrisoning] Fini", "GARRISON", true] call KPLIB_fnc_common_log;

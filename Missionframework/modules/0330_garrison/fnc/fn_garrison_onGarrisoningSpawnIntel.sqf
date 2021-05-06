@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_garrison_onGarrisonIntel
+    KPLIB_fnc_garrison_onGarrisoningSpawnIntel
 
-    File: fn_garrison_onGarrisonIntel.sqf
+    File: fn_garrison_onGarrisoningSpawnIntel.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-27 11:31:44
-    Last Update: 2021-05-04 13:02:06
+    Last Update: 2021-05-05 18:29:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -25,7 +25,7 @@
             [LOCATION, default: locationNull]
 
     Returns:
-        The number of INTEL bits actually created [SCALAR]
+        The created INTEL objects [ARRAY]
 
     References:
         https://community.bistudio.com/wiki/buildingPos
@@ -41,20 +41,25 @@ params [
     [Q(_namespace), locationNull, [locationNull]]
 ];
 
-private _debug = MPARAM(_onGarrisonIntel_debug)
-    || (_namespace getVariable [QMVAR(_onGarrisonIntel_debug), false]);
+private _debug = MPARAM(_onGarrisoningSpawnIntel_debug)
+    || (_namespace getVariable [QMVAR(_onGarrisoningSpawnIntel_debug), false]);
 
 [
     _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
     , _namespace getVariable [Q(KPLIB_sectors_markerPos), +KPLIB_zeroPos]
     , _namespace getVariable [QMVAR(_garrison), []]
-    , []
+    , _namespace getVariable QMVAR(_intel)
 ] params [
     Q(_markerName)
     , Q(_markerPos)
     , Q(_garrison)
     , Q(_intel)
 ];
+
+// Preclude duplicate garrison
+if (!isNil { _intel; }) exitWith {
+    _intel;
+};
 
 _garrison params [
     Q(_0) // UNITS
@@ -126,4 +131,4 @@ if (_debug) then {
         , str [_markerName, markerText _markerName, count _intel]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
-count _intel;
+_intel;
