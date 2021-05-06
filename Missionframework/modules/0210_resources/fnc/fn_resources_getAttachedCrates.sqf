@@ -4,7 +4,7 @@
     File: fn_resources_getAttachedCrates.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-23 09:34:29
-    Last Update: 2021-02-23 09:34:31
+    Last Update: 2021-05-05 22:32:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,7 +33,7 @@ _storages = switch (typeName _storages) do {
 
 private _crates = [];
 
-_storages apply {
+_storages select { !isNull _x; } apply {
     (attachedObjects _x) select { typeOf _x in _classNames; };
 } select {
     _crates append _x;

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_resources_getCrateValue
 
@@ -16,16 +17,18 @@
 
     Returns:
         The resource value from the crate [SCALAR]
-*/
+ */
 
 params [
-    ["_crate", objNull, [objNull]]
+    [Q(_crate), objNull, [objNull]]
 ];
 
-private _value = 0;
+private _default = 0;
 
-if (isNull _crate) exitWith { _value; };
+if (isNull _crate) exitWith {
+    _default;
+};
 
-_value = _crate getVariable ["KPLIB_resources_crateValue", 0];
+private _value = _crate getVariable [QMVAR(_crateValue), _default];
 
 _value;

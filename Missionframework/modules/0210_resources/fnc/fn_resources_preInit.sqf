@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-04-27 18:23:14
+    Last Update: 2021-05-05 23:16:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,14 +33,14 @@ if (isServer) then {
     ----- Module Globals -----
  */
 
-MVAR(_resourceKind_sup)                     = "Supply";
-MVAR(_resourceKind_amm)                     = "Ammo";
-MVAR(_resourceKind_fue)                     = "Fuel";
+MPRESET(_resourceKind_sup)                  = "Supply";
+MPRESET(_resourceKind_amm)                  = "Ammo";
+MPRESET(_resourceKind_fue)                  = "Fuel";
 
-MVAR(_resourceKinds)                        = [
-    MVAR(_resourceKind_sup)
-    , MVAR(_resourceKind_amm)
-    , MVAR(_resourceKind_fue)
+MPRESET(_resourceKinds)                     = [
+    MPRESET(_resourceKind_sup)
+    , MPRESET(_resourceKind_amm)
+    , MPRESET(_resourceKind_fue)
 ];
 
 // TODO: TBD: is a Z offset even necessary? when we have different offsets for different crate class names...
@@ -197,8 +197,19 @@ MVAR(_factoryStorageClasses)                    = [
 ];
 
 if (isServer) then {
+
     // Arrange some debug flags
     MPARAM(_pay_debug)                          = false;
+
+    // MPRESET(_resourceKindsMap)              = [createHashMap] call {
+    //     params [
+    //         Q(_resourceKindsMap)
+    //         , [Q(_kindNames), ["Supply", "Ammo", "Fuel"], [[]]]
+    //         , [Q(_sideSuffixes), ["E", "F"], [[]]]
+    //     ];
+    //     _kindNames apply {};
+    //     _resourceKindsMap;
+    // };
 };
 
 MVAR(_intelLevelChanged)                        = QMVAR(_intelLevelChanged);

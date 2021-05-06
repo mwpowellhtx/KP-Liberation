@@ -1,4 +1,5 @@
 #include "script_component.hpp"
+#include "defines.hpp"
 /*
     KPLIB_fnc_resources_settings
 
@@ -6,7 +7,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-14
-    Last Update: 2021-05-05 16:44:05
+    Last Update: 2021-05-06 01:58:40
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -113,7 +114,7 @@ for Q(_intelLevel) from 0 to 3 do {
     ];
 
     [
-        format ["KPLIB_param_resources_%1ResourceDieBias", toLower _sectorType]
+        format [KPLIB_RESOURCES_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_BIAS, toLower _sectorType]
         , Q(SLIDER)
         , [
             format [localize "STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_CIVREP_BIAS_FORMAT", _sectorType]
@@ -126,7 +127,7 @@ for Q(_intelLevel) from 0 to 3 do {
     ] call CBA_fnc_addSetting;
 
     [
-        format ["KPLIB_param_resources_%1ResourceDieSides", toLower _sectorType]
+        format [KPLIB_RESOURCES_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_SIDES, toLower _sectorType]
         , Q(EDITBOX)
         , [
             format [localize "STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_SIDES_FORMAT", _sectorType]
@@ -139,7 +140,7 @@ for Q(_intelLevel) from 0 to 3 do {
     ] call CBA_fnc_addSetting;
 
     [
-        format ["KPLIB_param_resources_%1ResourceDieTimes", toLower _sectorType]
+        format [KPLIB_RESOURCES_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_TIMES, toLower _sectorType]
         , Q(EDITBOX)
         , [
             format [localize "STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_TIMES_FORMAT", _sectorType]
@@ -152,7 +153,7 @@ for Q(_intelLevel) from 0 to 3 do {
     ] call CBA_fnc_addSetting;
 
     [
-        format ["KPLIB_param_resources_%1ResourceDieOffsets", toLower _sectorType]
+        format [KPLIB_RESOURCES_SECTORTYPE_PARAM_FORMAT_RESOURCE_DIE_OFFSETS, toLower _sectorType]
         , Q(EDITBOX)
         , [
             format [localize "STR_KPLIB_SETTINGS_RESOURCES_RESOURCE_DIE_OFFSETS_FORMAT", _sectorType]
