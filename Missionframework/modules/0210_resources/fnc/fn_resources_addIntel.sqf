@@ -34,7 +34,7 @@ if (_delta != 0) then {
     MVAR(_intel) = 0 max ((MVAR(_intel) + _delta) min MPARAM(_maxIntel));
 
     if (count _message > 0) then {
-        private _sectorIcon = [_markerName] call KPLIB_fnc_sectors_getSectorIcon;
+        private _sectorIcon = [_markerName] call KPLIB_fnc_eden_getSectorIcon;
         private _args = ["KP LIBERATION - RESOURCES", _sectorIcon, _message];
         private _notification = if (_markerName in KPLIB_sectors_blufor) then { "blufor"; } else { "opfor"; };
         private _template = format ["KPLIB_notification_%1", _notification];

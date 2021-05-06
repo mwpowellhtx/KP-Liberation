@@ -38,7 +38,7 @@ if (_delta != 0) then {
     MVAR(_civRep) = -MPARAM(_maxCivRep) max ((MVAR(_civRep) + _delta) min MPARAM(_maxCivRep));
 
     if (count _message > 0) then {
-        private _sectorIcon = [_markerName] call KPLIB_fnc_sectors_getSectorIcon;
+        private _sectorIcon = [_markerName] call KPLIB_fnc_eden_getSectorIcon;
         private _args = ["KP LIBERATION - ENEMY", _sectorIcon, _message];
         [Q(KPLIB_notification_civilian), _args, allPlayers] spawn KPLIB_fnc_notification_show;
     };
