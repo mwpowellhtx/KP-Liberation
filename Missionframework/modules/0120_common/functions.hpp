@@ -4,7 +4,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-03 11:56:20
-    Last Update: 2021-05-03 13:39:56
+    Last Update: 2021-05-05 23:15:43
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -122,4 +122,7 @@ class common {
 
     // Returns the NEAREST SPAWN POSITIONS to the target position
     class common_getNearestSpawnPositions {};
+
+    // Returns whether the CLASS NAME is indeed a CLASS
+    class common_isClass {};
 };
