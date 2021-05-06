@@ -32,11 +32,17 @@ params [
 private _debug = MPARAM(_getOpforGarrison_debug)
     || (_namespace getVariable [QMVAR(_getOpforGarrison_debug), false]);
 
-private _markerName = _namespace getVariable [Q(KPLIB_sectors_markerName), ""];
+[
+    _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
+    , _namespace getVariable [QMVAR(_resources), []]
+] params [
+    Q(_markerName)
+    , Q(_resources)
+];
 
 if (_debug) then {
-    [format ["[fn_garrison_getOpforGarrison] Entering: [_markerName, markerText _markerName]: %1"
-        , str [_markerName, markerText _markerName]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforGarrison] Entering: [_markerName, markerText _markerName, count _resources]: %1"
+        , str [_markerName, markerText _markerName, count _resources]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 // Remember GRP COUNT shall have already been properly normalized
@@ -104,6 +110,13 @@ private _garrison = [
     };
 };
 
+// Allowing for previously-spawned RESOURCE objects
+if (count _resources > 0) then {
+    _resourceCount = count _resources;
+    _garrison set [5, _resources apply { typeOf _x; }];
+};
+
+// Then de-con the correct (KNOWN) GARRISON tuple
 _garrison params [
     Q(_unitClassNames)
     , Q(_lightVehicleClassNames)
