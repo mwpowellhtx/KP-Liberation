@@ -34,15 +34,17 @@ private _debug = MPARAM(_getOpforGarrison_debug)
 
 [
     _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
-    , _namespace getVariable [QMVAR(_resources), []]
+    , _namespace getVariable [QMVAR(_spawnResources), true]
+    , _namespace getVariable [QMVAR(_spawnedResourceClassNames), []]
 ] params [
     Q(_markerName)
-    , Q(_resources)
+    , Q(_spawnResources)
+    , Q(_spawnedResourceClassNames)
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_getOpforGarrison] Entering: [_markerName, markerText _markerName, count _resources]: %1"
-        , str [_markerName, markerText _markerName, count _resources]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforGarrison] Entering: [_markerName, markerText _markerName, _spawnResources, count _spawnedResourceClassNames]: %1"
+        , str [_markerName, markerText _markerName, _spawnResources, count _spawnedResourceClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 // Remember GRP COUNT shall have already been properly normalized
@@ -110,10 +112,11 @@ private _garrison = [
     };
 };
 
+// TODO: TBD: dubious whether we should even go to this extent/extreme keeping tabs on our bookkeeping
 // Allowing for previously-spawned RESOURCE objects
-if (count _resources > 0) then {
-    _resourceCount = count _resources;
-    _garrison set [5, _resources apply { typeOf _x; }];
+if (!_spawnResources) then {
+    _resourceCount = count _spawnedResourceClassNames;
+    _garrison set [5, +_spawnedResourceClassNames];
 };
 
 // Then de-con the correct (KNOWN) GARRISON tuple
