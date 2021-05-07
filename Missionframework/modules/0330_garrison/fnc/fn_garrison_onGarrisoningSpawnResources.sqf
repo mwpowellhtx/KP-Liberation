@@ -5,7 +5,7 @@
     File: fn_garrison_onGarrisoningSpawnResources.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-27 11:31:44
-    Last Update: 2021-05-06 02:06:44
+    Last Update: 2021-05-06 19:30:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -40,7 +40,7 @@ private _debug = MPARAM(_onGarrisoningSpawnResources_debug)
     , _namespace getVariable [Q(KPLIB_sectors_markerPos), +KPLIB_zeroPos]
     , _namespace getVariable [QMVAR(_garrison), []]
     , _namespace getVariable [QMVAR(_resources), []]
-    , _namespace getVariable [QMVAR(_spawnResources), true]
+    , _namespace getVariable QMVAR(_actualResourceClassNames)
     , [_namespace] call KPLIB_fnc_sectors_getSide
 ] params [
     Q(_capRange)
@@ -48,21 +48,23 @@ private _debug = MPARAM(_onGarrisoningSpawnResources_debug)
     , Q(_markerPos)
     , Q(_garrison)
     , Q(_resources)
-    , Q(_spawnResources)
+    , Q(_actualResourceClassNames)
     , Q(_side)
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_onGarrisoningSpawnResources] Entering: [_markerName, markerText _markerName, _markerPos, _spawnResources, _targetClassNames]: %1"
-        , str [_markerName, markerText _markerName, _markerPos, _spawnResources, _targetClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_onGarrisoningSpawnResources] Entering: [_markerName, markerText _markerName, _markerPos, _targetClassNames]: %1"
+        , str [_markerName, markerText _markerName, _markerPos, _targetClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 // Sector has already spawned RESOURCES
-if (!_spawnResources) exitWith {
+if (!isNil { _actualResourceClassNames; }) exitWith {
     if (_debug) then {
-        ["[fn_garrison_onGarrisoningSpawnResources] Already spawned: [_spawnResources, _targetClassNames]: %1"
-            , str [_spawnResources, _targetClassNames], "GARRISON", true] call KPLIB_fnc_common_log;
+        ["[fn_garrison_onGarrisoningSpawnResources] Already spawned: [_actualResourceClassNames]: %1"
+            , str [_actualResourceClassNames], "GARRISON", true] call KPLIB_fnc_common_log;
     };
+    _garrison set [MPRESET(_garrisonIndex_resources), +_actualResourceClassNames];
+    _namespace setVariable [QMVAR(_garrison), +_garrison];
     _resources;
 };
 
@@ -77,17 +79,16 @@ _resources = _targetClassNames apply {
 };
 
 // Keep track of SPAWN RESOURCES condition, as well as the RESOURCE CLASS NAMES
-_spawnResources = false;
+_actualResourceClassNames = _resources apply { typeOf _x; };
 
 { _namespace setVariable _x; } forEach [
     [QMVAR(_resources), _resources]
-    , [QMVAR(_spawnResources), _spawnResources]
-    , [QMVAR(_spawnedResourceClassNames), _resources apply { typeOf _x; }]
+    , [QMVAR(_actualResourceClassNames), _actualResourceClassNames]
 ];
 
 if (_debug) then {
-    [format ["[fn_garrison_onGarrisoningSpawnResources] Fini: [_markerName, markerText _markerName, count _targetClassNames, count _resources, _spawnResources]: %1"
-        , str [_markerName, markerText _markerName, count _targetClassNames, count _resources, _spawnResources]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_onGarrisoningSpawnResources] Fini: [_markerName, markerText _markerName, count _targetClassNames, count _resources, _actualResourceClassNames]: %1"
+        , str [_markerName, markerText _markerName, count _targetClassNames, count _resources, _actualResourceClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 _resources;

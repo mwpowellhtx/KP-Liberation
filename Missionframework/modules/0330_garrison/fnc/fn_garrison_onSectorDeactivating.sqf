@@ -5,7 +5,7 @@
     File: fn_garrison_onSectorDeactivating.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-24 12:26:04
-    Last Update: 2021-05-05 11:22:30
+    Last Update: 2021-05-06 12:37:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -63,14 +63,7 @@ private _trySectorDeactivating = {
     true;
 };
 
+// GC only UNITS+VEHICLES, leave INTEL+RESOURCES, etc, alone
 { [_x] call _trySectorDeactivating; } forEach _variableNames;
-
-// Peels off the next available INTEL OBJECT and performs its GC effects
-(_namespace getVariable [QMVAR(_intel), []]) call {
-    params [
-        [Q(_targetObj), objNull, [objNull]]
-    ];
-    [_targetObj] call KPLIB_fnc_resources_onIntelGC;
-};
 
 true;

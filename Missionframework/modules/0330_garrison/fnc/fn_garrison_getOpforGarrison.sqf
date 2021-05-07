@@ -5,7 +5,7 @@
     File: fn_garrison_getOpforGarrison.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-01 15:58:17
-    Last Update: 2021-05-05 14:12:16
+    Last Update: 2021-05-06 19:54:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -32,19 +32,11 @@ params [
 private _debug = MPARAM(_getOpforGarrison_debug)
     || (_namespace getVariable [QMVAR(_getOpforGarrison_debug), false]);
 
-[
-    _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
-    , _namespace getVariable [QMVAR(_spawnResources), true]
-    , _namespace getVariable [QMVAR(_spawnedResourceClassNames), []]
-] params [
-    Q(_markerName)
-    , Q(_spawnResources)
-    , Q(_spawnedResourceClassNames)
-];
+private _markerName = _namespace getVariable [Q(KPLIB_sectors_markerName), ""];
 
 if (_debug) then {
-    [format ["[fn_garrison_getOpforGarrison] Entering: [_markerName, markerText _markerName, _spawnResources, count _spawnedResourceClassNames]: %1"
-        , str [_markerName, markerText _markerName, _spawnResources, count _spawnedResourceClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_getOpforGarrison] Entering: [_markerName, markerText _markerName]: %1"
+        , str [_markerName, markerText _markerName]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 // Remember GRP COUNT shall have already been properly normalized
@@ -76,7 +68,7 @@ if ([_namespace] call MFUNC(_shouldGarrisonApcs)) then {
 private _presetHeavyVehicleClassNames = +KPLIB_preset_vehHeavyPlE;
 private _presetIntelClassNames = +KPLIB_preset_resources_intelClassNames;
 // TODO: TBD: be prepared to refactor to IED module...
-private _presetIedClassNames = +MPRESET(_iedClassNames);
+private _presetIedClassNames = +KPLIB_preset_ieds_classNames;
 // TODO: TBD: 'F' or 'E'?
 private _presetResourceClassNames = +KPLIB_resources_crateClassesF;
 
@@ -110,13 +102,6 @@ private _garrison = [
         _retval resize _count;
         _retval apply { selectRandom _classNames; };
     };
-};
-
-// TODO: TBD: dubious whether we should even go to this extent/extreme keeping tabs on our bookkeeping
-// Allowing for previously-spawned RESOURCE objects
-if (!_spawnResources) then {
-    _resourceCount = count _spawnedResourceClassNames;
-    _garrison set [5, +_spawnedResourceClassNames];
 };
 
 // Then de-con the correct (KNOWN) GARRISON tuple

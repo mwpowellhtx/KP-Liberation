@@ -5,7 +5,7 @@
     File: fn_garrison_onGarrisoningSpawnIntel.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-27 11:31:44
-    Last Update: 2021-05-05 18:29:47
+    Last Update: 2021-05-06 19:30:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -20,9 +20,13 @@
         the INTEL bits for use later on, 'KPLIB_garrison_targetNamespace'. We also set a
         UUID on each of the INTEL bits for easier identification, 'KPLIB_garrison_uuid'.
 
+        Included is a guard detecting when GARRISON has already occurred and does not need
+        to re-garrison.
+
     Parameter(s):
         _namespace - a CBA SECTOR namespace being garrisoned for INTEL bits
             [LOCATION, default: locationNull]
+        _targetClassNames - the TARGET CLASS NAMES being spawned [ARRAY, default: []]
 
     Returns:
         The created INTEL objects [ARRAY]
@@ -39,6 +43,7 @@
 
 params [
     [Q(_namespace), locationNull, [locationNull]]
+    , [Q(_targetClassNames), [], [[]]]
 ];
 
 private _debug = MPARAM(_onGarrisoningSpawnIntel_debug)
@@ -48,38 +53,42 @@ private _debug = MPARAM(_onGarrisoningSpawnIntel_debug)
     _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
     , _namespace getVariable [Q(KPLIB_sectors_markerPos), +KPLIB_zeroPos]
     , _namespace getVariable [QMVAR(_garrison), []]
+    , _namespace getVariable QMVAR(_actualIntelClassNames)
     , _namespace getVariable QMVAR(_intel)
 ] params [
     Q(_markerName)
     , Q(_markerPos)
     , Q(_garrison)
+    , Q(_actualIntelClassName)
     , Q(_intel)
 ];
 
 // Preclude duplicate garrison
-if (!isNil { _intel; }) exitWith {
+if (!isNil { _actualIntelClassNames; }) exitWith {
+    _garrison set [MPRESET(_garrisonIndex_intel), +_actualIntelClassNames];
+    _namespace setVariable [QMVAR(_garrison), +_garrison];
     _intel;
 };
 
-_garrison params [
-    Q(_0) // UNITS
-    , Q(_1) // LIGHT VEHICLES
-    , Q(_2) // HEAVY VEHICLES
-    , [Q(_intelClassNames), [], [[]]]
-];
-
 if (_debug) then {
-    [format ["[fn_garrison_onGarrisonIntel] Entering: [_markerName, markerText _markerName, count _intelClassNames, _intelClassNames]: %1"
-        , str [_markerName, markerText _markerName, count _intelClassNames, _intelClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_onGarrisoningSpawnIntel] Entering: [_markerName, markerText _markerName, count _targetClassNames, _targetClassNames]: %1"
+        , str [_markerName, markerText _markerName, count _targetClassNames, _targetClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 if ((_markerPos isEqualTo KPLIB_zeroPos)
-    || (_intelClassNames isEqualTo [])
-    || !(_markerName in KPLIB_sectors_military)) exitWith { count _intel; };
+    || (_targetClassNames isEqualTo [])
+    || !(_markerName in KPLIB_sectors_military)) exitWith {
+    _intel = [];
+    { _namespace setVariable _x; } forEach [
+        [QMVAR(_intel), _intel]
+        , [QMVAR(_actualIntelClassNames), []]
+    ];
+    _intel;
+};
 
 // Shuffle some arrays for maximum stochastic effect
 [
-    _intelClassNames call BIS_fnc_arrayShuffle
+    _targetClassNames call BIS_fnc_arrayShuffle
     , nearestObjects [_markerPos, [Q(Building)], KPLIB_param_sectors_capRange, true]
 ] params [
     Q(_shuffledClassNames)
@@ -92,43 +101,40 @@ private _shuffledBuildings = _buildings select { damage _x <= MPARAM(_intelBuild
 private _positions = [[], _shuffledBuildings apply { _x buildingPos -1; }] call KPLIB_fnc_linq_aggregate;
 private _shuffledPositions = _positions call BIS_fnc_arrayShuffle;
 
-private _whereIntelCreated = {
-    private _targetClassName = _x;
+// May like to log this in debugging but for now we simply capture the response
+_intel = _shuffledClassNames apply {
     private _obj = objNull;
 
-    // The rest is handled loosely coupled and transparent to the actual GARRISON effort
+    // Create as long as we have POSITIONS to support doing so
     if (count _shuffledPositions > 0) then {
-
         private _pos = _shuffledPositions deleteAt 0;
-        // TODO: TBD: we do not need to run through the KPLIB API vehicle creation bits...
 
         // Position is ATL so that works out perfectly
-        _obj = createVehicle [_targetClassName, _pos vectorAdd [0, 0, 0.75], [], 0.25, Q(can_collide)];
-        //                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        _obj = createVehicle [_x, _pos vectorAdd [0, 0, 0.75], [], 0.25, Q(can_collide)];
+        //                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         // Prepares the INTEL bit for easier identification and bookkeeping later on
         { _obj setVariable _x; } forEach [
             [QMVAR(_targetNamespace), _namespace]
             , [QMVAR(_uuid), [] call KPLIB_fnc_uuid_create_string]
         ];
-
-        // This array is critical we will set this on the CBA SECTOR namespace
-        _intel pushBack _obj;
     };
 
-    !isNull _obj;
+    _obj;
 };
-
-// May like to log this in debugging but for now we simply capture the response
-private _createdClassNames = _shuffledClassNames select _whereIntelCreated;
 // May also log left over '_shuffledPositions', (_shuffledClassNames - _createdClassNames), etc
+_intel = _intel select { !isNull _x; };
+_actualIntelClassNames = _intel apply { typeOf _x; };
 
-// For use later on during GATHER INTEL and SECTOR DEACTIVATED events
-_namespace setVariable [QMVAR(_intel), _intel];
+// Set the INTEL array and flag do not need to re-garrison
+{ _namespace setVariable _x; } forEach [
+    [QMVAR(_intel), _intel]
+    , [QMVAR(_actualIntelClassNames), +_actualIntelClassNames]
+];
 
 if (_debug) then {
-    [format ["[fn_garrison_onGarrisonIntel] Entering: [_markerName, markerText _markerName, count _intel]: %1"
-        , str [_markerName, markerText _markerName, count _intel]], "GARRISON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_garrison_onGarrisoningSpawnIntel] Fini: [_markerName, markerText _markerName, count _actualIntelClassNames, _actualIntelClassNames]: %1"
+        , str [_markerName, markerText _markerName, count _actualIntelClassNames, _actualIntelClassNames]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
 _intel;

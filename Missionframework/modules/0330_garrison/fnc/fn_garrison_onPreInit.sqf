@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-05-05 11:22:11
+    Last Update: 2021-05-06 14:28:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -36,6 +36,15 @@ if (isServer) then {
 
 if (isServer) then {
 
+    { missionNamespace setVariable [_x, _forEachIndex]; } forEach [
+        QMPRESET(_garrisonIndex_units)
+        , QMPRESET(_garrisonIndex_lightVehicles)
+        , QMPRESET(_garrisonIndex_heavyVehicles)
+        , QMPRESET(_garrisonIndex_intel)
+        , QMPRESET(_garrisonIndex_ieds)
+        , QMPRESET(_garrisonIndex_resources)
+    ];
+
     // Include BLUFOR bits during mission serialization
     [KPLIB_sectors_serializationRegistry, [
             QMVAR(_bluforUnits), QMVAR(_bluforGrps)
@@ -57,16 +66,6 @@ if (isServer) then {
         , KPLIB_preset_sideF
         , KPLIB_preset_sideC
         , KPLIB_preset_sideR
-    ];
-
-    // TODO: TBD: there is probably a better placement for these, i.e. in an 'insurgent' module
-    // Specify in biggest to smallest order
-    //KPLIB_preset_insurgents_iedClassNames   = [
-    MPRESET(_iedClassNames)                 = [
-        Q(IEDUrbanBig_F)                    // Urban big
-        , Q(IEDLandBig_F)                   // Land bug
-        , Q(IEDUrbanSmall_F)                // Urban small
-        , Q(IEDLandSmall_F)                 // Land small
     ];
 
     // Register LOAD+SAVE event handlers

@@ -6,7 +6,7 @@
     File: fn_garrison_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 21:47:20
-    Last Update: 2021-05-05 23:17:23
+    Last Update: 2021-05-06 13:03:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -465,6 +465,7 @@ if (isServer) then {
     MPARAM(_onLoadData_debug)                       = false;
     MPARAM(_onSaveData_debug)                       = false;
     MPARAM(_onGarrisoning_debug)                    = true;
+    MPARAM(_onGarrisoningSpawnIeds_debug)           = true;
     MPARAM(_onGarrisoningSpawnIntel_debug)          = true;
     MPARAM(_onGarrisoningSpawnResources_debug)      = true;
     MPARAM(_onGarrisoningCalculateBits_debug)       = false;
