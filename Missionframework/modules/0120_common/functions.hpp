@@ -1,10 +1,8 @@
 /*
-    KP LIBERATION COMMON FUNCTIONS
-
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-03 11:56:20
-    Last Update: 2021-05-05 23:15:43
+    Last Update: 2021-05-07 01:19:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -13,6 +11,15 @@
 
 class common {
     file = "modules\0120_common\fnc";
+
+    // Returns whether caller should debug
+    class common_debug {};
+
+    // Adds action to object with correct localized title
+    class common_addAction {};
+
+    // Returns whether caller should debug
+    class common_settings {};
 
     // Initialization phase event handler
     class common_onPreInit {
@@ -23,15 +30,6 @@ class common {
     class common_onPostInit {
         postInit = 1;
     };
-
-    // Returns whether caller should debug
-    class common_debug {};
-
-    // Returns whether caller should debug
-    class common_settings {};
-
-    // Adds action to object with correct localized title
-    class common_addAction {};
 
     // Let a camera circle around a given target with given params
     class common_cameraCircleTarget {};
