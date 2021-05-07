@@ -5,7 +5,7 @@
     File: fn_ieds_getRoads.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-06 15:42:24
-    Last Update: 2021-05-06 15:42:27
+    Last Update: 2021-05-07 16:21:03
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,6 +22,7 @@
 
     References:
         https://community.bistudio.com/wiki/nearestTerrainObjects
+        https://community.bistudio.com/wiki/nearestTerrainObjects#Description
         https://community.bistudio.com/wiki/getRoadInfo
  */
 
@@ -33,15 +34,18 @@ params [
     , [Q(_bridge), false, [false]]
 ];
 
-private _roads = nearestTerrainObjects [_targetPos, [Q(ROAD), Q(MAIN ROAD)], _range];
+/* Expand the TERRAIN OBJECTS a little bit: 'also returns missing roads' */
+private _roads = nearestTerrainObjects [_targetPos, [Q(ROAD), Q(MAIN ROAD), Q(TRACK), Q(TRAIL)], _range];
 
 private _selected = _roads select {
     getRoadInfo _x params [
-        Q(_0), Q(_1), Q(_2), Q(_3)
-        , Q(_4), Q(_5), Q(_6), Q(_7)
+        Q(_0), Q(_1)
+        , Q(_isPedestrian)
+        , Q(_3), Q(_4), Q(_5), Q(_6), Q(_7)
         , Q(_isBridge)
     ];
-    !_bridge || (_isBridge && _bridge);
+    // Also exclude PEDESTRIAN
+    !_isPedestrian && (!_bridge || (_isBridge && _bridge));
 };
 
 _selected;

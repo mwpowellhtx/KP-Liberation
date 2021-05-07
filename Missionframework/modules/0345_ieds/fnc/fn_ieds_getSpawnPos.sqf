@@ -5,7 +5,7 @@
     File: fn_ieds_getRoads.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-06 15:42:24
-    Last Update: 2021-05-06 15:42:27
+    Last Update: 2021-05-07 16:23:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -41,15 +41,14 @@ while { _spawnPos isEqualTo KPLIB_zeroPos; } do {
     getRoadInfo _road params [
         Q(_0)
         , Q(_width)
-        , Q(_2)
-        , Q(_3)
-        , Q(_4)
-        , Q(_5)
+        , Q(_2), Q(_3), Q(_4), Q(_5)
         , Q(_beginPos)
         , Q(_endPos)
     ];
-    private _centerPos = _beginPos getPos [_beginPos distance2D _endPos, _beginPos getDir _endPos];
-    _spawnPos = [_centerPos, _className, _width] call KPLIB_fnc_garrison_getVehSpawnPos;
+    // // TODO: TBD: this approach "will not" work, because the road may be longer and have end points that are not necessarily straight line
+    // private _centerPos = _beginPos getPos [_beginPos distance2D _endPos, _beginPos getDir _endPos];
+    private _centerPos = selectRandom [_beginPos, _endPos];
+    _spawnPos = [_centerPos, _className, 0.35 * _width] call KPLIB_fnc_garrison_getVehSpawnPos;
 };
 
 _spawnPos;
