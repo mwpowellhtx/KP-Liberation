@@ -2,7 +2,7 @@
     File: KPLIB_actionMenu.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-02 22:46:15
-    Last Update: 2021-04-22 19:25:18
+    Last Update: 2021-05-06 18:07:03
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -17,6 +17,7 @@
  * See: https://flaviocopes.com/vscode-language-specific-settings */
 
 #define KPLIB_ACTION_PRIORITY_GATHER_INTEL          (-601)
+#define KPLIB_ACTION_PRIORITY_DISARM_IED            (-602)
 
 #define KPLIB_ACTION_PRIORITY_ASSETMOVE             (-700)
 #define KPLIB_ACTION_PRIORITY_TERMINATE_TARGET      (-710)
