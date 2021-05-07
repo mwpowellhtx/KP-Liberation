@@ -2717,11 +2717,18 @@
         </Key>
     </Package>
 
-    <!-- RESOURCES OVERLAY -->
+    <!-- RESOURCES -->
 
     <Package name="Resources">
         <Key ID="STR_KPLIB_RESOURCES_ACTION_GATHER_INTEL">
             <English>-- GATHER INTEL --</English>
+        </Key>
+    </Package>
+
+    <!-- IEDS -->
+    <Package name="Ieds">
+        <Key ID="STR_KPLIB_RESOURCES_ACTION_DISARM_IED">
+            <English>-- DISARM --</English>
         </Key>
     </Package>
 
