@@ -6,7 +6,7 @@
     File: fn_garrison_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 21:47:20
-    Last Update: 2021-05-06 13:03:50
+    Last Update: 2021-05-07 22:13:32
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -465,17 +465,17 @@ if (isServer) then {
     MPARAM(_onLoadData_debug)                       = false;
     MPARAM(_onSaveData_debug)                       = false;
     MPARAM(_onGarrisoning_debug)                    = true;
-    MPARAM(_onGarrisoningSpawnIeds_debug)           = true;
-    MPARAM(_onGarrisoningSpawnIntel_debug)          = true;
-    MPARAM(_onGarrisoningSpawnResources_debug)      = true;
+    MPARAM(_onGarrisoningSpawnIeds_debug)           = false;
+    MPARAM(_onGarrisoningSpawnIntel_debug)          = false;
+    MPARAM(_onGarrisoningSpawnResources_debug)      = false;
     MPARAM(_onGarrisoningCalculateBits_debug)       = false;
     MPARAM(_onSpawn_debug)                          = true;
     MPARAM(_onSpawnSectorInfantry_debug)            = true;
     MPARAM(_onSpawnSectorVehicle_debug)             = true;
     MPARAM(_onSpawnSectorResistance_debug)          = true;
     MPARAM(_getGarrison_debug)                      = false;
-    MPARAM(_getOpforSectorCounts_debug)             = true;
-    MPARAM(_getOpforGarrison_debug)                 = true;
+    MPARAM(_getOpforSectorCounts_debug)             = false;
+    MPARAM(_getOpforGarrison_debug)                 = false;
     MPARAM(_findSafePos_debug)                      = false;
 
     MPARAM(_defaultInfantryCount)                   =  6;
