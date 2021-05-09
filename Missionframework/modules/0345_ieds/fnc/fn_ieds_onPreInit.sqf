@@ -5,7 +5,7 @@
     File: fn_ieds_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-22 18:00:56
-    Last Update: 2021-05-07 12:59:04
+    Last Update: 2021-05-08 22:30:21
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -34,23 +34,30 @@ if (isServer) then {
  */
 
 // Ordered generally in terms of size and impact from least to greatest
-private _iedPrefixes                        = [
+private _smallPrefixes                      = [
     Q(IEDLandSmall)
     , Q(IEDUrbanSmall)
-    , Q(IEDLandBig)
+];
+
+private _bigPrefixes                      = [
+    Q(IEDLandBig)
     , Q(IEDUrbanBig)
 ];
 
 // There is also a difference between the starting CLASS NAME and the MINE CLASS NAMES
-MPRESET(_classNames)                        = _iedPrefixes apply {
+MPRESET(_classNames)                        = (_smallPrefixes + _bigPrefixes) apply {
     private _prefix = _x;
     format ["%1_F", _prefix];
 };
 
-MPRESET(_mineClassNames)                    = _iedPrefixes apply {
+private _onFormatRemoteAmmo = {
     private _prefix = _x;
     format ["%1_Remote_Ammo", _prefix];
 };
+
+MPRESET(_smallClassNames)                   = _smallPrefixes apply _onFormatRemoteAmmo;
+MPRESET(_bitClassNames)                     = _bigPrefixes apply _onFormatRemoteAmmo;
+MPRESET(_mineClassNames)                    = (_smallPrefixes + _bigPrefixes) apply _onFormatRemoteAmmo;
 
 
 /*

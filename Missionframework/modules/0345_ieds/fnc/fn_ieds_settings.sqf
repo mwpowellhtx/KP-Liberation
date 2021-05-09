@@ -5,7 +5,7 @@
     File: fn_ieds_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-22 17:59:32
-    Last Update: 2021-05-07 14:29:22
+    Last Update: 2021-05-08 22:52:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -19,25 +19,45 @@
         The event handler finished [BOOL]
  */
 
-MPARAM(_onPlayerRespawn_debug)              = true;
-MPARAM(_onPlayerRedeploy_debug)             = true;
-MPARAM(_setupPlayerActions_debug)           = true;
+MPARAM(_onPlayerRespawn_debug)              = false;
+MPARAM(_onPlayerRedeploy_debug)             = false;
+MPARAM(_setupPlayerActions_debug)           = false;
 MPARAM(_canDisarm_debug)                    = false;
+
+MPARAM(_onTriggerActivation_debug)          = true;
+MPARAM(_onTriggerSmallCondition_debug)      = true;
+MPARAM(_onTriggerBigCondition_debug)        = true;
 
 MPARAM(_disarmRange)                        = 5;
 MPARAM(_disarmPrecision)                    = 10;
 
+MPRESET(_smallTriggerAreaRadius)            = 15;
+MPRESET(_smallTriggerAreaHeight)            = 15;
+
+MPRESET(_bigTriggerAreaRadius)              = 25;
+MPRESET(_bigTriggerAreaHeight)              = 25;
+
+// Tested in debugger
+MPARAM(_unitApproachSafeSpeed)              = 6;
+MPARAM(_vehicleApproachSafeSpeed)           = 11;
+
+MPARAM(_smallRunningThreshold)              = 1;
+MPARAM(_bigRunningThreshold)                = 1;
+
+MPARAM(_smallDetonationChance)              = 40;
+MPARAM(_bigDetonationChance)                = 60;
+
 if (isServer) then {
     // Server side settings
-    MPARAM(_createOne_debug)                = true;
-    MPARAM(_getRoads_debug)                 = true;
-    MPARAM(_getSpawnPos_debug)              = true;
-    MPARAM(_whereRoadMatches_debug)         = true;
-    MPARAM(_onMineSpawned_debug)            = true;
-    MPARAM(_onDisarm_debug)                 = true;
-    MPARAM(_onTriggered_debug)              = true;
-    MPARAM(_onGC_debug)                     = true;
-    MPARAM(_verifyMine_debug)               = true;
+    MPARAM(_createOne_debug)                = false;
+    MPARAM(_getRoads_debug)                 = false;
+    MPARAM(_getSpawnPos_debug)              = false;
+    MPARAM(_whereRoadMatches_debug)         = false;
+    MPARAM(_onMineSpawned_debug)            = false;
+    MPARAM(_onDisarm_debug)                 = false;
+    MPARAM(_onTriggered_debug)              = false;
+    MPARAM(_onGC_debug)                     = false;
+    MPARAM(_verifyMine_debug)               = false;
 
     MPARAM(_spacing)                        = 25;
     MPARAM(_damagePrecision)                = 10;
