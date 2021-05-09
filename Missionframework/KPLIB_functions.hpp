@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-05-06 19:32:17
+    Last Update: 2021-05-08 17:53:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -48,6 +48,7 @@ class KPLIB {
     #include "modules\0155_units\functions.hpp"
     #include "modules\0160_sectors\functions.hpp"
     #include "modules\0165_sectorsSM\functions.hpp"
+    #include "modules\0170_triggers\functions.hpp"
 
     #include "modules\0200_admin\functions.hpp"
     #include "modules\0210_resources\functions.hpp"
