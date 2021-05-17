@@ -2836,7 +2836,7 @@
         <!-- FIREDRILL EXAMPLE MISSION -->
 
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_NAME">
-            <English>_0890_firedrill</English>
+            <English>_0920_firedrill</English>
         </Key>
         <Key ID="STR_KPLIB_MISSION_FIREDRILL_TITLE">
             <English>Fire Drill</English>
