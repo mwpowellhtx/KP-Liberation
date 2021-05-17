@@ -299,8 +299,8 @@
         "KPR_uniforms"
     ],
     "sqflint.exclude": [
-        "Missionframework/modules/0130_core/scripts/server/eventLoop.sqf",
-        "Missionframework/modules/0130_core/scripts/server/sectorMonitor.sqf"
+        "Missionframework/modules/0224_core/scripts/server/eventLoop.sqf",
+        "Missionframework/modules/0224_core/scripts/server/sectorMonitor.sqf"
     ],
     "psi-header.lang-config": [
         {
