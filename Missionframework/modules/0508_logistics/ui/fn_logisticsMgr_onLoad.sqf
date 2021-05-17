@@ -41,6 +41,11 @@ uiNamespace setVariable ["KPLIB_logisticsMgr_display", _display];
 // And announce to the server...
 [KPLIB_logisticsSM_onLogisticsMgrOpened, [clientOwner]] call CBA_fnc_serverEvent;
 
+/* TODO: TBD: we might also adopt the following update approach:
+ * _fnc_update = { my code };
+ * _display displayAddEventHandler ["MouseMoving", _fnc_update];
+ * _display displayAddEventHandler ["MouseHolding", _fnc_update];
+ */
 [{
     params ["", "_pfhHandle"];
 
