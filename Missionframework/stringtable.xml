@@ -1788,16 +1788,6 @@
         <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT">
             <English>Operational buffer zone around the Operations base.</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_FOBRANGE">
-            <English>FOB Area</English>
-            <Chinese>前線基地範圍</Chinese>
-            <German>FOB Bereich</German>
-        </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_FOBRANGE_TT">
-            <English>Radius in meters of the FOB area.</English>
-            <Chinese>前線基地半徑公尺內</Chinese>
-            <German>Radius in Metern des FOB Bereichs.</German>
-        </Key>
         <Key ID="STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE">
             <English>Asset Move Range</English>
             <Chinese>直升機移動範圍</Chinese>
@@ -1918,6 +1908,17 @@
         <Key ID="STR_KPLIB_SETTINGS_PRESET_CIV_1">
             <English>Vanilla</English>
             <German>Vanilla</German>
+        </Key>
+
+        <!-- GENERAL CATEGORY -->
+        <Key ID="STR_KPLIB_SETTINGS_FOBS">
+            <English>KPLIB - FOBS</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_FOBS_RADIUS">
+            <English>FOB Radius</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_FOBS_RADIUS_TT">
+            <English>FOB radius about which the site may be built, assets are persisted, etc, in meters [default: 125].</English>
         </Key>
 
         <!-- RESPAWN CATEGORY -->

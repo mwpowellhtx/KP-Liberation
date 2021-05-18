@@ -133,21 +133,6 @@ private _general = +[
         }
     ]
     , [
-        // Build radius in meters around the FOB area center position [default: 125 meters]
-        "KPLIB_param_fobRange"
-        , {
-            [
-                _this
-                , "SLIDER"
-                , [localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE_TT"]
-                , localize "STR_KPLIB_SETTINGS_GENERAL"
-                , [100, 250, 125, 0]
-                , 1
-                , _noop
-            ];
-        }
-    ]
-    , [
         /* Maximum range at which it is possible to deploy assets to the designated Eden flight deck.
          * See 'KPLIB_eden_flightDeckProxy' variable on Eden proxy for purposes of aligning assets.
          * [default: 20 meters] */

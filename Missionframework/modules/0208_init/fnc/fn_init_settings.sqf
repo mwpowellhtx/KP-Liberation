@@ -5,23 +5,23 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-11-09
-    Last Update: 2021-01-31 17:05:12
+    Last Update: 2021-05-17 20:19:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        CBA Settings initialization for this module
+        CBA settings initialization for this module
 
     Parameter(s):
         NONE
 
     Returns:
-        Function reached the end [BOOL]
-*/
+        The event handler has finished [BOOL]
+ */
 
 /*
     ----- GENERAL SETTINGS -----
-*/
+ */
 
 // TODO: TBD: also did some refactoring to establish usage of the config helper functions...
 // TODO: TBD: key is refactoring the individual 'CBA_Settings_fnc_init' calls in a ubiquitous array...
@@ -74,19 +74,6 @@
     , [localize "STR_KPLIB_SETTINGS_GENERAL_OPSRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT"]
     , localize "STR_KPLIB_SETTINGS_GENERAL"
     , [100, 1000, 500, 0]
-    , 1
-    , {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_fobRange
-// Build radius in meters around the FOB area center position.
-// Default: 125 meters
-[
-    "KPLIB_param_fobRange"
-    , "SLIDER"
-    , [localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_FOBRANGE_TT"]
-    , localize "STR_KPLIB_SETTINGS_GENERAL"
-    , [100, 250, 125, 0]
     , 1
     , {}
 ] call CBA_Settings_fnc_init;
