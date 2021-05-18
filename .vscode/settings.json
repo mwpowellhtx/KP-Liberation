@@ -41,7 +41,7 @@
         "KPLIB_param_damageInfluence",
         "KPLIB_param_debug",
         "KPLIB_param_enemyDebug",
-        "KPLIB_param_fobRange",
+        "KPLIB_param_fobs_range",
         "KPLIB_param_fuelInfluence",
         "KPLIB_param_limitedZeusCeiling",
         "KPLIB_param_limitedZeusRadius",

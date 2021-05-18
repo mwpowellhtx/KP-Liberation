@@ -51,7 +51,7 @@ _args params [
     ["_className", "", [""]]
 ];
 
-private _range = KPLIB_param_fobRange;
+private _range = KPLIB_param_fobs_range;
 
 if (_debug) then {
     [format ["[fn_core_onRepackageFob] Entering: [_className, _range, _markerName]: %1"

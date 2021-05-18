@@ -18,6 +18,7 @@
         Function reached the end [BOOL]
 */
 
+// TODO: TBD: refactor into the FOBS module...
 params [
     ["_box", objNull, [objNull]]
 ];

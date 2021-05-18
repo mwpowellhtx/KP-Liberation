@@ -5,8 +5,9 @@
 
     File: fn_logistic_recycleTarget.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-01-31
-    Last Update: 2019-05-04
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-01-31
+    Last Update: 2021-05-17 20:27:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,7 +19,7 @@
 
     Returns:
         Function reached the end [BOOL]
-*/
+ */
 
 // Dialog controls
 private _dialog = findDisplay KPLIB_IDC_LOGISTIC_RECYCLE_DIALOG;
@@ -86,7 +87,7 @@ if (
     !(_supplyValue isEqualTo _supplyValueCheck) ||
     !(_ammoValue isEqualTo _ammoValueCheck) ||
     !(_fuelValue isEqualTo _fuelValueCheck) ||
-    (((getMarkerPos _markerName) distance2D _vehicle) > KPLIB_param_fobRange)
+    (((getMarkerPos _markerName) distance2D _vehicle) > KPLIB_param_fobs_range)
 ) exitWith {
     _recycleButton ctrlEnable false;
     [
@@ -98,7 +99,7 @@ if (
 // Pay the refund
 private _storage = objNull;
 private _crate = objNull;
-private _storages = [getMarkerPos _markerName, KPLIB_param_fobRange] call KPLIB_fnc_resources_getStorages;
+private _storages = [getMarkerPos _markerName, KPLIB_param_fobs_range] call KPLIB_fnc_resources_getStorages;
 
 [_markerName, _supplyValue, _ammoValue, _fuelValue] remoteExecCall ["KPLIB_fnc_resources_refund", 2];
 

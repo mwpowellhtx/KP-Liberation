@@ -7,7 +7,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-09-09
-    Last Update: 2021-02-12 09:00:12
+    Last Update: 2021-05-17 20:34:03
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,7 +16,7 @@
 
     Parameter(s):
         _center - Center of building area [POSITION, default: position player]
-        _radius - Allowed building radius [NUMBER, default: KPLIB_param_fobRange]
+        _radius - Allowed building radius [NUMBER, default: KPLIB_param_fobs_range]
 
     Returns:
         Building logic object [LOCATION]
@@ -28,8 +28,7 @@
 
 params [
     ["_center", position player, [[]], 3]
-    // TODO: TBD: define sensible defaults in the CBA settings...
-    , ["_radius", 50, [0]]
+    , ["_radius", KPLIB_param_fobs_range, [0]]
     , ["_buildItem", [], [[]], 4]
     , ["_onConfirm", {}, [{}]]
 ];

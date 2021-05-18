@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2021-04-16 08:43:29
+    Last Update: 2021-05-17 20:31:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -109,7 +109,7 @@ if (hasInterface) then {
     KPLIB_fnc_admin_deleteStorageContainers = {
         params [
             ["_target", player, [objNull]]
-            , ["_range", KPLIB_param_fobRange, [0]]
+            , ["_range", KPLIB_param_fobs_range, [0]]
             , ["_sectors", KPLIB_sectors_fobs apply { (_x#0); }, [[]]]
             , ["_classNames", KPLIB_resources_storageClassesF, [[]]]
         ];

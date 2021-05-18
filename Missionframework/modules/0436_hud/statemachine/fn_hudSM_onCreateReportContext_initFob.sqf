@@ -5,7 +5,7 @@
     File: fn_hudSM_onCreateReportContext_initFob.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 14:07:31
+    Last Update: 2021-05-17 20:32:18
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -46,7 +46,7 @@ if (_debug) then {
 _pos = getPos player;
 _all = player getvariable [KPLIB_hud_reportAllResources, false];
 _distance = { (_this#4) distance2D _pos; };
-KPLIB_sectors_fobs select { _all || (_x call _distance) <= KPLIB_param_fobRange; }
+KPLIB_sectors_fobs select { _all || (_x call _distance) <= KPLIB_param_fobs_range; }
 */
 
 [
@@ -59,7 +59,7 @@ KPLIB_sectors_fobs select { _all || (_x call _distance) <= KPLIB_param_fobRange;
 
 [
     +KPLIB_sectors_fobs
-    , KPLIB_param_fobRange
+    , KPLIB_param_fobs_range
     // Will use this function to SELECT as well as to SORT
     ,       { (_this#4) distance2D _playerPos; }
     //   _pos: ^^^^^^^

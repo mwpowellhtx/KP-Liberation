@@ -4,7 +4,7 @@
     File: fn_build_getMovableObjects.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-14 10:29:59
-    Last Update: 2021-02-14 10:30:02
+    Last Update: 2021-05-17 20:33:18
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -30,7 +30,7 @@ if (_markerName in allMapMarkers
     // TODO: TBD: may refactor in terms of CBA setting... i.e. 'KPLIB_param_build_moveMaxMomentum'
     private _maxMom = 1;
 
-    _objects = nearestObjects [markerPos _markerName, [], KPLIB_param_fobRange];
+    _objects = nearestObjects [markerPos _markerName, [], KPLIB_param_fobs_range];
     // Even the abient wildlife...                    ^^
 
     _objects = _objects select {

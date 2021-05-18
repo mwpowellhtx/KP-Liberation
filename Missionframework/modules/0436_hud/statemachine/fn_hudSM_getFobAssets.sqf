@@ -5,7 +5,7 @@
     File: fn_hudSM_getFobAssets.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 14:06:14
+    Last Update: 2021-05-17 20:31:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -15,7 +15,7 @@
     Parameters:
         _fob - the FOB about which to check [ARRAY, default: []]
         _assetType - the asset type [STRING, default: Q(Plane)]
-        _range - range about which to check [SCALAR, default: KPLIB_param_fobRange]
+        _range - range about which to check [SCALAR, default: KPLIB_param_fobs_range]
 
     Returns:
         An array of assets matching the FOB criteria [ARRAY]
@@ -24,7 +24,7 @@
 params [
     [Q(_fob), [], [[]]]
     , [Q(_assetType), Q(Plane), [""]]
-    , [Q(_range), KPLIB_param_fobRange, [0]]
+    , [Q(_range), KPLIB_param_fobs_range, [0]]
 ];
 
 _fob params [

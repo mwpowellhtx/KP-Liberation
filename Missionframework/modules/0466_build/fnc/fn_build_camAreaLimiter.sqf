@@ -3,8 +3,9 @@
 
     File: fn_build_camAreaLimiter.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-07-01
-    Last Update: 2019-04-23
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-07-01
+    Last Update: 2021-05-17 20:32:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -14,7 +15,7 @@
     Parameter(s):
         _camera     - Camera object                     [OBJECT, defaults to objNull]
         _position   - Limiter center area               [POSITION, defaults to position _camera]
-        _radius     - Allowed camera flying radius      [NUMBER, defaults to KPLIB_param_fobRange]
+        _radius     - Allowed camera flying radius      [NUMBER, defaults to KPLIB_param_fobs_range]
 
     Returns:
         PFH was created [BOOL]
@@ -23,7 +24,7 @@
 params [
     ["_camera", objNull, [objNull]],
     ["_position", KPLIB_zeroPos, [[]], 3],
-    ["_radius", KPLIB_param_fobRange, [0]]
+    ["_radius", KPLIB_param_fobs_range, [0]]
 ];
 
 // Default position to position of camera

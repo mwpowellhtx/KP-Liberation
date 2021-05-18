@@ -4,7 +4,7 @@
     File: fn_logisticsSM_onApplyTransaction.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-04 17:00:45
-    Last Update: 2021-03-05 01:21:30
+    Last Update: 2021-05-17 20:35:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -41,7 +41,7 @@ _billValue params [
 private _range = if (_markerName in KPLIB_sectors_factory) then {
     KPLIB_param_sectors_capRange;
 } else {
-    KPLIB_param_fobRange;
+    KPLIB_param_fobs_range;
 };
 
 private _args = [

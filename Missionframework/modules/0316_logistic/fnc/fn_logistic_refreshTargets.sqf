@@ -4,8 +4,9 @@
 
     File: fn_logistic_refreshTargets.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-01-25
-    Last Update: 2019-05-19
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-01-25
+    Last Update: 2021-05-17 20:28:15
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -60,7 +61,7 @@ _ctrlVehicleList lbSetData [_index, "placeholder"];
 // Detect the dialog type and select all objects dependent on the settings
 if (_dialogId isEqualTo KPLIB_IDC_LOGISTIC_RECYCLE_DIALOG) then {
     // If recycle dialog is open
-    _objects = (_markerPos nearObjects KPLIB_param_fobRange) select {
+    _objects = (_markerPos nearObjects KPLIB_param_fobs_range) select {
         !(typeOf _x in _blacklist) &&
         !((typeOf _x select [0,1]) isEqualTo "#") &&
         !(_x isKindOf "Building") &&
@@ -76,9 +77,9 @@ if (_dialogId isEqualTo KPLIB_IDC_LOGISTIC_RECYCLE_DIALOG) then {
             if (_ammoMax != 0 || _fuelMax != 0) then {
                 _objects pushBack _x;
             };
-        } forEach (_markerPos nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobRange]);
+        } forEach (_markerPos nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobs_range]);
     } else {
-        _objects = _markerPos nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobRange];
+        _objects = _markerPos nearEntities [["LandVehicle", "Air", "Ship"], KPLIB_param_fobs_range];
     };
 };
 

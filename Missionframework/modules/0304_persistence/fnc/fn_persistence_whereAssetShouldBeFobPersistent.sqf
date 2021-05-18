@@ -3,8 +3,8 @@
 
     File: fn_persistence_whereAssetShouldBeFobPersistent.sqf
     Author: Michael W. Powell [22nd MEU SOC]
-    Created: 2021-02-16 17:01:02
-    Last Update: 2021-02-16 17:01:04
+    Created: 2021-05-17 20:27:22
+    Last Update: 2021-05-17 20:27:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,7 +16,7 @@
 
     Parameter(s):
         _object - the object being considered for FOB asset persistence [OBJECT, default: objNull]
-        _range - the range about each FOB to consider objects being qualified [SCALAR, default: KPLIB_param_fobRange]
+        _range - the range about each FOB to consider objects being qualified [SCALAR, default: KPLIB_param_fobs_range]
         _fobs - the FOBs to consider for object qualification [ARRAY, default: KPLIB_sectors_fobs]
 
     Returns:
@@ -28,7 +28,7 @@
 
 params [
     ["_object", objNull, [objNull]]
-    , ["_range", KPLIB_param_fobRange, [0]]
+    , ["_range", KPLIB_param_fobs_range, [0]]
     , ["_fobs", KPLIB_sectors_fobs, [[]]]
 ];
 

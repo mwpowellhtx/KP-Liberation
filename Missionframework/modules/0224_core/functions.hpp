@@ -32,8 +32,8 @@ class core {
     // // Change the owner of a sector
     // class core_changeSectorOwner {};
 
-    // Build fob and register it
-    class core_buildFob {};
+    // // Build fob and register it
+    // class core_buildFob {};
 
     // Build fob at random position and register it
     class core_buildFobRandom {};

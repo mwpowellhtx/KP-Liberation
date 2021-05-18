@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-16
-    Last Update: 2021-02-05 12:43:41
+    Last Update: 2021-05-17 20:26:56
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -17,7 +17,7 @@
         _supplies   - Amount of supplies to pay                                 [NUMBER, default: 0]
         _ammo       - Amount of ammo to pay                                     [NUMBER, default: 0]
         _fuel       - Amount of fuel to pay                                     [NUMBER, default: 0]
-        _range      - Range about which to consider storage containers          [NUMBER, default: KPLIB_param_fobRange]
+        _range      - Range about which to consider storage containers          [NUMBER, default: KPLIB_param_fobs_range]
 
     Returns:
         Payment successful  [BOOL]
@@ -39,7 +39,7 @@ params [
     , ["_supplies", 0, [0]]
     , ["_ammo", 0, [0]]
     , ["_fuel", 0, [0]]
-    , ["_range", KPLIB_param_fobRange, [0]]
+    , ["_range", KPLIB_param_fobs_range, [0]]
 ];
 
 private _bill = [_supplies, _ammo, _fuel];

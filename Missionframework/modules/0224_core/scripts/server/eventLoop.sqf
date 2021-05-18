@@ -19,7 +19,7 @@ private _onEventLoopStart = {
     _edens = +KPLIB_sectors_edens;
     _fobs = +KPLIB_sectors_fobs;
     _edenRange = KPLIB_param_edenRange;
-    _fobRange = KPLIB_param_fobRange;
+    _fobRange = KPLIB_param_fobs_range;
 };
 
 // Create PFH for fob event

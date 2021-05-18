@@ -4,7 +4,7 @@
     File: fn_resources_getFobStorages.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-15 20:44:04
-    Last Update: 2021-02-15 20:44:06
+    Last Update: 2021-05-17 20:26:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -23,7 +23,7 @@
 params [
     ["_fob", [], [[]], 6]
     , ["_classNames", KPLIB_resources_storageClassesF, [[]]]
-    , ["_range", KPLIB_param_fobRange, [0]]
+    , ["_range", KPLIB_param_fobs_range, [0]]
 ];
 
 // This version is a bit more in depth parsing through the FOB tuple, but not terribly so...

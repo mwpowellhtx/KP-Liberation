@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-03-31
-    Last Update: 2021-03-05 01:07:54
+    Last Update: 2021-05-17 20:27:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -17,7 +17,7 @@
         _supplies - amount of supplies to refund [NUMBER, defaults: 0]
         _ammo - amount of ammo to refund [NUMBER, defaults: 0]
         _fuel - amount of fuel to refund [NUMBER, defaults: 0]
-        _range - range about which to scan for available storage objects [SCALAR, default: KPLIB_param_fobRange]
+        _range - range about which to scan for available storage objects [SCALAR, default: KPLIB_param_fobs_range]
 
     Returns:
         Refund successful [BOOL]
@@ -28,7 +28,7 @@ params [
     , ["_supplies", 0, [0]]
     , ["_ammo", 0, [0]]
     , ["_fuel", 0, [0]]
-    , ["_range", KPLIB_param_fobRange, [0]]
+    , ["_range", KPLIB_param_fobs_range, [0]]
 ];
 
 // Exit if no location is given

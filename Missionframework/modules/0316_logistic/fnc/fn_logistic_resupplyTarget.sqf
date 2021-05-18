@@ -4,8 +4,9 @@
 
     File: fn_logistic_resupplyTarget.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-02-24
-    Last Update: 2019-05-04
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-02-24
+    Last Update: 2021-05-17 20:28:40
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -88,7 +89,7 @@ if !(KPLIB_param_aceResupply) then {
 
 if (
     !(_cargo isEqualTo _cargoCheck) ||
-    ((_markerPos distance2D _vehicle) > KPLIB_param_fobRange)
+    ((_markerPos distance2D _vehicle) > KPLIB_param_fobs_range)
 ) exitWith {
     _resupplyButton ctrlEnable false;
     [

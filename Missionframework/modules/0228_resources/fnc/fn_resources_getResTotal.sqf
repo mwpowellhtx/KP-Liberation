@@ -26,7 +26,7 @@
 // TODO: TBD: which the caller should have in hand given the tuples...
 params [
     ["_markerName", "", [""]]
-    , ["_range", KPLIB_param_fobRange, [0]]
+    , ["_range", KPLIB_param_fobs_range, [0]]
 ];
 
 private _resources = [0, 0, 0];

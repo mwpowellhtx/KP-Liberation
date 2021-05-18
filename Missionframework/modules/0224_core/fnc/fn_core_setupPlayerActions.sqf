@@ -31,7 +31,7 @@ if (hasInterface) then {
     [] call {
         private _condition = '
             _target isEqualTo _originalTarget
-            && ([_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
+            && ([_target, KPLIB_param_fobs_range, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
                 || [_target, KPLIB_param_edenRange, KPLIB_sectors_edens] call KPLIB_fnc_common_getTargetMarkerInRange)
         ';
 

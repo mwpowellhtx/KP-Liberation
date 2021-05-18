@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-11-14
-    Last Update: 2021-02-13 07:14:02
+    Last Update: 2021-05-17 20:32:32
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,7 +23,7 @@
 // Actions available LOCALLY to player
 private _arsenalCondition = '
     _target isEqualTo _originalTarget
-      && ([_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
+      && ([_target, KPLIB_param_fobs_range, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
         || [_target, KPLIB_param_edenRange, KPLIB_sectors_edens] call KPLIB_fnc_common_getTargetMarkerInRange)
 ';
 

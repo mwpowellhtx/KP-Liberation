@@ -5,8 +5,9 @@
 
     File: fn_cratefiller_removeEquipment.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-04-06
-    Last Update: 2019-05-04
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-04-06
+    Last Update: 2021-05-17 20:30:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -49,7 +50,7 @@ if (_indexActive isEqualTo -1 || ((lnbSize _ctrlActive) select 0) isEqualTo 0) e
 };
 
 // Check if the storage is in range
-if ((_storage distance2D _markerPos) > KPLIB_param_fobRange) exitWith {
+if ((_storage distance2D _markerPos) > KPLIB_param_fobs_range) exitWith {
     [localize "STR_KPLIB_HINT_RANGE"] call CBA_fnc_notify;
     [] remoteExecCall ["KPLIB_fnc_cratefiller_getNearStorages", (allPlayers - entities "HeadlessClient_F")];
 };

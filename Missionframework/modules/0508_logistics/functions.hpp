@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-24 14:51:36
-    Last Update: 2021-05-17 14:36:20
+    Last Update: 2021-05-17 20:34:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -136,7 +136,7 @@ class logistics {
     // Determins the mid TRANSIT safe zones in terms of TIMER times in seconds
     class logistics_calculateTransitWindow {};
 
-    // Translates 'KPLIB_param_fobRange' in terms of 'KPLIB_param_logistics_transportSpeedKph', in meters per second
+    // Translates 'KPLIB_param_fobs_range' in terms of 'KPLIB_param_logistics_transportSpeedKph', in meters per second
     class logistics_calculateFobRangeSeconds {};
 
     // Calculates line estimated position in terms of elapsed time and 'KPLIB_param_logistics_transportSpeedKph'

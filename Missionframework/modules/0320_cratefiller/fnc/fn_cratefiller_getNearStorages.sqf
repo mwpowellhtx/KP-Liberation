@@ -4,8 +4,9 @@
 
     File: fn_cratefiller_getNearStorages.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-04-06
-    Last Update: 2019-05-14
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-04-06
+    Last Update: 2021-05-17 20:29:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -45,7 +46,7 @@ private _blacklist = [
     "WeaponHolderSimulated",
     ""
 ];
-private _objects = (getMarkerPos _markerName) nearObjects KPLIB_param_fobRange;
+private _objects = (getMarkerPos _markerName) nearObjects KPLIB_param_fobs_range;
 
 // Get near objects and check for storage capacity
 {

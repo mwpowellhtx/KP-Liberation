@@ -5,7 +5,7 @@
     File: fn_hud_inRange.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-04-03 00:32:05
+    Last Update: 2021-05-17 20:31:46
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -15,7 +15,7 @@
     Parameters:
         _player - the player in the question [OBJECT, default: objNull]
         _bravoPos - a 3D position [ARRAY, default: KPLIB_zeroPos]
-        _range - the range in the question [SCALAR, default: KPLIB_param_fobRange]
+        _range - the range in the question [SCALAR, default: KPLIB_param_fobs_range]
 
     Returns:
         Whether the PLAYER is in range of the BRAVO position.
@@ -25,7 +25,7 @@
 params [
     [Q(_player), objNull, [objNull]]
     , [Q(_bravoPos), +KPLIB_zeroPos, [[]], 3]
-    , [Q(_range), KPLIB_param_fobRange, [0]]
+    , [Q(_range), KPLIB_param_fobs_range, [0]]
 ];
 
 [

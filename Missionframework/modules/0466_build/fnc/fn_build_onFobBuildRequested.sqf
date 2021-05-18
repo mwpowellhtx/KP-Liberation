@@ -4,7 +4,7 @@
     File: fn_build_onFobBuildRequested.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-12 08:38:56
-    Last Update: 2021-02-12 08:38:59
+    Last Update: 2021-05-17 20:33:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -51,6 +51,6 @@ private _onConfirm = {
 
 // TODO: TBD: this is a better factoring for the FOB build request radius, etc...
 // TODO: TBD: as a function of fob range? should be additional settings here...
-[_pos, (35 max KPLIB_param_fobRange/2), [KPLIB_preset_fobBuildingF, 0, 0, 0], _onConfirm] call KPLIB_fnc_build_start_single;
+[_pos, (35 max KPLIB_param_fobs_range/2), [KPLIB_preset_fobBuildingF, 0, 0, 0], _onConfirm] call KPLIB_fnc_build_start_single;
 
 true;

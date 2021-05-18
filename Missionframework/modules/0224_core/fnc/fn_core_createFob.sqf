@@ -33,6 +33,7 @@
             [_pos] call KPLIB_fnc_core_createFob
 */
 
+// TODO: TBD: refactor this to FOBS module, if necessary...
 private _debug = [] call KPLIB_fnc_debug_debug;
 
 params [

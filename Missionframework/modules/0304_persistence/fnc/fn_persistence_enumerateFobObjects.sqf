@@ -4,7 +4,7 @@
     File: fn_persistence_enumerateFobObjects.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-23 19:38:09
-    Last Update: 2021-02-23 19:38:12
+    Last Update: 2021-05-17 20:27:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,7 +13,7 @@
 
     Parameter(s):
         _fobs - an array of FOB assets [ARRAY, default: []]
-        _range - range within which to consider each asset [SCALAR, default: KPLIB_param_fobRange]
+        _range - range within which to consider each asset [SCALAR, default: KPLIB_param_fobs_range]
 
     Returns:
         The set of eligible objects within range of each FOB to include in the next per frame persistence cycle.
@@ -21,7 +21,7 @@
 
 params [
     ["_fobs", KPLIB_sectors_fobs, [[]]]
-    , ["_range", KPLIB_param_fobRange, [0]]
+    , ["_range", KPLIB_param_fobs_range, [0]]
 ];
 
 private _retval = [];

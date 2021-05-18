@@ -4,14 +4,14 @@
     File: fn_logistics_calculateTransitWindow.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-03-07 12:35:02
-    Last Update: 2021-03-07 12:35:04
+    Last Update: 2021-05-17 20:35:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Calculates the TRANSIT WINDOW, the minimum and maximum times during the route
         when enemy sector blockage, insurgent ambush, and destination endpoint arrival,
         may be determined. This occurs as a function of the logistics time and speed
-        parameters, as well as 'KPLIB_param_fobRange'.
+        parameters, as well as 'KPLIB_param_fobs_range'.
 
     Parameters:
         _namespace - a CBA logistics namespace [LOCATION, default: locationNull]

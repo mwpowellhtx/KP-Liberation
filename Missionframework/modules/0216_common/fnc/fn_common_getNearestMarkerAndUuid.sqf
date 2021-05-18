@@ -31,7 +31,7 @@ params [
 
 private _nearestMarker = [
     _target
-    , KPLIB_param_fobRange
+    , KPLIB_param_fobs_range
     , KPLIB_sectors_fobs
     , _default] call KPLIB_fnc_common_getTargetMarkerIfInRange;
 

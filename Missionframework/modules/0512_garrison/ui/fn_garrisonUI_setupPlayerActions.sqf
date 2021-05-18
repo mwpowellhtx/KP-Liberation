@@ -6,7 +6,7 @@
     File: fn_garrisonUI_setupPlayerActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-16 15:01:44
-    Last Update: 2021-04-16 15:01:46
+    Last Update: 2021-05-17 20:35:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -32,7 +32,7 @@ if (hasInterface) then {
         _target isEqualTo _originalTarget
             && !(KPLIB_sectors_blufor isEqualTo [])
             && ["GarrisonDialogAccess"] call KPLIB_fnc_permission_checkPermission
-            && [_target, KPLIB_param_fobRange, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
+            && [_target, KPLIB_param_fobs_range, KPLIB_sectors_fobs] call KPLIB_fnc_common_getTargetMarkerInRange
     ';
 
     // TODO: TBD: should really go in a proper "setup player actions" file...
