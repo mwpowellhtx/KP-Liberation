@@ -1,8 +1,9 @@
 /*
     File: functions.hpp
-    Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+    Author: KP Liberatin Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-07
-    Last Update: 2021-05-17 13:40:54
+    Last Update: 2021-05-22 12:39:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -23,6 +24,9 @@ class permission {
 
     // Checks the given permission and executes the registered code
     class permission_checkPermission {};
+
+    // Returns whether the REQUESTED permissions have been granted
+    class permission_checkPermisisons {};
 
     // Checks the given vehicle permission and executes the registered code
     class permission_checkVehiclePermission {};
