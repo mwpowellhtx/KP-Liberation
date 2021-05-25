@@ -41,7 +41,7 @@ if (_delta != 0) then {
         [_template, _args, allPlayers] spawn KPLIB_fnc_notification_show;
     };
 
-    [] spawn KPLIB_fnc_init_save;
+    ["fn_resources_addIntel"] spawn KPLIB_fnc_init_save;
 };
 
 true;
