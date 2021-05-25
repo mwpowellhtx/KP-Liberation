@@ -4,7 +4,7 @@
     File: fn_config_settings.sqf
     Author: Michael W. Powell [22nd MEU SOD]
     Created: 2021-01-28 15:24:28
-    Last Update: 2021-01-28 15:24:30
+    Last Update: 2021-05-23 11:59:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -112,38 +112,6 @@ private _general = +[
                 , [localize "STR_KPLIB_SETTINGS_GENERAL_CLEARCARGO", localize "STR_KPLIB_SETTINGS_GENERAL_CLEARCARGO_TT"]
                 , localize "STR_KPLIB_SETTINGS_GENERAL"
                 , true
-                , 1
-                , _noop
-            ];
-        }
-    ]
-    , [
-        // Minimum range at which FOB may be build from the nearest Eden [default: 500 meters]
-        "KPLIB_param_edenRange"
-        , {
-            [
-                _this
-                , "SLIDER"
-                , [localize "STR_KPLIB_SETTINGS_GENERAL_EDENRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_EDENRANGE_TT"]
-                , localize "STR_KPLIB_SETTINGS_GENERAL"
-                , [100, 1000, 500, 0]
-                , 1
-                , _noop
-            ];
-        }
-    ]
-    , [
-        /* Maximum range at which it is possible to deploy assets to the designated Eden flight deck.
-         * See 'KPLIB_eden_flightDeckProxy' variable on Eden proxy for purposes of aligning assets.
-         * [default: 20 meters] */
-        "KPLIB_param_assetMoveRange"
-        , {
-            [
-                _this
-                , "SLIDER"
-                , [localize "STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE", localize "STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE_TT"]
-                , localize "STR_KPLIB_SETTINGS_GENERAL"
-                , [10, 100, 20, 0]
                 , 1
                 , _noop
             ];
