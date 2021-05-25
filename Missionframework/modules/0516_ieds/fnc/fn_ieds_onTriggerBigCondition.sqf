@@ -5,7 +5,7 @@
     File: fn_ieds_onTriggerBigCondition.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-08 21:45:00
-    Last Update: 2021-05-09 00:43:12
+    Last Update: 2021-05-25 13:17:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -57,9 +57,9 @@ if (isNull _target) exitWith {
 private _units = _list select { alive _x && _x isEqualTo vehicle _x; };
 private _vehicles = _list select { alive _x && _x in vehicles; };
 
-private _runningCount = ({ abs speed _x >= MPARAM(_unitApproachSafeSpeed); } count _units);
-private _rollingCount = ({ abs speed _x >= MPARAM(_vehicleApproachSafeSpeed); } count _vehicles);
-private _trackedCount = ({ abs speed _x > 0 && _x isKindOf Q(Tank); } count _vehicles);
+private _runningCount = ({ ([_x] call KPLIB_fnc_common_getMomentum) >= MPARAM(_unitApproachSafeSpeed); } count _units);
+private _rollingCount = ({ ([_x] call KPLIB_fnc_common_getMomentum) >= MPARAM(_vehicleApproachSafeSpeed); } count _vehicles);
+private _trackedCount = ({ ([_x] call KPLIB_fnc_common_getMomentum) > 0 && _x isKindOf Q(Tank); } count _vehicles);
 
 private _actual = random 1;
 private _chance = PCT(MPARAM(_bigDetonationChance));

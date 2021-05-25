@@ -54,7 +54,7 @@ if (!(_spawnPos isEqualTo KPLIB_zeroPos)) then {
     _target setVariable [QMVAR(_className), _className, true];
 
     // We can probably get away with a server only event after all
-    [Q(KPLIB_vehicle_spawned), [_target]] call CBA_fnc_serverEvent;
+    [Q(KPLIB_vehicle_created), [_target]] call CBA_fnc_serverEvent;
 };
 
 _target;

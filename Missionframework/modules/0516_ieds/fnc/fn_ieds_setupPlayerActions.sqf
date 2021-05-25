@@ -6,7 +6,7 @@
     File: fn_ieds_setupPlayerActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-06 23:11:35
-    Last Update: 2021-05-07 11:58:57
+    Last Update: 2021-05-25 13:19:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,21 +23,22 @@
         https://community.bistudio.com/wiki/addAction
  */
 
-private _debug = MPARAM(_setupPlayerActions_debug);
-
 params [
     [Q(_player), player, [objNull]]
 ];
 
-if (hasInterface) then {
+private _debug = MPARAM(_setupPlayerActions_debug)
+    || (_player getVariable [QMVAR(_setupPlayerActions_debug), false])
+    ;
+
+if (_debug) then {
     ["[fn_ieds_setupPlayerActions] Entering...", "IEDS", true] call KPLIB_fnc_common_log;
 };
 
-if (hasInterface) then {
-    // Player section
-
-    [_player, Q(STR_KPLIB_RESOURCES_ACTION_DISARM_IED), [
-        { _this call MFUNC(_onDisarm); }
+[
+    [
+        Q(STR_KPLIB_RESOURCES_ACTION_DISARM_IED)
+        , { _this call MFUNC(_onDisarm); }
         , []
         , KPLIB_ACTION_PRIORITY_DISARM_IED
         , true
@@ -45,10 +46,11 @@ if (hasInterface) then {
         , ""
         , "_this call KPLIB_fnc_ieds_canDisarm"
         , -1
-    ], "#ff9900"] call KPLIB_fnc_common_addAction;
-};
+    ]
+    , [["_color", "#ff9900"], ["_varName", QMVAR(_disarmIedID)]]
+] call KPLIB_fnc_common_addPlayerAction;
 
-if (hasInterface) then {
+if (_debug) then {
     ["[fn_ieds_setupPlayerActions] Fini", "IEDS", true] call KPLIB_fnc_common_log;
 };
 

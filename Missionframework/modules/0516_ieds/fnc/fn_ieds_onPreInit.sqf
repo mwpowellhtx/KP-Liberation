@@ -5,7 +5,7 @@
     File: fn_ieds_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-22 18:00:56
-    Last Update: 2021-05-08 22:30:21
+    Last Update: 2021-05-23 21:53:44
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -79,7 +79,7 @@ if (isServer) then {
     //     [_className, Q(killed), { _this call MFUNC(_onObjectHitOrKilled); }, true, [], true] call CBA_fnc_addClassEventHandler;
     // } forEach MPRESET(_classNames);
 
-    [Q(KPLIB_vehicle_spawned), { _this call MFUNC(_onMineSpawned); }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_vehicle_created), { _this call MFUNC(_onMineSpawned); }] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {
@@ -89,11 +89,7 @@ if (!(hasInterface || isDedicated)) then {
 if (hasInterface) then {
     // Player section
 
-    // Because simply invoking SETUP PLAYER ACTIONS does not install the actions
-    [{ alive player; }, { [] call MFUNC(_setupPlayerActions); }] call CBA_fnc_waitUntilAndExecute;
-
-    [Q(KPLIB_player_redeploy), { _this call MFUNC(_onPlayerRedeployed); }] call CBA_fnc_addEventHandler;
-    // [Q(KPLIB_player_redeploy), { systemChat format ["Player %1 redeployed %2", name _this#0, _this#1]; }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_player_redeploy), { _this call MFUNC(_setupPlayerActions); }] call CBA_fnc_addEventHandler;
 };
 
 if (isServer) then {
