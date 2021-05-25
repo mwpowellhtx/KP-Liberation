@@ -37,7 +37,7 @@ if (alive _player) then {
         , [KPLIB_sectors_startbases, KPLIB_param_eden_startbaseRadius]
     ];
 
-    private _getMarkerDistance = { markerPos _this distance _player; };
+    private _getMarkerDistance = { markerPos _this distance2D _player; };
 
     /* First, sort all PROXIMITIES among themselves
      * Shape: [[[_marker, _distance], ...], ...]

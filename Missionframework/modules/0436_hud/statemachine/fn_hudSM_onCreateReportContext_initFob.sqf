@@ -52,7 +52,7 @@ if (_debug) then {
 // */
 
 private _reportAllResources = _player getVariable [KPLIB_hud_reportAllResources, false];
-private _getMarkerDistance = { markerPos _this distance _player; };
+private _getMarkerDistance = { markerPos _this distance2D _player; };
 
 // TODO: TBD: will revisit the HUD aspects... client/server may not be quite as necessary...
 // TODO: TBD: as long as we have necessary bits on the client side we can tally...

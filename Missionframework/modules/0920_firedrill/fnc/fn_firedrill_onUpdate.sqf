@@ -53,7 +53,7 @@ _players = _players select { _x in allPlayers; };
 // Much smoother, which players are within range of any of the FOBs
 private _playersWithin = _players select {
     private _player = _x;
-    ({ (markerPos _x distance _player) < _range; } count _fobs) > 0;
+    ({ (markerPos _x distance2D _player) < _range; } count _fobs) > 0;
 };
 
 private _toUpdate = if (_updating) then {

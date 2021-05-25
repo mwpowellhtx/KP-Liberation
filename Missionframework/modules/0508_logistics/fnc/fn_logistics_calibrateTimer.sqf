@@ -28,7 +28,7 @@ params [
     , ["_speedMps", 0, [0]]
 ];
 
-private _alphaBravoDistance = _alphaPos distance _bravoPos;
+private _alphaBravoDistance = _alphaPos distance2D _bravoPos;
 
 // If any of the key components are zero, respond with default, disabled timer
 if (_alphaBravoDistance == 0 || _speedMps == 0) exitWith {

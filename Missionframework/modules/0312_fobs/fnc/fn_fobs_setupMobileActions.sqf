@@ -58,7 +58,7 @@ params [
 //         , ""
 //         , "
 //             _this isEqualTo vehicle _this
-//                 && !([KPLIB_sectors_startbases, { (markerPos _x distance _target) <= KPLIB_param_eden_startbaseRadius; }] call KPLIB_fnc_linq_any)
+//                 && !([KPLIB_sectors_startbases, { (markerPos _x distance2D _target) <= KPLIB_param_eden_startbaseRadius; }] call KPLIB_fnc_linq_any)
 //                 && !isNull ([_target, KPLIB_param_fobs_range] call KPLIB_fnc_fobs_getNearestBuilding)
 //                 && ([_target] call KPLIB_fnc_common_getMomentum) <= 5
 //                 && ([_target] call KPLIB_fnc_common_getAltitudeDelta) <= 5
@@ -90,8 +90,8 @@ private _redeployRange = 10;
             vehicle _this isEqualTo _this
                 && ([_target] call KPLIB_fnc_common_getMomentum) <= 5
                 && ([_this, _target] call KPLIB_fnc_common_getAltitudeDelta) <= 5
-                && !([KPLIB_sectors_startbases, { (markerPos _x distance _target) <= KPLIB_param_eden_startbaseRadius; }] call KPLIB_fnc_linq_any)
-                && ({ (markerPos _x distance _target) <= KPLIB_param_fobs_range; } count KPLIB_sectors_fobs) == 0
+                && !([KPLIB_sectors_startbases, { (markerPos _x distance2D _target) <= KPLIB_param_eden_startbaseRadius; }] call KPLIB_fnc_linq_any)
+                && ({ (markerPos _x distance2D _target) <= KPLIB_param_fobs_range; } count KPLIB_sectors_fobs) == 0
         "
         , _redeployRange
     ]

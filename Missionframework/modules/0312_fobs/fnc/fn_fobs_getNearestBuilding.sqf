@@ -38,7 +38,7 @@ private _isQualified = {
     !(_uuid isEqualTo "" || _markerName isEqualTo "");
 };
 
-private _getTargetDistance = { _this distance _target; };
+private _getTargetDistance = { _this distance2D _target; };
 
 private _onFilter = if (isNil { _range; }) then {
     {

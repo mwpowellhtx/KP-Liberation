@@ -86,7 +86,7 @@ if (!(_vehicleIndex isEqualTo -1)) then {
 // TODO: TBD: for 'this' and probably other aspects...
 // TODO: TBD: rethink 'logistic', especially the UI elements, and reconsider how to better position event handlers, helpers, etc...
 if (
-    (markerPos _markerName distance _vehicle) > KPLIB_param_fobs_range
+    (markerPos _markerName distance2D _vehicle) > KPLIB_param_fobs_range
     || !([_supplyValue, _ammoValue, _fuelValue] isEqualTo [_supplyValueCheck, _ammoValueCheck, _fuelValueCheck])
 ) exitWith {
     _recycleButton ctrlEnable false;

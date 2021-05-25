@@ -40,12 +40,12 @@ if (_bravo isEqualType []) exitWith {
         ];
         [_a, _b, _c];
     };
-    _player distance _bravo <= _range;
+    _player distance2D _bravo <= _range;
 };
 
 if (_bravo isEqualType objNull) exitWith {
     !isNull _bravo
-        && _player distance _bravo <= _range;
+        && _player distance2D _bravo <= _range;
 };
 
 false;

@@ -44,7 +44,7 @@ private _applied = KPLIB_sectors_startbases apply {
     [
         _target
         , if (isNull _target) then {
-            markerPos _x distance _target;
+            markerPos _x distance2D _target;
         }
         , _x
     ];

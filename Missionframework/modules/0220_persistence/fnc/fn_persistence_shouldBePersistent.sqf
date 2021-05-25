@@ -43,7 +43,7 @@ if (isNull _object) exitWith { false; };
     , _object getVariable ["KPLIB_fobs_fobUuid", ""]
     , _object getVariable ["KPLIB_sectors_markerName", ""]
     , fullCrew [_object, "", true] // All slots including empty ones, if available
-    , { (markerPos _x distance _object) <= _range; } count _markerNames
+    , { (markerPos _x distance2D _object) <= _range; } count _markerNames
 ] params [
     "_man"
     , "_alive"

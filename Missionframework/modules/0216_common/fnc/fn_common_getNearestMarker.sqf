@@ -41,7 +41,7 @@ private _getTargetDistance = {
     params [
         ["_markerName", "", [""]]
     ];
-    markerPos _markerName distance _target;
+    markerPos _markerName distance2D _target;
 };
 
 private _sortedMarkers = if (isNil { _range; }) then {

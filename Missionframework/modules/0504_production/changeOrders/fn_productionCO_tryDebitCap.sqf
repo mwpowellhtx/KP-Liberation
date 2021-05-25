@@ -103,7 +103,7 @@ if (_debit isEqualTo (_debit apply {0})) exitWith {
 // TODO: TBD: this one could potentially be factored in terms of a legit function...
 // Minding the Ps and Qs, cost is not zero, so we need to verify resources
 if (KPLIB_param_production_debitFob) then {
-    ([KPLIB_sectors_fobs, [], { (markerPos _x) distance (markerPos _markerName); }] call BIS_fnc_sortBy) params [
+    ([KPLIB_sectors_fobs, [], { (markerPos _x) distance2D (markerPos _markerName); }] call BIS_fnc_sortBy) params [
         ["_fobMarker", "", [""]]
     ];
     if (_fobMarker isEqualTo "") then {
