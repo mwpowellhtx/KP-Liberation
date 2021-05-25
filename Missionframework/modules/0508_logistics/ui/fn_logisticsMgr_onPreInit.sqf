@@ -5,7 +5,7 @@
     File: fn_logisticsMgr_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-25 11:58:41
-    Last Update: 2021-03-15 01:17:38
+    Last Update: 2021-05-23 15:33:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -52,6 +52,8 @@ if (!(hasInterface || isDedicated)) then {
 
 if (hasInterface) then {
     // Player section
+
+    ["KPLIB_player_redeploy", { _this call KPLIB_fnc_logisticsMgr_setupPlayerMenu; }] call CBA_fnc_addEventHandler;
 
     KPLIB_param_logisticsMgr_enableOrDisablePeriod      = 1;
 

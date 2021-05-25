@@ -5,64 +5,55 @@
     File: fn_logisticsMgr_setupPlayerMenu.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-26 19:00:27
-    Last Update: 2021-02-26 19:00:30
+    Last Update: 2021-05-24 10:32:35
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Sets up the player menus in the scope of the module.
+        Sets up the PLAYER menus in the scope of the module.
 
     Parameter(s):
-        NONE
+        _player - PLAYER for whom actions are arranged [OBJECT, default: player]
 
     Returns:
-        Function reached the end [BOOL]
+        The callback has finished [BOOL]
 
     References:
         https://www.w3schools.com/colors/colors_picker.asp
-*/
+ */
 
-// Actions available LOCALLY to player
-if (hasInterface) then {
+/*
+    == MANAGE LOGISTICS ==
+ */
 
-    /*
-        == MANAGE LOGISTICS ==
-     */
+// TODO: TBD: dialog opens, but then closes, when navigation by keyboard, i.e. Enter, Space, etc...
+// TODO: TBD: middle mouse button click, opens, stays open...
+// TODO: TBD: question pending, is there a return, ack, etc, we need to provide otherwise (?)
 
-    // TODO: TBD: add permissions: i.e. admin | commander | logistics
+// TODO: TBD: visit the string table with required bits...
+// Build storage actions
 
-    // Using the production manager as a blueprint...
-    // private _manageLogisticsCondition = '
-    //     _target == _originalTarget
-    //         && !(([_target] call KPLIB_fnc_common_getPlayerFob) isEqualTo "")
-    // ';
-    // // TODO: TBD: disabling the proximity bit for the moment...
-    private _manageLogisticsCondition = '
-        _target == _originalTarget
-    ';
-
-    // TODO: TBD: dialog opens, but then closes, when navigation by keyboard, i.e. Enter, Space, etc...
-    // TODO: TBD: middle mouse button click, opens, stays open...
-    // TODO: TBD: question pending, is there a return, ack, etc, we need to provide otherwise (?)
-    private _onOpenDialog = {
-        _this call KPLIB_fnc_logisticsMgr_openDialog;
-    };
-
-    // TODO: TBD: visit the string table with required bits...
-    // Build storage actions
-    private _manageLogisticsActionArgs = [
-        // TODO: TBD: verify colors, etc...
-        format ["<t color='#ff8000'>%1</t>", localize "STR_KPLIB_ACTION_MANAGE_LOGISTICS"]
-        , _onOpenDialog
+[
+    [
+        "STR_KPLIB_ACTION_MANAGE_LOGISTICS"
+        , { _this call KPLIB_fnc_logisticsMgr_openDialog; }
         , nil
         // TODO: TBD: visit the priority definitions...
         , KPLIB_ACTION_PRIORITY_MANAGE_LOGISTICS
         , false
         , true
         , ""
-        , _manageLogisticsCondition
+        , "
+            _target isEqualTo _originalTarget
+        "
+        // // TODO: TBD: add permissions: i.e. admin | commander | logistics
+        // , "
+        //     _target isEqualTo _originalTarget
+        //         && !(([_target] call KPLIB_fnc_common_getPlayerFob) isEqualTo "")
+        // "
         , -1
-    ];
+    ]
+    , [["_color", "#ff8000"], ["_varName", "KPLIB_logisticsMgr_manageLogisticsID"]]
+] call KPLIB_fnc_common_addPlayerAction;
 
-    [_manageLogisticsActionArgs] call CBA_fnc_addPlayerAction;
-};
+true;

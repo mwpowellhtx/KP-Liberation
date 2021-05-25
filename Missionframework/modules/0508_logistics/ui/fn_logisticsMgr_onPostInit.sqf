@@ -4,7 +4,7 @@
     File: fn_logisticsMgr_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-25 11:58:41
-    Last Update: 2021-02-25 11:58:44
+    Last Update: 2021-05-23 15:33:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -35,8 +35,6 @@ if (!(hasInterface || isDedicated)) then {
 
 if (hasInterface) then {
     // Player section
-    [] call KPLIB_fnc_logisticsMgr_setupPlayerMenu;
-
     ["KPLIB_logisticsMgr_onLinesPublished", KPLIB_fnc_logisticsMgr_onLinesPublished] call CBA_fnc_addEventHandler;
     [KPLIB_logisticsMgr_onEndpointsPublished, KPLIB_fnc_logisticsMgr_onEndpointsPublished] call CBA_fnc_addEventHandler;
 };
