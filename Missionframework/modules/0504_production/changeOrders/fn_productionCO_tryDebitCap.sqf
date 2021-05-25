@@ -4,7 +4,7 @@
     File: fn_productionCO_tryDebitCap.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 11:32:55
-    Last Update: 2021-05-17 20:34:44
+    Last Update: 2021-05-20 14:26:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,11 +23,6 @@
     Returns:
         The debit was paid against the indicated resource, plus CHANGE ORDER updates [BOOL]
             "KPLIB_production_assessment" - an encoded assessment, result of the transaction
-
-    Dependencies:
-        0005_config
-        0015_linq
-        0210_resources
  */
 
 params [
@@ -97,33 +92,33 @@ if (_candidate isEqualTo _cap) exitWith {
 };
 
 // Marker name of the designated source from which to debit the cost
-private _sourceName = _markerName;
+private _sourceMarker = _markerName;
 private _range = KPLIB_param_sectors_capRange;
 
 if (_debit isEqualTo (_debit apply {0})) exitWith {
     [nil, "[fn_productionCO_tryDebitCap] Nothing to debit, zero cost"] call _onExitWith;
 };
 
-// Cost is not zero, so we need to verify resources
+// TODO: TBD: ditto may publish variable, marker names, etc, after all...
+// TODO: TBD: this one could potentially be factored in terms of a legit function...
+// Minding the Ps and Qs, cost is not zero, so we need to verify resources
 if (KPLIB_param_production_debitFob) then {
-    if (KPLIB_sectors_fobs isEqualTo []) then {
+    ([KPLIB_sectors_fobs, [], { (markerPos _x) distance (markerPos _markerName); }] call BIS_fnc_sortBy) params [
+        ["_fobMarker", "", [""]]
+    ];
+    if (_fobMarker isEqualTo "") then {
         _assessment = KPLIB_productionCO_addCap_insufficientSumFob;
     } else {
-        private _markerPos = markerPos _markerName;
-        // Minding the Ps and Qs, first for Min, then for 'KPLIB_sectors_fobs'
-        private _fob = [KPLIB_sectors_fobs, { (_this#0#4) distance2D _markerPos; }] call KPLIB_fnc_linq_min;
-        //                           1. _fob:       ^^
-        //                           2. _pos:         ^^
-        _sourceName = (_fob#0);
         _range = KPLIB_param_fobs_range;
+        _sourceMarker = _fobMarker;
     };
 };
 
 // Clear to attempt the debit
 if (_assessment isEqualTo KPLIB_productionCO_addCap_success) then {
-    private _debitArgs = [_sourceName] + _debit + [_range];
+    private _debitArgs = [_sourceMarker] + _debit + [_range];
     if (!(_debitArgs call KPLIB_fnc_resources_pay)) then {
-        _assessment = if (_sourceName in KPLIB_sectors_factory) then {
+        _assessment = if (_sourceMarker in KPLIB_sectors_factory) then {
             KPLIB_productionCO_addCap_insufficientSumSector;
         } else {
             KPLIB_productionCO_addCap_insufficientSumFob;

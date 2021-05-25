@@ -4,18 +4,18 @@
     File: fn_productionMgr_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-06 12:59:43
-    Last Update: 2021-02-06 12:59:45
+    Last Update: 2021-05-22 15:31:05
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Module pre initialization phase callback.
+        Initialization phase event handler.
 
     Parameter(s):
         NONE
 
     Returns:
-        Module preInit finished [BOOL]
+        The event handler has finished [BOOL]
 
     References:
         https://community.bistudio.com/wiki/CfgMarkers
@@ -31,13 +31,13 @@ if (isServer) then {
     // Server side init
 };
 
-KPLIB_productionMgr_productionStatePublished            = "KPLIB_productionMgr_productionStatePublished";
+KPLIB_productionMgr_productionStatePublished                        = "KPLIB_productionMgr_productionStatePublished";
 
 // TODO: TBD: lays any ground work, client or server, required to support the module
 if (hasInterface) then {
 
     KPLIB_param_productionMgr_debug                                 = false;
-    KPLIB_param_productionMgr_btnEnqueue_onButtonClick_debug        = true;
+    KPLIB_param_productionMgr_btnEnqueue_onButtonClick_debug        = false;
     KPLIB_param_productionMgr_lnbSectors_debug                      = false;
     KPLIB_param_productionMgr_onProductionStatePublished_debug      = false;
     KPLIB_param_productionMgr_timer_debug                           = false;
@@ -50,6 +50,8 @@ if (hasInterface) then {
         , [false, "no"]
     ];
 
+    // TODO: TBD: instead of so many tuples floating aobut...
+    // TODO: TBD: may want to reconsider in terms of proper objects, serialized properties, etc
     // TODO: TBD: transition to "zeroed prod API" ...
     // Not quite 'empty' but it is a known default state
     KPLIB_productionMgr_productionElem_default = +[
@@ -63,6 +65,9 @@ if (hasInterface) then {
         , [KPLIB_resources_capDefault, KPLIB_resources_storageValueDefault, []]
         //                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ];
+
+    // Wire up on redeploy so that the player gets the action once again
+    ["KPLIB_player_redeploy", { _this call KPLIB_fnc_productionMgr_setupPlayerMenu; }] call CBA_fnc_addEventHandler;
 };
 
 if (isServer) then {

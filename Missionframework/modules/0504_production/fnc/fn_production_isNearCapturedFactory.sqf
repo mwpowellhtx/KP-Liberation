@@ -4,7 +4,7 @@
     File: fn_production_isNearCapturedFactory.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-05 00:00:10
-    Last Update: 2021-02-13 09:22:34
+    Last Update: 2021-05-22 11:36:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,7 +13,7 @@
 
     Parameter(s):
         _target - the object being considered within '_range' of near factory [OBJECT, default: player]
-        _range - '_range' within which to verify '_target' of the 'KPLIB_sectors_factory' sectors [SCALAR, default: 0]
+        _range - '_range' within which to verify '_target' of the 'KPLIB_sectors_factory' sectors [SCALAR, default: KPLIB_param_sectors_capRange]
         _predicate - allows for an additional '_predicate' in addition to whether near captured factory [CODE, default {true}]
         _predicateArgs - additional arguments to be passed into the predicated callback [ARRAY, default: []]
 
@@ -26,18 +26,18 @@
 
 params [
     ["_target", player, [objNull]]
-    , ["_range", 0, [0]]
+    , ["_range", KPLIB_param_sectors_capRange, [0]]
     , ["_predicate", { true; }, [{}]]
     , ["_predicateArgs", [], [[]]]
 ];
 
-// Start with the '_markerName' itself because we need to verify side...
-// TODO: TBD: might actually have some confusion between core and common...
-// TODO: TBD: actually, might make better sense to move these to core, and update how the "getnearestmarker" works in the first place...
-private _markerName = [_target, KPLIB_sectors_factory] call KPLIB_fnc_common_getNearestMarker;
+// Simplify the conditions by making better use of the commong functions
+private _markerName = [
+    _target
+    , [] call KPLIB_fnc_sectors_getBluforFactorySectors
+    , _range, "KPLIB_production_markerName"
+] call KPLIB_fnc_common_getNearestMarker;
 
-// Then we may also focus the actual range check, predicate, etc...
-_markerName in KPLIB_sectors_blufor
-    && [_target, _range, [_markerName]] call KPLIB_fnc_common_getTargetMarkerInRange
+!(_markerName isEqualTo "")
     && [_target, _range, _markerName, _predicateArgs] call _predicate
     ;

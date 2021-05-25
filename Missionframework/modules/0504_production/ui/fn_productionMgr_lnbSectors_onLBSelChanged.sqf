@@ -114,7 +114,7 @@ private _productionElem = (_selected#0);
 
     _ctrlMap ctrlMapAnimAdd [0, 0.1, _sectorPos];
 
-    _ctrlMap setVariable ["KPLIB_sector_markerName", _markerName];
+    _ctrlMap setVariable ["KPLIB_sectors_markerName", _markerName];
 
     [_ctrlMap] call KPLIB_fnc_productionMgr_ctrlMap_onLoad;
 

@@ -5,7 +5,7 @@
     File: fn_productionMgr_ctrlMap_onLoad.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-16 00:14:03
-    Last Update: 2021-02-16 00:14:07
+    Last Update: 2021-05-25 11:49:01
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,7 +20,7 @@
         The event handler has finished [BOOL]
  */
 
-// TODO: TBD: may better define KPLIB_sector_markerName variable on the map itself...
+// TODO: TBD: may better define KPLIB_sectors_markerName variable on the map itself...
 params [
     ["_ctrlMap", controlNull, [controlNull]]
 ];
@@ -32,19 +32,21 @@ if (isNull _ctrlMap) then {
 
 [_ctrlMap] call KPLIB_fnc_productionMgr_ctrlMap_onUnload;
 
-private _sectorMarkerName = _ctrlMap getVariable ["KPLIB_sector_markerName", ""];
+private _markerName = _ctrlMap getVariable ["KPLIB_sectors_markerName", ""];
 
-if (_sectorMarkerName isEqualTo "") exitWith {
-    true;
-};
+if (_markerName isEqualTo "") exitWith { true; };
 
 private _i = 0;
 
-private _storageContainers = [_sectorMarkerName] call KPLIB_fnc_resources_getFactoryStorages;
+private _storageContainers = [
+    markerPos _markerName
+    , KPLIB_param_sectors_capRange
+    , KPLIB_resources_factoryStorageClasses
+] call KPLIB_fnc_resources_getStorages;
 
 private _storageMarkerNames = _storageContainers apply {
 
-    private _storageMarkerName = format ["%1_storage_%2", _sectorMarkerName, str _i];
+    private _storageMarkerName = format ["%1_storage_%2", _markerName, str _i];
 
     if (!(_storageMarkerName in allMapMarkers)) then {
         createMarkerLocal [_storageMarkerName, getPosATL _x];
