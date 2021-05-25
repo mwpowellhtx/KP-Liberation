@@ -5,33 +5,37 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-01-26 17:04:48
+    Last Update: 2021-05-18 12:54:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Fetches data which is bound to the init module and send it to the global save data array.
+        Presents module data for the save operation.
 
     Parameters:
         NONE
 
     Returns:
-        Function reached the end [BOOL]
-*/
+        The event handler has finished [BOOL]
+ */
 
-if (KPLIB_param_savedebug) then {
-    ["Init module saving...", "SAVE"] call KPLIB_fnc_common_log;
+private _debug = KPLIB_param_savedebug;
+
+if (_debug) then {
+    ["[fn_init_saveData] Saving...", "INIT"] call KPLIB_fnc_common_log;
 };
 
-// TODO: TBD: so... "all" sectors land in "blufor" sectors?
 // Set module data to save and send it to the global save data array
 ["init",
     +[
         date // Current date and time
         , KPLIB_sectors_lockedVeh // Locked Vehicles array
         , KPLIB_sectors_blufor // Blufor sectors
-        , KPLIB_sectors_fobs // FOB array of FOB tuples
     ]
 ] call KPLIB_fnc_init_setSaveData;
 
-true
+if (_debug) then {
+    ["[fn_init_saveData] Fini", "INIT"] call KPLIB_fnc_common_log;
+};
+
+true;

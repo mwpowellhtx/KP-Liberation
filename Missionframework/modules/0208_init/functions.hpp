@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-05-17 12:59:43
+    Last Update: 2021-05-23 13:20:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -12,6 +12,9 @@
 
 class init {
     file = "modules\0208_init\fnc";
+
+    // Sets whether to ENABLE SAVE from happening
+    class init_enableSave {};
 
     // Checks if given classname is inside CfgVehicles
     class init_checkClass {};
@@ -80,6 +83,6 @@ class init {
     // Updates the Eden markers
     class init_updateEdenMarkers {};
 
-    // Updates the FOB markers
-    class init_updateFobMarkers {};
+    // // Updates the FOB markers
+    // class init_updateFobMarkers {};
 };

@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-08-31
-    Last Update: 2021-05-17 13:00:46
+    Last Update: 2021-05-23 13:23:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -71,6 +71,11 @@ KPLIB_zeroPos = [0,0,0];
 KPLIB_zeroPosGridref = mapGridPosition KPLIB_zeroPos;
 KPLIB_zeroPosGridrefDash = KPLIB_zeroPosGridref splitString "" apply { '-'; } joinString "";
 
+// TODO: TBD: surprised that there is not the "grass cutter" defined in the build menu...
+// Defined for use throughout
+KPLIB_preset_proxyClassName = "Land_ClutterCutter_small_F";
+
+KPLIB_init_saveEnabled = true;
 
 /*
     ----- Module Initialization -----
@@ -97,14 +102,12 @@ if (isServer) then {
     enableSaving [false, false];
 
     // Register load event handler
-    ["KPLIB_doLoad", {[] call KPLIB_fnc_init_loadData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doLoad", { [] call KPLIB_fnc_init_loadData; }] call CBA_fnc_addEventHandler;
 
     // Register save event handler
-    ["KPLIB_doSave", {[] call KPLIB_fnc_init_saveData;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_doSave", { [] call KPLIB_fnc_init_saveData; }] call CBA_fnc_addEventHandler;
 
-    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_init_updateEdenMarkers;}] call CBA_fnc_addEventHandler;
-
-    ["KPLIB_updateMarkers", {[] call KPLIB_fnc_init_updateFobMarkers;}] call CBA_fnc_addEventHandler;
+    ["KPLIB_updateMarkers", { [] call KPLIB_fnc_init_updateEdenMarkers; }] call CBA_fnc_addEventHandler;
 
     // Load preset files
     [] call KPLIB_fnc_init_loadPresets;

@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-11-09
-    Last Update: 2021-05-17 20:19:57
+    Last Update: 2021-05-25 00:16:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -63,33 +63,6 @@
     true,
     1,
     {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_opsRange
-// Operational buffer zone around the Operations base
-// Default: 500 meters
-[
-    "KPLIB_param_opsRange"
-    , "SLIDER"
-    , [localize "STR_KPLIB_SETTINGS_GENERAL_OPSRANGE", localize "STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT"]
-    , localize "STR_KPLIB_SETTINGS_GENERAL"
-    , [100, 1000, 500, 0]
-    , 1
-    , {}
-] call CBA_Settings_fnc_init;
-
-// KPLIB_param_assetMoveRange
-// Maximum range at which it is possible to deploy helicopters to the designated startbase heli flight deck.
-// See '_flightDeckProxy' variable on startbase proxy for purposes of aligning assets.
-// Default: 20 meters
-[
-    "KPLIB_param_assetMoveRange"
-    , "SLIDER"
-    , [localize "STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE", localize "STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE_TT"]
-    , localize "STR_KPLIB_SETTINGS_GENERAL"
-    , [10, 100, 20, 0]
-    , 1
-    , {}
 ] call CBA_Settings_fnc_init;
 
 // KPLIB_param_timeMulti
@@ -217,4 +190,6 @@
     true
 ] call CBA_Settings_fnc_init;
 
-true
+KPLIB_param_init_save_debug                     = false;
+
+true;

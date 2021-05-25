@@ -36,9 +36,10 @@ if (!isServer) then {
     [{
         params ["_args", "_handle"];
 
+        // TODO: TBD: a PFH? how is it "attached" (?)
         if (KPLIB_save_loaded && (time > 0)) then {
             if (KPLIB_campaignRunning) then {
-                [] call KPLIB_fnc_init_save;
+                ["fn_init_onPostInit"] call KPLIB_fnc_init_save;
             } else {
                 _handle call CBA_fnc_removePerFrameHandler;
                 ["[fn_init_onPostInit] Save timer deactivated due to KPLIB_campaignRunning false", "IMPORTANT"] call KPLIB_fnc_common_log;
