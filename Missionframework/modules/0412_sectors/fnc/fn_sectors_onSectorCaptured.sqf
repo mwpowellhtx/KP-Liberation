@@ -57,7 +57,7 @@ if (_opfor) then {
     [] call MFUNC(_getOpforSectors);
 
     // Save, update markers, and notify once change is reported
-    [] call KPLIB_fnc_init_save;
+    [Q(fn_sectors_onSectorCaptured)] call KPLIB_fnc_init_save;
 };
 
 [] call {

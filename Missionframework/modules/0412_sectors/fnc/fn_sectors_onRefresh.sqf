@@ -141,7 +141,7 @@ private _fobs = missionNamespace getVariable [QMVAR(_fobs), []];
 [
     [_markerName, MVAR(_tower)] call MFUNC(_getNearestSector)
     , [_markerName, MVAR(_military)] call MFUNC(_getNearestSector)
-    , [_markerName, _fobs apply { (_x#0); }] call MFUNC(_getNearestSector)
+    , [_markerName, MVAR(_fobs)] call MFUNC(_getNearestSector)
 ] params [
     Q(_nearestTower)
     , Q(_nearestBase)
