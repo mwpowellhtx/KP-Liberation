@@ -70,13 +70,13 @@
     <Package name="General">
         <!-- TODO: TBD: they need to be moved out of the General package (?) -->
         <Key ID="STR_KPLIB_TITLE">
-            <English>CTI 34 KP Liberation v0.98d.dev-s14</English>
+            <English>CTI 34 KP Liberation v0.98d.dev-s16</English>
         </Key>
         <Key ID="STR_SAVE_KEY">
             <English>KP_LIBERATION_%1_SAVEGAME_REWRITE_DEV</English>
         </Key>
         <Key ID="STR_KPLIB_VERSION">
-            <English>v0.98.dev-s14</English>
+            <English>v0.98.dev-s16</English>
         </Key>
         <Key ID="STR_KPLIB_DESCRIPTION">
             <English>Liberate the region from the enemy oppression! Strategy will be key! Good luck soldiers.</English>
@@ -241,34 +241,6 @@
             <Russian>- ПРОВЕРИТЬ СОДЕРЖАНИЕ -</Russian>
             <Spanish>- COMPROBAR CONTENIDO -</Spanish>
             <Turkish>- İÇİNDEKİLER KONTROL ET -</Turkish>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_DEPLOY">
-            <English>-- DEPLOY FOB --</English>
-            <Chinese>-- 佈署前線基地 --</Chinese>
-            <Chinesesimp>-- 部署前哨 --</Chinesesimp>
-            <French>-- DEPLOYER FOB --</French>
-            <German>-- FOB BEREITSTELLEN --</German>
-            <Italian>-- COSTRUISCI FOB --</Italian>
-            <Portuguese>-- INSTALAR FOB --</Portuguese>
-            <Russian>-- РАЗВЕРНУТЬ FOB --</Russian>
-            <Spanish>-- DESPLEGAR FOB --</Spanish>
-            <Turkish>-- FOB KUR --</Turkish>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_REPACKAGE_FOB_BOX">
-            <English>-- REPACKAGE FOB CONTAINER --</English>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_REPACKAGE_FOB_TRUCK">
-            <English>-- REPACKAGE FOB TRUCK --</English>
-        </Key>
-        <Key ID="STR_KPLIB_FOB_BUILT_FORMAT">
-            <English>FOB %1 built.</English>
-        </Key>
-        <Key ID="STR_KPLIB_FOB_ONTEARDOWN_FORMAT">
-            <English>FOB %1 repackaged.</English>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_DEPLOYRANDOM">
-            <English>-- RANDOM FOB DEPLOYMENT --</English>
-            <German>-- ZUFÄLLIGE FOB PLATZIERUNG --</German>
         </Key>
         <Key ID="STR_KPLIB_ACTION_ESCORT">
             <English>Escort %1</English>
@@ -1300,20 +1272,14 @@
             <German>Der ausgewählte Laderaum hat keinen ausreichenden Platz.</German>
             <Polish>Wybrany kontener nie ma dość wolnego miejsca.</Polish>
         </Key>
-        <Key ID="STR_KPLIB_HINT_EDENNOTFOUND">
-            <English>Eligible Eden not found.</English>
-            <Chinese>未找到符合條件的啟動基.</Chinese>
-            <German>Berechtigte Eden nicht gefunden.</German>
+        <Key ID="STR_KPLIB_HINT_STARTBASE_NOT_FOUND">
+            <English>Eligible start base not found.</English>
         </Key>
-        <Key ID="STR_KPLIB_HINT_FLIGHTDECKNOTFOUND">
+        <Key ID="STR_KPLIB_HINT_FLIGHT_DECK_NOT_FOUND">
             <English>Designated flight deck not found.</English>
-            <Chinese>找不到指定飛行甲板.</Chinese>
-            <German>Bezeichnetes Flugdeck nicht gefunden.</German>
         </Key>
-        <Key ID="STR_KPLIB_HINT_ASSETMOVEBLOCKED">
+        <Key ID="STR_KPLIB_HINT_ASSET_MOVE_BLOCKED">
             <English>Clear the flight deck and the asset first.</English>
-            <Chinese>先清除飛行甲板和資產.</Chinese>
-            <German>Löschen Sie zuerst das Flugdeck und das Asset.</German>
         </Key>
         <Key ID="STR_KPLIB_HINT_MISSIONCONDITION">
             <English>The conditions for the mission start aren't met.</English>
@@ -1388,10 +1354,6 @@
         <Key ID="STR_KPLIB_HINT_PERMISSIONDEACTIVATED">
             <English>The permission system isn't active.</English>
             <German>Das Rechtesystem ist derzeit nicht aktiviert.</German>
-        </Key>
-        <Key ID="STR_KPLIB_HINT_RANDOMFOBERROR">
-            <English>Random placement of a FOB is currently not possible.</English>
-            <German>Zufällige FOB Platzierung ist im Moment nicht möglich.</German>
         </Key>
         <Key ID="STR_KPLIB_HINT_RANGE">
             <English>Selected transport medium is out of range.</English>
@@ -1772,31 +1734,23 @@
             <Chinese>如果重生/裝載的載具有倉儲空間則啟用/關閉</Chinese>
             <German>Aktiviert/Deaktiviert ob gebaute Fahrzeuge anfänglich ein leeres Inventar haben.</German>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_EDENRANGE">
-            <English>Operations Range</English>
-            <Chinese>操作範圍</Chinese>
-            <German>Operations Bereich</German>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_FLIGHT_DECK_RADIUS">
+            <English>Flight Deck Radius</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_EDENRANGE_TT">
-            <English>Minimum distance in Meters from Operations to build FOB.</English>
-            <Chinese>產生 FOB 的最小距離（以米為單位）.</Chinese>
-            <German>Mindestabstand in Metern von Operations zum Erstellen von FOB.</German>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_FLIGHT_DECK_RADIUS_TT">
+            <English>Radius about which to verify the Flight Deck is clear prior to moving assets into position [default: 20]</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE">
-            <English>Operations Area</English>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_STARTBASE_RADIUS">
+            <English>Startbase Radius</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_OPSRANGE_TT">
-            <English>Operational buffer zone around the Operations base.</English>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_STARTBASE_RADIUS_TT">
+            <English>Startbase radius about which to consider things like player interaction, deployment, etc.</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE">
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_ASSET_MOVE_RANGE">
             <English>Asset Move Range</English>
-            <Chinese>直升機移動範圍</Chinese>
-            <German>Asset Move Range</German>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GENERAL_ASSETMOVERANGE_TT">
-            <English>Maximum range at which assets may be deployed to the Eden flight deck.</English>
-            <Chinese>旋轉資產可部署到起點飛行甲板的最大範圍.</Chinese>
-            <German>Maximale Reichweite, in der Drehanlagen auf dem Eden-Flugdeck eingesetzt werden können.</German>
+        <Key ID="STR_KPLIB_SETTINGS_GENERAL_ASSET_MOVE_RANGE_TT">
+            <English>Maximum range at which assets may be deployed to the start base Flight Deck.</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_GENERAL_SAVEINT">
             <English>Save Interval</English>
@@ -1910,7 +1864,7 @@
             <German>Vanilla</German>
         </Key>
 
-        <!-- GENERAL CATEGORY -->
+        <!-- FOBS CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_FOBS">
             <English>KPLIB - FOBS</English>
         </Key>
@@ -1919,6 +1873,45 @@
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_FOBS_RADIUS_TT">
             <English>FOB radius about which the site may be built, assets are persisted, etc, in meters [default: 125].</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_FOBS_MAX_BLIND_RANGE">
+            <English>Maximum Blind Range</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_FOBS_MAX_BLIND_RANGE_TT">
+            <English>Maximum range about which to scan for FOB Buildings in the blind, in meters [default: 20000].</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_FOBS_DEPLOY_RANDOM">
+            <English>-- DEPLOY RANDOM FOB --</English>
+        </Key>
+        <Key ID="STR_KPLIB_NOTIFICATION_FOBS_DEPLOY_RANDOM_FAILED">
+            <English>Unable to establish random FOB zone.</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_FOBS_DEPLOY">
+            <English>-- DEPLOY FOB --</English>
+            <Chinese>-- 佈署前線基地 --</Chinese>
+            <Chinesesimp>-- 部署前哨 --</Chinesesimp>
+            <French>-- DEPLOYER FOB --</French>
+            <German>-- FOB BEREITSTELLEN --</German>
+            <Italian>-- COSTRUISCI FOB --</Italian>
+            <Portuguese>-- INSTALAR FOB --</Portuguese>
+            <Russian>-- РАЗВЕРНУТЬ FOB --</Russian>
+            <Spanish>-- DESPLEGAR FOB --</Spanish>
+            <Turkish>-- FOB KUR --</Turkish>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_FOBS_PACK_BOX">
+            <English>-- REPACKAGE FOB CONTAINER --</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_FOBS_PACK_TRUCK">
+            <English>-- REPACKAGE FOB TRUCK --</English>
+        </Key>
+        <Key ID="STR_KPLIB_FOBS_FOB_EST_FORMAT">
+            <English>FOB %1 established.</English>
+        </Key>
+        <Key ID="STR_KPLIB_FOBS_FOB_PACK_FORMAT">
+            <English>FOB %1 repackaged.</English>
+        </Key>
+        <Key ID="STR_KPLIB_FOBS_FOB_PACK_INVALID">
+            <English>Unable to complete the request.</English>
         </Key>
 
         <!-- RESPAWN CATEGORY -->

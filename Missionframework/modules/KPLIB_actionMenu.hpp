@@ -2,7 +2,7 @@
     File: KPLIB_actionMenu.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-02 22:46:15
-    Last Update: 2021-05-06 18:07:03
+    Last Update: 2021-05-21 17:44:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -31,9 +31,10 @@
 #define KPLIB_ACTION_PRIORITY_MISSIONS              (-802)
 #define KPLIB_ACTION_PRIORITY_PERMISSIONS           (-803)
 
-#define KPLIB_ACTION_PRIORITY_DEPLOY_FOB            (-810)
-#define KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_BOX     (-811)
-#define KPLIB_ACTION_PRIORITY_REPACKAGE_FOB_TRUCK   (-812)
+#define KPLIB_ACTION_PRIORITY_FOB_DEPLOY            (-810)
+#define KPLIB_ACTION_PRIORITY_FOB_DEPLOY_RANDOM     (-811)
+#define KPLIB_ACTION_PRIORITY_FOB_PACK_BOX          (-812)
+#define KPLIB_ACTION_PRIORITY_FOB_PACK_TRUCK        (-813)
 
 #define KPLIB_ACTION_PRIORITY_REPORT_RESOURCES      (-820)
 

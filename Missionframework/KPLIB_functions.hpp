@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-05-17 15:48:27
+    Last Update: 2021-05-23 13:52:11
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -41,11 +41,12 @@ class KPLIB {
 
     #include "modules\0208_init\functions.hpp"
     #include "modules\0216_common\functions.hpp"
+    #include "modules\0220_persistence\functions.hpp"
     #include "modules\0224_core\functions.hpp"
     #include "modules\0228_resources\functions.hpp"
 
-    #include "modules\0304_persistence\functions.hpp"
     #include "modules\0308_eden\functions.hpp"
+    #include "modules\0312_fobs\functions.hpp"
     #include "modules\0316_logistic\functions.hpp"
     #include "modules\0320_cratefiller\functions.hpp"
 
