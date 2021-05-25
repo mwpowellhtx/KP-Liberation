@@ -1,5 +1,7 @@
 # Changelog
 
+_Note: it has been awhile since we made a `CHANGELOG` entry, I know. At the time of this note, we are in the process of mograting away from `KPLIB_sectors_fobs` and toward better utilization, we think, of **actual** FOB BUILDING objects, including `PERSISTENCE` module variables._
+
 ## 0.98.0 (S4) (Under development)
 * Added: Client server callback sequence requesting production data when production manager dialog is opened or refreshed. Client _owner_ raises `KPLIB_productionMgr_onRequestProduction` event with _server_, server raises `KPLIB_productionMgr_onProductionResponse` _owner event_ in response with production that is currently under _blufor_ control. Client then refreshes the _production manager sectors_ list box. Client also sets a `_production` variable on the _production manager display_ which can be used for further reference.
 * Added: Connected _enqueue resource production buttons_ via _CBA client server events_ being raised. Client raises `KPLIB_productionMgr_onRequestQueueChange`, server responds with `KPLIB_productionMgr_onProductionElemResponse` on success. Otherwise, _notifies clients_ with the result of the requested transaction. Includes respect for `KPLIB_param_production_maxQueueDepth` as well as _factory sector capability_. If a sector does not currently have support for a given _capability_, then those transation requests will be rejected.
@@ -30,7 +32,7 @@
 * Bug: Corrected an oversight in the whole _Eden tuple reshaping_, specifically in the `KPLIB_fnc_eden_assetToFlightDeck` chain of custody.
 * Refactored: Support for `KPLIB_fnc_notification_hint`. Allows for _client side_ usage, and, just as important, _server side remote_ invocation.
 * Refactored: Reshaped the _sectors tuples_, see _docs_: `kp-sectors-tuple-matrix.ods`. Informs both the _Edens_ as well as _FOBs_, for starters. Will soon also be useful for _production_, and in the future informing _logistics_.
-  * Was mostly straightforward following the trail of breadcrumbs from KPLIB_sectors_edens and KPLIB_sectors_fobs.
+  * Was mostly straightforward following the trail of breadcrumbs from KPLIB_sectors_startbases and KPLIB_sectors_fobs.
     * Except in a couple of instances such as `KPLIB_fnc_eden_createOrUpdateMarkers` in which we gave element oriented functions defined.
     * Which is to underscore we just need to be careful with this sort of functional shift.
   * On the whole, however, we like this refinement much better than the initial draft.
@@ -46,8 +48,8 @@
 * Added: _UUID_ creation functions for purposes of uniquely identifying objects in hand. We will use this for sure to help differentiate between _FOB_ and _start base_ locations vis-a-vis _player_ geolocation.
 * Added: `KPLIB_fnc_linq_min` function, which yields the _minimum element_ from a _vector of elements_ of _potentially any shape_.
 * Added: Or clarified _static_ and _turret_ assets among the armies.
-* Added: `KPLIB_param_edenRange` which captures _start base_ range boundaries for _minimum_ or _maximum_ inquiries, i.e. _within_ or _without_, etc.
-* Added: `KPLIB_param_assetMoveRange` CBA setting as a way of tuning the behavior.
+* Added: `KPLIB_param_eden_startbaseRadius` which captures _start base_ radius boundaries for _minimum_ or _maximum_ inquiries, i.e. _within_ or _without_, etc.
+* Added: `KPLIB_param_eden_assetMoveRange` CBA setting as a way of tuning the behavior.
 * Added: `KPLIB_fnc_eden_enumerate` which enumerates the _start bases_ according to known naming convention; defaults to `KPLIB_eden_startbase` or an open range of `KPLIB_eden_startbase_%1` where `%1` is a _zero based index_. Any break in the index short circuits the enumeration algorithm.
 * Added: `KPLIB_fnc_eden_createOrUpdateMarker` which does as it says for an Eden tuple; proxies may specify a `KPLIB_eden_markerText` variable, which serves as the map marker text.
 * Added: `KPLIB_fnc_eden_select` as the basis to inquire anything about matching _start base proxies_.
