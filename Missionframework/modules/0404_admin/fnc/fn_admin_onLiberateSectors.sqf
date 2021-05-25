@@ -4,7 +4,7 @@
     File: fn_admin_onLiberateSectors.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-09 23:28:59
-    Last Update: 2021-02-09 23:29:01
+    Last Update: 2021-05-23 14:21:22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -31,7 +31,7 @@ KPLIB_sectors_blufor append _selected;
 
 KPLIB_sectors_blufor = KPLIB_sectors_blufor - _removeMarkerNames;
 
-[] call KPLIB_fnc_init_save;
+["fn_admin_onLiberateSectors"] call KPLIB_fnc_init_save;
 
 [] spawn KPLIB_fnc_core_updateSectorMarkers;
 

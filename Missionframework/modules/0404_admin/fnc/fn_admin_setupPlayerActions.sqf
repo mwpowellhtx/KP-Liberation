@@ -5,7 +5,7 @@
     File: fn_admin_setupPlayerActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-04 22:17:52
-    Last Update: 2021-04-22 19:28:42
+    Last Update: 2021-05-24 10:07:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -40,66 +40,69 @@ if (hasInterface) then {
     }];
 
     // Action to open the dialog
-    private _actionArray = [
-        "<t color='#FF8000'>" + localize "STR_KPLIB_ACTION_ADMIN" + "</t>"
-        , {[] call KPLIB_fnc_admin_openDialog;}
-        , nil
-        , KPLIB_ACTION_PRIORITY_ADMIN
-        , false
-        , true
-        , ""
-        , '
-            _target isEqualTo _originalTarget
-                && ([] call KPLIB_fnc_permission_hasAdminPermission)
-        '
-        , -1
-    ];
-    [_actionArray] call CBA_fnc_addPlayerAction;
+    [
+        [
+            "STR_KPLIB_ACTION_ADMIN"
+            , { [] call KPLIB_fnc_admin_openDialog; }
+            , []
+            , KPLIB_ACTION_PRIORITY_ADMIN
+            , false
+            , true
+            , ""
+            , "
+                _target isEqualTo vehicle _target
+                    && _target isEqualTo _originalTarget
+                    && ([] call KPLIB_fnc_permission_hasAdminPermission)
+            "
+            , -1
+        ]
+        , [["_color", "#ff8000"]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
     // TODO: TBD: potentially with its own blend of an FSM... i.e. watches the callback, when not nil, opens the map...
-    private _moveFobBoxActionArray = [
-        "== MOVE FOB BOX TO MAP =="
-        , {
-            KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onMoveFobBoxToMap;
-            [] spawn {
-                openMap true;
-            };
-        }
-        , nil
-        , KPLIB_ACTION_PRIORITY_FOBBOXMOVE
-        , false
-        , true
-        , ""
-        , '
-            _target isEqualTo _originalTarget
-                && ([] call KPLIB_fnc_permission_hasAdminPermission)
-        '
-        , -1
-    ];
+    [
+        [
+            "Move FOB box to map"
+            , {
+                KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onMoveFobBoxToMap;
+                [] spawn { openMap true; };
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_FOBBOXMOVE
+            , false
+            , true
+            , ""
+            , "
+                _target isEqualTo vehicle _target
+                    && _target isEqualTo _originalTarget
+                    && ([] call KPLIB_fnc_permission_hasAdminPermission)
+            "
+            , -1
+        ]
+        , [["_color", "#ff8000"], ["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
-    [_moveFobBoxActionArray] call CBA_fnc_addPlayerAction;
-
-    private _teleportActionArray = [
-        "== TELEPORT =="
-        , {
-            KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onTeleportPlayer;
-            [] spawn {
-                openMap true;
-            };
-        }
-        , nil
-        , KPLIB_ACTION_PRIORITY_TELEPORT
-        , false
-        , true
-        , ""
-        , '
-            _target isEqualTo _originalTarget
-                && ([] call KPLIB_fnc_permission_hasAdminPermission)
-        '
-        , -1
-    ];
-
-    [_teleportActionArray] call CBA_fnc_addPlayerAction;
+    [
+        [
+            "Teleport"
+            , {
+                KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onTeleportPlayer;
+                [] spawn { openMap true; };
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_TELEPORT
+            , false
+            , true
+            , ""
+            , "
+                _target isEqualTo vehicle _target
+                    && _target isEqualTo _originalTarget
+                    && ([] call KPLIB_fnc_permission_hasAdminPermission)
+            "
+            , -1
+        ]
+        , [["_color", "#11cc11"], ["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
     KPLIB_fnc_admin_onTerminateTarget = {
         params ["_player", "_caller", "_actionId", "_arguments"];
@@ -128,14 +131,14 @@ if (hasInterface) then {
     [[
         "== TERMINATE TARGET =="
         , { _this call KPLIB_fnc_admin_onTerminateTarget; }
-        , nil
+        , []
         , KPLIB_ACTION_PRIORITY_TERMINATE_TARGET
         , false
         , false
         , ""
         , "[_target] call KPLIB_fnc_admin_canTerminateTargets"
         , -1
-    ]] call CBA_fnc_addPlayerAction;
+    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
 
     KPLIB_fnc_admin_canOpforCaptureSector = { count KPLIB_sectors_blufor > 1; };
 
@@ -155,14 +158,14 @@ if (hasInterface) then {
     [[
         "== OPFOR SECTOR CAPTURE =="
         , { _this call KPLIB_fnc_admin_onOpforSectorCapture; }
-        , nil
+        , []
         , KPLIB_ACTION_PRIORITY_OPFOR_CAPTURE
         , false
         , false
         , ""
         , "[_target] call KPLIB_fnc_admin_canOpforCaptureSector"
         , -1
-    ]] call CBA_fnc_addPlayerAction;
+    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
 
     [[
         "-- CIVILIAN NOTIFICATION --"
@@ -170,14 +173,14 @@ if (hasInterface) then {
             private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
             ["KPLIB_notification_civilian", ["KP LIBERATION - CIVILIAN", _image, "A civilian event occurred."]] call KPLIB_fnc_notification_show;
         }
-        , nil
+        , []
         , KPLIB_ACTION_PRIORITY_CIVILIAN_EVENT
         , false
         , false
         , ""
         , "true"
         , -1
-    ]] call CBA_fnc_addPlayerAction;
+    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
 
     [[
         "-- RESISTANCE NOTIFICATION --"
@@ -185,14 +188,14 @@ if (hasInterface) then {
             private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
             ["KPLIB_notification_resistance", ["KP LIBERATION - RESISTANCE", _image, "A resistance event occurred."]] call KPLIB_fnc_notification_show;
         }
-        , nil
+        , []
         , KPLIB_ACTION_PRIORITY_RESISTANCE_EVENT
         , false
         , false
         , ""
         , "true"
         , -1
-    ]] call CBA_fnc_addPlayerAction;
+    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
 
     [[
         "-- DESTROY BUILDINGS --"
@@ -210,14 +213,14 @@ if (hasInterface) then {
                 };
             };
         }
-        , nil
+        , []
         , KPLIB_ACTION_PRIORITY_DESTROY_BUILDINGS
         , false
         , false
         , ""
         , "true"
         , -1
-    ]] call CBA_fnc_addPlayerAction;
+    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
 };
 
 true;
