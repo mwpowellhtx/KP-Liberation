@@ -10,7 +10,7 @@ All provided menus will be added to the logistic main menus.
 * Permission
 
 ### Consumed events
-**KPLIB_vehicle_spawned** (server side)
+**KPLIB_vehicle_created** (server side)
 Calls KPLIB_fnc_logistic_addActions which will check the vehicle type and add the logistic actions to it
 
 ### Functions

@@ -7,7 +7,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-01-31
-    Last Update: 2021-05-17 20:27:50
+    Last Update: 2021-05-21 13:14:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -72,7 +72,7 @@ private _ammoValueCheck = 0;
 private _fuelValueCheck = 0;
 private _markerName = [] call KPLIB_fnc_common_getPlayerFob;
 
-if !(_vehicleIndex isEqualTo -1) then {
+if (!(_vehicleIndex isEqualTo -1)) then {
     private _vehicleArray = _vehicles select _vehicleIndex;
     _supplyValueCheck = (round ((_vehicleArray select 1) * (KPLIB_param_recycleFactor / 100) * _damage));
     _ammoValueCheck = (round ((_vehicleArray select 2) * (KPLIB_param_recycleFactor / 100) * _ammo));
@@ -83,11 +83,11 @@ if !(_vehicleIndex isEqualTo -1) then {
     _fuelValueCheck = (KPLIB_param_refundFuel * _fuel);
 };
 
+// TODO: TBD: for 'this' and probably other aspects...
+// TODO: TBD: rethink 'logistic', especially the UI elements, and reconsider how to better position event handlers, helpers, etc...
 if (
-    !(_supplyValue isEqualTo _supplyValueCheck) ||
-    !(_ammoValue isEqualTo _ammoValueCheck) ||
-    !(_fuelValue isEqualTo _fuelValueCheck) ||
-    (((getMarkerPos _markerName) distance2D _vehicle) > KPLIB_param_fobs_range)
+    (markerPos _markerName distance _vehicle) > KPLIB_param_fobs_range
+    || !([_supplyValue, _ammoValue, _fuelValue] isEqualTo [_supplyValueCheck, _ammoValueCheck, _fuelValueCheck])
 ) exitWith {
     _recycleButton ctrlEnable false;
     [

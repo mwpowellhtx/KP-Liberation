@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-01-16
-    Last Update: 2021-05-17 13:14:25
+    Last Update: 2021-05-19 08:42:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -28,8 +28,8 @@ if (isServer) then {
  */
 
 if (isServer) then {
-    // Adding actions to spawned logi buildings
-    ["KPLIB_vehicle_spawned", {[_this select 0] call KPLIB_fnc_logistic_addActions;}] call CBA_fnc_addEventHandler;
+    // Adding actions to created logistic buildings
+    ["KPLIB_vehicle_created", { _this call KPLIB_fnc_logistic_addActions;}] call CBA_fnc_addEventHandler;
 
     KPLIB_logistic_data = true call CBA_fnc_createNamespace;
     publicVariable "KPLIB_logistic_data";

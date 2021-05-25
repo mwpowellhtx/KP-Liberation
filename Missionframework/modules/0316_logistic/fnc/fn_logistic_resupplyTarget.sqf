@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-24
-    Last Update: 2021-05-17 20:28:40
+    Last Update: 2021-05-21 13:18:14
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -88,8 +88,8 @@ if !(KPLIB_param_aceResupply) then {
 };
 
 if (
-    !(_cargo isEqualTo _cargoCheck) ||
-    ((_markerPos distance2D _vehicle) > KPLIB_param_fobs_range)
+    (_markerPos distance2D _vehicle) > KPLIB_param_fobs_range
+    || !(_cargo isEqualTo _cargoCheck)
 ) exitWith {
     _resupplyButton ctrlEnable false;
     [
