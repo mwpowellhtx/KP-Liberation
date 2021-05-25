@@ -39,8 +39,8 @@ if (_debug) then {
 
 // Sniff for status bits, we will use to inform what we expect for status report
 [
-    { [_player, (_x#4)] call KPLIB_fnc_hud_inRange; } count KPLIB_sectors_fobs
-    , { [_player, _x] call KPLIB_fnc_hud_sectorInRange } count KPLIB_sectors_all
+    { [_player, getPos _x] call KPLIB_fnc_hud_inRange; } count KPLIB_fobs_allBuildings
+    , { [_player, _x] call KPLIB_fnc_hud_sectorInRange; } count KPLIB_sectors_all
     , KPLIB_hud_status_noReport
     , KPLIB_hud_status_fob
     , KPLIB_hud_status_sector

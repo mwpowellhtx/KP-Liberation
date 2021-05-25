@@ -5,7 +5,7 @@
     File: fn_hudSM_onReportFob_civRep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 14:09:04
+    Last Update: 2021-05-20 17:40:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,20 +33,20 @@ params [
 ];
 
 [
-    _context getVariable [Q(_fobs), []]
+    _context getVariable [Q(_fobMarkers), []]
     , _context getVariable [Q(_compiledReport), []]
 ] params [
-    Q(_fobs)
+    Q(_fobMarkers)
     , Q(_compiledReport)
 ];
 
 if (_debug) then {
-    [format ["[fn_hudSM_onReportFob_civReputation] Entering: [count _fobs]: %1"
-        , str [count _fobs]], "HUDSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_hudSM_onReportFob_civReputation] Entering: [count _fobMarkers]: %1"
+        , str [count _fobMarkers]], "HUDSM", true] call KPLIB_fnc_common_log;
 };
 
 // FOBs being the key ingredient
-if (count _fobs > 0) then {
+if (count _fobMarkers > 0) then {
 
     private _civRepThresholdBase = abs KPLIB_param_enemies_civRepBaseThreshold;
 
@@ -77,7 +77,7 @@ if (count _fobs > 0) then {
         [1, 1, 1, 1]
         , [0.2, 0.6, 1, 1]
         , [0.2, 0.8, 0.2, 1]
-        , +KPLIB_core_fobColor
+        , +KPLIB_preset_fobs_hudColor
         , [1, 0.6, 0.2, 1]
         , [0.85, 0, 0, 1]
         , (_civRep / _maxCivRep)

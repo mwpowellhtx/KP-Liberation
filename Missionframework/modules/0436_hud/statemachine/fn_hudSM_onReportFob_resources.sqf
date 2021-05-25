@@ -5,7 +5,7 @@
     File: fn_hudSM_onReportFob_resources.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 14:09:37
+    Last Update: 2021-05-20 17:38:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,26 +33,20 @@ params [
 ];
 
 [
-    _context getVariable [Q(_fobs), []]
+    _context getVariable [Q(_fobMarkers), []]
     , _context getVariable [Q(_compiledReport), []]
 ] params [
-    Q(_fobs)
+    Q(_fobMarkers)
     , Q(_compiledReport)
 ];
 
 if (_debug) then {
-    [format ["[fn_hudSM_onReportFob_resources] Entering: [count _fobs]: %1"
-        , str [count _fobs]], "HUDSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_hudSM_onReportFob_resources] Entering: [count _fobMarkers]: %1"
+        , str [count _fobMarkers]], "HUDSM", true] call KPLIB_fnc_common_log;
 };
 
-if (count _fobs > 0) then {
-    private _resTotals = _fobs apply {
-        _x params [
-            [Q(_markerName), "", [""]]
-        ];
-        // Yes it is the default, but we will be specific
-        [_markerName, _range] call KPLIB_fnc_resources_getResTotal;
-    };
+if (count _fobMarkers > 0) then {
+    private _resTotals = _fobMarkers apply { [_x, _range] call KPLIB_fnc_resources_getResTotal; };
 
     // TODO: TBD: review 'KPLIB_fnc_resources_getResTotal', might make sense to just support 0+ locations...
     // Get RESOURCE SLICE views across the range of RESOURCE TOTALS

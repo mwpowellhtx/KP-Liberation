@@ -5,7 +5,7 @@
     File: fn_hudSM_onReportFob_enemy.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 14:09:11
+    Last Update: 2021-05-20 17:40:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,20 +33,20 @@ params [
 ];
 
 [
-    _context getVariable [Q(_fobs), []]
+    _context getVariable [Q(_fobMarkers), []]
     , _context getVariable [Q(_compiledReport), []]
 ] params [
-    Q(_fobs)
+    Q(_fobMarkers)
     , Q(_compiledReport)
 ];
 
 if (_debug) then {
-    [format ["[fn_hudSM_onReportFob_enemy] Entering: [count _fobs]: %1"
-        , str [count _fobs]], "HUDSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_hudSM_onReportFob_enemy] Entering: [count _fobMarkers]: %1"
+        , str [count _fobMarkers]], "HUDSM", true] call KPLIB_fnc_common_log;
 };
 
 // FOBs being the key ingredient
-if (count _fobs > 0) then {
+if (count _fobMarkers > 0) then {
 
     // TODO: TBD: may want to refactor in terms of uniform preset settings...
     [
@@ -68,7 +68,8 @@ if (count _fobs > 0) then {
     [
         [0.9, 0, 0, 1]
         , [1, 0.6, 0.2, 1]
-        , +KPLIB_core_fobColor
+        // TODO: TBD: if what we want is simply a "yellow" color, then these should be positioned in terms of INIT, CORE, or COMMON modules...
+        , +KPLIB_preset_fobs_hudColor
         , [1, 1, 1, 1]
         , (_awareness / _maxAwareness)
         , (_strength / _maxStrength)

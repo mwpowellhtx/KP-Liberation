@@ -5,7 +5,7 @@
     File: fn_hudSM_getFobAssets.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 20:31:54
+    Last Update: 2021-05-21 01:17:11
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,30 +13,24 @@
         Returns with an array of assets aligned to the FOB matching the predicate.
 
     Parameters:
-        _fob - the FOB about which to check [ARRAY, default: []]
-        _assetType - the asset type [STRING, default: Q(Plane)]
-        _range - range about which to check [SCALAR, default: KPLIB_param_fobs_range]
+        _fobMarker - the FOB MARKER about which to consider [STRING, default: ""]
+        _assetType - an ASSET TYPE being considered [STRING, default: _defaultAssetType]
+        _range - a RANGE about which to consider [SCALAR, default: KPLIB_param_fobs_range]
 
     Returns:
         An array of assets matching the FOB criteria [ARRAY]
  */
 
+private _defaultAssetType = Q(Plane);
+
 params [
-    [Q(_fob), [], [[]]]
-    , [Q(_assetType), Q(Plane), [""]]
+    [Q(_fobMarker), "", [""]]
+    , [Q(_assetType), _defaultAssetType, [""]]
     , [Q(_range), KPLIB_param_fobs_range, [0]]
 ];
 
-_fob params [
-    Q(_0)
-    , Q(_1)
-    , Q(_2)
-    , Q(_3)
-    , Q(_pos)
-];
+private _assets = nearestObjects [markerPos _fobMarker, [_assetType], _range];
 
-private _assets = nearestObjects [_pos, [_assetType], _range];
+private _qualified = _assets select { [_x, _range] call KPLIB_fnc_persistence_shouldBePersistent; };
 
-private _retval = _assets select { [_x] call MFUNC(_whereShouldBeCounted); };
-
-_retval;
+_qualified;

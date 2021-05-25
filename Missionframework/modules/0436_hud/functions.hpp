@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-17 13:44:09
+    Last Update: 2021-05-19 19:54:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,6 +13,14 @@
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onLoad
         https://community.bistudio.com/wiki/User_Interface_Event_Handlers#onUnload
  */
+
+// TODO: TBD: there are a couple of HUD 'screens' we want to present, which is downstream from this commit...
+// TODO: TBD: separate the FOB resources HUD from the SECTOR engagement HUD
+// TODO: TBD: also need better timer support on the SECTOR HUD
+// TODO: TBD: we also need to be able to enumerate sectors i.e. when max sectors has been reached.
+// TODO: TBD: should be able to present a 'simple' multi-column list view for those sectors, not unlike what we did for the resources
+// TODO: TBD: i.e. present one forward list view, and a backing shadow list view, to give it that stood out effect
+// TODO: TBD: or perhaps we can add 'shadow' to the text font? TBD...
 
 class hud {
     file = "modules\0436_hud\fnc";
@@ -166,9 +174,6 @@ class hudSM {
 
     // Returns the ASSETS in RANGE of the FOBs that SHOULD be COUNTED
     class hudSM_getFobAssets {};
-
-    // If an ASSET can be PERSISTED, then it SHOULD be COUNTED
-    class hudSM_whereShouldBeCounted {};
 
     // Returns UNITS within RANGE of a POSITION; default scenario is in range of FOB
     class hudSM_getUnits {};
