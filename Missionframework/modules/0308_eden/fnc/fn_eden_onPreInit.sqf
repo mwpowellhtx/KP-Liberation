@@ -65,6 +65,9 @@ if (_debug) then {
 
 if (isServer) then {
 
+    KPLIB_sectors_startbases = [];
+    publicVariable Q(KPLIB_sectors_startbases);
+
     // Define SECTOR TYPE, SECTOR ICON, SECTOR PREFIX for each of the types
     [] call {
         {
@@ -104,6 +107,9 @@ if (isServer) then {
 
     // Server side init
     [Q(KPLIB_updateMarkers), MFUNC(_onUpdateMarkers)] call CBA_fnc_addEventHandler;
+
+    // Must be registered server side and JIP'ed into client side for all to see
+    [Q(KPLIB_vehicle_created), { _this remoteExecCall [QMFUNC(_setupAssetActions), 0, (_this#0)]; }] call CBA_fnc_addEventHandler;
 };
 
 if (_debug) then {

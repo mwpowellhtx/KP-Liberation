@@ -5,12 +5,12 @@
     File: fn_eden_onUpdateMarkers.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 12:17:00
-    Last Update: 2021-04-15 11:19:40
+    Last Update: 2021-05-20 20:08:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Creates or updates the markers associated with each of the known Eden tuples.
+        CREATE or UPDATE the START BASE MAP MARKERS.
 
     Parameters:
         NONE
@@ -18,40 +18,30 @@
     Reference:
         https://community.bistudio.com/wiki/allMapMarkers
         https://community.bistudio.com/wiki/createMarker
-        https://community.bistudio.com/wiki/setMarkerPos
         https://community.bistudio.com/wiki/setMarkerType
         https://community.bistudio.com/wiki/setMarkerText
         https://community.bistudio.com/wiki/setMarkerColor
         https://community.bistudio.com/wiki/Arma_3:_CfgMarkerColors
  */
 
-// Cannot create markers for empty names
-private _selected = (missionNamespace getVariable [Q(KPLIB_sectors_edens), []]) select {
-    !((_x#0) isEqualTo "");
-};
+// Will not be the case that we have an unnamed START BASE PROXY object
+private _startbases = missionNamespace getVariable [Q(KPLIB_sectors_startbases), []];
 
-// Working with 'KPLIB_sectors_edens' elements...
 {
-    // Because we simplified FOB and Eden tuple shapes...
-    _x params [
-        [Q(_markerName), "", [""]]
-        , [Q(_markerText), "", [""]]
-        , [Q(_varName), "", [""]]
-        , [Q(_uuid), "", [""]]
-        , [Q(_pos), KPLIB_zeroPos, [[]], 3]
-        , [Q(_est), [], [[]], 7]
-    ];
+    private _proxy = missionNamespace getVariable [_x, objNull];
+    private _proxyPos = (getPos _proxy) vectorAdd [0, 0, 0.1];
 
-    // Only create the marker one time
-    if (!(_markerName in allMapMarkers)) then {
-        createMarker [_markerName, _pos];
+    if (!(_x in allMapMarkers)) then {
+        createMarker [_x, _proxyPos];
     };
 
-    _markerName setMarkerPos _pos;
-    _markerName setMarkerType MPRESET(_markerType);
-    _markerName setMarkerText _markerText;
-    _markerName setMarkerColor KPLIB_preset_colorF;
+    private _markerText = _proxy getVariable [QMVAR(_markerText), localize "STR_KPLIB_MAINBASE"];
 
-} forEach _selected;
+    _x setMarkerPos _proxyPos;
+    _x setMarkerType MPRESET(_markerType);
+    _x setMarkerText _markerText;
+    _x setMarkerColor KPLIB_preset_colorF;
+
+} forEach _startbases;
 
 true;

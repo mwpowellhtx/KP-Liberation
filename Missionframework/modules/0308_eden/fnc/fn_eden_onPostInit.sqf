@@ -5,7 +5,7 @@
     File: fn_eden_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 11:20:08
-    Last Update: 2021-04-15 11:11:38
+    Last Update: 2021-05-20 20:19:38
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -26,18 +26,13 @@ if (_debug) then {
 };
 
 if (isServer) then {
+    // We are also getting the START BASE MARKER NAMES published
+    MVAR(_startbases) = [] call MFUNC(_enumerate);
 
-    KPLIB_sectors_edens = [] call MFUNC(_enumerate);
-
-    {
-        if (_debug) then {
-            [format ["[fn_eden_onPostInit] Edens: [_i, _eden]: %1", str [_forEachIndex, _x]], "POST] [EDEN", true] call KPLIB_fnc_common_log;
-        };
-    } forEach KPLIB_sectors_edens;
-
-    // TODO: TBD: we may need to put some timers on any of these things to continually refresh clients with public vars...
-    // TODO: TBD: or better yet, events requesting edens when required...
-    publicVariable "KPLIB_sectors_edens";
+    if (_debug) then {
+        [format ["[fn_eden_onPostInit] Startbases: [KPLIB_sectors_startbases]: %1"
+            , str [KPLIB_sectors_startbases]], "POST] [EDEN", true] call KPLIB_fnc_common_log;
+    };
 
     [Q(KPLIB_updateMarkers)] call CBA_fnc_serverEvent;
 };
