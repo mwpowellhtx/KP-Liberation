@@ -5,7 +5,7 @@
     File: fn_fobs_onUpdateMarkers.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-17 20:09:46
-    Last Update: 2021-05-17 20:09:49
+    Last Update: 2021-05-21 12:19:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,5 +20,16 @@
  */
 
 private _debug = MPARAM(_onUpdateMarkers_debug);
+
+{
+    private _debugForEach = _debug
+        || (_x getVariable [QMVAR(_onUpdateMarkers_debug), false]);
+
+    [_x, _forEachIndex] call MFUNC(_onUpdateMarkerOne);
+
+} forEach MVAR(_allBuildings);
+
+KPLIB_sectors_fobs = MVAR(_allBuildings) apply { _x getVariable [QMVAR(_markerName), ""]; };
+publicVariable Q(KPLIB_sectors_fobs);
 
 true;

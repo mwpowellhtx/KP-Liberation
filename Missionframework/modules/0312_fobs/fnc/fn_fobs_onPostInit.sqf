@@ -5,7 +5,7 @@
     File: fn_fobs_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-17 20:05:14
-    Last Update: 2021-05-17 20:05:17
+    Last Update: 2021-05-19 10:02:38
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -27,8 +27,6 @@ if (_debug) then {
 
 if (isServer) then {
     // Server section
-
-    [Q(KPLIB_updateMarkers), { _this call MFUNC(_onUpdateMarkers); }] call CBA_fnc_addEventHandler;
 };
 
 if (_debug) then {
