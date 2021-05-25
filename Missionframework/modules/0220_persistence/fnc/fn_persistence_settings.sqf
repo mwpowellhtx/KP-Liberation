@@ -5,7 +5,7 @@
     File: fn_persistence_settings.sqf
     Author: Michael W. Powell [22nd MEU SOD]
     Created: 2021-01-28 15:24:28
-    Last Update: 2021-01-28 15:24:30
+    Last Update: 2021-05-25 00:14:35
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -58,5 +58,8 @@ private _settings = +[
 {
     [_x, _forEachIndex] call KPLIB_fnc_config_onRegisterSettings;
 } forEach [_debug, _settings];
+
+KPLIB_param_persistence_loadData_debug              = false;
+KPLIB_param_persistence_saveData_debug              = false;
 
 true;

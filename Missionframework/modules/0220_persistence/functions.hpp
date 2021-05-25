@@ -3,25 +3,22 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-05-17 13:30:20
+    Last Update: 2021-05-23 14:42:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
         Defines for all functions, which are brought by persistence module.
  */
 
+// TODO: TBD: PERSISTENCE probably needs to happen even before the CORE module(s)...
 class persistence {
-    file = "modules\0304_persistence\fnc";
+    file = "modules\0220_persistence\fnc";
 
     // Returns whether the module debug mode is enabled
     class persistence_debug {};
 
     // Configures the persistence settings registered through the CBA dependency
     class persistence_settings {};
-
-    /* Callback which filters objects serializing beyond the range of known FOB sites;
-     * by filter we mean actively deletes those units or vehicles... */
-    class persistence_callback_onFobFilter {};
 
     // Adds one or more given variable names to persistence system
     class persistence_addPersistentVars {};
@@ -81,15 +78,9 @@ class persistence {
     // Installs a CBA per frame request handler object refreshing asset persistence
     class persistence_createRefreshAssetPersistence {};
 
-    // Qualifies a given '_object' within proximity of the specified FOBs, and other criteria
-    class persistence_whereAssetShouldBeFobPersistent {};
+    // Returns whether the OBJECT should be persistent
+    class persistence_shouldBePersistent {};
 
-    // Performs a lighter weight screening of the same qualification criteria
-    class persistence_whereAssetMayBeFobPersistent {};
-
-    //
-    class persistence_enumerateFobObjects {};
-
-    //
-    class persistence_enumerateFactoryStorages {};
+    // Returns the OBJECTS to persist given the MARKER NAMES, RANGE, etc
+    class persistence_getObjects {};
 };

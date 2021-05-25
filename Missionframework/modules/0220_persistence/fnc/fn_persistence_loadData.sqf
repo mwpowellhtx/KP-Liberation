@@ -5,24 +5,25 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2019-02-02
-    Last Update: 2021-02-14 12:07:54
+    Last Update: 2021-05-23 14:13:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Loads data which is bound to persistence module from the given save data or initializes needed data for a new campaign.
+        Loads data related to the module.
 
     Parameter(s):
         NONE
 
     Returns:
-        Function reached the end [BOOL]
+        The event handler has finished [BOOL]
  */
 
-private _debug = [] call KPLIB_fnc_persistence_debug;
+private _debug = KPLIB_param_persistence_loadData_debug
+    || ([] call KPLIB_fnc_persistence_debug);
 
 if (_debug) then {
-    ["[fn_persistence_loadData] Loading...", "SAVE"] call KPLIB_fnc_common_log;
+    ["[fn_persistence_loadData] Loading...", "PERSISTENCE"] call KPLIB_fnc_common_log;
 };
 
 private _moduleData = ["persistence"] call KPLIB_fnc_init_getSaveData;
@@ -30,21 +31,24 @@ private _moduleData = ["persistence"] call KPLIB_fnc_init_getSaveData;
 // Check if there is a new campaign
 if (_moduleData isEqualTo []) exitWith {
     if (_debug) then {
-        ["[fn_persistence_loadData] Data empty, creating new data...", "SAVE"] call KPLIB_fnc_common_log;
+        ["[fn_persistence_loadData] Initializing...", "PERSISTENCE"] call KPLIB_fnc_common_log;
     };
     true;
 };
 
+_moduleData params [
+    ["_persistentObjects", [], [[]]]
+    , ["_persistentUnits", [], [[]]]
+];
+
 // Otherwise start applying the saved data
 if (_debug) then {
-    ["[fn_persistence_loadData] Data found, applying data...", "SAVE"] call KPLIB_fnc_common_log;
+    [format ["[fn_persistence_loadData] Applying: [count _moduleData, count _persistentObjects, count _persistentUnits]: %1"
+        , str [count _moduleData, count _persistentObjects, count _persistentUnits]], "PERSISTENCE"] call KPLIB_fnc_common_log;
 };
 
-// // Leaving this in for the time being; it was a BEAR if anything broke during serialization to reset things.
-// KPLIB_persistence_objects = [];
-
 // Load objects
-KPLIB_persistence_objects = (_moduleData#0) apply {
+KPLIB_persistence_objects = _persistentObjects apply {
     private _objectDatum = _x;
 
     _objectDatum params [
@@ -56,7 +60,7 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
 
     if (_debug) then {
         [format ["[fn_persistence_loadData::object] Persistence vars: [count _varData, _varData]: %1"
-            , str [count _varData, _varData]], "SAVE"] call KPLIB_fnc_common_log;
+            , str [count _varData, _varData]], "PERSISTENCE"] call KPLIB_fnc_common_log;
     };
 
     {
@@ -64,11 +68,13 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
 
         if (_debug) then {
             [format ["[fn_persistence_loadData::object::deserializeVars] Persistence vars: [_varDatum]: %1"
-                , str [_varDatum]], "SAVE"] call KPLIB_fnc_common_log;
+                , str [_varDatum]], "PERSISTENCE"] call KPLIB_fnc_common_log;
         };
 
         [_object, _varDatum] call KPLIB_fnc_persistence_deserializeVars;
     } forEach _varData;
+
+    ["KPLIB_persistence_objectDeserialized", [_object]] call CBA_fnc_globalEvent;
 
     [_object] call KPLIB_fnc_persistence_makePersistent;
 
@@ -79,13 +85,8 @@ KPLIB_persistence_objects = (_moduleData#0) apply {
     !isNull _x;
 };
 
-if (_debug) then {
-    [format ["[fn_persistence_loadData] Persistence objects: [count _objects, typeOfs]: %1"
-        , str [count KPLIB_persistence_objects, KPLIB_persistence_objects apply { typeOf _x; }]], "SAVE"] call KPLIB_fnc_common_log;
-};
-
 // Load units
-KPLIB_persistence_units = (_moduleData#1) apply {
+KPLIB_persistence_units = _persistentUnits apply {
     _x params [
         "_serialized"
         , ["_varData", [], [[]]]
@@ -95,7 +96,7 @@ KPLIB_persistence_units = (_moduleData#1) apply {
 
     if (_debug) then {
         [format ["[fn_persistence_loadData::unit] Persistence vars: [count _varData, _varData]: %1"
-            , str [count _varData, _varData]], "SAVE"] call KPLIB_fnc_common_log;
+            , str [count _varData, _varData]], "PERSISTENCE"] call KPLIB_fnc_common_log;
     };
 
     {
@@ -103,7 +104,7 @@ KPLIB_persistence_units = (_moduleData#1) apply {
 
         if (_debug) then {
             [format ["[fn_persistence_loadData::unit::deserializeVars] Persistence vars: [_varDatum]: %1"
-                , str [_varDatum]], "SAVE"] call KPLIB_fnc_common_log;
+                , str [_varDatum]], "PERSISTENCE"] call KPLIB_fnc_common_log;
         };
 
         [_unit, _varDatum] call KPLIB_fnc_persistence_deserializeVars;
@@ -115,6 +116,11 @@ KPLIB_persistence_units = (_moduleData#1) apply {
 
 } select {
     !isNull _x;
+};
+
+if (_debug) then {
+    [format ["[fn_persistence_loadData] Loaded: [count KPLIB_persistence_objects, count KPLIB_persistence_units]: %1"
+        , str [count KPLIB_persistence_objects, count KPLIB_persistence_units]], "PERSISTENCE"] call KPLIB_fnc_common_log;
 };
 
 true;

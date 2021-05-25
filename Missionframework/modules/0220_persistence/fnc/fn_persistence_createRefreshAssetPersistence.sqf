@@ -4,7 +4,7 @@
     File: fn_persistence_createRefreshAssetPersistence.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-16 17:01:02
-    Last Update: 2021-02-16 17:01:04
+    Last Update: 2021-05-23 14:41:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,18 +22,21 @@
         https://courses.lumenlearning.com/physics/chapter/16-2-period-and-frequency-in-oscillations
         https://cbateam.github.io/CBA_A3/docs/files/common/fnc_createPerFrameHandlerObject-sqf.html#CBA_fnc_createPerFrameHandlerObject
  */
- 
- [
+
+// TODO: TBD: will come back to this one...
+[
     {
-        private _fobs = KPLIB_sectors_fobs;
+        private _fobObjects = [] call KPLIB_fnc_persistence_getObjects;
 
-        // 1. Include factory storages
-        private _factoryStoragesToInclude = [] call KPLIB_fnc_persistence_enumerateFactoryStorages;
+        private _factoryStorageContainers = [
+            [] call KPLIB_fnc_sectors_getBluforFactorySectors
+            , KPLIB_param_sectors_capRange
+            , KPLIB_resources_factoryStorageClasses
+        ] call KPLIB_fnc_persistence_getObjects;
 
-        // 2. Include eligible objects within range of each FOB
-        private _fobObjectsToInclude = [_fobs] call KPLIB_fnc_persistence_enumerateFobObjects;
+        KPLIB_persistence_objects = flatten [_fobObjects, _factoryStorageContainers];
 
-        KPLIB_persistence_objects = _factoryStoragesToInclude + _fobObjectsToInclude;
+        // TODO: TBD: rinse and repeat for 'units' to save...
     }
     , KPLIB_param_persistence_refreshObjectsPeriodSeconds
     , []

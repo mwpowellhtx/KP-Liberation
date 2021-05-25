@@ -4,7 +4,7 @@
     File: fn_persistence_addPersistentVars.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-14 12:57:32
-    Last Update: 2021-02-14 12:29:53
+    Last Update: 2021-05-19 17:08:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -27,9 +27,10 @@ params [
     , ["_global", false, [false]]
 ];
 
-if (isNil "_variableNameOrNames") exitWith {
-    false;
-};
+// Ensure that we have the variable initialized one way or another
+KPLIB_persistenceSavedVars = missionNamespace getVariable ["KPLIB_persistenceSavedVars", []];
+
+if (isNil "_variableNameOrNames") exitWith { false; };
 
 private _onEach = {
     private _variableName = _this;
@@ -60,7 +61,7 @@ private _onEach = {
 private _retval = switch (typeName _variableNameOrNames) do {
     case "STRING": { [_variableNameOrNames call _onEach]; };
     case "ARRAY": { _variableNameOrNames apply { _x call _onEach; }; };
-    default {[]};
+    default { []; };
 };
 
 // There are none that should fail...
