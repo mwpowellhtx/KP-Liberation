@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-11-11
-    Last Update: 2021-04-06 15:31:51
+    Last Update: 2021-05-21 11:59:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -176,5 +176,8 @@ if (isServer) then {
     1,
     {}
 ] call CBA_Settings_fnc_init;
+
+// TODO: TBD: arrange proper CBA settings...
+KPLIB_param_core_updatePlayerProximityPeriod = 1;
 
 true;

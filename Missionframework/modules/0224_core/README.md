@@ -14,14 +14,6 @@ So this is the core gameplay where all other modules are inject their functional
 
   *Check if units are near a position.*
 
-* KPLIB_fnc_core_buildFob
-
-  *Build fob and register it.*
-
-* KPLIB_fnc_core_canBuildFob
-
-  *Checks if player can build fob.*
-
 * KPLIB_fnc_core_changeSectorOwner
 
   *Change the owner of a sector.*
