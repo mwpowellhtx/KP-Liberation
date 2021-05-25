@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-04-21 10:42:07
+    Last Update: 2021-05-19 16:56:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -24,10 +24,8 @@ if (isServer) then {
     ["Module initializing...", "POST] [RESOURCES", true] call KPLIB_fnc_common_log;
 };
 
-// Server section (dedicated and player hosted)
 if (isServer) then {
-    [] call KPLIB_fnc_resources_createRefreshFactoryStorageValues;
-    [] call KPLIB_fnc_resources_createRefreshFobStorageValues;
+    // Server section (dedicated and player hosted)
 };
 
 if (!(hasInterface || isDedicated)) then {

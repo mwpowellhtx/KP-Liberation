@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-05-05 23:16:37
+    Last Update: 2021-05-19 16:39:51
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -27,7 +27,6 @@
 if (isServer) then {
     ["[fn_resources_preInit] Initializing...", "PRE] [RESOURCES", true] call KPLIB_fnc_common_log;
 };
-
 
 /*
     ----- Module Globals -----
@@ -133,7 +132,6 @@ if (isServer) then {
     publicVariable "KPLIB_resources_transportConfigs";
     publicVariable "KPLIB_resources_transportVehicles";
 };
-
 
 /*
     ----- Module Initialization -----
@@ -249,7 +247,17 @@ if (isServer) then {
     ["KPLIB_doSave", { [] call MFUNC(_saveData); }] call CBA_fnc_addEventHandler;
 
     // Adding actions to spawned crates and storages
-    ["KPLIB_vehicle_spawned", { _this call MFUNC(_addActions); }] call CBA_fnc_addEventHandler;
+    ["KPLIB_vehicle_created", { _this call MFUNC(_addActions); }] call CBA_fnc_addEventHandler;
+
+    [[
+        QMVAR(_storageValue)
+        ], true] call KPLIB_fnc_persistence_addPersistentVars;
+
+    // TODO: TBD: we are doing this here for storage...
+    // TODO: TBD: we may be able to rinse and repeat this for FOB buildings themselves as the front-facing trigger object...
+    // TODO: TBD: in order to identify those qualifying objects that should be (de-)serialized as appropriate...
+    [Q(KPLIB_persistence_objectDeserialized), { _this call MFUNC(_onObjectDeserialized) }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_persistence_serializingObject), { _this call MFUNC(_onSerializingObject) }] call CBA_fnc_addEventHandler;
 
     // TOOD: TBD: may not neecd to public anything as long as these are defined for all...
     publicVariable "KPLIB_resources_crateClassesF";

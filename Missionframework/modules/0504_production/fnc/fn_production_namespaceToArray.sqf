@@ -4,7 +4,7 @@
     File: fn_production_namespaceToArray.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-17 09:00:35
-    Last Update: 2021-02-19 16:44:05
+    Last Update: 2021-05-25 11:49:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -42,11 +42,15 @@ if (!([_namespace] call KPLIB_fnc_production_verifyNamespace)) exitWith {
 ];
 
 // TODO: TBD: the factoring here could perhaps be better...
-private _storages = [_markerName] call KPLIB_fnc_resources_getFactoryStorages;
+private _storageContainers = [
+    markerPos _markerName
+    , KPLIB_param_sectors_capRange
+    , KPLIB_resources_factoryStorageClasses
+] call KPLIB_fnc_resources_getStorages;
 
 private _storageValue = [
         KPLIB_resources_storageValueDefault
-        , (_storages apply { [_x] call KPLIB_fnc_resources_getStorageValue; })
+        , (_storageContainers apply { [_x] call KPLIB_fnc_resources_getStorageValue; })
         , {
             params [
                 ["_g", KPLIB_resources_storageValueDefault, [[]], 3]

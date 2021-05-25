@@ -162,7 +162,7 @@ if (_debug && count _toGC > 0) then {
     [_x] call KPLIB_fnc_resources_orderStorage;
 } forEach _storages;
 
-[] call KPLIB_fnc_init_save;
+["fn_resources_pay"] call KPLIB_fnc_init_save;
 
 if (_debug) then {
     ["[fn_resources_pay] Fini", "RESOURCES", true] call KPLIB_fnc_common_log;

@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-05-17 13:25:53
+    Last Update: 2021-05-25 11:49:49
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -12,6 +12,12 @@
 
 class res {
     file = "modules\0228_resources\fnc";
+
+    // OBJECT DESERIALIZED event handler
+    class resources_onObjectDeserialized {};
+
+    // SERIALIZING OBJECT event handler
+    class resources_onSerializingObject {};
 
     // Initialization phase event handler
     class resources_preInit {
@@ -125,21 +131,12 @@ class res {
     // Server side event handler responding to the 'KPLIB_resources_attachedCratesChanged'
     class resources_onAttachedCratesChanged {};
 
-    // Returns the storage containers in proximity of the specified factory sector
-    class resources_getFactoryStorages {};
-
-    // Returns the storage containers in proximity to the specified FOB
-    class resources_getFobStorages {};
-
-    // Creates a CBA frame event loop callback to refresh storage
-    class resources_createRefreshFactoryStorageValues {};
-
-    // Creates a CBA frame event loop callback to refresh storage
-    class resources_createRefreshFobStorageValues {};
-
     // Refreshes the storage containers 'KPLIB_resources_storageValue' attribute
     class resources_onRefreshStorageValues {};
 
     // Populates the storage container assuming apportioned crate volume and storage value global variable
     class resources_onPopulateStorage {};
+
+    // Sets up INTEL actions for the OBJECT
+    class resources_setupIntelActions {};
 };

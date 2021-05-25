@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-04-26 12:15:07
+    Last Update: 2021-05-19 17:13:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,7 +23,7 @@
 private _debug = MPARAM(_saveData_debug);
 
 if (_debug) then {
-    ["[fn_resources_saveData] Saving...", "SAVE"] call KPLIB_fnc_common_log;
+    ["[fn_resources_saveData] Saving...", "RESOURCES"] call KPLIB_fnc_common_log;
 };
 
 /* Effectively from this point forward we ignore this bit... Instead we will depend on serialized
@@ -43,7 +43,7 @@ private _storageContainerStorageValueState = [];
 ] call KPLIB_fnc_init_setSaveData;
 
 if (_debug) then {
-    ["[fn_resources_saveData] Saved", "SAVE"] call KPLIB_fnc_common_log;
+    ["[fn_resources_saveData] Saved", "RESOURCES"] call KPLIB_fnc_common_log;
 };
 
 true;

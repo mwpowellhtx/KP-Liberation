@@ -11,10 +11,10 @@
     Public: No
 
     Description:
-        Adds ability to GATHER INTEL resource from the target object.
+        Adds ability to GATHER INTEL resource from the target OBJECT.
 
     Parameter(s):
-        _targetObj - the TARGET OBJECT for which INTEL may be gathered [OBJECT, default: objNull]
+        _object - the target OBJECT for which INTEL may be gathered [OBJECT, default: objNull]
 
     Returns:
         The event handler completed [BOOL]
@@ -25,37 +25,14 @@
  */
 
 params [
-    [Q(_targetObj), objNull, [objNull]]
+    [Q(_object), objNull, [objNull]]
 ];
 
-if (typeOf _targetObj in MPRESET(_intelMap)) then {
+if (typeOf _object in MPRESET(_intelMap)) then {
 
-    _targetObj setVariable [QMVAR(_intel), [_targetObj] call MFUNC(_getIntelValue)];
+    _object setVariable [QMVAR(_intel), [_object] call MFUNC(_getIntelValue)];
 
-    // TODO: TBD: should consider issuing this on player machine...
-    // TODO: TBD: why because of localize...
-    [] call {
-
-        // TARGET is the INTEL object, THIS is the player
-        private _condition = "
-            alive _target
-                && alive _this
-                && _this isEqualTo vehicle _this
-        ";
-
-        // TODO: TBD: may localize this to string table...
-        // TODO: TBD: may also capture colors a bit differently...
-        [_targetObj, "STR_KPLIB_RESOURCES_ACTION_GATHER_INTEL", [
-            { _this call MFUNC(_onGatherIntel); }
-            , []
-            , KPLIB_ACTION_PRIORITY_GATHER_INTEL
-            , true
-            , true
-            , ""
-            , _condition
-            , MPARAM(_gatherIntelRange)
-        ], "#cccc33"] call KPLIB_fnc_common_addAction;
-    };
+    [_object] remoteExecCall [Q(KPLIB_fnc_resources_setupIntelActions), 0, _object];
 };
 
 true;

@@ -32,31 +32,30 @@ params [
 ];
 
 // Exit if no location is given
-if (_location isEqualTo "") exitWith {false};
+if (_location isEqualTo "") exitWith { false; };
 
 // Get all storage areas in the vicinity of the marker
 private _storages = nearestObjects [markerPos _location, KPLIB_resources_storageClasses, _range];
 
+// Reject the request when there are simply NO storages available
+if (_storages isEqualTo []) exitWith { false; };
+
 // Check if the location even has the needed space
-private _supplyCrates = ceil (_supplies / KPLIB_param_crateVolume);
-private _ammoCrates = ceil (_ammo / KPLIB_param_crateVolume);
-private _fuelCrates = ceil (_fuel / KPLIB_param_crateVolume);
+private _supplyCrates = [_supplies] call KPLIB_fnc_resources_estimateCrates;
+private _ammoCrates = [_ammo] call KPLIB_fnc_resources_estimateCrates;
+private _fuelCrates = [_fuel] call KPLIB_fnc_resources_estimateCrates;
 private _crateCount = _supplyCrates + _ammoCrates + _fuelCrates;
 private _crateCapacity = 0;
-{
-    _crateCapacity = _crateCapacity + ([_x] call KPLIB_fnc_resources_getStorageSpace);
-} forEach _storages;
+{ _crateCapacity = _crateCapacity + _x; } forEach (_storages apply { [_x] call KPLIB_fnc_resources_getStorageSpace; });
 
-if (_crateCapacity < _crateCount) exitWith {
-    false
-};
+if (_crateCapacity < _crateCount) exitWith { false; };
 
 // Add resources based on given amount
 private _storage = objNull;
 private _crate = objNull;
 
-while {(_supplies + _ammo + _fuel) > 0} do {
-    _storage = _storages select (_storages findIf {([_x] call KPLIB_fnc_resources_getStorageSpace) > 0});
+while { (_supplies + _ammo + _fuel) > 0; } do {
+    _storage = _storages select (_storages findIf { ([_x] call KPLIB_fnc_resources_getStorageSpace) > 0; });
     switch (true) do {
         case (_supplies > 0): {
             _crate = ["Supply", getPosATL _storage, (_supplies min KPLIB_param_crateVolume)] call KPLIB_fnc_resources_createCrate;
@@ -79,10 +78,8 @@ while {(_supplies + _ammo + _fuel) > 0} do {
 // TODO: TBD: and then do we really need to SnS "all" of the storages? of the ones that had something actually STORED (?)
 // TODO: TBD: then I think there also needs to ba a consolidate, but this is for a future time...
 // Reorder the crates on all storages to close the possible gaps
-{
-    [_x] call KPLIB_fnc_resources_stackNsort;
-} forEach _storages;
+{ [_x] call KPLIB_fnc_resources_stackNsort; } forEach _storages;
 
-[] call KPLIB_fnc_init_save;
+["fn_resources_refund"] call KPLIB_fnc_init_save;
 
 true;
