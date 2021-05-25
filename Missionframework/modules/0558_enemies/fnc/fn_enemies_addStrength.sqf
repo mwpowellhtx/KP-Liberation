@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-02-24
-    Last Update: 2021-05-17 15:10:22
+    Last Update: 2021-05-25 13:20:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -35,7 +35,7 @@ if (_delta != 0) then {
     // Sets the STRENGTH bounded by ZERO and the MAX
     MVAR(_strength) = 0 max ((MVAR(_strength) + _delta) min MPARAM(_maxStrength));
 
-    [] spawn KPLIB_fnc_init_save;
+    [Q(fn_enemies_addStrength)] spawn KPLIB_fnc_init_save;
 };
 
 MVAR(_strength);

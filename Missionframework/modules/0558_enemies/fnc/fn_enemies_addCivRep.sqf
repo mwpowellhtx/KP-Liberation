@@ -5,7 +5,7 @@
     File: fn_enemies_addCivRep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 16:19:31
-    Last Update: 2021-05-17 15:09:47
+    Last Update: 2021-05-25 13:20:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -43,7 +43,7 @@ if (_delta != 0) then {
         [Q(KPLIB_notification_civilian), _args, allPlayers] spawn KPLIB_fnc_notification_show;
     };
 
-    [] spawn KPLIB_fnc_init_save;
+    [Q(fn_enemies_addCivRep)] spawn KPLIB_fnc_init_save;
 };
 
 MVAR(_civRep);

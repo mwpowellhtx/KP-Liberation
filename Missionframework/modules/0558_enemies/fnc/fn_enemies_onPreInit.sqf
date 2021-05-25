@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-05-17 16:23:03
+    Last Update: 2021-05-25 13:21:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -87,7 +87,7 @@ if (isServer) then {
     // TODO: TBD: review this issue, so much of the old FSM 'states' no longer applicable (????)
     // TODO: TBD: https://github.com/mwpowellhtx/KP-Liberation/issues/78
 
-    // Add building class names to ignore durign the SECTOR CAPTURED BDA phase
+    // Add building class names to ignore during the SECTOR CAPTURED BDA phase
     IGNORE_BUILDINGS(_ignoredBuildingClassNames);
     ADD_IGNORED_BUILDING(Land_Cargo_House_V1_F);
     ADD_IGNORED_BUILDING(Land_Cargo_House_V2_F);
