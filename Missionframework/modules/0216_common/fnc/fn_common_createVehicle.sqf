@@ -5,14 +5,14 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-05-03
-    Last Update: 2021-05-03 17:00:33
+    Last Update: 2021-05-19 08:41:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
         Returns a newly spawned vehicle at the given position and direction. Supports
         spawning air vehicles or paradrop vehicles, when z > KPLIB_param_common_airSpawnDeck.
-        Raises the 'KPLIB_vehicle_spawned' event upon successful creation.
+        Raises the 'KPLIB_vehicle_created' event upon successful creation.
 
     Parameter(s):
         _className - class sname of the vehicle which should be spawned [STRING, default: ""]
@@ -110,7 +110,7 @@ if (_paradrop) then {
     [objNull, _vehicle] call BIS_fnc_curatorObjectEdited;
 };
 
-["KPLIB_vehicle_spawned", [_vehicle]] call CBA_fnc_globalEvent;
+["KPLIB_vehicle_created", [_vehicle]] call CBA_fnc_globalEvent;
 
 // Return created vehicle
 _vehicle;

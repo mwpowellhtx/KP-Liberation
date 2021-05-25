@@ -2,52 +2,109 @@
     KPLIB_fnc_common_addAction
 
     File: fn_common_addAction.sqf
-    Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-12-05
-    Last Update: 2019-09-28
+    Author: Michael W. Powell [22nd MEU SOC]
+    Created: 2021-05-24 14:19:07
+    Last Update: 2021-05-24 14:19:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Adds given action local to given object.
-        This should be used if adding an action to an object to ensure the localization is correct.
+        Adds the ACTION to the TARGET by default, allowing for consistent ACTION ARRAY
+        and OPTIONS treatment. Callers may LOCALIZE the text, and may add a COLOR, as well
+        as specify further arguments to the localized format string. Default is adding an
+        ACTION to the TARGET, but the caller may receive the ACTION ARRAY for his own use,
+        i.e. CBA_fnc_addPlayerAction.
 
     Parameter(s):
-        _target - Object to add the action to                                       [OBJECT, defaults to objNull]
-        _string - Stringtable string key or string/variable array for the action    [STRING/ARRAY, defaults to ""]
-        _args   - Array of all other arguments for addAction without the title      [ARRAY, defaults to []]
-        _color  - Hex code of desired color e.g. #FF8000. Optional.                 [STRING, defaults to ""]
+        _actionArray - an ACTION ARRAY for use when creating the menu [ARRAY, default: []]
+        _options - an ASSOCIATIVE ARRAY of options [ARRAY, default: []]
+            _localize - whether the ACTION ARRAY TITLE should be localized [BOOL, default: true]
+            _color - an optional COLOR string, [STRING, default, '']
+            _formatArgs - format arguments relayed during the localize [ARRAY, default: []]
 
     Returns:
-        Action ID [NUMBER]
-*/
+        The action ID that was added [SCALAR, default: -1]
+
+    References:
+        https://community.bistudio.com/wiki/addAction#Syntax
+        https://community.bistudio.com/wiki/getOrDefault
+        https://community.bistudio.com/wiki/createHashMapFromArray
+ */
+
+// This key focusing ACTION on the TARGET, i.e. non-PLAYER object
+private _defaultCallback = { _target addAction _this; };
 
 params [
-    ["_target", objNull, [objNull]],
-    ["_string", "", ["", []]],
-    ["_args", [], [[]], []],
-    ["_color", "", [""]]
+    ["_target", objNull, [objNull]]
+    , ["_actionArray", [], [[]]]
+    , ["_options", [], [[]]]
+    , ["_callback", _defaultCallback, [{}]]
 ];
 
-// Leave if there are parameters missing
-if (isNull _target || _string isEqualTo "" || _args isEqualTo []) exitWith {-1};
+_actionArray params [
+    ["_title", "", [""]]
+];
 
-// Check if given string is string key or formatted text
-if (_string isEqualType "") then {
-    // Localize local to clients language
-    _string = localize _string;
-} else {
-    _string = format [localize (_string select 0), _string select 1];
+private _debug = KPLIB_param_common_addAction_debug
+    || (_target getVariable ["KPLIB_common_addAction_debug", false])
+    ;
+
+if (_debug) then {
+    [format ["[fn_common_addAction] Entering: [isNull _target, _title, _options]: %1"
+        , str [isNull _target, _title, _options]], "PRE] [COMMON", true] call KPLIB_fnc_common_log;
 };
 
-// Add color, if provided
-if !(_color isEqualTo "") then {
-    _string = ["<t color='", _color, "'>", _string, "</t>"] joinString "";
+if (isNull _target || !alive _target) exitWith { false; };
+
+private _optionMap = createHashMapFromArray _options;
+private _varName = _optionMap getOrDefault ["_varName", ""];
+
+if (!(_varName isEqualTo "")) then {
+    private _targetId = _target getVariable [_varName, -1];
+    if (_targetId >= 0) exitWith { _targetId; };
 };
 
-// Wrap as array and append all args
-private _actionArray = [_string];
-_actionArray append _args;
+private _optionMapArgs = [
+    ["_localize", true]
+    , ["_color", ""]
+    , ["_formatArgs", []]
+];
 
-// Add action to target
-_target addAction _actionArray
+private _optionValues = _optionMapArgs apply { _optionMap getOrDefault _x; };
+
+_optionValues params ["_localize", "_color", "_formatArgs"];
+
+if (_localize || !(_color isEqualTo "")) then {
+    private _localized = if (!_localize) then { _title; } else {
+        format ([localize _title] + _formatArgs);
+    };
+
+    if (_debug) then {
+        [format ["[fn_common_addAction] Localized: [_title, _localized]: %1"
+            , str [_title, _localized]], "COMMON", true] call KPLIB_fnc_common_log;
+    };
+
+    _actionArray set [0, if (_color isEqualTo "") then { _localized; } else {
+        private _rendered = format ["<t color='%1'>%2</t>", _color, _localized];
+
+        if (_debug) then {
+            [format ["[fn_common_addAction] Color: [_rendered]: %1"
+                , str [_rendered]], "COMMON", true] call KPLIB_fnc_common_log;
+        };
+
+        _rendered;
+    }];
+};
+
+private _id = _actionArray call _callback;
+
+if (!(_varName isEqualTo "")) then {
+    _target setVariable [_varName, _id];
+};
+
+if (_debug) then {
+    [format ["[fn_common_addAction] Fini: [_id]: %1"
+        , str [_id]], "PRE] [COMMON", true] call KPLIB_fnc_common_log;
+};
+
+_id;

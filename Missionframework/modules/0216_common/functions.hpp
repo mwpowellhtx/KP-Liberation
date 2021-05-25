@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-03 11:56:20
-    Last Update: 2021-05-17 13:04:04
+    Last Update: 2021-05-25 11:00:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -18,6 +18,9 @@ class common {
     // Adds action to object with correct localized title
     class common_addAction {};
 
+    //
+    class common_addPlayerAction {};
+
     // Returns whether caller should debug
     class common_settings {};
 
@@ -30,6 +33,9 @@ class common {
     class common_onPostInit {
         postInit = 1;
     };
+
+    // Returns the minimum deploy range for an FOB
+    class common_getMinimumDeployRange {};
 
     // Let a camera circle around a given target with given params
     class common_cameraCircleTarget {};
@@ -74,20 +80,18 @@ class common {
     // Gets path for className icon
     class common_getIcon {};
 
-    /* Returns the nearest marker to the target, defaults to include all sectors, start bases and fobs
-     * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
+    // Returns the ALTITUDE DELTA between two OBJECTS or POSITIONS
+    class common_getAltitudeDelta {};
+
+    // Returns the MOMENTUM of the TARGET object
+    class common_getMomentum {};
+
+    //
+    class common_getNearestObjects {};
+
+   /* Returns the nearest marker to the TARGET object; may reference given SECTORMARKERS, default set
+    * draws from a combination of KKPLIB_sectors_all, KPLIB_sectors_startbases, and known FOB BUILDINGS. */
    class common_getNearestMarker {};
-
-    // Returns the nearest FOB marker and UUID to the target. See: KPLIB_sectors_fobs
-    class common_getNearestMarkerAndUuid {};
-
-    /* Returns whether the target is within range of the specified sectors.
-     * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
-    class common_getTargetMarkerInRange {};
-
-    /* Returns the nearest marker to the target within range of the specified sectors.
-     * See: KPLIB_sectors_all, KPLIB_sectors_edens, KPLIB_sectors_fobs */
-    class common_getTargetMarkerIfInRange {};
 
     // TODO: TBD: note, that we try to maintain some consistency, for now...
     // TODO: TBD: the machinery, best term for it, facilitating the whole build procedure really is massive

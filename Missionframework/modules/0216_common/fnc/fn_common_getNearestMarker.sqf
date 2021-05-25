@@ -4,54 +4,56 @@
     File: fn_common_getNearestMarker.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-13 07:44:25
-    Last Update: 2021-02-13 07:01:25
+    Last Update: 2021-05-22 11:16:14
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Returns the sector '_markerName' corresponding to the nearest sector from the
-        specified '_sectors'.
+        Returns the NEAREST MARKER in proximity to the TARGET object. May specify MARKER NAMES,
+        as well as optional RANGE about which to filter. When VARIABLE NAME is speficied, that is
+        installed on the TARGET object as a global variable.
 
     Parameter(s):
-        _target - the object from which to gauge nearest sector [OBJECT, default: player]
-        _sectors - a sectors array;
-            [nil, default: (KPLIB_sectors_all + KPLIB_sectors_edens + KPLIB_sectors_fobs)]
-            [ARRAY]
-        _default - a default return value in the event a result could not be obtained [STRING, default: ""]
+        _target - TARGET object about which to report the nearest marker [OBJECT, default: player]
+        _markerNames - an ARRAY of marker names [ARRAY, default: KPLIB_sectors_all]
+        _range - optional RANGE about which to report [SCALAR|NIL, default: nil]
+        _variableName - optional VARIABLE NAME to install omn the TARGET upon successful match [STRING|NIL, default: nil]
+        _global - whether the VARIABLE NAME shall be considered GLOBAL [BOOL, default: true]
 
     Returns:
-        The sector '_markerName' corresponding with the nearest sector to the '_target' [STRING, default: _default]
+        The NEAREST MARKER in proximity to the TARGET object [STRING]
  */
 
 params [
     ["_target", player, [objNull]]
-    , "_sectors"
-    , ["_default", "", [""]]
+    , ["_markerNames", +KPLIB_sectors_all, [[]]]
+    , ["_range", nil, [0]]
+    , ["_variableName", nil, [""]]
+    , ["_global", true, [true]]
 ];
 
-// Yes, we know the shapes will be different, so we must transform them...
-if (isNil "_sectors") then {
-    _sectors = (KPLIB_sectors_all + KPLIB_sectors_edens + KPLIB_sectors_fobs);
+private _direction = "ascend";
+private _nearestMarker = "";
+
+if (isNull _target) exitWith { _nearestMarker; };
+
+private _getTargetDistance = {
+    params [
+        ["_markerName", "", [""]]
+    ];
+    markerPos _markerName distance _target;
 };
 
-// Assuming sectors is now presentable, transform to the _markerName elements themselves
-_sectors = _sectors apply {
-    switch (typeName _x) do {
-        case "STRING": { _x; };
-        case "ARRAY": {
-            // Assuming a consistent start base Eden or FOB shape...
-            private _markerName = (_x#0);
-            _markerName;
-        };
-        default { ""; };
-    };
-} select { !(_x isEqualTo ""); };
-
-private _nearest = _default;
-
-// Get the nearest one and leave it to the caller to decide other bits like within range
-if (!(_sectors isEqualTo [])) then {
-    _nearest = [_sectors, { (markerPos (_this#0)) distance2D _target; }] call KPLIB_fnc_linq_min;
+private _sortedMarkers = if (isNil { _range; }) then {
+    [_markerNames, [], { [_x] call _getTargetDistance; }, _direction] call BIS_fnc_sortBy;
+} else {
+    [_markerNames, [], { [_x] call _getTargetDistance; }, _direction, { ([_x] call _getTargetDistance) <= _range; }] call BIS_fnc_sortBy;
 };
 
-_nearest;
+if (count _sortedMarkers > 0) then { _nearestMarker = _sortedMarkers#0; };
+
+if (!isNil { _variableName; }) then {
+    _target setVariable [_variableName, _nearestMarker, _global];
+};
+
+_nearestMarker;
