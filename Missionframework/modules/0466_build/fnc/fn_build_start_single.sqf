@@ -90,7 +90,7 @@ private _onStopBuild = {
     // TODO: TBD: may see about doing this one conditionally...
     // TODO: TBD: i.e. only if anything changed during build... i.e. was built, moved, etc...
     [] spawn {
-        [] remoteExec ["KPLIB_fnc_init_save", 2];
+        ["fn_build_start_single"] remoteExec ["KPLIB_fnc_init_save", 2];
     };
 };
 

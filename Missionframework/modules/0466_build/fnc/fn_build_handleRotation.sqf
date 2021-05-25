@@ -40,7 +40,7 @@ if (_updateRot) exitWith {
         };
 
         // Notify that item needs position validity check
-        ["KPLIB_build_item_moved", _x] call CBA_fnc_localEvent;
+        ["KPLIB_build_item_moved", [_x]] call CBA_fnc_localEvent;
 
     } forEach LGVAR(selection);
 

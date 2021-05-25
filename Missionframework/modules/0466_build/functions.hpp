@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-07-01
-    Last Update: 2021-05-17 14:18:59
+    Last Update: 2021-05-22 15:03:44
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -76,9 +76,6 @@ class build {
     // Handle object dragging/rotation
     class build_handleRotation {};
 
-    // FOB build sequence confirmation callback
-    class build_onConfirmBuildFob {};
-
     // Handle persistent data loading
     class build_loadData {};
 
@@ -113,9 +110,6 @@ class build {
     // Add player actions
     class build_setupPlayerActions {};
 
-    // FOB build requested local CBA event handler
-    class build_onFobBuildRequested {};
-
     // Start building logic
     class build_start {};
 
@@ -143,14 +137,8 @@ class build {
     // Returns whether player can build storage at factory sector
     class build_canBuildStorage {};
 
-    // Client side build storage action menu clicked event handler
-    class buildClient_onBuildStorageClicked {};
-
-    // Client side build storage container requested callback
-    class buildClient_onBuildStorageRequested {};
-
-    // Server side confirm build storage container callback
-    class buildServer_onConfirmBuildStorage {};
+    // Responds to client side action menu or other entry points when building storage
+    class build_onBuildStorageClicked {};
 
     // Gets the display name corresponding to the given class name
     class build_getClassDisplayName {};

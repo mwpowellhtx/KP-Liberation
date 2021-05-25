@@ -4,8 +4,9 @@
 
     File: fn_build_handleDrag.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-10-07
-    Last Update: 2019-04-23
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-10-07
+    Last Update: 2021-05-19 12:22:03
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -59,7 +60,7 @@ if (_updatePos) exitWith {
         };
 
         // Notify that item needs position validity check
-        ["KPLIB_build_item_moved", _x] call CBA_fnc_localEvent;
+        ["KPLIB_build_item_moved", [_x]] call CBA_fnc_localEvent;
 
     } forEach LGVAR(selection);
 

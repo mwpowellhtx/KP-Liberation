@@ -4,59 +4,70 @@
     File: fn_build_canBuildStorage.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-15 09:27:35
-    Last Update: 2021-04-16 08:45:44
+    Last Update: 2021-05-22 12:56:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Returns whether '_player' can build factory sector storage container.
+        Returns whether the PLAYER may BUILD STORAGE CONTAINER in proximity
+        to a BLUFOR FACTORY SECTOR. Prohibitions on the action include whether
+        the player has PERMISSIONS do BUILD and to support LOGISTICS, whether
+        there is already a STORAGE CONTAINER built for the sector, and whether
+        there are any other players already in the process of building.
 
     Parameter(s):
-        _player - the player trying to build the factory sector storage container [OBJECT, default: objNull]
+        _player - gauging whether the PLAYER may BUILD STORAGE [OBJECT, default: player]
 
     Returns:
-        The conditions have been met [BOOL]
+        The afore mentioned conditions have been met [BOOL]
+
+    References:
+        https://en.wikipedia.org/wiki/Venn_diagram
  */
 
 params [
-    ["_player", objNull, [objNull]]
+    ["_player", player, [objNull]]
 ];
 
-// TODO: TBD: at the moment there is a "Build", need to verify "Logistics" permission, etc, however
-/* The criteria are:
- * 1. player has either "Build" or "Logistics" permissions
- * 2. player in range of a factory sector
- *  i. which does not currently have a storage container
- * 3. there are no other players currently building in the player sector
- * 
- */
+// Rule out when player is NULL or !ALIVE
+if (isNull _player || !alive _player) exitWith { false; };
 
 [
-    KPLIB_param_sectors_capRange
-    , KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; }
+    _player getVariable ["KPLIB_sectors_markerName", ""]
+    , [] call KPLIB_fnc_sectors_getBluforFactorySectors
+    , [["Build", "Logistics"], nil, _player] call KPLIB_fnc_permission_checkPermissions
 ] params [
-    "_range"
-    , "_candidateSectors"
+    "_markerName"
+    , "_bluforFactorySectors"
+    , "_permission"
 ];
 
-private _factoryMarker = [_player, _range, _candidateSectors] call KPLIB_fnc_common_getTargetMarkerIfInRange;
-
-private _storageContainers = nearestObjects [markerPos _factoryMarker, [KPLIB_preset_storageSmallF], _range];
-
-// "KPLIB_build_storageFactoryMarker" indicates when a player is currently building in the sector
-private _otherPlayersCurrentlyBuilding = allPlayers select {
-    !(_x isEqualTo _player);
-} select {
-    (_x getVariable ["KPLIB_build_storageFactoryMarker", ""]) isEqualTo _factoryMarker;
+private _storageExists = [_markerName] call {
+    params [
+        ["_markerName", "", [""]]
+    ];
+    private _objects = nearestObjects [markerPos _markerName, [KPLIB_preset_storageSmallF], KPLIB_param_sectors_capRange];
+    private _storageContainers = _objects select { (_x getVariable ["KPLIB_sectors_markerName", ""]) isEqualTo _markerName; };
+    count _storageContainers > 0;
 };
 
-private _permissions = ["Build", "Logistics"] apply { [_x] call KPLIB_fnc_permission_checkPermission; };
+private _buildingPlayers = [
+    ["KPLIB_sectors_markerName", "KPLIB_build_markerName"]
+    , [_markerName, _markerName]
+] call {
+    params [
+        ["_vars", [], [[]]]
+        , ["_expected", [], [[]]]
+    ];    
+    allPlayers select {
+        private _other = _x;
+        private _actual = _vars apply { _other getVariable [_x, ""]; };
+        !(_other isEqualTo _player || _actual isEqualTo _expected);
+    };
+};
 
-_storageContainers isEqualTo []
-    && !(
-        isNull _player
-        || _permissions isEqualTo []
-        || _factoryMarker isEqualTo ""
-    )
-    && _otherPlayersCurrentlyBuilding isEqualTo []
+_permission
+    && _markerName in _bluforFactorySectors
+    && !_storageExists
+    && _buildingPlayers isEqualTo []
     ;

@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-11-28
-    Last Update: 2021-02-12 10:41:18
+    Last Update: 2021-05-25 13:01:05
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -18,7 +18,12 @@
 
     Returns:
         Items were built [BOOL]
-*/
+
+    Remarks:
+        CRITICAL: This is the moment when an object being built local to client side migrates
+        to actually created on the server side and available to all. It is from there when
+        we see the events that matter, build item built, local callbacks, etc.
+ */
 
 private _debug = [] call KPLIB_fnc_build_debug;
 
@@ -40,7 +45,7 @@ if (_debug) then {
         , str [count _queue]], "BUILD"] call KPLIB_fnc_common_log;
 };
 
-private _onEachObjectInArea = {
+{
     [
         _x
         , typeOf _x
@@ -61,12 +66,11 @@ private _onEachObjectInArea = {
             , str [_className, _pos, _dirAndUp, _price]], "BUILD"] call KPLIB_fnc_common_log;
     };
 
+    // This is the moment when the object stops being LOCAL and starts being SERVER side
     deleteVehicle _obj;
-
     [[_className, _pos, 0, true], _dirAndUp, _price, player] remoteExecCall ["KPLIB_fnc_build_confirmSingle", 2];
-};
 
-_onEachObjectInArea forEach _objectsInArea;
+} forEach _objectsInArea;
 
 if (_debug) then {
     ["[fn_build_confirmAll] Fini", "BUILD"] call KPLIB_fnc_common_log;

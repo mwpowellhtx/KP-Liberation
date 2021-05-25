@@ -5,35 +5,30 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-03-11 18:57:20
+    Last Update: 2021-05-22 15:13:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The preInit function defines global variables, adds event handlers and set some vital settings which are used in this module.
+        Initialization phase event handler.
 
     Parameters:
         NONE
 
     Returns:
-        Module preInit finished [BOOL]
-*/
+        The event handler has finished [BOOL]
+ */
 
-KPLIB_param_build_preInit_debug = true;
-
-private _debug_onServerBuildItemBuilt = [
-    [
-        {KPLIB_param_build_preInit_debug}
-    ]          
-] call KPLIB_fnc_debug_debug;
+// TODO: TBD: setup proper settings file for the module... including debug params...
+private _debug = false;
 
 if (isServer) then {
-    ["Module initializing...", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
+    ["[fn_build_preInit] Initializing...", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
 };
 
 /*
     ----- Module Globals -----
-*/
+ */
 
 KPLIB_build_buildMode_move          = 0;
 KPLIB_build_buildMode_build         = 1;
@@ -93,14 +88,14 @@ if (isServer) then {
      * KPLIB_asset_isMovable, indicates whether an asset is considered to be movable. Most
      *      objects are; storage containers are a rare exception. See caveat above.
      *
-     * KPLIB_fob_originalUuid, indicates the UUID of the FOB where the asset was originally
+     * KPLIB_fobs_fobUuid, indicates the UUID of the FOB where the asset was originally
      *      built. The current set of FOBs can change during the course of a campaign, and
      *      UUIDs can come and go. But we need to maintain some record that assets were
      *      actually built, and could therefore be managed consequent to their existence.
      *      In addition, we can use this to differentiate between enemy and civilian assets,
      *      apart from friendly ones.
      *
-     * KPLIB_sector_markerName, the current sector of the asset. Storage containers build
+     * KPLIB_sectors_markerName, the current sector of the asset. Storage containers build
      *      supporting a factory sector receive this marker forever and ever more, while the
      *      sector remains "blue". Whereas, assets in transit into or away from FOB zones may
      *      see this variable populate or clear, according to their proximity within the FOB
@@ -120,8 +115,7 @@ if (isServer) then {
      */
     [[
         "KPLIB_asset_isMovable"
-        , "KPLIB_fob_originalUuid"
-        , "KPLIB_sector_markerName"
+        , "KPLIB_sectors_markerName"
         , "KPLIB_resources_storageValue"], true] call KPLIB_fnc_persistence_addPersistentVars;
 
     // Register load event handler
@@ -130,109 +124,38 @@ if (isServer) then {
     // Register save event handler
     ["KPLIB_doSave", {[] call KPLIB_fnc_build_saveData}] call CBA_fnc_addEventHandler;
 
-    private _onServerBuildItemBuilt = {
-
-        private _debug_onServerBuildItemBuilt = [
-            [
-                {KPLIB_param_build_preInit_debug}
-            ]          
-        ] call KPLIB_fnc_debug_debug;
-
-        // _markerName of the FOB at which the object was built
+    ["KPLIB_build_item_built", {
         params [
             ["_object", objNull, [objNull]]
             , ["_markerName", "", [""]]
         ];
 
-        if (_debug_onServerBuildItemBuilt) then {
-            [format ["[fn_build_preInit::_onServerBuildItemBuilt] [isNull _object, typeOf _object, _markerName]: %1"
-                , str [isNull _object, typeOf _object, _markerName]], "BUILD", true] call KPLIB_fnc_common_log;
-        };
-
-        //// TODO: TBD: we think that possibly we could support moving storage containers...
-        //// TODO: TBD: conditioned on whether the asset has attached resources
-        //// Storage classes are the one possible exception to movable classes
-        //if (!((typeOf _object) in KPLIB_resources_storageClasses)) then {
-        //};
-
-        // TODO: TBD: at this moment in dev, we are not producing any resources yet, so it is a good time to get a grip on this issue
-        // TODO: TBD: will need to figure out the appropriate time to handle the storage container use cases later on...
-
-        if (typeOf _object isEqualTo KPLIB_preset_fobBuildingF) then {
-
-            private _fobIndex = KPLIB_sectors_fobs findIf { (_x#0) isEqualTo _markerName; };
-
-            private _milal = [_fobIndex] call KPLIB_fnc_common_indexToMilitaryAlpha;
-
-            // To everyone or everyone else other than the server
-            private _cid = if (clientOwner == 2) then {0} else {-2};
-            [format [localize "STR_KPLIB_FOB_BUILT_FORMAT", _milal]] remoteExec ["KPLIB_fnc_notification_hint", _cid];
-
-            // TODO: TBD: will need to sprinkle this in several places most likely...
-            // TODO: TBD: investigate usages of the update functions and replace with this...
-            ["KPLIB_updateMarkers"] call CBA_fnc_serverEvent;
-
-            publicVariable "KPLIB_sectors_fobs";
-        };
-
-        /* We must allow players to select, move, rotate even storage container classes. Why
-         * is that, because when "building" for the first time, it is unrealisting, even improbable,
-         * that the position, alignment, etc, will be correct straight out of the gate. Therefore,
-         * we must be able to position, reposition, and align them, just like any other class of
-         * object. And, if it means there are stored resources on a particular storage container,
-         * so be it, then we must relay that issue as an event on any of the attached objects,
-         * set their simulation so they do not cause catastrophic failures, explosions, etc,
+        /* We must allow players to select, move, rotate even storage container classes,
+         * and FOB buildings. Why is that, because when "building" for the first time,
+         * it is unrealistic, even improbable, that the position, alignment, etc, will
+         * be correct straight out of the gate. Therefore, we must be able to position,
+         * reposition, and align them, just like any other class of object. And, if it
+         * means there are stored resources on a particular storage container, so be it,
+         * then we must relay that issue as an event on any of the attached objects, set
+         * their simulation so they do not cause catastrophic failures, explosions, etc,
          * and re-attach. So be it. */
 
+        // TODO: TBD: may need to connect some dots allowing for FACTORY SECTORY movability...
         _object setVariable ["KPLIB_asset_isMovable", true, true];
- 
-        [_object, "", _debug_onServerBuildItemBuilt] spawn {
-            params [
-                ["_obj", objNull, [objNull]]
-                , ["_default", "", [""]]
-                , ["_debug", false, [false]]
-            ];
-            // TODO: TBD: which it "may" be near a FOB if it was just built...
-            // TODO: TBD: but then again, it may not, depending on the context of the build...
-            // TODO: TBD: i.e. for scenarios involving enemy or civilian assets...
-            private _nearestMarkerAndUuid = [_obj, _default] call KPLIB_fnc_common_getNearestMarkerAndUuid;
 
-            if (_debug) then {
-                [format ["[fn_build_preInit::_onServerBuildItemBuilt::call] [str _obj, typeOf _obj, _nearestMarkerAndUuid]: %1"
-                    , str [str _obj, typeOf _obj, _nearestMarkerAndUuid]], "BUILD", true] call KPLIB_fnc_common_log;
-            };
+        // // // TODO: TBD: of we simply allow for the default save cycle...
+        // // // TODO: TBD: especially since build events are separated across client/server boundaries
+        // // Must also save the mission when reaching this moment
+        // ["fn_build_preInit] spawn KPLIB_fnc_init_save;
 
-            if (!(_nearestMarkerAndUuid isEqualTo [_default, _default])) then {
-                // TODO: TBD: may make an event out of this part... or at least a first class function that we can invoke...
-                _obj setVariable ["KPLIB_sector_markerName", (_nearestMarkerAndUuid#0), true];
-                // TODO: TBD: as long as we note a UUID, then we can probably defer the marker name until an FPS event handler picks up the asset...
-                _obj setVariable ["KPLIB_fob_originalUuid", (_nearestMarkerAndUuid#1), true];
-            };
-        };
-
-        // TODO: TBD: this placement is a pretty distant in terms of client/server hops, events handled, etc, from the point of origin, may not be the best placement...
-        [_object, _markerName, _debug_onServerBuildItemBuilt] spawn {
-            params [
-                ["_obj", objNull, [objNull]]
-                , ["_markerName", "", [""]]
-                , ["_debug", false, [false]]
-            ];
-            private _sectors = KPLIB_sectors_factory select { _x in KPLIB_sectors_blufor; };
-            if (_markerName in _sectors) then {
-                _obj setVariable ["KPLIB_sector_markerName", _markerName, true];
-            };
-        };
-
-        // Must also save the mission when reaching this moment
-        [] spawn KPLIB_fnc_init_save;
-    };
-
-    ["KPLIB_build_item_built", _onServerBuildItemBuilt] call CBA_fnc_addEventHandler;
+    }] call CBA_fnc_addEventHandler;
 };
 
 // TODO: TBD: strong candidates to add to CBA settings at some point...
 KPLIB_param_build_snapDegrees = 5;
 KPLIB_param_build_degreePlaces = 2;
+
+KPLIB_param_build_onBuildStorageClicked_debug                                           = false;
 
 if (hasInterface) then {
 
@@ -255,20 +178,19 @@ if (hasInterface) then {
 
     KPLIB_param_build_handleMouse_onMouseButtonDown_debugSystemChat                     = false;
     KPLIB_param_build_handleMouse_onMouseButtonUp_debugSystemChat                       = false;
-    KPLIB_param_build_handleMouse_onMouseButtonClick_debugSystemChat                    = true;
+    KPLIB_param_build_handleMouse_onMouseButtonClick_debugSystemChat                    = false;
     KPLIB_param_build_handleMouse_onMouseZChanged_debugSystemChat                       = false;
     KPLIB_param_build_handleMouse_onMouseMoving_debugSystemChat                         = false;
     KPLIB_param_build_handleMouse_onMouseHolding_debugSystemChat                        = false;
     KPLIB_param_build_handleMouse_onMouseZChanged_buildCategoryList_debugSystemChat     = false;
     KPLIB_param_build_handleMouse_onMouseZChanged_buildList_debugSystemChat             = false;
 
-    KPLIB_param_build_displayFillList_debug                                             = true;
+    KPLIB_param_build_displayFillList_debug                                             = false;
+
+    ["KPLIB_player_redeploy", { _this call KPLIB_fnc_build_setupPlayerActions; }] call CBA_fnc_addEventHandler;
 
     // Register build item movement handler
     ["KPLIB_build_item_moved", KPLIB_fnc_build_validatePosition] call CBA_fnc_addEventHandler;
-
-    // Register Build module as FOB building provider
-    ["KPLIB_fob_build_requested", KPLIB_fnc_build_onFobBuildRequested] call CBA_fnc_addEventHandler;
 
     player addEventHandler ["Killed", KPLIB_fnc_build_stop];
 
@@ -318,10 +240,55 @@ if (hasInterface) then {
         // Decoration
         ["STR_KPLIB_CAT_DECO", "deco"]
     ];
+
+    // Respond to STORAGE BUILT locally so that we can reconnect dots with FOB+FACTORY sectors
+    ["KPLIB_build_item_built_local", {
+        params [
+            ["_object", objNull, [objNull]]
+            , ["_markerName", "", [""]]
+        ];
+
+        private _onRegisterWithFob = {
+            params [
+                ["_fobBuilding", objNull, [objNull]]
+                , ["_markerNames", +KPLIB_sectors_fobs, [[]]]
+            ];
+
+            if (_markerName in _markerNames && !isNull _fobBuilding) then {
+                {
+                    _x append [true];
+                    _object setVariable _x
+                } forEach [
+                    ["KPLIB_fobs_markerName", _markerName]
+                    , ["KPLIB_fobs_fobUuid", _fobBuilding getVariable ["KPLIB_fobs_fobUuid", ""]]
+                ];
+            };
+        };
+
+        private _onRegisterWithFactorySector = {
+            params [
+                ["_player", player, [objNull]]
+                , ["_bluforFactorySectors", [] call KPLIB_fnc_sectors_getBluforFactorySectors, [[]]]
+            ];
+
+            private _buildMarker = _player getVariable ["KPLIB_build_markerName", ""];
+
+            if (_markerName in _bluforFactorySectors) then {
+                _object setVariable ["KPLIB_sectors_markerName", _markerName, true];
+            };
+
+            _player setVariable ["KPLIB_build_markerName", nil, true];
+        };
+
+        [[_object, KPLIB_param_fobs_range] call KPLIB_fnc_fobs_getNearestBuilding] call _onRegisterWithFob;
+
+        [] call _onRegisterWithFactorySector;
+
+    }] call CBA_fnc_addEventHandler;
 };
 
 if (isServer) then {
-    ["Module initialized", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
+    ["[fn_build_preInit] Initialized", "PRE] [BUILD", true] call KPLIB_fnc_common_log;
 };
 
-true
+true;
