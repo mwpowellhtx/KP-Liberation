@@ -6,7 +6,7 @@
     File: fn_garrisonUI_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-16 14:11:38
-    Last Update: 2021-04-16 14:11:40
+    Last Update: 2021-05-24 10:34:49
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -26,14 +26,14 @@ if (isServer) then {
 
 [] call MFUNCUI(_setupPermissions);
 
-[] call MFUNCUI(_setupPlayerActions);
-
 if (isServer) then {
     // Server section
 };
 
 if (hasInterface) then {
     // Player section
+    // TODO: TBD: may be better to wire this during 'KPLIB_player_redeploy' event handling...
+    [] call MFUNCUI(_setupPlayerActions);
 };
 
 if (isServer) then {

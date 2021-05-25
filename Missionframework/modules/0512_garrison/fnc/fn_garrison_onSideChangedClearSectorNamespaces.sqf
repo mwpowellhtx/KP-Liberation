@@ -22,6 +22,6 @@
 { [_x] call MFUNC(_onGC); } forEach KPLIB_sectors_namespaces;
 
 // This is a save-worthy trigger
-[] call KPLIB_fnc_init_save;
+[Q(fn_garrison_onSideChangedClearSectorNamespaces)] call KPLIB_fnc_init_save;
 
 true;
