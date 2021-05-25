@@ -3,8 +3,9 @@
 
     File: fn_captive_stopEscort.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-21
-    Last Update: 2019-09-26
+    Last Update: 2021-05-24 14:29:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -39,16 +40,31 @@ _escort setVariable ["KPLIB_captive_escorting", objNull, true];
 // Detach the captive from the player
 detach _unit;
 
+// // TODO: TBD: why all the gymnastics? ... making it more complicated than it needs to be...
+// // TODO: TBD: we will circle back around on CAPTIVE, etc, remediation, after wrapping up these foundation things...
 // Remove the action
 player removeAction _id;
 
 // Switch the load action from player to unitAddons
 player removeAction (_unit getVariable ["KPLIB_captive_loadID", 9000]);
-_id = [
-    _unit,
-    ["STR_KPLIB_ACTION_LOADCAPTIVE", name _unit],
-    [{[_this select 0] call KPLIB_fnc_captive_loadCaptive;}, nil, -800, false, true, "", "_target getVariable [""KPLIB_captive"", false] && ({(_x emptyPositions ""cargo"") > 0} count (_target nearEntities [[""LandVehicle"", ""Air""], 5])) > 0", 10]
-] call KPLIB_fnc_common_addAction;
-_unit setVariable ["KPLIB_captive_loadID", _id];
 
-true
+[
+    _unit
+    , [
+        "STR_KPLIB_ACTION_LOADCAPTIVE"
+        , { _this call KPLIB_fnc_captive_loadCaptive; }
+        , []
+        , -800
+        , false
+        , true
+        , ""
+        , "
+            _target getVariable ['KPLIB_captive', false]
+                && ({ (_x emptyPositions 'cargo') > 0; } count (_target nearEntities [['LandVehicle', 'Air'], 5])) > 0
+        "
+        , 10
+    ]
+    , [["_varName", "KPLIB_captive_loadID"], ["_formatArgs", [name _unit]]]
+] call KPLIB_fnc_common_addAction;
+
+true;

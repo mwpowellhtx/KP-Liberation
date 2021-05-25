@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-10
-    Last Update: 2021-04-16 09:14:38
+    Last Update: 2021-05-24 14:29:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -102,14 +102,25 @@ if (hasInterface) then {
         ];
         // Exit the function on missing vehicle, due to an emitted event through ace
         if (isNull _vehicle) exitWith {};
+
         // Remove the stop escort action if available
         player removeAction (player getVariable ["KPLIB_stopEscort_id", 9000]);
 
         // Add the unload action to the vehicle
         private _id = [
-            _vehicle,
-            ["STR_KPLIB_ACTION_UNLOADCAPTIVE", name _unit],
-            [{[_this select 3, _this select 0] call KPLIB_fnc_captive_unloadCaptive;}, _unit, -800, false, true, "", "", 10]
+            _vehicle
+            , [
+                "STR_KPLIB_ACTION_UNLOADCAPTIVE"
+                , { [_this#3, _this#0] call KPLIB_fnc_captive_unloadCaptive; }
+                , _unit
+                , -800
+                , false
+                , true
+                , ""
+                , ""
+                , 10
+            ]
+            , [["_formatArgs", [name _unit]]]
         ] call KPLIB_fnc_common_addAction;
 
         // Save id in unit

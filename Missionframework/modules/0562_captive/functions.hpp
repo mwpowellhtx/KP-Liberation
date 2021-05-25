@@ -11,6 +11,9 @@
         Defines for all functions, which are brought by this module.
  */
 
+// TODO: TBD: we can kind of see why events were connected here how they were...
+// TODO: TBD: but when there is some confusion between captor and captee, for instance, or escort and captive...
+// TODO: TBD: may reconsider which object(s) are receiving the actions, whether to install/uninstall them, and so forth...
 class captive {
     file = "modules\0562_captive\fnc";
 

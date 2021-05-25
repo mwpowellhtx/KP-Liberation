@@ -3,8 +3,9 @@
 
     File: fn_captive_loadCaptive.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-22
-    Last Update: 2019-09-24
+    Last Update: 2021-05-24 14:39:22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -40,11 +41,26 @@ if !(isNull attachedTo _unit) then {
 
     // Switch the load action from player to unitAddons
     player removeAction (_unit getVariable ["KPLIB_captive_loadID", 9000]);
+
     private _id = [
-        _unit,
-        ["STR_KPLIB_ACTION_LOADCAPTIVE", name _unit],
-        [{[_this select 0] call KPLIB_fnc_captive_loadCaptive;}, nil, -800, false, true, "", "_target getVariable [""KPLIB_captive"", false] && ({(_x emptyPositions ""cargo"") > 0} count (_target nearEntities [[""LandVehicle"", ""Air""], 5])) > 0", 10]
+        _unit
+        , [
+            "STR_KPLIB_ACTION_LOADCAPTIVE"
+            , { _this call KPLIB_fnc_captive_loadCaptive; }
+            , []
+            , -800
+            , false
+            , true
+            , ""
+            , "
+                _target getVariable ['KPLIB_captive', false]
+                    && ({ (_x emptyPositions 'cargo') > 0; } count (_target nearEntities [['LandVehicle', 'Air'], 5])) > 0
+            "
+            , 10
+        ]
+        , [["_formatArgs", [name _unit]]]
     ] call KPLIB_fnc_common_addAction;
+
     _unit setVariable ["KPLIB_captive_loadID", _id];
 };
 
@@ -54,4 +70,4 @@ if !(isNull attachedTo _unit) then {
 // Emit global event
 ["KPLIB_captive_loaded", [_unit, _vehicle]] call CBA_fnc_globalEvent;
 
-true
+true;
