@@ -5,12 +5,13 @@
     File: fn_hudFob_onReportResources.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 00:41:35
-    Last Update: 2021-05-26 21:44:09
+    Last Update: 2021-05-27 14:09:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Reports RESOURCES to the FOB HUD report.
+        Responds when the HUD SUBSCRIPTION REPORTING events are raised. Reports
+        RESOURCES to the FOB HUD report.
 
     Parameters:
         _player - the PLAYER for whom the REPORT centers [OBJECT, default: objNull]
@@ -29,6 +30,8 @@ private _debug = MPARAM(_onReportResources_debug)
     || (_player getVariable [QMVAR(_onReportResources_debug), false])
     || (_report getVariable [QMVAR(_onReportResources_debug), false])
     ;
+
+if (!([_report, MVAR(_reportUuid)] call KPLIB_fnc_hud_aligned)) exitWith { false; };
 
 // TODO: TBD: also include colors... images...
 if (isNull _player || isNull _report || !alive _player) exitWith { false; };

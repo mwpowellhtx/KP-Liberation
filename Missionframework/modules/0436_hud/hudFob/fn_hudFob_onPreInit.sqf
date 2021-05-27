@@ -5,7 +5,7 @@
     File: fn_hudFob_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-25 17:12:09
-    Last Update: 2021-05-26 09:41:07
+    Last Update: 2021-05-27 13:34:27
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,17 +20,16 @@
  */
 
 [] call MFUNC(_settings);
-
-if (isServer) then {
-    [] call MFUNC(_presets);
-};
+[] call MFUNC(_presets);
 
 if (hasInterface) then {
     // User interface section
-    MLAYER(_overlay)                        = QMLAYER(_overlay) call BIS_fnc_rscLayer;
 
-    // Wire up the event handlers for the REPORT features
-    { [QMVAR(_report), _x] call CBA_fnc_addEventHandler; } forEach [
+    // See POST, for use internal use screening event handler callbacks
+    MVAR(_reportUuid)                                   = "";
+
+    // Wire up REPORTING+REPORT events
+    { [Q(KPLIB_hud_reporting), _x] call CBA_fnc_addEventHandler; } forEach [
         { _this call MFUNC(_onReportResources);     }
         , { _this call MFUNC(_onReportIntel);       }
         , { _this call MFUNC(_onReportFriendly);    }
@@ -38,6 +37,7 @@ if (hasInterface) then {
         , { _this call MFUNC(_onReportCivilian);    }
         , { _this call MFUNC(_onReportEnemy);       }
     ];
+    [Q(KPLIB_hud_report), { _this call MFUNC(_onReport); }] call CBA_fnc_addEventHandler;
 
     [Q(KPLIB_player_redeploy), { _this call MFUNC(_setupPlayerActions); }] call CBA_fnc_addEventHandler;
 };

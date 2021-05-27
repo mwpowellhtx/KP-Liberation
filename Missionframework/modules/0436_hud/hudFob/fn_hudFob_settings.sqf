@@ -5,7 +5,7 @@
     File: fn_hudFob_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 01:30:59
-    Last Update: 2021-05-26 22:10:51
+    Last Update: 2021-05-27 15:20:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -28,7 +28,6 @@ MPARAM(_enemyLow)                               = 0.25;
 MPARAM(_enemyMedium)                            = 0.65;
 MPARAM(_enemyhigh)                              = 0.85;
 
-MPARAM(_getReport_debug)                        = false;
 MPARAM(_onReport_debug)                         = true;
 MPARAM(_onReportAssets_debug)                   = false;
 MPARAM(_onReportCivilian_debug)                 = false;

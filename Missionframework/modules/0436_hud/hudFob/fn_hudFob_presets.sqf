@@ -36,7 +36,7 @@ if (isServer) then {
     MPRESET_SP(_strengthRatioPath,"\A3\ui_f\data\map\markers\handdrawn\warning_CA.paa");
     MPRESET_SP(_civRepPath,"\A3\ui_f\data\map\mapcontrol\tourism_CA.paa");
 
-    private _mobileClassNames = [
+    private _mobileClassNames                           = [
         Q(Plane)
         , Q(Helicopter)
     ];
@@ -67,10 +67,6 @@ if (isServer) then {
 
     MPRESET_SP(_viewDataOptionKeys,_viewDataOptionKeys);
 
-    MPRESET_SP(_cutRscEffect,Q(plain));
-    MPRESET_SP(_cutRscSpeed,0);
-    MPRESET_SP(_cutRscShowInMap,false);
-
     // TODO: TBD: these should go in the RESOURCES module if they are not already...
     [
         [0, 0.95, 0, 1]
@@ -84,30 +80,10 @@ if (isServer) then {
     MPRESET_SP(_supplyColor,_supplyColor);
     MPRESET_SP(_ammoColor,_ammoColor);
     MPRESET_SP(_fuelColor,_fuelColor);
+};
 
-    // TODO: TBD: these could well be defined in a COMMON or CORE module...
-    // TODO: TBD: if they are not already in some way shape or form...
-    [
-        [0.9, 0, 0, 1]
-        , [1, 0.6, 0.2, 1]
-        , [0.9, 0.9, 0, 1]
-        , [0.2, 0.6, 1, 1]
-        , [0.2, 0.8, 0.2, 1]
-        , [1, 1, 1, 1]
-    ] params [
-        Q(_redColor)
-        , Q(_orangeColor)
-        , Q(_yellowColor)
-        , Q(_blueColor)
-        , Q(_greenColor)
-        , Q(_whiteColor)
-    ];
-    MPRESET_SP(_redColor,_redColor);
-    MPRESET_SP(_orangeColor,_orangeColor);
-    MPRESET_SP(_yellowColor,_yellowColor);
-    MPRESET_SP(_blueColor,_blueColor);
-    MPRESET_SP(_greenColor,_greenColor);
-    MPRESET_SP(_whiteColor,_whiteColor);
+if (hasInterface) then {
+    MPRESET(_reportUuid)                                = [] call KPLIB_fnc_uuid_create_string;
 };
 
 true;

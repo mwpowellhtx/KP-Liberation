@@ -5,15 +5,17 @@
     File: fn_hudFob_onReport.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 01:28:06
-    Last Update: 2021-05-26 01:28:09
+    Last Update: 2021-05-27 13:55:03
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Oversees FOB HUD reporting.
+        Responds when the HUD SUBSCRIPTION REPORT event is raised. Handles
+        delegating the current REPORT state to the appropriate RESOURCE layer.
 
     Parameters:
         _player - the PLAYER for whom the REPORT centers [OBJECT, default: objNull]
+        _report - the REPORT for which the event handler centers [LOCATION, default: locationNull]
 
     Returns:
         The event handler has finished [BOOL]
@@ -25,21 +27,20 @@
 
 params [
     [Q(_player), player, [objNull]]
+    , [Q(_report), locationNull, [locationNull]]
 ];
 
 private _debug = MPARAM(_onReport_debug)
     || (_player getVariable [QMVAR(_onReport_debug), false])
+    || (_report getVariable [QMVAR(_onReport_debug), false])
     ;
 
-private _report = [_player] call MFUNC(_getReport);
+if (!([_report, MVAR(_reportUuid)] call KPLIB_fnc_hud_aligned)) exitWith { false; };
 
 if (_debug) then {
     [format ["[fn_hudFob_onReport] Entering: [isNull _player, isNull _report]: %1"
         , str [isNull _player, isNull _report]], "HUDFOB", true] call KPLIB_fnc_common_log;
 };
-
-// Raises the REPORT LOCAL EVENT which delegates to specific aspects of the report
-[QMVAR(_report), [_player, _report]] call CBA_fnc_localEvent;
 
 // need to know what in order to display:
 // fob marker(s): one or all, if there is only 'one' regardless of user flag then show that, otherwise show 'all'
@@ -70,12 +71,14 @@ if (_debug) then {
     , _player getVariable [Q(KPLIB_display_open), false]
     , _player getVariable [QMVAR(_reportAllResources), false]
     , _report getVariable [Q(_fobMarkers), []]
+    , _report getVariable [Q(KPLIB_hud_rscLayerID), ""]
     , { !isNull _x; } count [_lnbFob, _lnbFobShadow]
 ] params [
     Q(_playerIsPlayer)
     , Q(_redeploy)
     , Q(_reportAllResources)
     , Q(_fobMarkers)
+    , Q(_rscLayerID)
     , Q(_ctrlCount)
 ];
 
@@ -86,21 +89,21 @@ if (_debug) then {
 
 /* The main thing we want to avoid here is cutting resources IN|OUT repeatedly.
  * Conversely, we need to be able to cut resoruces IN|OUT as necessary. */
-switch (true) do {
+private _rscClassName = switch (true) do {
     case ((_dialog || _redeploy || (count _fobMarkers == 0) || !_playerIsPlayer) && _ctrlCount == 2): {
         if (_debug) then {
-            [format ["[fn_hudFob_onReport] Cutting blank: [_className]: %1"
-                , str [QMVAR(_blank)]], "HUDFOB", true] call KPLIB_fnc_common_log;
+            [format ["[fn_hudFob_onReport] Cutting blank: [_rscLayerID, _className]: %1"
+                , str [_rscLayerID, QMVAR(_blank)]], "HUDFOB", true] call KPLIB_fnc_common_log;
         };
-        MLAYER(_overlay) cutRsc [QMVAR(_blank), MPRESET(_cutRscEffect), MPRESET(_cutRscSpeed), MPRESET(_cutRscShowInMap)];
+        QMVAR(_blank);
     };
 
     case (!(_dialog || _redeploy) && (count _fobMarkers > 0) && _playerIsPlayer && _ctrlCount == 0): {
         if (_debug) then {
-            [format ["[fn_hudFob_onReport] Cutting overlay: [_className]: %1"
-                , str [QMVAR(_overlay)]], "HUDFOB", true] call KPLIB_fnc_common_log;
+            [format ["[fn_hudFob_onReport] Cutting overlay: [_rscLayerID, _className]: %1"
+                , str [_rscLayerID, QMVAR(_overlay)]], "HUDFOB", true] call KPLIB_fnc_common_log;
         };
-        MLAYER(_overlay) cutRsc [QMVAR(_overlay), MPRESET(_cutRscEffect), MPRESET(_cutRscSpeed), MPRESET(_cutRscShowInMap)];
+        QMVAR(_overlay);
     };
 
     case (!(_dialog || _display) && (count _fobMarkers > 0) && _playerIsPlayer && _ctrlCount == 2): {
@@ -110,11 +113,16 @@ switch (true) do {
         };
         [_lnbFob, _lnbFobConfig] call MFUNCUI(_lnbFob_onRefresh);
         [_lnbFobShadow, _lnbFobShadowConfig] call MFUNCUI(_lnbFob_onRefresh);
+        "";
     };
+
+    default { ""; };
 };
 
-if (true) then {
-    [{ _this call MFUNC(_onReport); }, [], MPARAM(_reportPeriod)] call CBA_fnc_waitAndExecute;
+if (!(_rscClassName isEqualTo "")) then {
+    _rscLayerID cutRsc [_rscClassName, KPLIB_preset_hud_cutRscEffect
+        , KPLIB_preset_hud_cutRscSpeed, KPLIB_preset_hud_cutRscShowInMap
+    ];
 };
 
 if (_debug) then {

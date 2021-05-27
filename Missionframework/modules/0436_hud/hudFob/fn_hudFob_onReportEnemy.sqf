@@ -5,12 +5,13 @@
     File: fn_hudFob_onReportEnemy.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 00:52:54
-    Last Update: 2021-05-26 22:36:08
+    Last Update: 2021-05-27 14:09:35
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Reports ENEMY STRENGTH+AWARENESS RATIOS to the FOB HUD report.
+        Responds when the HUD SUBSCRIPTION REPORTING events are raised. Reports
+        ENEMY STRENGTH+AWARENESS RATIOS to the FOB HUD report.
 
     Parameters:
         _player - the PLAYER for whom the REPORT centers [OBJECT, default: objNull]
@@ -29,6 +30,8 @@ private _debug = MPARAM(_onReportEnemy_debug)
     || (_player getVariable [QMVAR(_onReportEnemy_debug), false])
     || (_report getVariable [QMVAR(_onReportEnemy_debug), false])
     ;
+
+if (!([_report, MVAR(_reportUuid)] call KPLIB_fnc_hud_aligned)) exitWith { false; };
 
 // TODO: TBD: also include color thresholds... images...
 if (isNull _player || isNull _report || !alive _player) exitWith { false; };

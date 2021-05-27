@@ -33,7 +33,7 @@ params [
 private _player = player;
 private _debug = MPARAMUI(_lnbFob_onRefresh_debug);
 
-private _report = [_player] call MFUNC(_getReport);
+private _report = [MVAR(_reportUuid)] call KPLIB_fnc_hud_getReport;
 private _viewData = [_player, _report] call MFUNC(_getViewData);
 private _viewDataCount = count _viewData;
 

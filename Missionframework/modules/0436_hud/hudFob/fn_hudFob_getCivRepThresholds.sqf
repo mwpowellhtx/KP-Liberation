@@ -35,10 +35,10 @@ private _high = _medium + _delta;
 
 // Should never be Less Than -1, so we provide -2 as a generous tolerance
 +[
-    [_medium, MPRESET(_greenColor)]
-    , [_low, MPRESET(_blueColor)]
-    , [-_low, MPRESET(_whiteColor)]
-    , [-_medium, MPRESET(_yellowColor)]
-    , [-_high, MPRESET(_orangeColor)]
-    , [-2, MPRESET(_redColor)]
+    [_medium, KPLIB_preset_hud_greenColor]
+    , [_low, KPLIB_preset_hud_blueColor]
+    , [-_low, KPLIB_preset_hud_whiteColor]
+    , [-_medium, KPLIB_preset_hud_yellowColor]
+    , [-_high, KPLIB_preset_hud_orangeColor]
+    , [-2, KPLIB_preset_hud_redColor]
 ];

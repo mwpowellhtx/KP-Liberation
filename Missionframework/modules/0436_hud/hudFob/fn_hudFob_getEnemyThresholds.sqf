@@ -26,8 +26,8 @@
 
 // Should never be Less Than 0, so we provide a generous tolerance at -1
 +[
-    [MPARAM(_enemyHigh), MPRESET(_redColor)]
-    , [MPARAM(_enemyMedium), MPRESET(_orangeColor)]
-    , [MPARAM(_enemyLow), MPRESET(_yellowColor)]
-    , [-1, MPRESET(_whiteColor)]
+    [MPARAM(_enemyHigh), KPLIB_preset_hud_redColor]
+    , [MPARAM(_enemyMedium), KPLIB_preset_hud_orangeColor]
+    , [MPARAM(_enemyLow), KPLIB_preset_hud_yellowColor]
+    , [-1, KPLIB_preset_hud_whiteColor]
 ];

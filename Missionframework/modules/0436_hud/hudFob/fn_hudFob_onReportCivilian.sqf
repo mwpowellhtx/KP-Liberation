@@ -5,12 +5,13 @@
     File: fn_hudFob_onReportCivilian.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 00:41:35
-    Last Update: 2021-05-26 11:57:56
+    Last Update: 2021-05-27 14:09:45
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Reports CIVILIAN REPUTATION RATIO to the FOB HUD report.
+        Responds when the HUD SUBSCRIPTION REPORTING events are raised. Reports
+        CIVILIAN REPUTATION RATIO to the FOB HUD report.
 
     Parameters:
         _player - the PLAYER for whom the REPORT centers [OBJECT, default: objNull]
@@ -29,6 +30,8 @@ private _debug = MPARAM(_onReportCivilian_debug)
     || (_player getVariable [QMVAR(_onReportCivilian_debug), false])
     || (_report getVariable [QMVAR(_onReportCivilian_debug), false])
     ;
+
+if (!([_report, MVAR(_reportUuid)] call KPLIB_fnc_hud_aligned)) exitWith { false; };
 
 // TODO: TBD: also include color thresholds... images...
 if (isNull _player || isNull _report || !alive _player) exitWith { false; };

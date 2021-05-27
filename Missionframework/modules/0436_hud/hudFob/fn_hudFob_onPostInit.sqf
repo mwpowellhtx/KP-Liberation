@@ -5,7 +5,7 @@
     File: fn_hudFob_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-25 17:11:49
-    Last Update: 2021-05-25 17:11:52
+    Last Update: 2021-05-27 14:27:51
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -24,7 +24,11 @@
 
 if (hasInterface) then {
     // Client side section
-    [{ KPLIB_campaignRunning; }, { [] call MFUNC(_onReport); }] call CBA_fnc_waitUntilAndExecute;
+
+    // Everything happens via DEFAULT OPTIONS HASHMAP and registered CBA local event handlers
+    MVAR(_reportUuid)                                   = [[
+        [Q(_rscLayerName), QMLAYER(_overlay)]
+    ]] call KPLIB_fnc_hud_subscribe;
 };
 
 true;
