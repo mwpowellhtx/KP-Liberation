@@ -69,7 +69,7 @@ if (count _fobMarkers > 0) then {
         [0.9, 0, 0, 1]
         , [1, 0.6, 0.2, 1]
         // TODO: TBD: if what we want is simply a "yellow" color, then these should be positioned in terms of INIT, CORE, or COMMON modules...
-        , +KPLIB_preset_fobs_hudColor
+        , [0.9, 0.9, 0, 1]
         , [1, 1, 1, 1]
         , (_awareness / _maxAwareness)
         , (_strength / _maxStrength)
