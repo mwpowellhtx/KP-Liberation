@@ -52,10 +52,10 @@ if (_debug) then {
 
 [
     dialog
-    , uiNamespace getVariable [QMVAR(_lnbFob), controlNull]
-    , uiNamespace getVariable [QMVAR(_lnbFobShadow), controlNull]
-    , uiNamespace getVariable [QMVAR(_lnbFobConfig), configNull]
-    , uiNamespace getVariable [QMVAR(_lnbFobShadowConfig), configNull]
+    , uiNamespace getVariable [QMVARUI(_lnbFob), controlNull]
+    , uiNamespace getVariable [QMVARUI(_lnbFobShadow), controlNull]
+    , uiNamespace getVariable [QMVARUI(_lnbFobConfig), configNull]
+    , uiNamespace getVariable [QMVARUI(_lnbFobShadowConfig), configNull]
 ] params [
     Q(_dialog)
     , Q(_lnbFob)
