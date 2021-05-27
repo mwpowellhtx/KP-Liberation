@@ -1,11 +1,10 @@
-#include "script_component.hpp"
 /*
     KPLIB_fnc_common_getMinimumDeployRange
 
     File: fn_common_getMinimumDeployRange.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-18 21:45:15
-    Last Update: 2021-05-25 10:50:09
+    Last Update: 2021-05-26 18:27:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
