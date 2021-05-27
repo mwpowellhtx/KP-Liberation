@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-04-04 15:27:34
+    Last Update: 2021-05-25 15:57:55
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -242,4 +242,37 @@ class CfgRespawnTemplates
     };
 };
 
+// ============================================================================
+// TODO: TBD: all of this can probably go in another file...
+// TODO: TBD: however, it DOES need to be defined here to be seen by not only UI, but also RscTitles...
+// ============================================================================
+// Refactored here for convenience
+#ifndef KPLIB_IDD_UNDEFINED
+#define KPLIB_IDD_UNDEFINED         -1
+#endif // KPLIB_IDD_UNDEFINED
+
+#ifndef KPLIB_IDC_UNDEFINED
+#define KPLIB_IDC_UNDEFINED         -1
+#endif // KPLIB_IDC_UNDEFINED
+
+#include "CBA\defineCommonGrids.hpp"
+
+// TODO: TBD: so... question is, do we want to include the "A3_defines.hpp" here?
+// TODO: TBD: we would gain comprehension of definitions such as "CT_LISTNBOX", but there is a lot else defined that we would need to investigate...
+
+#include "KPGUI\defines.hpp"
+#include "KPGUI\KPGUI_defines.hpp"
+#include "KPGUI\KPGUI_classes.hpp"
+
+// TODO: TBD: in the process of reworking a couple of subtle approaches...
+// TODO: TBD: dubbing that effort "X" for the time being...
+// TODO: TBD: also focused on production, logistics, probably overlay, assets, ironing out the wrinkles...
+#include "KPGUI\XGUI_defines.hpp"
+#include "KPGUI\XGUI_classes.hpp"
+// ============================================================================
+
 #include "KPLIB_ui.hpp"
+
+class RscTitles {
+    #include "KPLIB_rscTitles.hpp"
+};
