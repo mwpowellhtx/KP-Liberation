@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-04-26 11:56:48
+    Last Update: 2021-05-25 22:28:23
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -52,6 +52,10 @@ if (_moduleData isEqualTo []) then {
     MVAR(_awareness) = _awareness;
     MVAR(_civRep) = _civRep;
 };
+
+publicVariable QMVAR(_strength);
+publicVariable QMVAR(_awareness);
+publicVariable QMVAR(_civRep);
 
 if (_debug) then {
     ["[fn_enemies_loadData] Loaded", "SAVE"] call KPLIB_fnc_common_log;

@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-05-25 13:21:17
+    Last Update: 2021-05-25 22:27:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -45,12 +45,14 @@ if (isServer) then {
 
     // Awareness of the enemy (0-100)
     MVAR(_awareness)                                                = MPARAM(_defaultAwareness);
+    publicVariable QMVAR(_awareness);
 
     // All enemy patrols
     MVAR(_patrols)                                                  = [];
 
     // Strength of the enemy (0-1000)
     MVAR(_strength)                                                 = MPARAM(_defaultStrength);
+    publicVariable QMVAR(_strength);
 
     // TODO: TBD: leaning toward refactoring civilian reputation into the ENEMY module...
     // TODO: TBD: even though it isn't really 'enemy' I cannot think of a better place to put it
@@ -59,7 +61,8 @@ if (isServer) then {
     // TODO: TBD: really deserves its own module dedicated to the problem of civilian reputation
     // TODO: TBD: but for purposes of HUD, we will pencil it in here, for now...
     // TODO: TBD: while we are there we also need to define some limits, threhsolds, etc
-    MVAR(_civRep)                               =    0;
+    MVAR(_civRep)                                                   = 0;
+    publicVariable QMVAR(_civRep);
 
     // Register load event handler
     [Q(KPLIB_doLoad), { [] call MFUNC(_loadData); }] call CBA_fnc_addEventHandler;

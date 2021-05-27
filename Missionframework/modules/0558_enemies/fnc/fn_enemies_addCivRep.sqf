@@ -5,7 +5,7 @@
     File: fn_enemies_addCivRep.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 16:19:31
-    Last Update: 2021-05-25 13:20:34
+    Last Update: 2021-05-25 22:29:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -36,6 +36,7 @@ params [
 if (_delta != 0) then {
     // Sets the CIVILIAN REPUTATION bounded by the MIN and the MAX
     MVAR(_civRep) = -MPARAM(_maxCivRep) max ((MVAR(_civRep) + _delta) min MPARAM(_maxCivRep));
+    publicVariable MVAR(_civRep);
 
     if (count _message > 0) then {
         private _sectorIcon = [_markerName] call KPLIB_fnc_eden_getSectorIcon;
