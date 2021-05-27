@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-05-19 16:39:51
+    Last Update: 2021-05-25 22:23:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -68,6 +68,7 @@ if (isServer) then {
 
     // Intel currency resource amount
     MVAR(_intel)                            = 0;
+    publicVariable QMVAR(_intel);
 
     MVAR(_transportConfigs)                 = [[
         ["B_Heli_Transport_03_F",                        7.5, [[0.00,  2.20, -1.00], [0.00,  0.50, -1.00], [0.00, -1.20, -1.00]                                            ]],
