@@ -348,8 +348,8 @@
             <English>Unload %1</English>
             <German>%1 ausladen</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_UNLOADCRATE">
-            <English>- UNLOAD CRATES -</English>
+        <Key ID="STR_KPLIB_ACTION_UNLOAD_ALL_RESOURCES">
+            <English>- UNLOAD ALL CRATES -</English>
             <Chinese>- 卸載貨物 -</Chinese>
             <Chinesesimp>- 卸载货箱 -</Chinesesimp>
             <German>- KISTEN ABLADEN -</German>
@@ -359,7 +359,10 @@
             <Spanish>- DESCARGAR CAJA DE MUNICIÓN -</Spanish>
             <Turkish>- KUTUYU İNDİR -</Turkish>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_UNSTOREAMMO">
+        <Key ID="STR_KPLIB_ACTION_UNLOAD_ONE_RESOURCE">
+            <English>- UNLOAD %1 CRATE -</English>
+        </Key>
+        <!-- <Key ID="STR_KPLIB_ACTION_UNSTOREAMMO">
             <English>- UNLOAD AMMO CRATE -</English>
             <Chinese>- 卸載彈藥箱 -</Chinese>
             <Chinesesimp>- 卸载弹药箱 -</Chinesesimp>
@@ -391,7 +394,7 @@
             <Russian>- ЗАГРУЗИТЬ СРОК ПОСТАВКИ -</Russian>
             <Spanish>- DESCARGA CAJA DE SUMINISTRO -</Spanish>
             <Turkish>- İKMAL KUTUSUNU ÇIKAR -</Turkish>
-        </Key>
+        </Key> -->
         <Key ID="STR_KPLIB_ACTION_MANAGE_PRODUCTION">
             <English>== MANAGE PRODUCTION ==</English>
         </Key>
