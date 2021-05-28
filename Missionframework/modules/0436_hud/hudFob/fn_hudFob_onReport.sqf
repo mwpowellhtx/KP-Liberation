@@ -106,7 +106,7 @@ private _rscClassName = switch (true) do {
         QMVAR(_overlay);
     };
 
-    case (!(_dialog || _display) && (count _fobMarkers > 0) && _playerIsPlayer && _ctrlCount == 2): {
+    case (!(_dialog || _redeploy) && (count _fobMarkers > 0) && _playerIsPlayer && _ctrlCount == 2): {
         if (_debug) then {
             [format ["[fn_hudFob_onReport] Refreshing: [isNull _lnbFob, isNull _lnbFobShadow, isNull _lnbFobConfig, isNull _lnbFobShadowConfig]: %1"
                 , str [isNull _lnbFob, isNull _lnbFobShadow, isNull _lnbFobConfig, isNull _lnbFobShadowConfig]], "HUDFOB", true] call KPLIB_fnc_common_log;

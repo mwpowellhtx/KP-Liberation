@@ -5,7 +5,7 @@
     File: fn_hudFob_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 01:30:59
-    Last Update: 2021-05-27 15:20:42
+    Last Update: 2021-05-27 20:02:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -39,8 +39,8 @@ MPARAM(_onReportResources_debug)                = false;
 MPARAM(_getViewData_debug)                      = false;
 MPARAM(_getViewDatum_debug)                     = false;
 
-MPARAMUI(_onLoad_debug)                         = true;
-MPARAMUI(_lnbFob_onLoad_debug)                  = true;
-MPARAMUI(_lnbFob_onRefresh_debug)               = true;
+MPARAMUI(_onLoad_debug)                         = false;
+MPARAMUI(_lnbFob_onLoad_debug)                  = false;
+MPARAMUI(_lnbFob_onRefresh_debug)               = false;
 
 true;
