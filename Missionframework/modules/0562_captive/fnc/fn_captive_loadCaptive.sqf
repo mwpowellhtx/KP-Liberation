@@ -42,7 +42,7 @@ if !(isNull attachedTo _unit) then {
     // Switch the load action from player to unitAddons
     player removeAction (_unit getVariable ["KPLIB_captive_loadID", 9000]);
 
-    private _id = [
+    [
         _unit
         , [
             "STR_KPLIB_ACTION_LOADCAPTIVE"
@@ -58,10 +58,8 @@ if !(isNull attachedTo _unit) then {
             "
             , 10
         ]
-        , [["_formatArgs", [name _unit]]]
+        , [["_varName", "KPLIB_captive_loadID"], ["_formatArgs", [name _unit]]]
     ] call KPLIB_fnc_common_addAction;
-
-    _unit setVariable ["KPLIB_captive_loadID", _id];
 };
 
 // Emit target event to move the unit into the vehicle

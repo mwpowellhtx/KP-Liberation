@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-10
-    Last Update: 2021-05-24 14:29:59
+    Last Update: 2021-05-27 15:58:49
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -123,6 +123,7 @@ if (hasInterface) then {
             , [["_formatArgs", [name _unit]]]
         ] call KPLIB_fnc_common_addAction;
 
+        // TODO: TBD: action is on 'vehicle' but we save the ID on the vehicle? not sure that makes sense...
         // Save id in unit
         _unit setVariable ["KPLIB_captive_unloadID", _id]
     }] call CBA_fnc_addEventHandler;
