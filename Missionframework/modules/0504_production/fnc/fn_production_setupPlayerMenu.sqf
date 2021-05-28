@@ -31,19 +31,22 @@
     -- BUILD STORAGE --
  */
 
-[[
-    "STR_KPLIB_ACTION_BUILD_STORAGE"
-    , { _this call KPLIB_fnc_buildClient_onBuildStorageClicked; }
-    , []
-    , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
-    , false
-    , true
-    , ""
-    , "
-        [_target] call KPLIB_fnc_build_canBuildStorage
-    "
-    , -1
-], [["_color", "#33cc33"]]] call KPLIB_fnc_common_addPlayerAction;
+[
+    [
+        "STR_KPLIB_ACTION_BUILD_STORAGE"
+        , { _this call KPLIB_fnc_buildClient_onBuildStorageClicked; }
+        , []
+        , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
+        , false
+        , true
+        , ""
+        , "
+            [_target] call KPLIB_fnc_build_canBuildStorage
+        "
+        , -1
+    ]
+    , [["_color", "#33cc33"]]
+] call KPLIB_fnc_common_addPlayerAction;
 
 /*
     -- ADD [RESOURCE] CAPABILITY --
