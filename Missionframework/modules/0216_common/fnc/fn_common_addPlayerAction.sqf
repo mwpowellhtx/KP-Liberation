@@ -18,6 +18,8 @@
             [
                 ['_localize', true]
                 , ['_color', '']
+                , ['_varName', '']
+                , ['_formatArgs', '']
             ]
 
     Returns:
@@ -32,12 +34,28 @@
         https://github.com/CBATeam/CBA_A3/blob/master/addons/common/fnc_addPlayerAction.sqf
  */
 
+private _player = player;
+
 params [
     ["_actionArray", [], [[]]]
     , ["_options", [], [[]]]
 ];
 
+private _debug = KPLIB_param_common_addPlayerAction_debug
+    || (_player getVariable ["KPLIB_common_addPlayerAction_debug", false])
+    ;
+
+if (_debug) then {
+    [format ["[fn_common_addPlayerAction] Entering: [_actionArray#0, _options]: %1"
+        , str [_actionArray#0, _options]], "COMMON", true] call KPLIB_fnc_common_log;
+};
+
 // Adds an ACTION to the PLAYER, allowing for the same, consistent treatment of ACTION ARRAY, OPTIONS, etc
-private _id = [player, _actionArray, _options, { [_this] call CBA_fnc_addPlayerAction; }] call KPLIB_fnc_common_addAction;
+private _id = [_player, _actionArray, _options, { [_this] call CBA_fnc_addPlayerAction; }] call KPLIB_fnc_common_addAction;
+
+if (_debug) then {
+    [format ["[fn_common_addPlayerAction] Fini: [_id]: %1"
+        , str [_id]], "COMMON", true] call KPLIB_fnc_common_log;
+};
 
 _id;

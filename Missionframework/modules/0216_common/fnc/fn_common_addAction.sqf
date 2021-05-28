@@ -50,18 +50,26 @@ private _debug = KPLIB_param_common_addAction_debug
     ;
 
 if (_debug) then {
-    [format ["[fn_common_addAction] Entering: [isNull _target, _title, _options]: %1"
-        , str [isNull _target, _title, _options]], "PRE] [COMMON", true] call KPLIB_fnc_common_log;
+    [format ["[fn_common_addAction] Entering: [isNull _target, alive _target, typeOf _target, _title, _options]: %1"
+        , str [isNull _target, alive _target, typeOf _target, _title, _options]], "COMMON", true] call KPLIB_fnc_common_log;
 };
 
-if (isNull _target || !alive _target) exitWith { false; };
+if (isNull _target || !alive _target) exitWith {
+    false;
+};
 
 private _optionMap = createHashMapFromArray _options;
 private _varName = _optionMap getOrDefault ["_varName", ""];
 
 if (!(_varName isEqualTo "")) then {
     private _targetId = _target getVariable [_varName, -1];
-    if (_targetId >= 0) exitWith { _targetId; };
+    if (_targetId >= 0) exitWith {
+        if (_debug) then {
+            [format ["[fn_common_addAction] Already: [_varName, _targetId]: %1"
+                , str [_varName, _targetId]], "COMMON", true] call KPLIB_fnc_common_log;
+        };
+        _targetId;
+    };
 };
 
 private _optionMapArgs = [
@@ -104,7 +112,7 @@ if (!(_varName isEqualTo "")) then {
 
 if (_debug) then {
     [format ["[fn_common_addAction] Fini: [_id]: %1"
-        , str [_id]], "PRE] [COMMON", true] call KPLIB_fnc_common_log;
+        , str [_id]], "COMMON", true] call KPLIB_fnc_common_log;
 };
 
 _id;

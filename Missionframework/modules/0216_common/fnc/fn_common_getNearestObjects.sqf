@@ -4,7 +4,7 @@
     File: fn_common_getNearestObjects.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-18 18:15:20
-    Last Update: 2021-05-18 18:15:23
+    Last Update: 2021-05-27 16:10:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -44,8 +44,8 @@ params [
     , ["_classNames", [], [[]]]
 ];
 
-private _debug = MPARAM_param_common_getNearestObjects_debug
-    || (_target getVariable ["MPARAM_common_getNearestObjects_debug", false])
+private _debug = KPLIB_param_common_getNearestObjects_debug
+    || (_target getVariable ["KPLIB_common_getNearestObjects_debug", false])
     ;
 
 // Normalize TARGET and RANGE accordingly

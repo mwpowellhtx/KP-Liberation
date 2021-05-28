@@ -25,8 +25,9 @@
 KPLIB_param_common_debug                        = false;
 KPLIB_param_common_createGroup_debug            = false;
 KPLIB_param_common_createUnit_debug             = false;
-MPARAM_param_common_getNearestObjects_debug     = false;
-KPLIB_param_common_addAction_debug              = false;
+KPLIB_param_common_getNearestObjects_debug      = false;
+KPLIB_param_common_addAction_debug              = true;
+KPLIB_param_common_addPlayerAction_debug        = true;
 
 KPLIB_param_common_defaultFixedWingVelocity     = 140;
 KPLIB_param_common_airSpawnDeck                 = 10;
