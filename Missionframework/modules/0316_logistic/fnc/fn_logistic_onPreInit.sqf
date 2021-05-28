@@ -28,8 +28,8 @@ if (isServer) then {
  */
 
 if (isServer) then {
-    // Adding actions to created logistic buildings
-    ["KPLIB_vehicle_created", { _this call KPLIB_fnc_logistic_addActions;}] call CBA_fnc_addEventHandler;
+    // Responds when LOGISTIC vehicle created happens
+    ["KPLIB_vehicle_created", { _this call KPLIB_fnc_logistic_onVehicleCreated; }] call CBA_fnc_addEventHandler;
 
     KPLIB_logistic_data = true call CBA_fnc_createNamespace;
     publicVariable "KPLIB_logistic_data";
