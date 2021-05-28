@@ -73,21 +73,24 @@ if (_debug) then {
                 , str [_key, _args]], "FOBS", true] call KPLIB_fnc_common_log;
         };
 
-        [[
-            _key
-            , { _this call MFUNC(_onRepackageRequested); }
-            , _args
-            , _priority
-            , false
-            , true
-            , ""
-            , "
-                _target isEqualTo vehicle _target
-                    && _target isEqualTo _originalTarget
-                    && (_target getVariable ['KPLIB_sectors_markerName', '']) in KPLIB_sectors_fobs
-            "
-            , -1
-        ], [["_varName", _action]]] call KPLIB_fnc_common_addPlayerAction;
+        [
+            [
+                _key
+                , { _this call MFUNC(_onRepackageRequested); }
+                , _args
+                , _priority
+                , false
+                , true
+                , ""
+                , "
+                    _target isEqualTo vehicle _target
+                        && _target isEqualTo _originalTarget
+                        && (_target getVariable ['KPLIB_sectors_markerName', '']) in KPLIB_sectors_fobs
+                "
+                , -1
+            ]
+            , [["_varName", _action]]
+        ] call KPLIB_fnc_common_addPlayerAction;
     };
 
 } forEach [

@@ -78,9 +78,9 @@ private _redeployRange = 10;
 // TODO: TBD: rename to KPLIB_fobs_...
 [
     _vehicle
-    , "STR_KPLIB_ACTION_REDEPLOY"
     , [
-        { ["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent; }
+        "STR_KPLIB_ACTION_REDEPLOY"
+        , { ["KPLIB_respawn_requested", _this] call CBA_fnc_localEvent; }
         , []
         , KPLIB_ACTION_PRIORITY_REDEPLOY
         , false
