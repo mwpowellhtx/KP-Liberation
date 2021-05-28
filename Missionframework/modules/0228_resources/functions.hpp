@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-05-25 11:49:49
+    Last Update: 2021-05-27 18:32:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -29,8 +29,8 @@ class res {
         postInit = 1;
     };
 
-    // Adds actions to spawned crates
-    class resources_addActions {};
+    // Responds when a RESOURCES object was created
+    class resources_onVehicleCreated {};
 
     //
     class resources_resourceIndexToName {};
@@ -139,4 +139,14 @@ class res {
 
     // Sets up INTEL actions for the OBJECT
     class resources_setupIntelActions {};
+
+    // Sets up CRATE actions for the OBJECT
+    class resources_setupCrateActions {};
+
+    // // TODO: TBD: ditto other notes, future: consider consolidating 'storage', 'positions' etc
+    // Sets up STORAGE or TRANSPORT actions for the OBJECT
+    class resources_setupStorageActions {};
+
+    // Sets up TRANSPORT actions for the OBJECT
+    class resources_setupTransportActions {};
 };

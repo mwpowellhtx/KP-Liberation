@@ -26,8 +26,12 @@ params [
     , [Q(_resource), MPRESET(_resourceKind_sup), [""]]
 ];
 
+private _crate = objNull;
+
 // Exit, if no storage or invalid resource type is given
-if (isNull _storage || !(_resource in KPLIB_resources_resourceKinds)) exitWith {objNull};
+if (isNull _storage || !(_resource in MPRESET(_resourceKinds))) exitWith {
+    _crate;
+};
 
 // We need to determine for what type of crate we'll looking for
 private _validCrates = switch (_resource) do {
@@ -48,7 +52,7 @@ if (_index isEqualTo -1) exitWith {
     objNull
 };
 
-private _crate = _attachedCrates select _index;
+_crate = _attachedCrates select _index;
 
 // Define distance from the storage center to unload the crate
 private _distance = (((boundingBox _storage) select 1) select 1) + 1.2;
@@ -81,4 +85,4 @@ private _attachPositions = [typeOf _storage] call KPLIB_fnc_resources_getAttachA
 [_storage] call KPLIB_fnc_resources_onAttachedCratesChanged;
 
 // Return unstored crate
-_crate
+_crate;

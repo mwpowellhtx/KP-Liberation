@@ -247,8 +247,8 @@ if (isServer) then {
     // Register save event handler
     ["KPLIB_doSave", { [] call MFUNC(_saveData); }] call CBA_fnc_addEventHandler;
 
-    // Adding actions to spawned crates and storages
-    ["KPLIB_vehicle_created", { _this call MFUNC(_addActions); }] call CBA_fnc_addEventHandler;
+    // Responds when module objects are created
+    ["KPLIB_vehicle_created", { _this call MFUNC(_onVehicleCreated); }] call CBA_fnc_addEventHandler;
 
     [[
         QMVAR(_storageValue)

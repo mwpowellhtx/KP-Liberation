@@ -6,18 +6,23 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-16
-    Last Update: 2021-05-05 22:26:28
+    Last Update: 2021-05-27 19:20:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
     Description:
-        Gets the amount of resources from the stored crates of a given storage.
+        Returns a STORAGE VALUE tuple corresponding to the STORAGE objects.
 
     Parameter(s):
-        _storage - Storage which should be ordered [OBJECT, defaults to objNull]
+        _storage - one or more STORAGE objects to summarize [OBJECT|ARRAY, default: objNull]
 
     Returns:
-        Amount of supplies, ammo and fuel [ARRAY]
+        STORAGE VALUE tuple [ARRAY]
+            [
+                _supply
+                , _ammo
+                , _fuel
+            ]
  */
 
 // TODO: TBD: will leave this one alone for now...
@@ -25,33 +30,21 @@
 // TODO: TBD: while at the same time rolling up 'KPLIB_resources_storageValue' summaries...
 
 params [
-    [Q(_storage), objNull, [objNull]]
+    [Q(_storage), objNull, [objNull, []]]
 ];
 
-// Fetch the amount of resources from storage
-private _default = 0;
-private _supplies = 0;
-private _ammo = 0;
-private _fuel = 0;
-
 // Works fine null or not null because the GET function works
-private _crates = [[_storage]] call KPLIB_fnc_resources_getAttachedCrates;
+private _crates = [_storage] call KPLIB_fnc_resources_getAttachedCrates;
 
-{
-    switch (typeOf _x) do {
-        case KPLIB_preset_crateSupplyE;
-        case KPLIB_preset_crateSupplyF: {
-            _supplies = _supplies + (_x getVariable [QMVAR(_crateValue), _default]);
-        };
-        case KPLIB_preset_crateAmmoE;
-        case KPLIB_preset_crateAmmoF: {
-            _ammo = _ammo + (_x getVariable [QMVAR(_crateValue), _default]);
-        };
-        case KPLIB_preset_crateFuelE;
-        case KPLIB_preset_crateFuelF: {
-            _fuel = _fuel + (_x getVariable [QMVAR(_crateValue), _default]);
-        };
-    };
-} forEach _crates;
+// Summarize the SUPPLY+AMMO+FUEL buckets across all of the CRATES
+private _storageValue = [
+    [KPLIB_preset_crateSupplyE, KPLIB_preset_crateSupplyF]
+    , [KPLIB_preset_crateAmmoE, KPLIB_preset_crateAmmoF]
+    , [KPLIB_preset_crateFuelE, KPLIB_preset_crateFuelF]
+] apply {
+    private _classNames = _x;
+    private _selected = _crates select { typeOf _x in _classNames; };
+    [_selected apply { [_x] call MFUNC(_getCrateValue); }] call KPLIB_fnc_linq_sum;
+};
 
-[_supplies, _ammo, _fuel];
+_storageValue;

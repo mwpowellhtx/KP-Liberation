@@ -4,40 +4,31 @@
     File: fn_resources_getAttachedCrates.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-23 09:34:29
-    Last Update: 2021-05-05 22:32:19
+    Last Update: 2021-05-27 19:13:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Returns the 'attachedObjects' attached to all of the indicated '_storages' objects.
+        Returns the CRATE objects attached to all of the STORAGE CONTAINER objects.
 
     Parameter(s):
-        _storages - a single host OBJECT or an ARRAY of OBJECT instances [OBJECT or ARRAY, default: []]
-        _classNames - the class names to include among the resulting attached crates [ARRAY, default: KPLIB_resources_crateClasses]
+        _storages - zero or more STORAGE CONTAINER objects [OBJECT|ARRAY, default: []]
+        _classNames - the CLASS NAMES to consider [ARRAY, default: KPLIB_resources_crateClasses]
 
     Returns:
-        The crates attached to all of the '_storages' [ARRAY]
+        The CRATE objects attached to the STORAGE CONTAINERS [ARRAY]
  */
 
 params [
-    ["_storages", []]
+    ["_storages", [], [objNull, []]]
     , ["_classNames", KPLIB_resources_crateClasses, [[]]]
 ];
 
-// Normalize storages as an ARRAY, ignore any invalid input
-_storages = switch (typeName _storages) do {
-    case "ARRAY": {_storages;};
-    case "OBJECT": {[_storages];};
-    default {[];};
+_storages = flatten [_storages];
+
+private _crates = _storages apply {
+    private _attached = attachedObjects _x;
+    _attached select { typeOf _x in _classNames; };
 };
 
-private _crates = [];
-
-_storages select { !isNull _x; } apply {
-    (attachedObjects _x) select { typeOf _x in _classNames; };
-} select {
-    _crates append _x;
-    true;
-};
-
-_crates;
+flatten _crates;
