@@ -128,17 +128,20 @@ if (hasInterface) then {
     };
 
     // For more targeted strikes...
-    [[
-        "== TERMINATE TARGET =="
-        , { _this call KPLIB_fnc_admin_onTerminateTarget; }
-        , []
-        , KPLIB_ACTION_PRIORITY_TERMINATE_TARGET
-        , false
-        , false
-        , ""
-        , "[_target] call KPLIB_fnc_admin_canTerminateTargets"
-        , -1
-    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
+    [
+        [
+            "== TERMINATE TARGET =="
+            , { _this call KPLIB_fnc_admin_onTerminateTarget; }
+            , []
+            , KPLIB_ACTION_PRIORITY_TERMINATE_TARGET
+            , false
+            , false
+            , ""
+            , "[_target] call KPLIB_fnc_admin_canTerminateTargets"
+            , -1
+        ]
+        , [["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
     KPLIB_fnc_admin_canOpforCaptureSector = { count KPLIB_sectors_blufor > 1; };
 
@@ -155,72 +158,84 @@ if (hasInterface) then {
     };
 
     // Allowing admin testing for OPFOR conversion of BLUFOR sectors
-    [[
-        "== OPFOR SECTOR CAPTURE =="
-        , { _this call KPLIB_fnc_admin_onOpforSectorCapture; }
-        , []
-        , KPLIB_ACTION_PRIORITY_OPFOR_CAPTURE
-        , false
-        , false
-        , ""
-        , "[_target] call KPLIB_fnc_admin_canOpforCaptureSector"
-        , -1
-    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
+    [
+        [
+            "== OPFOR SECTOR CAPTURE =="
+            , { _this call KPLIB_fnc_admin_onOpforSectorCapture; }
+            , []
+            , KPLIB_ACTION_PRIORITY_OPFOR_CAPTURE
+            , false
+            , false
+            , ""
+            , "[_target] call KPLIB_fnc_admin_canOpforCaptureSector"
+            , -1
+        ]
+        , [["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
-    [[
-        "-- CIVILIAN NOTIFICATION --"
-        , {
-            private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
-            ["KPLIB_notification_civilian", ["KP LIBERATION - CIVILIAN", _image, "A civilian event occurred."]] call KPLIB_fnc_notification_show;
-        }
-        , []
-        , KPLIB_ACTION_PRIORITY_CIVILIAN_EVENT
-        , false
-        , false
-        , ""
-        , "true"
-        , -1
-    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
+    [
+        [
+            "-- CIVILIAN NOTIFICATION --"
+            , {
+                private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
+                ["KPLIB_notification_civilian", ["KP LIBERATION - CIVILIAN", _image, "A civilian event occurred."]] call KPLIB_fnc_notification_show;
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_CIVILIAN_EVENT
+            , false
+            , false
+            , ""
+            , "true"
+            , -1
+        ]
+        , [["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
-    [[
-        "-- RESISTANCE NOTIFICATION --"
-        , {
-            private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
-            ["KPLIB_notification_resistance", ["KP LIBERATION - RESISTANCE", _image, "A resistance event occurred."]] call KPLIB_fnc_notification_show;
-        }
-        , []
-        , KPLIB_ACTION_PRIORITY_RESISTANCE_EVENT
-        , false
-        , false
-        , ""
-        , "true"
-        , -1
-    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
+    [
+        [
+            "-- RESISTANCE NOTIFICATION --"
+            , {
+                private _image = "\A3\ui_f\data\map\mapcontrol\tourism_CA.paa";
+                ["KPLIB_notification_resistance", ["KP LIBERATION - RESISTANCE", _image, "A resistance event occurred."]] call KPLIB_fnc_notification_show;
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_RESISTANCE_EVENT
+            , false
+            , false
+            , ""
+            , "true"
+            , -1
+        ]
+        , [["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 
-    [[
-        "-- DESTROY BUILDINGS --"
-        , {
-            [] spawn {
-                private _buildings = nearestObjects [getPos player, ["Building"], (KPLIB_param_sectors_capRange/2)];
-                private _toDestroy = 10;
-                private _count = count _buildings;
-                while { (count _buildings > 0) && (count _buildings > _count - _toDestroy); } do {
-                    _buildings = _buildings select { alive _x; };
-                    if (count _buildings > 0) then {
-                        private _building = selectRandom _buildings;
-                        _building setDamage 1;
+    [
+        [
+            "-- DESTROY BUILDINGS --"
+            , {
+                [] spawn {
+                    private _buildings = nearestObjects [getPos player, ["Building"], (KPLIB_param_sectors_capRange/2)];
+                    private _toDestroy = 10;
+                    private _count = count _buildings;
+                    while { (count _buildings > 0) && (count _buildings > _count - _toDestroy); } do {
+                        _buildings = _buildings select { alive _x; };
+                        if (count _buildings > 0) then {
+                            private _building = selectRandom _buildings;
+                            _building setDamage 1;
+                        };
                     };
                 };
-            };
-        }
-        , []
-        , KPLIB_ACTION_PRIORITY_DESTROY_BUILDINGS
-        , false
-        , false
-        , ""
-        , "true"
-        , -1
-    ], [["_localize", false]]] call KPLIB_fnc_common_addPlayerAction;
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_DESTROY_BUILDINGS
+            , false
+            , false
+            , ""
+            , "true"
+            , -1
+        ]
+        , [["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
 };
 
 true;
