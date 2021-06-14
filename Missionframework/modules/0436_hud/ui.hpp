@@ -2,7 +2,7 @@
     File: ui.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-25 16:14:26
+    Last Update: 2021-06-05 15:01:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,6 +16,5 @@
 
 #include "ui\defines.hpp"
 #include "ui\XGUI_hud.hpp"
-#include "ui\KPLIB_hud.hpp"
 #include "ui\KPLIB_hudFob.hpp"
-// TODO: TBD: sector hud...
+#include "ui\KPLIB_hudSector.hpp"

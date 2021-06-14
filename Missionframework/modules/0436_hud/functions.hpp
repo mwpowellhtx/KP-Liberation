@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-03 00:31:59
-    Last Update: 2021-05-27 14:27:05
+    Last Update: 2021-06-12 11:27:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -78,22 +78,22 @@ class hudFob {
     class hudFob_onReport {};
 
     // Populates the ROTARY+FIXED+WING ASSET features of the FOB HUD report
-    class hudFob_onReportAssets {};
+    class hudFob_onReportingAssets {};
 
     // Populates the CIVILIAN REPUTATION features of the FOB HUD report
-    class hudFob_onReportCivilian {};
+    class hudFob_onReportingCivilian {};
 
     // Populates the ENEMY STRENGTH+AWARENESS features of the FOB HUD report
-    class hudFob_onReportEnemy {};
+    class hudFob_onReportingEnemy {};
 
     // Populates the FRIENDLY features of the FOB HUD report
-    class hudFob_onReportFriendly {};
+    class hudFob_onReportingFriendly {};
 
     // Populates the INTEL features of the FOB HUD report
-    class hudFob_onReportIntel {};
+    class hudFob_onReportingIntel {};
 
     // Populates the FOB|ALL RESOURCES features of the FOB HUD report
-    class hudFob_onReportResources {};
+    class hudFob_onReportingResources {};
 
     // Renders each of the constituent RECORD VALUES accordingly
     class hudFob_renderSimple {};
@@ -124,4 +124,51 @@ class hudFob {
 
     // FOB HUD LISTNBOX onRefresh event handler
     class hudFobUI_lnbFob_onRefresh {};
+};
+
+class hudSector {
+    file = "modules\0436_hud\hudSector";
+
+    // Arranges the module preset variables
+    class hudSector_presets {};
+
+    // Arranges the module CBA settings
+    class hudSector_settings {};
+
+    // Initialization phase event handler
+    class hudSector_onPreInit {
+        preInit = 1;
+    };
+
+    // Initialization phase event handler
+    class hudSector_onPostInit {
+        postInit = 1;
+    };
+
+    //
+    class hudSector_setMarkerText {};
+
+    //
+    class hudSector_onReport {};
+
+    //
+    class hudSector_onReportSitRep {};
+
+    // Sets the specified METER POSITION according to fore and background counts
+    class hudSector_setMeterPosition {};
+
+    // Responds when the SECTOR HUD is REPORTING, monitors for SITREP player variable
+    class hudSector_onReportingSitRep {};
+
+    //
+    class hudSectorUI_lblMarkerText_onLoad {};
+
+    // METER ELEMENT 'onLoad' event handler
+    class hudSectorUI_MeterElement_onLoad {};
+
+    // SECTOR HUD 'onLoad' event handler
+    class hudSectorUI_onLoad {};
+
+    //
+    class hudSector_setupPlayerActions {};
 };
