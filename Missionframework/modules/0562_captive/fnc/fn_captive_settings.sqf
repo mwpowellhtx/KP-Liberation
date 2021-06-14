@@ -1,22 +1,27 @@
+#include "script_component.hpp"
 /*
     KPLIB_fnc_captive_settings
 
     File: fn_captive_settings.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2019-09-12
-    Last Update: 2019-09-28
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2019-09-12
+    Last Update: 2021-06-14 17:19:36
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        CBA Settings initialization for this module.
+        Arranges the module CBA settings.
 
     Parameter(s):
         NONE
 
     Returns:
-        Function reached the end [BOOL]
-*/
+        The callback has finished [BOOL]
+
+    References:
+        https://dictionary.cambridge.org/dictionary/english/scuttle
+ */
 
 // KPLIB_param_captiveIntel
 // Amount of intel which will be granted on interrogation.
@@ -44,4 +49,34 @@
     {}
 ] call CBA_Settings_fnc_init;
 
-true
+if (isServer) then {
+
+    KPLIB_param_captive_onSectorCapturedSurrenderVehicles_debug             = false;
+    KPLIB_param_captive_onSectorCapturedSurrenderUnits_debug                = false;
+
+    MPARAM(_onCaptiveGC_debug)                                              = true;
+
+    KPLIB_param_captive_bluforScuttleTimeout                                =  30;
+
+    // TODO: TBD: starting with OPFOR... TBD: whether we want to include RESISTANCE...
+    /* Contributes 50% to the overall chance, with INVERSE ENEMY STRENGTH the other 50.
+     *  chance - range: [0, 100], default: 85 (%)
+     *  bias - range: [-100, 100], default: 0 (%)
+     */
+    KPLIB_param_captive_opforLightVehicleSurrenderChance                    =  85;
+    KPLIB_param_captive_opforLightVehicleSurrenderBias                      =   0;
+
+    KPLIB_param_captive_opforHeavyVehicleSurrenderChance                    =  65;
+    KPLIB_param_captive_opforHeavyVehicleSurrenderBias                      =   0;
+
+    KPLIB_param_captive_opforApcVehicleSurrenderChance                      =  75;
+    KPLIB_param_captive_opforApcVehicleSurrenderBias                        =   0;
+
+    KPLIB_param_captive_opforUnitSurrenderChance                            =  75;
+    KPLIB_param_captive_opforUnitSurrenderBias                              =   0;
+
+    KPLIB_param_captive_period                                              =  30;
+    KPLIB_param_captive_timeout                                             = 300;
+};
+
+true;

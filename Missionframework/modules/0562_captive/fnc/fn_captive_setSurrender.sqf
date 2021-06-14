@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-09-11
-    Last Update: 2021-05-24 14:49:03
+    Last Update: 2021-06-14 17:19:39
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,20 +23,14 @@ params [
     ["_unit", objNull, [objNull]]
 ];
 
-// Exit on missing object
-if (isNull _unit) exitWith {
-    false;
-};
+if (isNull _unit) exitWith { false; };
 
-if (!(vehicle _unit isEqualTo _unit)) then {
+if (vehicle _unit isNotEqualTo _unit) then {
     moveOut _unit;
 };
 
-// TODO: TBD: no, "surrendered" units are not automatically "captured"...
-// Set variable on unit
-_unit setVariable ["KPLIB_surrender", true, true];
-// TODO: TBD: may have something to do with despawn bits cleaning up for resources
-_unit setVariable ["KPLIB_captured", true, true];
+// UNIT surrendered but has not yet been CAPTURED
+_unit setVariable ["KPLIB_surrender", [KPLIB_param_captive_timeout] call KPLIB_fnc_timers_create, true];
 
 // Remove some equipment of the unit
 removeAllWeapons _unit;

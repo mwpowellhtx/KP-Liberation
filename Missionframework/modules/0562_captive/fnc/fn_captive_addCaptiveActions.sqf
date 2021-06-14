@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-09-11
-    Last Update: 2021-05-24 16:45:33
+    Last Update: 2021-06-14 17:19:22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -42,8 +42,8 @@ if (!(KPLIB_ace_enabled)) then {
             , true
             , ""
             , "
-                (_target getVariable ['KPLIB_surrender', false])
-                    && !(_target getVariable ['KPLIB_captive', false])
+                ('kplib_surrender' in allVariables _target)
+                    && !('kplib_captured' in allVariables _target)
             "
             , 10
         ]
@@ -62,7 +62,7 @@ if (!(KPLIB_ace_enabled)) then {
             , true
             , ""
             , "
-                (_target getVariable ['KPLIB_captive', false])
+                ('kplib_captured' in allVariables _target)
                     && !(_this getVariable ['KPLIB_captive_isEscorting', false])
             "
             , 10
@@ -82,7 +82,7 @@ if (!(KPLIB_ace_enabled)) then {
             , true
             , ""
             , "
-                (_target getVariable ['KPLIB_captive', false])
+                ('kplib_captured' in allVariables _target)
                     && ({ (_x emptyPositions 'cargo') > 0; } count (_target nearEntities [['LandVehicle', 'Air'], 5])) > 0
             "
             , 10
@@ -106,7 +106,10 @@ if (!(KPLIB_ace_enabled)) then {
         , true
         , ""
         , "
-            !((nearestObjects [_target, [KPLIB_preset_fobBuildingF], 25]) isEqualTo [])
+            !(
+                ('kplib_interrogated' in allVariables _target)
+                    || ((nearestObjects [_target, [KPLIB_preset_fobBuildingF], 25]) isEqualTo [])
+            )
         "
         , 10
     ]

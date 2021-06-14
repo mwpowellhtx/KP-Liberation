@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-10
-    Last Update: 2021-05-17 15:27:41
+    Last Update: 2021-06-14 17:20:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -20,8 +20,8 @@ class captive {
     // Adds all needed actions to a surrendered unit
     class captive_addCaptiveActions {};
 
-    // Checks the given sector for remaining enemys and sets them into captive mode
-    class captive_checkSector {};
+    // // Checks the given sector for remaining enemys and sets them into captive mode
+    // class captive_checkSector {};
 
     // Attach a captive to the escorting player
     class captive_escort {};
@@ -59,4 +59,17 @@ class captive {
 
     // Unloads the give unit and removes the action from the vehicle
     class captive_unloadCaptive {};
+
+    // Surrenders a VEHICLE disembarks the crew and prohibits them from reloading
+    class captive_setVehicleSurrender {};
+
+    // // TODO: TBD: we may run with this, but it is pasta on the wall at the moment, seeing what might stick or not...
+    //
+    //class captive_onSurrenderGC {};
+
+    //
+    class captive_onCaptiveGC {};
+
+    //
+    class captive_onWatchCaptives {};
 };

@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-21
-    Last Update: 2021-05-24 14:29:34
+    Last Update: 2021-06-14 17:19:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -59,7 +59,7 @@ player removeAction (_unit getVariable ["KPLIB_captive_loadID", 9000]);
         , true
         , ""
         , "
-            _target getVariable ['KPLIB_captive', false]
+            ('kplib_captured' in allVariables _target)
                 && ({ (_x emptyPositions 'cargo') > 0; } count (_target nearEntities [['LandVehicle', 'Air'], 5])) > 0
         "
         , 10

@@ -5,19 +5,18 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-10
-    Last Update: 2021-05-27 15:58:49
+    Last Update: 2021-06-14 17:19:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The preInit function defines global variables, adds event handlers and
-        set some vital settings which are used in this module.
+        Initialization phase event handler.
 
     Parameter(s):
         NONE
 
     Returns:
-        Module preInit finished [BOOL]
+        The event handler has finished [BOOL]
  */
 
 // TODO: TBD: may refactor 'captive' instead to 'units'
@@ -28,16 +27,17 @@ if (isServer) then {
 
 /*
     ----- Module Initialization -----
-*/
+ */
 
-// Process CBA Settings
+[] call KPLIB_fnc_captive_presets;
 [] call KPLIB_fnc_captive_settings;
 
 if (isServer) then {
-    ["[fn_captive_preInit] Initializing...", "PRE] [CAPTIVE", true] call KPLIB_fnc_common_log;
+    // Server side section
 
-    // Units surrender on sector capture
-    [KPLIB_sector_captured, { _this call KPLIB_fnc_captive_checkSector; }] call CBA_fnc_addEventHandler;
+    // Surrenders first the VEHICLES followed by the UNITS
+    ["KPLIB_sector_captured", { _this call KPLIB_fnc_captive_onSectorCapturedSurrenderVehicles; }] call CBA_fnc_addEventHandler;
+    ["KPLIB_sector_captured", { _this call KPLIB_fnc_captive_onSectorCapturedSurrenderUnits; }] call CBA_fnc_addEventHandler;
 
     // Unit animation on arrest
     ["KPLIB_captive_arrested", {
@@ -47,7 +47,6 @@ if (isServer) then {
 
     // Check for handcuffed enemys
     ["ace_captiveStatusChanged", {[_this select 0, _this select 1, _this select 2] call KPLIB_fnc_captive_setAceCaptive}] call CBA_fnc_addEventHandler;
-
 };
 
 // Add load captive EH
@@ -90,9 +89,8 @@ if (isServer) then {
     ["KPLIB_captive_unloaded", [_unit]] call CBA_fnc_globalEvent;
 }] call CBA_fnc_addEventHandler;
 
-
-// Player section
 if (hasInterface) then {
+    // Player section
 
     // Add EH for the captive unload action
     ["KPLIB_captive_loaded", {
