@@ -6,13 +6,12 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2021-05-22 15:01:08
+    Last Update: 2021-06-14 16:47:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The postInit function of a module takes care of starting/executing the modules functions or scripts.
-        Basically it starts/initializes the module functionality to make all provided features usable.
+        Initialization phase event handler.
 
     Parameter(s):
         NONE
@@ -65,10 +64,12 @@ if (hasInterface) then {
         true;
     };
 
+    // TODO: TBD: factor as proper function...
+    // TODO: TBD: teleports the PLAYER or the player's VEHICLE
     KPLIB_fnc_admin_onTeleportPlayer = {
         params ["_pos", "_alt", "_shift"];
         systemChat format ["[fn_admin_postInit] Map clicked: [_pos]: %1", str [_pos]];
-        player setPos [(_pos#0), (_pos#1), 0.1];
+        vehicle player setPos [(_pos#0), (_pos#1), 0.1];
         [] spawn {
             openMap false;
         };

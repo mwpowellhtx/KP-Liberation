@@ -5,7 +5,7 @@
     File: fn_admin_setupPlayerActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-04 22:17:52
-    Last Update: 2021-05-24 10:07:12
+    Last Update: 2021-06-14 16:47:21
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -235,6 +235,39 @@ if (hasInterface) then {
             , -1
         ]
         , [["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
+
+    [
+        [
+            "STR_KPLIB_ADMIN_TOGGLE_GOD_MODE"
+            , {
+                params ["_target", "_caller", "_actionId", "_arguments"];
+                // This is a separate ID from the ACTIONID
+                private _handleDamageID = _caller getVariable ["KPLIB_admin_handleDamageID", -1];
+                private _godMode = if (_handleDamageID < 0) then {
+                    _handleDamageID = _caller addEventHandler ["HandleDamage", {false}];
+                    _caller setVariable ["KPLIB_admin_handleDamageID", _handleDamageID];
+                    true;
+                } else {
+                    _caller removeEventHandler ["HandleDamage", _handleDamageID];
+                    _caller setVariable ["KPLIB_admin_handleDamageID", nil];
+                    false;
+                };
+                // TODO: TBD: may be worthwhile adding an API function to update menus...
+                _caller setUserActionText [
+                    _actionId
+                    , ["STR_KPLIB_ADMIN_TOGGLE_MORTAL_MODE", [["_localize", true], ["_color", "#ff0000"]]] call KPLIB_fnc_common_renderActionTitle
+                ];
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_GOD_MODE
+            , false
+            , true
+            , ""
+            , "true"
+            , -1
+        ]
+        , [["_localize", true], ["_color", "#ff0000"]]
     ] call KPLIB_fnc_common_addPlayerAction;
 };
 
