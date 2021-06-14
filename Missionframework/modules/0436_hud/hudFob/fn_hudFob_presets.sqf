@@ -5,7 +5,7 @@
     File: fn_hudFob_presets.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 09:40:07
-    Last Update: 2021-05-26 22:29:27
+    Last Update: 2021-06-14 17:01:53
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -83,7 +83,10 @@ if (isServer) then {
 };
 
 if (hasInterface) then {
-    MPRESET(_reportUuid)                                = [] call KPLIB_fnc_uuid_create_string;
+    // Client side section
+
+    // // TODO: TBD: see usage of SUBSCRIBE during POST INIT
+    // MPRESET(_reportUuid)                                = [] call KPLIB_fnc_uuid_create_string;
 };
 
 true;

@@ -1,17 +1,17 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_hudFob_onReportCivilian
+    KPLIB_fnc_hudFob_onReportingIntel
 
-    File: fn_hudFob_onReportCivilian.sqf
+    File: fn_hudFob_onReportingIntel.sqf
     Author: Michael W. Powell [22nd MEU SOC]
-    Created: 2021-05-26 00:41:35
-    Last Update: 2021-05-27 14:09:45
+    Created: 2021-05-26 01:40:13
+    Last Update: 2021-06-14 17:01:47
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
         Responds when the HUD SUBSCRIPTION REPORTING events are raised. Reports
-        CIVILIAN REPUTATION RATIO to the FOB HUD report.
+        INTEL to the FOB HUD report.
 
     Parameters:
         _player - the PLAYER for whom the REPORT centers [OBJECT, default: objNull]
@@ -26,27 +26,26 @@ params [
     , [Q(_report), locationNull, [locationNull]]
 ];
 
-private _debug = MPARAM(_onReportCivilian_debug)
-    || (_player getVariable [QMVAR(_onReportCivilian_debug), false])
-    || (_report getVariable [QMVAR(_onReportCivilian_debug), false])
+private _debug = MPARAM(_onReportingIntel_debug)
+    || (_player getVariable [QMVAR(_onReportingIntel_debug), false])
+    || (_report getVariable [QMVAR(_onReportingIntel_debug), false])
     ;
 
 if (!([_report, MVAR(_reportUuid)] call KPLIB_fnc_hud_aligned)) exitWith { false; };
 
-// TODO: TBD: also include color thresholds... images...
+// TODO: TBD: also include colors... images...
 if (isNull _player || isNull _report || !alive _player) exitWith { false; };
 
-private _civRepRatio = [] call KPLIB_fnc_enemies_getCivRepRatio;
-private _color = [_civRepRatio, [] call MFUNC(_getCivRepThresholds)] call MFUNC(_getThresholdColor);
+// Report the INTEL as part of the RESOURCES bits
+private _intel = missionNamespace getVariable [Q(KPLIB_resources_intel), 0];
 
 // Pay close attention to the bouncing ball, there are many tuple levels going on here
 { _report setVariable _x; } forEach [
-    [Q(_civRepRatio), PCT(_civRepRatio)]
-    , [Q(_civRepOptions), [
-        [Q(_varNames), [Q(_civRepRatio)]]
-        , [Q(_suffix), MPRESET(_suffixPct)]
-        , [Q(_imagePath), MPRESET(_civRepPath)]
-        , [Q(_color), _color]
+    [Q(_intel), _intel]
+    , [Q(_intelOptions), [
+        [Q(_varNames), [Q(_intel)]]
+        , [Q(_imagePath), KPLIB_preset_common_intelPath]
+        , [Q(_color), +KPLIB_preset_common_intelColor]
     ]]
 ];
 

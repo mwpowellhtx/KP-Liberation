@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_hudFob_onReportAssets
+    KPLIB_fnc_hudFob_onReportingAssets
 
-    File: fn_hudFob_onReportAssets.sqf
+    File: fn_hudFob_onReportingAssets.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 00:56:56
-    Last Update: 2021-05-27 14:09:51
+    Last Update: 2021-06-14 17:01:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -26,9 +26,9 @@ params [
     , [Q(_report), locationNull, [locationNull]]
 ];
 
-private _debug = MPARAM(_onReportAssets_debug)
-    || (_player getVariable [QMVAR(_onReportAssets_debug), false])
-    || (_report getVariable [QMVAR(_onReportAssets_debug), false])
+private _debug = MPARAM(_onReportingAssets_debug)
+    || (_player getVariable [QMVAR(_onReportingAssets_debug), false])
+    || (_report getVariable [QMVAR(_onReportingAssets_debug), false])
     ;
 
 if (!([_report, MVAR(_reportUuid)] call KPLIB_fnc_hud_aligned)) exitWith { false; };

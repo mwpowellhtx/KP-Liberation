@@ -5,7 +5,7 @@
     File: fn_hudFob_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-25 17:11:49
-    Last Update: 2021-05-27 14:27:51
+    Last Update: 2021-06-14 17:01:27
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,6 +22,10 @@
         https://cbateam.github.io/CBA_A3/docs/files/common/fnc_waitUntilAndExecute-sqf.html
  */
 
+if (hasInterface || isServer) then {
+    ["[fn_hudFob_onPostInit] Initializing...", "POST] [HUDFOB", true] call KPLIB_fnc_common_log;
+};
+
 if (hasInterface) then {
     // Client side section
 
@@ -29,6 +33,10 @@ if (hasInterface) then {
     MVAR(_reportUuid)                                   = [[
         [Q(_rscLayerName), QMLAYER(_overlay)]
     ]] call KPLIB_fnc_hud_subscribe;
+};
+
+if (hasInterface || isServer) then {
+    ["[fn_hudFob_onPostInit] Initialized", "POST] [HUDFOB", true] call KPLIB_fnc_common_log;
 };
 
 true;
