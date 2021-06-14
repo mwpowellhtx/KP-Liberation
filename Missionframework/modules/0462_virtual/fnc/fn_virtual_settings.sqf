@@ -3,8 +3,9 @@
 
     File: fn_virtual_settings.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
+            Michael W. Powell [22nd MEU SOC]
     Date: 2018-11-18
-    Last Update: 2019-06-15
+    Last Update: 2021-06-14 17:07:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -76,6 +77,8 @@
     {}
 ] call CBA_Settings_fnc_init;
 
+// // TODO: TBD: should wire in with an actual maximum that potentially self-heals when load/save if at all possible?
+// // TODO: TBD: i.e. that tracks with the maps that are loaded and allows for max-max...
 // KPLIB_param_limitedZeusRadius
 // Allowed edit/camera radius in meters around the player opening the zeus interface.
 // Default: 35 meters
@@ -84,7 +87,7 @@
     "SLIDER",
     localize "STR_KPLIB_SETTINGS_ZEUS_RADIUS",
     localize "STR_KPLIB_SETTINGS_ZEUS",
-    [5, 500, 35, 0],
+    [5, worldName call BIS_fnc_mapSize, 35, 0],
     1,
     {}
 ] call CBA_Settings_fnc_init;
@@ -97,7 +100,7 @@
     "SLIDER",
     localize "STR_KPLIB_SETTINGS_ZEUS_CEILING",
     localize "STR_KPLIB_SETTINGS_ZEUS",
-    [5, 500, 35, 0],
+    [5, worldName call BIS_fnc_mapSize, 35, 0],
     1,
     {}
 ] call CBA_Settings_fnc_init;

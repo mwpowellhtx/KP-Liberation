@@ -3,22 +3,25 @@
 
     File: fn_virtual_preInit.sqf
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
-    Date: 2018-11-18
-    Last Update: 2019-05-19
+            Michael W. Powell [22nd MEU SOC]
+    Created: 2018-11-18
+    Last Update: 2021-06-14 17:07:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        The preInit function defines global variables, adds event handlers and set some vital settings which are used in this module.
+        Initialization phase event handler.
 
     Parameter(s):
         NONE
 
     Returns:
-        Module preInit finished [BOOL]
+        The event handler has finished [BOOL]
 */
 
-if (isServer) then {["Module initializing...", "PRE] [VIRTUAL", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["[fn_virtual_postInit] Initializing...", "PRE] [VIRTUAL", true] call KPLIB_fnc_common_log;
+};
 
 [] call KPLIB_fnc_virtual_settings;
 
@@ -26,6 +29,7 @@ if (isServer) then {["Module initializing...", "PRE] [VIRTUAL", true] call KPLIB
     ----- Module Globals -----
 */
 
+// TODO: TBD: what are 'fob icons?'
 KPLIB_virtual_fobIcons = [];
 
 if (isServer) then {
@@ -82,8 +86,18 @@ if (hasInterface) then {
             };
         };
     }] call CBA_fnc_addEventHandler;
+
+    // // TODO: TBD: since 'only one' player may be curator...
+    // // TODO: TBD: however why is the Y key not working then?
+    // ["KPLIB_player_redeploy", {
+    //     if ([] call KPLIB_fnc_permission_hasAdminPermission) then {
+    //         [_this select 0] remoteExec ["KPLIB_fnc_virtual_addCurator", 2];
+    //     };
+    // }] call CBA_fnc_addEventHandler;
 };
 
-if (isServer) then {["Module initialized", "PRE] [VIRTUAL", true] call KPLIB_fnc_common_log;};
+if (isServer) then {
+    ["[fn_virtual_postInit] Initialized", "PRE] [VIRTUAL", true] call KPLIB_fnc_common_log;
+};
 
 true
