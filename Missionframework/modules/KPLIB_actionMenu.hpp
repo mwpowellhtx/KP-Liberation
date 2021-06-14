@@ -2,7 +2,7 @@
     File: KPLIB_actionMenu.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-02 22:46:15
-    Last Update: 2021-05-21 17:44:52
+    Last Update: 2021-06-14 17:25:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -25,6 +25,7 @@
 #define KPLIB_ACTION_PRIORITY_CIVILIAN_EVENT        (-730)
 #define KPLIB_ACTION_PRIORITY_RESISTANCE_EVENT      (-731)
 #define KPLIB_ACTION_PRIORITY_DESTROY_BUILDINGS     (-732)
+#define KPLIB_ACTION_PRIORITY_GOD_MODE              (-733)
 
 #define KPLIB_ACTION_PRIORITY_REDEPLOY              (-800)
 #define KPLIB_ACTION_PRIORITY_ARSENAL               (-801)

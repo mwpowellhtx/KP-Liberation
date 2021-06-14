@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-05-26 19:24:07
+    Last Update: 2021-06-14 17:25:41
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -36,6 +36,6 @@
 
 #include "modules\0504_production\ui.hpp"
 #include "modules\0508_logistics\ui.hpp"
-#include "modules\0512_garrison\ui.hpp"
+#include "modules\0516_garrison\ui.hpp"
 
 #include "modules\0904_missions\ui.hpp"
