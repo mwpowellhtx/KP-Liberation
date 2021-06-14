@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_sectorsSM_onPostInit
+    KPLIB_fnc_sectorSM_onPostInit
 
-    File: fn_sectorsSM_onPostInit.sqf
+    File: fn_sectorSM_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:51
-    Last Update: 2021-04-13 22:46:07
+    Last Update: 2021-06-14 16:56:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -23,7 +23,7 @@
  */
 
 if (isServer) then {
-    ["[fn_sectorsSM_onPostInit] Initializing...", "POST] [SECTORSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_sectorSM_onPostInit] Initializing...", "POST] [SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 if (isServer) then {
@@ -40,7 +40,7 @@ if (hasInterface) then {
 };
 
 if (isServer) then {
-    ["[fn_sectorsSM_onPostInit] Initialized", "POST] [SECTORSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_sectorSM_onPostInit] Initialized", "POST] [SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 true;

@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_sectorsSM_createSM
+    KPLIB_fnc_sectorSM_createSM
 
-    File: fn_sectorsSM_createSM.sqf
+    File: fn_sectorSM_createSM.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-08 20:57:07
-    Last Update: 2021-04-22 14:59:17
+    Last Update: 2021-06-14 16:57:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -29,8 +29,8 @@ params [
 ];
 
 if (_debug) then {
-    [format ["[fn_sectorsSM_createSM] Entering: [_className]: %1"
-        , str [_className]], "SECTORSSM", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectorSM_createSM] Entering: [_className]: %1"
+        , str [_className]], "SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 // Only load the configuration once when required to do so
@@ -53,7 +53,7 @@ MVARSM(_objSM) setVariable [QMVARSM(_context), _context];
 // MVARSM(_objSM) setVariable ["KPLIB_logisticsSM_publicationTimer", (+KPLIB_timers_default)];
 
 if (_debug) then {
-    ["[fn_sectorsSM_createSM] Finished", "SECTORSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_sectorSM_createSM] Finished", "SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 MVARSM(_objSM);

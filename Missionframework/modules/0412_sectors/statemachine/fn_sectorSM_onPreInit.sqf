@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_sectorsSM_onPreInit
+    KPLIB_fnc_sectorSM_onPreInit
 
-    File: fn_sectorsSM_onPreInit.sqf
+    File: fn_sectorSM_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:30
-    Last Update: 2021-04-20 18:38:29
+    Last Update: 2021-06-14 16:56:44
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -25,7 +25,7 @@
  */
 
 if (isServer) then {
-    ["[fn_sectorsSM_onPreInit] Initializing...", "PRE] [SECTORSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_sectorSM_onPreInit] Initializing...", "PRE] [SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 /*
@@ -46,7 +46,7 @@ if (isServer) then {
     // Anticipating STATE MACHINE config and the object itself
     MVARSM(_configSM)                                               = configNull;
     MVARSM(_objSM)                                                  = locationNull;
-    MVARSM(_defaultConfigClassName)                                 = Q(KPLIB_sectorsSM);
+    MVARSM(_defaultConfigClassName)                                 = Q(KPLIB_sectorSM);
 };
 
 if (!(hasInterface || isDedicated)) then {
@@ -58,7 +58,7 @@ if (hasInterface) then {
 };
 
 if (isServer) then {
-    ["[fn_sectorsSM_onPreInit] Initialized", "PRE] [SECTORSSM", true] call KPLIB_fnc_common_log;
+    ["[fn_sectorSM_onPreInit] Initialized", "PRE] [SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 true;
