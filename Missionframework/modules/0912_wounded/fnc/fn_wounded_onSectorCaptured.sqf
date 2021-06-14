@@ -5,7 +5,7 @@
     File: fn_wounded_onSectorCaptured.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-26 15:07:30
-    Last Update: 2021-04-26 15:07:33
+    Last Update: 2021-06-14 17:23:06
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -13,24 +13,24 @@
         SECTOR CAPTURED event handler, may kick off an AID WOUNDED CIVILIANS mission.
 
     Parameter(s):
-        _namespace - the CBA SECTOR namespace which was captured [LOCATION, default: locationNull]
+        _sector - the CBA SECTOR namespace which was captured [LOCATION, default: locationNull]
 
     Returns:
         The event handler finished [BOOL]
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_sector), locationNull, [locationNull]]
 ];
 
 private _debug = MPARAM(_onSectorCaptured_debug)
-    || (_namespace getVariable [QMVAR(_onSectorCaptured_debug), false]);
+    || (_sector getVariable [QMVAR(_onSectorCaptured_debug), false]);
 
 [
     MPARAM(_aidCount)
     , MPARAM(_aidReward)
-    , _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
-    , _namespace getVariable [Q(KPLIB_enemies_civRepReward), 0]
+    , _sector getVariable [Q(KPLIB_sectors_markerName), ""]
+    , _sector getVariable [Q(KPLIB_enemies_civRepReward), 0]
 ] params [
     Q(_aidCount)
     , Q(_aidReward)
