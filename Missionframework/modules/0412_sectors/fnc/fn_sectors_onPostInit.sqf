@@ -5,7 +5,7 @@
     File: fn_sectors_onPostInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 13:33:51
-    Last Update: 2021-04-24 11:10:24
+    Last Update: 2021-06-14 16:51:38
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -28,6 +28,11 @@ if (isServer) then {
 
 if (isServer) then {
     // Server section (dedicated and player hosted)
+    [
+        { KPLIB_campaignRunning; }
+        , { _this call MFUNC(_onUpdateDebugging); }
+        , []
+    ] call CBA_fnc_waitUntilAndExecute;
 };
 
 if (!(hasInterface || isDedicated)) then {

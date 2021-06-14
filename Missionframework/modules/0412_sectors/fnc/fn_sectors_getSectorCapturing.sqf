@@ -5,7 +5,7 @@
     File: fn_sectors_getSectorCapturing.sqf
     Author: Michael W. Powell [22nd MSU SOC]
     Created: 2021-04-21 16:20:50
-    Last Update: 2021-04-25 19:59:28
+    Last Update: 2021-06-14 16:50:53
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -14,31 +14,31 @@
         when SECTOR was OPFOR, as well as when SECTOR was BLUFOR.
 
     Parameter(s):
-        _namespace - a CBA SECTOR namespace [LOCATION, default: locationNull]
+        _sector - a CBA SECTOR namespace [LOCATION, default: locationNull]
 
     Returns:
         Whether SECTOR may begin CAPTURING process [BOOL]
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_sector), locationNull, [locationNull]]
 ];
 
 private _debug = MPARAM(_getSectorCapturing_debug)
-    || (_namespace getVariable [QMVAR(_getSectorCapturing_debug), false]);
+    || (_sector getVariable [QMVAR(_getSectorCapturing_debug), false]);
 
 [
-    _namespace getVariable [QMVAR(_markerName), ""]
-    , _namespace getVariable [QMVAR(_blufor), false]
-    , _namespace getVariable [QMVAR(_opfor), false]
-    , _namespace getVariable [QMVAR(_opforUnitCountAct), 0]
-    , _namespace getVariable [QMVAR(_opforUnitCountCap), 0]
-    , _namespace getVariable [QMVAR(_opforTankCountAct), 0]
-    , _namespace getVariable [QMVAR(_opforTankCountCap), 0]
-    , _namespace getVariable [QMVAR(_bluforUnitCountAct), 0]
-    , _namespace getVariable [QMVAR(_bluforUnitCountCap), 0]
-    , _namespace getVariable [QMVAR(_bluforTankCountAct), 0]
-    , _namespace getVariable [QMVAR(_bluforTankCountCap), 0]
+    _sector getVariable [QMVAR(_markerName), ""]
+    , _sector getVariable [QMVAR(_blufor), false]
+    , _sector getVariable [QMVAR(_opfor), false]
+    , _sector getVariable [QMVAR(_opforUnitCountAct), 0]
+    , _sector getVariable [QMVAR(_opforUnitCountCap), 0]
+    , _sector getVariable [QMVAR(_opforTankCountAct), 0]
+    , _sector getVariable [QMVAR(_opforTankCountCap), 0]
+    , _sector getVariable [QMVAR(_bluforUnitCountAct), 0]
+    , _sector getVariable [QMVAR(_bluforUnitCountCap), 0]
+    , _sector getVariable [QMVAR(_bluforTankCountAct), 0]
+    , _sector getVariable [QMVAR(_bluforTankCountCap), 0]
 ] params [
     Q(_markerName)
     , Q(_blufor)

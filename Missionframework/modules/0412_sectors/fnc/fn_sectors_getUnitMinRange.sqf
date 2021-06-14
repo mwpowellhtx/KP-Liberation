@@ -5,7 +5,7 @@
     File: fn_sectors_getUnitMinRange.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-26 09:52:47
-    Last Update: 2021-04-26 09:52:50
+    Last Update: 2021-06-14 16:51:07
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -15,7 +15,7 @@
         'KPLIB_sectors_markerPos' having been set prior to invocation.
 
     Parameter(s):
-        _namespace - a CBA SECTOR namespace [LOCATION, default: locationNull]
+        _sector - a CBA SECTOR namespace [LOCATION, default: locationNull]
         _units - the units to count [ARRAY, default: []]
         _side - the SIDE for which to count [SIDE, default: KPLIB_preset_sideF]
         _className - the kind of class name for which to count [STRING, default: _manClassName]
@@ -30,7 +30,7 @@
 private _manClassName = "CAManBase";
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_sector), locationNull, [locationNull]]
     , [Q(_units), _allUnitsAct, [[]]]
     , [Q(_side), KPLIB_preset_sideF, [sideEmpty]]
     , [Q(_className), _manClassName, [""]]
@@ -38,7 +38,7 @@ params [
 
 private _default = MPRESET(_defaultUnitRange);
 
-private _markerPos = _namespace getVariable [QMVAR(_markerPos), +KPLIB_zeroPos];
+private _markerPos = _sector getVariable [QMVAR(_markerPos), +KPLIB_zeroPos];
 
 if (_markerPos isEqualTo KPLIB_zeroPos) exitWith { _default; };
 

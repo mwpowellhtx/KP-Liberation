@@ -5,7 +5,7 @@
     File: fn_sectors_onRefresh.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-23 11:27:01
-    Last Update: 2021-04-24 13:44:26
+    Last Update: 2021-06-14 16:51:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,7 +16,7 @@
         functions can do that decision making.
 
     Parameter(s):
-        _namespace - a CBA SECTOR namespace [LOCATION, default: locationNull]
+        _sector - a CBA SECTOR namespace [LOCATION, default: locationNull]
 
     Returns:
         The callback has finished [BOOL]
@@ -27,27 +27,33 @@
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_sector), locationNull, [locationNull]]
 ];
 
 private _debug = MPARAM(_onRefresh_debug)
-    || (_namespace getVariable [QMVAR(_onRefresh_debug), false]);
+    || (_sector getVariable [QMVAR(_onRefresh_debug), false]);
 
-if (isNull _namespace) exitWith {
+// TODO: TBD: this is a work in progress, obviously...
+if (true) exitWith { true; };
+
+if (isNull _sector) exitWith {
     if (_debug) exitWith {
         ["[fn_sectors_onRefresh] Null", "SECTORS", true] call KPLIB_fnc_common_log;
     };
     false;
 };
 
+
+
+
 // TODO: TBD: only refresh what we have to while idle, i.e. activation range blufor+opfor, etc
 
 [
-    _namespace getVariable [QMVAR(_markerName), ""]
-    , [_namespace, MSTATUS(_active), QMVAR(_status)] call KPLIB_fnc_namespace_checkStatus
+    _sector getVariable [QMVAR(_markerName), ""]
+    //, [_sector, MSTATUS(_active), QMVAR(_status)] call KPLIB_fnc_namespace_checkStatus
 ] params [
     Q(_markerName)
-    , Q(_active)
+    //, Q(_active)
 ];
 
 if (_debug) then {
@@ -79,8 +85,8 @@ private _allUnitsAct = [_markerPos, _actRange, KPLIB_preset_allSides] call KPLIB
 // By UNIT TRIGGER RANGE, we mean units that would trigger sector activation
 [
     // Depends on MARKER POS
-    [_namespace, _allUnitsAct, KPLIB_preset_sideE] call MFUNC(_getUnitMinRange)
-    , [_namespace, _allUnitsAct, KPLIB_preset_sideF] call MFUNC(_getUnitMinRange)
+    [_sector, _allUnitsAct, KPLIB_preset_sideE] call MFUNC(_getUnitMinRange)
+    , [_sector, _allUnitsAct, KPLIB_preset_sideF] call MFUNC(_getUnitMinRange)
 ] params [
     Q(_opforTriggerMinRange)
     , Q(_bluforTriggerMinRange)
@@ -97,7 +103,7 @@ private _triggerMinRange = switch (true) do {
 };
 
 // Fill in these bits first, MARKER POS is critical at first, as are OPFOR+BLUFOR flags
-{ _namespace setVariable _x; } forEach [
+{ _sector setVariable _x; } forEach [
     // Identify SECTOR bits
     [QMVAR(_markerPos), _markerPos]
     , [QMVAR(_gridref), _gridref]
@@ -112,7 +118,7 @@ private _triggerMinRange = switch (true) do {
 if (_debug) then {
     {
         private _variableName = _x;
-        private _value = _namespace getVariable _variableName;
+        private _value = _sector getVariable _variableName;
         [format ["[fn_sectors_onRefresh] Set: [_variableName, _value]: %1"
             , str [_variableName, _value]], "SECTORS", true] call KPLIB_fnc_common_log;
     } forEach [
@@ -130,8 +136,8 @@ if (_debug) then {
 // === The SECTOR ACTIVATION Maginot Line ========================================================
 if (!_active && _triggerMinRange < 0) exitWith { // i.e. "would 'not' activate"
     if (_debug) then {
-        [format ["[fn_sectors_onRefresh] Inactive+would not activate: [_markerName, markerText _markerName, count allVariables _namespace]: %1"
-            , str [_markerName, markerText _markerName, count allVariables _namespace]], "SECTORS", true] call KPLIB_fnc_common_log;
+        [format ["[fn_sectors_onRefresh] Inactive+would not activate: [_markerName, markerText _markerName, count allVariables _sector]: %1"
+            , str [_markerName, markerText _markerName, count allVariables _sector]], "SECTORS", true] call KPLIB_fnc_common_log;
     };
     true;
 };
@@ -171,7 +177,7 @@ private _allUnitsCap = _allUnitsAct select { (_x distance2D _markerPos) <= _capR
 // Identify all units within ACTIVATION and CAPTURE RANGE of the SECTOR
 
 // Fill in the dashboard of raw CBA SECTOR namespace bits here
-{ _namespace setVariable _x; } forEach [
+{ _sector setVariable _x; } forEach [
     // Arrange nearest FOB+BASE+TOWER+OPFOR+BLUFOR bits
     [QMVAR(_nearestFob), _nearestFob]
     , [QMVAR(_nearestBase), _nearestBase]
@@ -201,7 +207,7 @@ private _allUnitsCap = _allUnitsAct select { (_x distance2D _markerPos) <= _capR
 if (_debug) then {
     {
         private _variableName = _x;
-        private _value = _namespace getVariable _variableName;
+        private _value = _sector getVariable _variableName;
         [format ["[fn_sectors_onRefresh] Set: [_variableName, _value]: %1"
             , str [_variableName, _value]], "SECTORS", true] call KPLIB_fnc_common_log;
     } forEach [
@@ -228,8 +234,8 @@ if (_debug) then {
 };
 
 if (_debug) then {
-    [format ["[fn_sectors_onRefresh] Fini: [_markerName, markerText _markerName, count allVariables _namespace]: %1"
-        , str [_markerName, markerText _markerName, count allVariables _namespace]], "SECTORS", true] call KPLIB_fnc_common_log;
+    [format ["[fn_sectors_onRefresh] Fini: [_markerName, markerText _markerName, count allVariables _sector]: %1"
+        , str [_markerName, markerText _markerName, count allVariables _sector]], "SECTORS", true] call KPLIB_fnc_common_log;
 };
 
 true;
