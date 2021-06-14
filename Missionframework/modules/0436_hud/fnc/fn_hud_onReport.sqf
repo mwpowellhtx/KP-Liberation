@@ -5,7 +5,7 @@
     File: fn_hud_onReport.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-27 11:18:59
-    Last Update: 2021-05-27 11:19:02
+    Last Update: 2021-06-14 17:01:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -48,19 +48,24 @@ private _debug = MPARAM(_onReport_debug)
     ;
 
 if (_debug) then {
-    // TODO: TBD: logging...
+    [format ["[fn_hud_onReport] Reporting: [isNull _report, isNull _player]: %1"
+        , str [isNull _report, isNull _player]], "HUD", true] call KPLIB_fnc_common_log;
 };
 
-[Q(KPLIB_hud_reporting), [_player, _report]] call CBA_fnc_localEvent;
+[QMVAR(_reporting), [_player, _report]] call CBA_fnc_localEvent;
 
 if (_debug) then {
-    // TODO: TBD: logging...
+    [format ["[fn_hud_onReport] Report: [isNull _report, isNull _player]: %1"
+        , str [isNull _report, isNull _player]], "HUD", true] call KPLIB_fnc_common_log;
 };
 
-[Q(KPLIB_hud_report), [_player, _report]] call CBA_fnc_localEvent;
+[QMVAR(_report), [_player, _report]] call CBA_fnc_localEvent;
 
 if (_debug) then {
-    // TODO: TBD: logging...
+    [format ["[fn_hud_onReport] WAE Next: [%1]: %2"
+        , QMPARAM(_reportPeriod)
+        , str [MPARAM(_defaultPeriod)]
+        ], "HUD", true] call KPLIB_fnc_common_log;
 };
 
 [
@@ -70,7 +75,7 @@ if (_debug) then {
 ] call CBA_fnc_waitAndExecute;
 
 if (_debug) then {
-    // TODO: TBD: logging...
+    ["[fn_hud_onReport] Fini", "HUD", true] call KPLIB_fnc_common_log;
 };
 
 true;
