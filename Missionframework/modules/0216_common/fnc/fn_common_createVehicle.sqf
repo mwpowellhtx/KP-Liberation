@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-05-03
-    Last Update: 2021-05-19 08:41:36
+    Last Update: 2021-06-14 16:38:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -36,6 +36,7 @@ params [
     , ["_justSpawn", false, [false]]
     , ["_withCrew", false, [false]]
     , ["_side", KPLIB_preset_sideE, [sideEmpty]]
+    , ["_specialAttr", "NONE", [""]]
 ];
 
 private _vehicle = objNull;
@@ -45,8 +46,8 @@ if (_className isEqualTo "" || _spawnPos isEqualTo []) exitWith {
     _vehicle;
 };
 
-// Local variables initialization
-private _specialAttr = "NONE";
+// // Local variables initialization
+// private _specialAttr = "NONE";
 // TODO: TBD: this needs to be "CAN_COLLIDE" quite probably... especially for FOB rebuilds...
 private _paradrop = false;
 private _firstPos = KPLIB_zeroPos;

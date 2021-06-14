@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-03 11:56:20
-    Last Update: 2021-05-25 11:00:59
+    Last Update: 2021-06-14 16:37:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -14,6 +14,9 @@ class common {
 
     // Returns whether caller should debug
     class common_debug {};
+
+    // Renders the ACTION TITLE given options to localize, color, etc
+    class common_renderActionTitle {};
 
     // Adds action to object with correct localized title
     class common_addAction {};
@@ -33,6 +36,18 @@ class common {
     class common_onPostInit {
         postInit = 1;
     };
+
+    // Filters an OBJECT given an ASSOCIATIVE ARRAY of options directing how to do so
+    class common_filterObject {};
+
+    // Disembarks the CREW in a VEHICLE
+    class common_disembarkCrew {};
+
+    // Returns whether the object may be considered a true VEHICLE
+    class common_isVehicle {};
+
+    // Event handler when a unit is KILLED
+    class common_onKilled {};
 
     // Returns the minimum deploy range for an FOB
     class common_getMinimumDeployRange {};
@@ -63,10 +78,6 @@ class common {
 
     //
     class common_onUnitCreated {};
-
-    // // // TODO: TBD: probable also vic created, eventually...
-    // //
-    // class common_onVehicleCreated {};
 
     // Check current FPS or if they are higher or equal than given number
     class common_fps {};
@@ -127,4 +138,10 @@ class common {
 
     // Returns whether the CLASS NAME is indeed a CLASS
     class common_isClass {};
+
+    // Returns the VEHICLE BOUNDING BOX for the CLASS NAME in consideration
+    class common_vehicleBoundingBox {};
+
+    // Returns the VEHICLE SAFE RADIUS for the CLASS NAME in consideration
+    class common_vehicleSafeRadius {};
 };

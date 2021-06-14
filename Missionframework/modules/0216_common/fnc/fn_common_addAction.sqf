@@ -4,7 +4,7 @@
     File: fn_common_addAction.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-24 14:19:07
-    Last Update: 2021-05-24 14:19:10
+    Last Update: 2021-06-14 16:40:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -41,13 +41,13 @@ params [
     , ["_callback", _defaultCallback, [{}]]
 ];
 
-_actionArray params [
-    ["_title", "", [""]]
-];
-
 private _debug = KPLIB_param_common_addAction_debug
     || (_target getVariable ["KPLIB_common_addAction_debug", false])
     ;
+
+_actionArray params [
+    ["_title", "", [""]]
+];
 
 if (_debug) then {
     [format ["[fn_common_addAction] Entering: [isNull _target, alive _target, typeOf _target, _title, _options]: %1"
@@ -58,51 +58,22 @@ if (isNull _target || !alive _target) exitWith {
     false;
 };
 
+// We do use the VARNAME from the options in this instance
 private _optionMap = createHashMapFromArray _options;
 private _varName = _optionMap getOrDefault ["_varName", ""];
 
-if (!(_varName isEqualTo "")) then {
-    private _targetId = _target getVariable [_varName, -1];
-    if (_targetId >= 0) exitWith {
-        if (_debug) then {
-            [format ["[fn_common_addAction] Already: [_varName, _targetId]: %1"
-                , str [_varName, _targetId]], "COMMON", true] call KPLIB_fnc_common_log;
-        };
-        _targetId;
-    };
-};
+private _id = _target getVariable [_varName, -1];
 
-private _optionMapArgs = [
-    ["_localize", true]
-    , ["_color", ""]
-    , ["_formatArgs", []]
-];
-
-private _optionValues = _optionMapArgs apply { _optionMap getOrDefault _x; };
-
-_optionValues params ["_localize", "_color", "_formatArgs"];
-
-if (_localize || !(_color isEqualTo "")) then {
-    private _localized = if (!_localize) then { _title; } else {
-        format ([localize _title] + _formatArgs);
-    };
-
+if (_id >= 0) exitWith {
     if (_debug) then {
-        [format ["[fn_common_addAction] Localized: [_title, _localized]: %1"
-            , str [_title, _localized]], "COMMON", true] call KPLIB_fnc_common_log;
+        [format ["[fn_common_addAction] Already: [_varName, _id]: %1"
+            , str [_varName, _id]], "COMMON", true] call KPLIB_fnc_common_log;
     };
-
-    _actionArray set [0, if (_color isEqualTo "") then { _localized; } else {
-        private _rendered = format ["<t color='%1'>%2</t>", _color, _localized];
-
-        if (_debug) then {
-            [format ["[fn_common_addAction] Color: [_rendered]: %1"
-                , str [_rendered]], "COMMON", true] call KPLIB_fnc_common_log;
-        };
-
-        _rendered;
-    }];
+    _id;
 };
+
+// This bit of refactor was a little while in coming and deservedly so
+_actionArray set [0, [_title, _options] call KPLIB_fnc_common_renderActionTitle];
 
 private _id = _actionArray call _callback;
 
