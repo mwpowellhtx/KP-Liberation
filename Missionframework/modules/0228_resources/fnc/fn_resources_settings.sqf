@@ -7,7 +7,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-14
-    Last Update: 2021-05-06 01:58:40
+    Last Update: 2021-06-14 16:44:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -33,6 +33,7 @@ if (isServer) then {
     MPARAM(_loadData_debug)                 =   false;
     MPARAM(_saveData_debug)                 =   false;
 
+    MPARAM(_createIntel_debug)              =   false;
     MPARAM(_onGatherIntel_debug)            =   false;
     MPARAM(_onIntelGC_debug)                =   false;
 

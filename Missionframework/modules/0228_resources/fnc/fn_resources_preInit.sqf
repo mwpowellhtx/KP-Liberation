@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell
     Created: 2018-12-13
-    Last Update: 2021-05-25 22:23:33
+    Last Update: 2021-06-14 16:45:01
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -228,9 +228,13 @@ if (isServer) then {
         , [Q(Land_Laptop_unfolded_F)            , round MPARAM(_intelLevelD)]
     ];
 
+    // TODO: TBD: should refactor params to proper settings...
+    // TODO: TBD: ditto for presets...
     MPRESET(_intelClassNames)                   = keys MPRESET(_intelMap);
+    publicVariable QMPRESET(_intelClassNames);
 
     MPARAM(_gatherIntelRange)                   = 10;
+    publicVariable QMPARAM(_gatherIntelRange);
 
     {
         private _className = _x;
@@ -273,6 +277,16 @@ if (isServer) then {
 
     // Array for all storages
     MVAR(_allStorages)                          = [];
+
+    [Q(KPLIB_vehicle_created), { _this call MFUNC(_onIntelCreated); }] call CBA_fnc_addEventHandler;
+};
+
+if (hasInterface) then {
+    // Client side section
+
+    // TODO: TBD: we do not know whether there should be a client side event handling...
+    // TODO: TBD: but we will leave room for just such a response, see the same function implementation...
+    [Q(KPLIB_vehicle_created), { _this call MFUNC(_onIntelCreated); }] call CBA_fnc_addEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

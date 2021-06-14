@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-13
-    Last Update: 2021-05-27 18:32:04
+    Last Update: 2021-06-14 16:44:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -49,6 +49,12 @@ class res {
 
     // GATHER INTEL action menu event handler
     class resources_onGatherIntel {};
+
+    // Returns a created INTEL object
+    class resources_createIntel {};
+
+    // Responds to 'KPLIB_vehicle_created' events on client and server sides
+    class resources_onIntelCreated {};
 
     // Adds value to intel resource
     class resources_addIntel {};
