@@ -1,3 +1,4 @@
+-sqfasm-no-sqfc
 -profilerEnableFAlloc
 -profilerEnableNetwork
 -profilerOutput "L:\Source\Arma\Arma 3\KP-Liberation\kp-lib-refactor-mwpowellhtx\docs\profiles\21-04-04-1.json"
