@@ -4,7 +4,7 @@
     File: fn_persistence_shouldBePersistent.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-16 17:01:02
-    Last Update: 2021-05-23 14:56:50
+    Last Update: 2021-06-14 16:43:11
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -39,10 +39,10 @@ if (isNull _object) exitWith { false; };
     , vehicle _object isEqualTo _object
     , [_object] call KPLIB_fnc_common_getAltitudeDelta
     , [_object] call KPLIB_fnc_common_getMomentum
-    , _object getVariable ["KPLIB_captured", false]
+    , "kplib_captured" in allVariables _object
     , _object getVariable ["KPLIB_fobs_fobUuid", ""]
     , _object getVariable ["KPLIB_sectors_markerName", ""]
-    , fullCrew [_object, "", true] // All slots including empty ones, if available
+    , [_object, '', true] call KPLIB_fnc_core_getVehiclePositions
     , { (markerPos _x distance2D _object) <= _range; } count _markerNames
 ] params [
     "_man"
