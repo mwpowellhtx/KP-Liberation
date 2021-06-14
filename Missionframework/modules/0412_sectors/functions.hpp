@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-05-18 15:06:43
+    Last Update: 2021-06-14 16:59:56
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -11,6 +11,18 @@
 
 class sectors {
     file = "modules\0412_sectors\fnc";
+
+    // Arranges for module preset variables
+    class sectors_presets {};
+
+    // Arranges for module CBA settings
+    class sectors_settings {};
+
+    // Loads module data on mission load
+    class sectors_onLoadData {};
+
+    // Periodically invoked to save module data during mission save
+    class sectors_onSaveData {};
 
     // Initialization phase event handler
     class sectors_onPreInit {
@@ -22,35 +34,98 @@ class sectors {
         postInit = 1;
     };
 
-    // CBA Settings for this module
-    class sectors_settings {};
+    // Returns a DEACTIVATION TIMER given the TIMEOUT
+    class sectors_getDeactivationTimer {};
+
+    //
+    class sectors_canActivate {};
+
+    // Evaluates whether a SECTOR CAN be CAPTURED
+    class sectors_canCapture {};
+
+    // Evaluates the CAPTURE CONDITION
+    class sectors_canCaptureEval {};
+
+    //
+    class sectors_shouldGarrison {};
 
     // Returns a created CBA SECTOR namespace with QMVAR(_markerName) variable
     class sectors_createSector {};
 
-    // Loads module data on mission load
-    class sectors_onLoadData {};
-
-    // Periodically invoked to save module data during mission save
-    class sectors_onSaveData {};
-
     // Reconciles deserialized SECTOR NAMESPACES with available sector markers
     class sectors_onReconcileSectors {};
 
+    //
+    class sectors_getBucketBundle {};
+
+    //
+    class sectors_onRefreshSide {};
+
+    //
+    class sectors_onRefreshSectors {};
+
+    //
+    class sectors_onRefreshBuckets {};
+
+    //
+    class sectors_onRefreshProximities {};
+
+    //
+    class sectors_onActivating {};
+
+    //
+    class sectors_onCapturedSetCaptured {};
+
+    //
+    class sectors_onCapturedUpdateArrays {};
+
+    //
+    class sectors_onCapturedShowNotification {};
+
+    //
+    class sectors_onTearDownObjects {};
+
+    //
+    class sectors_onTearDownVars {};
+
+    //
+    class sectors_getCapRatio {};
+
+    //
+    class sectors_getCurrentMaxAct {};
+
+    //
+    class sectors_getFilteredUnits {};
+
+    //
+    class sectors_getFilteredVehicles {};
+
+    //
+    class sectors_getCivResRatio {};
+
+    // NOTIFY SITREP for each of the PLAYERS whether in proximity of a SECTOR or not
+    class sectors_onNotifySitRep {};
+
     // Returns the CBA SECTOR namespace corresponding to the target MARKER NAME
     class sectors_getNamespace {};
-
-    // Returns the STATUS decomposed into human readable versions of the flags
-    class sectors_getStatusReport {};
-
-    // // Returns the ACTIVATING SECTOR NAMESPACES between state machine cycles
-    // class sectors_getActivatingNamespaces {};
 
     // Returns the NEAREST SECTOR to the given MARKER NAME and a set of CANDIDATE MARKERS
     class sectors_getNearestSector {};
 
     // Returns the set of ACTIVE MARKERS
     class sectors_getActiveSectors {};
+
+    //
+    class sectors_getAllObjects {};
+
+    //
+    class sectors_getAllUnits {};
+
+    //
+    class sectors_getAllVehicles {};
+
+    //
+    class sectors_getSectorSitRep {};
 
     // Returns the set of INACTIVE MARKERS
     class sectors_getInactiveSectors {};
@@ -76,120 +151,62 @@ class sectors {
     // Returns whether the SECTOR may begin the CAPTURING process
     class sectors_getSectorCapturing {};
 
-    // SECTOR CAPTURED event handler
-    class sectors_onSectorCaptured {};
-
-    // Returns whether the SECTOR may begin the DEACTIVATING process
-    class sectors_getSectorDeactivating {};
-
-    // // Tries to DEACTICATE the known DEACTIVATED CBA SECTOR namespaces
-    // class sectors_tryDeactivate {};
-
-    // //
-    // class sectors_onNotifyCapture {};
-
     //
     class sectors_onUpdateMarkers {};
 
-    // // TODO: TBD: reserved for a later sprint...
-    // // TODO: TBD: intention is to relay to sector report HUD via client/server events...
-    // class sectors_onUpdateMarkers_dispatchSectorHud {};
-
     // Returns the SIDE corresponding with the SECTOR defender
     class sectors_getSide {};
+
+    //
+    class sectors_onUpdateDebugging {};
 };
 
-class sectorsSM {
+class sectorSM {
     file = "modules\0412_sectors\statemachine";
 
     // Initialization phase event handler
-    class sectorsSM_onPreInit {
+    class sectorSM_onPreInit {
         preInit = 1;
     };
 
     // Initialization phase event handler
-    class sectorsSM_onPostInit {
+    class sectorSM_onPostInit {
         postInit = 1;
     };
 
     // CBA Settings for this module
-    class sectorsSM_settings {};
+    class sectorSM_settings {};
 
     //
-    class sectorsSM_createSM {};
+    class sectorSM_createSM {};
 
     //
-    class sectorsSM_getSectorsList {};
+    class sectorSM_getSectorsList {};
 
     //
-    class sectorsSM_getStochasticTrigger {};
+    class sectorSM_onCapturedEntered {};
 
     //
-    class sectorsSM_onAntiAirMissionEntered {};
+    class sectorSM_onTransit {};
 
     //
-    class sectorsSM_onIdle {};
+    class sectorSM_onGameOver {};
 
     //
-    class sectorsSM_onCapturing {};
+    class sectorSM_onGameOverEntered {};
 
     //
-    class sectorsSM_onCapturedEntered {};
+    class sectorSM_onGarrisonEntered {};
 
     //
-    class sectorsSM_onCloseAirSupportMissionEntered {};
+    class sectorSM_onNoOp {};
 
     //
-    class sectorsSM_onCombatAirPatrolMissionEntered {};
+    class sectorSM_onPending {};
 
     //
-    class sectorsSM_onCounterAttackMissionTriggered {};
+    class sectorSM_onPendingEntered {};
 
     //
-    class sectorsSM_onDeactivating {};
-
-    //
-    class sectorsSM_onDeactivatedTransition {};
-
-    //
-    class sectorsSM_onGameOver {};
-
-    //
-    class sectorsSM_onGameOverEntered {};
-
-    //
-    class sectorsSM_onGarrison {};
-
-    //
-    class sectorsSM_onGarrisonEntered {};
-
-    //
-    class sectorsSM_onNoOp {};
-
-    //
-    class sectorsSM_onPatrolMissionEntered {};
-
-    //
-    class sectorsSM_onPending {};
-
-    //
-    class sectorsSM_onPendingEntered {};
-
-    //
-    class sectorsSM_onReinforce {};
-
-    //
-    class sectorsSM_onReinforceEntered {};
-
-    //
-    class sectorsSM_onResistance {};
-
-    //
-    class sectorsSM_onResistanceEntered {};
-
-    //
-    class sectorsSM_timerHasElapsed {};
-
-    //
-    class sectorsSM_zeroSitrep {};
+    class sectorSM_zeroSitrep {};
 };
