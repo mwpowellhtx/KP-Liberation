@@ -5,7 +5,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-05-25
-    Last Update: 2021-05-26 18:46:07
+    Last Update: 2021-06-14 16:44:01
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -82,7 +82,7 @@ if (alive _player) then {
     };
 
     // "Out of range" markers should be filtered out by this point
-    ["KPLIB_sectors_nearestAll", _allCandidates] call _setNearestCategoryMarker;
+    ["KPLIB_sectors_nearestSector", _allCandidates] call _setNearestCategoryMarker;
     ["KPLIB_sectors_nearestFob", _fobCandidates] call _setNearestCategoryMarker;
     ["KPLIB_sectors_nearestStartBase", _startBaseCandidates] call _setNearestCategoryMarker;
 

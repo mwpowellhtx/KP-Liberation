@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-28
-    Last Update: 2021-05-23 12:32:40
+    Last Update: 2021-06-03 12:07:17
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -77,4 +77,7 @@ class core {
 
     // Returns the NUMBER corresponding to an INDEX RATIO from a set of delimited values
     class core_getIndexedNumber {};
+
+    // Returns the POSITIONS of a VEHICLE
+    class core_getVehiclePositions {};
 };
