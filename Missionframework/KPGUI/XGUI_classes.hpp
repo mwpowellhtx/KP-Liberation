@@ -4,7 +4,7 @@
     File: XGUI_classes.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-07 17:16:37
-    Last Update: 2021-03-28 21:57:15
+    Last Update: 2021-06-14 16:32:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -119,6 +119,10 @@ class XGUI_PRE_Button : KPGUI_PRE_Button {
 
 // Controls group
 class XGUI_PRE_ControlsGroup : KPGUI_PRE_ControlsGroup {
+};
+
+// Controls group without scrollbars
+class XGUI_PRE_ControlsGroupNoScrollbars : KPGUI_PRE_ControlsGroupNoScrollbars {
 };
 
 // Title bar

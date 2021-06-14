@@ -5,7 +5,7 @@
     Author: Wyqer - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2018-09-13
-    Last Update: 2021-02-27 17:36:08
+    Last Update: 2021-06-14 16:31:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -419,14 +419,11 @@ class KPGUI_PRE_ControlsGroup {
 };
 
 // Controls group no scrollbars
-class KPGUI_PRE_ControlsGroupNoScrollbars: KPGUI_PRE_ControlsGroup
-{
-    class VScrollbar: VScrollbar
-    {
+class KPGUI_PRE_ControlsGroupNoScrollbars : KPGUI_PRE_ControlsGroup {
+    class VScrollbar : VScrollbar {
         width = 0;
     };
-    class HScrollbar: HScrollbar
-    {
+    class HScrollbar : HScrollbar {
         height = 0;
     };
 };

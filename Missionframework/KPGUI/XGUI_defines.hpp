@@ -4,7 +4,7 @@
     File: XGUI_defines.hpp
     Author: Michael W. Powell [22nd MEU SOD]
     Created: 2021-02-06 21:14:16
-    Last Update: 2021-02-09 20:23:59
+    Last Update: 2021-06-14 16:32:07
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -285,6 +285,7 @@
 #define KPX_DEFAULT_SIDEBAR_W       (0.5 * (safeZoneW - KPX_DEFAULT_DIALOG_WC))
 // Because being a SIDEBAR, on either side, has no bearing concerning the DIALOG alignment
 #define KPX_DEFAULT_SIDEBAR_H       (0.5 * safeZoneH)
+#define KPX_DEFAULT_SIDEBAR_H2      (0.5 * KPX_DEFAULT_SIDEBAR_H)
 
 #define KPX_DEFAULT_SIDEBAR_CTRLAREA_W  (KPX_DEFAULT_SIDEBAR_W - (2 * KPX_SPACING_W))
 #define KPX_DEFAULT_SIDEBAR_CTRLAREA_H  (KPX_DEFAULT_SIDEBAR_H - (2 * KPX_SPACING_H))
@@ -298,6 +299,8 @@
 
 #define KPX_DEFAULT_SIDEBAR_CTRLAREA_XR (KPX_DEFAULT_SIDEBAR_XR + KPX_SPACING_W)
 #define KPX_DEFAULT_SIDEBAR_CTRLAREA_YB (KPX_DEFAULT_SIDEBAR_YB + KPX_SPACING_H)
+
+
 
 
 /*
