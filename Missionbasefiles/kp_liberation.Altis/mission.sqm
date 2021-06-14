@@ -1,4 +1,4 @@
-version=53;
+version=54;
 class EditorData
 {
 	moveGridStep=1;
@@ -6,24 +6,28 @@ class EditorData
 	scaleGridStep=1;
 	autoGroupingDist=10;
 	toggles=545;
+	mods[]=
+	{
+		"3denEnhanced"
+	};
 	class ItemIDProvider
 	{
-		nextID=6463;
+		nextID=6513;
 	};
 	class MarkerIDProvider
 	{
-		nextID=335;
+		nextID=337;
 	};
 	class LayerIndexProvider
 	{
-		nextID=1897;
+		nextID=2005;
 	};
 	class Camera
 	{
-		pos[]={27350.682,80.643524,5558.9927};
-		dir[]={0.02981481,-0.91257828,0.40806022};
-		up[]={0.066503204,0.40884504,0.91017693};
-		aside[]={0.99744028,4.7381036e-008,-0.072877012};
+		pos[]={14517.97,37.386982,5792.4546};
+		dir[]={0,-0.70710683,0.70710683};
+		up[]={0,0.70710677,0.70710677};
+		aside[]={0.99999994,0,-0};
 	};
 };
 binarizationWanted=0;
@@ -287,7 +291,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=512;
+		items=513;
 		class Item0
 		{
 			dataType="Marker";
@@ -10838,6 +10842,23 @@ class Mission
 				};
 				nAttributes=1;
 			};
+		};
+		class Item512
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={14527.353,2.4439354,5820.7012};
+				angles[]={6.2565165,0,6.179565};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="KPLIB_eden_createVehicle";
+			};
+			id=6512;
+			type="Land_ClutterCutter_small_F";
 		};
 	};
 };
