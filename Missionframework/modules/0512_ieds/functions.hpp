@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-22 17:58:41
-    Last Update: 2021-05-26 18:29:50
+    Last Update: 2021-06-14 17:08:52
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -27,7 +27,7 @@
 // also need to know about triggers, the bomb explosions, etc
 
 class ieds {
-    file = "modules\0516_ieds\fnc";
+    file = "modules\0512_ieds\fnc";
 
     //
     class ieds_canDisarm {};
@@ -53,12 +53,6 @@ class ieds {
 
     // Creates ONE IED object given position and class name
     class ieds_createOne {};
-
-    //
-    class ieds_getRoads {};
-
-    //
-    class ieds_getSpawnPos {};
 
     //
     class ieds_onDisarm {};

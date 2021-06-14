@@ -1,16 +1,18 @@
 #include "script_component.hpp"
 /*
-    KPLIB_fnc_ieds_onTriggerSmallCondition
+    KPLIB_fnc_ieds_onTriggerBigCondition
 
-    File: fn_ieds_onTriggerSmallCondition.sqf
+    File: fn_ieds_onTriggerBigCondition.sqf
     Author: Michael W. Powell [22nd MEU SOC]
-    Created: 2021-05-08 21:45:08
-    Last Update: 2021-05-25 13:17:47
+    Created: 2021-05-08 21:45:00
+    Last Update: 2021-06-14 17:09:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
     Description:
-        Condition periodically evaluated by TRIGGER associated with the IED.
+        Condition periodically evaluated by TRIGGER associated with the IED. Triggers
+        detonation when there are sufficient count of UNITS running, or when there are
+        similarly sufficient counts of VEHICLES rolling, or TANK VEHICLES period.
 
     Parameter(s):
         _trigger - the TRIGGER object [OBJECT, default: objNull]
@@ -29,8 +31,8 @@ params [
 
 private _unitCount = ({ _x distance2D _trigger <= 25; } count allUnits);
 
-private _debug = _unitCount > 0 && (MPARAM(_onTriggerSmallCondition_debug)
-    || (_trigger getVariable [QMVAR(_onTriggerSmallCondition_debug), false]));
+private _debug = _unitCount > 0 && (MPARAM(_onTriggerBigCondition_debug)
+    || (_trigger getVariable [QMVAR(_onTriggerBigCondition_debug), false]));
 
 [
     _trigger getVariable [Q(KPLIB_triggers_target), objNull]
@@ -41,7 +43,7 @@ private _debug = _unitCount > 0 && (MPARAM(_onTriggerSmallCondition_debug)
 ];
 
 if (_debug) then {
-    [format ["[fn_ieds_onTriggerSmallCondition] Entering: [_uuid, isNull _target]: %1"
+    [format ["[fn_ieds_onTriggerBigCondition] Entering: [_uuid, isNull _target]: %1"
         , str [_uuid, isNull _target]], "IEDS", true] call KPLIB_fnc_common_log;
 };
 
@@ -51,23 +53,24 @@ if (isNull _target) exitWith {
     false;
 };
 
-// We only want the UNIT objects themselves
-private _units = _list select { alive _x &&  _x isEqualTo vehicle _x; };
+// Identify UNITS+VEHICLES apart from each other
+private _units = _list select { alive _x && _x isEqualTo vehicle _x; };
 private _vehicles = _list select { alive _x && _x in vehicles; };
 
 private _runningCount = ({ ([_x] call KPLIB_fnc_common_getMomentum) >= MPARAM(_unitApproachSafeSpeed); } count _units);
 private _rollingCount = ({ ([_x] call KPLIB_fnc_common_getMomentum) >= MPARAM(_vehicleApproachSafeSpeed); } count _vehicles);
+private _trackedCount = ({ ([_x] call KPLIB_fnc_common_getMomentum) > 0 && _x isKindOf Q(Tank); } count _vehicles);
 
-private _runningThreshold = MPARAM(_smallRunningThreshold);
 private _actual = random 1;
-private _chance = PCT(MPARAM(_smallDetonationChance));
+private _chance = PCT(MPARAM(_bigDetonationChance));
+private _runningThreshold = MPARAM(_bigRunningThreshold);
 
 if (_debug) then {
-    [format ["[fn_ieds_onTriggerSmallCondition] Fini: [_actual, _chance, _runningThreshold, _runningCount, _rollingCount]: %1"
-        , str [_actual, _chance, _runningThreshold, _runningCount, _rollingCount]], "IEDS", true] call KPLIB_fnc_common_log;
+    [format ["[fn_ieds_onTriggerBigCondition] Fini: [_actual, _chance, _runningThreshold, _runningCount, _rollingCount, _trackedCount]: %1"
+        , str [_actual, _chance, _runningThreshold, _runningCount, _rollingCount, _trackedCount]], "IEDS", true] call KPLIB_fnc_common_log;
 };
 
 _actual <= _chance && (
-    _runningCount >= _runningThreshold
-        || _rollingCount > 0
+    (_rollingCount + _trackedCount) > 0
+        || _runningCount >= _runningThreshold
 );

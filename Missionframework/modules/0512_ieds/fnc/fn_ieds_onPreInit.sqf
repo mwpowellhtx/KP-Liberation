@@ -5,7 +5,7 @@
     File: fn_ieds_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-22 18:00:56
-    Last Update: 2021-05-23 21:53:44
+    Last Update: 2021-06-14 17:09:16
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -56,9 +56,8 @@ private _onFormatRemoteAmmo = {
 };
 
 MPRESET(_smallClassNames)                   = _smallPrefixes apply _onFormatRemoteAmmo;
-MPRESET(_bitClassNames)                     = _bigPrefixes apply _onFormatRemoteAmmo;
+MPRESET(_bigClassNames)                     = _bigPrefixes apply _onFormatRemoteAmmo;
 MPRESET(_mineClassNames)                    = (_smallPrefixes + _bigPrefixes) apply _onFormatRemoteAmmo;
-
 
 /*
     ----- Module Initialization -----
