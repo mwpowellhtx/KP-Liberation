@@ -5,7 +5,7 @@
     File: fn_enemies_onUpdateDisposition.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-15 14:17:26
-    Last Update: 2021-04-22 15:18:00
+    Last Update: 2021-06-14 17:17:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -58,13 +58,20 @@
     , Q(_civRepBaseThreshold)
 ];
 
-[
-    _neutralDis + ((1 - _neutralDis) * _awarenessRatio * _strengthRatio)
-    , _neutralDis - (_neutralDis * _awarenessRatio * _strengthRatio)
-] params [
-    Q(_friendlyEnemyValue)
-    , Q(_enemyFriendlyValue)
+[] params [
+    [Q(_friendlyEnemyValue), 0, [0]]
+    , [Q(_enemyFriendlyValue), 0, [0]]
 ];
+
+// // TODO: TBD: need to also consider civilian/resistance relations...
+// // TODO: TBD: should either be staunchly 'for' blufor/opfor, or not...
+// [
+//     _neutralDis + ((1 - _neutralDis) * _awarenessRatio * _strengthRatio)
+//     , _neutralDis - (_neutralDis * _awarenessRatio * _strengthRatio)
+// ] params [
+//     Q(_friendlyEnemyValue)
+//     , Q(_enemyFriendlyValue)
+// ];
 
 // We bundle this in a CALL because it does not make sense to separate the logic
 private _resValues = [_neutralDis, _civRepRatio, PCT(_civRepBaseThreshold)] call {

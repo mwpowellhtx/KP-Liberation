@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-05-25 22:27:50
+    Last Update: 2021-06-14 17:17:19
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -22,6 +22,7 @@
     References:
         https://community.bistudio.com/wiki/createHashMapFromArray
         https://community.bistudio.com/wiki/Category:Function_Group:_Bitwise
+        https://cbateam.github.io/CBA_A3/docs/files/xeh/fnc_addClassEventHandler-sqf.html
  */
 
 if (isServer) then {
@@ -75,13 +76,12 @@ if (isServer) then {
     [Q(KPLIB_transferConvoy_end), { _this call MFUNC(_onTransferConvoyEnd); }] call CBA_fnc_addEventHandler;
 
     // Handle things ENEMY module related, assessing BDA, adding scores, etc
-    [KPLIB_sectors_activating, { _this call MFUNC(_onSectorActivating); }] call CBA_fnc_addEventHandler;
-    [KPLIB_sectors_activating, { _this call MFUNC(_onRegisterBuildings); }] call CBA_fnc_addEventHandler;
+    [Q(KPLIB_sectors_activating), { _this call MFUNC(_onSectorActivating); }] call CBA_fnc_addEventHandler;
 
-    // Register both SECTOR CAPTURED for the sector itself
-    [KPLIB_sectors_captured, { _this call MFUNC(_onSectorCaptured); } ] call CBA_fnc_addEventHandler;
-    // Also register BUILDINGS DESTROYED for cases when we must evaluate such
-    [KPLIB_sectors_captured, { _this call MFUNC(_onBuildingsDestroyed); } ] call CBA_fnc_addEventHandler;
+    { [Q(KPLIB_sectors_captured), _x] call CBA_fnc_addEventHandler; } forEach [
+        { _this call MFUNC(_onSectorCaptured); }
+        , { _this call MFUNC(_onBuildingsDestroyed); }
+    ];
 
     // TODO: TBD: add "help the civilians" event as a proper 'mission'
     // TODO: TBD: CBA event handlers are assumed to occur in a guaranteed stacked order...
@@ -90,6 +90,7 @@ if (isServer) then {
     // TODO: TBD: review this issue, so much of the old FSM 'states' no longer applicable (????)
     // TODO: TBD: https://github.com/mwpowellhtx/KP-Liberation/issues/78
 
+    // // TODO: TBD: if we focus on "spawn buildings" buildings with buildingPos then I think we do not care about these...
     // Add building class names to ignore during the SECTOR CAPTURED BDA phase
     IGNORE_BUILDINGS(_ignoredBuildingClassNames);
     ADD_IGNORED_BUILDING(Land_Cargo_House_V1_F);
@@ -151,6 +152,24 @@ if (isServer) then {
     ADD_IGNORED_BUILDING(Land_spp_Mirror_F);
     ADD_IGNORED_BUILDING(Land_TTowerSmall_1_F);
     ADD_IGNORED_BUILDING(Land_TTowerSmall_2_F);
+
+    [Q(CAManBase), Q(init), {
+        params [
+            [Q(_target), objNull, [objNull]]
+        ];
+
+        // TODO: TBD: for now this is wired up for easier engagement and debugging during dev cycles
+        // TODO: TBD: but this is not something we want to deploy in regular code
+        // TODO: TBD: involve the admin bits during admin...
+        // TODO: TBD: also allowing to unwire the event handler...
+        // TODO: TBD: i.e. for admins or not admins, to add and remove the behavior...
+        { _target addEventHandler _x; } forEach [
+            [Q(Hit), { _this call KPLIB_fnc_admin_onManHit; }]
+            , [Q(Killed), { _this call MFUNC(_onManKilled); }]
+            , [Q(HandleRating), { _this call MFUNC(_onManHandleRating); }]
+        ];
+
+    }, true, [], true] call CBA_fnc_addClassEventHandler;
 };
 
 if (!(hasInterface || isDedicated)) then {

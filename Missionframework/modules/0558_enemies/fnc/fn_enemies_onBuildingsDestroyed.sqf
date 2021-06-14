@@ -5,7 +5,7 @@
     File: fn_enemies_onBuildingsDestroyed.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-26 13:17:51
-    Last Update: 2021-04-26 13:28:03
+    Last Update: 2021-06-14 17:17:10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,23 +16,24 @@
         within overlapping sector ranges.
 
     Parameter(s):
-        _namespace - a CBA SECTOR namespace [LOCATION, default: [locationNull]]
+        _sector - a CBA SECTOR namespace [LOCATION, default: [locationNull]]
 
     Returns:
         The event handler finished [BOOL]
  */
 
 params [
-    [Q(_namespace), locationNull, [locationNull]]
+    [Q(_sector), locationNull, [locationNull]]
 ];
 
 private _debug = MPARAM(_onBuildingsDestroyed_debug)
-    || (_namespace getVariable [QMVAR(_onBuildingsDestroyed_debug), false]);
+    || (_sector getVariable [QMVAR(_onBuildingsDestroyed_debug), false])
+    ;
 
 [
-    _namespace getVariable [QMVAR(_buildings), []]
-    , _namespace getVariable [QMVAR(_civRepReward), 0]
-    , _namespace getVariable [Q(KPLIB_sectors_markerName), ""]
+    _sector getVariable [Q(KPLIB_garrison_buildings), []]
+    , _sector getVariable [QMVAR(_civRepReward), 0]
+    , _sector getVariable [Q(KPLIB_sectors_markerName), ""]
 ] params [
     Q(_buildings)
     , Q(_civRepReward)
@@ -54,7 +55,7 @@ if (_buildings isEqualTo []) exitWith {
 
 // Do not double count buildings during the BDA
 private _alreadyCounted = _buildings select { _x getVariable [QMVAR(_alreadyCounted), false]; };
-_namespace setVariable [QMVAR(_buildings), _buildings - _alreadyCounted];
+_sector setVariable [QMVAR(_buildings), _buildings - _alreadyCounted];
 _buildings = _buildings - _alreadyCounted;
 
 private _damaged = _buildings select {
@@ -86,12 +87,12 @@ private _damageDeltas = _damaged apply {
     ];
     if (_damagePenalty < 0) then {
         [_damagePenalty, format ["%1 buildings damaged or destroyed.", count _damaged], _markerName] call MFUNC(_addCivRep);
-        _namespace setVariable [QMVAR(_civRepReward), _civRepReward + _damagePenalty];
+        _sector setVariable [QMVAR(_civRepReward), _civRepReward + _damagePenalty];
     };
 };
 
 // Finally 'forget' about buildings that were at all damaged in the prior engagement
-_namespace setVariable [QMVAR(_buildings), _buildings - _damaged];
+_sector setVariable [QMVAR(_buildings), _buildings - _damaged];
 
 if (_debug) then {
     [format ["[fn_enemies_onBuildingsDestroyed] Fini: [_markerName, markerText _markerName, count _damaged]: %1"
