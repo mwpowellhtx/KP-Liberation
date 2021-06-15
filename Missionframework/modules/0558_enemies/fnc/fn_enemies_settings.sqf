@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-06-14 17:17:03
+    Last Update: 2021-06-15 17:26:09
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -30,7 +30,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_STRENGTH_MAX", localize "STR_KPLIB_SETTINGS_ENEMY_STRENGTH_MAX_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [250, 5000, 1000, 0] // range: [250, 5000], default: 1000
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -50,7 +50,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_MAX", localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_MAX_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [0, 500, 200, 0] // range: [0, 500], default: 100
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -60,7 +60,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_DEFAULT", localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_DEFAULT_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [0, 500, 0, 0] // range: [0, 500], default: 0
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -73,7 +73,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [5, 125, 30, 0] // range: [5, 125], default: 30
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -86,7 +86,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [1, 5, 1.5, 3] // range: [1, 5], default: 1.5
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -96,7 +96,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_MAX", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_MAX_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [250, 2500, 1000, 0] // range: [250, 2500], default: 1000
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -106,7 +106,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_DEFAULT", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_DEFAULT_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [-2500, 2500, 0, 0] // range: [-2500, 2500], default: 0
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -116,7 +116,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_KILLED_PENALTY", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_KILLED_PENALTY_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [0, 13, 7, 0] // range: [0, 13], default: 7
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -126,7 +126,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_BASE_THRESHOLD", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_BASE_THRESHOLD_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [3, 33, 25, 0] // range: [3, 32], default: 25
-    , 2
+    , 1
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -183,7 +183,7 @@ private _enemy = [
                 , [localize "STR_KPLIB_SETTINGS_DEBUG_ENEMY", localize "STR_KPLIB_SETTINGS_DEBUG_ENEMY_TT"]
                 , localize "STR_KPLIB_SETTINGS_DEBUG"
                 , true // default
-                , 2
+                , 1
                 , {}
             ];
         }
