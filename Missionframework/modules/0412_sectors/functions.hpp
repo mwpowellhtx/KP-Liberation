@@ -2,7 +2,7 @@
     File: functions.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 14:14:12
-    Last Update: 2021-06-14 16:59:56
+    Last Update: 2021-06-14 20:30:25
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -82,8 +82,8 @@ class sectors {
     //
     class sectors_onCapturedShowNotification {};
 
-    //
-    class sectors_onTearDownObjects {};
+    // //
+    // class sectors_onTearDownObjects {};
 
     //
     class sectors_onTearDownVars {};

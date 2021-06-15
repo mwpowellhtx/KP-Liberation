@@ -31,8 +31,11 @@ private _debug = MPARAMSM(_onTransit_debug)
     || (_sector getVariable [QMVAR(_onTransit_debug), false])
     ;
 
+private _markerName = _sector getVariable [QMVAR(_markerName), ""];
+
 if (_debug) then {
-    // TODO: TBD: logging...
+    [format ["[fn_sectorSM_onTransit] Entering: [_markerName, markerText _markerName, _fromState, _toState]: %1"
+        , str [_markerName, markerText _markerName, _fromState, _toState]], "SECTORSM"] call KPLIB_fnc_common_log;
 };
 
 private _theTransit = format ["%1:%2", _fromState, _toState];
@@ -43,11 +46,10 @@ private _theTransit = format ["%1:%2", _fromState, _toState];
 
 if (_theTransit == (format ["%1:%2", QMVARSM(_state_pending), QMVARSM(_state_idle)])) then {
     if (_debug) then {
-        // TODO: TBD: logging...
+        [format ["[fn_sectorSM_onTransit] Teardown: [_theTransit]: %1"
+            , str [_theTransit]], "SECTORSM"] call KPLIB_fnc_common_log;
     };
     [QMVAR(_tearDown), [_sector]] call CBA_fnc_serverEvent;
-    [QMVAR(_tearDown), [_sector, Q(_units)]] call CBA_fnc_serverEvent;
-    [QMVAR(_tearDown), [_sector, Q(_assets)]] call CBA_fnc_serverEvent;
 };
 
 // if (_theTransit == (format ["%1:%2", QMVARSM(_state_deactivating), QNVARSN(_state_idle)])) then {
@@ -60,7 +62,7 @@ if (_theTransit == (format ["%1:%2", QMVARSM(_state_pending), QMVARSM(_state_idl
 // };
 
 if (_debug) then {
-    // TODO: TBD: logging...
+    ["[fn_sectorSM_onTransit] Fini", "SECTORSM"] call KPLIB_fnc_common_log;
 };
 
 true;

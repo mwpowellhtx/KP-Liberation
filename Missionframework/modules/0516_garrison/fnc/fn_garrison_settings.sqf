@@ -507,13 +507,13 @@ if (isServer) then {
     MPARAM(_getRatioBundle_debug)                           = false;
     MPARAM(_getBluforGarrisonMap_debug)                     = false;
     MPARAM(_getOpforGarrisonMap_debug)                      = false;
-    MPARAM(_onAllocateOpforGrps_debug)                      = true;
-    MPARAM(_onAllocateOpforHeavyVehicles_debug)             = true;
-    MPARAM(_onAllocateOpforIntel_debug)                     = true;
-    MPARAM(_onAllocateOpforLightVehicles_debug)             = true;
-    MPARAM(_onAllocateOpforMines_debug)                     = true;
-    MPARAM(_onAllocateOpforResources_debug)                 = true;
-    MPARAM(_onAllocateOpforUnits_debug)                     = true;
+    MPARAM(_onAllocateOpforGrps_debug)                      = false;
+    MPARAM(_onAllocateOpforHeavyVehicles_debug)             = false;
+    MPARAM(_onAllocateOpforIntel_debug)                     = false;
+    MPARAM(_onAllocateOpforLightVehicles_debug)             = false;
+    MPARAM(_onAllocateOpforMines_debug)                     = false;
+    MPARAM(_onAllocateOpforResources_debug)                 = false;
+    MPARAM(_onAllocateOpforUnits_debug)                     = false;
     MPARAM(_onCatalogBuildings_debug)                       = false;
     MPARAM(_onGarrisonOpforRegimentAnum_debug)              = false;
     MPARAM(_onGarrisonOpforRegimentPeren_debug)             = false;
@@ -521,6 +521,7 @@ if (isServer) then {
     MPARAM(_onSaveData_debug)                               = false;
     MPARAM(_onSectorRegiment_debug)                         = false;
     MPARAM(_getRoadPositions_debug)                         = false;
+    MPARAM(_onSectorTearDown_debug)                         = false;
 
     MPARAM(_defaultInfantryCount)                           =  6;
 

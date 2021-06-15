@@ -94,11 +94,7 @@ if (isServer) then {
     ];
 
     { [QMVAR(_tearDown), _x] call CBA_fnc_addEventHandler; } forEach [
-        { _this call MFUNC(_onTearDownObjects); }
-        , { (_this + ["_units"]) call MFUNC(_onTearDownObjects); }
-        , { (_this + ["_assets"]) call MFUNC(_onTearDownObjects); }
-        , { _this call MFUNC(_onTearDownVars); }
-        , { [Q(KPLIB_updateMarkers)] call CBA_fnc_serverEvent; }
+        { _this call MFUNC(_onTearDownVars); }
     ];
 
     [Q(KPLIB_updateMarkers), { [] call MFUNC(_onUpdateMarkers); }] call CBA_fnc_addEventHandler;

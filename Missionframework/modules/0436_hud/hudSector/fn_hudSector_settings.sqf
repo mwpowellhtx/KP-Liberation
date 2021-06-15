@@ -29,24 +29,24 @@ MPARAM(_lblProgressBarCommitPeriod)             = 1;
 
 MPARAM(_onLoad_debug)                           = false;
 
-MPARAM(_onNotifySectors_debug)                  = true;
-MPARAM(_onNotifySectorOne_debug)                = true;
+MPARAM(_onNotifySectors_debug)                  = false;
+MPARAM(_onNotifySectorOne_debug)                = false;
 
-MPARAM(_onReport_debug)                         = true;
+MPARAM(_onReport_debug)                         = false;
 
-// MPARAM(_onReportingMarkerText_debug)            = true;
-// MPARAM(_onReportingUnits_debug)                 = true;
-// MPARAM(_onReportingTanks_debug)                 = true;
-// MPARAM(_onReportingCivRes_debug)                = true;
-MPARAM(_onReportingSitRep_debug)                = true;
+// MPARAM(_onReportingMarkerText_debug)            = false;
+// MPARAM(_onReportingUnits_debug)                 = false;
+// MPARAM(_onReportingTanks_debug)                 = false;
+// MPARAM(_onReportingCivRes_debug)                = false;
+MPARAM(_onReportingSitRep_debug)                = false;
 
-// MPARAM(_onReportMarkerText_debug)               = true;
-// MPARAM(_onReportUnits_debug)                    = true;
-// MPARAM(_onReportTanks_debug)                    = true;
-// MPARAM(_onReportCivRes_debug)                   = true;
-MPARAM(_onReportSitRep_debug)                   = true;
+// MPARAM(_onReportMarkerText_debug)               = false;
+// MPARAM(_onReportUnits_debug)                    = false;
+// MPARAM(_onReportTanks_debug)                    = false;
+// MPARAM(_onReportCivRes_debug)                   = false;
+MPARAM(_onReportSitRep_debug)                   = false;
 
-MPARAM(_setMeterPosition_debug)                 = true;
+MPARAM(_setMeterPosition_debug)                 = false;
 MPARAMUI(_MeterElement_onLoad_debug)            = false;
 MPARAMUI(_lblMarkerText_onLoad_debug)           = false;
 

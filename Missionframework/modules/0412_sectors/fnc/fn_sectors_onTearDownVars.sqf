@@ -37,7 +37,6 @@ if (_debug) then {
 { _sector setVariable _x; } forEach [
     [Q(KPLIB_captured), nil]
     , [QMVAR(_timer), nil]
-    , [QMVAR(_garrisonMap), nil]
 ];
 // The GARRISON array is a summary view of the above
 

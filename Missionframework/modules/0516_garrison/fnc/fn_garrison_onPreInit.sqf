@@ -83,6 +83,7 @@ if (isServer) then {
 
     { [Q(KPLIB_sectors_tearDown), _x] call CBA_fnc_addEventHandler; } forEach [
         { _this call MFUNC(_onSectorTearDown); }
+        , { [Q(KPLIB_updateMarkers)] call CBA_fnc_serverEvent; }
     ];
 
     // Wire up the OPFOR+BLUFOR REGIMENT+GARRISON event handlers
