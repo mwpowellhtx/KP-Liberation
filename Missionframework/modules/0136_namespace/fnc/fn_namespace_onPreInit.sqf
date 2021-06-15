@@ -14,7 +14,7 @@ if (isServer) then {
     [format ["[fn_namespace_onPreInit] Initializing..."], "PRE] [NAMESPACE", true] call KPLIB_fnc_common_log;
 };
 
-MPARAM(_timerHasElapsed_debug)                  = true;
+MPARAM(_timerHasElapsed_debug)                  = false;
 
 if (isServer) then {
     MVAR(_changed)                              = QMVAR(_changed);
