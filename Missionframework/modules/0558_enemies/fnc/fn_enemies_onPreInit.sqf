@@ -75,12 +75,12 @@ if (isServer) then {
     // Register convoy arrival event handler
     [Q(KPLIB_transferConvoy_end), { _this call MFUNC(_onTransferConvoyEnd); }] call CBA_fnc_addEventHandler;
 
-    // Handle things ENEMY module related, assessing BDA, adding scores, etc
-    [Q(KPLIB_sectors_activating), { _this call MFUNC(_onSectorActivating); }] call CBA_fnc_addEventHandler;
+    { [Q(KPLIB_sectors_activating), _x] call CBA_fnc_addEventHandler; } forEach [
+        { _this call MFUNC(_onSectorActivating); }
+    ];
 
     { [Q(KPLIB_sectors_captured), _x] call CBA_fnc_addEventHandler; } forEach [
         { _this call MFUNC(_onSectorCaptured); }
-        , { _this call MFUNC(_onBuildingsDestroyed); }
     ];
 
     // TODO: TBD: add "help the civilians" event as a proper 'mission'

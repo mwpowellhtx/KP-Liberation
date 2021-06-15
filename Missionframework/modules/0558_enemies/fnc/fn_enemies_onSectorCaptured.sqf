@@ -10,10 +10,9 @@
     Public: No
 
     Description:
-        Responds to SECTOR CAPTURED event with ENEMY module related bits. Marks buildings
-        as ALREADY COUNTED, which, although is a module object variable, should only affect
-        this function. This is important to avoid double counting buildings that may land
-        within overlapping sector ranges.
+        Responds to 'KPLIB_sectors_captured' event. Records the CIVILIAN REPUTATION REWARD
+        staged during the ACTIVATION phase when the SECTOR first got engaged during the
+        current life cycle.
 
     Parameter(s):
         _sector - a CBA SECTOR namespace [LOCATION, default: [locationNull]]
@@ -27,39 +26,21 @@ params [
 ];
 
 private _debug = MPARAM(_onSectorCaptured_debug)
-    || (_sector getVariable [QMVAR(_onSectorCaptured_debug), false]);
+    || (_sector getVariable [QMVAR(_onSectorCaptured_debug), false])
+    ;
 
-[
-    _sector getVariable [Q(KPLIB_sectors_markerName), ""]
-    , _sector getVariable [QMVAR(_civRepReward), 0]
-] params [
-    Q(_markerName)
-    , Q(_civRepReward)
-];
+private _markerName = _sector getVariable [Q(KPLIB_sectors_markerName), ""];
+private _civRepReward = _sector getVariable [QMVAR(_civRepReward), 0];
 
 if (_debug) then {
-    [format ["[fn_enemies_onSectorCaptured] Entering: [_markerName, markerText _markerName]: %1"
-        , str [_markerName, markerText _markerName]], "ENEMIES", true] call KPLIB_fnc_common_log;
+    [format ["[fn_enemies_onSectorCaptured] Entering: [_markerName, markerText _markerName, _civRepReward]: %1"
+        , str [_markerName, markerText _markerName, _civRepReward]], "ENEMIES", true] call KPLIB_fnc_common_log;
 };
 
-[[_markerName] call MFUNC(_getSectorCaptureReward)] call {
-    params [
-        [Q(_sectorReward), 0, [0]]
-    ];
-
-    if (_debug) then {
-        [format ["[fn_enemies_onSectorCaptured::call] Reward: [_markerName, markerText _markerName, _civRepReward, _sectorReward]: %1"
-            , str [_markerName, markerText _markerName, _civRepReward, _sectorReward]], "ENEMIES", true] call KPLIB_fnc_common_log;
-    };
-
-    [_sectorReward] call MFUNC(_addCivRep);
-
-    _sector setVariable [QMVAR(_civRepReward), _civRepReward + _sectorReward];
-};
+[_civRepReward] call MFUNC(_addCivRep);
 
 if (_debug) then {
-    [format ["[fn_enemies_onSectorCaptured] Fini: [_markerName, markerText _markerName]: %1"
-        , str [_markerName, markerText _markerName]], "ENEMIES", true] call KPLIB_fnc_common_log;
+    ["[fn_enemies_onSectorCaptured] Fini", "ENEMIES", true] call KPLIB_fnc_common_log;
 };
 
 true;

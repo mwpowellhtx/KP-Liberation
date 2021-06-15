@@ -6,7 +6,7 @@
     File: fn_garrison_settings.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-14 21:47:20
-    Last Update: 2021-06-14 17:11:58
+    Last Update: 2021-06-15 17:06:14
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -56,7 +56,7 @@
         ]
         , localize _categoryKey
         , _unitDieSides
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -69,7 +69,7 @@
         ]
         , localize _categoryKey
         , _unitDieTimes
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -82,7 +82,7 @@
         ]
         , localize _categoryKey
         , _unitDieOffsets
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -95,7 +95,7 @@
         ]
         , localize _categoryKey
         , _grpDieSides
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -108,7 +108,7 @@
         ]
         , localize _categoryKey
         , _grpDieTimes
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -121,7 +121,7 @@
         ]
         , localize _categoryKey
         , _grpDieOffsets
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -134,7 +134,7 @@
         ]
         , localize _categoryKey
         , _lightVehicleDieSides
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -147,7 +147,7 @@
         ]
         , localize _categoryKey
         , _lightVehicleDieTimes
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -160,7 +160,7 @@
         ]
         , localize _categoryKey
         , _lightVehicleDieOffsets
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -173,7 +173,7 @@
         ]
         , localize _categoryKey
         , _heavyVehicleDieSides
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -186,7 +186,7 @@
         ]
         , localize _categoryKey
         , _heavyVehicleDieTimes
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -199,7 +199,7 @@
         ]
         , localize _categoryKey
         , _heavyVehicleDieOffsets
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -214,7 +214,7 @@
             ]
             , localize _categoryKey
             , _iedDieSides
-            , 1
+            , 2
             , {}
         ] call CBA_fnc_addSetting;
 
@@ -227,7 +227,7 @@
             ]
             , localize _categoryKey
             , _iedDieTimes
-            , 1
+            , 2
             , {}
         ] call CBA_fnc_addSetting;
 
@@ -240,7 +240,7 @@
             ]
             , localize _categoryKey
             , _iedDieOffsets
-            , 1
+            , 2
             , {}
         ] call CBA_fnc_addSetting;
     };
@@ -272,7 +272,7 @@
         ]
         , localize _categoryKey
         , _defaultGarrisonApcs
-        , 1
+        , 2
         , {}
     ] call CBA_fnc_addSetting;
 
@@ -294,7 +294,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
     , "8,6,4"
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -307,7 +307,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
     , "4,3,2"
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -320,7 +320,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
     , "3,2,1"
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -333,7 +333,7 @@
 //     ]
 //     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
 //     , [0, 100, 20, 0] // range: [0, 100], default: 20
-//     , 1
+//     , 2
 //     , {}
 // ] call CBA_fnc_addSetting;
 
@@ -346,7 +346,7 @@
 //     ]
 //     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
 //     , [0, 100, 40, 0] // range: [0, 100], default: 40
-//     , 1
+//     , 2
 //     , {}
 // ] call CBA_fnc_addSetting;
 
@@ -359,7 +359,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
     , [0, 200, 100, 0] // range: [0, 200], default: 100
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -372,7 +372,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_ENEMY_BASE"
     , [25, 75, 50, 0] // range: [25, 75], default: 50
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -389,7 +389,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
     , [0, 100, 30, 0] // range: [0, 100], default: 30
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -402,7 +402,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
     , [0, 100, 45, 0] // range: [0, 100], default: 45
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -415,7 +415,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
     , [0, 100, 65, 0] // range: [0, 100], default: 65
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -428,7 +428,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
     , [0, 100, 85, 0] // range: [0, 100], default: 85
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -441,7 +441,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
     , [0, 100, 40, 0] // range: [0, 100], default: 40
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -454,7 +454,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON_BIAS"
     , [0, 100, 60, 0] // range: [0, 100], default: 60
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -467,20 +467,7 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON"
     , [0, 100, 50, 0] // range: [0, 100], default: 50
-    , 1
-    , {}
-] call CBA_fnc_addSetting;
-
-[
-    QMPARAM(_buildingDamageMaxPenalty)
-    , Q(SLIDER)
-    , [
-        localize "STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_MAX_PENALTY"
-        , localize "STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_MAX_PENALTY_TT"
-    ]
-    , localize "STR_KPLIB_SETTINGS_GARRISON"
-    , [0, 7, 4, 0] // range: [0, 7], default: 4
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -494,7 +481,20 @@
     ]
     , localize "STR_KPLIB_SETTINGS_GARRISON"
     , false // default
-    , 1
+    , 2
+    , {}
+] call CBA_fnc_addSetting;
+
+[
+    QMPARAM(_buildingDamagePenaltyPerPos)
+    , Q(SLIDER)
+    , [
+        localize "STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_PENALTY_PER_POS"
+        , localize "STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_PENALTY_PER_POS_TT"
+    ]
+    , localize "STR_KPLIB_SETTINGS_GARRISON"
+    , [0, 7, 3, 0] // range: [0, 7], default: 3
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -521,6 +521,7 @@ if (isServer) then {
     MPARAM(_onSaveData_debug)                               = false;
     MPARAM(_onSectorRegiment_debug)                         = false;
     MPARAM(_getRoadPositions_debug)                         = false;
+    MPARAM(_onBuildingsDestroyed_debug)                     = false;
     MPARAM(_onSectorTearDown_debug)                         = false;
 
     MPARAM(_defaultInfantryCount)                           =  6;

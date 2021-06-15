@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-06-14 17:13:54
+    Last Update: 2021-06-15 17:06:31
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -139,6 +139,9 @@ class garrison {
 
     // Creates BLUFOR ASSETS during the GARRISON event handling phase
     class garrison_onCreateBluforAssets {};
+
+    //
+    class garrison_onBuildingsDestroyed {};
 };
 
 // TODO: TBD: rename garrison UI to garrisonMgr, etc...

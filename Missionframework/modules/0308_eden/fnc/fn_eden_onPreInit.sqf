@@ -5,7 +5,7 @@
     File: fn_eden_onPreInit.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-01-28 11:20:25
-    Last Update: 2021-05-04 12:42:55
+    Last Update: 2021-06-15 17:05:04
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -78,9 +78,10 @@ if (isServer) then {
             _sectorType = toLower _sectorType;
             private _mapIconBase = "\a3\ui_f\data\map\";
             // Which simply seeds a PRESET with an UNDERSCORE, i.e. PREFIX
-            private _variableNamePrefix = QMPRESET(_); // i.e. 'KPLIB_presets_sectors_'
-            //                                      Just an underscore, that is all: ^
-            private _edenPrefix = Q(KPLIB_eden_); 
+            private _variableNamePrefix = QMPRESET(_);  // i.e. 'KPLIB_preset_sectors_'
+            //                                     Just an underscore, that is all: ^
+            private _edenPrefix = QMVAR(_);             // i.e. 'KPLIB_eden_'
+            //                                                      Ditto: ^
             private _sectorTypePrefix = _sectorType select [0, 1];
             { missionNamespace setVariable _x; } forEach [
                 // i.e. 'KPLIB_preset_sectors_metropolisType', etc

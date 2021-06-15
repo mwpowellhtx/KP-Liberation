@@ -10,35 +10,42 @@
     Public: Yes
 
     Description:
-        Returns the CIVILIAN REPUTATION REWARD for the SECTOR MARKER.
+        Returns the CIVILIAN REPUTATION REWARD for the CBA SECTOR namespace.
 
     Parameter(s):
-        _markerName - the SECTOR marker name [STRING, default: ""]
+        _sector - a CBA SECTOR namespace [LOCATION, default: locationNull]
 
     Returns:
-        The CIVILIAN REPUTATION reward [SCALAR]
+        The CIVILIAN REPUTATION REWARD corresponding to the SECTOR, if any [SCALAR, default: 0]
  */
 
-private _debug = MPARAM(_getSectorCaptureReward_debug);
-
 params [
-    [Q(_markerName), "", [""]]
+    [Q(_sector), locationNull, [locationNull]]
 ];
 
-// Starting with nominal defaults
-[0, 1] params [
-    Q(_cityCaptureReward)
-    , Q(_metropolisCaptureCoef)
+private _debug = MPARAM(_getSectorCaptureReward_debug)
+    || (_sector getVariable [QMVAR(_getSectorCaptureReward_debug), false])
+    ;
+
+private _markerName = _sector getVariable [Q(KPLIB_sectors_markerName), ""];
+
+if (_debug) then {
+    // TODO: TBD: logging...
+};
+
+private _cityCapReward = KPLIB_param_enemies_cityCaptureReward;
+private _metroCapCoef = KPLIB_param_enemies_metropolisCaptureCoef;
+
+private _capRewardMap = createHashMapFromArray [
+    [KPLIB_preset_eden_cityType, _cityCapReward]
+    , [KPLIB_preset_eden_metropolisType, floor (_cityCapReward * _metroCapCoef)]
 ];
 
-// Set to parameters accordingly
-if (_markerName in (KPLIB_sectors_city + KPLIB_sectors_metropolis)) then {
-    _cityCaptureReward = MPARAM(_cityCaptureReward);
+private _sectorType = [_markerName] call KPLIB_fnc_eden_getSectorType;
+private _civRepReward = _capRewardMap getOrDefault [_sectorType, 0];
+
+if (_debug) then {
+    // TODO: TBD: logging...
 };
 
-if (_markerName in KPLIB_sectors_metropolis) then {
-    _metropolisCaptureCoef = MPARAM(_metropolisCaptureCoef);
-};
-
-// Return with the product
-_metropolisCaptureCoef * _cityCaptureReward;
+_civRepReward;

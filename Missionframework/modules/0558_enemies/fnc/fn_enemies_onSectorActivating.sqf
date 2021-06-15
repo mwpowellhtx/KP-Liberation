@@ -28,25 +28,25 @@ params [
 ];
 
 private _debug = MPARAM(_onSectorActivating_debug)
-    || (_sector getVariable [QMVAR(_onSectorActivating_debug), false]);
+    || (_sector getVariable [QMVAR(_onSectorActivating_debug), false])
+    ;
 
-[
-    _sector getVariable [Q(KPLIB_sectors_markerName), ""]
-] params [
-    Q(_markerName)
-];
+private _markerName = _sector getVariable [Q(KPLIB_sectors_markerName), ""];
 
 if (_debug) then {
     [format ["[fn_enemies_onSectorActivating] Entering: [_markerName, markerText _markerName]: %1"
         , str [_markerName, markerText _markerName]], "ENEMIES", true] call KPLIB_fnc_common_log;
 };
 
-// Note the buildings in the namespace for future reference
-_sector setVariable [QMVAR(_civRepReward), 0];
+/* Set the CIVILIAN REPUTATION REWARD afresh with every ACTIVATION; thereby allowing
+ * for CBA settings to have been updated since the last life cycle.
+ */
+private _capReward = [_sector] call MFUNC(_getSectorCaptureReward);
+_sector setVariable [QMVAR(_civRepReward), _capReward];
 
 if (_debug) then {
-    [format ["[fn_enemies_onSectorActivating] Fini: [_markerName, markerText _markerName, count _buildings]: %1"
-        , str [_markerName, markerText _markerName, count _buildings]], "ENEMIES", true] call KPLIB_fnc_common_log;
+    [format ["[fn_enemies_onSectorActivating] Fini: [_capReward]: %1"
+        , str [_capReward]], "ENEMIES", true] call KPLIB_fnc_common_log;
 };
 
 true;

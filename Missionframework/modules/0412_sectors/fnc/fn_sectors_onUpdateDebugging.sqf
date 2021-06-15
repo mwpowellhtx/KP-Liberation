@@ -5,7 +5,7 @@
     File: fn_sectors_onUpdateDebugging.sqf
     Author: Michael W. Powell [22nd MSU SOC]
     Created: 2021-06-08 11:22:15
-    Last Update: 2021-06-14 16:52:27
+    Last Update: 2021-06-15 17:05:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -33,7 +33,8 @@ private _debugging = [];
 
 // _debugging pushBack Q(KPLIB_namespace_timerHasElapsed_debug);
 
-// _debugging pushBack Q(KPLIB_garrison_onCatalogBuildings_debug);
+_debugging pushBack Q(KPLIB_enemies_onSectorActivating_debug);
+_debugging pushBack Q(KPLIB_garrison_onCatalogBuildings_debug);
 // _debugging pushBack Q(KPLIB_garrison_onCatalogRoads_debug);
 
 _debugging pushBack Q(KPLIB_sectorSM_onNoOp_debug);
@@ -73,12 +74,15 @@ _debugging pushBack Q(KPLIB_sectorSM_onPending_debug);
 
 // _debugging pushBack Q(KPLIB_sectors_canCapture_debug);
 // _debugging pushBack Q(KPLIB_sectors_canCaptureEval_debug);
-// _debugging pushBack Q(KPLIB_sectorSM_onCapturedEntered_debug);
+_debugging pushBack Q(KPLIB_sectorSM_onCapturedEntered_debug);
 // _debugging pushBack Q(KPLIB_sectors_onCapturedUpdateArrays_debug);
 // _debugging pushBack Q(KPLIB_sectors_onCapturedShowNotification_debug);
 // _debugging pushBack Q(KPLIB_sectors_onTearDownVars_debug);
 // _debugging pushBack Q(KPLIB_sectors_onTearDownObjects_debug);
 // _debugging pushBack Q(KPLIB_garrison_onSectorTearDown_debug);
+
+_debugging pushBack Q(KPLIB_garrison_onBuildingsDestroyed_debug);
+_debugging pushBack Q(KPLIB_enemies_onSectorCaptured_debug);
 
 // _debugging pushBack Q(KPLIB_sectors_onTransit_debug);
 

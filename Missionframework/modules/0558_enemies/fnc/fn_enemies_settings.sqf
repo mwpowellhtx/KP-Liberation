@@ -30,7 +30,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_STRENGTH_MAX", localize "STR_KPLIB_SETTINGS_ENEMY_STRENGTH_MAX_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [250, 5000, 1000, 0] // range: [250, 5000], default: 1000
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -49,8 +49,8 @@
     , Q(SLIDER)
     , [localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_MAX", localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_MAX_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
-    , [0, 500, 100, 0] // range: [0, 500], default: 100
-    , 1
+    , [0, 500, 200, 0] // range: [0, 500], default: 100
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -60,27 +60,33 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_DEFAULT", localize "STR_KPLIB_SETTINGS_ENEMY_AWARENESS_DEFAULT_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [0, 500, 0, 0] // range: [0, 500], default: 0
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
 [
     QMPARAM(_cityCaptureReward)
     , Q(SLIDER)
-    , [localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_REWARD_CITY", localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_REWARD_CITY_TT"]
+    , [
+        localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_REWARD_CITY"
+        , localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_REWARD_CITY_TT"
+    ]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
-    , [3, 11, 7, 0] // range: [3, 11], default: 7
-    , 1
+    , [5, 125, 30, 0] // range: [5, 125], default: 30
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
 [
     QMPARAM(_metropolisCaptureCoef)
     , Q(SLIDER)
-    , [localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_COEFFICIENT_METROPOLIS", localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_COEFFICIENT_METROPOLIS_TT"]
+    , [
+        localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_COEFFICIENT_METROPOLIS"
+        , localize "STR_KPLIB_SETTINGS_ENEMY_CAPTURE_COEFFICIENT_METROPOLIS_TT"
+    ]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [1, 5, 1.5, 3] // range: [1, 5], default: 1.5
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -90,7 +96,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_MAX", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_MAX_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [250, 2500, 1000, 0] // range: [250, 2500], default: 1000
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -100,7 +106,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_DEFAULT", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_DEFAULT_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [-2500, 2500, 0, 0] // range: [-2500, 2500], default: 0
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -110,7 +116,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_KILLED_PENALTY", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_KILLED_PENALTY_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [0, 13, 7, 0] // range: [0, 13], default: 7
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -120,7 +126,7 @@
     , [localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_BASE_THRESHOLD", localize "STR_KPLIB_SETTINGS_ENEMY_CIV_REP_BASE_THRESHOLD_TT"]
     , localize "STR_KPLIB_SETTINGS_ENEMY"
     , [3, 33, 25, 0] // range: [3, 32], default: 25
-    , 1
+    , 2
     , {}
 ] call CBA_fnc_addSetting;
 
@@ -135,7 +141,6 @@ if (isServer) then {
     MPARAM(_getCivRepHostilityRatio_debug)                          = false;
     MPARAM(_onSectorActivating_debug)                               = false;
     MPARAM(_onSectorCaptured_debug)                                 = false;
-    MPARAM(_onBuildingsDestroyed_debug)                             = false;
     MPARAM(_getSectorCaptureReward_debug)                           = false;
 
     // TODO: TBD: could wire this up in terms of settings
@@ -178,7 +183,7 @@ private _enemy = [
                 , [localize "STR_KPLIB_SETTINGS_DEBUG_ENEMY", localize "STR_KPLIB_SETTINGS_DEBUG_ENEMY_TT"]
                 , localize "STR_KPLIB_SETTINGS_DEBUG"
                 , true // default
-                , 1
+                , 2
                 , {}
             ];
         }

@@ -1648,11 +1648,11 @@
         <Key ID="STR_KPLIB_SETTINGS_GARRISON_SECTOR_GARRISONS_APCS_TT">
             <English>The sector may garrison APC vehicles.</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_MAX_PENALTY">
-            <English>Building Damage Maximum Penalty</English>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_PENALTY_PER_POS">
+            <English>Building Damage Penalty Per Position</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_MAX_PENALTY_TT">
-            <English>The amount of Civilian Reputation to penalize per building damaged or destroyed during a city or metropolis sector engagement.</English>
+        <Key ID="STR_KPLIB_SETTINGS_GARRISON_BUILDING_DAMAGE_PENALTY_PER_POS_TT">
+            <English>The amount of Civilian Reputation to penalize per position in buildings damaged or destroyed during a city or metropolis sector engagement.</English>
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_GARRISON_ASSESS_PARTIAL_BUILDING_DAMAGE">
             <English>Assess Partial Building Damage</English>
@@ -1665,6 +1665,9 @@
         </Key>
         <Key ID="STR_KPLIB_SETTINGS_GARRISON_DAMAGED_BUILDING_THRESHOLD_TT">
             <English>Building damage threshold at which to exclude buildings from being garrisoned upon sector activation [default: 50%].</English>
+        </Key>
+        <Key ID="STR_KPLIB_GARRISON_BUILDINGS_DESTROYED_FORMAT">
+            <English>%1 buildings damaged or destroyed.</English>
         </Key>
 
         <!-- ENEMY CATEGORY -->

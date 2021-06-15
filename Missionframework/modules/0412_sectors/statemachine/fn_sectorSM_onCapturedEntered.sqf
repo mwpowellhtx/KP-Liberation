@@ -5,7 +5,7 @@
     File: fn_sectorSM_onCapturedEntered.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-21 20:48:40
-    Last Update: 2021-06-14 16:57:21
+    Last Update: 2021-06-15 17:05:22
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -41,8 +41,7 @@ if (_debug) then {
 _sector setVariable [QMVAR(_timer), [MPARAMSM(_pendingPeriod)] call KPLIB_fnc_timers_create];
 
 if (_debug) then {
-    [format ["[fn_sectorSM_onCapturedEntered] Fini: [_markerName, markerText _markerName]: %1"
-        , str [_markerName, markerText _markerName]], "SECTORSM", true] call KPLIB_fnc_common_log;
+    ["[fn_sectorSM_onCapturedEntered] Fini", "SECTORSM", true] call KPLIB_fnc_common_log;
 };
 
 true;
