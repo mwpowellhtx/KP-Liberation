@@ -7,7 +7,7 @@
     File: fn_garrison_onAllocateOpforGrps.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-29 11:33:46
-    Last Update: 2021-06-09 18:52:21
+    Last Update: 2021-06-24 12:47:15
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -42,7 +42,7 @@ private _debug = MPARAM(_onAllocateOpforGrps_debug)
 
 private _markerName = _sector getVariable [Q(KPLIB_sectors_markerName), ""];
 private _sectorType = [_markerName] call KPLIB_fnc_eden_getSectorType;
-private _ratioBundle = _regimentMap get QMVAR(_ratioBundle);
+private _ratioBundle = _sector getVariable [QMVAR(_ratioBundle), []];
 
 if (_debug) then {
     [format ["[fn_garrison_onAllocateOpforGrps] Entering: [_markerName, markerText _markerName, _sectorType]: %1"

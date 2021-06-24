@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-06-15 17:06:06
+    Last Update: 2021-06-24 12:47:33
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -66,6 +66,10 @@ if (isServer) then {
     [Q(KPLIB_doLoad), { [] call MFUNC(_onLoadData); }] call CBA_fnc_addEventHandler;
     [Q(KPLIB_doSave), { [] call MFUNC(_onSaveData); }] call CBA_fnc_addEventHandler;
 
+    { [Q(KPLIB_sectors_refresh), _x] call CBA_fnc_addEventHandler; } forEach [
+        { _this call MFUNC(_onSectorRefresh); }
+    ];
+
     { [Q(KPLIB_sectors_activating), _x] call CBA_fnc_addEventHandler; } forEach [
         { _this call MFUNC(_onSectorActivating); }
     ];
@@ -82,7 +86,7 @@ if (isServer) then {
     ];
 
     { [Q(KPLIB_sectors_captured), _x] call CBA_fnc_addEventHandler; } forEach [
-        { _this call MFUNC(_onSectorCapturedDestroyedBuildings); }
+        { _this call MFUNC(_onBuildingsDestroyed); }
     ];
 
     { [Q(KPLIB_sectors_tearDown), _x] call CBA_fnc_addEventHandler; } forEach [

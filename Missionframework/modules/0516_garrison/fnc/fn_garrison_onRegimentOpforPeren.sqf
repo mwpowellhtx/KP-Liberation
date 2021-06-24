@@ -5,7 +5,7 @@
     File: fn_garrison_onRegimentOpforPeren.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-27 11:31:44
-    Last Update: 2021-06-14 17:12:21
+    Last Update: 2021-06-24 12:47:28
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -34,7 +34,7 @@ private _debug = MPARAM(_onRegimentOpforPeren_debug)
     ;
 
 private _markerName = _sector getVariable [Q(KPLIB_sectors_markerName), ""];
-//private _ratioBundle = _regimentMap get QMVAR(_ratioBundle);
+// private _ratioBundle = _sector getVariable [QMVAR(_ratioBundle), []];
 
 if (_debug) then {
     [format ["[fn_garrison_onRegimentOpforPeren] Entering: [_markerName, markerText _markerName]"

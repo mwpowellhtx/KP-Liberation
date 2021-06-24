@@ -7,7 +7,7 @@
     File: fn_garrison_onAllocateResources.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-29 11:33:46
-    Last Update: 2021-06-14 17:13:06
+    Last Update: 2021-06-24 12:46:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -42,7 +42,7 @@ private _debug = MPARAM(_onAllocateResources_debug)
 
 private _markerName = _sector getVariable [Q(KPLIB_sectors_markerName), ""];
 private _sectorType = [_markerName] call KPLIB_fnc_eden_getSectorType;
-private _ratioBundle = _regimentMap get QMVAR(_ratioBundle);
+private _ratioBundle = _sector getVariable [QMVAR(_ratioBundle), []];
 
 _ratioBundle params [
     [Q(_civRepRatio), 0, [0]]

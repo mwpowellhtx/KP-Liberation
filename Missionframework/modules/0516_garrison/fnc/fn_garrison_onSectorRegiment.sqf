@@ -5,7 +5,7 @@
     File: fn_garrison_onSectorRegiment.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-03 17:57:36
-    Last Update: 2021-06-14 17:12:07
+    Last Update: 2021-06-24 12:47:48
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -37,27 +37,17 @@ if (_debug) then {
         , str [_markerName, markerText _markerName, _blufor]], "GARRISON", true] call KPLIB_fnc_common_log;
 };
 
-private _defaultMap = createHashMapFromArray [
-    [QMVAR(_ratioBundle), [] call MFUNC(_getRatioBundle)]
-];
-
 private _garrisonMap = _sector getVariable [QMVAR(_garrisonMap), createHashMap];
 
 private _onRegimentCallbacks = [
     {
         private _regimentMap = _sector getVariable [QMVAR(_opforRegimentMap), createHashMap];
-        _regimentMap merge _defaultMap;
-
         [QMVAR(_regimentOpfor), [_sector, _regimentMap, _garrisonMap]] call CBA_fnc_serverEvent;
-
         _sector setVariable [QMVAR(_opforRegimentMap), _regimentMap];
     }
     , {
-        _regimentMap = _sector getVariable [QMVAR(_bluforRegimentMap), createHashMap];
-        _regimentMap merge _defaultMap;
-
+        private _regimentMap = _sector getVariable [QMVAR(_bluforRegimentMap), createHashMap];
         [QMVAR(_regimentBlufor), [_sector, _regimentMap, _garrisonMap]] call CBA_fnc_serverEvent;
-
         _sector setVariable [QMVAR(_bluforRegimentMap), _regimentMap];
     }
 ];

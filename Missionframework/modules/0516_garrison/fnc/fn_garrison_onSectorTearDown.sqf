@@ -5,7 +5,7 @@
     File: fn_garrison_onSectorTearDown.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-03 00:44:25
-    Last Update: 2021-06-14 17:12:05
+    Last Update: 2021-06-24 12:47:43
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -49,19 +49,29 @@ private _garrisonMap = _sector getVariable [QMVAR(_garrisonMap), createHashMap];
     , Q(_resources)
 ];
 
-private _unitsToGC = _units select { !(alive _x && (_x getVariable [Q(KPLIB_captured), false])); };
-private _assetsToGC = _assets select { !(alive _x && (_x getVariable [Q(KPLIB_captured), false])); };
-private _resourcesToGC = _resources;
+// TODO: TBD: there could probably be a separate dead object GC service...
+private _whereShouldTearDown = {
+    !(
+        alive _this
+            && (_this getVariable [Q(KPLIB_captured), false])
+    );
+};
+
+// TODO: TBD: debatable whether we include RESOURCES in this mix...
+// TODO: TBD: more than likely, similar to 'intel' we should leave resources alone
+private _unitsToTearDown = _units select { _x call _whereShouldTearDown; };
+private _assetsToTearDown = _assets select { _x call _whereShouldTearDown; };
+private _resourcesToTearDown = _resources;
 
 { _garrisonMap set _x; } forEach [
-    [QMVAR(_units), _units - _unitsToGC]
-    , [QMVAR(_assets), _units - _assetsToGC]
+    [QMVAR(_units), _units - _unitsToTearDown]
+    , [QMVAR(_assets), _units - _assetsToTearDown]
     , [QMVAR(_resources), []]
 ];
 
 // GC all units and resources alike
-{ deleteVehicle _x; } forEach _unitsToGC;
-{ deleteVehicle _x; } forEach _resourcesToGC;
+{ deleteVehicle _x; } forEach _unitsToTearDown;
+{ deleteVehicle _x; } forEach _resourcesToTearDown;
 
 // GC crew of uncaptured vehicles, regardless whether each crew was captured
 {
@@ -69,7 +79,7 @@ private _resourcesToGC = _resources;
     private _crew = crew _x select { !isPlayer _x; };
     { _vehicle deleteVehicleCrew _x; } forEach _crew;
     deleteVehicle _vehicle;
-} forEach _assetsToGC;
+} forEach _assetsToTearDown;
 
 if (_debug) then {
     ["[fn_garrison_onSectorTearDown] Fini", "GARRISON"] call KPLIB_fnc_common_log;
