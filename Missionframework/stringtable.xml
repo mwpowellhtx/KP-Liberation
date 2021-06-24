@@ -210,10 +210,6 @@
             <Chinese>-- 管理員選單 --</Chinese>
             <German>-- Admin Menü --</German>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_ARREST">
-            <English>Arrest %1</English>
-            <German>%1 festnehmen</German>
-        </Key>
         <Key ID="STR_KPLIB_ACTION_ARSENAL">
             <English>-- ARSENAL --</English>
             <Chinese>-- 軍火庫 --</Chinese>
@@ -242,10 +238,6 @@
             <Spanish>- COMPROBAR CONTENIDO -</Spanish>
             <Turkish>- İÇİNDEKİLER KONTROL ET -</Turkish>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_ESCORT">
-            <English>Escort %1</English>
-            <German>%1 eskortieren</German>
-        </Key>
         <Key ID="STR_KPLIB_ACTION_GARRISON_MANAGEMENT">
             <English>-- GARRISON MANAGEMENT --</English>
             <German>-- GARNISONSVERWALTUNG --</German>
@@ -254,14 +246,6 @@
             <English>Move to flight deck</English>
             <Chinese>移動到飛行甲板</Chinese>
             <German>Bewegen Sie sich zum Flugdeck</German>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_INTERROGATE">
-            <English>Interrogate %1</English>
-            <German>%1 verhören</German>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_LOADCAPTIVE">
-            <English>Load %1</English>
-            <German>%1 einladen</German>
         </Key>
         <Key ID="STR_KPLIB_ACTION_LOADCRATE">
             <English>- LOAD CRATE -</English>
@@ -329,10 +313,6 @@
             <Portuguese>- ORDENAR E CLASSIFICAR -</Portuguese>
             <Turkish>- SIRALA VE DÜZENLE -</Turkish>
         </Key>
-        <Key ID="STR_KPLIB_ACTION_STOPESCORT">
-            <English>Stop escorting %1</English>
-            <German>%1 loslassen</German>
-        </Key>
         <Key ID="STR_KPLIB_ACTION_STORECRATE">
             <English>- STORE CRATE -</English>
             <Chinese>- 倉儲貨物 -</Chinese>
@@ -343,10 +323,6 @@
             <Russian>- ХРАНЕНИЕ МАГАЗИНА -</Russian>
             <Spanish>- CAJA DE ALMACENAJE -</Spanish>
             <Turkish>- KUTUYU DEPOLA -</Turkish>
-        </Key>
-        <Key ID="STR_KPLIB_ACTION_UNLOADCAPTIVE">
-            <English>Unload %1</English>
-            <German>%1 ausladen</German>
         </Key>
         <Key ID="STR_KPLIB_ACTION_UNLOAD_ALL_RESOURCES">
             <English>- UNLOAD ALL CRATES -</English>
@@ -2355,26 +2331,135 @@
         </Key>
 
         <!-- CAPTIVE CATEGORY -->
-        <Key ID="STR_KPLIB_SETTINGS_CAPTIVE">
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES">
             <English>KPLIB - Captives</English>
             <German>KPLIB - Gefangene</German>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_CAPTIVE_INTELVALUE">
-            <English>Intel gain through interrogation</English>
-            <German>Informationszuwachs bei einem Verhör</German>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_INTEL_DIE_SIDES">
+            <English>Intel Die Sides</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_CAPTIVE_INTELVALUE_TT">
-            <English>Amount of intel gained through interrogation.</English>
-            <German>Menge an Informationen, die bei einem Verhör gewonnen werden.</German>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_INTEL_DIE_TIMES">
+            <English>Intel Die Times</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_CAPTIVE_INTELRANDOM">
-            <English>Intel randomization range</English>
-            <German>Zufallsbereich für den Informationszuwachs</German>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_INTEL_DIE_OFFSETS">
+            <English>Intel Die Offsets</English>
         </Key>
-        <Key ID="STR_KPLIB_SETTINGS_CAPTIVE_INTELRANDOM_TT">
-            <English>Randomization range for intel gain through interrogation. E.g. a value of 5 will grant you 5 - 15 intel for a base value of 10.</English>
-            <German>Zufallsbereich für den Informationszuwachs bei einem Verhör. Mit einem Wert von 5 liegt der effektive Zuwachs, bei einem Ausgangswert von 10, zwischen 5 und 15.</German>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_INTEL_DIE_TT">
+            <English>Arrange for INTEL dice sides, times, and offsets, influenced by ENEMY AWARENESS and PLAYER STRENGTH.</English>
         </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_UNIT_SURRENDER_BIAS">
+            <English>Unit Surrender Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_OPFOR_LIGHT_VEHICLE_SURRENDER_BIAS">
+            <English>OPFOR Light Vehicle Surrender Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_OPFOR_HEAVY_VEHICLE_SURRENDER_BIAS">
+            <English>OPFOR Heavy Vehicle Surrender Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_OPFOR_APC_SURRENDER_BIAS">
+            <English>OPFOR APC Surrender Bias</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_SURRENDER_BIAS_TT">
+            <English>Bias by which to adjust the chance for surrender, function of PLAYER STRENGTH and ENEMY STRENGTH [default: 0]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_ASSET_SURRENDER_THRESHOLD">
+            <English>Asset Surrender Threshold</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_UNIT_SURRENDER_THRESHOLD">
+            <English>Unit Surrender Threshold</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_SURRENDER_THRESHOLD_TT">
+            <English>Threshold about which to consider the target object surrendered, function of PLAYER STRENGTH and ENEMY STRENGTH [default: 50%]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_MIN_SCUTTLE_VEHICLE_TIMEOUT">
+            <English>Minimum Scuttle Vehicle Timeout</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_MIN_SCUTTLE_VEHICLE_TIMEOUT_TT">
+            <English>Minimum timeout after which to scuttle BLUFOR vehicles following an OPFOR sector capture [default: 3s]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_BLUFOR_SCUTTLE_VEHICLE_TIMEOUT">
+            <English>BLUFOR Scuttle Vehicle Timeout</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_BLUFOR_SCUTTLE_VEHICLE_TIMEOUT_TT">
+            <English>Timeout after which to scuttle BLUFOR vehicles following an OPFOR sector capture [default: 30s]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_CAPTIVE_TIMEOUT">
+            <English>Captive Timeout</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_CAPTIVE_TIMEOUT_TT">
+            <English>Timeout after which units may be garbage collected following sector capture [default: 300s]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_WATCH_CAPTIVES_PERIOD">
+            <English>Watch Captives Period</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_WATCH_CAPTIVES_PERIOD_TT">
+            <English>Period between which CAPTIVE module GC may occur [default: 60s]</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_CAPTURE_FORMAT">
+            <English>Capture %1</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_ESCORT_FORMAT">
+            <English>Escort %1</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_STOP_ESCORT_CAPTIVE">
+            <English>Stop Escorting Captive</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_STOP_ESCORT_FORMAT">
+            <English>Stop Escorting %1</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_LOAD_CAPTIVE">
+            <English>Load Captive</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_LOAD_FORMAT">
+            <English>Load %1</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_CAPTIVES_UNLOAD_CAPTIVES">
+            <English>Unload Captives</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_LOAD_RANGE">
+            <English>Load Range</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_LOAD_RANGE_TT">
+            <English>Load or unload radius about an ESCORT in which to locate a nearest transport vehicle [default: 10]</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_INTERROGATION_RADIUS">
+            <English>Interrogation Radius</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_INTERROGATION_RADIUS_TT">
+            <English>Radius about a FOB in which CAPTURED UNITS may be interrogated [default: 50]</English>
+        </Key>
+        <Key ID="STR_KPLIB_CAPTIVES_INTERROGATED_FORMAT">
+            <English>%1 was interrogated.</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_UNLOAD">
+            <English>Unload...</English>
+        </Key>
+        <Key ID="STR_KPLIB_ACTIONS_CAPTIVES_UNLOAD_FORMAT">
+            <English>Unload %1</English>
+        </Key>
+        <Key ID="STR_KPLIB_SETTINGS_CAPTIVES_STOP_UNLOADING">
+            <English>Stop Unloading</English>
+        </Key>
+        <!-- <Key ID="STR_KPLIB_ACTION_ESCORT">
+            <English>Escort %1</English>
+            <German>%1 eskortieren</German>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_STOPESCORT">
+            <English>Stop escorting %1</English>
+            <German>%1 loslassen</German>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_LOAD_CAPTIVE">
+            <English>Load %1</English>
+            <German>%1 einladen</German>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_UNLOAD_CAPTIVE">
+            <English>Unload %1</English>
+            <German>%1 ausladen</German>
+        </Key>
+        <Key ID="STR_KPLIB_ACTION_INTERROGATE">
+            <English>Interrogate %1</English>
+            <German>%1 verhören</German>
+        </Key>-->
 
         <!-- PERSISTENCE CATEGORY -->
         <Key ID="STR_KPLIB_SETTINGS_PERSISTENCE_DEBUG">

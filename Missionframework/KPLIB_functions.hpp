@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2017-10-16
-    Last Update: 2021-06-14 17:25:44
+    Last Update: 2021-06-23 13:19:29
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -69,7 +69,7 @@ class KPLIB {
 
     #include "modules\0554_soldiers\functions.hpp"
     #include "modules\0558_enemies\functions.hpp"
-    #include "modules\0562_captive\functions.hpp"
+    #include "modules\0562_captives\functions.hpp"
 
     #include "modules\0904_missions\functions.hpp"
     #include "modules\0912_wounded\functions.hpp"

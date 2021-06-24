@@ -2,7 +2,7 @@
     File: KPLIB_actionMenu.hpp
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-02 22:46:15
-    Last Update: 2021-06-14 17:25:30
+    Last Update: 2021-06-23 13:19:24
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -26,6 +26,7 @@
 #define KPLIB_ACTION_PRIORITY_RESISTANCE_EVENT      (-731)
 #define KPLIB_ACTION_PRIORITY_DESTROY_BUILDINGS     (-732)
 #define KPLIB_ACTION_PRIORITY_GOD_MODE              (-733)
+#define KPLIB_ACTION_PRIORITY_CREATE_SURRENDERING_UNIT  (-740)
 
 #define KPLIB_ACTION_PRIORITY_REDEPLOY              (-800)
 #define KPLIB_ACTION_PRIORITY_ARSENAL               (-801)
@@ -42,6 +43,7 @@
 #define KPLIB_ACTION_PRIORITY_BUILD                 (-870)
 #define KPLIB_ACTION_PRIORITY_BUILD_STORAGE         (-871)
 #define KPLIB_ACTION_PRIORITY_BUILD_CAPABILITY      (-872)
+#define KPLIB_ACTION_PRIORITY_CAPTIVE_ACTIONS       (-873)
 
 #define KPLIB_ACTION_PRIORITY_MANAGE_PRODUCTION     (-880)
 // TODO: TBD: anticipating log, eventually, for future use...
