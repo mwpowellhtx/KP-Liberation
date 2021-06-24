@@ -4,7 +4,7 @@
     File: fn_common_addAction.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-24 14:19:07
-    Last Update: 2021-06-14 16:40:28
+    Last Update: 2021-06-23 13:16:01
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -31,15 +31,17 @@
         https://community.bistudio.com/wiki/createHashMapFromArray
  */
 
-// This key focusing ACTION on the TARGET, i.e. non-PLAYER object
-private _defaultCallback = { _target addAction _this; };
-
 params [
     ["_target", objNull, [objNull]]
     , ["_actionArray", [], [[]]]
     , ["_options", [], [[]]]
-    , ["_callback", _defaultCallback, [{}]]
+    , "_callback"
 ];
+
+// This key focusing ACTION on the TARGET, i.e. non-PLAYER object
+if (isNil { _callback; }) then {
+    _callback = { _target addAction _this; };
+};
 
 private _debug = KPLIB_param_common_addAction_debug
     || (_target getVariable ["KPLIB_common_addAction_debug", false])
