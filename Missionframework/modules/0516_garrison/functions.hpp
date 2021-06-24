@@ -3,7 +3,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-10-18
-    Last Update: 2021-06-15 17:06:31
+    Last Update: 2021-06-24 12:47:57
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
@@ -61,6 +61,9 @@ class garrison {
 
     // Returns a BUNDLE of key OPFOR+BLUFOR+CIVILIAN ratios informing REGIMENT event handlers
     class garrison_getRatioBundle {};
+
+    //
+    class garrison_onSectorRefresh {};
 
     //
     class garrison_onSectorActivating {};
