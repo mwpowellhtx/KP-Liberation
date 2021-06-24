@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-02-02
-    Last Update: 2021-06-15 17:26:09
+    Last Update: 2021-06-23 13:19:08
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -136,6 +136,7 @@ if (isServer) then {
     MPARAM(_addStrength_debug)                                      = false;
     MPARAM(_addCivRep_debug)                                        = false;
     MPARAM(_getStrengthRatio_debug)                                 = false;
+    MPARAM(_getAwarenessRatio_debug)                                = false;
     MPARAM(_getCivRepBounded_debug)                                 = false;
     MPARAM(_getCivRepRatio_debug)                                   = false;
     MPARAM(_getCivRepHostilityRatio_debug)                          = false;
