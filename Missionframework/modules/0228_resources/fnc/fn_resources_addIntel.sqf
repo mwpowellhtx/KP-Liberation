@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2018-12-16
-    Last Update: 2021-05-25 22:21:57
+    Last Update: 2021-06-23 13:16:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -17,7 +17,6 @@
     Parameter(s):
         _delta - quantity of intel to add [SCALAR, default: 0]
         _message - an optional notification message [STRING, default: ""]
-        _markerName - a SECTOR marker about which notification shall occur [STRING, default: ""]
 
     Returns:
         The new intel value [BOOL]
@@ -26,7 +25,6 @@
 params [
     [Q(_delta), 0, [0]]
     , [Q(_message), "", [""]]
-    , [Q(_markerName), "", [""]]
 ];
 
 if (_delta != 0) then {
@@ -35,9 +33,9 @@ if (_delta != 0) then {
     publicVariable QMVAR(_intel);
 
     if (count _message > 0) then {
-        private _sectorIcon = [_markerName] call KPLIB_fnc_eden_getSectorIcon;
+        private _sectorIcon = KPLIB_preset_fobs_markerPath;
         private _args = ["KP LIBERATION - RESOURCES", _sectorIcon, _message];
-        private _notification = if (_markerName in KPLIB_sectors_blufor) then { "blufor"; } else { "opfor"; };
+        private _notification = if (KPLIB_preset_sideF == blufor) then { "blufor" } else { "opfor"; };
         private _template = format ["KPLIB_notification_%1", _notification];
         [_template, _args, allPlayers] spawn KPLIB_fnc_notification_show;
     };

@@ -32,7 +32,7 @@ private _crateRange = 5;
     _object
     , [
         "STR_KPLIB_ACTION_CHECKCRATE"
-        , { [(_this#0)] call KPLIB_fnc_resources_checkCrate; }
+        , { _this call KPLIB_fnc_resources_checkCrate; }
         , []
         , -500
         , false
@@ -41,14 +41,17 @@ private _crateRange = 5;
         , "isNull attachedTo _target"
         , _crateRange
     ]
-    , [[Q(_varName), Q(KPLIB_resources_checkCrateID)], [Q(_color), _crateColor]]
+    , [
+        [Q(_varName), QMVAR(_checkCrateID)]
+        , [Q(_color), _crateColor]
+    ]
 ] call KPLIB_fnc_common_addAction;
 
 [
     _object
     , [
         "STR_KPLIB_ACTION_PUSHCRATE"
-        , { [(_this#0)] call KPLIB_fnc_resources_pushCrate; }
+        , { _this call KPLIB_fnc_resources_pushCrate; }
         , []
         , -501
         , false
@@ -57,14 +60,17 @@ private _crateRange = 5;
         , "isNull attachedTo _target"
         , _crateRange
     ]
-    , [[Q(_varName), Q(KPLIB_resources_checkCrateID)], [Q(_color), _crateColor]]
+    , [
+        [Q(_varName), QMVAR(_pushCrateID)]
+        , [Q(_color), _crateColor]
+    ]
 ] call KPLIB_fnc_common_addAction;
 
 [
     _object
     , [
         "STR_KPLIB_ACTION_STORECRATE"
-        , { [(_this#0)] call KPLIB_fnc_resources_storeCrate; }
+        , { _this call KPLIB_fnc_resources_storeCrate; }
         , []
         , -502
         , false
@@ -73,7 +79,10 @@ private _crateRange = 5;
         , "isNull attachedTo _target"
         , _crateRange
     ]
-    , [[Q(_varName), Q(KPLIB_resources_checkCrateID)], [Q(_color), _crateColor]]
+    , [
+        [Q(_varName), QMVAR(_storeCrateID)]
+        , [Q(_color), _crateColor]
+    ]
 ] call KPLIB_fnc_common_addAction;
 
 // TODO: TBD: should also have conditions indicating nearby storage containers or transport vehicles...
@@ -83,7 +92,7 @@ private _crateRange = 5;
     _object
     , [
         "STR_KPLIB_ACTION_LOADCRATE"
-        , { [(_this#0)] call KPLIB_fnc_resources_loadCrate; }
+        , { _this call KPLIB_fnc_resources_loadCrate; }
         , []
         , -502
         , false
@@ -92,7 +101,10 @@ private _crateRange = 5;
         , "isNull attachedTo _target"
         , _crateRange
     ]
-    , [[Q(_varName), Q(KPLIB_resources_checkCrateID)], [Q(_color), _crateColor]]
+    , [
+        [Q(_varName), QMVAR(_loadCrateID)]
+        , [Q(_color), _crateColor]
+    ]
 ] call KPLIB_fnc_common_addAction;
 
 true;
