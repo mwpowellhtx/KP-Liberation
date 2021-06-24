@@ -5,7 +5,7 @@
     File: fn_soldiers_canActivateSector.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-30 10:46:33
-    Last Update: 2021-06-14 17:16:18
+    Last Update: 2021-06-23 13:18:59
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 
@@ -13,7 +13,8 @@
         Returns whether the UNIT may ACTIVATE a SECTOR. Not including PROXIMITY bits,
         only whether the UNIT himself may be included in the activation decision. This
         is a key heuristic which helps us preclude scenarios in which sectors continually
-        change sides during prolonged engagements.
+        change sides during prolonged engagements. Should also account for CAPTIVES which
+        have received 'KPLIB_surrender'.
 
     Parameter(s):
         _unit - a UNIT object [OBJECT, default: objNull]
@@ -32,15 +33,17 @@ params [
     , side _unit isEqualTo KPLIB_preset_sideF
     , side _unit isEqualTo KPLIB_preset_sideE
     , _unit getVariable [Q(KPLIB_reinforceMarker), ""]
+    , _unit getVariable [Q(KPLIB_surrender), false]
 ] params [
     Q(_null)
     , Q(_alive)
     , Q(_blufor)
     , Q(_opfor)
     , Q(_reinforceMarker)
+    , Q(_surrender)
 ];
 
-!_null
+!(_null || _surrender)
     && _alive
     && (
         _blufor
