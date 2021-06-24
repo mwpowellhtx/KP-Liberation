@@ -57,7 +57,7 @@ if (isServer) then {
             QMVAR(_markerPos)
         ]] call KPLIB_fnc_namespace_registerSerializationVars;
 
-    MVAR(_refresh)                                                  = QMVAR(_refresh);
+    // MVAR(_refresh)                                                  = QMVAR(_refresh);
     // MVAR(_activating)                                               = QMVAR(_activating);
     // MVAR(_activated)                                                = QMVAR(_activated);
     // MVAR(_deactivating)                                             = QMVAR(_deactivating);
