@@ -5,7 +5,7 @@
     File: fn_fobs_presets.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-18 11:31:16
-    Last Update: 2021-05-26 14:04:21
+    Last Update: 2021-06-23 13:16:54
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -36,6 +36,7 @@ if (isServer) then {
     MPRESET(_markerSize)                            = [1.5, 1.5];
     MPRESET(_markerColor)                           = Q(ColorYellow);
     MPRESET(_hudColor)                              = [0.85, 0.85, 0, 1];
+    // TODO: TBD: "\A3\ui_f\data\map\markers\nato\b_hq.paa" (?)
     MPRESET(_markerPath)                            = "\A3\ui_f\data\map\markers\handdrawn\flag_CA.paa";
     MPRESET(_markerPrefix)                          = QMVAR(_marker_);
     MPRESET(_boxOrTruckVectorOffset)                = [0, 0, 0.1];

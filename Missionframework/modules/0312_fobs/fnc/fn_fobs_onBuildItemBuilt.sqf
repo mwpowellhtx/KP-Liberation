@@ -6,7 +6,7 @@
     File: fn_fobs_onBuildItemBuilt.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-19 09:36:25
-    Last Update: 2021-05-19 09:36:27
+    Last Update: 2021-06-23 13:16:50
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -25,6 +25,15 @@
 params [
     [Q(_object), objNull, [objNull]]
 ];
+
+// Ensure that the OBJECT is identified as originating from an FOB
+private _fobBuilding = [_object, MPARAM(_range)] call MFUNC(_getNearestBuilding);
+
+// Also, true for ANY non-FOB building object
+if (!isNull _fobBuilding && _object isNotEqualTo _fobBuilding) then {
+    private _fobUuid = _fobBuilding getVariable [QMVAR(_fobUuid), ""];
+    _object setVariable [QMVAR(_fobUuid), _fobUuid, true];
+};
 
 switch (typeOf _object) do {
 
