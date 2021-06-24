@@ -5,7 +5,7 @@
     File: fn_admin_setupPlayerActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-04 22:17:52
-    Last Update: 2021-06-14 16:47:21
+    Last Update: 2021-06-23 13:17:08
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -84,6 +84,21 @@ if (hasInterface) then {
 
     [
         [
+            "Create surrendering unit"
+            , { _this call KPLIB_fnc_admin_onCreateSurrenderingUnit; }
+            , []
+            , KPLIB_ACTION_PRIORITY_CREATE_SURRENDERING_UNIT
+            , false
+            , false
+            , ""
+            , "[] call KPLIB_fnc_permission_hasAdminPermission"
+            , -1
+        ]
+        , [["_color", "#ff8000"], ["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
+
+    [
+        [
             "Teleport"
             , {
                 KPLIB_fnc_map_onMapSingleClick = KPLIB_fnc_admin_onTeleportPlayer;
@@ -95,8 +110,41 @@ if (hasInterface) then {
             , true
             , ""
             , "
-                _target isEqualTo vehicle _target
-                    && _target isEqualTo _originalTarget
+                !(isNull vehicle _target)
+                    && ([] call KPLIB_fnc_permission_hasAdminPermission)
+            "
+            , -1
+        ]
+        , [["_color", "#11cc11"], ["_localize", false]]
+    ] call KPLIB_fnc_common_addPlayerAction;
+
+    [
+        [
+            // TODO: TBD: may teleport including vehicle...
+            "Teleport to nearest surrender"
+            , {
+                params ["_target"];
+                private _units = allUnits select { _x getVariable ["KPLIB_surrender", false]; };
+                private _nearest = [_units, [], { _x distance _target; }] call BIS_fnc_sortBy;
+                private _dist = random [2, 2.5, 3];
+                // TODO: TBD: crude, does not avoid obstacles...
+                // TODO: TBD: may use garrison instead to identify the position...
+                private _vehicle = vehicle _target;
+                if (_vehicle isNotEqualTo _target) then {
+                    _dist = [typeOf _vehicle] call KPLIB_fnc_common_vehicleSafeRadius;
+                };
+                private _pos = (_nearest#0) getPos [_dist, random 360];
+                private _dir = _target getDir (_nearest#0);
+                _target setPos _pos;
+                _target setDir _dir;
+            }
+            , []
+            , KPLIB_ACTION_PRIORITY_TELEPORT
+            , false
+            , true
+            , ""
+            , "
+                ({ _x getVariable ['KPLIB_surrender', false]; } count allUnits) > 0
                     && ([] call KPLIB_fnc_permission_hasAdminPermission)
             "
             , -1

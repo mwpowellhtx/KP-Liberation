@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2017-08-31
-    Last Update: 2021-06-14 16:47:13
+    Last Update: 2021-06-23 13:17:12
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -62,6 +62,17 @@ if (hasInterface) then {
             openMap false;
         };
         true;
+    };
+
+    KPLIB_fnc_admin_onCreateSurrenderingUnit = {
+        private _pos = player getPos [random 1, random 360];
+        private _classes = [] call KPLIB_fnc_common_getSoldierArray;
+        private _grp = [[selectRandom _classes], _pos] call KPLIB_fnc_common_createGroup;
+        {
+            _x setVariable ["KPLIB_captives_uuid", [] call KPLIB_fnc_uuid_create_string];
+            _x setVariable ["KPLIB_captives_intel", round random [1, 5, 10]];
+            [_x] call KPLIB_fnc_captives_onSurrenderUnitOne;
+        } forEach (units _grp);
     };
 
     // TODO: TBD: factor as proper function...
