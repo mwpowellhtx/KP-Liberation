@@ -35,8 +35,8 @@ if (_debug) then {
  * i.e. was ESCORTING, then got LOADED, etc.
  */
 {
-    private _player = _x;
-    [_player] remoteExec [QMFUNC(_onWatchStopEscortingOne), _player];
+    private _escort = _x;
+    [_escort] remoteExec [QMFUNC(_onWatchStopEscortingOne), _escort];
 } forEach (allPlayers select { _x getVariable [QMVAR(_isEscorting), false]; });
 
 /* Watching all UNITS that which:
@@ -49,7 +49,6 @@ private _unitsToWatch = allUnits select { [_x] call MFUNC(_isUnitSurrendering); 
 
 /* UNITS to INTERROGATE are:
  *      - alive
- *      - no longer 'escorted'
  *      - unloaded from a transport
  *      - CAPTURED (this is critical)
  *      - NOT INTERROGATED (also critical)
@@ -59,7 +58,6 @@ private _allUnitsToInterrogate = KPLIB_fobs_allBuildings apply {
     private _fobBuilding = _x;
     _unitsToWatch select {
         alive _x
-            // && (isNull attachedTo _x)
             && (isNull objectParent _x)
             && ([_x] call MFUNC(_isUnitCaptured))
             && !([_x] call MFUNC(_isUnitInterrogated))

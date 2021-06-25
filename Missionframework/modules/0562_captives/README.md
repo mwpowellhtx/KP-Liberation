@@ -60,8 +60,8 @@ _Client side_ _JIP_ event handling ensures that the following [_actions_](https:
 
 |Action|Parameters|Description|Conditions|
 |-|-|-|-|
-|`STR_KPLIB_ACTION_CAPTIVES_UNLOAD_CAPTIVES`|`['_vehicle', '_escort']`|Initiates an `UNLOAD CAPTIVES` [_commanding menu_](https://community.bistudio.com/wiki/Arma_3:_Communication_Menu) via [`showCommandingMenu`](https://community.bistudio.com/wiki/showCommandingMenu), which shall enumerate the _currently loaded captives_ by name, i.e. `'Unload %1'` (insert `<unit-name/>`), plus a `STOP UNLOADING` action.|`([_vehicle] call KPLIB_fnc_captives_getLoadedCaptives) isNotEqualTo []`|
-|`STR_KPLIB_ACTIONS_CAPTIVES_LOAD_CAPTIVE`|`['_vehicle', '_escort']`|Allows an _ESCORT_ to _LOAD_ the currently escorted _CAPTIVE unit_.|`_escort getVariable ['KPLIB_captives_isEscorting', false]`<br>` && [_vehicle, _escort] call KPLIB_fnc_captives_canLoadTransport`|
+|`STR_KPLIB_ACTION_CAPTIVES_UNLOAD_CAPTIVES`|`['_vehicle', '_escort']`|Initiates an `UNLOAD CAPTIVES` [_commanding menu_](https://community.bistudio.com/wiki/Arma_3:_Communication_Menu) via [`showCommandingMenu`](https://community.bistudio.com/wiki/showCommandingMenu), which shall enumerate the _currently loaded captives_ by name, i.e. `'Unload %1'` (insert `<unit-name/>`), plus a `STOP UNLOADING` action.|`alive _vehicle`<br>`&& alive _escort`<br>`&& (([_vehicle] call KPLIB_fnc_captives_getLoadedCaptives) isNotEqualTo [])`|
+<!-- |`STR_KPLIB_ACTIONS_CAPTIVES_LOAD_CAPTIVE`|`['_vehicle', '_escort']`|Allows an _ESCORT_ to _LOAD_ the currently escorted _CAPTIVE unit_.|`_escort getVariable ['KPLIB_captives_isEscorting', false]`<br>` && [_vehicle, _escort] call KPLIB_fnc_captives_canLoadTransport`| -->
 
 All such vehicle oriented actions must be presented agnostic of the [`name _unit`](https://community.bistudio.com/wiki/name). This is necessarily the case because we cannot know every unit name that may cross paths with the action. This is appropriately by design.
 
@@ -69,25 +69,34 @@ All such vehicle oriented actions must be presented agnostic of the [`name _unit
 
 Upon _BLUFOR sector capture_, _OPFOR units_ within _capture range_ are evaluated whether they should _surrender_.
 
-#### Unit actions <sup>&dagger;</sup>
+#### Captive actions <sup>&dagger;</sup>
 
-_Client side_ JIP event handling ensures that the following actions are wired. Similar caveats apply for unit_s_ as did for _vehicles_; `['_captive', '_escort']` are analogous to `['_target', '_this']` for purposes of illustration.
+_Client side_ _JIP_ event handling ensures that the following actions are wired. Similar caveats apply for _units_ as did for _vehicles_; `['_captive', '_escort']` are analogous to `['_target', '_this']` for purposes of illustration.
 
 |Action|Parameters|Description|Conditions|
 |-|-|-|-|
 |`STR_KPLIB_ACTIONS_CAPTIVES_CAPTURE_FORMAT`|`['_captive', '_escort']`|Captures the _surrendering captive_; sets `'KPLIB_captured'` flag, and animates accordingly.|`_captive getVariable ['KPLIB_surrender', false]`<br>` && !(_captive getVariable ['KPLIB_captured', false])`|
 |`STR_KPLIB_ACTIONS_CAPTIVES_ESCORT_FORMAT`|`['_captive', '_escort']`|_Escorts_ the _captured captive_; sets `'KPLIB_captured'` flag, and animates accordingly.|`isNull attachedTo _captive`<br>`&& isNull objectParent _target`<br>`&& _captive getVariable ['KPLIB_captured', false]`<br>`&& !(_escort getVariable ['KPLIB_captives_isEscorting', false])`|
+|`STR_KPLIB_ACTIONS_CAPTIVES_LOAD_FORMAT`|`['_captive']`|Infers the _escort_ by the [_attached object_](https://community.bistudio.com/wiki/attachedTo) to the _captured captive_, in turn the _transport vehicle_ from the _escort_, [_detaches_](https://community.bistudio.com/wiki/detach) the _captive_ from the _escort_, _nilifies_ the `'KPLIB_captives_isEscorting'` and `'KPLIB_captives_escortedUnit'` variables from the _escort_, and raises the `'KPLIB_captives_load'` and `'KPLIB_captives_loaded'` _server side_ events with `['_captive', '_vehicle']` arguments.|`_isCaptive = true;`<br>`_baseCond = alive _captive`<br>`    && _captive getVariable ["KPLIB_captured", false]`<br>`    && !isNull _vehicle`<br>`    && isNull objectParent _captive`<br>`_isCaptiveAttachedToEscort = attachedTo _captive isEqualTo _escort;`<br>`_captiveCond = _isCaptive && !_isCaptiveAttachedToEscort;`<br>`_escorting = _escort getVariable ["KPLIB_captives_isEscorting", false];`<br>`_escortCond = !_isCaptive && _escorting && _isCaptiveAttachedToEscort;`<br>`_baseCond && (_captiveCond || _escortCond);`|
+
+#### Escort actions <sup>&dagger;</sup>
+
+As it turns out, it does make better sense for some actions to be added to _BLUFOR_ _ESCORT_ units. We did try to avoid this, but it just makes sense to add them after all. All added in terms of _client side_ _JIP_.
+
+|Action|Parameters|Description|Conditions|
+|-|-|-|-|
+|`STR_KPLIB_ACTIONS_CAPTIVES_LOAD_FORMAT`|`['_captive']`|Infers the _escortedUnit_ by the `_escort getVariable ['KPLIB_captives_escortedUnit', objNull]` value, in turn the _transport vehicle_ from the _escort_, etc. The operation is virtually the same as for the _captive_ centric action, whereas how we get there is via the _escort_ centric circumstances.|`_isCaptive = false;`<br>`_baseCond = alive _captive`<br>`    && _captive getVariable ["KPLIB_captured", false]`<br>`    && !isNull _vehicle`<br>`    && isNull objectParent _captive`<br>`_isCaptiveAttachedToEscort = attachedTo _captive isEqualTo _escort;`<br>`_captiveCond = _isCaptive && !_isCaptiveAttachedToEscort;`<br>`_escorting = _escort getVariable ["KPLIB_captives_isEscorting", false];`<br>`_escortCond = !_isCaptive && _escorting && _isCaptiveAttachedToEscort;`<br>`_baseCond && (_captiveCond || _escortCond);`|
 |`STR_KPLIB_ACTIONS_CAPTIVES_STOP_ESCORT_FORMAT`|`['_captive', '_escort']`|_Stops escorting_ the _escorted captive_; [_detaches_](https://community.bistudio.com/wiki/detach) the _captive_ from the _escort_.|`attachedTo _captive isEqualTo _escort`<br>` && _captive getVariable ['KPLIB_captured', false]`<br>` && (_captive isEqualTo (_escort getVariable ['KPLIB_captives_escortedUnit', objNull]))`|
-|`STR_KPLIB_ACTIONS_CAPTIVES_LOAD_FORMAT`|`['_captive']`|Infers the _escort_ by the [_attached object_](https://community.bistudio.com/wiki/attachedTo) to the _captured captive_, in turn the _transport vehicle_ from the _escort_, [_detaches_](https://community.bistudio.com/wiki/detach) the _captive_ from the _escort_, _nilifies_ the `'KPLIB_captives_isEscorting'` and `'KPLIB_captives_escortedUnit'` variables from the _escort_, and raises the `'KPLIB_captives_load'` _server side_ event with `['_captive', '_vehicle']` arguments.|`isNull objectParent _captive`<br>` && attachedTo _captive isEqualTo _escort`<br>` && !isNull ([_escort] call KPLIB_fnc_captives_getNearestTransport)`<br>` && _captive isEqualTo (_escort getVariable ["KPLIB_captives_escortedUnit", objNull])`<br>` && _captive getVariable ["KPLIB_captured", false]`|
 
 ### Watch service
 
-<!-- TODO: TBD: pick it up here... -->
-<!-- TODO: TBD: watch service does a couple of things... -->
-<!-- TODO: TBD: 1. interrogates any of the units that may be such -->
-<!-- TODO: TBD: 2. does GC on any of the expiring SURRENDER+ units -->
-<!-- TODO: TBD: and as to whether triggers might be a fit for this issue... -->
-<!-- TODO: TBD: doubtful, in fact, probably over kill for what this is doing in the end... -->
+The module watch service monitors for several conditions and responds accordingly in each of them. The service runs approximately every `KPLIB_param_captives_watchCaptivesPeriod` in seconds or so, which may be configured via the CBA settings.
+
+|Scenarios|Conditions|Response|
+|-|-|-|
+|Some circumstances leave formerly _escort_ units orphaned in the sense that `'KPLIB_captives_isEscorting'` and `'KPLIB_captives_escortedUnit'` variables remain, after the former _escortedUnit_ has been loaded into a vehicle, for instance.|`_escort getVariable ["KPLIB_captives_isEscorting", false]`|`{ [_escort] remoteExec ["KPLIB_fnc_captives_onWatchStopEscortingOne", _escort]; } forEach _escortsToCleanup`, which then does housekeeping on the _escort_ when determining that the previously _escortedUnit_ is no longer attached to that _escort_.|
+|Next we watch for captives to interrogate.|These are all units that have surrendered, are captured, no longer on board a transport vehicle, within range of an FOB building|`{ [_escort] call KPLIB_fnc_captives_onWatchInterrogateOne; } forEach _unitsToInterrogate`, which lifts the `_captive getVariable ['KPLIB_captives_intel', -1]` value from the captive for addition to the `KPLIB_resources_intel` resource, and marks that unit, `_captive setVariable ['KPLIB_interrogated', true]`.|
+|Lastly, we watch for _captives_ to _garbage collect_ (GC).|We watch for any captive unit with at least `_captive getVariable ['KPLIB_surrender', false]` and whose `_captive getVariable ['KPLIB_surrender', false]` has `KPLIB_fnc_timers_hasElapsed`.|The response here is pretty simple; after verifying a refreshed timer, we delete the _captive_ unit from existence.|
 
 ### Module parameters or other variables
 
@@ -101,6 +110,7 @@ Several parameters influence the manner in which we conduct module operations du
 |<ul><li>`_minScuttleTimeout`<li>`_bluforScuttleTimeout`</ul>|`SCALAR`|Timeouts values used to determine when module services should scuttle _BLUFOR_ bits following _OPFOR_ conversion of sectors to enemy alignment.|
 |<ul><li>`_captiveTimeout`<li>`_watchUnitSurrenderPeriod`</ul>|`SCALAR`|Meters used to gauge _captive timer durations_, as well as a frequency with which to wake up and evaluate objects for _garbage collection_ (GC).|
 |`_loadRange`|`SCALAR`|Literally the _distance_ from which, in meters, _ESCORTING_ players may _LOAD CAPTIVE_ units in to _TRANSPORT VEHICLE CARGO_ positions, or _UNLOAD CAPTIVES_ from the same, respectively.|
+|`_watchCaptivesPeriod`|`SCALAR`|The period between module watch service executions.|
 |`KPLIB_param_sectors_capRange`|`SCALAR`|`SECTOR` module `CAPTURE RANGE` used to evaluate capture conditions, identify units and assets within range of the sector, and so on.|
 |`KPLIB_ace_enabled`|`BOOL`|Indicates whether [_ACE3_](https://ace3mod.com/wiki) is enabled.|
 
@@ -108,71 +118,8 @@ Several parameters influence the manner in which we conduct module operations du
 
 The [_ACE3 CAPTIVES_ module](https://ace3mod.com/wiki/feature/captives.html) is also supported by KPLIB, for which you should review the documentation and familiarize yourselves with the operation. We have made a somewhat concerted effort in the approach we have taken here to remain consistent with some ACE3-isms, if you will, particularly in how we handle module artifacts such as `'KPLIB_captives_isEscorting'` and `'KPLIB_captives_escortedUnit'` variables. Consistency is also a goal in terms of the chain of events that are wired together, as much as is feasible to accomplish.
 
+Mainly, when [_ACE_](https://ace3mod.com) is present, all but the `STR_KPLIB_ACTION_CAPTIVES_UNLOAD_CAPTIVES` actions are ignored, and we defer to the _ACE_ way of doing things. We subscribe to key _ACE_ events and bridge into the _KPLIB framework_ as quickly and seamlessly as possible.
+
 ### Footnotes
+
  &dagger; <font size="-1"><em>All actions are considered client side. As such, server side callbacks must invoke them remotely. In general, we try to encapsulate the actions in a steadily wrapped function invocation in order so that we may mitigate the arguments we must provide, and so that we may perform them in a JIP manner when necessary to do so, therefore allowing for maximum availability for current as well as new join players. i.e. `[_object, ...] remoteExecCall ['KPLIB_fnc_captives_addObjectActions', 0, _object]`. Usually the arguments are at least involving the target `_object`. Also, most of the time, the key is that we arrange for the callback on all machines targeting that `_object` in a JIP manner, although sometimes we simple invoke on the server, i.e. `[_object, ...] remoteExecCall ['KPLIB_fnc_captives_serverSideCallback', 2]`.</em></font>
-
-
-
-
-
-
-
-
-
-
-
-### 'KPLIB_sectors_captured' CBA event
-
-`OPFOR` units caught within _capture range_ of sector during an engagement when the sector has been captured may surrender themselves to capture. Likelihood of surrender depends on several factors, including `BLUFOR` _strength_, `OPFOR` _strength_, and may be further biased by module CBA settings.
-
- * `KPLIB_surrender`
- * `KPLIB_param_sectors_capRange`
- * `KPLIB_fnc_core_getPlayerStrength`
- * `KPLIB_fnc_enemies_getStrengthRatio`
- * `KPLIB_param_captives_surrenderBias`
-
-### 'KPLIB_surrender' units or assets
-
-_Units_ or _assets_ that are given to surrender shall have the `KPLIB_surrender` variable set as a global variable, and is typically verified accordingly, regardless of the location, whether client or server sides.
-
-```sqf
-_target setVariable ['KPLIB_surrender', true, true];
-// ...
-_target getVariable ['KPLIB_surrender', false];
-```
-
-#### Surrendered units
-
-Units receiving the `'KPLIB_surrender'` variable shall have a `'Capture %1'` action added to the unit with which players may interact.
-
-#### Surrendered assets
-
-Players may be permitted to enter enemy _assets_. When assets are determined to be _surrendered_, they shall also receive a `'KPLIB_surrender'` variable. Mostly this is a formality, and for module consistency.
-
-In general, players may `'GetIn'` to any enemy or civilian vehicles. Also such vehicle entries into the driver position shall receive a `'KPLIB_captured'` global variable.
-
-```sqf
-_target setVariable ['KPLIB_captured', true, true];
-// ...
-_target getVariable ['KPLIB_captured', false];
-```
-
-The sequence here is tricky, because we respond to _server side_ `'KPLIB_vehicle_created'` events, and want to setup player `'GetIn'` vehicle events on the _client side_. We need to do so JIP so that new server joins may also have access to the _capture_ capabilities.
-
-### Actions are local
-
-Note that all module actions at every phase shall be wrapped in functions that allow for easy invocation for all players. Such invocations shall be performed in a [JIP](https://community.bistudio.com/wiki/remoteExecCall) manner. This should allow server new joins to access the same action as currently connected players.
-
-Conversely, remote executing the action add itself is inefficient at best. Rather we want to contain these in easier to identify functions, with much simpler parameter arrays.
-
-### 'GetInMan' and 'GetOutMan' transport events are server side
-
-When vehicles are created by the KPLIB framework, the module evaluates whether they support `CARGO` positions, i.e. for passengers, _captives_, etc; those that do receive the module `'GetInMan'` and `'GetOutMan'` event handlers. When `UNITS` [`moveInCargo`](https://community.bistudio.com/wiki/moveInCargo) to the vehicle, nothing further is required, and any conditions that depend on that state should keep pace accordingly.
-
-On the other hand, when units are instructed to [`moveOut`](https://community.bistudio.com/wiki/moveOut), we need to refresh the animation, potentially. We may also elect to position the unit accordingly aft of the vehicle several meters or at an otherwise safe distance, or even depending on the form factor of said vehicle, whether `'Air'`, `'LandVehicle'`, `'Ship'`.
-
-### Load and unload captive vehicle actions
-
-Client side vehicle actions include `LOAD CAPTIVE` and `UNLOAD CAPTIVES`. These are by nature non-descript; by definition they cannot know the name of the `UNIT` being `ESCORTED` by a player. Additionally, unloading captives presents an `UNLOAD TRANSPORT COMMANDING MENU`, which presents the captives currently loaded in the vehicle to unload.
-
-Loading the escorted captive is a one shot action. The unit shall detach from the the player and be moved in to the next available vehicle cargo position. Unloading captives presents a commanding menu with currently loaded captives enumerated, `Unload <name-of-unit/>`. Once unloaded the menu will continually refresh until either all such units have been unloaded, or the player chooses to `STOP UNLOADING`, whichever comes first.
