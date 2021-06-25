@@ -4,7 +4,7 @@
     File: fn_productionSM_onBroadcast.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-18 00:01:34
-    Last Update: 2021-02-18 19:41:20
+    Last Update: 2021-06-25 15:13:13
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -65,7 +65,7 @@ if (_elapsed && count _cidsToPublish > 0) then {
     [
         {
             ([_x, [
-                [KPLIB_namespace_changed, false]
+                ["KPLIB_namespace_changed", false]
             ]] call KPLIB_fnc_namespace_getVars) params [
                 "_changed"
             ];
@@ -96,7 +96,7 @@ if (_elapsed && count _cidsToPublish > 0) then {
         {
             private _namespace = _x;
             [_namespace, [
-                [KPLIB_namespace_changed, false]
+                ["KPLIB_namespace_changed", false]
             ]] call KPLIB_fnc_namespace_setVars;
         } forEach _allNamespaces;
     };

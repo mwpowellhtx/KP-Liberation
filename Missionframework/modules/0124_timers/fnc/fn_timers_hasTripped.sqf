@@ -1,10 +1,10 @@
 /*
-    KPLIB_fnc_timers_hasElapsed
+    KPLIB_fnc_timers_hasTripped
 
-    File: fn_timers_hasElapsed.sqf
+    File: fn_timers_hasTripped.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-03 15:35:28
-    Last Update: 2021-02-03 15:35:31
+    Last Update: 2021-06-25 15:11:58
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: Yes
 

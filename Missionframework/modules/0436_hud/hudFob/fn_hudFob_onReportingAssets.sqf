@@ -5,7 +5,7 @@
     File: fn_hudFob_onReportingAssets.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-05-26 00:56:56
-    Last Update: 2021-06-14 17:01:34
+    Last Update: 2021-06-25 15:12:26
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -51,7 +51,7 @@ private _assets = [
     ];
     _classNames apply {
         private _className = _x;
-        [_objects, { typeof _this isEqualTo _className; }] call KPLIB_fnc_getAssetTally;
+        [_objects, { typeof _this isEqualTo _className; }] call KPLIB_fnc_assets_getAssetTally;
     };
 };
 

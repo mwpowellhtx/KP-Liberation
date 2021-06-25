@@ -5,7 +5,7 @@
     File: fn_namespace_unsetStatus.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-04-05 11:44:49
-    Last Update: 2021-04-16 08:27:33
+    Last Update: 2021-06-25 15:11:34
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -16,7 +16,7 @@
     Parameters:
         _target - a target SCALAR bitmask, or target hosting the same [SCALAR, LOCATION, OBJECT; default: _zed]
         _mask - a bitflags mask used to unset [SCALAR, default: _zed]
-        _predicate - the condition used to check prior to fulfilling the request [CODE, default: KPLIB_fnc_namespace_defaultStatusPredicate]
+        _predicate - the condition used to check prior to fulfilling the request [CODE, default: _defaultPredicate]
         _variableName - optional variable name used to lift the bitmask from a target [STRING, default: ""]
 
     Returns:
@@ -27,11 +27,12 @@
  */
 
 private _zed = 0;
+private _defaultPredicate = { true; };
 
 params [
     [Q(_target), _zed, [0, locationNull, objNull]]
     , [Q(_mask), _zed, [0]]
-    , [Q(_predicate), KPLIB_fnc_namespace_defaultStatusPredicate, [{}]]
+    , [Q(_predicate), _defaultPredicate, [{}]]
     , [Q(_variableName), "", [""]]
 ];
 

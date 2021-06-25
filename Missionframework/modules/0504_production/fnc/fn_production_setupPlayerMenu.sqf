@@ -5,7 +5,7 @@
     File: fn_production_setupPlayerMenu.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-02-04 14:03:08
-    Last Update: 2021-05-24 10:29:09
+    Last Update: 2021-06-25 15:12:49
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -34,6 +34,7 @@
 [
     [
         "STR_KPLIB_ACTION_BUILD_STORAGE"
+        // TODO: TBD: build client? really just needs to be a production module function...
         , { _this call KPLIB_fnc_buildClient_onBuildStorageClicked; }
         , []
         , KPLIB_ACTION_PRIORITY_BUILD_STORAGE
