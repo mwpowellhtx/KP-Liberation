@@ -5,7 +5,7 @@
     File: fn_captives_playMove.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-18 13:27:36
-    Last Update: 2021-06-18 13:27:38
+    Last Update: 2021-06-27 19:07:42
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -64,6 +64,7 @@ private _allPredicatedMoves = [
         _this playMove "AmovPercMstpSnonWnonDnon_EaseIn";
     }]
     , [_surrender && !KPLIB_ace_enabled, {
+        _this playMoveNow "AmovPlieMstpSnonWnonDnon";
         _this playMove "AmovPercMstpSnonWnonDnon_AmovPercMstpSsurWnonDnon";
     }]
     , [!KPLIB_ace_enabled, {

@@ -6,7 +6,7 @@
     File: fn_captives_addEscortActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-22 15:48:18
-    Last Update: 2021-06-22 15:48:20
+    Last Update: 2021-06-27 16:43:30
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -52,7 +52,9 @@ if (hasInterface && !KPLIB_ace_enabled) then {
             , true
             , true
             , ""
-            , '[_target getVariable ["KPLIB_captives_escortedUnit", objNull], _target] call KPLIB_fnc_captives_canLoadUnit'
+            , '
+                [_target getVariable ["KPLIB_captives_escortedUnit", objNull], _target] call KPLIB_fnc_captives_canLoadUnit
+            '
             , -1
         ]
         , [
@@ -74,11 +76,11 @@ if (hasInterface && !KPLIB_ace_enabled) then {
             , true
             , true
             , ""
-            , "
-                _target getVariable ['KPLIB_captives_isEscorting', false]
-                    && alive (_target getVariable ['KPLIB_captives_escortedUnit', objNull])
-                    && attachedTo (_target getVariable ['KPLIB_captives_escortedUnit', objNull]) isEqualTo _target
-            "
+            , '
+                _target getVariable ["KPLIB_captives_isEscorting", false]
+                    && alive (_target getVariable ["KPLIB_captives_escortedUnit", objNull])
+                    && attachedTo (_target getVariable ["KPLIB_captives_escortedUnit", objNull]) isEqualTo _target
+            '
             , -1
         ]
         , [

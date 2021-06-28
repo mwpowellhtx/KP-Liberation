@@ -6,7 +6,7 @@
     File: fn_captives_addCaptiveActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-17 12:18:24
-    Last Update: 2021-06-17 12:18:26
+    Last Update: 2021-06-27 16:35:01
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -37,23 +37,7 @@ if (_debug) then {
     // TODO: TBD: logging...
 };
 
-// // TODO: TBD: installed on vehicle actions instead
-// if (isServer) then {
-//     /* The event handler connects the dots when the UNIT actually "moves in" to a target
-//      * VEHICLE. The action instructing the UNIT to actually "movein" to the VEHICLE is
-//      * another matter entirely.
-//      */
-//     if ((_unit getVariable [QMVAR(_getInID), -1]) < 0) then {
-//         private _getInID = [_unit, Q(GetIn), {
-//                 _this call MFUNC(_onUnitGetInVehicle);
-//             }] call CBA_fnc_addBISEventHandler;
-//         _unit setVariable [QMVAR(_getInID), _getInID];
-//     };
-// };
-
 if (hasInterface && !KPLIB_ace_enabled) then {
-
-    // TODO: TBD: may want to add actions or not depending on 'KPLIB_ace_enabled'
     [
         _unit
         , [
@@ -64,11 +48,11 @@ if (hasInterface && !KPLIB_ace_enabled) then {
             , true
             , true
             , ""
-            , "
+            , '
                 (alive _target)
-                    && (_target getVariable ['KPLIB_surrender', false])
-                    && !(_target getVariable ['KPLIB_captured', false])
-            "
+                    && (_target getVariable ["KPLIB_surrender", false])
+                    && !(_target getVariable ["KPLIB_captured", false])
+            '
             , MPRESET(_actionRange)
         ]
         , [
@@ -87,12 +71,12 @@ if (hasInterface && !KPLIB_ace_enabled) then {
             , true
             , true
             , ""
-            , "
+            , '
                 (alive _target)
-                    && (_target getVariable ['KPLIB_captured', false])
+                    && (_target getVariable ["KPLIB_captured", false])
                     && (isNull objectParent _target)
-                    && !(_this getVariable ['KPLIB_captives_isEscorting', false])
-            "
+                    && !(_this getVariable ["KPLIB_captives_isEscorting", false])
+            '
             , MPRESET(_actionRange)
         ]
         , [
@@ -101,10 +85,6 @@ if (hasInterface && !KPLIB_ace_enabled) then {
         ]
     ] call KPLIB_fnc_common_addAction;
 
-    // TODO: TBD: is an escort action and/or vehicle action...
-
-    // TODO: TBD: may want to consider ESCORT ACTIONS...
-    // TODO: TBD: i.e. for the load scenario in which player looks at transport, cursortarget
     [
         _unit
         , [
@@ -126,38 +106,6 @@ if (hasInterface && !KPLIB_ace_enabled) then {
             , [Q(_formatArgs), [name _unit]]
         ]
     ] call KPLIB_fnc_common_addAction;
-
-    // [
-    //     [
-    //         "STR_KPLIB_ACTIONS_CAPTIVES_STOP_ESCORT_FORMAT"
-    //         , {
-    //             params [Q(_escort)];
-    //             [_escort getVariable [QMVAR(_escortedUnit), objNull], _escort] call MFUNC(_onUnitToggleEscort);
-    //         }
-    //         , []
-    //         , KPLIB_ACTION_PRIORITY_CAPTIVE_ACTIONS
-    //         , true
-    //         , true
-    //         , ""
-    //         , "
-    //             _target getVariable ['KPLIB_captives_isEscorting', false]
-    //                 && alive (_target getVariable ['KPLIB_captives_escortedUnit', objNull])
-    //                 && attachedTo (_target getVariable ['KPLIB_captives_escortedUnit', objNull]) isEqualTo _target
-    //         "
-    //         // // TODO: TBD: conditions when the action was UNIT centric...
-    //         // , "
-    //         //     (alive _target)
-    //         //         && (_target getVariable ['KPLIB_captured', false])
-    //         //         && (attachedTo _target isEqualTo _this)
-    //         //         && (_target isEqualTo (_this getVariable ['KPLIB_captives_escortedUnit', objNull]))
-    //         // "
-    //         , -1
-    //     ]
-    //     , [
-    //         [Q(_varName), QMVAR(_stopEscortingID)]
-    //         , [Q(_formatArgs), [name _unit]]
-    //     ]
-    // ] call KPLIB_fnc_common_addPlayerAction;
 };
 
 if (_debug) then {

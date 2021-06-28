@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Date: 2019-09-10
-    Last Update: 2021-06-24 12:00:03
+    Last Update: 2021-06-28 09:00:44
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -61,8 +61,6 @@ if (isServer) then {
         , { _this call MFUNC(_onSectorCapturedCaptiveTimers); }
     ];
 
-    [{ KPLIB_campaignRunning; }, { _this call MFUNC(_onWatchUnitsSurrender); }, []] call CBA_fnc_waitUntilAndExecute;
-
     { [QMVAR(_surrender), _x] call CBA_fnc_addEventHandler; } forEach [
         {
             params [Q(_unit)];
@@ -74,7 +72,9 @@ if (isServer) then {
         , {
             params [Q(_unit)];
             { _unit setVariable _x; } forEach [
-                [QMVAR(_timer), [MPARAM(_captiveTimeout)] call KPLIB_fnc_timers_create]
+                [Q(KPLIB_surrender), true, true]
+                , [Q(KPLIB_captured), false, true]
+                , [QMVAR(_timer), [MPARAM(_captiveTimeout)] call KPLIB_fnc_timers_create]
             ];
         }
         , {
@@ -98,7 +98,11 @@ if (isServer) then {
         }
         , {
             params [Q(_unit)];
-            _unit getVariable [QMVAR(_timer), [MPARAM(_captiveTimeout)] call KPLIB_fnc_timers_create];
+            { _unit setVariable _x; } forEach [
+                [Q(KPLIB_surrender), true, true]
+                , [Q(KPLIB_captured), true, true]
+                , [QMVAR(_timer), [MPARAM(_captiveTimeout)] call KPLIB_fnc_timers_create]
+            ];
         }
         , { _this call MFUNC(_playMove); }
     ];
@@ -131,63 +135,114 @@ if (isServer) then {
         }
     ] call CBA_fnc_addEventHandler;
 
-    [
-        QMVAR(_unload)
+    { [QMVAR(_unload), _x] call CBA_fnc_addEventHandler; } forEach [
+        {
+            if (!KPLIB_ace_enabled) exitWith {
+            };
+
+            _this spawn {
+                params [
+                    [Q(_unit), objNull, [objNull]]
+                    , [Q(_escort), objNull, [objNull]]
+                ];
+
+                private _debug = MPARAM(_onPreInit_onUnload_debug)
+                    || (_unit getVariable [QMVAR(_onPreInit_onUnload_debug), false])
+                    || (_escort getVariable [QMVAR(_onPreInit_onUnload_debug), false])
+                    ;
+
+                if (_debug) then {
+                    [format ["[fn_captives_onPreInit::onUnload::ace] Entering: [name _escort, name _unit]: %1"
+                        , str [name _escort, name _unit]], "CAPTIVES", true] call KPLIB_fnc_common_log;
+                };
+
+                private _vehicle = vehicle _unit;
+
+                // Will (re-)show the menu with updated content, i.e. less one unit
+                _escort setVariable [QMVAR(_transport), _vehicle, true];
+
+                [_escort, _unit] call ACE_captives_fnc_doUnloadCaptive;
+
+                if (_debug) then {
+                    ["[fn_captives_onPreInit::onUnload:ace] Fini", "CAPTIVES", true] call KPLIB_fnc_common_log;
+                };
+            };
+        }
+        , {
+            if (KPLIB_ace_enabled) exitWith {
+            };
+
+            _this spawn {
+                params [
+                    [Q(_unit), objNull, [objNull]]
+                    , [Q(_escort), objNull, [objNull]]
+                ];
+
+                private _debug = MPARAM(_onPreInit_onUnload_debug)
+                    || (_unit getVariable [QMVAR(_onPreInit_onUnload_debug), false])
+                    || (_escort getVariable [QMVAR(_onPreInit_onUnload_debug), false])
+                    ;
+
+                if (_debug) then {
+                    [format ["[fn_captives_onPreInit::onUnload] Entering: [name _escort, name _unit]: %1"
+                        , str [name _escort, name _unit]], "CAPTIVES", true] call KPLIB_fnc_common_log;
+                };
+
+                private _vehicle = vehicle _unit;
+
+                // Will (re-)show the menu with updated content, i.e. less one unit
+                _escort setVariable [QMVAR(_transport), _vehicle, true];
+
+                // TODO: TBD: just move out? allow the getout handler to do the rest...
+                moveOut _unit;
+
+                if (_debug) then {
+                    ["[fn_captives_onPreInit::onUnload] Fini", "CAPTIVES", true] call KPLIB_fnc_common_log;
+                };
+            };
+        }
         , {
             _this spawn {
                 params [
                     [Q(_unit), objNull, [objNull]]
                     , [Q(_escort), objNull, [objNull]]
                 ];
+
                 private _debug = MPARAM(_onPreInit_onUnload_debug)
                     || (_unit getVariable [QMVAR(_onPreInit_onUnload_debug), false])
                     || (_escort getVariable [QMVAR(_onPreInit_onUnload_debug), false])
                     ;
+
                 if (_debug) then {
-                    [format ["[fn_captives_onUnitUnloadOne::onUnload] Entering: [name _escort, name _unit]: %1"
+                    [format ["[fn_captives_onPreInit::onUnload::waitUntil] Entering: [name _escort, name _unit]: %1"
                         , str [name _escort, name _unit]], "CAPTIVES", true] call KPLIB_fnc_common_log;
                 };
 
-                private _vehicle = vehicle _unit;
-
-                // Must route that through ACE when it is there
-                if (KPLIB_ace_enabled) then {
-                    [_escort, _unit] call ACE_captives_fnc_doUnloadCaptive
-                } else {
-                    // TODO: TBD: just move out? allow the getout handler to do the rest...
-                    moveOut _unit;
-                    [QMVAR(_unloaded), [_unit]] call CBA_fnc_globalEvent;
-                };
                 waitUntil { sleep 0.1; isNull objectParent _unit; };
 
-                // (Re-)show the menu with updated content, i.e. less one unit
-                _escort setVariable [QMVAR(_transport), _vehicle, true];
+                [QMVAR(_unloaded), [_unit]] call CBA_fnc_globalEvent;
 
                 // Wrap it up here and punt it back to the ESCORT
                 [_escort] remoteExec [QMFUNC(_showUnloadTransportMenu), _escort];
 
                 if (_debug) then {
-                    ["[fn_captives_onUnitUnloadOne::onUnload] Fini", "CAPTIVES", true] call KPLIB_fnc_common_log;
+                    ["[fn_captives_onPreInit::onUnload::waitUntil] Fini", "CAPTIVES", true] call KPLIB_fnc_common_log;
                 };
             };
         }
-    ] call CBA_fnc_addEventHandler;
+    ];
 
-    [
-        QMVAR(_unloaded)
-        , {
+    { [QMVAR(_unloaded), _x] call CBA_fnc_addEventHandler; } forEach [
+        {
             params [
                 [Q(_unit), objNull, [objNull]]
             ];
-
             if (!KPLIB_ace_enabled) then {
-                // Must also UNASSIGN the VEHICLE or they get right back in
                 unassignVehicle _unit;
-
-                [_unit] call MFUNC(_playMove);
             };
         }
-    ] call CBA_fnc_addEventHandler;
+        , { _this call MFUNC(_playMove); }
+    ];
 
     { [QMVAR(_interrogated), _x] call CBA_fnc_addEventHandler; } forEach [
         {
@@ -202,10 +257,7 @@ if (isServer) then {
                 , [QMVAR(_timer), [MPARAM(_captiveTimeout)] call KPLIB_fnc_timers_create]
             ];
         }
-        , {
-            params [Q(_unit)];
-            [_unit] call MFUNC(_playMove);
-        }
+        , { _this call MFUNC(_playMove); }
     ];
 
     // Check for 'SetHandcuffed' enemies
@@ -237,70 +289,8 @@ if (isServer) then {
     }] call CBA_fnc_addEventHandler;
 };
 
-[] call MFUNC(_setupPlayerActions);
-
 if (hasInterface) then {
     // Player section
-
-    // // // TODO: TBD: this should be unnecessary now that we find the bits on creation...
-    // // Add EH for the captive unload action
-    // [
-    //     QMVAR(_loaded)
-    //     , {
-    //         params [
-    //             [QMVAR(_unit), objNull, [objNull]]
-    //             , [QMVAR(_vehicle), objNull, [objNull]]
-    //         ];
-    //         // Exit the function on missing vehicle, due to an emitted event through ace
-    //         if (isNull _unit || isNull _vehicle || !(alive _unit && alive _vehicle)) exitWith {
-    //             false;
-    //         };
-    //         // This one we do not want to wire up in a JIP for a lot of reasons
-    //         [_vehicle, _unit] remoteExecCall [QMFUNC(_addVehicleActions), 0, _vehicle];
-    //     }
-    // ] call CBA_fnc_addEventHandler;
-
-    // // Add EH for the captive unload action
-    // ["KPLIB_captives_loaded", {
-    //     params [
-    //         ["_unit", objNull, [objNull]],
-    //         ["_vehicle", objNull, [objNull]]
-    //     ];
-    //     // Exit the function on missing vehicle, due to an emitted event through ace
-    //     if (isNull _vehicle) exitWith {};
-    //     // Remove the stop escort action if available
-    //     player removeAction (player getVariable ["KPLIB_stopEscort_id", 9000]);
-    //     // Add the unload action to the vehicle
-    //     private _id = [
-    //         _vehicle
-    //         , [
-    //             "STR_KPLIB_ACTION_UNLOAD_CAPTIVE"
-    //             , { [_this#3, _this#0] call KPLIB_fnc_captives_unloadCaptive; }
-    //             , _unit
-    //             , -800
-    //             , false
-    //             , true
-    //             , ""
-    //             , ""
-    //             , 10
-    //         ]
-    //         , [["_formatArgs", [name _unit]]]
-    //     ] call KPLIB_fnc_common_addAction;
-    //     // TODO: TBD: action is on 'vehicle' but we save the ID on the vehicle? not sure that makes sense...
-    //     // Save id in unit
-    //     _unit setVariable ["KPLIB_captives_unloadID", _id]
-    // }] call CBA_fnc_addEventHandler;
-
-    // // // TODO: TBD: also rendered ineffectual, as we just install the actions, etc, and let the conditions work
-    // // Add EH to remove the unload action
-    // ["KPLIB_captives_unloaded", {
-    //     params [
-    //         ["_unit", objNull, [objNull]],
-    //         ["_vehicle", objNull, [objNull]]
-    //     ];
-    //     // Remove the unload action from the vehicle
-    //     _vehicle removeAction (_unit getVariable ["KPLIB_captives_unloadID", 9000]);
-    // }] call CBA_fnc_addEventHandler;
 };
 
 if (isServer) then {

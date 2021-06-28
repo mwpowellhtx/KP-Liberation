@@ -6,7 +6,7 @@
     File: fn_captives_addVehicleActions.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-17 12:18:24
-    Last Update: 2021-06-17 12:18:26
+    Last Update: 2021-06-27 16:40:37
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -99,34 +99,6 @@ if (hasInterface) then {
 
 if (hasInterface && !KPLIB_ace_enabled) then {
     // Client section
-
-    // [
-    //     _vehicle
-    //     , [
-    //         "STR_KPLIB_ACTIONS_CAPTIVES_LOAD_CAPTIVE"
-    //         , {
-    //             params [Q(_vehicle), Q(_escort)];
-    //             private _unit = [_escort] call MFUNC(_getEscortedUnit);
-    //             _unit setVariable [QMVAR(_transport), _vehicle];
-    //             [_unit, _escort] call MFUNC(_onUnitLoad);
-    //         }
-    //         , _unit
-    //         , KPLIB_ACTION_PRIORITY_CAPTIVE_ACTIONS
-    //         , false
-    //         , true
-    //         , ""
-    //         , '
-    //             (alive _target)
-    //                 && ([_this] call KPLIB_fnc_captives_isEscorting)
-    //                 && (alive ([_this] call KPLIB_fnc_captives_getEscortedUnit))
-    //                 && ([_target, [_this] call KPLIB_fnc_captives_getEscortedUnit] call KPLIB_fnc_captives_canLoadTransport)
-    //         '
-    //         , MPARAM(_loadRange)
-    //     ]
-    //     , [
-    //         [Q(_varName), QMVAR(_loadUnitID)]
-    //     ]
-    // ] call KPLIB_fnc_common_addAction;
 };
 
 if (_debug) then {

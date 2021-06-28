@@ -6,7 +6,7 @@
     Author: KP Liberation Dev Team - https://github.com/KillahPotatoes
             Michael W. Powell [22nd MEU SOC]
     Created: 2019-09-11
-    Last Update: 2021-06-18 14:34:12
+    Last Update: 2021-06-27 19:16:46
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -50,23 +50,8 @@ if (isNull _unit || !alive _unit) exitWith {
 
 // Proxy in from ACE3 to KPLIB CAPTIVES module for internal bookkeeping
 switch (toLower _reason) do {
-
-    case Q(setsurrendered): {
-        private _captured = _unit getVariable [Q(KPLIB_captured), false];
-        // CAPTURED is gated by SURRENDERING
-        { _unit setVariable _x; } forEach [
-            [Q(KPLIB_surrender), _state, true]
-            , [Q(KPLIB_captured), _captured && _state, true]
-        ];
-        [QMVAR(_surrender), [_unit]] call CBA_fnc_globalEvent;
-    };
-
-    case Q(sethandcuffed): {
-        { _unit setVariable _x; } forEach [
-            [Q(KPLIB_captured), _state, true]
-        ];
-        [QMVAR(_captured), [_unit]] call CBA_fnc_globalEvent;
-    };
+    case Q(setsurrendered): { [QMVAR(_surrender), [_unit]] call CBA_fnc_globalEvent;    };
+    case Q(sethandcuffed):  { [QMVAR(_captured), [_unit]] call CBA_fnc_globalEvent;     };
 };
 
 if (_debug) then {

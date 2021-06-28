@@ -5,7 +5,7 @@
     File: fn_captives_onVehicleCreated.sqf
     Author: Michael W. Powell [22nd MEU SOC]
     Created: 2021-06-16 13:15:11
-    Last Update: 2021-06-16 13:40:05
+    Last Update: 2021-06-27 16:27:21
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     Public: No
 
@@ -35,7 +35,8 @@ if (_debug) then {
 };
 
 // Report the positions regardless of their occupancy, in which case, wire the bits in a JIP
-if (([_object, Q(cargo), true] call KPLIB_fnc_core_getVehiclePositions) isNotEqualTo []) then {
+private _includeEmpty = true;
+if (([_object, Q(cargo), _includeEmpty] call KPLIB_fnc_core_getVehiclePositions) isNotEqualTo []) then {
     [_object] remoteExecCall [QMFUNC(_addVehicleActions), 0, _object];
 };
 
